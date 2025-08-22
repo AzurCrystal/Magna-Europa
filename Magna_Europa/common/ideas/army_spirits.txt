@@ -105,8 +105,8 @@ ideas = {
 				}
 			}
 			modifier = {
-				military_leader_cost_factor = -0.5
-				party_popularity_stability_factor = 0.15
+				army_leader_cost_factor = -0.5
+				party_popularity_stability_factor = 0.10
 				custom_modifier_tooltip = political_loyalty_spirit_tt
 			}
 			ai_will_do = {
@@ -263,9 +263,8 @@ ideas = {
 		professional_officer_corps_spirit = {
 			ledger = army
 			modifier = {
-				experience_gain_army_factor = 0.05
-				land_doctrine_cost_factor = -0.05
-				command_power_gain = 0.2
+				experience_gain_army_unit_factor = 0.15
+				max_command_power = 30
 			}
 			ai_will_do = {
 				factor = 1
@@ -279,10 +278,9 @@ ideas = {
 		elevated_engineering_corps_spirit = {
 			ledger = army
 			modifier = {
-				trait_engineer_xp_gain_factor = 0.25
 				unit_engineer_design_cost_factor = -1
 				dig_in_speed_factor = 0.1
-				railway_gun_bombardment_factor = 0.20
+				railway_gun_bombardment_factor = 0.25
 			}
 			ai_will_do = {
 				factor = 1
@@ -296,8 +294,8 @@ ideas = {
 		proper_heritage_spirit = {
 			ledger = army
 			modifier = {
+				experience_gain_factor = 0.1
 				unit_cavalry_design_cost_factor = -1
-				cavalry_attack_factor = 0.05
 				supply_combat_penalties_on_core_factor = -0.2
 			}
 			ai_will_do = {
@@ -305,6 +303,11 @@ ideas = {
 				modifier = {
 					factor = 0
 					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2.0
+					is_historical_focus_on = yes
+					tag = SOU
 				}
 			}
 		}
@@ -321,6 +324,11 @@ ideas = {
 				modifier = {
 					factor = 0
 					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 2.0
+					is_historical_focus_on = yes
+					original_tag = GER
 				}
 			}
 		}
@@ -373,7 +381,7 @@ ideas = {
 			ledger = army
 			visible = { has_government = fascism }
 			modifier = {
-				political_power_factor = 0.1
+				offensive_war_stability_factor = 0.1
 				mobilization_laws_cost_factor = -0.25
 			}
 			ai_will_do = {
@@ -413,13 +421,25 @@ ideas = {
 				base = 1
 
 				modifier = {
-					factor = 0
+					factor = 0.5
 					NOT = { has_dlc = "No Step Back" }
 				}
 
 				modifier = {
 					factor = 2
 					has_tech = mobile_warfare
+				}
+
+				modifier = {
+					factor = 2
+					original_tag = GER
+					is_historical_focus_on = no
+				}
+
+				modifier = {
+					factor = 10
+					original_tag = GER
+					is_historical_focus_on = yes
 				}
 			}
 		}
@@ -437,6 +457,7 @@ ideas = {
 				unit_medium_sp_artillery_brigade_design_cost_factor = -1
 				unit_heavy_sp_artillery_brigade_design_cost_factor = -1
 				unit_super_heavy_sp_artillery_brigade_design_cost_factor = -1
+				unit_bicycle_battalion_design_cost_factor = -1
 			}
 			ai_will_do = {
 				base = 1
@@ -487,6 +508,7 @@ ideas = {
 				unit_infantry_design_cost_factor = -1
 				unit_motorized_design_cost_factor = -1
 				unit_mechanized_design_cost_factor = -1
+				unit_bicycle_battalion_design_cost_factor = -1
 			}
 			ai_will_do = {
 				base = 1
@@ -537,6 +559,11 @@ ideas = {
 					factor = 0
 					NOT = { has_dlc = "No Step Back" }
 				}
+				modifier = {
+					factor = 4
+					tag = SOU
+					GER = { is_ai = no }
+				}
 			}
 		}
 
@@ -552,6 +579,10 @@ ideas = {
 				modifier = {
 					factor = 0
 					NOT = { has_dlc = "No Step Back" }
+				}
+				modifier = {
+					factor = 4
+					original_tag = GER #Right now this is just better for AI Germany
 				}
 			}
 		}
@@ -622,10 +653,6 @@ ideas = {
 					has_tech = mobile_warfare
 				}
 
-				modifier = {
-					factor = 4
-					original_tag = GER
-				}
 			}
 		}
 
@@ -656,9 +683,9 @@ ideas = {
 			visible = { has_tech = trench_warfare }
 			modifier = {
 				tactic_planned_attack_preferred_weight_factor = 1
-				supply_consumption_factor = -0.05
-				air_fuel_consumption_factor = -0.05
-				navy_fuel_consumption_factor = -0.05
+				supply_consumption_factor = -0.10
+				air_fuel_consumption_factor = -0.10
+				navy_fuel_consumption_factor = -0.10
 			}
 			ai_will_do = {
 				base = 1
