@@ -91,9 +91,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_balanced_budget"
 			add_political_power = 120
-			
 		}
 	}
 
@@ -125,7 +123,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_strengthen_the_monarchists"
 			add_ideas = HUN_hungarian_monarchy
 			set_party_name = { ideology = neutrality long_name = HUN_legitimists_party_long name = HUN_legitimists_party }
 		}
@@ -159,7 +156,6 @@ focus_tree = {
 		
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_elect_a_king"
 			swap_ideas = {
 				remove_idea = HUN_hungarian_monarchy
 				add_idea = HUN_hungarian_monarchy_2
@@ -202,7 +198,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_invite_the_habsburg_prince"
 			add_naval_commander_role = {
 				character = HUN_miklos_horthy
 				traits = { gunnery_expert navy_media_personality superior_tactician }
@@ -253,12 +248,12 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				AUS = {
-					all_core_state = {
-						is_owned_by = HUN
-					}
+				AND = {
+					owns_state = 4
+					owns_state = 848
+					owns_state = 153
+					owns_state = 152
 				}
-				
 				has_global_flag = GER_reformed_austro_hungarian_empire
 			}
 		}
@@ -269,17 +264,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_demand_a_referendum"
-			if = {
-				limit = { AUS = { NOT = { is_guaranteed_by = ITA } } }
-				AUS = { country_event = { id = DOD_hungary.1 } }
-				custom_effect_tooltip = HUN_demand_referendum_tt
-			}
-			else = {
-				
-				ITA = { custom_effect_tooltip = HUN_ITA_guarantee_AUS_tt country_event = { id = DOD_hungary.500 } }
-				custom_effect_tooltip = HUN_demand_referendum_ITA_tt
-			}
+			AUS = { country_event = { id = DOD_hungary.1 } }
 		}
 	}
 
@@ -304,7 +289,7 @@ focus_tree = {
 		}
 
 		available = {
-			1817 = {
+			4 = {
 				OWNER = {
 					controls_state = PREV
 				}
@@ -322,25 +307,23 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_take_austria_by_force"
 			random_country = {
 				limit = {
-					owns_state = 1817
+					owns_state = 4
 				}
 				HUN = {
 					create_wargoal = {
 						type = take_state_focus
 						target = PREV
 						expire = 0
-						generator = { 1817 }
+						generator = { 4 152 153 848 }
 					}
 				}
 			}
-			AUS = {
-				every_core_state = {
-					add_claim_by = HUN
-				}
-			}
+			add_state_claim = 152
+			add_state_claim = 153
+			add_state_claim = 848
+			add_state_claim = 4
 		}
 	}
 
@@ -359,11 +342,10 @@ focus_tree = {
 		}
 
 		available = {
-			AUS = {
-					all_core_state = {
-						is_owned_by = HUN
-					}
-				}
+			controls_state = 152
+			controls_state = 153
+			controls_state = 848
+			controls_state = 4
 			is_subject = no
 		}
 
@@ -377,34 +359,28 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_proclaim_the_restoration_of_austria_hungary"
 			set_cosmetic_tag = HUN_EMPIRE
 			hidden_effect = { AUS = { set_cosmetic_tag = AUS_NOT_WHITE } }
-			AUS = {
-				every_core_state = {
-					add_core_of = ROOT
-				}
-			}
-			HUN = {
-				every_core_state = {
-					add_core_of = ROOT
-				}
-			}
-			CZE = {
-				every_core_state = {
-					add_core_of = ROOT
-				}
-			}
+			152 = { add_core_of = ROOT }
+			153 = { add_core_of = ROOT }
+			848 = { add_core_of = ROOT }
+			4 = { add_core_of = ROOT }
+			975 = { add_core_of = ROOT }
+			976 = { add_core_of = ROOT }
+			69 = { add_core_of = ROOT }
+			9 = { add_core_of = ROOT }
+			75 = { add_core_of = ROOT }
+			74 = { add_core_of = ROOT }
+			72 = { add_core_of = ROOT }
+			70 = { add_core_of = ROOT }
+			664 = { add_core_of = ROOT }
+			71 = { add_core_of = ROOT }
+			73 = { add_core_of = ROOT }
+			972 = { add_core_of = ROOT }
 			hidden_effect = {
 				news_event = { id = news.295 }
-				VJV = {
-					every_core_state = {
-						add_core_of = ROOT
-					}
-				}
 			}
 			set_global_flag = form_austria_hungary_flag
-			set_global_flag = GER_reformed_austro_hungarian_empire
 			
 		}
 	}
@@ -429,13 +405,15 @@ focus_tree = {
 		}
 
 		bypass = {
-			CZE = {
-				OR = {
-					exists = no
-					is_subject = yes
+			OR = {
+				CZE = {
+					OR = {
+						exists = no
+						is_subject = yes
+					}
 				}
+				has_global_flag = GER_reformed_austro_hungarian_empire
 			}
-			has_global_flag = GER_reformed_austro_hungarian_empire
 		}
 
 		cancel_if_invalid = yes
@@ -444,7 +422,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_protect_czechoslovakia"
 			CZE = { country_event = { id = DOD_hungary.10 } }
 			custom_effect_tooltip = HUN_protect_czechoslovakia_tt
 		}
@@ -468,16 +445,15 @@ focus_tree = {
 
 		available = {
 			has_army_manpower = { size > 200000 }
-			665 = { OWNER = { NOT = { is_in_faction_with = HUN } } }
+			76 = { OWNER = { NOT = { is_in_faction_with = HUN } } }
 			is_subject = no
 		}
 
 		bypass = {
-			TRA = {
-					all_core_state = {
-						is_owned_by = HUN
-					}
-				}
+			controls_state = 76
+			controls_state = 83
+			controls_state = 84
+			controls_state = 82
 		}
 
 		cancel_if_invalid = yes
@@ -486,18 +462,10 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_claim_transylvania"
-			
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = TRA
-						is_core_of = BNT
-					}
-					NOT = { is_core_of = SER }
-				}
-				add_claim_by = ROM
-			}
+			add_state_claim = 76
+			add_state_claim = 83
+			add_state_claim = 84
+			add_state_claim = 82
 			if = {
 				limit = {
 					NOT = {
@@ -506,10 +474,10 @@ focus_tree = {
 					threat < 0.5
 					ROM = {
 						OR = {
-							owns_state = 737
-							owns_state = 665
-							owns_state = 664
-							owns_state = 736
+							owns_state = 76
+							owns_state = 83
+							owns_state = 84
+							owns_state = 82
 						}
 					}
 				}
@@ -546,16 +514,15 @@ focus_tree = {
 		}
 
 		bypass = {
-			CRO = {
-				all_core_state = {
-					is_controlled_by = ROOT 
-				}
-			}
-			BOS = {
-				all_core_state = {
-					is_controlled_by = ROOT 
-				}
-			}
+			controls_state = 102
+			controls_state = 853
+			controls_state = 103
+			controls_state = 109
+			controls_state = 104
+			controls_state = 45
+			controls_state = 163
+			controls_state = 764
+			controls_state = 804
 		}
 
 		cancel_if_invalid = yes
@@ -564,25 +531,21 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_march_to_the_shore"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = CRO
-						is_core_of = BOS
-						is_core_of = SLV
-						is_core_of = DLM
-					}
-					NOT = { is_core_of = ITA }
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 102
+			add_state_claim = 853
+			add_state_claim = 103
+			add_state_claim = 109
+			add_state_claim = 104
+			add_state_claim = 163
+			add_state_claim = 804
+			add_state_core = 764
+			add_state_core = 45
 			if = {
 				limit = {
 					OR = {
-						1464 = { is_controlled_by = YUG }
-						1464 = { controller = { is_subject_of = YUG } }
-						1464 = { controller = { is_in_faction_with = YUG } }
+						103 = { is_controlled_by = YUG }
+						103 = { controller = { is_subject_of = YUG } }
+						103 = { controller = { is_in_faction_with = YUG } }
 					}
 				}
 				add_ai_strategy = {
@@ -610,26 +573,16 @@ focus_tree = {
 
 		available = {
 			has_army_manpower = { size > 300000 }
-			742 = { OWNER = { NOT = { is_in_faction_with = HUN } } }
+			160 = { OWNER = { NOT = { is_in_faction_with = HUN } } }
 		}
 
 		bypass = {
 			is_subject = no
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = HUN_controls_veneto_tt
-					VNT = {
-						all_core_state = {
-							is_owned_by = HUN
-						}
-					}
-				}
-				custom_trigger_tooltip = {
-					tooltip = HUN_no_italian_support_tt
-					has_country_flag = HUN_Italy_supported_AH_flag
-				}
-				742 = { OWNER = { is_in_faction_with = HUN } }
-			}
+			controls_state = 736
+			controls_state = 852
+			controls_state = 160
+			controls_state = 39
+			controls_state = 850
 		}
 
 		cancel_if_invalid = yes
@@ -638,24 +591,14 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_reclaim_venetia"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = VNT
-						is_core_of = FRI
-						is_core_of = TIR
-						is_core_of = FIU
-						is_core_of = SLV
-						state = 1616
-					}
-					is_core_of = ITA
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 736
+			add_state_claim = 852
+			add_state_claim = 160
+			add_state_claim = 39
+			add_state_claim = 850
 			if = {
 				limit = {
-					742 = { is_controlled_by = ITA }
+					160 = { is_controlled_by = ITA }
 				}
 				add_ai_strategy = {
 					type = conquer
@@ -683,16 +626,14 @@ focus_tree = {
 
 		available = {
 			has_army_manpower = { size > 200000 }
-			1292 = { OWNER = { NOT = { is_in_faction_with = HUN } } }
+			89 = { OWNER = { NOT = { is_in_faction_with = HUN } } }
 			is_subject = no
 		}
 
 		bypass = {
-			GAL = {
-				all_core_state = {
-					is_owned_by = HUN
-				}
-			}
+			controls_state = 88
+			controls_state = 89
+			controls_state = 91
 		}
 
 		cancel_if_invalid = yes
@@ -701,27 +642,18 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_claim_galicia"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = GAL
-						state = 1440
-						state = 1441
-						state = 1975
-					}
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 88
+			add_state_claim = 89
+			add_state_claim = 91
 			if = {
 				limit = {
-					1292 = {
+					89 = {
 						OWNER = {
 							not = { is_guaranteed_by = GER }
 						}
 					}
 				}
-				1292 = {
+				89 = {
 					OWNER = {
 						ROOT = {
 							add_ai_strategy = {
@@ -755,11 +687,7 @@ focus_tree = {
 		}
 
 		bypass = {
-			BUC = {
-				all_core_state = {
-					is_owned_by = HUN
-				}
-			}
+			controls_state = 80
 		}
 
 		cancel_if_invalid = yes
@@ -768,13 +696,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_claim_the_bucovina"
-			every_state = {
-				limit = {
-					is_core_of = BUC
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 80
 		}
 	}
 	focus = {
@@ -794,6 +716,17 @@ focus_tree = {
 
 		available = {
 			is_subject = no
+			NOT = {
+				controls_state = 455
+				controls_state = 454
+				controls_state = 66 
+				controls_state = 67 
+				controls_state = 162
+				controls_state = 17 
+				controls_state = 159
+				controls_state = 161
+				controls_state = 762
+			}
 		}
 
 		bypass = {
@@ -806,23 +739,15 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_reclaim_the_empire"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = PAL
-						is_core_of = LAZ
-						is_core_of = SIL 
-						is_spanish_sahara_group = yes 
-						state = 1285
-						state = 932
-						state = 945
-						state = 882
-						state = 893
-					}
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 455
+			add_state_claim = 454
+			add_state_claim = 66 
+			add_state_claim = 67 
+			add_state_claim = 162
+			add_state_claim = 17 
+			add_state_claim = 159
+			add_state_claim = 161
+			add_state_claim = 762
 		}
 	}
 
@@ -860,7 +785,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_elect_a_democratic_king"
 			swap_ideas = {
 				add_idea = HUN_hungarian_monarchy_democratic
 				remove_idea = HUN_hungarian_monarchy_2
@@ -917,6 +841,7 @@ focus_tree = {
 
 		available = {
 			democratic > 0.4
+			is_subject = no
 		}
 
 		bypass = {
@@ -929,7 +854,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_responsible_government"
 			set_politics = { ruling_party = democratic }
 			hold_election = HUN
 
@@ -1037,7 +961,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_rapproachement_with_little_entente"
 			if = {
 				limit = {
 					FRA = { 
@@ -1118,7 +1041,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_join_allies"
 			if = {
 				limit = {
 					ENG = {
@@ -1155,6 +1077,7 @@ focus_tree = {
 
 		available = {
 			is_in_faction = no
+			is_subject = no
 		}
 
 		bypass = {
@@ -1166,7 +1089,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_the_balkan_pact"
 			set_rule = { can_create_factions = yes } 
 			create_faction = HUN_BALKAN_FACTION
 		}
@@ -1202,7 +1124,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_an_unlikely_alliance"
 			ROM = { country_event = generic.5 }
 		}
 	}
@@ -1240,7 +1161,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_joint_oil_exploitation_company"
 			add_to_tech_sharing_group = HUN_joint_oil_exploitation_company_tech_group
 			ENG = { add_to_tech_sharing_group = HUN_joint_oil_exploitation_company_tech_group }
 		}
@@ -1285,7 +1205,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_elect_a_fascist_king"
 			swap_ideas = {
 				add_idea = HUN_hungarian_monarchy_fascism
 				remove_idea = HUN_hungarian_monarchy_2
@@ -1353,7 +1272,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_economic_intervention"
 			add_ideas = HUN_interventionism
 		}
 	}
@@ -1394,7 +1312,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_strengthen_fascists"
 			add_timed_idea = { idea = HUN_strengthen_fascists days = 720 }
 			add_popularity = { ideology = fascism popularity = 0.05 }
 			set_party_name = { ideology = fascism long_name = HUN_arrow_cross_party_long name = HUN_arrow_cross_party }
@@ -1449,7 +1366,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_renounce_the_treaty_of_trianon"
 			add_threat = 1
 			if = {
 				limit = { 
@@ -1474,9 +1390,7 @@ focus_tree = {
 			}
 			
 			#make Horthy or King dude leader. depending on focus picked earlier
-			#LOLLO'S NOTE: 		Eventually I'll remove this BS, since Horthy was never fascist
-			#LOLLO'S NOTE 2:	I'll instead make Hungary more likely to align with Germany or Italy
-			#					depending on other stuff
+			
 			if = {
 				limit = {
 					has_completed_focus = HUN_strengthen_fascists
@@ -1607,7 +1521,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_renew_the_rome_protocols"
 			swap_ideas = {
 				add_idea = HUN_interventionism_2
 				remove_idea = HUN_interventionism
@@ -1632,13 +1545,13 @@ focus_tree = {
 
 	focus = {
 		id = HUN_protect_austria
-		icon = GFX_goal_generic_military_sphere
+		icon = GFX_focus_AUS_for_a_better_future
 		prerequisite = { focus = HUN_renew_the_rome_protocols }
 		x = 2
 		y = 2
 		relative_position_id = HUN_renounce_the_treaty_of_trianon
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 60
@@ -1649,13 +1562,23 @@ focus_tree = {
 		}
 
 		bypass = {
-			all_state = {
-				if = {
-					limit = {
-						has_state_flag = AUS_INITIAL_STATE
-					}
-					NOT = { is_owned_by = AUS }
-				}
+			4 = {
+				NOT = { is_owned_by = AUS }
+			}
+			152 = {
+				NOT = { is_owned_by = AUS }
+			}
+			153 = {
+				NOT = { is_owned_by = AUS }
+			}
+			848 = {
+				NOT = { is_owned_by = AUS }
+			}
+			975 = {
+				NOT = { is_owned_by = AUS }
+			}
+			976 = {
+				NOT = { is_owned_by = AUS }
 			}
 		}
 
@@ -1665,7 +1588,7 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_protect_austria"
+			add_political_power = 50
 			#This modifies the AI change in germany.4 Aschluss event
 			give_guarantee = AUS
 		}
@@ -1673,13 +1596,13 @@ focus_tree = {
 
 	focus = {
 		id = HUN_alliance_with_italy
-		icon = GFX_goal_generic_major_alliance
+		icon = GFX_focus_befriend_italy
 		prerequisite = { focus = HUN_protect_austria }
 		x = 2
 		y = 3
 		relative_position_id = HUN_renounce_the_treaty_of_trianon
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 60
@@ -1709,7 +1632,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_alliance_with_italy"
 			if = {
 				limit = {
 					ITA = { is_in_faction = no }
@@ -1760,7 +1682,7 @@ focus_tree = {
 
 	focus = {
 		id = HUN_trade_deal_with_germany
-		icon = GFX_goal_generic_trade
+		icon = GFX_focus_generic_german_trade
 		prerequisite = { focus = HUN_renounce_the_treaty_of_trianon }
 		mutually_exclusive = { focus = HUN_renew_the_rome_protocols }
 		x = 0
@@ -1790,7 +1712,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_trade_deal_with_germany"
 			add_opinion_modifier = { target = GER modifier = HUN_trade_deal_with_germany }
 			reverse_add_opinion_modifier = { target = GER modifier = HUN_trade_deal_with_germany }
 			swap_ideas = {
@@ -1815,7 +1736,7 @@ focus_tree = {
 		}
 
 		available = {
-			ROOT = { has_full_control_of_state = 722 }
+			ROOT = { has_full_control_of_state = 43 }
 		}
 
 		bypass = {
@@ -1829,8 +1750,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_joint_aluminum_mining_company"
-			722 = {
+			43 = {
 				add_resource = {
 					type = aluminium
 					amount = 16
@@ -1841,13 +1761,13 @@ focus_tree = {
 
 	focus = {
 		id = HUN_join_axis
-		icon = GFX_goal_anschluss
+		icon = GFX_focus_chi_mission_to_germany
 		prerequisite = { focus = HUN_joint_aluminum_mining_company }
 		x = 0
 		y = 3
 		relative_position_id = HUN_renounce_the_treaty_of_trianon
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 100
@@ -1894,7 +1814,6 @@ focus_tree = {
 
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_join_axis"
 			GER = {
 				country_event = generic.2
 			}
@@ -1952,25 +1871,13 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_reaffirm_territorial_claims"
-			every_state = {
-				limit = {
-					OR = {
-						is_southern_slovakia = yes
-						is_core_of = TRA
-						is_core_of = BNT
-						is_core_of = VJV
-						state = 712
-						state = 695
-					}
-					NOT = {
-						state = 2555
-						state = 775
-						state = 1470
-					}
-				}
-				add_core_of = ROOT
-			}
+			add_state_core = 76
+			add_state_core = 83
+			add_state_core = 84
+			add_state_core = 664
+			add_state_core = 45
+			add_state_core = 764
+			add_state_claim = 82
 		}
 	}
 
@@ -1990,12 +1897,11 @@ focus_tree = {
 
 		available = {
 
-			TRA = {
-				all_core_state = {
-					is_controlled_by = ROM
-				}
+			ROM = {
+				controls_state = 76
+				controls_state = 83
+				controls_state = 84
 			}
-			controls_state = 736
 			is_puppet = no
 			NOT = {
 				is_in_faction_with = ROM
@@ -2016,10 +1922,10 @@ focus_tree = {
 					}
 				}
 				NOT = {
-					TRA = {
-						all_core_state = {
-							is_controlled_by = ROM
-						}
+					ROM = {
+						controls_state = 76
+						controls_state = 83
+						controls_state = 84
 					}
 				}
 			}
@@ -2031,8 +1937,7 @@ focus_tree = {
 
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_demand_transylvania"	
+		completion_reward = {	
 			custom_effect_tooltip = HUN_demands_tt		
 			ROM = { country_event = { id = DOD_hungary.50 } }
 			hidden_effect = {
@@ -2099,7 +2004,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_demand_southern_slovakia"
 			custom_effect_tooltip = HUN_demands_tt
 			if = {
 				limit = {
@@ -2193,13 +2097,12 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_demand_the_vojvodina"
 			custom_effect_tooltip = HUN_demands_tt
 			if = {
 				limit = {
 					OR = {
 						has_war_with = YUG
-						1514 = {
+						45 = {
 							NOT = {
 								is_owned_by = YUG
 								owner = { is_subject_of = YUG }
@@ -2207,26 +2110,27 @@ focus_tree = {
 						}
 					}
 				}
+				45 = { add_core_of = HUN }
 				else = {
 					if = {
 						limit = {
 							YUG = { 
 								is_subject = yes 
-								owns_state = 1514
+								owns_state = 45
 							}
 						}
 						create_wargoal = {
 							type = take_state_focus
 							target = YUG
 							expire = 0
-							generator = { 1514 }
+							generator = { 45 }
 						}
 						else = {
 							if = {
 								limit = {
 									OR = {
-										1514 = { is_owned_by = YUG }
-										1514 = { owner = { is_subject_of = YUG } }
+										45 = { is_owned_by = YUG }
+										45 = { owner = { is_subject_of = YUG } }
 									}
 								}
 								YUG = { country_event = DOD_hungary.90 }
@@ -2262,9 +2166,10 @@ focus_tree = {
 					NOT = { is_puppet_of = HUN }
 				}
 				any_other_country = {
-					owns_state = 1437
-					owns_state = 574
-					owns_state = 550
+					owns_state = 70
+					owns_state = 71
+					owns_state = 72
+					owns_state = 73
 					NOT = {
 						has_war_with = HUN
 					}
@@ -2284,9 +2189,10 @@ focus_tree = {
 					is_subject_of = HUN
 				}
 				AND = {
-					owns_state = 1437
-					owns_state = 574
-					owns_state = 550
+					owns_state = 70
+					owns_state = 71
+					owns_state = 72
+					owns_state = 73
 				}
 			}
 		}
@@ -2298,11 +2204,10 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_claim_overlordship_over_slovakia"
 			custom_effect_tooltip = HUN_demands_tt
 			if = {
 				limit = {
-					1437 = {
+					70 = {
 						controller = {
 							NOT = {
 								has_war_with = ROOT
@@ -2312,14 +2217,14 @@ focus_tree = {
 					SLO = { exists = no } 
 					any_other_country = {
 						NOT = {
-							owns_state = 1437
-							owns_state = 574
-							owns_state = 550
+							owns_state = 70
+							owns_state = 71
+							owns_state = 72
 							owns_state = 73
 						}
 					}
 				}
-				1437 = {
+				70 = {
 					controller = {
 						country_event = { id = DOD_hungary.100 hours = 5 } 
 					}
@@ -2357,7 +2262,7 @@ focus_tree = {
 
 	focus = {
 		id = HUN_proclaim_greater_hungary
-		icon = GFX_focus_proclaim_the_restauration_of_Austria_Hungary
+		icon = GFX_focus_HUN_proclaim_greater_hungary
 		prerequisite = { focus = HUN_demand_the_vojvodina }
 		x = 0
 		y = 3
@@ -2371,11 +2276,13 @@ focus_tree = {
 
 		available = {
 			OR = {
-				owns_state = 1442
-				owns_state = 737
-				owns_state = 665
-				owns_state = 1514
-				owns_state = 695
+				owns_state = 664
+				owns_state = 73
+				owns_state = 76
+				owns_state = 84
+				owns_state = 83
+				owns_state = 82
+				owns_state = 45
 			}
 			NOT = { has_global_flag = GER_reformed_austro_hungarian_empire }
 		}
@@ -2391,8 +2298,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_proclaim_greater_hungary"
-			custom_effect_tooltip = HUN_GREATER_tt
+			#custom_effect_tooltip = HUN_GREATER_tt
 			set_cosmetic_tag = HUN_GREATER
 			add_stability = 0.1
 			hidden_effect = {
@@ -2436,7 +2342,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_council_of_peoples_commissars"
 			swap_ideas = {
 				add_idea = HUN_interventionism_communism
 				remove_idea = HUN_interventionism
@@ -2475,7 +2380,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_assassinate_horthy"
 			if = {
 				limit = { has_country_leader = { character = HUN_miklos_horthy } }
 				kill_country_leader = yes
@@ -2529,7 +2433,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_the_hungarian_red_army"
 			add_ideas = HUN_the_hungarian_red_army
 		}
 	}
@@ -2566,9 +2469,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_soviet_hungarian_military_academy"
-			add_to_tech_sharing_group = HUN_soviet_hungarian_military_academy_tech_group
-			SOU = { add_to_tech_sharing_group = HUN_soviet_hungarian_military_academy_tech_group }
 			add_doctrine_cost_reduction = {
 				name = HUN_soviet_hungarian_military_academy
 			    cost_reduction = 0.35
@@ -2623,7 +2523,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_join_comintern"
 			if = {
 				limit = {
 					SOV = {
@@ -2692,7 +2591,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_the_revolutionary_council"
 			set_rule = { can_create_factions = yes } 
 			create_faction = HUN_FACTION_COMMIE
 		}
@@ -2735,7 +2633,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_pressure_romania"
 			SOV = { country_event = DOD_hungary.110 }
 		}
 	}
@@ -2770,7 +2667,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_intervene_in_czechoslovakia"
 			SOV = { country_event = DOD_hungary.120 }
 		}
 	}
@@ -2805,7 +2701,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_industrial_revitalization"
 			add_tech_bonus = {
 				name = HUN_industrial_revitalization
 				bonus = 1.0
@@ -2884,7 +2779,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_reintegrate_the_railroads"
 			random_owned_controlled_state = {
 				prioritize = { 155 }
 				limit = {
@@ -2983,7 +2877,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_support_domestic_industry"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -3030,10 +2923,9 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_support_urbanization"
 			if = {
 				limit = {
-					633 = {
+					43 = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
@@ -3041,7 +2933,7 @@ focus_tree = {
 						}
 					}
 				}
-				633 = {
+				43 = {
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = industrial_complex
@@ -3080,7 +2972,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_institute_for_industrial_techniques"
 			add_research_slot = 1
 		}
 	}
@@ -3114,7 +3005,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_announce_the_gyor_program"
 			add_tech_bonus = {
 				name = HUN_announce_the_gyor_program
 				bonus = 1.0
@@ -3171,7 +3061,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_civilian_industry"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -3221,7 +3110,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_invite_foreign_investors"
 			add_ideas = HUN_invite_foreign_investors
 		}
 	}
@@ -3272,7 +3160,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_expand_the_manfred_weiss_steel_works"
 			random_owned_controlled_state = {
 				prioritize = { 43 }
 				limit = {
@@ -3313,7 +3200,7 @@ focus_tree = {
 		}
 
 		available = {
-			ROOT = { has_full_control_of_state = 633 }
+			ROOT = { has_full_control_of_state = 43 }
 		}
 
 		bypass = {
@@ -3326,8 +3213,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_expand_the_aluminum_industry"
-			633 = {
+			43 = {
 				add_resource = {
 					type = aluminium
 					amount = 16
@@ -3365,7 +3251,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_expand_the_technical_university_of_budapest"
 			add_research_slot = 1
 		}
 	}
@@ -3428,7 +3313,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_domestic_arms_industry"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -3494,7 +3378,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_aeronautic_technology_institute"
 			add_research_slot = 1
 		}
 	}
@@ -3541,7 +3424,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_boost_hungarian_aviation_industry"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -3594,7 +3476,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_autarky"
 			add_tech_bonus = {
 				name = HUN_synthetic_industry
 				bonus = 3.0
@@ -3647,7 +3528,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_synthetic_industry"
 			if = {
 				limit = { NOT = { has_tech = synth_oil_experiments } }
 				custom_effect_tooltip = HUN_synthetic_oil_tt
@@ -3713,7 +3593,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_secret_rearmament"
 			add_ideas = HUN_secret_rearmament
 			custom_effect_tooltip = HUN_secret_rearmament_tt
 		}
@@ -3746,7 +3625,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_war_games"
 			army_experience = 25
 		}
 	}
@@ -3779,7 +3657,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_theoretical_air_efforts"
 			add_doctrine_cost_reduction = {
 				name = HUN_theoretical_air_efforts
 				cost_reduction = 0.5
@@ -3866,7 +3743,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_bled_agreement"
 			if = {
 				limit = {
 					FRA = { has_completed_focus = FRA_strengthen_the_little_entente }
@@ -3916,13 +3792,21 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_establish_the_air_force"
 			air_experience = 25
 			add_doctrine_cost_reduction = {
 				name = HUN_establish_the_air_force
 				cost_reduction = 0.5
 				uses = 1
 				category = air_doctrine
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = HUN_mw_aircraft_organization
+
 			}
 		}
 	}
@@ -3958,7 +3842,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_indigenous_designs"
 			add_ideas = HUN_indigenous_designs
 		}
 	}
@@ -3992,7 +3875,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_heavy_fighter_effort"
 			add_tech_bonus = {
 				name = HUN_heavy_fighter_effort
 				bonus = 1.0
@@ -4032,7 +3914,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_light_fighter_effort"
 			add_tech_bonus = {
 				name = HUN_light_fighter_effort
 				bonus = 1.0
@@ -4072,7 +3953,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_cas_focus"
 			add_tech_bonus = {
 				name = HUN_cas_focus
 				bonus = 1.0
@@ -4112,7 +3992,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_tac_focus"
 			add_tech_bonus = {
 				name = HUN_tac_focus
 				bonus = 1.0
@@ -4152,13 +4031,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_license_foreign_designs"
 			add_ideas = HUN_license_foreign
-			
-			IF = {
-				limit = { has_dlc = "Arms Against Tyranny"}
-				unlock_decision_category_tooltip = foreign_mio_decisions_category
-			}
 		}
 	}
 
@@ -4253,7 +4126,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_fighter_competition"
 			country_event = DOD_hungary.150 
 		}
 	}
@@ -4349,7 +4221,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_bomber_competition"
 			country_event = DOD_hungary.160
 		}
 	}
@@ -4384,7 +4255,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_joint_air_development"
 			add_to_tech_sharing_group = HUN_joint_air_development_group
 			every_other_country = {
 				limit = {
@@ -4437,7 +4307,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_army_maneuvers"
 			army_experience = 10
 			add_doctrine_cost_reduction = {
 				name = HUN_army_maneuvers
@@ -4481,7 +4350,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_mobile_focus"
 			add_doctrine_cost_reduction = {
 				name = HUN_mobile_focus
 				cost_reduction = 0.25
@@ -4519,7 +4387,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_the_botond"
 			add_tech_bonus = {
 				name = HUN_the_botond
 				bonus = 1.0
@@ -4557,7 +4424,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_motorized_logistics"
 			add_tech_bonus = {
 				name = HUN_motorized_logistics
 				bonus = 1.0
@@ -4597,12 +4463,21 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_develop_tanks"
 			add_tech_bonus = {
 				name = HUN_develop_tanks
 				ahead_reduction = 2
 				uses = 1
 				category = armor
+			}
+
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = HUN_hti_turan_organization
+
 			}
 		}
 	}
@@ -4636,8 +4511,16 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_assault_gun_focus"
 			add_ideas = HUN_assault_gun_focus
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = HUN_mavag_assault_guns_organization
+
+			}
 		}
 	}
 
@@ -4669,7 +4552,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_joint_tank_procurement"
 			add_to_tech_sharing_group = HUN_joint_tank_development_group
 			every_other_country = {
 				limit = {
@@ -4723,7 +4605,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_armored_warfare"
 			add_tech_bonus = {
 				name = HUN_armored_warfare
 				bonus = 1.0
@@ -4761,7 +4642,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_mobile_corps_doctrine"
 			add_doctrine_cost_reduction = {
 				name = HUN_mobile_corps_doctrine
 				cost_reduction = 0.25
@@ -4804,7 +4684,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_home_defense"
 			add_doctrine_cost_reduction = {
 				name = HUN_home_defense
 				cost_reduction = 0.25
@@ -4842,7 +4721,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_danuvia_submachine_guns"
 			add_tech_bonus = {
 				name = HUN_danuvia_submachine_guns
 				bonus = 1.0
@@ -4880,7 +4758,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_artillery_effort"
 			add_tech_bonus = {
 				name = HUN_artillery_effort
 				bonus = 1.0
@@ -4918,7 +4795,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_light_infantry_divisions_doctrine"
 			custom_effect_tooltip = HUN_light_infantry_divisions_doctrine_tech_tt
 			custom_effect_tooltip = HUN_light_infantry_divisions_doctrine_unit_tt
 			hidden_effect = {
@@ -5008,7 +4884,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_form_parachute_battalions"
 			add_tech_bonus = {
 				name = HUN_form_parachute_battalions
 				bonus = 3.0
@@ -5053,26 +4928,23 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_naval_warfare"
 			navy_experience = 15
 			add_ideas = HUN_naval_warfare
+
+			
 			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				custom_effect_tooltip = invites_mio_tt
+				
+				custom_effect_tooltip = available_mio_tt
 				show_mio_tooltip = HUN_ganz_danubius_organization
+
 				mio:HUN_ganz_danubius_organization = {
 					add_mio_funds = 2500
 				}
-#					unlock_mio_trait_tooltip  = {
-#						department = HUN_mio_department_design_ship_capital_screen_weapons
-#						trait = HUN_mio_trait_naval_warfare
-#					}
-#				}
 
 			}
-
 			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = HUN_ganz_danubius
@@ -5108,7 +4980,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_restauration"
 			navy_experience = 15
 			add_doctrine_cost_reduction = {
 				name = HUN_restauration
@@ -5147,7 +5018,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_capital_ships"
 			navy_experience = 15
 			add_tech_bonus = {
 				name = HUN_capital_ships
@@ -5265,7 +5135,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_reform"
 			navy_experience = 15
 			add_doctrine_cost_reduction = {
 				name = HUN_reform
@@ -5325,7 +5194,7 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 50
 			random_owned_controlled_state = {
-				prioritize = { 1563 }
+				prioritize = { 103 }
 				limit = {
 					is_coastal = yes
 					free_building_slots = {
@@ -5372,7 +5241,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_destroyer"
 			navy_experience = 15
 			add_tech_bonus = {
 				name = HUN_destroyer
@@ -5411,7 +5279,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_cruisers"
 			navy_experience = 15
 			add_tech_bonus = {
 				name = HUN_cruisers
@@ -5451,7 +5318,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_submarines"
 			navy_experience = 15
 			add_tech_bonus = {
 				name = HUN_submarines
@@ -5491,7 +5357,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus HUN_carriers"
 			navy_experience = 15
 			add_tech_bonus = {
 				name = HUN_carriers
