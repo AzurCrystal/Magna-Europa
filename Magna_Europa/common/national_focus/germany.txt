@@ -263,6 +263,24 @@ focus_tree = {
 			    popularity = 0.05
 			}
 
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -290,6 +308,28 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.05
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			random_core_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			GER_modify_industrial_modifier = yes
 			add_to_variable = { 
 				GER_industrial_consumer_goods_factor = -0.15
@@ -334,10 +374,10 @@ focus_tree = {
 		cost = 5
 		available = {
 			OR ={
-				252 = { #Köningsberg
+				763 = { #Köningsberg
 					is_owned_and_controlled_by = ROOT
 				}
-				391 = { #Münster
+				56 = { #Weser-Ems
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -348,19 +388,19 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					252 = { #Köningsberg
+					763 = { #Köningsberg
 						is_owned_and_controlled_by = ROOT
 					}
 				}
-				252 = { set_state_category = large_city }
+				763 = { set_state_category = large_city }
 			}
 			if = {
 				limit = {
-					391 = { #Münster
+					56 = { #Weser-Ems
 						is_owned_and_controlled_by = ROOT
 					}
 				}
-				391 = { set_state_category = large_city }
+				56 = { set_state_category = large_city }
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -371,12 +411,6 @@ focus_tree = {
 				}
 				random_select_amount = 2
 				add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-				
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -537,105 +571,89 @@ focus_tree = {
 		}
 	}
 	
-focus = {
-	id = GER_invest_in_vereinigte_stahlwerke
-	icon = GFX_focus_GER_vereinigte_stahlwerke
+	focus = {
+		id = GER_invest_in_vereinigte_stahlwerke
+		icon = GFX_focus_GER_vereinigte_stahlwerke
+		prerequisite = { focus = GER_industrial_expansion }
+		prerequisite = { focus = GER_abolish_price_controls }
 
-	prerequisite = { focus = GER_industrial_expansion }
-	prerequisite = { focus = GER_abolish_price_controls }
-
-	x = -1
-	y = 1
-	relative_position_id = GER_industrial_expansion
-	cost = 10
-
-	available = {
-		424 = {
-			is_fully_controlled_by = ROOT
-			is_demilitarized_zone = no
+		x = -1
+		y = 1
+		relative_position_id = GER_industrial_expansion
+		cost = 10
+		available = {
+			42 = {
+				is_fully_controlled_by = ROOT
+				is_demilitarized_zone = no
+			}
+			has_tech = excavation3
 		}
-		1749 = {
-			is_fully_controlled_by = ROOT
-			is_demilitarized_zone = no
-		}
-		has_tech = excavation3
-	}
 
-	search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 
-	completion_reward = {
-		if = {
-			limit = {
-				424 = {
-					is_fully_controlled_by = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
+		completion_reward = {
+			if = {	
+				limit = {
+					42 = {
+						is_fully_controlled_by = ROOT
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
 					}
 				}
-				1749 = {
-					is_fully_controlled_by = ROOT
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
+				42 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
 					}
 				}
 			}
-			424 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			42 = {
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+				add_resource = {
+					type = tungsten
+					amount = 2
+				}
+				add_resource = {
+					type = chromium
+					amount = 2
 				}
 			}
-			1749 = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_tech_bonus = {
+				name = GER_invest_in_vereinigte_stahlwerke
+				bonus = 1
+				uses = 1
+				category = excavation_tech
 			}
-		}
 
-		custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = generic_skip_one_line_tt
 
-		424 = {
-			add_resource = { type = steel     amount = 8 }
-			add_resource = { type = tungsten  amount = 2 }
-			add_resource = { type = chromium  amount = 2 }
-		}
-		1749 = {
-			add_resource = { type = steel     amount = 8 }
-			add_resource = { type = tungsten  amount = 2 }
-			add_resource = { type = chromium  amount = 2 }
-		}
+			GER_modify_industrial_modifier = yes
+			add_to_variable = { 
+				GER_recovering_economy_modifier_local_resources_factor = 0.05
+				tooltip = local_resources_factor_tt
+			}
 
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		add_tech_bonus = {
-			name = GER_invest_in_vereinigte_stahlwerke
-			bonus = 1
-			uses  = 1
-			category = excavation_tech
-		}
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		GER_modify_industrial_modifier = yes
-
-		# Achtung: Syntax von add_to_variable – siehe Hinweis unten
-		add_to_variable = {
-			which = GER_recovering_economy_modifier_local_resources_factor
-			value = 0.05
-			# tooltip = local_resources_factor_tt   # <- nur verwenden, wenn du sicher bist, dass es hier erlaubt ist
 		}
 	}
-}
-
 	
 	focus = {
 		id = GER_agricultural_reforms
@@ -1022,57 +1040,18 @@ focus = {
 		cost = 5
 		available = {
 			OR = {
-				has_full_control_of_state = 252 #Königsberg
-				has_full_control_of_state = 2342 #Elbingen
-				has_full_control_of_state = 1790 #München
-				has_full_control_of_state = 1771 #Stuttgart
-				has_full_control_of_state = 556 #Karlsruhe
-				has_full_control_of_state = 1765 #Mannheim
-				has_full_control_of_state = 1746 #Frankfurt
-				has_full_control_of_state = 1751 #Köln
-				has_full_control_of_state = 431 #Düssedorf
-				has_full_control_of_state = 1749 #Essen-Duisburg
-				has_full_control_of_state = 1738 #Kassel
-				has_full_control_of_state = 1714 #Göttingen
-				has_full_control_of_state = 1707 #Bremen
-				has_full_control_of_state = 1702 #Hamburg
-				has_full_control_of_state = 1704 #Lübeck
-				has_full_control_of_state = 1778 #Nürnberg
-				has_full_control_of_state = 1674 #Leipzig
-				has_full_control_of_state = 476 #Chemnitz
-				has_full_control_of_state = 1673 #Dresden
-				has_full_control_of_state = 1650 #Ostberlin
-				has_full_control_of_state = 1631 #Stettin
-				has_full_control_of_state = 1663 #Breslau
-				has_full_control_of_state = 1654 #Gleiwitz
+				has_full_control_of_state = 64 #Brandenburg
+				has_full_control_of_state = 59 #Hannover
+				has_full_control_of_state = 60 #Thüringen
+				has_full_control_of_state = 54 #Franken
 			}
 		}
 		bypass = {
 			has_civil_war = no
-			NOT = { has_full_control_of_state = 252 }
-			NOT = {	has_full_control_of_state = 2342 }
-			NOT = {	has_full_control_of_state = 1790 }
-			NOT = {	has_full_control_of_state = 1771 }
-			Not = { has_full_control_of_state = 556 }
-			Not = { has_full_control_of_state = 1765 }
-			NOT = { has_full_control_of_state = 1746 }
-			NOT = {	has_full_control_of_state = 1751 }
-			NOT = {	has_full_control_of_state = 431 }
-			NOT = {	has_full_control_of_state = 1749 }
-			Not = { has_full_control_of_state = 1738 }
-			Not = { has_full_control_of_state = 1714 }
-			NOT = { has_full_control_of_state = 1707 }
-			NOT = {	has_full_control_of_state = 1702 }
-			NOT = {	has_full_control_of_state = 1704 }
-			NOT = {	has_full_control_of_state = 1778 }
-			Not = { has_full_control_of_state = 1674 }
-			Not = { has_full_control_of_state = 476 }
-			NOT = { has_full_control_of_state = 1673 }
-			NOT = {	has_full_control_of_state = 1650 }
-			NOT = {	has_full_control_of_state = 1631 }
-			NOT = {	has_full_control_of_state = 1663 }
-			Not = { has_full_control_of_state = 1654 }
-
+			NOT = { has_full_control_of_state = 64 }
+			NOT = {	has_full_control_of_state = 59 }
+			NOT = {	has_full_control_of_state = 60 }
+			NOT = {	has_full_control_of_state = 54 }
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
@@ -1080,7 +1059,7 @@ focus = {
 		completion_reward = {
 			custom_effect_tooltip = GER_autobahn_tt
 			hidden_effect = {
-				252 = {
+				64 = {
 					if = {
 						limit = { is_controlled_by = ROOT }
 						add_building_construction = {
@@ -1090,48 +1069,7 @@ focus = {
 						}
 					}
 				}
-				2342 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1790 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1771 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				556 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1765 = {
+				59 = {
 					if = {
 						limit = { is_controlled_by = ROOT }
 
@@ -1142,7 +1080,7 @@ focus = {
 						}
 					}
 				}
-				1746 = {
+				60 = {
 					if = {
 						limit = { is_controlled_by = ROOT }
 						add_building_construction = {
@@ -1152,161 +1090,7 @@ focus = {
 						}
 					}
 				}
-				1751 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				431 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1749 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1738 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1714 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1707 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1702 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1704 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1778 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1674 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				476 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1673 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1650= {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1631 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1663 = {
-					if = {
-						limit = { is_controlled_by = ROOT }
-
-						add_building_construction = {
-							type = infrastructure
-							level = 5
-							instant_build = yes
-						}
-					}
-				}
-				1654 = {
+				54 = {
 					if = {
 						limit = { is_controlled_by = ROOT }
 						add_building_construction = {
@@ -1330,7 +1114,7 @@ focus = {
 		relative_position_id = GER_construct_the_reichsautobahn
 		cost = 10
 		available = {
-			1749 = { 
+			51 = { 
 				is_fully_controlled_by = ROOT
 				is_demilitarized_zone = no 
 			}
@@ -1341,7 +1125,7 @@ focus = {
 		completion_reward = {
 			if = {
 				limit = {
-					1749 = {
+					51 = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
@@ -1349,7 +1133,7 @@ focus = {
 						}
 					}
 				}
-				1749 = {
+				51 = {
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
@@ -1359,7 +1143,7 @@ focus = {
 				}
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
-			1749 = {
+			51 = {
 				add_building_construction = {
 					type = dam
 					level = 1
@@ -34098,7 +33882,14 @@ focus = {
 		will_lead_to_war_with = FRA
 		will_lead_to_war_with = BEL
 		will_lead_to_war_with = COG
-		
+		will_lead_to_war_with = CMR
+		will_lead_to_war_with = TOG
+		will_lead_to_war_with = NMB
+		will_lead_to_war_with = SAF
+		will_lead_to_war_with = TZN
+		will_lead_to_war_with = RWA
+		will_lead_to_war_with = BRD
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
