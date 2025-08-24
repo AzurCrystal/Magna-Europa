@@ -10202,14 +10202,6 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 			if = { limit = {504 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 504}
 			if = { limit = {1977 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1977}
 			if = { limit = {507 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 507}  
-		
-		
-		
-		
-		
-		
-		
-
 
 			### EVENT CHAIN - MUNICH CONFERENCE (CZE is always involved) ###
 			if = {
@@ -10783,21 +10775,21 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 			custom_trigger_tooltip = {
 				tooltip = GER_improve_national_spirit_tooltip
 				OR = {
-					GER = { controls_state = 126 }
+					GER = { controls_state = 2475 }
 					any_other_country = {
 						is_in_faction_with = GER
-						controls_state = 126
+						controls_state = 571
 					}
 				}
 				OR = {
-					GER = { controls_state = 16 }
+					GER = { controls_state = 571 }
 					any_other_country = {
 						is_in_faction_with = GER
-						controls_state = 16
+						controls_state = 2475
 					}
 				}
 			}
-			64 = {
+			2475 = {
 				is_fully_controlled_by = ROOT
 			}
 		}
@@ -10805,13 +10797,13 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		cancel = {
 			AND = {
 				has_war = no
-				126 = {
+				571 = {
 					owner = {
 						NOT = { tag = GER }
 						NOT = { is_in_faction_with = GER }
 					}
 				}
-				16 = {
+				2475 = {
 					owner = {
 						NOT = { tag = GER }
 						NOT = { is_in_faction_with = GER }
@@ -10835,22 +10827,21 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 				}
 				custom_effect_tooltip = GER_build_volkshalle_landmark_tt
 				hidden_effect = {
-					64 = {
+					3 = {
 						remove_building = {
 							type = landmark_berlin_reichstag
 							level = 1
-							province = 6521
+							province = 11711
 						}
 						add_building_construction = {
 							type = landmark_berlin_volkshalle
 							level = 1
 							instant_build = yes
-							province = 6521
+							province = 11711
 						}
 					}
 				}
 			}
-
 			custom_effect_tooltip = generic_skip_one_line_tt
 			
 		}
@@ -10868,41 +10859,35 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		cost = 5
 
 		available = {
-			is_subject = no
-			AUS = {
-				all_core_state = {
-					is_owned_and_controlled_by = ROOT
-				}
+			OR = {
+				1460 = { is_controlled_by = GER }
+				1460 = { is_controlled_by = LIE }
 			}
-			has_full_control_of_state = 848
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			add_victory_points = {
-				province = 6680
-				value = 1
-			}
-			848 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
 			if = {
-				limit = {
-					controls_province = 9655
-				}
-				build_railway = { #Lietchenstein connected to Supply depot West of München
-					level = 2
-					path = { 6680 9655 }
+				limit = { controls_state = 1460 }   # GER kontrolliert Liechtenstein
+				add_state_core = 1460
+
+				1460 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
 				}
 			}
-		}
-	}
+			else_if = {
+				 limit = { country_exists = LIE }
+       			 LIE = { country_event = { id = MA_germany.1 days = 1 } }
+        }
+    }
+}
+
 
 	focus = {
 		id = GER_reassert_eastern_claims
@@ -10915,9 +10900,9 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		cost = 5
 		
 		bypass = {
-			188 = { is_owned_by = GER }
-			85 = { is_owned_by = GER }
-			86 = { is_owned_by = GER }
+			227 = { is_owned_by = GER }
+			280 = { is_owned_by = GER }
+			267 = { is_owned_by = GER }
 		}
 		
 		available = { 
@@ -10944,19 +10929,47 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
 
 		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GER_demand_memel"
+			227 = { add_claim_by = GER } # memel 
+			280 = { add_claim_by = GER } # danzig
 
-			188 = { add_claim_by = GER }
-			85 = { add_claim_by = GER }
-			807 = { add_claim_by = GER }
-			86 = { add_claim_by = GER }
-			762 = { add_claim_by = GER }
+			# 807 = { add_claim_by = GER } # danzig corridor
+			custom_effect_tooltip = mer_GER_claims_on_danzig_corridor_tt
+			hidden_effect = {
+				287 = { add_claim_by = GER }
+				310 = { add_claim_by = GER }
+				2567 = { add_claim_by = GER }
+				546 = { add_claim_by = GER }
+				2341 = { add_claim_by = GER }
+				264 = { add_claim_by = GER }
+				267 = { add_claim_by = GER }
+			}
+			# 86 = { add_claim_by = GER } # poznan
+			custom_effect_tooltip = mer_GER_claims_on_poznan_tt
+			hidden_effect = {
+				80 = { add_claim_by = GER }
+				335 = { add_claim_by = GER }
+				243 = { add_claim_by = GER }
+				79 = { add_claim_by = GER }
+				122 = { add_claim_by = GER }
+				99 = { add_claim_by = GER }
+				82 = { add_claim_by = GER }
+				549 = { add_claim_by = GER }
+			}
+			# { add_claim_by = GER } #katowice
+			custom_effect_tooltip = mer_GER_claims_on_katowice_tt
+			hidden_effect = {
+				2329 = { add_claim_by = GER }
+				481 = { add_claim_by = GER }
+				2262 = { add_claim_by = GER }
+			}
 
 			add_named_threat = { threat = 3 name = GER_demand_memel_threat }
 
 			random_other_country = {
 				limit = {
-					owns_state = 188
-					controls_state = 188 
+					owns_state = 227
+					controls_state = 227 
 				}
 				country_event = { 
 					id = baltic.4 
@@ -11787,11 +11800,11 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					exists = yes
 					is_in_faction_with = GER
 				}
-				owns_state = 70
+				owns_state = 1437
 			}
-			NOT = { owns_state = 85 }
+			NOT = { owns_state = 280 }
 			NOT = { has_war_with = POL }
-			POL = { owns_state = 72 }
+			POL = { owns_state = 267 }
 		}
 
 		bypass = {
@@ -11838,17 +11851,65 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 				has_war_with = POL
 				is_in_faction_with = POL
 				NOT = {
-					85 = {
-						controller = {
-							original_tag = POL 
+					287 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
 						}
-						owner = {
-							original_tag = POL 
+						310 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
+						}
+						2567 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
+						}
+						546 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
+						}
+						2341 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
+						}
+						264 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
+						}
+						267 = {
+							owner = {
+								original_tag = POL
+							}
+							controller = {
+								original_tag = POL
+							}
 						}
 					}
 				}
 			}
-		}
 
 		continue_if_invalid = yes
 
@@ -11916,22 +11977,52 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		
 		completion_reward = {
 			add_named_threat = { threat = 5 name = GER_danzig_or_war }
-			if = {
+						if = {
 				limit = {
-					85 = {
+					287 = {
+						controller = {
+							tag = POL
+							has_civil_war = no
+						}
+					}
+					310 = {
+						controller = {
+							tag = POL
+							has_civil_war = no
+						}
+					}
+					2567 = {
+						controller = {
+							tag = POL
+							has_civil_war = no
+						}
+					}
+					546 = {
+						controller = {
+							tag = POL
+							has_civil_war = no
+						}
+					}
+					2341 = {
+						controller = {
+							tag = POL
+							has_civil_war = no
+						}
+					}
+					264 = {
+						controller = {
+							tag = POL
+							has_civil_war = no
+						}
+					}
+					267 = {
 						controller = {
 							tag = POL
 							has_civil_war = no
 						}
 					}
 				}
-				effect_tooltip = {
-					transfer_state = 85
-					add_state_core = 85
-					transfer_state = 807
-					add_state_core = 807
-					remove_state_claim = 86
-					remove_state_claim = 762
+				custom_effect_tooltip = mer_GER_danzig_or_war_approved_transfer_tt
 				}
 				POL = {
 					country_event = { id = germany.86 }
@@ -11954,10 +12045,9 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 						custom_effect_tooltip = GER_danzig_or_war_POL_faction_GER_noleader
 					}
 				}
-			}
 			if = {
 				limit = {
-					85 = {
+					267 = {
 						owner = {
 							OR = {
 								original_tag = POL
@@ -11983,6 +12073,8 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 				}
 				custom_effect_tooltip = GER_danzig_or_war_POL_civil_war
 			}
+			unlock_decision_tooltip = GER_generalgouvernement_form
+			unlock_decision_tooltip = GER_sieze_danzig
 		}
 	}
 	
@@ -12597,7 +12689,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 	}
 
 	focus = {
-		id = GER_reintegrate_luxemburg_and_alsace_lorraine
+		id = GER_reintegrate_western_german_territories
 		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = GER_war_with_france }
 
@@ -12610,10 +12702,23 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		
 		available = {
 			is_subject = no
-			has_full_control_of_state = 8
-			has_full_control_of_state = 28
+				custom_trigger_tooltip = {
+				tooltip = mer_GER_reintegrate_luxemburg_and_alsace_lorraine_controls_alslor_tt
+				has_full_control_of_state = 606
+				has_full_control_of_state = 2746
+				has_full_control_of_state = 566
+				has_full_control_of_state = 2747
+				has_full_control_of_state = 2608
+				has_full_control_of_state = 547
+				}
+				custom_trigger_tooltip = {
+				tooltip = mer_GER_reintegrate_luxemburg_and_alsace_lorraine_controls_lux_tt
+				has_full_control_of_state = 512
+				has_full_control_of_state = 427
+				has_full_control_of_state = 405
+				}
+				has_full_control_of_state = 485
 			OR = {
-				owns_state = 28
 				FRA = { has_capitulated = yes }
 				FRA = { is_subject_of = ROOT }
 				all_country_with_original_tag = {
@@ -12628,6 +12733,14 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					original_tag_to_check = LUX
 					exists = no
 				}
+			}		
+			or = {
+				BEL = { has_capitulated = yes }
+				BEL = {is_subject_of = ROOT }
+				all_country_with_original_tag = {
+					original_tag_to_check = BEL
+					exists = no
+				}
 			}
 		}
 
@@ -12636,15 +12749,48 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
-		
 		completion_reward = {
-			add_state_core = 8
-			add_state_core = 28
-			if = {
-				limit = {
-					NOT = { owns_state = 28 }
+			custom_effect_tooltip = mer_GER_reintegrate_luxemburg_and_alsace_lorraine_core_tt_alslor
+			custom_effect_tooltip = mer_GER_reintegrate_luxemburg_and_alsace_lorraine_core_tt_lux
+			add_state_core = 485
+			hidden_effect = {
+				add_state_core = 606
+				add_state_core = 2746
+				add_state_core = 566
+				add_state_core = 2747
+				add_state_core = 2608
+				add_state_core = 547
+				add_state_core = 512
+				add_state_core = 427
+				add_state_core = 404
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { 
+							owns_state = 606
+							owns_state = 2746
+							owns_state = 566
+							owns_state = 2747
+							owns_state = 2608
+							owns_state = 547
+						}
+					}
+					transfer_state = 606
+					transfer_state = 2746
+					transfer_state = 566
+					transfer_state = 2747
+					transfer_state = 2608
+					transfer_state = 547
 				}
-				transfer_state = 28
+				if = {
+					limit = {
+						NOT = {
+							owns_state = 485
+						}
+					}
+					transfer_state = 
+				}
 			}
 			# Currently these names will now instead be dynamically renamed upon becoming owned by Germany
 			#28 = { set_state_name = "Elsass-Lothringen" }
@@ -33653,45 +33799,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 
 		cost = 5
 
-		available = {
-			is_subject = no
-			event_target:WTT_current_china_leader = { 
-				exists = yes
-				is_subject = no 
-				NOT = { has_war_with = ROOT }
-				NOT = { has_government = communism }
-				custom_trigger_tooltip = {
-					tooltip = GER_alone_or_peace_faction_tt
-					is_alone_or_in_faction_at_peace_with_GER = yes
-				}
-			}	
-		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		completion_reward = {
-
-			event_target:WTT_current_china_leader = {
-				set_country_flag = GER_befriended_by_germany_flag
-				country_event = { id = wuw_GER_diplomacy.29 hours = 6 }
-			}
-
-			custom_effect_tooltip = if_they_accept_tt
-			effect_tooltip = {
-				add_ideas = GER_ger_chi_trade_ns
-				event_target:WTT_current_china_leader = {
-					add_offsite_building = { type = arms_factory level = 2 }
-					add_opinion_modifier = { target = GER modifier = ger_chi_diplomacy_focus }
-					add_ideas = GER_chi_ger_trade_ns
-				}
-			}
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-			JAP = {
-				add_opinion_modifier = { target = GER modifier = supported_the_chinese }
-			}
-		}
+		
 	}
 
 	focus = {
@@ -35954,7 +36062,6 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 						has_war_with = event_target:WTT_current_china_leader
 					}
 				}
-				event_target:WTT_current_china_leader = { country_event = { id = wtt_germany.38 days = 1 } }
 			}
 			if = {
 				limit = {
