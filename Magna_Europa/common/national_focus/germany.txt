@@ -9065,54 +9065,22 @@ focus_tree = {
 		completion_reward = {
 			add_named_threat = { threat = 5 name = GER_integrate_czechoslovakia }
 			### CLAIMS
-			if = {
-				limit = {
-					69 = {
-						controller = {
-							NOT = {
-								tag = ROOT
-								is_subject_of = ROOT
-							}
-						}
-					}
-				}
-				add_state_claim = 69
-			}
-			if = {
-				limit = {
-					972 = {
-						controller = {
-							NOT = {
-								tag = ROOT
-								is_subject_of = ROOT
-							}
-						}
-					}
-				}
-				add_state_claim = 972
-			}
-			if = {
-				limit = {
-					74 = {
-						controller = {
-							NOT = {
-								tag = ROOT
-								is_subject_of = ROOT
-							}
-						}
-					}
-				}
-				add_state_claim = 74
-			}
-			if = {
-				limit = {
-					CZE = {
-						OR = {
-							is_subject = no
-							is_subject_of = ROOT
-						}
-					}
-				}
+			if = { limit = {1433 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1433}
+            if = { limit = {1432 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1432}
+            if = { limit = {1431 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1431}
+            if = { limit = {1430 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1430}
+            if = { limit = {522 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 522}
+            if = { limit = {498 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 498} 
+            if = { limit = {1434 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1434} 
+            if = { limit = {471 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 471}
+            if = { limit = {473 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 473}
+            if = { limit = {1435 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1435}
+            if = { limit = {1428 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1428}
+            if = { limit = {499 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 499} 
+            if = { limit = {504 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 504}
+            if = { limit = {1977 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 1977}
+            if = { limit = {507 = { controller = { NOT = { tag = ROOT } NOT = { is_subject_of = ROOT } } } } add_state_claim = 507}
+
 				CZE = { country_event = { id = wuw_GER_diplomacy.117 days = 1 }}
 				custom_effect_tooltip = if_they_accept_tt
 				effect_tooltip = {
@@ -9126,15 +9094,27 @@ focus_tree = {
 						limit = {
 							is_owned_and_controlled_by = CZE
 							OR = {
-								state = 69
-								state = 972
-								state = 74
+								state = 1433
+								state = 1432
+								state = 1431
+								state = 1430
+								state = 522
+								state = 498
+								state = 1434
+								state = 471
+								state = 473
+								state = 1435
+								state = 1428
+								state = 499
+								state = 504
+								state = 1977
+								state = 507
 							}
 						}
 						add_core_of = PREV
 					}
 				}
-			}
+			
 			if = {
 				limit = {
 					CZE = {
@@ -9150,376 +9130,376 @@ focus_tree = {
 		}
 	}
 
-focus = {
-	id = GER_anschluss
+	focus = {
+		id = GER_anschluss
 
-	icon = GFX_focus_GER_anschluss
-	alternate_icon = GFX_focus_GER_anschluss_historical
+		icon = GFX_focus_GER_anschluss
+		alternate_icon = GFX_focus_GER_anschluss_historical
 
-	prerequisite = { focus = GER_reorganize_the_wehrmacht focus = GER_heed_von_neuraths_concerns }
+		prerequisite = { focus = GER_reorganize_the_wehrmacht focus = GER_heed_von_neuraths_concerns }
 
-	x = 7
-	y = 1
-	relative_position_id = GER_heed_von_neuraths_concerns
-	cost = 10
+		x = 7
+		y = 1
+		relative_position_id = GER_heed_von_neuraths_concerns
+		cost = 10
 
-	ai_will_do = {
-		factor = 10
-		modifier = {
-			factor = 0
-			OR = {
-				has_government = democratic
-				has_government = communism
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				OR = {
+					has_government = democratic
+					has_government = communism
+				}
 			}
 		}
-	}
 
-	bypass = {
-		OR = {
+		bypass = {
+			OR = {
+				AUS = {
+					OR = {
+						is_subject = yes
+						exists = no 
+						AND = {
+							is_in_faction = yes
+							NOT = { is_in_faction_with = GER }
+							any_other_country = {
+								is_in_faction_with = AUS
+								is_subject = no
+							}
+						}
+					}
+				}
+				GER = {
+					tooltip = mer_GER_owns_all_of_austria
+						owns_state = 1792
+						owns_state = 1793
+						owns_state = 1794
+						owns_state = 1795
+						owns_state = 1796
+						owns_state = 1797
+						owns_state = 1798
+						owns_state = 1799
+						owns_state = 1800
+						owns_state = 1801
+						owns_state = 1802
+						owns_state = 1803
+						owns_state = 1804
+						owns_state = 1805
+						owns_state = 1806
+						owns_state = 1807
+						owns_state = 1808
+						owns_state = 1809
+						owns_state = 1810
+						owns_state = 1811
+						owns_state = 1812
+						owns_state = 1813
+						owns_state = 1814
+						owns_state = 1815
+						owns_state = 1816
+						owns_state = 1817
+						owns_state = 1818
+						owns_state = 568
+						owns_state = 582
+						owns_state = 621
+						owns_state = 625
+						owns_state = 635
+						owns_state = 644
+						owns_state = 654
+						owns_state = 679
+						owns_state = 681
+
+				}
+			}
+		}
+
+		continue_if_invalid = yes
+		
+		available_if_capitulated = no
+		
+		available = {
+			has_war = no
+			is_subject = no
+			IF = {
+				limit = { has_dlc = "Gotterdammerung" }
+
+				custom_trigger_tooltip = {
+					tooltip = GER_anschluss_army_trigger_tt
+					fighting_army_strength_ratio = {
+						tag = AUS
+						ratio > global.deployed_manpower_ratio_needed_for_anschluss
+					}
+				}
+			}
+
+			ELSE = {
+				has_army_manpower = { size > 499999 }
+				
+				custom_trigger_tooltip = {
+					tooltip = GER_anschluss_eq_trigger_tt
+					check_variable = { num_equipment_in_armies_k@infantry_equipment > 50 }
+				}
+			}
+			
+			NOT = { has_idea = rhineland_challenge_met }
+			if = {
+				limit = {
+					SWI = { has_completed_focus = SWI_gotthard_union }
+				}
+				NOT = { 
+					AUS = { has_idea = SWI_swiss_democratic_propaganda }
+				}
+			}
+
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				date < 1938.1.1
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_CHARACTER FOCUS_FILTER_ARMY_XP FOCUS_FILTER_STABILITY }
+
+		select_effect = {
 			AUS = {
-				OR = {
-					is_subject = yes
-					exists = no 
-					AND = {
-						is_in_faction = yes
-						NOT = { is_in_faction_with = GER }
-						any_other_country = {
-							is_in_faction_with = AUS
-							is_subject = no
+				country_event = {
+					id = AUS_political_events.77
+					hours = 12
+				}
+				set_country_flag = AUS_anschluss_process_has_begun_flag
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				GER_add_or_modify_military_intelligence_service = yes
+				add_to_variable = { 
+					GER_military_intelligence_service_operative_slot = 1
+					tooltip = operative_slot_tt
+				}
+				GER_create_operative_otto_skorzeny = yes
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			if = {
+				limit = {
+					country_exists = AUS
+					AUS = {
+						has_civil_war = no
+						OR = {
+							owns_state = 1792
+							owns_state = 1793
+							owns_state = 1794
+							owns_state = 1795
+							owns_state = 1796
+							owns_state = 1797
+							owns_state = 1798
+							owns_state = 1799
+							owns_state = 1800
+							owns_state = 1801
+							owns_state = 1802
+							owns_state = 1803
+							owns_state = 1804
+							owns_state = 1805
+							owns_state = 1806
+							owns_state = 1807
+							owns_state = 1808
+							owns_state = 1809
+							owns_state = 1810
+							owns_state = 1811
+							owns_state = 1812
+							owns_state = 1813
+							owns_state = 1814
+							owns_state = 1815
+							owns_state = 1816
+							owns_state = 1817
+							owns_state = 1818
+							owns_state = 568
+							owns_state = 582
+							owns_state = 621
+							owns_state = 625
+							owns_state = 635
+							owns_state = 644
+							owns_state = 654
+							owns_state = 679
+							owns_state = 681
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_dlc = "Gotterdammerung" }
+						ITA = {
+							has_completed_focus = ITA_guarantee_austrian_independence
+							has_guaranteed = AUS
+						}
+					}
+			
+					ITA = {
+						country_event = {
+							id = BBA_italy_interaction_events.24
+							days = 1
+						}
+					}
+				}
+				else = { #ITA has not Guaranteed Austrian Independence
+					AUS = {
+						country_event = {
+							id = germany.28
+							days = 1
+						}
+					} 	
+					effect_tooltip = {
+						custom_effect_tooltip = if_they_accept_tt
+						add_political_power = 75
+						add_war_support = 0.1
+						add_stability = 0.05
+						army_experience = 10
+
+						custom_effect_tooltip = generic_skip_one_line_tt
+
+						annex_country = { target = AUS transfer_troops = yes }
+												
+						GER_anschluss_modify_mefo_bills_or_economy_of_conquest = yes
+
+						custom_effect_tooltip = if_they_refuse_tt
+						create_wargoal = {
+							type = take_state_focus
+							target = AUS
+							generator = { 1792 1793 1794 1795 1796 1797 1798 1799 1800 1801 1802 1803 1804 1805 1806 1807 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 568 582 621 625 635 644 654 679 681 }
 						}
 					}
 				}
 			}
-			GER = {
-				tooltip = mer_GER_owns_all_of_austria
-					owns_state = 1792
-					owns_state = 1793
-					owns_state = 1794
-					owns_state = 1795
-					owns_state = 1796
-					owns_state = 1797
-					owns_state = 1798
-					owns_state = 1799
-					owns_state = 1800
-					owns_state = 1801
-					owns_state = 1802
-					owns_state = 1803
-					owns_state = 1804
-					owns_state = 1805
-					owns_state = 1806
-					owns_state = 1807
-					owns_state = 1808
-					owns_state = 1809
-					owns_state = 1810
-					owns_state = 1811
-					owns_state = 1812
-					owns_state = 1813
-					owns_state = 1814
-					owns_state = 1815
-					owns_state = 1816
-					owns_state = 1817
-					owns_state = 1818
-					owns_state = 568
-					owns_state = 582
-					owns_state = 621
-					owns_state = 625
-					owns_state = 635
-					owns_state = 644
-					owns_state = 654
-					owns_state = 679
-					owns_state = 681
-
-			}
-		}
-	}
-
-	continue_if_invalid = yes
-	
-	available_if_capitulated = no
-	
-	available = {
-		has_war = no
-		is_subject = no
-		IF = {
-			limit = { has_dlc = "Gotterdammerung" }
-
-			custom_trigger_tooltip = {
-				tooltip = GER_anschluss_army_trigger_tt
-				fighting_army_strength_ratio = {
-					tag = AUS
-					ratio > global.deployed_manpower_ratio_needed_for_anschluss
-				}
-			}
-		}
-
-		ELSE = {
-			has_army_manpower = { size > 499999 }
-			
-			custom_trigger_tooltip = {
-			 	tooltip = GER_anschluss_eq_trigger_tt
-			 	check_variable = { num_equipment_in_armies_k@infantry_equipment > 50 }
-			}
-		}
-		
-		NOT = { has_idea = rhineland_challenge_met }
-		if = {
-			limit = {
-				SWI = { has_completed_focus = SWI_gotthard_union }
-			}
-			NOT = { 
-				AUS = { has_idea = SWI_swiss_democratic_propaganda }
-			}
-		}
-
-	}
-
-	ai_will_do = {
-		factor = 10
-		modifier = {
-			factor = 0
-			date < 1938.1.1
-		}
-	}
-
-	search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL FOCUS_FILTER_MILITARY_CHARACTER FOCUS_FILTER_ARMY_XP FOCUS_FILTER_STABILITY }
-
-	select_effect = {
-		AUS = {
-			country_event = {
-				id = AUS_political_events.77
-				hours = 12
-			}
-			set_country_flag = AUS_anschluss_process_has_begun_flag
-		}
-	}
-
-	completion_reward = {
-		if = {
-			limit = {
-				has_dlc = "La Resistance"
-			}
-			GER_add_or_modify_military_intelligence_service = yes
-			add_to_variable = { 
-				GER_military_intelligence_service_operative_slot = 1
-				tooltip = operative_slot_tt
-			}
-			GER_create_operative_otto_skorzeny = yes
-		}
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		if = {
-			limit = {
-				country_exists = AUS
-				AUS = {
-					has_civil_war = no
-					OR = {
-						owns_state = 1792
-						owns_state = 1793
-						owns_state = 1794
-						owns_state = 1795
-						owns_state = 1796
-						owns_state = 1797
-						owns_state = 1798
-						owns_state = 1799
-						owns_state = 1800
-						owns_state = 1801
-						owns_state = 1802
-						owns_state = 1803
-						owns_state = 1804
-						owns_state = 1805
-						owns_state = 1806
-						owns_state = 1807
-						owns_state = 1808
-						owns_state = 1809
-						owns_state = 1810
-						owns_state = 1811
-						owns_state = 1812
-						owns_state = 1813
-						owns_state = 1814
-						owns_state = 1815
-						owns_state = 1816
-						owns_state = 1817
-						owns_state = 1818
-						owns_state = 568
-						owns_state = 582
-						owns_state = 621
-						owns_state = 625
-						owns_state = 635
-						owns_state = 644
-						owns_state = 654
-						owns_state = 679
-						owns_state = 681
-					}
-				}
-			}
-			if = {
+			else_if = {
 				limit = {
-					NOT = { has_dlc = "Gotterdammerung" }
+					any_other_country = {
+						original_tag = AUS
+						has_civil_war = yes
+						OR = {
+							owns_state = 1792
+							owns_state = 1793
+							owns_state = 1794
+							owns_state = 1795
+							owns_state = 1796
+							owns_state = 1797
+							owns_state = 1798
+							owns_state = 1799
+							owns_state = 1800
+							owns_state = 1801
+							owns_state = 1802
+							owns_state = 1803
+							owns_state = 1804
+							owns_state = 1805
+							owns_state = 1806
+							owns_state = 1807
+							owns_state = 1808
+							owns_state = 1809
+							owns_state = 1810
+							owns_state = 1811
+							owns_state = 1812
+							owns_state = 1813
+							owns_state = 1814
+							owns_state = 1815
+							owns_state = 1816
+							owns_state = 1817
+							owns_state = 1818
+							owns_state = 568
+							owns_state = 582
+							owns_state = 621
+							owns_state = 625
+							owns_state = 635
+							owns_state = 644
+							owns_state = 654
+							owns_state = 679
+							owns_state = 681
+						}
+					}
 					ITA = {
-						has_completed_focus = ITA_guarantee_austrian_independence
-						has_guaranteed = AUS
+						NOT = {
+							has_completed_focus = ITA_guarantee_austrian_independence
+						}
 					}
 				}
-		
-				ITA = {
-					country_event = {
-						id = BBA_italy_interaction_events.24
-						days = 1
-					}
-				}
-			}
-			else = { #ITA has not Guaranteed Austrian Independence
-				AUS = {
-					country_event = {
-						id = germany.28
-						days = 1
-					}
-				} 	
-				effect_tooltip = {
-					custom_effect_tooltip = if_they_accept_tt
-					add_political_power = 75
-					add_war_support = 0.1
-					add_stability = 0.05
-					army_experience = 10
-
-					custom_effect_tooltip = generic_skip_one_line_tt
-
-					annex_country = { target = AUS transfer_troops = yes }
-											
-					GER_anschluss_modify_mefo_bills_or_economy_of_conquest = yes
-
-					custom_effect_tooltip = if_they_refuse_tt
-					create_wargoal = {
-						type = take_state_focus
-						target = AUS
-						generator = { 1792 1793 1794 1795 1796 1797 1798 1799 1800 1801 1802 1803 1804 1805 1806 1807 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 568 582 621 625 635 644 654 679 681 }
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				any_other_country = {
-					original_tag = AUS
-					has_civil_war = yes
-					OR = {
-						owns_state = 1792
-						owns_state = 1793
-						owns_state = 1794
-						owns_state = 1795
-						owns_state = 1796
-						owns_state = 1797
-						owns_state = 1798
-						owns_state = 1799
-						owns_state = 1800
-						owns_state = 1801
-						owns_state = 1802
-						owns_state = 1803
-						owns_state = 1804
-						owns_state = 1805
-						owns_state = 1806
-						owns_state = 1807
-						owns_state = 1808
-						owns_state = 1809
-						owns_state = 1810
-						owns_state = 1811
-						owns_state = 1812
-						owns_state = 1813
-						owns_state = 1814
-						owns_state = 1815
-						owns_state = 1816
-						owns_state = 1817
-						owns_state = 1818
-						owns_state = 568
-						owns_state = 582
-						owns_state = 621
-						owns_state = 625
-						owns_state = 635
-						owns_state = 644
-						owns_state = 654
-						owns_state = 679
-						owns_state = 681
-					}
-				}
-				ITA = {
-					NOT = {
-						has_completed_focus = ITA_guarantee_austrian_independence
-					}
-				}
-			}
-			custom_effect_tooltip = germany.126.warning
-			random_other_country = {
-				limit = {
-					original_tag = AUS
-					OR = {
-						has_government = fascism
-						AND = {
-							has_government = neutrality
+				custom_effect_tooltip = germany.126.warning
+				random_other_country = {
+					limit = {
+						original_tag = AUS
+						OR = {
+							has_government = fascism
+							AND = {
+								has_government = neutrality
+								NOT = {
+									any_other_country = {
+										original_tag = AUS
+										has_government = fascism
+									}
+								}
+							}
 							NOT = {
 								any_other_country = {
 									original_tag = AUS
-									has_government = fascism
+									OR = {
+										has_government = fascism
+										has_government = neutrality
+									}
 								}
-							}
+							} 								
 						}
-						NOT = {
-							any_other_country = {
-								original_tag = AUS
-								OR = {
-									has_government = fascism
-									has_government = neutrality
-								}
-							}
-						} 								
 					}
+					country_event = { id = germany.126 days = 1 }
 				}
-				country_event = { id = germany.126 days = 1 }
 			}
-		}
 
-		# Core hinzufügen für alle relevanten States
-if = { limit = { 1792 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1792 }
-if = { limit = { 1793 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1793 }
-if = { limit = { 1794 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1794 }
-if = { limit = { 1795 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1795 }
-if = { limit = { 1796 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1796 }
-if = { limit = { 1797 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1797 }
-if = { limit = { 1798 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1798 }
-if = { limit = { 1799 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1799 }
-if = { limit = { 1800 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1800 }
-if = { limit = { 1801 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1801 }
-if = { limit = { 1802 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1802 }
-if = { limit = { 1803 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1803 }
-if = { limit = { 1804 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1804 }
-if = { limit = { 1805 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1805 }
-if = { limit = { 1806 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1806 }
-if = { limit = { 1807 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1807 }
-if = { limit = { 1808 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1808 }
-if = { limit = { 1809 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1809 }
-if = { limit = { 1810 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1810 }
-if = { limit = { 1811 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1811 }
-if = { limit = { 1812 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1812 }
-if = { limit = { 1813 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1813 }
-if = { limit = { 1814 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1814 }
-if = { limit = { 1815 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1815 }
-if = { limit = { 1816 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1816 }
-if = { limit = { 1817 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1817 }
-if = { limit = { 1818 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1818 }
-if = { limit = { 568  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 568 }
-if = { limit = { 582  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 582 }
-if = { limit = { 621  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 621 }
-if = { limit = { 625  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 625 }
-if = { limit = { 635  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 635 }
-if = { limit = { 644  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 644 }
-if = { limit = { 654  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 654 }
-if = { limit = { 679  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 679 }
-if = { limit = { 681  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 681 }
-if = { limit = { 2535 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 2535 }
-if = { limit = { 1408 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1408 }
-if = { limit = { 2903 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 2903 }
-if = { limit = { 2536 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_claim = 2536 }
-if = { limit = { 2904 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_claim = 2904 }
-if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_claim = 683 }
+			# Core hinzufügen für alle relevanten States
+	if = { limit = { 1792 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1792 }
+	if = { limit = { 1793 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1793 }
+	if = { limit = { 1794 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1794 }
+	if = { limit = { 1795 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1795 }
+	if = { limit = { 1796 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1796 }
+	if = { limit = { 1797 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1797 }
+	if = { limit = { 1798 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1798 }
+	if = { limit = { 1799 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1799 }
+	if = { limit = { 1800 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1800 }
+	if = { limit = { 1801 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1801 }
+	if = { limit = { 1802 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1802 }
+	if = { limit = { 1803 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1803 }
+	if = { limit = { 1804 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1804 }
+	if = { limit = { 1805 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1805 }
+	if = { limit = { 1806 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1806 }
+	if = { limit = { 1807 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1807 }
+	if = { limit = { 1808 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1808 }
+	if = { limit = { 1809 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1809 }
+	if = { limit = { 1810 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1810 }
+	if = { limit = { 1811 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1811 }
+	if = { limit = { 1812 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1812 }
+	if = { limit = { 1813 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1813 }
+	if = { limit = { 1814 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1814 }
+	if = { limit = { 1815 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1815 }
+	if = { limit = { 1816 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1816 }
+	if = { limit = { 1817 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1817 }
+	if = { limit = { 1818 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1818 }
+	if = { limit = { 568  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 568 }
+	if = { limit = { 582  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 582 }
+	if = { limit = { 621  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 621 }
+	if = { limit = { 625  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 625 }
+	if = { limit = { 635  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 635 }
+	if = { limit = { 644  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 644 }
+	if = { limit = { 654  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 654 }
+	if = { limit = { 679  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 679 }
+	if = { limit = { 681  = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 681 }
+	if = { limit = { 2535 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 2535 }
+	if = { limit = { 1408 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 1408 }
+	if = { limit = { 2903 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_core = 2903 }
+	if = { limit = { 2536 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_claim = 2536 }
+	if = { limit = { 2904 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_claim = 2904 }
+	if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_with = ROOT } } } } add_state_claim = 683 }
 
 }
 }
@@ -10760,92 +10740,84 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		}
 	}
 
-	focus = {
-		id = GER_the_triumphant_will
-		icon = GFX_goal_support_fascism
-		prerequisite = { focus = GER_anschluss }
-		#mutually_exclusive = { focus = GER_integration_of_puppet_economies focus = GER_specialized_ss_commandos }
+focus = {
+	id = GER_the_triumphant_will
+	icon = GFX_goal_support_fascism
+	prerequisite = { focus = GER_anschluss }
 
-		x = 4
-		y = 1
-		relative_position_id = GER_anschluss
-		cost = 5
-	
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = GER_improve_national_spirit_tooltip
-				OR = {
-					GER = { controls_state = 2475 }
-					any_other_country = {
-						is_in_faction_with = GER
+	x = 4
+	y = 1
+	relative_position_id = GER_anschluss
+	cost = 5
+
+	available = {
+		custom_trigger_tooltip = {
+			tooltip = GER_improve_national_spirit_tooltip
+			OR = {
+				# GER kontrolliert 2475 oder 571
+				GER = { controls_state = 2475 }
+				GER = { controls_state = 571 }
+
+				# irgendein Verbündeter kontrolliert 2475 oder 571
+				any_other_country = {
+					is_in_faction_with = GER
+					OR = {
+						controls_state = 2475
 						controls_state = 571
 					}
 				}
-				OR = {
-					GER = { controls_state = 571 }
-					any_other_country = {
-						is_in_faction_with = GER
-						controls_state = 2475
-					}
+			}
+		}
+	}
+
+	cancel = {
+		AND = {
+			has_war = no
+			571 = {
+				owner = {
+					NOT = { tag = GER }
+					NOT = { is_in_faction_with = GER }
 				}
 			}
 			2475 = {
-				is_fully_controlled_by = ROOT
-			}
-		}
-
-		cancel = {
-			AND = {
-				has_war = no
-				571 = {
-					owner = {
-						NOT = { tag = GER }
-						NOT = { is_in_faction_with = GER }
-					}
-				}
-				2475 = {
-					owner = {
-						NOT = { tag = GER }
-						NOT = { is_in_faction_with = GER }
-					}
+				owner = {
+					NOT = { tag = GER }
+					NOT = { is_in_faction_with = GER }
 				}
 			}
-		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		completion_reward = {
-
-			swap_ideas = {
-				remove_idea = sour_loser
-				add_idea = triumphant_will
-			}	
-
-			IF = {
-				limit = {
-					has_dlc = "Gotterdammerung"
-				}
-				custom_effect_tooltip = GER_build_volkshalle_landmark_tt
-				hidden_effect = {
-					3 = {
-						remove_building = {
-							type = landmark_berlin_reichstag
-							level = 1
-							province = 11711
-						}
-						add_building_construction = {
-							type = landmark_berlin_volkshalle
-							level = 1
-							instant_build = yes
-							province = 11711
-						}
-					}
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			
 		}
 	}
+
+	search_filters = { FOCUS_FILTER_POLITICAL }
+
+	completion_reward = {
+		swap_ideas = {
+			remove_idea = sour_loser
+			add_idea = triumphant_will
+		}
+
+		IF = {
+			limit = { has_dlc = "Gotterdammerung" }
+			custom_effect_tooltip = GER_build_volkshalle_landmark_tt
+			hidden_effect = {
+				3 = {
+					remove_building = {
+						type = landmark_berlin_reichstag
+						level = 1
+						province = 11711
+					}
+					add_building_construction = {
+						type = landmark_berlin_volkshalle
+						level = 1
+						instant_build = yes
+						province = 11711
+					}
+				}
+			}
+		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+	}
+}
 
 
 	focus = {
@@ -11316,11 +11288,39 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 				expire = 0
 			}
 
-			add_state_claim = 39
-			add_state_claim = 850
-			add_state_claim = 853
-			add_state_claim = 852
-			add_state_claim = 736
+			add_state_claim = 1474
+			add_state_claim = 762
+			add_state_claim = 2908
+			add_state_claim = 2971
+			add_state_claim = 2330
+			add_state_claim = 755
+			add_state_claim = 1482
+			add_state_claim = 1483
+			add_state_claim = 2900
+			add_state_claim = 2972
+			add_state_claim = 1485
+			add_state_claim = 2901
+			add_state_claim = 744
+			add_state_claim = 1484
+			add_state_claim = 720
+			add_state_claim = 1616
+			add_state_claim = 1533
+			add_state_claim = 2970
+			add_state_claim = 2910
+			add_state_claim = 2907
+			add_state_claim = 706
+			add_state_claim = 2951
+			add_state_claim = 2535
+			add_state_claim = 1408
+			add_state_claim = 683
+			add_state_claim = 2903
+			add_state_claim = 2904
+			add_state_claim = 2536
+			add_state_claim = 2905
+			add_state_claim = 2849
+			add_state_claim = 2850
+			add_state_claim = 704
+			add_state_claim = 1424
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -12330,7 +12330,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					type = take_state_focus
 					target = BEL
 					expire = 0
-					generator = { 6 }
+					generator = { 2969 }
 				}
 			}
 			if =  {
@@ -12344,7 +12344,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					type = take_state_focus
 					target = HOL
 					expire = 0
-					generator = { 7 }
+					generator = { 358 }
 				}
 			}
 			if =  {
@@ -12369,7 +12369,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					type = take_state_focus
 					target = LUX
 					expire = 0
-					generator = { 8 }
+					generator = { 512 }
 				}		
 				add_ai_strategy = { 
 					type = conquer
@@ -12429,7 +12429,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 				}
 			}
 
-			10 = {
+			508 = {
 				controller = {
 					OR = {
 						is_in_faction_with = ROOT
@@ -12437,7 +12437,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					}
 				}
 			}
-			85 = {
+			1157 = {
 				controller = {
 					OR = {
 						is_in_faction_with = ROOT
@@ -12605,7 +12605,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
  				type = take_state_focus
  				target = FRA
  				expire = 0
- 				generator = { 28 }
+ 				generator = { 571 566}
  			}
 		}
 	}
@@ -12621,8 +12621,8 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 		cost = 5
 		available = {
 			is_subject = no
-			144 = { state_is_fully_controlled_by_ROOT_or_subject = yes }
-			918 = { is_fully_controlled_by = SWE }
+			124 = { state_is_fully_controlled_by_ROOT_or_subject = yes }
+			2704 = { is_fully_controlled_by = SWE }
 
 		}
 
@@ -12668,7 +12668,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 
 					give_resource_rights = {
 						receiver = ROOT 
-						state = 918 #Västerbotten 
+						state = 2704 #Västerbotten 
 					}
 				}
 
@@ -12682,7 +12682,7 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					type = take_state_focus
 					target = SWE
 					expire = 0
-					generator = { 918 666 }
+					generator = { 2704 }
 				}
 			}
 		}
@@ -12883,10 +12883,28 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 				}
 			}
 
-			add_state_claim = 845
-			add_state_claim = 3
-			add_state_claim = 151
-			add_state_claim = 847
+			add_state_claim = 1457
+			add_state_claim = 1449
+			add_state_claim = 1448
+			add_state_claim = 661
+			add_state_claim = 1445
+			add_state_claim = 694
+			add_state_claim = 710
+			add_state_claim = 652
+			add_state_claim = 669
+			add_state_claim = 1450
+			add_state_claim = 1451
+			add_state_claim = 1459
+			add_state_claim = 673
+			add_state_claim = 647
+			add_state_claim = 1458
+			add_state_claim = 1456
+			add_state_claim = 643
+			add_state_claim = 1455
+			add_state_claim = 1454
+			add_state_claim = 1453
+			add_state_claim = 1447
+			add_state_claim = 685
 
 			if = {
 				limit = {
@@ -12898,13 +12916,47 @@ if = { limit = { 683 = { owner = { NOT = { tag = AUS } NOT = { is_in_faction_wit
 					}
 				}
 				ITA = {
-					add_state_claim = 846
+					add_state_claim = 708
+					add_state_claim = 1446
+					add_state_claim = 2964
+					add_state_claim = 2965
 				}
 			}
 			else = {
-				add_state_claim = 846
+					add_state_claim = 708
+					add_state_claim = 1446
+					add_state_claim = 2964
+					add_state_claim = 2965
 			}
 
+			if = {
+				limit = {
+					MVF = {
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+				MVF = {
+					add_state_claim = 1452
+					add_state_claim = 707
+					add_state_claim = 2348
+					add_state_claim = 724
+					add_state_claim = 1444
+					add_state_claim = 1443
+					add_state_claim = 660
+				}
+			}
+			else = {
+					add_state_claim = 1452
+					add_state_claim = 707
+					add_state_claim = 2348
+					add_state_claim = 724
+					add_state_claim = 1444
+					add_state_claim = 1443
+					add_state_claim = 660
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 
 			add_timed_idea = {

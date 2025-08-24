@@ -3,6 +3,7 @@
 ###########################
 
 add_namespace = germany
+add_namespace = AAT_germany
 
 # Austrian Anschluss Completed
 country_event = {
@@ -8069,98 +8070,61 @@ country_event = {
 }
 
 country_event = { #Germany wants resource rights for Sweden
-	id = AAT_germany.1
-	title = AAT_germany.1.t
-	desc = AAT_germany.1.desc
-	picture = GFX_report_event_german_speech
-	is_triggered_only = yes
-	option = { #No
-		name = AAT_germany.1.a
-		ai_chance = {
-			base = 1
-			modifier = {
-				date > 1942.12.1
-				OR = {
-					is_historical_focus_on = yes
-					has_government = democratic
-				}
-				factor = 3
-			} 
+    id = AAT_germany.1
+    title = AAT_germany.1.t
+    desc = AAT_germany.1.desc
+    picture = GFX_report_event_german_speech
+    is_triggered_only = yes
 
-			modifier = {
-				FROM = {
-					surrender_progress > 0.2
-				}
-				factor = 10
-			}
+    option = { #No
+        name = AAT_germany.1.a
+        ai_chance = {
+            base = 1
+            modifier = {
+                date > 1942.12.1
+                OR = { is_historical_focus_on = yes has_government = democratic }
+                factor = 3
+            }
+            modifier = { FROM = { surrender_progress > 0.2 } factor = 10 }
+            modifier = { FROM = { is_ai = no surrender_progress < 0.03 } factor = 0 }
+        }
+        add_political_power = -25
+        FROM = { country_event = { id = AAT_germany.2 hours = 2 } }
+    }
 
-			modifier = {
-				FROM = {
-					is_ai = no
-					surrender_progress < 0.03
-				}
-				factor = 0
-			}
-		}
+    option = { #Yes
+        name = AAT_germany.1.b
+        ai_chance = { base = 9 }
 
-		add_political_power = -25
-		FROM = {
-			country_event = { id = AAT_germany.2 hours = 2 }
-		}
-	}
+        add_offsite_building = { type = industrial_complex level = 2 }
+        add_offsite_building = { type = arms_factory      level = 1 }
 
-	option = { #Yes
-		ai_chance = {
-			base = 9
-		}
-		name = AAT_germany.1.b
+        add_timed_idea = {
+            idea = GER_german_swedish_trade_agreement
+            days = 480
+        }
 
-		add_offsite_building = {
-			type = industrial_complex
-			level = 2
-		}
+        # >>> Only this single resource right granted (state 2704) <<<
+        give_resource_rights = {
+            receiver = FROM
+            state = 2704
+        }
 
-		add_offsite_building = {
-			type = arms_factory
-			level = 1
-		}
+        add_opinion_modifier = {
+            target = FROM
+            modifier = GER_SWE_historic_trade_Partners
+        }
 
-		add_timed_idea = {
-			idea = GER_german_swedish_trade_agreement
-			days = 480
-		}
-		
-		give_resource_rights = {
-			receiver = FROM 
-			state = 2707 #Västerbotten 
-		}
-		give_resource_rights = {
-			receiver = FROM 
-			state = 45 #Västerbotten 
-		}
-		give_resource_rights = {
-			receiver = FROM 
-			state = 2706#Västerbotten 
-		}
-		give_resource_rights = {
-			receiver = FROM 
-			state = 2710 #Västerbotten 
-		}
-
-		add_opinion_modifier = {
-			target = FROM # target of the relation
-			modifier = GER_SWE_historic_trade_Partners
-		}
-
-		FROM = {
-			add_opinion_modifier = {
-				target = PREV # target of the relation
-				modifier = GER_SWE_historic_trade_Partners
-			}
-			country_event = { id = AAT_germany.3 hours = 2 }
-		}
-	}
+        FROM = {
+            add_opinion_modifier = {
+                target = PREV
+                modifier = GER_SWE_historic_trade_Partners
+            }
+            country_event = { id = AAT_germany.3 hours = 2 }
+        }
+    }
 }
+
 
 country_event = { #Rejects deal
 	id = AAT_germany.2
