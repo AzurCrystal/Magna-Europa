@@ -30174,63 +30174,83 @@ focus = {
 	}
 
 	focus = {
-			id = GER_punish_the_french
-			icon = GFX_goal_generic_territory_or_war
-			
-			prequesite = GER_prepare_for_the_next_naval_blockade
+		id = GER_Rache_für_Vesaille
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = GER_prepare_for_the_next_naval_blockade }
 
-			x = 0
-			y = 1
-			relative_position_id = GER_prepare_for_the_next_naval_blockade
+		x = 0
+		y = 3
 
-			cost = 10
+		cost = 5
 
-			available = {
-				is_subject = no
+		relative_position_id = GER_the_second_naval_race
+
+		available = {
+			OR = {
+				NOT = {
+					is_in_faction_with = ENG
+					is_in_faction_with = FRA
+					is_in_faction_with = BEL
+				}			
 			}
-
-			bypass = {
-				OR = {
-					if = {
-						AND = {
-							has_war_with = ENG 
-							has_war_with = FRA
-						}
+		}
+		bypass = {
+			OR = {
+				AND = {
+					is_in_faction_with = ENG
+					is_in_faction_with = FRA
+					is_in_faction_with = BEL
+				}
+				NOT = {
+					OR = {
+						country_exists = ENG
+						country_exists = BEL
+						country_exists = FRA
 					}
 				}
 			}
-
-			will_lead_to_war_with = ENG
-			will_lead_to_war_with = FRA
-			will_lead_to_war_with = BEL
-
-			search_filters = { FOCUS_FILTER_ANNEXATION }
-
-			completion_reward = {
-				every_other_country = {
-					limit = {
-						OR = { #Target FRA and ENG and their faction members - the rest can wait
-							original_tag = FRA
-							is_ally_with = FRA
-							original_tag = ENG
-							is_ally_with = ENG
-						}
-						NOT = { #But don't bully our friends!
-							is_in_faction_with = ROOT
-							is_guaranteed_by = ROOT
-							has_a_german_trade_idea = yes
-						}
-					}	
-				}		
-			}		
-		}		
-		
-	
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { is_in_faction_with = BEL }
+				}
+				create_wargoal = {
+					type = annex_country
+					target = BEL
+					expire = 0
+				}
+			}
+			if = {
+				limit = {
+					NOT = { is_in_faction_with = ENG }
+				}
+				create_wargoal = {
+					type = annex_country
+					target = ENG
+					expire = 0
+				}
+			}
+			if = {
+				limit = {
+					NOT = { is_in_faction_with = FRA }
+				}
+				create_wargoal = {
+					type = annex_country
+					target = FRA
+					expire = 0
+				}
+			}
+		}
+	}
 
 	focus = {
 		id = GER_backdoor_negotiations
 		icon = GFX_goal_generic_dangerous_deal
 		prerequisite = { focus = GER_carte_blanche_for_alsace_ww }
+		prerequisite = { focus = GER_Rache_für_Vesaille }
+
+
 		
 
 		mutually_exclusive = { focus = GER_schlieffen_once_more_ww focus = GER_bypass_maginot_in_the_south_ww }
@@ -30338,6 +30358,7 @@ focus = {
 		id = GER_schlieffen_once_more_ww
 		icon = GFX_focus_GER_schlieffen_once_more
 		prerequisite = { focus = GER_carte_blanche_for_alsace_ww }
+		prerequisite = { focus = GER_Rache_für_Vesaille }
 		mutually_exclusive = { focus = GER_backdoor_negotiations focus = GER_bypass_maginot_in_the_south_ww }
 		x = 1
 		y = 1
@@ -30387,45 +30408,27 @@ focus = {
 
 		completion_reward = {
 
-			IF = { # Luxembourg
-				limit = {
-					8 = {
-						NOT = {
-							is_claimed_by = ROOT
-							controller = {
-								is_in_faction_with = ROOT
-							}
-						}
-					}
-				}
-				8 = {
-					add_claim_by = ROOT
-				}
+			if = {
+				limit = { 404 = { NOT = { is_claimed_by = ROOT controller = { is_in_faction_with = ROOT } } } }
+				404 = { add_claim_by = ROOT }
 			}
-			IF = { # Ardennes
-				limit = {
-					980 = {
-						NOT = {
-							is_claimed_by = ROOT
-							controller = {
-								is_in_faction_with = ROOT
-							}
-						}
-					}
-				}
-				980 = {
-					add_claim_by = ROOT
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
+			if = {
+				limit = { 512 = { NOT = { is_claimed_by = ROOT controller = { is_in_faction_with = ROOT } } } }
+				512 = { add_claim_by = ROOT }
+			}
+			if = {
+				limit = { 427 = { NOT = { is_claimed_by = ROOT controller = { is_in_faction_with = ROOT } } } }
+				427 = { add_claim_by = ROOT }
+			}
+			if = {
+				limit = { 485 = { NOT = { is_claimed_by = ROOT controller = { is_in_faction_with = ROOT } } } }
+				485 = { add_claim_by = ROOT }
 			}
 
-			add_timed_idea = {
-				idea = GER_the_new_schlieffen_plan
-				days = 180
-			}	
+			add_timed_idea = { idea = GER_the_new_schlieffen_plan days = 180 }
 
 			custom_effect_tooltip = generic_skip_one_line_tt
-			
+
 			create_wargoal = {
 				type = take_claimed_state
 				target = BEL
@@ -30437,7 +30440,6 @@ focus = {
 				target = LUX
 				expire = 0
 			}
-
 		}
 	}
 
@@ -30446,6 +30448,7 @@ focus = {
 		icon = GFX_focus_attack_switzerland
 
 		prerequisite = { focus = GER_carte_blanche_for_alsace_ww }
+		prerequisite = { focus = GER_Rache_für_Vesaille }
 
 		mutually_exclusive = { focus = GER_backdoor_negotiations focus = GER_schlieffen_once_more_ww }
 
@@ -30496,18 +30499,42 @@ focus = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			
-			create_wargoal = {
-				type = annex_everything
-				target = SWI
-				expire = 0
+
+			if = {
+				limit = {
+					NOT = { has_war_with = SWI }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = SWI
+					expire = 0
+				}
 			}
 
-			add_state_claim = 845
-			add_state_claim = 3
-			add_state_claim = 151
-			add_state_claim = 847
-			IF = {
+			add_state_claim = 1457
+			add_state_claim = 1449
+			add_state_claim = 1448
+			add_state_claim = 661
+			add_state_claim = 1445
+			add_state_claim = 694
+			add_state_claim = 710
+			add_state_claim = 652
+			add_state_claim = 669
+			add_state_claim = 1450
+			add_state_claim = 1451
+			add_state_claim = 1459
+			add_state_claim = 673
+			add_state_claim = 647
+			add_state_claim = 1458
+			add_state_claim = 1456
+			add_state_claim = 643
+			add_state_claim = 1455
+			add_state_claim = 1454
+			add_state_claim = 1453
+			add_state_claim = 1447
+			add_state_claim = 685
+
+			if = {
 				limit = {
 					ITA = {
 						OR = {
@@ -30517,13 +30544,47 @@ focus = {
 					}
 				}
 				ITA = {
-					add_state_claim = 846
+					add_state_claim = 708
+					add_state_claim = 1446
+					add_state_claim = 2964
+					add_state_claim = 2965
 				}
 			}
-			ELSE = {
-				add_state_claim = 846
+			else = {
+					add_state_claim = 708
+					add_state_claim = 1446
+					add_state_claim = 2964
+					add_state_claim = 2965
 			}
 
+			if = {
+				limit = {
+					MVF = {
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
+					}
+				}
+				MVF = {
+					add_state_claim = 1452
+					add_state_claim = 707
+					add_state_claim = 2348
+					add_state_claim = 724
+					add_state_claim = 1444
+					add_state_claim = 1443
+					add_state_claim = 660
+				}
+			}
+			else = {
+					add_state_claim = 1452
+					add_state_claim = 707
+					add_state_claim = 2348
+					add_state_claim = 724
+					add_state_claim = 1444
+					add_state_claim = 1443
+					add_state_claim = 660
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 
 			add_timed_idea = {
@@ -30546,7 +30607,17 @@ focus = {
 
 		available = {
 			is_subject = no
-			has_full_control_of_state = 28
+			AND = {
+				custom_trigger_tooltip = mer_GER_has_full_control_of_state_alsace_lorraine_tt
+				hidden_effect = {
+					NOT = {has_full_control_of_state = 2608}
+					NOT = {has_full_control_of_state = 547}
+					NOT = {has_full_control_of_state = 566}
+					NOT = {has_full_control_of_state = 606}
+					NOT = {has_full_control_of_state = 2746}
+					NOT = {has_full_control_of_state = 2747}
+				}
+			}
 			OR = {
 				FRA = { has_capitulated = yes }
 				FRA = { is_subject_of = GER }
@@ -30556,20 +30627,77 @@ focus = {
 						exists = yes
 					}
 				}
-				owns_state = 28
+				custom_trigger_tooltip = mer_GER_FRA_owns_alsace_lorraine_tt
+				hidden_effect = {
+					owns_state = 2608
+					owns_state = 547
+					owns_state = 566
+					owns_state = 606
+					owns_state = 2746
+					owns_state = 2747
+				}
 			}
+		}
+		bypass = {
+			owns_state = 2608
+			owns_state = 547
+			owns_state = 566
+			owns_state = 606
+			owns_state = 2746
+			owns_state = 2747
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
+			custom_trigger_tooltip = mer_GER_integrate_alsace_lorraine_tt
+			hidden_effect ={
+				add_state_core = 2608
+				add_state_core = 547
+				add_state_core = 566
+				add_state_core = 606
+				add_state_core = 2746
+				add_state_core = 2747
+			}
 			
-			add_state_core = 28
-			if = {
-				limit = {
-					NOT = { owns_state = 28 }
+			custom_trigger_tooltip = mer_GER_transfer_alsace_lorraine_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = { owns_state = 547 }
+					}
+					transfer_state = 547
 				}
-				transfer_state = 28
+				if = {
+					limit = {
+						NOT = { owns_state = 566 }
+					}
+					transfer_state = 566
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 606 }
+					}
+					transfer_state = 606
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 2746 }
+					}
+					transfer_state = 2746
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 2608 }
+					}
+					transfer_state = 2608
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 2747 }
+					}
+					transfer_state = 2747
+				}
 			}
 			if = {
 				limit = {

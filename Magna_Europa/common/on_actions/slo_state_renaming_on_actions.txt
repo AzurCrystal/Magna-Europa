@@ -1,3 +1,119 @@
-on_actions = {
+# File: common/on_actions/slo_state_renaming_on_actions.txt
+# Encoding: UTF-8 (NO BOM)
+# Logic: When controller is GER or AUS, rename to the 3rd name; otherwise revert to the 2nd (default) name from SLO.txt
 
-	on_state_control_changed = {
+on_actions = {
+  on_state_control_changed = {
+    effect = {
+      
+      # 1437, Bratislava, Pressburg
+      if = { limit = { 1437 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  1437 = { set_state_name = "Pressburg" } }
+      else = { 1437 = { set_state_name = "Bratislava" } }
+
+      # 591, Malacky, Malatzka
+      if = { limit = { 591 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  591 = { set_state_name = "Malatzka" } }
+      else = { 591 = { set_state_name = "Malacky" } }
+
+      # 555, Trenčín, Trentschin
+      if = { limit = { 555 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  555 = { set_state_name = "Trentschin" } }
+      else = { 555 = { set_state_name = "Trenčín" } }
+
+      # 2663, Čadca, Tschadsa
+      if = { limit = { 2663 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2663 = { set_state_name = "Tschadsa" } }
+      else = { 2663 = { set_state_name = "Čadca" } }
+
+      # 577, Žilina, Sillein
+      if = { limit = { 577 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  577 = { set_state_name = "Sillein" } }
+      else = { 577 = { set_state_name = "Žilina" } }
+
+      # 2978, Tranava, Tyrnau
+      if = { limit = { 2978 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2978 = { set_state_name = "Tyrnau" } }
+      else = { 2978 = { set_state_name = "Tranava" } }
+
+      # 610, Komárno, Komorn
+      if = { limit = { 610 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  610 = { set_state_name = "Komorn" } }
+      else = { 610 = { set_state_name = "Komárno" } }
+
+      # 580, Nové Zámky, Neuhäusel
+      if = { limit = { 580 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  580 = { set_state_name = "Neuhäusel" } }
+      else = { 580 = { set_state_name = "Nové Zámky" } }
+
+      # 586, Nitra, Neutra
+      if = { limit = { 586 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  586 = { set_state_name = "Neutra" } }
+      else = { 586 = { set_state_name = "Nitra" } }
+
+      # 2662, Piešťany, Pistyan
+      if = { limit = { 2662 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2662 = { set_state_name = "Pistyan" } }
+      else = { 2662 = { set_state_name = "Piešťany" } }
+
+      # 541, Tatry, Tatra
+      if = { limit = { 541 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  541 = { set_state_name = "Tatra" } }
+      else = { 541 = { set_state_name = "Tatry" } }
+
+      # 2660, Námestvo, Namestovo
+      if = { limit = { 2660 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2660 = { set_state_name = "Namestovo" } }
+      else = { 2660 = { set_state_name = "Námestvo" } }
+
+      # 574, Hron, Gran
+      if = { limit = { 574 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  574 = { set_state_name = "Gran" } }
+      else = { 574 = { set_state_name = "Hron" } }
+
+      # 1439, Tekov a Hontianska, Barsch
+      if = { limit = { 1439 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  1439 = { set_state_name = "Barsch" } }
+      else = { 1439 = { set_state_name = "Tekov a Hontianska" } }
+
+      # 1438, Gemer a Malohont, Dobschanau-Nusten
+      if = { limit = { 1438 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  1438 = { set_state_name = "Dobschanau-Nusten" } }
+      else = { 1438 = { set_state_name = "Gemer a Malohont" } }
+
+      # 1442, Košice, Kaschau
+      if = { limit = { 1442 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  1442 = { set_state_name = "Kaschau" } }
+      else = { 1442 = { set_state_name = "Košice" } }
+
+      # 569, Levoča, Leutschau
+      if = { limit = { 569 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  569 = { set_state_name = "Leutschau" } }
+      else = { 569 = { set_state_name = "Levoča" } }
+
+      # 2661, Kezmarok, Käsmark
+      if = { limit = { 2661 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2661 = { set_state_name = "Käsmark" } }
+      else = { 2661 = { set_state_name = "Kezmarok" } }
+
+      # 550, Prešov, Preschau
+      if = { limit = { 550 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  550 = { set_state_name = "Preschau" } }
+      else = { 550 = { set_state_name = "Prešov" } }
+
+      # 2313, Bardejov, Bartfeld
+      if = { limit = { 2313 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2313 = { set_state_name = "Bartfeld" } }
+      else = { 2313 = { set_state_name = "Bardejov" } }
+
+      # 2930, Čop, Tschopp
+      if = { limit = { 2930 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2930 = { set_state_name = "Tschopp" } }
+      else = { 2930 = { set_state_name = "Čop" } }
+
+      # 593, Užhorod, Ungwar
+      if = { limit = { 593 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  593 = { set_state_name = "Ungwar" } }
+      else = { 593 = { set_state_name = "Užhorod" } }
+
+      # 562, Sobrance, Sobranz
+      if = { limit = { 562 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  562 = { set_state_name = "Sobranz" } }
+      else = { 562 = { set_state_name = "Sobrance" } }
+
+      # 2929, Veľké Berezné, Groß-Bereznau
+      if = { limit = { 2929 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  2929 = { set_state_name = "Groß-Bereznau" } }
+      else = { 2929 = { set_state_name = "Veľké Berezné" } }
+
+      # 1607, Perechyn, Perezindorf
+      if = { limit = { 1607 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  1607 = { set_state_name = "Perezindorf" } }
+      else = { 1607 = { set_state_name = "Perechyn" } }
+
+      # 1608, Bereg, Bergsaß
+      if = { limit = { 1608 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  1608 = { set_state_name = "Bergsaß" } }
+      else = { 1608 = { set_state_name = "Bereg" } }
+
+      # 564, Severné Maramures, Marmaroschsiget
+      if = { limit = { 564 = { OR = { is_controlled_by = GER is_controlled_by = AUS } } }  564 = { set_state_name = "Marmaroschsiget" } }
+      else = { 564 = { set_state_name = "Severné Maramures" } }
+
+    }
+  }
+}
