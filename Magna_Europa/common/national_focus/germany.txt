@@ -10602,7 +10602,7 @@ focus_tree = {
 				tooltip = GER_demonstration_of_military_achievements_trigger
 				OR = {
 					num_subjects > 2
-					check_variable = { GER_occupied_states_europe > 19 }
+					check_variable = { GER_occupied_states_europe > 60 }
 				}
 			}
 		}
@@ -10634,7 +10634,7 @@ focus_tree = {
 				tooltip = GER_an_invincible_army_trigger
 				OR = {
 					num_subjects > 5
-					check_variable = { GER_occupied_states_europe > 49 }
+					check_variable = { GER_occupied_states_europe > 120 }
 				}
 			}
 		}
@@ -10692,7 +10692,7 @@ focus_tree = {
 				tooltip = GER_an_invincible_army_trigger
 				OR = {
 					num_subjects > 5
-					check_variable = { GER_occupied_states_europe > 49 }
+					check_variable = { GER_occupied_states_europe > 200 }
 				}
 			}
 			custom_trigger_tooltip = { 
@@ -13717,42 +13717,8 @@ focus = {
 
 	focus = {
 		id = GER_first_ljubljana_award
-		icon = GFX_goal_generic_military_deal
 		prerequisite = { focus = GER_demand_slovenia }
-
-		x = 0
-		y = 1
-		relative_position_id = GER_demand_slovenia
-		cost = 5
-		
-		bypass = {
-			OR = {	
-				is_in_faction_with = YUG
-				has_war_with = YUG
-				YUG = { has_non_aggression_pact_with = GER }
-				YUG = { has_opinion_modifier = tripartite_pact_opinion }
-				NOT = { country_exists = YUG }
-				NOT = {
-					OR = {
-						YUG = {
-							owns_state = 45
-						}
-						45 = { owner = { is_subject_of = YUG } }
-						
-						YUG = {
-							owns_state = 106
-						}
-						106 = { owner = { is_subject_of = YUG } }
-					}
-				}
-				AND = {
-					HUN = { is_friend_or_potential_friend_of_GER = no }
-					BUL = { is_friend_or_potential_friend_of_GER = no }
-					ITA = { is_friend_or_potential_friend_of_GER = no }
-				}
-			}
-		}
-
+		icon = GFX_goal_generic_military_deal
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = YUG }
@@ -13763,10 +13729,8 @@ focus = {
 					country_exists = YUG
 					NOT = { has_war_with = YUG }
 					OR = {
-						owns_state = 102
-						102 = { owner = { is_subject_of = YUG } }
-						owns_state = 853
-						853 = { owner = { is_subject_of = YUG } }
+						owns_state = 743
+						743 = { owner = { is_subject_of = YUG } }
 					}
 				}
 				custom_trigger_tooltip = {
@@ -13774,44 +13738,36 @@ focus = {
 					AND = {
 						NOT = { country_exists = YUG }
 						OR = {
-							owns_state = 102
-							102 = { owner = { is_subject_of = YUG } }
+							owns_state = 743
+							743 = { owner = { is_subject_of = YUG } }
 						}
 						OR = {
-							owns_state = 853
-							853 = { owner = { is_subject_of = YUG } }
-						}
-						OR = {
-							owns_state = 45
-							45 = { owner = { is_subject_of = YUG } }
+							owns_state = 1514
+							1514 = { owner = { is_subject_of = YUG } }
 						}
 						OR = { #Macedonia
-							owns_state = 106
-							106 = { owner = { is_subject_of = YUG } }
+							owns_state = 1529
+							1529 = { owner = { is_subject_of = YUG } }
 						}
 						OR = { #New Southern Serbia state
-							owns_state = 803
-							803 = { owner = { is_subject_of = YUG } }
+							owns_state = 846
+							846 = { owner = { is_subject_of = YUG } }
 						}
 						OR = { #Herzegovina
-							owns_state = 804
-							804 = { owner = { is_subject_of = YUG } }
+							owns_state = 1499
+							1499 = { owner = { is_subject_of = YUG } }
 						}
 						OR = { #Kosovo
-							owns_state = 802
-							802 = { owner = { is_subject_of = YUG } }
+							owns_state = 858
+							858 = { owner = { is_subject_of = YUG } }
 						}
 						OR = {
-							owns_state = 103
-							103 = { owner = { is_subject_of = YUG } }
+							owns_state = 1563
+							1563 = { owner = { is_subject_of = YUG } }
 						}
 						OR = {
-							owns_state = 105
-							105 = { owner = { is_subject_of = YUG } }
-						}
-						OR = {
-							owns_state = 970
-							970 = { owner = { is_subject_of = YUG } }
+							owns_state = 881
+							881 = { owner = { is_subject_of = YUG } }
 						}
 					}
 				}
@@ -13826,20 +13782,43 @@ focus = {
 			}
 		}
 
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				OR = {
-					has_government = democratic
-					has_government = communism
+		bypass = {
+			OR = {	
+				is_in_faction_with = YUG
+				YUG = { has_non_aggression_pact_with = GER }
+				YUG = { has_opinion_modifier = tripartite_pact_opinion }
+				NOT = { country_exists = YUG }
+				NOT = {
+					OR = {
+						YUG = {
+							owns_state = 1514
+						}
+						1514 = { owner = { is_subject_of = YUG } }
+						
+						YUG = {
+							owns_state = 1529
+						}
+						1529 = { owner = { is_subject_of = YUG } }
+					}
+				}
+				AND = {
+					HUN = { is_friend_or_potential_friend_of_GER = no }
+					BUL = { is_friend_or_potential_friend_of_GER = no }
+					ITA = { is_friend_or_potential_friend_of_GER = no }
 				}
 			}
 		}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
+		x = 0
+		y = 1
+		relative_position_id = GER_demand_slovenia
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
 		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus GER_first_ljubljana_award
+		prerequisite = { focus = GER_demand_slovenia }"
 			if = {
 				limit = {
 					HUN = {
@@ -13851,8 +13830,8 @@ focus = {
 					if = {
 						limit = { 
 							OR = {
-								45 = { is_owned_by = YUG }
-								45 = { is_owned_by = GER }
+								1514 = { is_owned_by = YUG }
+								1514 = { is_owned_by = GER }
 							}
 						}
 						HUN = {
@@ -13866,13 +13845,13 @@ focus = {
 					if = {
 						limit = {
 								OR = {
-									45 = { is_owned_by = YUG }
-									45 = { is_owned_by = GER }
+									1514 = { is_owned_by = YUG }
+									1514 = { is_owned_by = GER }
 								}
 						}
 						HUN = {
 							add_opinion_modifier = { target = GER modifier = GER_first_ljubljana_award_GER }
-							transfer_state = 45
+							transfer_state = 1514
 						}
 					}
 				}
@@ -13895,10 +13874,10 @@ focus = {
 					if = {
 						limit = {
 							OR = {
-								106 = { is_owned_by = YUG }
-								106 = { is_owned_by = GER }
-								803 = { is_owned_by = YUG }
-								803 = { is_owned_by = GER }
+								1529 = { is_owned_by = YUG }
+								1529 = { is_owned_by = GER }
+								846 = { is_owned_by = YUG }
+								846 = { is_owned_by = GER }
 							}
 						}
 						BUL = { 
@@ -13912,27 +13891,27 @@ focus = {
 					if = {
 						limit = {
 							OR = {
-								106 = { is_owned_by = YUG }
-								106 = { is_owned_by = GER }
-								803 = { is_owned_by = YUG }
-								803 = { is_owned_by = GER }
+								1529 = { is_owned_by = YUG }
+								1529 = { is_owned_by = GER }
+								846 = { is_owned_by = YUG }
+								846 = { is_owned_by = GER }
 							}
 						}
 						BUL = {
 							add_opinion_modifier = { target = GER modifier = GER_first_ljubljana_award_GER }
 							if = {
 								limit = {
-									106 = { is_owned_by = YUG }
-									106 = { is_owned_by = GER }
+									1529 = { is_owned_by = YUG }
+									1529 = { is_owned_by = GER }
 								}
-								transfer_state = 106
+								transfer_state = 1529
 							}
 							if = {
 								limit = {
-									803 = { is_owned_by = YUG }
-									803 = { is_owned_by = GER }
+									846 = { is_owned_by = YUG }
+									846 = { is_owned_by = GER }
 								}
-								transfer_state = 803
+								transfer_state = 846
 							}
 						}
 					}
@@ -13950,7 +13929,7 @@ focus = {
 					ITA = {
 						OR = {
 							has_completed_focus = ITA_balkan_ambition
-							owns_state = 44
+							owns_state = 1521
 						}
 						is_friend_or_potential_friend_of_GER = yes
 						NOT = { is_in_faction_with = YUG }
@@ -13967,23 +13946,15 @@ focus = {
 						add_opinion_modifier = { target = GER modifier = GER_first_ljubljana_award_GER }
 						if = {
 							limit = { has_completed_focus = ITA_balkan_ambition }
-							transfer_state = 103
+							transfer_state = 1476
 						}
 						if = {
-							limit = { owns_state = 44 }
-							transfer_state = 105
+							limit = { owns_state = 1521 }
+							transfer_state = 881
 						}
 						if = {
-							limit = { owns_state = 44 }
-							transfer_state = 802
-						}
-						if = {
-							limit = { owns_state = 44 }
-							transfer_state = 934
-						}
-						if = {
-							limit = { owns_state = 44 }
-							transfer_state = 970
+							limit = { owns_state = 1521 }
+							transfer_state = 858
 						}
 					}
 				}
@@ -14141,9 +14112,10 @@ focus = {
 			GRE = { 
 				has_war = no 
 				is_subject = no
-				controls_state = 185 #Epirus
-				controls_state = 731 #Central Macedonia
-				controls_state = 184 #Thrace
+				controls_state = 941 #Epirus
+				controls_state = 995 #Central Macedonia
+				controls_state = 1539 #Thrace
+				controls_state = 2003 #Thrace
 			}
 			OR = {
 				AND = {
@@ -24643,7 +24615,7 @@ focus = {
 		}
 
 		bypass = {
-				912 = {
+				139 = {
 					OR = {
 						is_fully_controlled_by = ROOT
 						controller = { has_war_with = ROOT }
@@ -24660,13 +24632,15 @@ focus = {
 
 			add_named_threat = { threat = 2 name = GER_demand_the_return_of_southern_jutland }
 			
-			add_state_claim = 912
+			add_state_claim = 139
+			add_state_claim = 104
+			add_state_claim = 246
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
 			IF = {
 				limit = {
-					912 = {
+					139 = {
 						is_controlled_by = DEN
 					}
 				}
@@ -24687,15 +24661,15 @@ focus = {
 
 					custom_effect_tooltip = generic_skip_one_line_tt
 					
-					912 = {
-						transfer_state_to = ROOT
-						add_core_of = ROOT
+					104 = {transfer_state_to = ROOT add_core_of = ROOT }
+					246 = {transfer_state_to = ROOT add_core_of = ROOT }
+					139 = {transfer_state_to = ROOT add_core_of = ROOT }
 					}
 				}
 			}
 			else_if = {
 				limit = {
-					912 = {
+					104 = {
 						controller = {
 							NOT = {
 								is_subject_of = ROOT
@@ -24703,7 +24677,7 @@ focus = {
 						}
 					}
 				}
-				912 = {
+				104 = {
 					controller = {
 						country_event = {
 							id = wuw_GER_diplomacy.60
@@ -24722,14 +24696,13 @@ focus = {
 
 					custom_effect_tooltip = generic_skip_one_line_tt
 					
-					912 = {
-						transfer_state_to = ROOT
-						add_core_of = ROOT
-					}
+					104 = {transfer_state_to = ROOT add_core_of = ROOT }
+					246 = {transfer_state_to = ROOT add_core_of = ROOT }
+					139 = {transfer_state_to = ROOT add_core_of = ROOT }
 				}
 			}			
 			else = {
-				912 = {
+				104 = {
 					controller = {
 						country_event = {
 							id = wuw_GER_diplomacy.63
@@ -24738,11 +24711,10 @@ focus = {
 					}
 				}
 				effect_tooltip = {
-					912 = {
-						transfer_state_to = ROOT
-						add_core_of = ROOT
-					}
-				}
+					104 = {transfer_state_to = ROOT add_core_of = ROOT }
+					246 = {transfer_state_to = ROOT add_core_of = ROOT }
+					139 = {transfer_state_to = ROOT add_core_of = ROOT }
+				
 			}
 		}
 	}
