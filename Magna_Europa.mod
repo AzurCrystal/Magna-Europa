@@ -2,7 +2,7 @@ version="0.1"
 tags={
 	"Map"
 }
-name="Magna Europa"
+name="Magna Europa Alpha Build 1.16.10"
 picture="thumbnail.png"
 replace_path="history/countries"
 replace_path="history/states"
