@@ -18261,9 +18261,9 @@ country_event = {
 					transfer_troops = yes
 				}
 			}
-			ROOT = {
+			FROM = {
 				every_core_state = {		
-					add_core_of = FROM
+					add_core_of = ROOT
 				}
 			}
 
@@ -18343,56 +18343,47 @@ country_event = {
 }
 
 # [FROM.GetNameDefCap] Accepts our offer - event for GER
-country_event = { 
-	id = wuw_GER_realpolitik.37
-	title = wuw_GER_realpolitik.37.t
-	desc = wuw_GER_realpolitik.37.desc
-	picture = GFX_report_event_generic_sign_treaty2
+country_event = {
+  id = wuw_GER_realpolitik.37
+  title = wuw_GER_realpolitik.37.t
+  desc = wuw_GER_realpolitik.37.desc
+  picture = GFX_report_event_generic_sign_treaty2
+  is_triggered_only = yes
 
-	is_triggered_only = yes
+  option = {
+    name = wuw_GER_realpolitik.37.a
 
-	option = { # A great day for the [ROOT.GetAdjective] nation!
-		name = wuw_GER_realpolitik.37.a  
-		
-		annex_country = {
-			target = FROM
-			transfer_troops = yes
-		}
+    # 1) Deutschland erhält Cores auf alle österreichischen Kernstaaten
+    FROM = {
+      every_core_state = {
+        add_core_of = ROOT
+      }
+    }
 
-		custom_effect_tooltip =  generic_skip_one_line_tt
-		
-		FROM = {
-			every_core_state = {		
-				add_core_of = ROOT
-			}
-		}
+    # 2) Annexion (Trupptransfer bleibt)
+    annex_country = {
+      target = FROM
+      transfer_troops = yes
+    }
 
-		GER_anschluss_modify_mefo_bills_or_economy_of_conquest = yes
-		GER_seize_gold_reserves_in_europe_peacefully = yes
-		add_to_variable = { var = GER_mefo_bill_counter value = -10 }
+    custom_effect_tooltip = generic_skip_one_line_tt
 
-		IF = {
-			limit = { AUS = { has_completed_focus = AUS_bring_generals_out_of_retirement } }
+    # Rest unverändert …
+    GER_anschluss_modify_mefo_bills_or_economy_of_conquest = yes
+    GER_seize_gold_reserves_in_europe_peacefully = yes
+    add_to_variable = { var = GER_mefo_bill_counter value = -10 }
 
-			AUS = {
-				AUS_wilhelm_gebauer = {
-					set_nationality = ROOT
-				}
-			}
-		}
+    IF = {
+      limit = { AUS = { has_completed_focus = AUS_bring_generals_out_of_retirement } }
+      AUS = { AUS_wilhelm_gebauer = { set_nationality = ROOT } }
+    }
+    AUS = {
+      AUS_ludwig_von_eimannsberger = { set_nationality = ROOT }
+      AUS_anton_kienbauer           = { set_nationality = ROOT }
+    }
 
-		AUS = {
-			AUS_ludwig_von_eimannsberger = {
-				set_nationality = ROOT
-			}
-
-			AUS_anton_kienbauer = {
-				set_nationality = ROOT
-			}
-		}
-
-		set_country_flag = GER_got_austrian_generals
-	}
+    set_country_flag = GER_got_austrian_generals
+  }
 }
 
 # [FROM.GetNameDefCap] Rejects our offer - event for GER
@@ -18418,33 +18409,19 @@ country_event = {
 
 	# [FROM.GetNameDefCap] is [ROOT.GetAdjective]!
 	option = { 
-		name = wuw_GER_realpolitik.38.b	
-		ai_chance = {
-			base = 90
-		}
+		name = wuw_GER_realpolitik.38.b
+		ai_chance = { base = 90 }
 
-		create_wargoal = {
-			type = annex_everything
-			target = FROM
-		}	
-
+		create_wargoal = { type = annex_everything target = FROM }
 		custom_effect_tooltip = generic_skip_one_line_tt
 
-		every_state = {
-			limit = {
-				OR = {
-					state = 848
-					state = 153
-					state = 152
-					state = 976
-					state = 4
-					state = 975
-				}
+		AUS = {
+			every_core_state = {
+			add_core_of = GER
 			}
-			add_core_of = ROOT
 		}
-
 	}
+
 }
 
 # Germany invites us to their faction and offers us land - event for Hungary
@@ -18521,14 +18498,91 @@ country_event = {
 		every_state = {
 			limit = {
 				OR = {
-					state = 664
-					state = 73
-					state = 76
-					state = 84
-					state = 83
-					state = 82
-					state = 45
-					state = 975
+#Burgenland
+							state = 1805
+							state = 621
+
+							#S Slovakia
+							state = 610
+							state = 580
+							state = 1439
+							state = 1438
+							state = 1442
+
+							#Carpathia
+							state = 593
+							state = 2930
+							state = 1607
+							state = 1608
+							state = 2246
+							state = 564
+							state = 2247
+
+							#Murgebiet
+							state = 695
+							state = 712
+							#Vojvodina
+							state = 1472
+							state = 2856
+							state = 1515
+							state = 735
+							state = 1514
+							state = 1516
+
+							#Banat
+							state = 1513
+							state = 738
+							state = 1512
+							state = 2933
+
+							#Transilvania
+
+							#North
+							state = 664
+							state = 2671
+							state = 2859
+							state = 622
+							state = 2675
+							state = 639
+							state = 2676
+							state = 2860
+							state = 2672
+							state = 628
+							state = 1582
+							state = 2680
+							state = 649
+							state = 2673
+							state = 665
+							state = 680
+							state = 1587
+							state = 674
+							state = 1584
+
+							#South
+							state = 705
+							state = 2674
+							state = 2669
+							state = 2679
+							state = 686
+							state = 2678
+							state = 692
+							state = 2261
+							state = 713
+							state = 727
+							state = 2024
+							state = 1583
+							state = 730
+							state = 1584
+							state = 1585
+							state = 737
+
+							#Banat ROM
+							state = 2668
+							state = 736
+							state = 2670
+							state = 1581
+							state = 756
+							state = 2677 
 				}
 			}
 			add_claim_by = ROOT
@@ -18542,14 +18596,91 @@ country_event = {
 			every_controlled_state = {
 				limit = {
 					OR = {
-						state = 664
-						state = 73
-						state = 76
-						state = 84
-						state = 83
-						state = 82
-						state = 45
-						state = 975
+#Burgenland
+							state = 1805
+							state = 621
+
+							#S Slovakia
+							state = 610
+							state = 580
+							state = 1439
+							state = 1438
+							state = 1442
+
+							#Carpathia
+							state = 593
+							state = 2930
+							state = 1607
+							state = 1608
+							state = 2246
+							state = 564
+							state = 2247
+
+							#Murgebiet
+							state = 695
+							state = 712
+							#Vojvodina
+							state = 1472
+							state = 2856
+							state = 1515
+							state = 735
+							state = 1514
+							state = 1516
+
+							#Banat
+							state = 1513
+							state = 738
+							state = 1512
+							state = 2933
+
+							#Transilvania
+
+							#North
+							state = 664
+							state = 2671
+							state = 2859
+							state = 622
+							state = 2675
+							state = 639
+							state = 2676
+							state = 2860
+							state = 2672
+							state = 628
+							state = 1582
+							state = 2680
+							state = 649
+							state = 2673
+							state = 665
+							state = 680
+							state = 1587
+							state = 674
+							state = 1584
+
+							#South
+							state = 705
+							state = 2674
+							state = 2669
+							state = 2679
+							state = 686
+							state = 2678
+							state = 692
+							state = 2261
+							state = 713
+							state = 727
+							state = 2024
+							state = 1583
+							state = 730
+							state = 1584
+							state = 1585
+							state = 737
+
+							#Banat ROM
+							state = 2668
+							state = 736
+							state = 2670
+							state = 1581
+							state = 756
+							state = 2677 
 					}
 				}
 				transfer_state_to = ROOT
