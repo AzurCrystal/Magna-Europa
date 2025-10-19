@@ -9080,58 +9080,22 @@ focus_tree = {
 		available = {
 			
 			NOT = {
-				155 = {
-					is_core_of = ROOT
-				}
-				43 = {
-					is_core_of = ROOT
-				}
-				154 = {
-					is_core_of = ROOT
-				}
-				973 = {
-					is_core_of = ROOT
-				}
-				974 = {
-					is_core_of = ROOT
+				any_state {
+					is_core_of = HUN
+					is_core_of = AUS
 				}
 			}
 		
 		}
 		
 		bypass = { #both this and the mutually exclusive is not available
-			155 = {
-				is_core_of = ROOT
+			any_state = {
+				is_core_of = HUN
+				is_core_of = AUS
 			}
-			43 = {
-				is_core_of = ROOT
-			}
-			154 = {
-				is_core_of = ROOT
-			}
-			973 = {
-				is_core_of = ROOT
-			}
-			974 = {
-				is_core_of = ROOT
-			}
-			69 = {
-				is_core_of = ROOT
-			}
-			972 = {
-				is_core_of = ROOT
-			}
-			9 = {
-				is_core_of = ROOT
-			}
-			75 = {
-				is_core_of = ROOT
-			}
-			74 = {
-				is_core_of = ROOT
-			}
-			526 = {
-				is_core_of = ROOT
+			any_state = {
+				is_core_of = CZE
+				is_core_of = AUS
 			}
 		}
 
@@ -9545,7 +9509,7 @@ focus_tree = {
 		}
 
 		available = {
-			has_global_flag = second_italo_ethiopian_war_flag
+			date < 1937.2.19
 		}
 		
 		bypass = {
@@ -11181,7 +11145,7 @@ focus_tree = {
 
 		available = {
 			
-			976 = {
+			1808 = {
 				is_owned_and_controlled_by = ROOT
 			}
 			has_tech = excavation1
@@ -11189,7 +11153,7 @@ focus_tree = {
 		
 		bypass = {
 			
-			976 = {
+			1808 = {
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11201,7 +11165,7 @@ focus_tree = {
 		completion_reward = {
 
 			
-			976 = {
+			1808 = {
 				add_resource = {
 					type = steel
 					amount = 12
@@ -11272,14 +11236,14 @@ focus_tree = {
 		}
 
 		available = {
-			152 = {
+			1812 = {
 				is_owned_and_controlled_by = ROOT
 			}
 			has_tech = excavation2
 		}
 		
 		bypass = {
-			152 = {
+			1812 = {
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11290,7 +11254,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			152 = {
+			1812 = {
 				add_resource = {
 					type = steel
 					amount = 14
@@ -11325,13 +11289,13 @@ focus_tree = {
 		}
 
 		available = {
-			4 = {
+			1815 = {
 				is_owned_and_controlled_by = ROOT
 			}
 		}
 		
 		bypass = {
-			4 = {
+			1815 = {
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11366,7 +11330,7 @@ focus_tree = {
 						
 			}
 
-			4 = {
+			1815 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = synthetic_refinery
@@ -11403,13 +11367,13 @@ focus_tree = {
 		}
 
 		available = {
-			4 = {
+			1815 = {
 				is_owned_and_controlled_by = ROOT
 			}
 		}
 		
 		bypass = {
-			4 = {
+			1815 = {
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11420,7 +11384,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			4 = {
+			1815 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -11433,7 +11397,7 @@ focus_tree = {
 				limit = {
 					has_tech = fuel_silos
 				}
-				4 = {
+				1815 = {
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = fuel_silo
@@ -11489,10 +11453,10 @@ focus_tree = {
 
 		available = {
 			has_tech = excavation3
-			975 = {
+			568 = {
 				is_owned_and_controlled_by = ROOT
 			}
-			4 = {
+			1803 = {
 				is_owned_and_controlled_by = ROOT
 			}
 			
@@ -11506,14 +11470,14 @@ focus_tree = {
 
 		completion_reward = {
 
-			975 = {
+			568 = {
 				add_resource = {
 					type = oil
 					amount = 8
 				}	
 			}
 
-			4 = {
+			1803 = {
 				add_resource = {
 					type = oil
 					amount = 10
@@ -11586,10 +11550,16 @@ focus_tree = {
 
 		available = {
 			AND = {
-				152 = {
+				1795 = {
 					is_owned_and_controlled_by = ROOT
 				}
-				4 = {
+				1798 = {
+					is_owned_and_controlled_by = ROOT
+				}
+				644 = {
+					is_owned_and_controlled_by = ROOT
+				}
+				582= {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -11605,14 +11575,33 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					152 = {
+					1795 = {
 						free_building_slots = {
 						    building = infrastructure
 						    size > 0
 						}
 					}
 				}
-				152 = {
+				1795 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				
+			}
+
+			IF = {
+				limit = {
+					1798 = {
+						free_building_slots = {
+						    building = infrastructure
+						    size > 0
+						}
+					}
+				}
+				1798 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -11623,14 +11612,32 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					4 = {
+					644 = {
 						free_building_slots = {
 						    building = infrastructure
 						    size > 0
 						}
 					}
 				}
-				4 = {
+				644 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+
+			IF = {
+				limit = {
+					582 = {
+						free_building_slots = {
+						    building = infrastructure
+						    size > 0
+						}
+					}
+				}
+				582 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -11679,10 +11686,10 @@ focus_tree = {
 		available = {
 	
 			AND = {
-				152 = {
+				679 = {
 					is_owned_and_controlled_by = ROOT
 				}
-				976 = {
+				1797 = {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -11699,14 +11706,14 @@ focus_tree = {
 			IF = {
 				limit = {
 					# TODO: Should be Styria
-					152 = {
+					679 = {
 						free_building_slots = {
 						    building = infrastructure
 						    size > 1
 						}
 					}
 				}
-				152 = {
+				679 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -11716,7 +11723,7 @@ focus_tree = {
 				ELSE_IF = {
 					limit = {
 						# TODO: Should be Styria
-						152 = {
+						679 = {
 							NOT = {
 								free_building_slots = {
 								    building = infrastructure
@@ -11729,7 +11736,7 @@ focus_tree = {
 							}
 						}
 					}
-					152 = {
+					679 = {
 						add_building_construction = {
 							type = infrastructure
 							level = 1
@@ -11741,14 +11748,14 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					976 = {
+					1797 = {
 						free_building_slots = {
 						    building = infrastructure
 						    size > 0
 						}
 					}
 				}
-				976 = {
+				1797 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -11795,7 +11802,10 @@ focus_tree = {
 		}
 
 		available = {
-			975 = {
+			1805 = {
+				is_owned_and_controlled_by = ROOT
+			}
+			621 = {
 				is_owned_and_controlled_by = ROOT
 			}
 		}
@@ -11811,14 +11821,14 @@ focus_tree = {
 			IF = {
 				limit = {
 					# TODO: Should be Burgenland
-					975 = {
+					1805 = {
 						free_building_slots = {
 						    building = infrastructure
 						    size > 1
 						}
 					}
 				}
-				975 = {
+				1805 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 2
@@ -11828,7 +11838,7 @@ focus_tree = {
 				ELSE_IF = {
 					limit = {
 						# TODO: Should be Burgenland
-						975 = {
+						1805 = {
 							NOT = {
 								free_building_slots = {
 								    building = infrastructure
@@ -11841,7 +11851,50 @@ focus_tree = {
 							}
 						}
 					}
-					975 = {
+					1805 = {
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+
+			IF = {
+				limit = {
+					# TODO: Should be Burgenland
+					621 = {
+						free_building_slots = {
+						    building = infrastructure
+						    size > 1
+						}
+					}
+				}
+				621 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 2
+						instant_build = yes
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						# TODO: Should be Burgenland
+						621 = {
+							NOT = {
+								free_building_slots = {
+								    building = infrastructure
+								    size > 1
+								}
+							}
+							free_building_slots = {
+							    building = infrastructure
+							    size > 0
+							}
+						}
+					}
+					621 = {
 						add_building_construction = {
 							type = infrastructure
 							level = 1
