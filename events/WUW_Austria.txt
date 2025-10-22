@@ -152,12 +152,12 @@ country_event = { #Worry Regarding Anschluss
 		AND = {
 			GER = {
 				has_completed_focus = GER_remilitarize_the_rhineland
-				controls_state = 51
-				controls_state = 42
+				controls_state = 469
+				controls_state = 1763
 			}
 
-			51 = { is_demilitarized_zone = no }
-			42 = { is_demilitarized_zone = no }
+			469 = { is_demilitarized_zone = no }
+			1763 = { is_demilitarized_zone = no }
 
 			original_tag = AUS
 			has_dlc = "Gotterdammerung"
@@ -3353,32 +3353,32 @@ country_event = { #Austria picks cosmetic tag, and in what way and to what exten
 
 	}
 
-	option = { #We shall be known as Süddeutschland, instant cores on Oberbayern, Niederbayern, Württemberg and Franken
-		name = AUS_political_events.36.b
-		ai_chance = {
-			base = 10
-		}
-
-		add_state_core = 50 #Württemberg
-		add_state_core = 978 #Baden
-		add_state_core = 52 #Oberbayern
-		add_state_core = 53 #Niederbayern
-		add_state_core = 54 #Franken
-
-		IF = {
-			limit = {
-				has_government = fascism
-			}
-			set_cosmetic_tag = AUS_suddeutschland_fascism
-		}
-
-		ELSE_IF = {
-			limit = {
-				has_government = neutrality
-			}
-			set_cosmetic_tag = AUS_suddeutschland_neutrality
-		}
-	}
+	#option = { #We shall be known as Süddeutschland, instant cores on Oberbayern, Niederbayern, Württemberg and Franken
+	#	name = AUS_political_events.36.b
+	#	ai_chance = {
+	#		base = 10
+	#	}
+	#
+	#	add_state_core = 50 #Württemberg
+	#	add_state_core = 978 #Baden
+	#	add_state_core = 52 #Oberbayern
+	#	add_state_core = 53 #Niederbayern
+	#	add_state_core = 54 #Franken
+	#
+	#	IF = {
+	#		limit = {
+	#			has_government = fascism
+	#		}
+	#		set_cosmetic_tag = AUS_suddeutschland_fascism
+	#	}
+	#
+	#	ELSE_IF = {
+	#		limit = {
+	#			has_government = neutrality
+	#		}
+	#		set_cosmetic_tag = AUS_suddeutschland_neutrality
+	#	}
+	#}
 
 	option = { #We are fine as we are!
 		name = AUS_political_events.36.c
@@ -5568,7 +5568,7 @@ country_event = { #FROM asks kindly to have silesia
 	}
 }
 
-country_event = { #FROM gives ROOT Silesia
+country_event = { #FROM gives ROOT territory
 	id = AUS_political_events.50
 	title = AUS_political_events.50.t
 	desc = AUS_political_events.50.desc
@@ -5577,54 +5577,92 @@ country_event = { #FROM gives ROOT Silesia
 
 	option = { #great!
 		name = AUS_political_events.50.a
-		ai_chance = {
-			base = 10
-		}
+		ai_chance = { base = 10 }
 
-		IF = {
-			limit = {
-				66 = {
-					is_controlled_by = FROM
-				}
-			}
-			66 = { #Niederschlesien
-				transfer_state_to = ROOT
-			}
-		}
+		# Für jeden relevanten State prüfen, ob FROM ihn hält – dann an ROOT übertragen
+		IF = { limit = { 523  = { is_controlled_by = FROM } } 523  = { transfer_state_to = ROOT } }
+		IF = { limit = { 1975 = { is_controlled_by = FROM } } 1975 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1977 = { is_controlled_by = FROM } } 1977 = { transfer_state_to = ROOT } }
+		IF = { limit = { 2329 = { is_controlled_by = FROM } } 2329 = { transfer_state_to = ROOT } }
+		IF = { limit = { 481  = { is_controlled_by = FROM } } 481  = { transfer_state_to = ROOT } }
+		IF = { limit = { 1654 = { is_controlled_by = FROM } } 1654 = { transfer_state_to = ROOT } }
+		IF = { limit = { 2262 = { is_controlled_by = FROM } } 2262 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1655 = { is_controlled_by = FROM } } 1655 = { transfer_state_to = ROOT } }
+		IF = { limit = { 2667 = { is_controlled_by = FROM } } 2667 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1428 = { is_controlled_by = FROM } } 1428 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1658 = { is_controlled_by = FROM } } 1658 = { transfer_state_to = ROOT } }
+		IF = { limit = { 461  = { is_controlled_by = FROM } } 461  = { transfer_state_to = ROOT } }
+		IF = { limit = { 2664 = { is_controlled_by = FROM } } 2664 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1653 = { is_controlled_by = FROM } } 1653 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1656 = { is_controlled_by = FROM } } 1656 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1657 = { is_controlled_by = FROM } } 1657 = { transfer_state_to = ROOT } }
+		IF = { limit = { 2665 = { is_controlled_by = FROM } } 2665 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1669 = { is_controlled_by = FROM } } 1669 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1662 = { is_controlled_by = FROM } } 1662 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1659 = { is_controlled_by = FROM } } 1659 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1663 = { is_controlled_by = FROM } } 1663 = { transfer_state_to = ROOT } }
+		IF = { limit = { 425  = { is_controlled_by = FROM } } 425  = { transfer_state_to = ROOT } }
+		IF = { limit = { 1664 = { is_controlled_by = FROM } } 1664 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1665 = { is_controlled_by = FROM } } 1665 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1660 = { is_controlled_by = FROM } } 1660 = { transfer_state_to = ROOT } }
+		IF = { limit = { 2482 = { is_controlled_by = FROM } } 2482 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1661 = { is_controlled_by = FROM } } 1661 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1666 = { is_controlled_by = FROM } } 1666 = { transfer_state_to = ROOT } }
+		IF = { limit = { 2562 = { is_controlled_by = FROM } } 2562 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1668 = { is_controlled_by = FROM } } 1668 = { transfer_state_to = ROOT } }
+		IF = { limit = { 1667 = { is_controlled_by = FROM } } 1667 = { transfer_state_to = ROOT } }
+		IF = { limit = { 415  = { is_controlled_by = FROM } } 415  = { transfer_state_to = ROOT } }
+		IF = { limit = { 2593 = { is_controlled_by = FROM } } 2593 = { transfer_state_to = ROOT } }
+		IF = { limit = { 441  = { is_controlled_by = FROM } } 441  = { transfer_state_to = ROOT } }
 
-		IF = {
-			limit = {
-				67 = {
-					is_controlled_by = FROM
-				}
-			}
-			67 = { #Oberschlesien
-				transfer_state_to = ROOT
-			}
-		}
-
-	
+		# Bonus für FROM: 1 Industrie in einer zufälligen eigenen Kernprovinz
 		FROM = {
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = FROM
 					NOT = {
-						state = 66
-						state = 67
+						state = 523
+						state = 1975
+						state = 1977
+						state = 2329
+						state = 481
+						state = 1654
+						state = 2262
+						state = 1655
+						state = 2667
+						state = 1428
+						state = 1658
+						state = 461
+						state = 2664
+						state = 1653
+						state = 1656
+						state = 1657
+						state = 2665
+						state = 1669
+						state = 1662
+						state = 1659
+						state = 1663
+						state = 425
+						state = 1664
+						state = 1665
+						state = 1660
+						state = 2482
+						state = 1661
+						state = 1666
+						state = 2562
+						state = 1668
+						state = 1667
+						state = 415
+						state = 2593
+						state = 441
 					}
 				}
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
 			}
 		}
-		
-		
 	}
 }
+
 
 country_event = { #FROM refuses to give ROOT Silesia
 	id = AUS_political_events.51
@@ -9428,7 +9466,7 @@ country_event = { #Austria informed of Italy backing down
 				create_wargoal = {
 					type = take_state_focus
 					target = AUS
-					generator = { 4 152 153 848 975 976 }
+					generator = { 1792 1793 1794 1795 1796 1797 1798 1799 1800 1801 1802 1803 1804 1805 1806 1807 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 568 582 621 625 635 644 654 679 681 }
 				}
 				
 			}
@@ -9480,17 +9518,15 @@ country_event = { #Austria informed of Italy supporting them
 		}
 
 		effect_tooltip = {
-			GER = {
-				add_state_claim = 4
-				add_state_claim = 152
-				add_state_claim = 153
-				add_state_claim = 848
-				add_state_claim = 975
-				add_state_claim = 976
+			every_state = {
+				limit = { is_owned_by = AUS }
+				add_claim_by = GER
+			}
+
 				create_wargoal = {
 					type = take_state_focus
 					target = AUS
-					generator = { 4 152 153 848 975 976 }
+					generator = { 1792 1793 1794 1795 1796 1797 1798 1799 1800 1801 1802 1803 1804 1805 1806 1807 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 568 582 621 625 635 644 654 679 681 }
 				}
 			} 
 
