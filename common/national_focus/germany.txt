@@ -10686,7 +10686,7 @@ focus_tree = {
 				tooltip = GER_an_invincible_army_trigger
 				OR = {
 					num_subjects > 5
-					check_variable = { GER_occupied_states_europe > 120 }
+					check_variable = { GER_occupied_states_europe > 200 }
 				}
 			}
 		}
@@ -10749,7 +10749,7 @@ focus_tree = {
 			}
 			custom_trigger_tooltip = { 
 				tooltip = GER_the_supreme_leader_trigger
-				check_variable = { GER_capitulated_major_countries > 2 }
+				check_variable = { GER_capitulated_major_countries > 3 }
 			}
 		}
 
@@ -10792,84 +10792,93 @@ focus_tree = {
 		}
 	}
 
-focus = {
-	id = GER_the_triumphant_will
-	icon = GFX_goal_support_fascism
-	prerequisite = { focus = GER_anschluss }
+	focus = {
+		id = GER_the_triumphant_will
+		icon = GFX_goal_support_fascism
+		prerequisite = { focus = GER_anschluss }
+		#mutually_exclusive = { focus = GER_integration_of_puppet_economies focus = GER_specialized_ss_commandos }
 
-	x = 4
-	y = 1
-	relative_position_id = GER_anschluss
-	cost = 5
-
-	available = {
-		custom_trigger_tooltip = {
-			tooltip = GER_improve_national_spirit_tooltip
-			OR = {
-				# GER kontrolliert 2475 oder 571
-				GER = { controls_state = 2475 }
-				GER = { controls_state = 571 }
-
-				# irgendein Verbündeter kontrolliert 2475 oder 571
-				any_other_country = {
-					is_in_faction_with = GER
-					OR = {
+		x = 4
+		y = 1
+		relative_position_id = GER_anschluss
+		cost = 5
+	
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_improve_national_spirit_tooltip
+				OR = {
+					GER = { controls_state = 2475 }
+					any_other_country = {
+						is_in_faction_with = GER
 						controls_state = 2475
+					}
+				}
+				OR = {
+					GER = { controls_state = 571 }
+					any_other_country = {
+						is_in_faction_with = GER
 						controls_state = 571
 					}
 				}
 			}
-		}
-	}
-
-	cancel = {
-		AND = {
-			has_war = no
-			571 = {
-				owner = {
-					NOT = { tag = GER }
-					NOT = { is_in_faction_with = GER }
-				}
-			}
-			2475 = {
-				owner = {
-					NOT = { tag = GER }
-					NOT = { is_in_faction_with = GER }
-				}
+			1650 = {
+				is_fully_controlled_by = ROOT
 			}
 		}
-	}
 
-	search_filters = { FOCUS_FILTER_POLITICAL }
-
-	completion_reward = {
-		swap_ideas = {
-			remove_idea = sour_loser
-			add_idea = triumphant_will
-		}
-
-		IF = {
-			limit = { has_dlc = "Gotterdammerung" }
-			custom_effect_tooltip = GER_build_volkshalle_landmark_tt
-			hidden_effect = {
-				3 = {
-					remove_building = {
-						type = landmark_berlin_reichstag
-						level = 1
-						province = 11711
+		cancel = {
+			AND = {
+				has_war = no
+				2475 = {
+					owner = {
+						NOT = { tag = GER }
+						NOT = { is_in_faction_with = GER }
 					}
-					add_building_construction = {
-						type = landmark_berlin_volkshalle
-						level = 1
-						instant_build = yes
-						province = 11711
+				}
+				571 = {
+					owner = {
+						NOT = { tag = GER }
+						NOT = { is_in_faction_with = GER }
 					}
 				}
 			}
 		}
-		custom_effect_tooltip = generic_skip_one_line_tt
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+
+			swap_ideas = {
+				remove_idea = sour_loser
+				add_idea = triumphant_will
+			}	
+
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
+				custom_effect_tooltip = GER_build_volkshalle_landmark_tt
+				hidden_effect = {
+					1650 = {
+						remove_building = {
+							type = landmark_berlin_reichstag
+							level = 1
+							province = 6521
+						}
+						add_building_construction = {
+							type = landmark_berlin_volkshalle
+							level = 1
+							instant_build = yes
+							province = 6521
+						}
+					}
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
+		}
 	}
-}
 
 
 	focus = {

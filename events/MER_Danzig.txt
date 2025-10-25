@@ -1,0 +1,35 @@
+#
+# MER_Danzig.txt
+# Event script for Danzig-related decisions / narrative choices.
+# These events are is_triggered_only so they can be called from focuses, decisions, or the console.
+# IDs use MER_danzig.* (change prefix if you prefer another namespace).
+#
+add_namespace = danzig
+
+country_event = {
+	id = danzig.1
+	title = danzig.1.t
+	desc = danzig.1.d
+	picture = GFX_report_event_german_troops
+
+	is_triggered_only = yes
+
+	option = { # Akzeptiere Annexion
+		name = danzig.1.a
+		ai_chance = { factor = 100 } # DNZ nimmt immer an
+		GER = {
+			annex_country = { target = DNZ }
+		}
+	}
+
+	option = { # Lehnt ab
+		name = danzig.1.b
+		ai_chance = { factor = 0 } # DNZ lehnt nie ab
+		GER = {
+			create_wargoal = {
+				type = annex_everything
+				target = DNZ
+			}
+		}
+	}
+}

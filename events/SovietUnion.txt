@@ -2466,7 +2466,7 @@ country_event = {
 #		name = soviet.73.a
 #	}
 #}
-# Peace with the allies?
+ Peace with the allies?
 country_event = {
 	id = soviet.74
 	immediate = { log = "[GetDateText]: [Root.GetName]: event soviet.74 FROM = [From.GetName]" }
@@ -2487,7 +2487,14 @@ country_event = {
 	option = { #no need for violence
 		name = soviet.74.a
 		ai_chance = { factor = 10000 }
-		white_peace = ENG
+		every_state = {
+			limit = {
+				is_core_of = POL
+				is_controlled_by = SOV
+				is_claimed_by = SOV
+			}
+			transfer_state_to = SOV
+		}
 		every_country = {
 			limit = {
 				is_in_faction_with = ENG
@@ -2497,6 +2504,7 @@ country_event = {
 				target = SOV
 				days = 90
 			}
+		white_peace = ENG
 		}
 	}
 	option = { #keep the war going

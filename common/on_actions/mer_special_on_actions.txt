@@ -607,4 +607,18 @@ on_actions = {
 			}
 		} 
 	}
+	on_war = {
+		effect = {
+			# on_war feuert i.d.R. für beide Seiten – daher beide Richtungen absichern
+			if = {
+				limit = {
+					DNZ = { exists = yes }
+						AND = { FROM = { tag = GER } TARGET = { tag = POL } 
+					}
+				}
+				DNZ = { country_event = { id = danzig.1 days = 1 } }
+			}
+		}
+	}
+
 }
