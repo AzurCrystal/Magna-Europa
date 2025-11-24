@@ -42,7 +42,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
-		value = -1 #because doctrine this = 1
+		value = 1 #because doctrine this = 1
 	}
 
 	ai_strategy = {
@@ -54,13 +54,13 @@ GER_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = mechanized
-		value = -5 #because doctrine this = 0
+		value = -3 #because doctrine this = 0
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = -7 #because doctrine this = 3
+		value = -5 #because doctrine this = 3
 	}
 
 	ai_strategy = {
@@ -111,17 +111,6 @@ GER_unit_production = {
 		id = artillery
 		value = 100 #20 to 40
 	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = -10
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized
-		value = -10
-	}
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype #Build these up over time, don't stall
 		id = anti_air_equipment
@@ -131,6 +120,12 @@ GER_unit_production = {
 		type = equipment_production_min_factories_archetype
 		id = artillery_equipment
 		value = 4
+	}
+	
+	ai_strategy = { #Germany struggles with manual management of this in an endless loop
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 1
 	}
 
 	ai_strategy = { #added to railway gun define (set to 0 by default, increased in default strategies)
@@ -356,7 +351,7 @@ GER_armored_production = {
 		original_tag = GER
 	}
 	enable = {
-		date > 1938.8.1
+		date > 1938.3.1
 		ai_wants_divisions > 10 #Decreasing the amount of tanks the AI wants
 	}
 	abort = {
@@ -380,7 +375,7 @@ GER_halt_light_armor_production_in_transitioning = {
 		has_template_majority_unit = medium_armor
 		OR = {
 			has_equipment = { light_tank_chassis > 600 }
-			date > 1938.8.1
+			date > 1938.1.1
 		}
 	}
 	abort = {
@@ -479,7 +474,13 @@ GER_highered_armored_production = {
 	abort = {
 		num_of_military_factories < 60
 	}
-
+	
+	ai_strategy = { #Germany struggles with manual management of this in an endless loop
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 1
+	}
+	
 	ai_strategy = {
 		type = role_ratio
 		id = armor
@@ -597,7 +598,7 @@ GER_how_about_some_more_transport_planes = {
 		original_tag = GER
 	}
 	enable = {
-		num_of_military_factories > 70
+		num_of_military_factories > 50
 	}
 	abort_when_not_enabled = yes
 
@@ -703,7 +704,7 @@ GER_war_with_poland = {
 	}
 }
 
-GER_danzig_or_war_preparation = {
+GER_danzig_of_war_preparation = {
 	allowed = {
 		original_tag = GER
 	}
@@ -714,7 +715,7 @@ GER_danzig_or_war_preparation = {
 		}
 		NOT = {
 			has_completed_focus = GER_danzig_or_war
-			owns_state = 280
+			owns_state = 85
 		}
 		country_exists = POL
 	}
@@ -726,7 +727,7 @@ GER_danzig_or_war_preparation = {
 				has_completed_focus = GER_danzig_or_war
 				GER = { has_war_with = POL }
 			}
-			owns_state = 280
+			owns_state = 85
 		}
 	}
 
@@ -768,8 +769,8 @@ GER_blitzkrieg_poland = {
 
 	ai_strategy = {
 		type = force_concentration_target_weight
-		state = 381 # Lodz
-		state = 508 # Warsaw
+		state = 87 # Lodz
+		state = 10 # Warsaw
 
 		value = 25 # +25%
 	}
@@ -777,11 +778,7 @@ GER_blitzkrieg_poland = {
 	ai_strategy = {
 		# Still need to defend at the maginot...
 		type = front_unit_request
-		state = 606
-		state = 566
-		state = 547 # Alsace-Lorraine
-
-
+		state = 28  # Alsace-Lorraine
 		value = 30  # +30 %
 	}
 }
@@ -817,8 +814,8 @@ GER_blitzkrieg_russia_with_force_concentration = {
 
 	ai_strategy = {
 		type = force_concentration_target_weight
-		state = 2135 # Minsk
-		state = 2081 # Kyiv
+		state = 206 # Minsk
+		state = 202 # Kyiv
 
 		value = 25 # +25%
 	}
@@ -1058,6 +1055,56 @@ GER_dont_join_gie_wars_early = {
 	}
 }
 
+GER_japan_ally = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		has_completed_focus = GER_befriend_japan
+		country_exists = JAP
+	}
+	abort = {
+		NOT = { country_exists = JAP }
+	}
+
+	ai_strategy = {
+		type = befriend
+		id = JAP
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = JAP
+		value = 200
+	}
+}
+
+GER_china_ally = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		OR = {
+			has_completed_focus = GER_befriend_china
+			has_completed_focus = GER_closer_sino_germanic_relations
+		}
+		country_exists = CHI
+	}
+	abort = {
+		NOT = { country_exists = CHI }
+	}
+
+	ai_strategy = {
+		type = befriend
+		id = CHI
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = CHI
+		value = 200
+	}
+}
 
 GER_turkey_ally = {
 	allowed = {
@@ -1263,31 +1310,7 @@ GER_force_concentration_through_maginot_hurts_too_much = {
 	}
 	enable = {
 		date < 1941.1.1  # Deactivate after some time
-		566 = { # Alsace-Lorraine
-			NOT = { is_controlled_by = GER }
-
-			any_province_building_level = {  # Only if Maginot is actually fortified
-				province = {
-					all_provinces = yes
-					limit_to_border = yes
-				}
-				building = bunker
-				level > 5
-			}
-		}
-		606 = { # Alsace-Lorraine
-			NOT = { is_controlled_by = GER }
-
-			any_province_building_level = {  # Only if Maginot is actually fortified
-				province = {
-					all_provinces = yes
-					limit_to_border = yes
-				}
-				building = bunker
-				level > 5
-			}
-		}
-		547 = { # Alsace-Lorraine
+		28 = { # Alsace-Lorraine
 			NOT = { is_controlled_by = GER }
 
 			any_province_building_level = {  # Only if Maginot is actually fortified
@@ -1440,6 +1463,39 @@ GER_play_nice_with_ribbentrop_pact = {
 	}
 }
 
+GER_tfv_protect_fascist_south_africa = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		has_country_flag = saf_fascist_uprising # Set from the national focus
+	}
+	abort = {
+		surrender_progress > 0.8
+		SAF = { has_civil_war = no }
+	}
+
+	ai_strategy = {
+		type = protect
+		id = SAF
+		value = 200
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = SAF
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = SAF
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = SAF
+		value = 200
+	}
+}
 
 GER_less_naval_focused_nation = {
 	allowed = {
@@ -1704,6 +1760,23 @@ GER_area_priority = {
 		value = 80
 	}
 
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 90
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = 75
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = 75
+	}
 
 	ai_strategy = {
 		type = area_priority
@@ -1722,6 +1795,11 @@ GER_area_priority = {
 		value = -70
 	}
 
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = -120 #less focus here
+	}
 
 	ai_strategy = {
 		type = area_priority
@@ -1737,7 +1815,7 @@ GER_start_the_blitz = {
 	enable = {
 		is_historical_focus_on = yes
 		has_war_with = ENG
-		ENG = { controls_state = 2475 } # Checks that they control London
+		ENG = { controls_state = 126 } # Checks that they control London
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
 		date > 1940.1.1
@@ -1747,13 +1825,13 @@ GER_start_the_blitz = {
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
+		id = 1 #Strategic Region ID - Southern England
 		value = 5000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 209 #Strategic Region ID - English Channel
+		id = 18 #Strategic Region ID - English Channel
 		value = -20000 #Too easy to lose planes here
 	}
 }
@@ -1765,7 +1843,7 @@ GER_upgrade_the_blitz = {
 	enable = {
 		is_historical_focus_on = yes
 		has_war_with = ENG
-		ENG = { controls_state = 2475 } # Checks that they control London
+		ENG = { controls_state = 126 } # Checks that they control London
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
 		date > 1940.3.1
@@ -1787,7 +1865,7 @@ GER_upgrade_the_blitz_again = {
 	enable = {
 		is_historical_focus_on = yes
 		has_war_with = ENG
-		ENG = { controls_state = 2475 } # Checks that they control London
+		ENG = { controls_state = 126 } # Checks that they control London
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
 		date > 1940.6.1
@@ -1797,7 +1875,7 @@ GER_upgrade_the_blitz_again = {
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
+		id = 1 #Strategic Region ID - Southern England
 		value = 10000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -1994,46 +2072,36 @@ AXIS_stay_away_from_the_royal_navy = {
   			}
 
 			# if we manage to get a foothold in UK we must do what we can to exploit it! (checks coastal states)
-			divisions_in_state = { state = 446 size < 1 } #Dover
-			divisions_in_state = { state = 413 size < 1 }
-			divisions_in_state = { state = 386 size < 1 }
-			divisions_in_state = { state = 356 size < 1 }
-			divisions_in_state = { state = 313 size < 1 }
-			divisions_in_state = { state = 290 size < 1 }
-			divisions_in_state = { state = 258 size < 1 }
-			divisions_in_state = { state = 234 size < 1 }
-			divisions_in_state = { state = 221 size < 1 }
-			divisions_in_state = { state = 193 size < 1 }
-			divisions_in_state = { state = 180 size < 1 }
-			divisions_in_state = { state = 183 size < 1 }
-			divisions_in_state = { state = 158 size < 1 }
-			divisions_in_state = { state = 213 size < 1 }
-			divisions_in_state = { state = 290 size < 1 }
-			divisions_in_state = { state = 293 size < 1 }
-			divisions_in_state = { state = 426 size < 1 }
-			divisions_in_state = { state = 410 size < 1 }
-			divisions_in_state = { state = 2959 size < 1 }
-			divisions_in_state = { state = 1535 size < 1 }
-			divisions_in_state = { state = 468 size < 1 }
-			divisions_in_state = { state = 462 size < 1 }
-
+			divisions_in_state = { state = 127 size < 1 }
+			divisions_in_state = { state = 126 size < 1 }
+			divisions_in_state = { state = 125 size < 1 }
+			divisions_in_state = { state = 129 size < 1 }
+			divisions_in_state = { state = 130 size < 1 }
+			divisions_in_state = { state = 131 size < 1 }
+			divisions_in_state = { state = 123 size < 1 }
+			divisions_in_state = { state = 122 size < 1 }
+			divisions_in_state = { state = 132 size < 1 }
+			divisions_in_state = { state = 121 size < 1 }
+			divisions_in_state = { state = 136 size < 1 }
+			divisions_in_state = { state = 120 size < 1 }
+			divisions_in_state = { state = 133 size < 1 }
 		}
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 209 #english channel
+		id = 18 #english channel
 		value = 600 # avoid doing missions as well
 	}
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 240 #around UK
+		id = 16 #around UK
 		value = 100
 	}
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 211 #around UK
+		id = 43 #around UK
 		value = 100
 	}
 }
@@ -2092,6 +2160,12 @@ AXIS_dont_mess_with_volunteers = {
 	ai_strategy = {
 		type = send_volunteers_desire
 		id = MAN
+		value = -500
+	}
+
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = MEN
 		value = -500
 	}
 }
@@ -2374,7 +2448,7 @@ GER_market_management_after_anschluss = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = infantry
-		value = 10000
+		value = 100000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -2407,7 +2481,7 @@ GER_market_management_after_sudetenland = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = infantry
-		value = 20000
+		value = 200000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -2442,7 +2516,7 @@ GER_market_management_after_sudetenland = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = train
-		value = 200
+		value = 400
 	}
 }
 
@@ -2524,6 +2598,31 @@ GER_my_precisioussss = {
 		id = MAN
 		value = -999
 	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = CHI
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = YUN
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = SHX
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = XSM
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = SIK
+		value = -999
+	}
 }
 
 GER_let_italy_handle_french_front_alone = {
@@ -2569,7 +2668,7 @@ GER_ITA_close_up_maginot_line_after_FRA_falls  = {
 			days_since_capitulated > 7 # let's give a week before things settle
 			days_since_capitulated < 90
 		}
-		NOT = { has_full_control_of_state = 571 }
+		NOT = { has_full_control_of_state = 28 }
 	}
 
 	abort_when_not_enabled = yes
@@ -2577,9 +2676,7 @@ GER_ITA_close_up_maginot_line_after_FRA_falls  = {
 	ai_strategy = {
 		type = front_control
 
-		state = 606 # close up maginot line
-		state = 566
-		state = 547
+		state = 28 # close up maginot line
 
 		ratio = 0.6
 
@@ -2592,9 +2689,7 @@ GER_ITA_close_up_maginot_line_after_FRA_falls  = {
 	ai_strategy = {
 		type = front_unit_request
 
-		state = 606
-		state = 566
-		state = 547
+		state = 28
 
 		value = 50 # lets put more units, should be safe
 	}
@@ -2704,14 +2799,13 @@ GER_around_the_maginot = {
 		}
 
 		#uh oh, they are pushing
-		1763 = {is_controlled_by = GER}
-		589 = {is_controlled_by = GER}
-		1764 = {is_controlled_by = GER}
-		2340 = {is_controlled_by = GER}
-		524 = {is_controlled_by = GER}
-		537 = {is_controlled_by = GER}
-		2337 = {is_controlled_by = GER}
-		# German - French Border Territory
+		42 = {
+			is_controlled_by = GER
+		}
+		978 = {
+			is_controlled_by = GER
+		}
+
 		# both low countries fell
 		OR = {
 			HOL = {
@@ -2888,7 +2982,7 @@ GER_have_some_train_production = {
 		date > 1936.7.1
 	}
 	abort_when_not_enabled = yes
-
+	
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = train
@@ -2972,13 +3066,13 @@ GER_vichy_has_served_its_purpose = {
 
 				count_triggers = { # Conditions for decision GER_case_anton
 					amount = 3 # lost control of ca half french north africa
-					1161 = { CONTROLLER = { has_war_with = ROOT } }
-					1120 = { CONTROLLER = { has_war_with = ROOT } }
-					1109 = { CONTROLLER = { has_war_with = ROOT } }
-					1187 = { CONTROLLER = { has_war_with = ROOT } }
-					1930 = { CONTROLLER = { has_war_with = ROOT } }
-					1124 = { CONTROLLER = { has_war_with = ROOT } }
-					1340 = { CONTROLLER = { has_war_with = ROOT } }
+					458 = { CONTROLLER = { has_war_with = ROOT } }
+					459 = { CONTROLLER = { has_war_with = ROOT } }
+					460 = { CONTROLLER = { has_war_with = ROOT } }
+					461 = { CONTROLLER = { has_war_with = ROOT } }
+					462 = { CONTROLLER = { has_war_with = ROOT } }
+					513 = { CONTROLLER = { has_war_with = ROOT } }
+					665 = { CONTROLLER = { has_war_with = ROOT } }
 				}
 			}
 		}
@@ -3155,14 +3249,14 @@ GER_blitz_france = {
 
 	ai_strategy = {
 		type = force_concentration_target_weight
-		state = 1324 # Nord-Pas_de_Calais
-		state = 517 # Picardy
-		state = 571 # Ile de France
-		state = 551 # Normandy
+		state = 29 # Nord-Pas_de_Calais
+		state = 785 # Picardy
+		state = 16 # Ile de France
+		state = 15 # Normandy
 		# include Belgium as well even though we hopefully have already taken it
-		state = 454 # Vlaanderen
-		state = 482 # Wallonie
-		state = 444 # Antwerpen
+		state = 6 # Vlaanderen
+		state = 34 # Wallonie
+		state = 977 # Antwerpen
 
 		value = 80 # +80%
 	}
@@ -3170,15 +3264,10 @@ GER_blitz_france = {
 	ai_strategy = {
 		# Avoid the areas behind the Maginot line
 		type = force_concentration_target_weight
-		state = 2613 # Champagne
-		state = 658
-
-		state = 626 # Franche-Comte
-		state = 547 # Alsace-Lorraine
-		state = 566
-		state = 606
-		state = 2608
-		state = 570 # Bourgogne
+		state = 18 # Champagne
+		state = 17 # Franche-Comte
+		state = 28 # Alsace-Lorraine
+		state = 27 # Bourgogne
 
 		value = -60 # -60%
 	}
@@ -3308,20 +3397,13 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 43 #Strategic Region ID - Eastern Poland
-		id = 42
-		id = 41
-		id = 96
+		id = 39 #Strategic Region ID - Eastern Poland
 		value = 20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 99 #Strategic Region ID - Ukraine
-		id = 100
-		id = 101
-		id = 106
-		id = 107
+		id = 130 #Strategic Region ID - Ukraine
 		value = 20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -3363,13 +3445,13 @@ GER_blitzkrieg_russia_soft  = { #Rolling incursions
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
+		id = 39 #Strategic Region ID - Southern England
 		value = 10000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
+		id = 130 #Strategic Region ID - Southern England
 		value = 10000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -3390,20 +3472,11 @@ GER_normandy_buffer = {
 	ai_strategy = {
 		type = put_unit_buffers
 		states = {
-			583
-			578
-			587
-			534
-			581
-			517
-			505
-			448
-			2874
-			472
-			2333
-			822
-			824
-			829
+			14
+			15
+			29
+			735
+			22
 		}
 		ratio = 0.11
 		area = normandy_landing_zone
@@ -3434,11 +3507,11 @@ GER_invasion_buffer = {
 	ai_strategy = {
 		type = put_unit_buffers
 		states = {
-			545
-			444
-			2985
-			684
-			760
+			15
+			14
+			23
+			29
+			6
 		}
 		ratio = 0.20
 		area = normandy_landing_zone
@@ -3527,6 +3600,7 @@ GER_push_back_our_coasts_until_overlord  = {
 
 	ai_strategy = {
 		type = front_unit_request
+
 		tag = BEL
 
 		value = 25
@@ -3560,7 +3634,7 @@ GER_pause_in_SOV = { #We got this far but our home is under siege
 		SOV = { has_capitulated = no }
 		OR = {
 			surrender_progress > 0.25
-			571 = {
+			16 = {
 				controller = {
 					has_war_with = GER
 				}
@@ -3626,7 +3700,7 @@ GER_make_some_radar_4 = {
 	}
 	enable = {
 		has_tech = radio_detection
-		867 = {
+		90 = {
 			is_controlled_by = FROM
 			free_building_slots = {
 				building = radar_station
@@ -3639,7 +3713,7 @@ GER_make_some_radar_4 = {
 	ai_strategy = {
 		type = build_building
 		id = radar_station
-		target = 867 #Kielce
+		target = 90 #Kielce
 		value = 2000
 	}
 }
@@ -3650,7 +3724,7 @@ GER_make_some_radar_5 = {
 	}
 	enable = {
 		has_tech = radio_detection
-		252 = {
+		763 = {
 			is_controlled_by = FROM
 			free_building_slots = {
 				building = radar_station
@@ -3663,7 +3737,7 @@ GER_make_some_radar_5 = {
 	ai_strategy = {
 		type = build_building
 		id = radar_station
-		target = 252 #Konigsberg
+		target = 763 #Konigsberg
 		value = 2000
 	}
 }
@@ -3674,7 +3748,7 @@ GER_make_some_radar_6 = {
 	}
 	enable = {
 		has_tech = radio_detection
-		402 = {
+		36 = {
 			is_controlled_by = FROM
 			free_building_slots = {
 				building = radar_station
@@ -3687,7 +3761,7 @@ GER_make_some_radar_6 = {
 	ai_strategy = {
 		type = build_building
 		id = radar_station
-		target = 402 #Holland
+		target = 36 #Holland
 		value = 2000
 	}
 }
@@ -3698,7 +3772,7 @@ GER_make_some_radar_7 = {
 	}
 	enable = {
 		has_tech = radio_detection
-		521 = {
+		42 = {
 			is_controlled_by = FROM
 			free_building_slots = {
 				building = radar_station
@@ -3711,7 +3785,7 @@ GER_make_some_radar_7 = {
 	ai_strategy = {
 		type = build_building
 		id = radar_station
-		target = 521 #Moselland
+		target = 42 #Moselland
 		value = 2000
 	}
 }
@@ -3727,8 +3801,6 @@ GER_focus_yugo = {
 	ai_strategy = {
 		type = strategic_air_importance
 		id = 24 #Strategic Region ID - Western Balkans
-		id = 22
-		id = 23
 		value = 30000
 	}
 }
@@ -3994,7 +4066,7 @@ GER_gotta_have_enough_medium_tanks = {
 		original_tag = GER
 	}
 	enable = {
-		date > 1939.1.1
+		date > 1938.8.1
 		has_tech = basic_medium_tank_chassis
 		stockpile_ratio = {
 			archetype = medium_tank_chassis
@@ -4002,11 +4074,17 @@ GER_gotta_have_enough_medium_tanks = {
 		}
 	}
 	abort_when_not_enabled = yes
-
+	
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 1
+	}
+	
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = medium_tank_chassis
-		value = 2  # Germany need medium tanks to crush the enemies!
+		value = 3  # Germany need medium tanks to crush the enemies!
 	}
 }
 
@@ -4056,11 +4134,11 @@ GER_dont_send_half_the_army_to_finland_if_not_in_our_faction = {
 		has_war_with = SOV
 		NOT = { is_in_faction_with = FIN }
 		has_military_access_to = FIN
-		4 = { is_controlled_by = ROOT }  # Germany still controls Finnmark in Northern Norway
+		925 = { is_controlled_by = ROOT }  # Germany still controls Finnmark in Northern Norway
 
 		# Safety measures, if Soviets have lost Leningrad or Novgorod the Finnish and German frontlines are probably close to becoming one, and then we need to disable the strategy
-		119 = { is_controlled_by = SOV }  # Leningrad
-		138 = { is_controlled_by = SOV }  # Novgorod
+		195 = { is_controlled_by = SOV }  # Leningrad
+		263 = { is_controlled_by = SOV }  # Novgorod
 	}
 	abort_when_not_enabled = yes
 
@@ -4083,10 +4161,10 @@ GER_dont_send_half_the_army_to_finland_if_not_in_our_faction = {
 		type = front_unit_request
 
 		# As long as the front touches any of these regions. I hope this doesn't mess up the bigger Eastern Front if the Finnish and German frontlines merge...
-		strategic_region = 113  # Eastern Finland
-		strategic_region = 114  # Northern Finland
-		strategic_region = 112  # East Karelia
-		strategic_region = 115  # Kola
+		strategic_region = 13  # Eastern Finland
+		strategic_region = 277  # Northern Finland
+		strategic_region = 265  # East Karelia
+		strategic_region = 12  # Kola
 
 		value = -90
 	}
@@ -4106,10 +4184,10 @@ GER_protect_swedish_ore = {
 		NOT = { has_war_with = SWE }
 		SWE = { has_capitulated = no }
 
-		75 = { is_fully_controlled_by = ROOT }
-		111 = { is_fully_controlled_by = ROOT }
-		124 = { is_fully_controlled_by = ROOT }
-		25 = { is_fully_controlled_by = ROOT }
+		142 = { is_fully_controlled_by = ROOT }
+		110 = { is_fully_controlled_by = ROOT }
+		143 = { is_fully_controlled_by = ROOT }
+		144 = { is_fully_controlled_by = ROOT }
 	}
 	abort_when_not_enabled = yes
 
@@ -4124,10 +4202,10 @@ GER_protect_swedish_ore = {
 
 		# states to put garrison orders (if no state is friendly, strat is invalid)
 		states = {
-			75
-			111
-			124
-			25
+			142
+			110
+			143
+			144
 		}
 
 		# ai areas that the orders will use these buffers in
@@ -4280,6 +4358,35 @@ GER_dont_DOW_benelux = { #Don't try to bypass Around the Maginot!
 	}
 }
 
+# FACTION RELATED STRATEGIES
+
+GER_base_faction_priorities = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	# Note these adds to the base, as defined in default
+	ai_strategy = {
+		type = spent_faction_initiative_priority
+		id = program
+		value = 15
+	}
+	ai_strategy = {
+		type = spent_faction_initiative_priority
+		id = unlock_faction_commander
+		value = 5
+	}
+	ai_strategy = {
+		type = spent_faction_initiative_priority
+		id = unlock_doctrine_sharing
+		value = 10
+	}
+}
+
+
 # SPECIAL PROJECT FACILITIES
 # Penemünde
 GER_build_an_air_facility_in_penemunde = {
@@ -4287,9 +4394,9 @@ GER_build_an_air_facility_in_penemunde = {
 		original_tag = GER
 	}
 	enable = {
-		1634 = { is_owned_and_controlled_by = GER }
+		62 = { is_owned_and_controlled_by = GER }
 		air_facility < 1 # one is enough
-		date > 1940.6.1 # Was 1937.2.1 Moving it to later in order to let them focus on building their indurty
+		date > 1940.6.1 # Was 1937.2.1 Moving it to later in order to let them focus on building their industry
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -4305,7 +4412,7 @@ GER_build_an_air_facility_anywhere = {
 		original_tag = GER
 	}
 	enable = {
-		1634 = { NOT = { is_owned_and_controlled_by = GER } }
+		62 = { NOT = { is_owned_and_controlled_by = GER } }
 		air_facility < 1 # one is enough
 		date > 1940.6.1 # Was 1937.2.1
 	}
@@ -4359,22 +4466,22 @@ GER_raid_the_north_sea = {
 
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 234 #Norwegian Sea
+		id = 45 #Norwegian Sea
 		value = 100
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 233 #Norwegian coast
+		id = 174 #Norwegian coast
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 236 #Eastern North Sea
+		id = 173 #Eastern North Sea
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 235 #Danish Belts
+		id = 207 #Danish Belts
 		value = 100
 	}
 }
@@ -4390,10 +4497,10 @@ GER_raid_the_atlantic = {
 		#Gotta control the Western coast of France
 		any_controlled_state = {
 			OR = {
-				state = 583
-				state = 615
-				state = 634
-				state = 684
+				state = 14
+				state = 30
+				state = 23
+				state = 19
 			}
 		}
 		has_navy_size = {
@@ -4405,10 +4512,10 @@ GER_raid_the_atlantic = {
 		has_war = no
 		NOT = {
 			any_controlled_state = {
-				state = 583
-				state = 615
-				state = 634
-				state = 684
+				state = 14
+				state = 30
+				state = 23
+				state = 19
 			}
 		}
 		has_navy_size = {
@@ -4420,32 +4527,32 @@ GER_raid_the_atlantic = {
 
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 220 #Bay of Biscay
+		id = 42 #Bay of Biscay
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 245 #Iberian Coast
+		id = 47 #Iberian Coast
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 249 #North Atlantic Ridge
+		id = 49 #North Atlantic Ridge
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 243 #North Atlantic Ridge
+		id = 49 #North Atlantic Ridge
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 233 #Denmark Strait
+		id = 44 #Denmark Strait
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 242 #Mid Atlantic
+		id = 56 #Mid Atlantic
 		value = 100
 	}
 }
