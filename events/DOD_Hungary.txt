@@ -1055,7 +1055,6 @@ country_event = {
 #Hungary challenges Little Entente - Romania or France (if in little entente) asked if it wants to intervene
 country_event = {
 	id = DOD_hungary.40
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.40 FROM = [From.GetName]" }
 	title = DOD_hungary.40.t
 	desc = DOD_hungary.40.desc
 	picture = GFX_report_event_generic_rally_3
@@ -1091,7 +1090,6 @@ country_event = {
 #Romania/France stands up to Hungary - Back down?
 country_event = {
 	id = DOD_hungary.41
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.41 FROM = [From.GetName]" }
 	title = DOD_hungary.41.t
 	desc = DOD_hungary.41.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1125,7 +1123,6 @@ country_event = {
 #Romania/France fold
 country_event = {
 	id = DOD_hungary.42
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.42 FROM = [From.GetName]" }
 	title = DOD_hungary.42.t
 	desc = DOD_hungary.42.desc
 	picture = GFX_report_event_vienna_award_hungary
@@ -1134,15 +1131,34 @@ country_event = {
 
 	option = { #Excellent!
 		name = DOD_hungary.42.a
-		if = {
+		IF = {
 			limit = {
 				has_dlc = "Arms Against Tyranny"
+				NOT = {
+					has_dlc = "Gotterdammerung"
+				}
 			}
 			remove_ideas = HUN_treaty_of_triannon_aat
 		}
-		else = {
+		ELSE_IF = {
+			limit = {
+				AND = {
+					NOT = {
+						has_dlc = "Arms Against Tyranny"
+						has_dlc = "Gotterdammerung"
+					}
+				}
+			}
 			remove_ideas = HUN_treaty_of_triannon
 		}
+
+		ELSE_IF = {
+			limit = {
+				has_dlc = "Gotterdammerung"
+			}
+			HUN_remove_trianon_effect = yes
+		}
+
 		news_event = { id = news.298 days = 1 }
 	}
 	
@@ -1150,7 +1166,6 @@ country_event = {
 #Hungary refuses to back down
 country_event = {
 	id = DOD_hungary.43
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.43 FROM = [From.GetName]" }
 	title = DOD_hungary.43.t
 	desc = DOD_hungary.43.desc
 	picture = GFX_report_event_hungarian_soldiers
@@ -1160,7 +1175,7 @@ country_event = {
 	option = { #war!
 		name = DOD_hungary.43.a
 		ai_chance = {
-			factor = 66
+			base = 66
 			modifier = {
 				threat > 0.5
 				factor = 0.5 #don't have time for this
@@ -1219,8 +1234,7 @@ country_event = {
 	option = { #on second thought...
 		name = DOD_hungary.43.b
 		ai_chance = {
-			factor = 34
-			
+			base = 34
 			modifier = {
 				factor = 0
 				has_war_with = HUN
@@ -1230,10 +1244,10 @@ country_event = {
 	}
 	
 }
-#Hungary folds
+
+# Hungary folds
 country_event = {
 	id = DOD_hungary.44
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.44 FROM = [From.GetName]" }
 	title = DOD_hungary.44.t
 	desc = DOD_hungary.44.desc
 	picture = GFX_report_event_generic_sign_treaty1
@@ -1247,10 +1261,9 @@ country_event = {
 	
 }
 
-#Intervention in Hungary - invite surrounding countries
+# Intervention in Hungary - invite surrounding countries
 country_event = {
 	id = DOD_hungary.45
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.45 FROM = [From.GetName]" }
 	title = DOD_hungary.45.t
 	desc = DOD_hungary.45.desc
 	picture = GFX_report_event_military_planning
@@ -1260,7 +1273,7 @@ country_event = {
 	option = {#yes 
 		name = DOD_hungary.45.a
 		ai_chance = {
-			factor = 70
+			base = 70
 		}
 		FROM = { add_to_faction = PREV }
 	}
@@ -1268,17 +1281,16 @@ country_event = {
 	option = {#no 
 		name = DOD_hungary.45.b
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
 		FROM = { country_event = { id = DOD_hungary.46 } }
 	}
 }
 
 
-#Intervention in Hungary - negative reply
+# Intervention in Hungary - negative reply
 country_event = {
 	id = DOD_hungary.46
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.46 FROM = [From.GetName]" }
 	title = DOD_hungary.46.t
 	desc = DOD_hungary.46.desc
 	picture = GFX_report_event_sign_treaty2
@@ -1290,7 +1302,6 @@ country_event = {
 		add_opinion_modifier = { target = FROM modifier = HUN_refused_alliance }
 	}
 }
-
 #Hungary demands transylvania - agree?
 country_event = {
 	id = DOD_hungary.50
@@ -4933,7 +4944,6 @@ country_event = {
 #Bled Agreement - Hungary asks for rearmament - France or Romania asked first
 country_event = {
 	id = DOD_hungary.140
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.140 FROM = [From.GetName]" }
 	title = DOD_hungary.140.t
 	desc = DOD_hungary.140.desc 
 	picture = GFX_report_event_hungary_parliament
@@ -4943,7 +4953,7 @@ country_event = {
 	option = {# allow
 		name = DOD_hungary.140.a
 		ai_chance = {
-			factor = 75
+			base = 75
 			modifier = {
 				threat < 0.5
 				factor = 2 #what's the worst that could happen
@@ -4993,7 +5003,7 @@ country_event = {
 	option = {# refuse
 		name = DOD_hungary.140.b
 		ai_chance = {
-			factor = 25
+			base = 25
 			modifier = {
 				is_historical_focus_on = yes
 				factor = 0
@@ -5006,7 +5016,6 @@ country_event = {
 #Bled Agreement - ROM/FRA has agreed, minors get to issue a response
 country_event = {
 	id = DOD_hungary.141
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.141 FROM = [From.GetName]" }
 	title = DOD_hungary.141.t
 	desc = DOD_hungary.141.desc 
 	picture = GFX_report_event_journalists_speech
@@ -5059,7 +5068,6 @@ country_event = {
 #Bled Agreement - HUN permitted to rearm
 country_event = {
 	id = DOD_hungary.142
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.142 FROM = [From.GetName]" }
 	title = DOD_hungary.142.t
 	desc = DOD_hungary.142.desc 
 	picture = GFX_report_event_generic_military_parade
@@ -5068,36 +5076,137 @@ country_event = {
 
 	option = {# 
 		name = DOD_hungary.142.a
-		if = {
-			limit = { 
-				OR = {
-					has_idea = HUN_treaty_of_triannon 
-					has_idea = HUN_treaty_of_triannon_aat
+
+		IF = {
+			limit = {
+				NOT = {
+					has_dlc = "Gotterdammerung"
 				}
 			}
-			if = {
+			IF = {
+				limit = { 
+					OR = {
+						has_idea = HUN_treaty_of_triannon 
+						has_idea = HUN_treaty_of_triannon_aat
+					}
+				}
+				IF = {
+					limit = {
+						has_dlc = "Arms Against Tyranny"
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_aat
+						add_idea = Hun_treaty_of_triannon_3
+					}
+				}
+				ELSE = {
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon
+						add_idea = Hun_treaty_of_triannon_3
+					}
+				}
+			}
+			IF = {
+				limit = { has_idea = HUN_treaty_of_triannon_2 }
+				swap_ideas = {
+					remove_idea = HUN_treaty_of_triannon_2
+					add_idea = HUN_treaty_of_triannon_3
+				}
+			}
+		}
+
+		ELSE_IF = {
+			limit = {
+				has_dlc = "Gotterdammerung"
+			}
+			IF = {
 				limit = {
-					has_dlc = "Arms Against Tyranny"
+					OR = {
+						has_idea = HUN_treaty_of_triannon_wuw
+						has_idea = HUN_treaty_of_triannon_aat_wuw
+						has_idea = HUN_treaty_of_triannon_wuw_no_army_exp_debuff
+						has_idea = HUN_treaty_of_triannon_aat_wuw_no_army_exp_debuff
+						has_idea = HUN_treaty_of_triannon_wuw_no_air_debuff
+						has_idea = HUN_treaty_of_triannon_aat_wuw_no_air_debuff
+						has_idea = HUN_treaty_of_triannon_wuw_no_air_or_army_debuff
+						has_idea = HUN_treaty_of_triannon_aat_wuw_no_air_or_army_debuff
+					}
 				}
-				swap_ideas = {
-					remove_idea = HUN_treaty_of_triannon_aat
-					add_idea = Hun_treaty_of_triannon_3
+				IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_wuw
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_wuw
+						add_idea = HUN_bled_agreement_wuw
+					}	
 				}
-			}
-			else = {
-				swap_ideas = {
-					remove_idea = HUN_treaty_of_triannon
-					add_idea = Hun_treaty_of_triannon_3
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_aat_wuw
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_aat_wuw
+						add_idea = HUN_bled_agreement_wuw
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_wuw_no_army_exp_debuff
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_wuw_no_army_exp_debuff
+						add_idea = HUN_bled_agreement_wuw
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_aat_wuw_no_army_exp_debuff
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_aat_wuw_no_army_exp_debuff
+						add_idea = HUN_bled_agreement_wuw
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_wuw_no_air_debuff
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_wuw_no_air_debuff
+						add_idea = HUN_bled_agreement_wuw
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_aat_wuw_no_air_debuff
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_aat_wuw_no_air_debuff
+						add_idea = HUN_bled_agreement_wuw
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_wuw_no_air_or_army_debuff
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_wuw_no_air_or_army_debuff
+						add_idea = HUN_bled_agreement_wuw
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						has_idea = HUN_treaty_of_triannon_aat_wuw_no_air_or_army_debuff
+					}
+					swap_ideas = {
+						remove_idea = HUN_treaty_of_triannon_aat_wuw_no_air_or_army_debuff
+						add_idea = HUN_bled_agreement_wuw
+					}
 				}
 			}
 		}
-		if = {
-			limit = { has_idea = HUN_treaty_of_triannon_2 }
-			swap_ideas = {
-				remove_idea = HUN_treaty_of_triannon_2
-				add_idea = HUN_treaty_of_triannon_3
-			}
-		}
+		
 	}
 	
 }
@@ -5105,7 +5214,6 @@ country_event = {
 #Bled Agreement - Neighbours issue a protest
 country_event = {
 	id = DOD_hungary.143
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.143 FROM = [From.GetName]" }
 	title = DOD_hungary.143.t
 	desc = DOD_hungary.143.desc 
 	picture = GFX_report_event_generic_read_write
@@ -5121,7 +5229,6 @@ country_event = {
 #Bled Agreement - Hungary denied rearmament
 country_event = {
 	id = DOD_hungary.144
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.144 FROM = [From.GetName]" }
 	title = DOD_hungary.144.t
 	desc = DOD_hungary.144.desc 
 	picture = GFX_report_event_generic_read_write
@@ -5153,7 +5260,6 @@ country_event = {
 #Bled Agreement - Hungary appeals
 country_event = {
 	id = DOD_hungary.145
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.145 FROM = [From.GetName]" }
 	title = DOD_hungary.145.t
 	desc = DOD_hungary.145.desc 
 	picture = GFX_report_event_hungary_refused
@@ -5255,7 +5361,6 @@ country_event = {
 #Bled Agreement - Hungary appeals to a major
 country_event = {
 	id = DOD_hungary.146
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.146 FROM = [From.GetName]" }
 	title = DOD_hungary.146.t
 	desc = DOD_hungary.146.desc 
 	picture = GFX_report_event_generic_sign_treaty1
@@ -5271,10 +5376,10 @@ country_event = {
 				factor = 10
 			}
 		}
-		if = { limit = { has_global_flag = HUN_FRA_engaged} 
+		IF = { limit = { has_global_flag = HUN_FRA_engaged} 
 			FRA = { country_event = { id = DOD_hungary.147 days = 1} }
 		}
-		if = { limit = { NOT = { has_global_flag = HUN_FRA_engaged } }
+		IF = { limit = { NOT = { has_global_flag = HUN_FRA_engaged } }
 			ROM = { country_event = { id = DOD_hungary.147 days = 1} }
 		}
 
@@ -5294,7 +5399,6 @@ country_event = {
 #Bled Agreement - Someone applies pressure to minors to let Hungary rearm
 country_event = {
 	id = DOD_hungary.147
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.147 FROM = [From.GetName]" }
 	title = DOD_hungary.147.t
 	desc = DOD_hungary.147.desc 
 	picture = GFX_report_event_generic_read_write
@@ -5337,7 +5441,6 @@ country_event = {
 #Bled Agreement - Hungary denied rearmament
 country_event = {
 	id = DOD_hungary.148
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_hungary.148 FROM = [From.GetName]" }
 	title = DOD_hungary.148.t
 	desc = DOD_hungary.148.desc 
 	picture = GFX_report_event_hungary_refused
@@ -5360,16 +5463,81 @@ country_event = {
 		ai_chance = {
 			factor = 80
 		}
+
 		add_threat = 5
-		if = {
+
+		IF = {
 			limit = {
-				has_dlc = "Arms Against Tyranny"
+				NOT = {
+					has_dlc = "Gotterdammerung"
+				}
 			}
-			remove_ideas = HUN_treaty_of_triannon_aat
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				remove_ideas = HUN_treaty_of_triannon_aat
+			}
+			ELSE = {
+				remove_ideas = HUN_treaty_of_triannon
+			}
 		}
-		else = {
-			remove_ideas = HUN_treaty_of_triannon
+
+		ELSE_IF = {
+			limit = {
+				has_dlc = "Gotterdammerung"
+			}
+			IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_wuw
+				}
+				remove_ideas = HUN_treaty_of_triannon_wuw
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_aat_wuw
+				}
+				remove_ideas = HUN_treaty_of_triannon_aat_wuw
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_wuw_no_army_exp_debuff
+				}
+				remove_ideas = HUN_treaty_of_triannon_wuw_no_army_exp_debuff
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_aat_wuw_no_army_exp_debuff
+				}
+				remove_ideas = HUN_treaty_of_triannon_aat_wuw_no_army_exp_debuff
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_wuw_no_air_debuff
+				}
+				remove_ideas = HUN_treaty_of_triannon_wuw_no_air_debuff
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_aat_wuw_no_air_debuff
+				}
+				remove_ideas = HUN_treaty_of_triannon_aat_wuw_no_air_debuff
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_wuw_no_air_or_army_debuff
+				}
+				remove_ideas = HUN_treaty_of_triannon_wuw_no_air_or_army_debuff
+			}
+			ELSE_IF = {
+				limit = {
+					has_idea = HUN_treaty_of_triannon_aat_wuw_no_air_or_army_debuff
+				}
+				remove_ideas = HUN_treaty_of_triannon_aat_wuw_no_air_or_army_debuff
+			}
 		}
+		
+
 	}
 
 }
