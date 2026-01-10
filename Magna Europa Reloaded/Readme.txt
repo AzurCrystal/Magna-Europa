@@ -1,0 +1,2 @@
+1. make sure that the non Github Version has been uninstalled.
+2. Change the path inside the Magna Europa.mod File has been changed to your System Path, the file is in your mod Folder and not the one you are currently in.
