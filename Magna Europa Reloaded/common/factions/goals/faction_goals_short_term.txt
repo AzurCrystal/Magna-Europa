@@ -1,0 +1,2408 @@
+#category = short_term medium_term or long_term
+# ROOT is faction leader, FROM is faction member who opens UI and views goals, completed/cancel/complete_effect do not have FROM scopes
+
+
+######################################################################
+
+###  ##   ##  ### ###  ##  #  #      ## ###  ###  ##  ### ### ###  ##  
+#   #  # #  #  #   #  #  # ## #     #   #  # #   #  #  #  #    #  #  # 
+##  #### #     #   #  #  # # ##      #  ###  ##  #     #  ##   #  #    
+#   #  # #  #  #   #  #  # #  #       # #    #   #  #  #  #    #  #  # 
+#   #  #  ##   #  ###  ##  #  #     ##  #    ###  ##  ### #   ###  ##  
+
+######################################################################
+
+
+ ##  #   # ###  ## 
+#  #  # #   #  #   
+####   #    #   #  
+#  #  # #   #    # 
+#  # #   # ### ##  
+
+
+faction_goal_one_germany = {
+	name = one_germany_goal_name
+	description = one_germany_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_ANNEXATION
+	visible = {
+		FROM = {
+			original_tag = GER
+		}
+	}
+	cancel = { 
+		FROM = {
+			NOT = { has_government = fascism }
+		}
+	}
+	completed = {
+		any_country_with_original_tag = {
+			original_tag_to_check = AUS
+			exists = no 
+		}
+		any_country_with_original_tag = {
+			original_tag_to_check = GER
+			controls_state = 4
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 50
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		add_stability = 0.05
+	}
+	ai_will_do = {
+		base = 10
+	}
+}
+
+
+#  #  ##  ##  
+#  # #   #  # 
+#  #  #  #### 
+#  #   # #  # 
+ ##  ##  #  # 
+
+
+### none
+
+
+### #  # ###      ##  #   #   ### ###  ## 
+ #  #  # #       #  # #   #    #  #   #   
+ #  #### ##      #### #   #    #  ##   #  
+ #  #  # #       #  # #   #    #  #     # 
+ #  #  # ###     #  # ### ### ### ### ## 
+
+
+### none!
+
+ ##  ##  #   # ### ### ###     #  # #  # ###  ##  #  # 
+#   #  # #   #  #  #    #      #  # ## #  #  #  # ## # 
+ #  #  #  # #   #  ##   #      #  # # ##  #  #  # # ## 
+  # #  #  # #   #  #    #      #  # #  #  #  #  # #  # 
+##   ##    #   ### ###  #       ##  #  # ###  ##  #  # 
+
+
+faction_goal_production_quotas = {
+	name = production_quotas_goal_name
+	description = production_quotas_goal_desc
+	group = FOCUS_FILTER_INDUSTRY
+	category = short_term
+	allowed = {
+		original_tag = SOV
+	}
+	available = {
+		has_war = no
+	}
+	completed = {
+		count_in_collection = {
+			collection = {
+				input = game:scope
+				operators = { faction_members }
+				name = FACTION_NAME
+			}
+			stockpile = infantry_equipment
+			size > 100000
+		}
+		count_in_collection = {
+			collection = {
+				input = game:scope
+				operators = { faction_members }
+				name = FACTION_NAME
+			}
+			stockpile = artillery_equipment
+			size > 2500
+		}
+		count_in_collection = {
+			collection = {
+				input = game:scope
+				operators = { faction_members }
+				name = FACTION_NAME
+			}
+			stockpile = support_equipment
+			size > 1000
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 200
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = INFLUENCE_ABOVE_30_PERCENT
+		every_faction_member = {
+			limit = { faction_influence_ratio > 0.3}
+			add_political_power = 75
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			add = 1
+			date < 1940.1.1
+		}
+	}
+}
+
+faction_goal_stall_the_fascist_threat = {
+	name = stall_the_fascist_threat_goal_name
+	description = stall_the_fascist_threat_goal_desc
+	group = FOCUS_FILTER_INTERNAL_AFFAIRS
+	category = short_term
+	allowed = {
+	}
+	visible = {
+		date < 1938.6.1
+		FROM = {
+			original_tag = SOV
+		}
+	}
+	completed = {
+		OR = {
+			AND = {
+				date > 1939.1.1
+				NOT = { has_global_flag = scw_over }
+			}
+			AND = {
+				has_global_flag = scw_over
+				has_global_flag = republican_victory
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 200
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = { army_experience = 50 }
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1
+			SPR_scw_in_progress = yes
+		}
+		modifier = {
+			add = 9 # SOV should always prio this
+			SPR_scw_in_progress = yes
+			original_tag = SOV
+		}
+	}
+}
+
+
+##########################################################
+
+ ##  ### #  # ### ###  ###  ##       ##   ##   ##  #    ## 
+#    #   ## # #   #  #  #  #  #     #    #  # #  # #   #   
+# ## ##  # ## ##  ###   #  #        # ## #  # #### #    #  
+#  # #   #  # #   #  #  #  #  #     #  # #  # #  # #     # 
+ ##  ### #  # ### #  # ###  ##       ##   ##  #  # ### ##  
+
+##########################################################
+
+
+# Faction Growth
+
+faction_goal_growing_the_faction = {
+	name = growing_the_faction
+	description = growing_the_faction_desc
+	category = short_term
+	group = FOCUS_FILTER_POLITICAL_CHARACTER
+	visible = {
+		num_faction_members < 5
+	}
+	completed = {
+		num_faction_members > 4
+	}
+	complete_effect = {
+		add_faction_power_projection = 50 
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {  
+			add = 1
+			num_faction_members < 5
+		}
+		modifier = {  
+			add = 1
+			num_faction_members < 4
+		}
+		modifier = {  
+			add = 3
+			num_faction_members < 3
+		}
+	}
+}
+
+faction_goal_spy_master = {
+	name = spy_master_goal_name
+	description = spy_master_goal_desc
+	group = FOCUS_FILTER_POLITICAL_CHARACTER
+	category = short_term
+	allowed = {
+		has_dlc = "La Resistance"
+	}
+	visible = {
+		FROM = {
+			is_spymaster = no
+			any_allied_country = {
+				is_spymaster = no
+			}
+		}
+	}
+	completed = {
+		OR = {
+			is_spymaster = yes
+			any_allied_country = {
+				is_spymaster = yes
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 50
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_SPY_MASTER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		every_faction_member = { 
+			limit = {
+				has_intelligence_agency = no
+			}
+			create_intelligence_agency = yes
+		}
+		every_faction_member = { 
+			limit = {
+				has_intelligence_agency = yes
+				NOT = { has_done_agency_upgrade  = upgrade_form_department }
+			}
+			upgrade_intelligence_agency = upgrade_form_department
+		}
+		every_faction_member = {
+			limit = {
+				has_intelligence_agency = yes
+				has_done_agency_upgrade  = upgrade_form_department
+				NOT = { has_done_agency_upgrade = upgrade_crypto_strength }
+			}
+			upgrade_intelligence_agency = upgrade_crypto_strength
+		}
+		every_faction_member = { 
+			limit = {
+				has_intelligence_agency = yes
+				has_done_agency_upgrade = upgrade_crypto_strength
+				has_tech = mechanical_computing
+				NOT = { has_done_agency_upgrade = upgrade_crypto_strength_2 }
+			}
+			add_faction_initiative = 1
+			upgrade_intelligence_agency = upgrade_crypto_strength_2
+		}
+		every_faction_member = { 
+			limit = {
+				has_intelligence_agency = yes
+				NOT = { agency_upgrade_number > 30 }
+				OR = {
+					has_done_agency_upgrade = upgrade_crypto_strength_2
+					NOT = { has_tech = mechanical_computing }
+				}
+			}
+			add_faction_initiative = 1
+			gain_random_agency_upgrade = yes
+		}
+		every_faction_member = { # Fallback in case someone completed everything
+			visible_when_empty = yes
+			limit = {
+				has_intelligence_agency = yes
+				agency_upgrade_number > 30
+			}
+			add_faction_initiative = 1
+			add_political_power = 100
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {  
+			add = 2
+			has_intelligence_agency = yes
+		}
+	}
+}
+
+
+faction_goal_convoy_sufficiency = {
+	name = convoy_sufficiency_goal_name
+	description = convoy_sufficiency_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_INDUSTRY
+	completed = {
+		count_in_collection = {
+			collection = {
+				input = game:scope
+				operators = { faction_members }
+				name = FACTION_NAME
+			}
+			unit = convoy
+			size > 999
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		every_faction_member = {
+			tooltip = AT_LEAST_200_CONVOYS
+			visible_when_empty = yes 
+			limit = {
+				has_navy_size = {
+				    size > 199
+				    type = convoy
+				}
+			}
+			navy_experience = 50
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {  
+			add = -1
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_coastal = yes
+							is_controlled_by_ROOT_or_ally = yes
+						}
+					}
+				}
+				value < 1
+			}
+		}
+		modifier = {  
+			add = 1
+			OR = {
+				original_tag = ENG
+				original_tag = USA
+				original_tag = JAP
+				original_tag = ITA
+				original_tag = FRA
+			}
+		}
+		modifier = {  
+			add = 1
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_coastal = yes
+							is_controlled_by_ROOT_or_ally = yes
+						}
+					}
+				}
+				value > 19
+			}
+		}
+	}
+}
+
+
+faction_goal_ensure_military_r_d = {
+	name = ensure_military_r_d_goal_name
+	description = ensure_military_r_d_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_RESEARCH
+	visible = {
+		OR = {
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							land_facility > 0
+						}
+					}
+					name = COLLECTION_FACTION_LAND_FACILITY
+				}
+				value < 1
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							naval_facility > 0
+						}
+					}
+					name = COLLECTION_FACTION_NAVAL_FACILITY
+				}
+				value < 1
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							air_facility > 0
+						}
+					}
+					name = COLLECTION_FACTION_AIR_FACILITY
+				}
+				value < 1
+			}
+		}
+	}
+	completed = {
+		collection_size = {
+			input = {
+				input = game:all_states
+				operators = {
+					limit = {
+						is_controlled_by_ROOT_or_ally = yes 
+						land_facility > 0
+					}
+				}
+				name = COLLECTION_FACTION_LAND_FACILITY
+			}
+			value > 0
+		}
+		collection_size = {
+			input = {
+				input = game:all_states
+				operators = {
+					limit = {
+						is_controlled_by_ROOT_or_ally = yes 
+						naval_facility > 0
+					}
+				}
+				name = COLLECTION_FACTION_NAVAL_FACILITY
+			}
+			value > 0
+		}
+		collection_size = {
+			input = {
+				input = game:all_states
+				operators = {
+					limit = {
+						is_controlled_by_ROOT_or_ally = yes 
+						air_facility > 0
+					}
+				}
+				name = COLLECTION_FACTION_AIR_FACILITY
+			}
+			value > 0
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_collection_element = {
+			input = {
+				input = game:all_states
+				operators = {
+					limit = {
+						is_controlled_by_ROOT_or_ally = yes
+						OR = {
+							air_facility > 0
+							land_facility > 0
+							naval_facility > 0
+						}
+					}
+				}
+				name = OWNS_LISTED_STATE
+			}
+			custom_effect_tooltip = OWNS_LISTED_STATE
+			OWNER = { add_faction_influence_ratio = 0.05 }
+		}
+		every_faction_member = {
+			if = {
+				limit = {
+					any_scientist = {
+						has_scientist_level = {
+							level > 0
+							specialization = specialization_land
+						}
+						is_active_scientist = yes
+					}
+				}
+				every_scientist = {
+					visible_when_empty = yes
+					limit = {
+						has_scientist_level = {
+							level > 0
+							specialization = specialization_land
+						}
+						is_active_scientist = yes
+					}
+					add_scientist_xp = {
+						experience = constant:sp_scientist_xp_gain.very_high
+						specialization = specialization_land
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_scientist = {
+						has_scientist_level = {
+							level > 0
+							specialization = specialization_naval
+						}
+						is_active_scientist = yes
+					}
+				}
+				every_scientist = {
+					visible_when_empty = yes
+					limit = {
+						has_scientist_level = {
+							level > 0
+							specialization = specialization_naval
+						}
+						is_active_scientist = yes
+					}
+					add_scientist_xp = {
+						experience = constant:sp_scientist_xp_gain.very_high
+						specialization = specialization_naval
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_scientist = {
+						has_scientist_level = {
+							level > 0
+							specialization = specialization_air
+						}
+						is_active_scientist = yes
+					}
+				}
+				every_scientist = {
+					visible_when_empty = yes
+					limit = {
+						has_scientist_level = {
+							level > 0
+							specialization = specialization_air
+						}
+						is_active_scientist = yes
+					}
+					add_scientist_xp = {
+						experience = constant:sp_scientist_xp_gain.very_high
+						specialization = specialization_air
+					}
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1
+	}
+}
+
+
+### Industry
+
+faction_goal_military_infrastructure = {
+	name = military_infrastructure_goal_name
+	description = military_infrastructure_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	visible = {
+		collection_size = {
+			input = {
+				input = game:all_states
+				operators = {
+					limit = {
+						is_core_of = CONTROLLER
+						is_controlled_by_ROOT_or_ally = yes 
+						any_neighbor_state = {
+							controller = {
+								NOT = { is_in_faction_with = ROOT }
+							}
+						}
+						infrastructure < 4
+					}
+				}
+				name = COLLECTION_FACTION_BORDER_STATES_FULL_INFRASTRUCTURE
+			}
+			value > 0
+		}
+	}
+	completed = {
+		collection_size = {
+			input = {
+				input = game:all_states
+				operators = {
+					limit = {
+						is_controlled_by_ROOT_or_ally = yes 
+						any_neighbor_state = {
+							controller = {
+								NOT = { is_in_faction_with = ROOT }
+							}
+						}
+						infrastructure < 4
+					}
+				}
+				name = COLLECTION_FACTION_BORDER_STATES_FULL_INFRASTRUCTURE
+			}
+			value < 10
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			army_experience = 50
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {  
+			add = 1
+			has_war = no
+		}
+	}
+}
+
+faction_goal_a_great_fortress = {
+	name = a_great_fortress_goal_name
+	description = a_great_fortress_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	visible = {
+	}
+	available = {
+		collection_size = {
+			input = {
+				input = collection:faction_owned_core_states
+				operators = {
+					limit = {
+						NOT = { is_fully_controlled_by = OWNER }
+					}
+				}
+				name = FACTION_CORE_STATES_NOT_FULLY_CONTROLLED
+			}
+			value < 1
+		}
+	}
+	completed = {
+		OR = {
+			ROOT = {
+				has_tech = coastal_fort_tech_2
+				has_tech = land_fort_tech_2
+			}
+			any_allied_country = {
+				has_tech = coastal_fort_tech_2
+				has_tech = land_fort_tech_2
+			}
+			count_in_collection = {
+				collection = {
+					input = game:scope
+					operators = { faction_members }
+					name = FACTION_NAME
+				}
+				buildings = { bunker coastal_bunker}
+				size > 29
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			limit = {
+				NOT = { has_idea = deterrence }
+			}
+			add_timed_idea = {
+				idea = deterrence
+				days = 360
+			}
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1
+			has_tech = basic_fortification_tech
+		}
+	}
+}
+
+
+### War Waging
+
+faction_goal_preemptive_strike_on_fascism = {
+	name = preemptive_strike_on_fascism_goal_name
+	description = preemptive_strike_on_fascism_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_WAR_SUPPORT
+	visible = {
+		FROM = {
+			NOT = {
+				has_government = fascism
+			}
+			NOT = {
+				any_enemy_country = {
+					has_government = fascism
+				}
+			}
+		}
+	}
+	available = {
+		threat < 0.5
+	}
+	completed = {
+		any_allied_country = {
+			has_offensive_war = yes
+			any_enemy_country = {
+				has_government = fascism
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			army_experience = 25
+			add_war_support = 0.05
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1
+			is_historical_focus_on = yes
+		}
+	}
+}
+
+
+faction_goal_war_on_communism = {
+	name = war_on_communism_goal_name
+	description = war_on_communism_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_WAR_SUPPORT
+	visible = {
+		FROM = {
+			NOT = {
+				has_government = communism
+			}
+		}
+		any_country = {
+			has_government = communism
+			is_on_same_continent_as = FROM
+		}
+		NOT = { original_tag = JAP } # they have their own goal 
+	}
+	completed = {
+		OR = {
+			any_enemy_country = {
+				has_government = communism
+				is_on_same_continent_as = ROOT
+			}
+			any_allied_country = {
+				any_enemy_country = {
+					has_government = communism
+					is_on_same_continent_as = PREV
+				}
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			add_war_support = 0.05
+		}
+	}
+	ai_will_do = {
+		base = 1
+	}
+}
+
+faction_goal_war_on_democracy = {
+	name = war_on_democracy_goal_name
+	description = war_on_democracy_goal_desc
+	group = FOCUS_FILTER_WAR_SUPPORT
+	category = short_term
+	visible = {
+		FROM = {
+			NOT = {
+				has_government = democratic
+			}
+			faction_leader = {
+				NOT = { has_government = democratic }
+			}
+		}
+		any_country = {
+			has_government = democratic
+			is_on_same_continent_as = FROM
+		}
+	}
+	completed = {
+		OR = {
+			any_enemy_country = {
+				has_government = democratic
+				is_on_same_continent_as = ROOT
+			}
+			any_allied_country = {
+				any_enemy_country = {
+					has_government = democratic
+					is_on_same_continent_as = PREV
+				}
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = THE_FACTION_LEADER
+		add_faction_initiative = 1
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			add_war_support = 0.05
+		}
+	}
+	ai_will_do = {
+		base = 1
+	}
+}
+
+
+### Units
+
+faction_goal_an_armored_fist = {
+	name = an_armored_fist_goal_name
+	description = an_armored_fist_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_ARMY_XP
+	visible = {
+
+	}
+	completed = {
+		count_in_collection = {
+			collection = {
+			    input = game:scope
+			    operators = { faction_members }
+			    name = FACTION
+			}
+			unit = armor
+			equipment_ratio = 0.9
+			size > 49
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 200
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			army_experience = 50 
+			random_character = {
+				tooltip = ONE_PANZER_GENERAL	
+				visible_when_empty = yes
+				limit = {
+					is_unit_leader = yes 
+					OR = {
+						has_trait = armor_officer
+						has_trait = panzer_leader
+						has_trait = panzer_expert 
+					}
+				}
+				gain_xp = 400
+				add_attack = 1
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1
+	}
+}
+
+faction_goal_an_infantry_army = {
+	name = an_infantry_army_goal_name
+	description = an_infantry_army_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_ARMY_XP
+	completed = {
+		count_in_collection = {
+		    collection = {
+		        input = game:scope
+		        operators = { faction_members }
+		        name = FACTION
+		    }
+		   unit = infantry
+		   size > 249
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 200
+		custom_effect_tooltip = ALL_FACTION_MEMBERS
+		every_faction_member = {
+			army_experience = 50 
+			random_character = {
+				tooltip = ONE_INFANTRY_GENERAL
+				visible_when_empty = yes
+				limit = {
+					is_unit_leader = yes 
+					OR = {
+						has_trait = infantry_officer
+						has_trait = infantry_leader
+						has_trait = infantry_expert 
+					}
+				}
+				gain_xp = 400
+				add_logistics = 1
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1
+	}
+}
+
+### Strategic Resources
+
+# Lappland Metals
+faction_goal_develop_lappland_metals = {
+	name = develop_lappland_metals_goal_name
+	description = develop_lappland_metals_goal_desc
+	category = short_term
+	group = resources_to_market_icon
+	allowed = {
+		
+	}
+	visible = {
+		OR = {
+			2704 = { is_controlled_by_ROOT_or_ally = yes }
+			2711 = {	is_controlled_by_ROOT_or_ally = yes }
+		}
+	}
+	available = {
+		FROM = {
+			has_tech = excavation1
+			has_tech = excavation2
+		}
+		2704 = { is_controlled_by_ROOT_or_ally = yes }
+		2711 = {	is_controlled_by_ROOT_or_ally = yes }
+	}
+	completed = {
+		2704 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		2711 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		2704 = {
+			add_resource = {
+			    type = tungsten
+			    amount = 14
+			}
+			add_resource = {
+			    type = steel
+			    amount = 14
+			}
+			add_resource = {
+			    type = chromium
+			    amount = 8
+			}
+		}
+		2711 = {
+			add_resource = {
+			    type = tungsten
+			    amount = 10
+			}
+			add_resource = {
+			    type = steel
+			    amount = 10
+			}
+			add_resource = {
+			    type = chromium
+			    amount = 5
+			}
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1 # State owners should care more
+			OR = {
+				controls_state = 2704
+				controls_state = 2711
+			}
+		}
+		modifier = {
+			add = 1 # If entire alliance is low on resources they should be incentivized to developing more
+			OR = {
+				has_resources_in_collection = {
+					collection = {
+							input = game:scope
+							operators =  { faction_members }
+							name = FACTION
+					}
+					resource = tungsten
+					amount < 45
+					extracted = no # (optional, default: no) checks extracted amount instead of country balance
+				}
+				has_resources_in_collection = {
+					collection = {
+							input = game:scope
+							operators =  { faction_members }
+							name = FACTION
+					}
+					resource = steel
+					amount < 45
+					extracted = no # (optional, default: no) checks extracted amount instead of country balance
+				}
+				has_resources_in_collection = {
+					collection = {
+							input = game:scope
+							operators =  { faction_members }
+							name = FACTION
+					}
+					resource = chromium
+					amount < 24
+					extracted = no # (optional, default: no) checks extracted amount instead of country balance
+				}
+			}
+		}
+		modifier = {
+			add = 3 # If entire alliance is very low on resources they should be heavily incentivized to developing more
+			OR = {
+				has_resources_in_collection = {
+					collection = {
+							input = game:scope
+							operators =  { faction_members }
+							name = FACTION
+					}
+					resource = tungsten
+					amount < 15
+					extracted = no # (optional, default: no) checks extracted amount instead of country balance
+				}
+				has_resources_in_collection = {
+					collection = {
+							input = game:scope
+							operators =  { faction_members }
+							name = FACTION
+					}
+					resource = steel
+					amount < 15
+					extracted = no # (optional, default: no) checks extracted amount instead of country balance
+				}
+				has_resources_in_collection = {
+					collection = {
+							input = game:scope
+							operators =  { faction_members }
+							name = FACTION
+					}
+					resource = chromium
+					amount < 8
+					extracted = no # (optional, default: no) checks extracted amount instead of country balance
+				}
+			}
+		}
+	}
+}
+
+# Ploiesti Oil Fields
+faction_goal_develop_ploiesti_oil_fields = {
+	name = develop_ploiesti_oil_fields_goal_name
+	description = develop_ploiesti_oil_fields_goal_desc
+	category = short_term
+	group = resources_to_market_icon
+	allowed = {
+		
+	}
+	visible = {
+		764 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+		FROM = {
+			has_tech = excavation1
+			has_tech = excavation2
+		}
+	}
+	completed = {
+		764 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		764 = {
+			add_resource = {
+			    type = oil
+			    amount = 14
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1 # Everyone should always kiiiinda care about oil
+		modifier = {
+			add = 1 # State owners should care more
+			controls_state = 46
+		}
+		modifier = {
+			add = -1 # If the alliance is doing well with fuel avoid taking this...
+			fuel_ratio > 0.9
+			all_allied_country = {
+				fuel_ratio > 0.9
+			}
+		}
+		modifier = {
+			add = 1 # Powers with low fuel should care about oil a bit more
+			fuel_ratio < 0.4
+		}
+		modifier = {
+			add = 1 # Powers with very low fuel should care about oil A LOT
+			fuel_ratio < 0.1
+		}
+	}
+}
+
+# Baku Oil Fields
+faction_goal_develop_baku_oil_fields = {
+	name = develop_baku_oil_fields_goal_name
+	description = develop_baku_oil_fields_goal_desc
+	category = short_term
+	group = resources_to_market_icon
+
+	allowed = {
+		
+	}
+	visible = {
+		OR = {
+			2292 = { is_controlled_by_ROOT_or_ally = yes }
+			784 = {	is_controlled_by_ROOT_or_ally = yes }
+			2491 = { is_controlled_by_ROOT_or_ally = yes }
+		}
+	}
+	available = {
+		FROM = {
+			has_tech = excavation1
+			has_tech = excavation2
+		}
+		2292 = { is_controlled_by_ROOT_or_ally = yes }
+		784 = {	is_controlled_by_ROOT_or_ally = yes }
+		2491 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	completed = {
+		2292 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		784 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		2491 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		every_state = {
+			limit = {
+				OR = {
+					state = 784
+					state = 2293
+				}
+			}
+			add_resource = {
+			    type = oil
+			    amount = 4
+			}
+		}
+		2292 = {
+			add_resource = {
+			    type = oil
+			    amount = 14
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1 # Everyone should always kiiiinda care about oil
+		modifier = {
+			add = 1 # State owners should care more
+			controls_state = 2292
+		}
+		modifier = {
+			add = -1 # If the alliance is doing well with fuel avoid taking this...
+			fuel_ratio > 0.9
+			all_allied_country = {
+				fuel_ratio > 0.9
+			}
+		}
+		modifier = {
+			add = 1 # Powers with low fuel should care about oil a bit more
+			fuel_ratio < 0.4
+		}
+		modifier = {
+			add = 1 # Powers with very low fuel should care about oil A LOT
+			fuel_ratio < 0.1
+		}
+	}
+}
+
+# Iraqi Oil
+faction_goal_develop_iraqi_oil = {
+	name = develop_iraqi_oil_goal_name
+	description = develop_iraqi_oil_goal_desc
+	category = short_term
+	group = resources_to_market_icon
+	allowed = {
+		
+	}
+	visible = {
+		OR = {
+			2210 = { is_controlled_by_ROOT_or_ally = yes }
+			2211 = { is_controlled_by_ROOT_or_ally = yes }
+			2206 = { is_controlled_by_ROOT_or_ally = yes }
+		}
+	}
+	available = {
+		FROM = {
+			has_tech = excavation1
+			has_tech = excavation2
+		}
+		2210 = { is_controlled_by_ROOT_or_ally = yes }
+		2211 = { is_controlled_by_ROOT_or_ally = yes }
+		2206 = {	is_controlled_by_ROOT_or_ally = yes }	
+	}
+	completed = {
+		2210 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		2206 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		2211 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		2210 = {
+			add_resource = {
+			    type = oil
+			    amount = 6
+			}
+		}
+		2206 = {
+			add_resource = {
+			    type = oil
+			    amount = 4
+			}
+		}
+		2211 = {
+			add_resource = {
+			    type = oil
+			    amount = 2
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1 # Everyone should always kiiiinda care about oil
+		modifier = {
+			add = 1 # State owners should care more
+			controls_state = 2210
+		}
+		modifier = {
+			add = -1 # If the alliance is doing well with fuel avoid taking this...
+			fuel_ratio > 0.9
+			all_allied_country = {
+				fuel_ratio > 0.9
+			}
+		}
+		modifier = {
+			add = 1 # Powers with low fuel should care about oil a bit more
+			fuel_ratio < 0.4
+		}
+		modifier = {
+			add = 1 # Powers with very low fuel should care about oil A LOT
+			fuel_ratio < 0.1
+		}
+	}
+}
+
+# Persian Oil
+faction_goal_develop_persian_oil = {
+	name = develop_persian_oil_goal_name
+	description = develop_persian_oil_goal_desc
+	category = short_term
+	group = resources_to_market_icon
+	allowed = {
+		
+	}
+	visible = {
+		OR = {
+			1274 = { is_controlled_by_ROOT_or_ally = yes }
+			1314 = {	is_controlled_by_ROOT_or_ally = yes }
+			1267 = { is_controlled_by_ROOT_or_ally = yes }	
+		}
+	}
+	available = {
+		FROM = {
+			has_tech = excavation1
+			has_tech = excavation2
+		}
+		1274 = { is_controlled_by_ROOT_or_ally = yes }
+		1314 = {	is_controlled_by_ROOT_or_ally = yes }
+		1267 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	completed = {
+		1274 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		1314 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+		1267 = {
+			CONTROLLER = { has_tech = excavation3 }
+			infrastructure > 4
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		1274 = {
+			add_resource = {
+			    type = oil
+			    amount = 6
+			}
+		}
+		1314 = {
+			add_resource = {
+			    type = oil
+			    amount = 4
+			}
+		}
+		1267 = {
+			add_resource = {
+			    type = oil
+			    amount = 8
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1 # Everyone should always kiiiinda care about oil
+		modifier = {
+			add = 1 # State owners should care more
+			controls_state = 1274
+		}
+		modifier = {
+			add = -1 # If the alliance is doing well with fuel avoid taking this...
+			fuel_ratio > 0.9
+			all_allied_country = {
+				fuel_ratio > 0.9
+			}
+		}
+		modifier = {
+			add = 1 # Powers with low fuel should care about oil a bit more
+			fuel_ratio < 0.4
+		}
+		modifier = {
+			add = 1 # Powers with very low fuel should care about oil A LOT
+			fuel_ratio < 0.1
+		}
+	}
+}
+
+# Iceland
+faction_goal_expand_iceland_bases = {
+	name = expand_iceland_bases_goal_name
+	description = expand_iceland_bases_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		159 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		159 = {
+			air_base > 1
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 2
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 159
+			}
+			add_faction_initiative = 1
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 2 # If convoys being threatened try to secure the transatlantic supply lines better
+			convoy_threat > 0.5
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							is_on_continent = north_america
+						}
+					}
+					name = COLLECTION_FACTION_STATES_IN_NORTH_AMERICA
+				}
+				value > 0
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							is_on_continent = europe
+						}
+					}
+					name = COLLECTION_FACTION_STATES_IN_EUROPE
+				}
+				value > 0
+			}
+		}
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+	}
+}
+
+# Faroe Islands
+faction_goal_expand_faroese_bases = {
+	name = expand_faroese_bases_goal_name
+	description = control_faroe_islands_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		90 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		90 = {
+			air_base > 1
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 2
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 90
+			}
+			add_faction_initiative = 1
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 2 # If convoys being threatened try to secure the transatlantic supply lines better
+			convoy_threat > 0.5
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							is_on_continent = north_america
+						}
+					}
+					name = COLLECTION_FACTION_STATES_IN_NORTH_AMERICA
+				}
+				value > 0
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes 
+							is_on_continent = europe
+						}
+					}
+					name = COLLECTION_FACTION_STATES_IN_EUROPE
+				}
+				value > 0
+			}
+		}
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+	}
+}
+
+# Narvik
+faction_goal_expand_narvik_bases = {
+	name = expand_narvik_bases_goal_name
+	description = expand_narvik_bases_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		2703 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		2703 = {
+			air_base > 2
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 4
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 2703
+			}
+			add_faction_initiative = 1
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+		modifier = {
+			add = 1 # If at war with USSR prioritize this
+			any_enemy_country = {
+				original_tag = SOV
+			}
+		}
+	}
+}
+
+# Danish Belts
+faction_goal_fortify_danish_belts = {
+	name = fortify_danish_belts_goal_name
+	description = fortify_danish_belts_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		OR = {
+			240 = { is_controlled_by_ROOT_or_ally = yes }
+			178 = { is_controlled_by_ROOT_or_ally = yes }
+			315 = { is_controlled_by_ROOT_or_ally = yes }
+		}
+	}
+	available = {
+		240 = { is_controlled_by_ROOT_or_ally = yes }
+		178 = { is_controlled_by_ROOT_or_ally = yes }
+		315 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	completed = {
+		custom_trigger_tooltip = {
+            tooltip = fortify_danish_belts_tooltip
+			240 = {
+				any_province_building_level = {
+					province = {
+						id = 7073
+						id = 10686
+					}
+					building = coastal_bunker
+					level > 0
+				}
+			}
+			178 = {
+				any_province_building_level = {
+					province = {
+						id = 10650
+					}
+					building = coastal_bunker
+					level > 0
+				}
+			}
+			315 = {
+				any_province_building_level = {
+					province = {
+						id = 10625
+						id = 10640
+					}
+					building = coastal_bunker
+					level > 0
+				}
+			}
+			OR = {
+				AND = {
+					divisions_in_state = { state = 240 size > 1 }
+					divisions_in_state = { state = 178 size > 0 }
+					divisions_in_state = { state = 315 size > 1 }
+				}
+				any_allied_country = {
+					divisions_in_state = { state = 240 size > 1 }
+					divisions_in_state = { state = 178 size > 0 }
+					divisions_in_state = { state = 315 size > 1 }
+				}
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				OR = {
+					controls_state = 240
+					controls_state = 178
+					controls_state = 315
+				}
+			}
+			add_faction_initiative = 1
+		}
+		240 = {
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 7073
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 10686
+				instant_build = yes
+			}
+		}
+		178 = {
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 10650
+				instant_build = yes
+			}
+		}
+		315 = {
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 10625
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 10640
+				instant_build = yes
+			}
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1 # If naval power seek to control access
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+		modifier = {
+			add = 1 # If at war with ENG and capital is on mainland Europe prioritize this
+			capital_scope = {
+				is_on_continent = europe
+			}
+			any_enemy_country = {
+				original_tag = ENG
+			}
+		}
+		modifier = {
+			add = 1 # If GER prioritize this
+			is_historical_focus_on = yes
+			original_tag = GER
+		}
+	}
+}
+
+# Gibraltar
+faction_goal_fortify_gibraltar = {
+	name = fortify_gibraltar_goal_name
+	description = fortify_gibraltar_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+
+	allowed = {
+		
+	}
+	visible = {
+		882 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		882 = {
+			air_base > 3
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 6
+			}
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = coastal_bunker
+				level > 2
+			}
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = bunker
+				level > 2
+			}
+		}
+		OR = {
+			divisions_in_state = { state = 882 size > 0 }
+			any_allied_country = {
+				divisions_in_state = { state = 882 size > 0 }
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 882
+			}
+			add_faction_initiative = 1
+		}
+		882 = {
+			add_building_construction = {
+				type = anti_air_building
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = air_base
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = naval_base
+				level = 1
+				instant_build = yes
+				province = {
+					all_provinces = yes
+					limit_to_naval_base = yes
+				}
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 19769
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 19769
+				instant_build = yes
+			}
+		}
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			factor = 2 # Target of opportunity - already at war anyway
+			882 = {
+				controller = {
+					has_war_with = ROOT
+				}
+			}
+		}
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+		modifier = {
+			add = 1 # If GER or ITA prioritize this
+			is_historical_focus_on = yes
+			OR = {
+				original_tag = ITA
+				original_tag = GER
+			}
+		}
+	}
+}
+
+# Malta
+faction_goal_expand_maltese_bases = {
+	name = expand_maltese_bases_goal_name
+	description = expand_maltese_bases_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		1622 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		1622 = {
+			air_base > 3
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 3
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 1622
+			}
+			add_faction_initiative = 1
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			add = 2 # If convoys being threatened try to secure the mediterranean supply lines better
+			convoy_threat > 0.5
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes
+							is_on_continent = europe
+						}
+					}
+				}
+				value > 0
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes
+							OR = {
+								is_on_continent = middle_east
+								is_on_continent = africa
+							}
+						}
+					}
+				}
+				value > 0
+			}
+		}
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+	}
+}
+
+# Crete
+faction_goal_expand_cretan_bases = {
+	name = expand_cretan_bases_goal_name
+	description = expand_cretan_bases_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		1560 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		1560 = {
+			air_base > 3
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 4
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 1560
+			}
+			add_faction_initiative = 1
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			add = 2 # If convoys being threatened try to secure the mediterranean supply lines better
+			convoy_threat > 0.5
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes
+							is_on_continent = europe
+						}
+					}
+				}
+				value > 0
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes
+							OR = {
+								is_on_continent = middle_east
+								is_on_continent = africa
+							}
+						}
+					}
+				}
+				value > 0
+			}
+		}
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+	}
+}
+
+# Cyprus
+faction_goal_expand_cypriot_bases = {
+	name = expand_cypriot_bases_goal_name
+	description = expand_cypriot_bases_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		1964 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		1964 = {
+			air_base > 2
+			any_province_building_level = {
+				province = {
+					all_provinces = yes
+				}
+				building = naval_base
+				level > 3
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 1964
+			}
+			add_faction_initiative = 1
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			add = 2 # If convoys being threatened try to secure the mediterranean supply lines better
+			convoy_threat > 0.5
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes
+							is_on_continent = europe
+						}
+					}
+				}
+				value > 0
+			}
+			collection_size = {
+				input = {
+					input = game:all_states
+					operators = {
+						limit = {
+							is_controlled_by_ROOT_or_ally = yes
+							OR = {
+								is_on_continent = middle_east
+								is_on_continent = africa
+							}
+						}
+					}
+				}
+				value > 0
+			}
+		}
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+	}
+}
+
+# Bosporus
+faction_goal_fortify_bosporus = {
+	name = fortify_bosporus_goal_name
+	description = fortify_bosporus_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+	allowed = {
+		
+	}
+	visible = {
+		945 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		custom_trigger_tooltip = {
+            tooltip = fortify_bosporus_tooltip
+			945 = {
+				any_province_building_level = {
+					province = {
+						id = 15013
+						id = 21463
+					}
+					building = coastal_bunker
+					level > 0
+				}
+				any_province_building_level = {
+					province = {
+						id = 15013
+						id = 21463
+					}
+					building = bunker
+					level > 0
+				}
+			}
+			OR = {
+				divisions_in_state = { state = 797 size > 1 }
+				any_allied_country = {
+					divisions_in_state = { state = 797 size > 1 }
+				}
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 945
+			}
+			add_faction_initiative = 1
+		}
+		945 = {
+			add_building_construction = {
+				type = anti_air_building
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 15013
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 15013
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 21463
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 21463
+				instant_build = yes
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			add = 1 # If major naval power seek to control access
+			has_navy_size = {
+				size > 20
+				type = capital_ship
+			}
+		}
+		modifier = {
+			add = 1 # If at war with SOV prioritize this
+			any_enemy_country = {
+				original_tag = SOV
+			}
+		}
+	}
+}
+
+# Suez Canal
+faction_goal_fortify_suez_canal = {
+	name = fortify_suez_canal_goal_name
+	description = fortify_suez_canal_goal_desc
+	category = short_term
+	group = FOCUS_FILTER_CONSOLIDATION
+
+	allowed = {
+		
+	}
+	visible = {
+		1285 = { is_controlled_by_ROOT_or_ally = yes }
+	}
+	available = {
+
+	}
+	completed = {
+		custom_trigger_tooltip = {
+            tooltip = fortify_suez_tooltip
+			1285 = {
+				any_province_building_level = {
+					province = {
+						id = 21192
+						id = 21183
+						id = 21160
+						id = 21161
+					}
+					building = coastal_bunker
+					level > 0
+				}
+				any_province_building_level = {
+					province = {
+						id = 21192
+						id = 21183
+						id = 21160
+						id = 21161
+					}
+					building = bunker
+					level > 0
+				}
+			}
+			OR = {
+				divisions_in_state = { state = 1285 size > 3 }
+				any_allied_country = {
+					divisions_in_state = { state = 1285 size > 3 }
+				}
+			}
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
+		every_faction_member = { 
+			visible_when_empty = yes
+			limit = {
+				controls_state = 1285
+			}
+			add_faction_initiative = 1
+		}
+		1285 = {
+			add_building_construction = {
+				type = anti_air_building
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 21192
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 21192
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 21183
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 21183
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 21160
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 21160
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = coastal_bunker
+				level = 1
+				province = 21161
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = bunker
+				level = 1
+				province = 21161
+				instant_build = yes
+			}
+		}
+	}
+	ai_will_do = {
+		base = 1
+		modifier = {
+			add = 1 # If naval power seek to project it by expanding bases
+			has_navy_size = {
+				size > 5
+				type = capital_ship
+			}
+		}
+		modifier = {
+			add = 2 # If major naval power seek to control access
+			has_navy_size = {
+				size > 20
+				type = capital_ship
+			}
+		}
+	}
+}

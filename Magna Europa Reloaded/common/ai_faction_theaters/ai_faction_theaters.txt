@@ -1,0 +1,782 @@
+# EUROPE 
+
+western_europe = {
+	name = theater_western_europe
+	regions = {
+		# France
+		61 # Alpes
+		62 # Normandy
+		67 # Brittany
+		87 # Aquitaine
+		88 # Alsace-Lorraine
+		89 # Northern France
+		90 # Burgundy
+		91 # Languedoc
+		92 # Central France
+		93 # Loire
+		# Benelux
+		4 # Netherlands
+		5 # Belgium
+		#Germany
+		36 # Rhineland
+		64 # Northern Germany
+		70 # Westphalia
+		35 # Southern Germany
+		# Switzerland
+		6 # Switzerland
+		# UK
+		1 # Ireland
+		2 # Scotland
+		3 # Wales
+		45 # Southern England
+		46 # Northern England
+		# Naval
+		209 # English Channel
+		238 # Jutland Sea
+		239 # Eastern North Sea
+		220 # Cantabrian Sea
+	}
+	cancel = {
+		OR = {
+			AND= {
+				# Germany should stop focusing on the Western Front when Barbarossa starts
+				original_tag = GER
+				has_war_with = SOV
+				219 = { is_controlled_by_ROOT_or_ally = no }
+			}
+			AND = {
+				# UK should not care overly much about the continent while France is Capitulated
+				FRA = {
+					is_in_faction_with = ROOT
+					has_capitulated = yes 
+				}
+			}
+			has_war = no 
+		}
+	}
+
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = europe}
+		}
+		modifier = {
+			add = 5
+			OR = {
+				has_war_with = FRA
+				has_war_with = GER
+				has_war_with = HOL
+				has_war_with = BEL
+			}
+		}
+		modifier = {
+			factor = 10
+			is_historical_focus_on = yes
+			original_tag = USA
+			is_in_faction_with = ENG
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+		modifier = {
+			factor = 0
+			original_tag = GER 
+			has_war_with = SOV
+			219 = { is_controlled_by_ROOT_or_ally = no } # We can focus again on the west if we take Moscow
+		}
+		modifier = {
+			factor = 0
+			original_tag = ENG 
+			FRA = {
+				is_in_faction_with = ROOT
+				has_capitulated = yes 
+			}
+		}
+	}
+}
+
+eastern_europe = {
+	name = theater_eastern_europe
+	regions = {
+		#Eastern Germany
+		11 # Silesia
+		95 # Eastern Pomerania
+		9 # East Prussia
+		#Czechia
+		8 # Czechia
+		21 # Slovakia
+		# Poland
+		10 # Greater Poland
+		44 # Masovia
+		94 # Lesser Poland
+		96 # Podlachia
+		41 # Galicia
+		42 # Western Polesia
+		43 # Eastern Poland
+		# Sov
+		29 # Belarus
+		78 # Taurida
+		97 # Eastern Polesia
+		99 # Podolia
+		100 # Eastern Bug
+		107 # Dnepr
+		110 # Pskov
+		130 # Novgorod
+		# Baltics
+		27 # Lithuania
+		56 # Latvia
+		28 # Estonia
+		# Baltic Sea
+		161 # Baltic Coast
+		166 # Prussian Coast
+		160 # Gulf of Finland
+	}
+	cancel = {
+		has_war = no 
+	}
+
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = europe}
+		}
+		modifier = {
+			add = 1
+			OR = {
+				has_war_with = POL
+				has_war_with = CZE
+				has_war_with = SOV
+			}
+		}
+		modifier = {
+			add = 10
+			original_tag = SOV
+			has_war_with = GER
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+barbarossa_north = { 
+	name = theater_barbarossa_north
+	regions = {
+		# Baltics
+		27 # Lithuania
+		56 # Latvia
+		28 # Estonia
+		# Baltic Sea
+		161 # Baltic Coast
+		166 # Prussian Coast
+		160 # Gulf of Finland
+		# Novgorod
+		110 # Pskov
+		111 # Ingria
+		130 # Novgorod
+		131 # Kalinin
+		# Finland  
+		112 # Eastern Finland
+		116 # North Sapmi
+		117 # Western Finland
+		118 # Northern Finland
+		# Kola
+		113 # Olonets Karelia
+		114 # White Karelia
+		115 # Kola Peninsula
+		# Archangelsk
+		144 # Onega
+		145 # Arkhangelsk
+		146 # Cherepovets
+		147 # Vologda
+		# Barents Sea
+		169 # White Sea
+		170 # Kara Sea
+		171 # Central Barents
+		172 # Eastern Barents
+		173 # Western Barents
+	}
+
+	cancel = {
+		NOT = { has_war_with = SOV }
+	}
+
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 5
+			original_tag = GER
+			has_war_with = SOV
+		}
+		modifier = {
+			add = 1
+			is_in_faction_with = GER
+			has_war_with = SOV
+		}
+
+	} 
+}
+
+barbarossa_center = { 
+	name = theater_barbarossa_center
+	regions = {
+		#Eastern Germany
+		11 # Silesia
+		95 # Eastern Pomerania
+		9 # East Prussia
+		#Czechia
+		8 # Czechia
+		21 # Slovakia
+		# Poland
+		10 # Greater Poland
+		44 # Masovia
+		94 # Lesser Poland
+		96 # Podlachia
+		41 # Galicia
+		42 # Western Polesia
+		43 # Eastern Poland
+		# Belarus
+		29 # Belarus
+		97 # Eastern Polesia
+		# Central Russia
+		108 # Bryansk
+		109 # Smolensk
+		132 # Kaluga
+		140 # Orel
+		141 # Lipetsk
+		142 # Tula
+		148 # Vladimir
+		149 # Ryazan
+		151 # Gorky
+		152 # Saratov
+		153 # Tambov
+		154 # Penza
+		155 # Mordovia
+		135 # Moscow
+	}
+	preferred_countries = {
+		GER SLO
+	}
+	cancel = {
+		NOT = { has_war_with = SOV }
+	}
+
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 10
+			original_tag = GER
+			has_war_with = SOV
+		}
+	} 
+}
+
+barbarossa_south = { # For Barbarossas
+	name = theater_barbarossa_south
+	regions = {
+		# Ukraine
+		78 # Taurida
+		79 # Crimea
+		99 # Podolia
+		100 # Eastern Bug
+		101 # Sloboda
+		104 # Donbas
+		105 # Pryazovia
+		106 # Zaporizhia
+		107 # Dnipr
+		# Eastern Balkans
+		14 # Moldavia
+		# Black Sea
+		174 # Sea of Azov
+		175 # Turkish Black Sea
+		176 # Crimean Black Sea
+		177 # Kuban Black Sea
+		178 # Pontis Black Sea
+		179 # Western Black Sea
+		# Kuban Region
+		137 # Rostov
+		63 # Kuban
+		129 # Norhtern Caucasus
+		138 # Stalingrad
+		139 # Atrakhan Steppe
+		# Transcaspia
+		47 # Transcaucasia
+	}
+	cancel = {
+		NOT = { has_war_with = SOV }
+	}
+	preferred_countries = {
+		ROM ITA
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 5
+			OR = {
+				original_tag = GER
+				is_in_faction_with = GER 
+			}
+			has_war_with = SOV
+		}
+	} 
+}
+
+north_sea_region = {
+	name = theater_north_sea_region
+	regions = {
+		# North Sea
+		238 # Jutland Sea
+		239 # Eastern North Sea
+		240 # North Sea
+		# Norwegian Coast
+		168 # Skagerrak
+		236 # Southern Norwegian Coast
+		230 # Northern Norwegian Coast
+		231 # Central Norwegian Coast
+		# Norway
+		120 # Northern Fjords
+		121 # Southern Fjords
+		122 # Southern Norway
+		# Northern England
+		46 # Northern England
+		# Scotland
+		2 # Scotland
+		# Ireland
+		1 # Ireland
+		# Iceland
+		219 # ICeland
+		# Southern Sweden 
+		123 # Southern Sweden
+		# Denmark Straight
+		233 # Sea of Greenland
+		249 # Icelandic Sea
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			OR = {
+				original_tag = ENG
+				has_war_with = ENG
+				original_tag = NOR
+				has_war_with = NOR
+				original_tag = ICE
+				has_war_with = ICE
+				original_tag = DEN
+				has_war_with = DEN
+			}
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+
+southern_europe = {
+	name = theater_southern_europe
+	regions = {
+		# Italy
+		16 # Po Valley
+		17 # Mezzogiorno
+		18 # Sicily
+		19 # Tyrrhenian Islands
+		25 # Central Italy
+		# Tyrrhenian Sea
+		196 # Ligurian Sea
+		195 # Tyrrhenian Sea
+		200 # Strait of Sicily
+		# Adriatic Sea
+		194 # Adriatic Sea
+		202 # Ionian Sea
+		# Yugoslavia
+		20 # Albania
+		22 # Serbia
+		23 # Slavonia
+		24 # Dinaric Alps
+		# Greece
+		33 # Macedonia
+		34 # Greece
+		75 # Aegean Sea
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = europe}
+		}
+		modifier = {
+			add = 2
+			OR = {
+				has_war_with = ITA
+				has_war_with = YUG
+				has_war_with = GRE
+				original_tag = ITA
+				original_tag = YUG
+				original_tag = GRE
+			}
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+black_sea_region = {
+	name = theater_black_sea_region
+	regions = {
+		# Ukraine
+		78 # Taurida
+		79 # Crimea
+		99 # Podolia
+		100 # Eastern Bug
+		101 # Sloboda
+		104 # Donbas
+		105 # Pryazovia
+		106 # Zaporizhia
+		107 # Dnipr
+		# Eastern Balkans
+		14 # Moldavia
+		# Black Sea
+		174 # Sea of Azov
+		175 # Turkish Black Sea
+		176 # Crimean Black Sea
+		177 # Kuban Black Sea
+		178 # Pontis Black Sea
+		179 # Western Black Sea
+		# Kuban Region
+		137 # Rostov
+		63 # Kuban
+		129 # Norhtern Caucasus
+		138 # Stalingrad
+		139 # Atrakhan Steppe
+		# Greece
+		33 # Macedonia
+		34 # Greece
+		75 # Aegean Sea
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			OR = {
+				controls_state = 928 # Edirne
+				controls_state = 1580 # Varna
+				controls_state = 767 # Northern Dobrudja
+				controls_state = 2044 # Crimea
+				controls_state = 2282 # Georgia
+				controls_state = 2045 # Odessa
+			}
+			any_enemy_country = {
+				controls_state = 928 # Edirne
+				controls_state = 1580 # Varna
+				controls_state = 767 # Northern Dobrudja
+				controls_state = 2044 # Crimea
+				controls_state = 2282 # Georgia
+				controls_state = 2045 # Odessa
+			}
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				original_tag = TUR
+				has_war_with = TUR
+			}
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+scandinavia = {
+	name = theater_scandinavia
+	regions = {
+		# North Sea
+		238 # Jutland Sea
+		239 # Eastern North Sea
+		240 # North Sea
+		# Norwegian Coast
+		168 # Skagerrak
+		236 # Southern Norwegian Coast
+		230 # Northern Norwegian Coast
+		231 # Central Norwegian Coast
+		# Norway
+		120 # Northern Fjords
+		121 # Southern Fjords
+		122 # Southern Norway
+		# Sweden
+		119 # South Sapmi
+		123 # Southern Sweden
+		124 # Central Sweden
+		164 # North Swedish Coast
+		165 # South Swedish Coast
+		# Baltic Sea
+		161 # Baltic Coast
+		166 # Prussian Coast
+		160 # Gulf of Finland
+		# Finland  
+		112 # Eastern Finland
+		116 # North Sapmi
+		117 # Western Finland
+		118 # Northern Finland
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = europe}
+		}
+		modifier = {
+			add = 2
+			OR = {
+				has_war_with = SWE
+				has_war_with = NOR
+				has_war_with = DEN
+				original_tag = SWE
+				original_tag = NOR
+				original_tag = DEN
+			}
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+# AFRICA AND MIDDLE EAST
+north_africa = {
+	name = theater_north_africa
+	regions = {
+		# Egypt
+		50 # Upper Nile
+		57 # Sinai
+		58 # Lower Nile
+		59 # Marmarica
+
+		# Central Med
+		200 # Strait of Sicily
+		202 # Ionian
+		206 # Eastern Libyan Sea
+		207 # Western Libyan Sea
+		208 # Western Levantine Sea
+		# African Coast
+		37 # Algeria
+		38 # Tripolitania
+		39 # Cyrenaica
+		65 # Tunisia
+
+		77 # Red Sea
+
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = africa }
+		}
+		modifier = {
+			add = 2
+				owns_any_state_of = {
+					1241 # Tripoli
+					1109 # Tunisia
+					1889 # Cairo
+					1285 # Port Said
+					1895 # Alexandria
+					1120 # Algiers
+					1838 # Casablanca
+				}
+		}
+		modifier = {
+			factor = 0
+			is_historical_focus_on = yes 
+			tag = ENG 
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+north_africa_uk = {
+	name = theater_north_africa
+	regions = {
+		# Egypt
+		50 # Upper Nile
+		57 # Sinai
+		58 # Lower Nile
+		59 # Marmarica
+
+		# Central Med
+		200 # Strait of Sicily
+		202 # Ionian
+		206 # Eastern Libyan Sea
+		207 # Western Libyan Sea
+		208 # Western Levantine Sea
+		# African Coast
+		37 # Algeria
+		38 # Tripolitania
+		39 # Cyrenaica
+		65 # Tunisia
+
+		77 # Red Sea
+	}
+	cancel = {
+		
+	}
+	preferred_countries = {
+		AST SAF 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			original_tag = ENG
+		}
+		modifier = {
+			factor = 2
+				owns_any_state_of = {
+					1241 # Tripoli
+					1109 # Tunisia
+					1889 # Cairo
+					1285 # Port Said
+					1895 # Alexandria
+					1120 # Algiers
+					1838 # Casablanca
+				}
+		}
+		modifier = {
+			factor = 5
+			is_historical_focus_on = yes 
+			tag = ENG 
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+			date < 1938.1.1
+		}
+	} 
+}
+
+middle_east = {
+	name = middle_east
+	regions = {
+		# Levant
+		32 # Southern Levant
+		49 # Northern Levant
+		#Arabia
+		53 # Nejd
+		126 # Hejaz
+		127 # Shammar
+		# Middle East
+		54 # Mesopotania
+		55 # Iraqi Kurdistan
+		# Asia Minor
+		222 # South Azerbaijan
+		223 # Khuzestan
+		224 # Persian Plateau
+		225 # Zagros Mountains
+		226 # Southern Persia
+		227 # Northern Persia
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = middle_east }
+		}
+		modifier = {
+			add = 1
+			owns_any_state_of = {
+				32 # Palstine
+				1930 # Damascus
+				2210 # Baghdad
+				1326 # Riyad
+			}
+		}
+		modifier = {
+			add = 1
+			any_enemy_country = {
+				capital_scope = { is_on_continent = middle_east }
+			}
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
+
+persia = {
+	name = theater_persia
+	regions = {
+		# Levant
+		32 # Southern Levant
+		49 # Northern Levant
+		#Arabia
+		53 # Nejd
+		126 # Hejaz
+		127 # Shammar
+		# Middle East
+		54 # Mesopotania
+		55 # Iraqi Kurdistan
+		# Asia Minor
+		222 # South Azerbaijan
+		223 # Khuzestan
+		224 # Persian Plateau
+		225 # Zagros Mountains
+		226 # Southern Persia
+		227 # Northern Persia
+		# Persian Gulf
+		185 # North Persian Gulf
+		186 # South Persian Gulf
+	}
+	cancel = {
+		has_war = no 
+	}
+	ai_will_do = {
+		base = 0 
+		modifier = {
+			add = 1
+			capital_scope = { is_on_continent = middle_east }
+		}
+		modifier = {
+			add = 1
+			OR = {
+				original_tag = PER
+				has_war_with = PER
+			}
+		}
+		modifier = {
+			factor = 0
+			has_war = no 
+		}
+	} 
+}
