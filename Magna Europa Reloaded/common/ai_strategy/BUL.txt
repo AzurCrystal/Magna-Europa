@@ -1,16 +1,3 @@
-# befriend
-# conquer
-# antagonize
-# build_ship
-# build_army
-# unit_ratio
-# build_building
-# research_tech
-# garrison
-# protect
-# influence
-# send_volunteers_desire
-
 BUL_befriend_GER = {
 	allowed = {
 		original_tag = BUL
@@ -622,7 +609,10 @@ BUL_cajole_the_brits = {
 			has_capitulated = no
 			is_subject = no
 		}
-		has_idea = BUL_army_restrictions
+		OR = {
+			has_idea = BUL_army_restrictions
+			has_idea = BUL_army_restrictions_aat
+		}
 		NOT = { has_country_flag = { flag = BUL_rearmament_flag value = 2 } }
 	}
 	abort = {
@@ -636,7 +626,10 @@ BUL_cajole_the_brits = {
 				}
 			}
 			has_country_flag = { flag = BUL_rearmament_flag value = 2 }
-			NOT = { has_idea = BUL_army_restrictions }
+			OR = {
+				NOT = { has_idea = BUL_army_restrictions }
+				NOT = { has_idea = BUL_army_restrictions_aat }
+			}
 			has_political_power < 10
 			ENG = {
 				has_opinion	= {
@@ -652,23 +645,5 @@ BUL_cajole_the_brits = {
 		id = ENG
 		target = improve_relation
 		value = 200
-	}
-}
-bul_ignore_gre_claims = {
-	allowed = {
-		original_tag = BUL
-		is_historical_focus_on = yes
-	}
-	enable = {
-		NOT = { has_government = fascism }
-	}
-
-	abort = {
-		has_government = fascism
-	}
-	ai_strategy = {
-		type = ignore_claim
-		id = GRE
-		value = 1
 	}
 }

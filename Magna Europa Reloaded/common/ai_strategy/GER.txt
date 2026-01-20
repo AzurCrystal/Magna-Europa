@@ -42,7 +42,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
-		value = -1 #because doctrine this = 1
+		value = 1 #because doctrine this = 1
 	}
 
 	ai_strategy = {
@@ -54,13 +54,13 @@ GER_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = mechanized
-		value = -5 #because doctrine this = 0
+		value = -3 #because doctrine this = 0
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = -7 #because doctrine this = 3
+		value = -5 #because doctrine this = 3
 	}
 
 	ai_strategy = {
@@ -111,17 +111,6 @@ GER_unit_production = {
 		id = artillery
 		value = 100 #20 to 40
 	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = -10
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized
-		value = -10
-	}
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype #Build these up over time, don't stall
 		id = anti_air_equipment
@@ -131,6 +120,12 @@ GER_unit_production = {
 		type = equipment_production_min_factories_archetype
 		id = artillery_equipment
 		value = 4
+	}
+	
+	ai_strategy = { #Germany struggles with manual management of this in an endless loop
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 1
 	}
 
 	ai_strategy = { #added to railway gun define (set to 0 by default, increased in default strategies)
@@ -356,7 +351,7 @@ GER_armored_production = {
 		original_tag = GER
 	}
 	enable = {
-		date > 1938.8.1
+		date > 1938.3.1
 		ai_wants_divisions > 10 #Decreasing the amount of tanks the AI wants
 	}
 	abort = {
@@ -380,7 +375,7 @@ GER_halt_light_armor_production_in_transitioning = {
 		has_template_majority_unit = medium_armor
 		OR = {
 			has_equipment = { light_tank_chassis > 600 }
-			date > 1938.8.1
+			date > 1938.1.1
 		}
 	}
 	abort = {
@@ -479,7 +474,13 @@ GER_highered_armored_production = {
 	abort = {
 		num_of_military_factories < 60
 	}
-
+	
+	ai_strategy = { #Germany struggles with manual management of this in an endless loop
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 1
+	}
+	
 	ai_strategy = {
 		type = role_ratio
 		id = armor
@@ -597,7 +598,7 @@ GER_how_about_some_more_transport_planes = {
 		original_tag = GER
 	}
 	enable = {
-		num_of_military_factories > 70
+		num_of_military_factories > 50
 	}
 	abort_when_not_enabled = yes
 
@@ -703,7 +704,7 @@ GER_war_with_poland = {
 	}
 }
 
-GER_danzig_or_war_preparation = {
+GER_danzig_of_war_preparation = {
 	allowed = {
 		original_tag = GER
 	}
@@ -1722,6 +1723,11 @@ GER_area_priority = {
 		value = -70
 	}
 
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = -120 #less focus here
+	}
 
 	ai_strategy = {
 		type = area_priority
@@ -2374,7 +2380,7 @@ GER_market_management_after_anschluss = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = infantry
-		value = 10000
+		value = 100000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -2408,6 +2414,7 @@ GER_market_management_after_sudetenland = {
 		type = equipment_market_for_sale_threshold
 		id = infantry
 		value = 20000
+		value = 200000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -2442,7 +2449,7 @@ GER_market_management_after_sudetenland = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = train
-		value = 200
+		value = 400
 	}
 }
 
@@ -2888,7 +2895,7 @@ GER_have_some_train_production = {
 		date > 1936.7.1
 	}
 	abort_when_not_enabled = yes
-
+	
 	ai_strategy = {
 		type = equipment_production_min_factories
 		id = train
@@ -3527,6 +3534,7 @@ GER_push_back_our_coasts_until_overlord  = {
 
 	ai_strategy = {
 		type = front_unit_request
+
 		tag = BEL
 
 		value = 25
@@ -3727,8 +3735,6 @@ GER_focus_yugo = {
 	ai_strategy = {
 		type = strategic_air_importance
 		id = 24 #Strategic Region ID - Western Balkans
-		id = 22
-		id = 23
 		value = 30000
 	}
 }
@@ -3994,7 +4000,7 @@ GER_gotta_have_enough_medium_tanks = {
 		original_tag = GER
 	}
 	enable = {
-		date > 1939.1.1
+		date > 1938.8.1
 		has_tech = basic_medium_tank_chassis
 		stockpile_ratio = {
 			archetype = medium_tank_chassis
