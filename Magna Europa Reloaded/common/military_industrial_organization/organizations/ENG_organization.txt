@@ -22,17 +22,6 @@ ENG_vickers_armstrong_eng_organization = {
 				tag = BUL
 				has_dlc = "Battle for the Bosporus"
 			}
-			AND = {
-				tag = ETH 
-				has_dlc = "By Blood Alone"
-			}
-		}
-	}
-
-	visible = {
-		IF = {
-			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
 		}
 	}
 	
@@ -49,7 +38,6 @@ ENG_vickers_armstrong_eng_organization = {
 			limit = { 
 				OR = { 
 					FROM = { original_tag = BUL }
-					FROM = { original_tag = ETH }
 				}  
 			}
 			custom_trigger_tooltip = {
@@ -140,14 +128,6 @@ ENG_vauxhall_organization = {
 				has_dlc = "Battle for the Bosporus"
 			}
 			AND = {
-				tag = ETH 
-				has_dlc = "By Blood Alone"
-			}
-			AND = {
-				tag = BRA 
-				has_dlc = "Trial of Allegiance"
-			}
-			AND = {
 				tag = IRQ 
 				has_dlc = "Graveyard of Empires"
 			}
@@ -163,11 +143,6 @@ ENG_vauxhall_organization = {
 				has_country_flag = POL_vauxhall_motors
 			}
 		}
-		IF = {
-			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
-		}
-	
 	}
 
 	available = {
@@ -180,11 +155,8 @@ ENG_vauxhall_organization = {
 		}
 
 		IF = {
-			limit = { 
-				OR = { 
-					FROM = { original_tag = BUL }
-					FROM = { original_tag = ETH }
-				}  
+			limit = {
+				FROM = { original_tag = BUL }
 			}
 			custom_trigger_tooltip = {
 				tooltip = has_invited_mio_tt
@@ -202,16 +174,6 @@ ENG_vauxhall_organization = {
 				}
 				#is_in_faction_with = ENG
 				NOT = { has_completed_focus = BUL_nationalization }
-			}
-		}
-		IF = {
-			limit = { FROM = { original_tag = BRA } }
-			custom_trigger_tooltip = {
-				tooltip = has_invited_mio_tt
-				FROM = {
-					has_completed_focus = BRA_invite_foreign_companies
-					has_country_flag = has_vauxhall_mio_flag
-				}
 			}
 		}
 		IF = {
@@ -302,7 +264,7 @@ ENG_cammell_laird_organization = {
 		OR = {
 			tag = ENG
 			AND = {
-				tag = BRA
+				always = no
 				has_dlc = "Trial of Allegiance"
 			}
 		}
@@ -316,7 +278,7 @@ ENG_cammell_laird_organization = {
 			FROM = { NOT = { has_war_with = ENG } }
 		}
 		IF = {
-			limit = { FROM = { original_tag = BRA } }
+			limit = { FROM = { always = no } }
 			custom_trigger_tooltip = {
 				tooltip = has_invited_mio_tt
 				FROM = {
@@ -326,8 +288,6 @@ ENG_cammell_laird_organization = {
 			}
 		}
 	}
-		
-
 
 	override_trait = {
 		token = generic_mio_trait_advanced_armor_design

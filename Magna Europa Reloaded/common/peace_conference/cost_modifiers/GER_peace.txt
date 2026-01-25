@@ -40,46 +40,6 @@ peace_action_modifiers = {
         cost_multiplier = 1.15 #15% cost increase for GER on Soviet sphere
     }
 
-    GER_asian_sphere_of_influencee = {
-        category = events_or_focuses
-        peace_action_type = { take_states }
-        enable = {
-            ROOT = {
-                OR = {
-                    is_literally_china = yes
-                    original_tag = CHI
-                }
-            }
-            GER = { has_completed_focus = GER_divide_and_conquer }
-            FROM.FROM.FROM = {
-                is_in_array = {
-                    array = GER.GER_asia_sphere_of_influence_array                    
-                    value = THIS
-                }
-            }
-        }
-        cost_multiplier = 1.15 #15% cost increase for SOV on German sphere
-    }
-
-    GER_CHI_sphere_of_influence = {
-        category = events_or_focuses
-        peace_action_type = { take_states }
-        enable = {
-            ROOT = {
-                original_tag = GER #yes, this is to increase the cost for ger taking stuff in sov soi
-                has_completed_focus = GER_divide_and_conquer
-            }
-            
-            FROM.FROM.FROM = {
-                is_in_array = {
-                    array = GER.CHI_sphere_of_influence_array                    
-                    value = THIS
-                }
-            }
-        }
-        cost_multiplier = 1.15 #15% cost increase for GER on Soviet sphere
-    }
-
     GER_liberate_oppressed_peoples = {
         category = events_or_focuses
         peace_action_type = { liberate }
