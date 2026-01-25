@@ -1,8 +1,8 @@
-version="0.1.7"
+version="0.2.2"
 tags={
 	"Map"
 }
-name="Magna Europa Alpha Build 1.16.10"
+name="Magna Europa Alpha Build"
 picture="thumbnail.png"
 replace_path="history/countries"
 replace_path="history/states"
@@ -48,5 +48,5 @@ replace_path="common/units/codenames_operatives"
 replace_path="common/units/names"
 replace_path="common/units/names_railway_guns"
 replace_path="events"
-supported_version="1.17.0"
+supported_version="1.17.1"
 remote_file_id="3586596093"
