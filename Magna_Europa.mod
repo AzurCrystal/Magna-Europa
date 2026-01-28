@@ -1,4 +1,4 @@
-version="0.2.2"
+version="0.2.3"
 tags={
 	"Map"
 }
@@ -48,6 +48,6 @@ replace_path="common/units/codenames_operatives"
 replace_path="common/units/names"
 replace_path="common/units/names_railway_guns"
 replace_path="events"
-supported_version="1.17.1"
+supported_version="1.17.2"
 path="C:/Users/tarom/Documents/Paradox Interactive/Hearts of Iron IV/mod/Magna Europa Reloaded"
 remote_file_id="3586596093"
