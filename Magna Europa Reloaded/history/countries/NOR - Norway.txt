@@ -1,6 +1,7 @@
-﻿capital = 124
-every_owned_state = { set_state_flag = NOR_INITIAL_STATE }
+﻿capital = 124 # Oslo
+
 oob = "NOR_1936"
+
 if = {
 	limit = { has_dlc = "Man the Guns" }
 		set_naval_oob = "NOR_1936_naval_mtg"
@@ -10,16 +11,20 @@ if = {
 }
 if = {
 	limit = { has_dlc = "By Blood Alone" }
-		set_air_oob = "NOR_1936_air_bba"
+	set_air_oob = "NOR_1936_air_bba"
+	set_technology = {
+		bba_early_transport_plane = 1
+	}
 	else = {
 		set_air_oob = "NOR_1936_air_legacy"
 		set_technology = {
 			early_fighter = 1
 			early_bomber = 1
-
+			early_transport_plane = 1
 		}
 	}
 }
+
 #Country Leaders 
 recruit_character = NOR_johan_nygaardsvold
 recruit_character = NOR_vidkun_quisling
@@ -77,6 +82,12 @@ if = {
 	recruit_character = NOR_oscar_torp
 	recruit_character = NOR_hans_ystgaard 
 	recruit_character = NOR_birger_eriksen
+	recruit_character = NOR_edvard_christian_danielsen
+	recruit_character = NOR_rolf_fuglesang
+	recruit_character = NOR_eivind_blehr
+	recruit_character = NOR_eivind_heiberg
+	recruit_character = NOR_christopher_hornsrud
+	recruit_character = NOR_kirsten_hansteen
 	random_list = {
 		1 = { # this campaign has been blessed by Bamse 
 			set_country_flag = NOR_bamse_activated	
@@ -163,6 +174,129 @@ if = {
 	set_variable = { NOR.NOR_army_air_force_dmod_air_defence_factor = 0 }
 	set_variable = { NOR.NOR_army_air_force_dmod_air_nav_efficiency = 0 }
 }
+
+
+1939.1.1 = {
+
+	add_political_power = 1198
+	add_command_power = 100
+
+	if = {
+		limit = {
+			has_aat = yes 
+		}
+		complete_national_focus = NOR_continue_nygaardsvold_government
+		complete_national_focus = NOR_broken_gun_policies
+		complete_national_focus = NOR_leaving_the_hard_thirties_behind
+		complete_national_focus = NOR_cut_military_budget
+		complete_national_focus = NOR_bail_out_towns
+		complete_national_focus = NOR_print_more_money
+		complete_national_focus = NOR_social_incrementalism
+		complete_national_focus = NOR_restart_public_investment
+		complete_national_focus = NOR_restore_public_trust_in_the_storting
+		complete_national_focus = NOR_building_an_independent_norway
+		complete_national_focus = NOR_hurtigruten
+		complete_national_focus = NOR_norwegian_school_of_economics
+		complete_national_focus = NOR_weathering_the_storm_to_come
+		complete_national_focus = NOR_the_neutrality_guard
+		complete_national_focus = NOR_rearm_for_defense
+		complete_national_focus = NOR_patrol_our_coast
+		complete_national_focus = NOR_fortify_norway
+		complete_national_focus = NOR_coastal_defense
+		complete_national_focus = NOR_start_rearmament
+		complete_national_focus = NOR_drobak_coastal_fort
+		complete_national_focus = NOR_kickstart_military_industry
+
+		add_ideas = {
+			NOR_aat_norsk_hydro
+		}
+	}
+	if = {
+		limit = {
+			has_aat = no 
+		}
+		#generic focuses
+		complete_national_focus = army_effort
+		complete_national_focus = equipment_effort
+		complete_national_focus = motorization_effort
+		complete_national_focus = aviation_effort
+		complete_national_focus = naval_effort
+		complete_national_focus = large_navy
+		complete_national_focus = industrial_effort
+		complete_national_focus = construction_effort
+		complete_national_focus = production_effort
+		complete_national_focus = NOR_norges_tekniske_hogskole
+	}
+	
+	set_oob = "NOR_1939"
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+			set_naval_oob = "NOR_1939_naval_mtg"
+		else = {
+			set_naval_oob = "NOR_1939_naval_legacy"
+		}
+	}
+	if = {
+		limit = { has_dlc = "By Blood Alone" }
+			set_air_oob = "NOR_1939_air_bba"
+		else = {
+			set_air_oob = "NOR_1939_air_legacy"
+		}
+	}
+
+	set_technology = {
+		interwar_artillery = 1
+		infantry_weapons2 = 1
+		support_weapons = 1
+		support_weapons2 = 1 
+		
+		#doctrines
+		air_superiority = 1
+		grand_battle_plan = 1
+		trench_warfare = 1
+		fleet_in_being = 1
+		battlefleet_concentration = 1
+		submarine_operations = 1
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+		computing_machine = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		synth_oil_experiments = 1
+		fuel_silos = 1
+		oil_processing = 1
+		improved_oil_processing = 1
+		construction1 = 1
+		construction2 = 1
+		construction3 = 1
+		dispersed_industry = 1
+		dispersed_industry2 = 1
+	}
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		set_technology = {
+		}
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		set_technology = {
+			basic_depth_charges = 1
+		}
+	}
+	set_convoys = 400		# 4th biggest merchant marine in the world
+	set_stability = 0.8
+}
+
+
 set_politics = {
 	ruling_party = democratic
 	last_election = "1933.10.16"
@@ -173,6 +307,21 @@ set_popularities = {
 	democratic = 96
 	fascism = 2
 	communism = 2
+}
+
+1939.1.1 = {
+	set_politics = {
+		ruling_party = democratic
+		last_election = "1936.10.19"
+		election_frequency = 36
+		elections_allowed = yes
+	}
+	set_popularities = {
+		democratic = 84
+		fascism = 2
+		communism = 2
+		neutrality = 12
+	}
 }
 
 ### VARIANTS ###
@@ -261,4 +410,31 @@ if = {
 			rear_1_custom_slot = empty
 		}
 	}
+}
+
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Destroyers #
+		create_equipment_variant = {
+			name = "Sleipner & Odin Class"							
+			type = ship_hull_light_1
+			name_group = NOR_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_1
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_1
+				fixed_ship_torpedo_slot = ship_torpedo_1
+				mid_1_custom_slot = ship_mine_layer_1
+				rear_1_custom_slot = ship_depth_charge_1
+			}
+		}
 }

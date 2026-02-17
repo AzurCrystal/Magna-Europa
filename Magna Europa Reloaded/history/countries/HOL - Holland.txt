@@ -1,4 +1,4 @@
-﻿capital = 358
+﻿capital = 402
 
 oob = "HOL_1936"
 if = {
@@ -18,18 +18,17 @@ if = {
 			iw_small_airframe = 1
 			iw_medium_airframe = 1
 			early_bombs = 1
+			bba_early_transport_plane = 1
+			air_torpedoe_1 = 1
 		}
 	else = {
 		set_air_oob = "HOL_1936_air_legacy"
 		set_technology = {
 			early_fighter = 1
 			early_bomber = 1
+			early_transport_plane = 1
 		}
 	}
-}
-
-every_owned_state = {
-	set_state_flag = HOL_INITIAL_STATE
 }
 
 set_research_slots = 3
@@ -40,9 +39,9 @@ add_command_power = 10
 set_technology = {
 	infantry_weapons = 1
 	infantry_weapons1 = 1
-	tech_support = 1
-	tech_trucks = 1		
+	tech_support = 1		
 	tech_recon = 1
+	tech_trucks = 1
 	gw_artillery = 1
 	interwar_antiair = 1
 	fuel_silos = 1
@@ -89,14 +88,27 @@ if = {
 	}
 }
 
+# DIPLOMACY
+if = {
+	limit = {
+		OR = {
+			has_dlc = "Together for Victory"
+			has_dlc = "Man the Guns"
+		}
+	}
+	set_autonomy = {
+		target = INS
+		autonomous_state = autonomy_integrated_puppet
+	}
+	else = {
+		puppet = INS
+	}
+}
+
 set_variable = { var = gateway_to_europe_influence_pp_total value = 0 }
 
 add_ideas = {
 	HOL_wilhelmina
-}
-
-2975 = {
-	add_dynamic_modifier = { modifier = colonies_modifier }
 }
 
 if = {
@@ -143,7 +155,134 @@ recruit_character = HOL_meinout_rost_van_tonningen
 recruit_character = HOL_dirk_jan_de_geer
 recruit_character = HOL_pieter_sjoerds_gerbrandy
 recruit_character = HOL_wilhelmina
+recruit_character = HOL_fanny_schoonheyt
 
+if = {
+	limit = {
+		has_dlc = "Man the Guns"
+	}
+	recruit_character = HOL_anthony_fokker
+}
+
+1939.1.1 = {
+	add_ideas = {
+		limited_conscription
+	}
+
+	add_political_power = 1198
+	add_command_power = 100
+	
+	#generic focuses
+	remove_ideas = HOL_weak_government
+
+	complete_national_focus = HOL_obtain_foreign_colonial_investments	
+	complete_national_focus = HOL_the_crown_jewel_colony				
+	complete_national_focus = HOL_the_western_possessions				
+	complete_national_focus = HOL_abandon_the_gold_standard			
+	complete_national_focus = HOL_continue_the_public_works			
+	complete_national_focus = HOL_finish_the_noordoostpolder			
+	complete_national_focus = HOL_the_maastunnel						
+	complete_national_focus = HOL_expand_the_artillerieinrichtingen	
+	complete_national_focus = HOL_philips_focus							
+	complete_national_focus = HOL_expand_RD_facilities				
+	complete_national_focus = HOL_overturn_military_budget_cuts		
+	complete_national_focus = HOL_prepare_naval_expansion				
+	complete_national_focus = HOL_cornerstone_of_colonial_defense		
+	complete_national_focus = HOL_modernize_the_cruiser_fleet		
+	complete_national_focus = HOL_prepare_the_inundation_lines		
+	complete_national_focus = HOL_germany_is_the_greater_threat		
+	complete_national_focus = HOL_antilles_defenses					
+	complete_national_focus = HOL_form_new_government	
+
+	unlock_national_focus = HOL_expand_curacao_oil_refineries
+	
+	oob = "HOL_1939"
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+			set_naval_oob = "HOL_1939_naval_mtg"
+		else = {
+			set_naval_oob = "HOL_1939_naval_legacy"
+		}
+	}
+	if = {
+		limit = { has_dlc = "By Blood Alone" }
+			set_air_oob = "HOL_1939_air_bba"
+			set_technology = {
+				engines_2 = 1
+				basic_medium_airframe = 1
+				basic_small_airframe = 1
+				aa_cannon_1 = 1
+			}
+		else = {
+			set_air_oob = "HOL_1939_air_legacy"
+			set_technology = {
+				fighter1 = 1
+				tactical_bomber1 = 1
+				naval_bomber1 = 1
+			}
+		}
+	}
+
+	set_technology = {
+		tech_engineers = 1
+		motorised_infantry = 1
+		interwar_artillery = 1
+		interwar_antitank = 1
+		infantry_weapons2 = 1
+		support_weapons = 1
+		marines = 1
+
+		#doctrines
+		air_superiority = 1
+		grand_battle_plan = 1
+		trench_warfare = 1
+		fleet_in_being = 1
+		battlefleet_concentration = 1
+		convoy_sailing = 1
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+		computing_machine = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		synth_oil_experiments = 1
+		oil_processing = 1
+		fuel_refining2 = 1
+		construction1 = 1
+		construction2 = 1
+		construction3 = 1
+		concentrated_industry = 1
+		concentrated_industry2 = 1
+		concentrated_industry3 = 1
+	}
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		set_technology = {
+			basic_submarine = 1
+			improved_light_cruiser = 1
+		}
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		set_technology = {
+			improved_ship_hull_submarine = 1
+			basic_ship_hull_light = 1
+			basic_light_battery = 1
+			basic_medium_battery = 1
+		}
+	}
+	HOL_dirk_jan_de_geer = {
+		promote_character = { ideology = conservatism }
+	}
+}
 
 set_politics = {
 	ruling_party = democratic
@@ -344,6 +483,114 @@ if = {
 			mid_1_custom_slot = empty
 			mid_2_custom_slot = empty
 			rear_1_custom_slot = empty
+		}
+	}
+}
+
+
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = {
+			has_dlc = "By Blood Alone"
+		}
+		create_equipment_variant = {
+			name = "Fokker D.XXI"
+			type = small_plane_airframe_1
+			modules = {
+				fixed_main_weapon_slot = light_mg_4x
+				engine_type_slot = engine_1_1x
+				special_type_slot_1 = empty
+			}
+		}
+		create_equipment_variant = {
+			name = "Fokker T.V"
+			type = medium_plane_airframe_1
+			modules = {
+				fixed_main_weapon_slot = medium_bomb_bay
+				engine_type_slot = engine_2_2x
+				special_type_slot_1 = lmg_defense_turret_2x
+				special_type_slot_2 = cannon_defense_turret
+			}
+		}
+		create_equipment_variant = {
+			name = "Fokker G.I"
+			type = small_plane_airframe_1
+			modules = {
+				fixed_main_weapon_slot = aircraft_cannon_1_2x
+				fixed_auxiliary_weapon_slot_1 = light_mg_2x
+				engine_type_slot = engine_1_2x
+				special_type_slot_1 = empty
+			}
+		}
+	}
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Submarines #
+		create_equipment_variant = {
+			name = "O19 Class"								# represents O19-24 subs
+			type = ship_hull_submarine_3
+			name_group = HOL_SS_OCLASS
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_2
+				fixed_ship_engine_slot = sub_ship_engine_3
+				front_1_custom_slot = ship_mine_layer_sub
+				rear_1_custom_slot = ship_torpedo_sub_2
+			}
+		}
+		# Destroyers #
+		create_equipment_variant = {
+			name = "Gerard Callenburgh Class"					
+			type = ship_hull_light_2
+			name_group = HOL_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_2
+				fixed_ship_torpedo_slot = ship_torpedo_1
+				mid_1_custom_slot = ship_mine_layer_1
+				rear_1_custom_slot = ship_depth_charge_1
+			}
+		}
+		create_equipment_variant = {
+			name = "van der Zaan Class"				# DD-sized minelayer			
+			type = ship_hull_light_2
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_1
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_1
+				fixed_ship_torpedo_slot = empty
+				mid_1_custom_slot = ship_mine_layer_1
+				rear_1_custom_slot = ship_mine_layer_1
+			}
+		}
+		# Light Cruisers #
+		create_equipment_variant = {
+			name = "Tromp Class"
+			type = ship_hull_cruiser_1
+			name_group = HOL_CL_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_medium_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = cruiser_ship_engine_2
+				mid_1_custom_slot = ship_torpedo_1
+				mid_2_custom_slot = empty
+				rear_1_custom_slot = ship_airplane_launcher_1
+			}
 		}
 	}
 }

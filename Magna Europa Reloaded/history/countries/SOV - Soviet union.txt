@@ -1,4 +1,4 @@
-﻿
+﻿capital = 229
 ####
 #### NO STEP BACK
 ####
@@ -14,12 +14,6 @@ set_party_name = {
 	ideology = fascism
 	long_name = SOV_fascism_party_russian_long
 	name = SOV_fascism_party_russian
-}
-
-if = {
-	limit = { has_dlc = "La Resistance" }
-	create_intelligence_agency = yes
-	set_faction_spymaster = yes
 }
 
 #COUNTRY LEADERS
@@ -133,6 +127,18 @@ recruit_character = SOV_vasily_korzh
 recruit_character = SOV_sidor_kovpak
 recruit_character = SOV_lev_dovator
 recruit_character = SOV_pavel_rybalko
+recruit_character = SOV_abram_ioffe
+recruit_character = SOV_boris_stechkin
+recruit_character = SOV_arkady_nazarov
+recruit_character = SOV_vladimir_kotelnikov
+
+# Lokot Autonomy Characters
+recruit_character = SOV_konstantin_voskoboinik
+recruit_character = SOV_bronislav_kaminski
+
+# Even without NSB so Germany can access them on historical
+recruit_character = SOV_pyotr_krasnov
+recruit_character = SOV_konstantin_nechayev
 
 if = {
 	limit = {
@@ -151,9 +157,6 @@ if = {
 	recruit_character = SOV_yan_nagursky
 	recruit_character = SOV_vasily_yanchenko
 	recruit_character = SOV_tsar_vladimir_kirillovich
-
-	recruit_character = SOV_pyotr_krasnov
-	recruit_character = SOV_konstantin_nechayev
 	recruit_character = SOV_aleksandr_rodzyanko
 	recruit_character = SOV_vladimir_kosmin
 	recruit_character = SOV_andrey_shkuro
@@ -362,8 +365,8 @@ set_variable = { SOV_poster_right_icon_frame = SOV_propaganda_locked_slot_index 
 set_variable = { SOV_default_propaganda_campaign_duration = 180 } #Duration days for propaganda campaigns
 set_variable = { SOV_default_propaganda_campaign_cooldown = 90 } #Days of cooldown after a Propaganda Campaign has been finished.
 set_variable = { SOV_default_propaganda_campaign_old_days = 150 } #A propaganda poster will age (change GFX) after this amount of days have passed since the campaign was activated
-set_variable = { SOV_propaganda_cost = 10 } #Used not only to set the rest of propaganda campaign costs here, but also used to increase each campaign cost after being activated
-set_variable = { SOV_propaganda_cost_increase = 1.5 } #This will multiply the regular propaganda_cost each time a propaganda campaign is activated, so that it's cost is increased
+set_variable = { SOV_propaganda_cost = 15 } #Used not only to set the rest of propaganda campaign costs here, but also used to increase each campaign cost after being activated
+set_variable = { SOV_propaganda_cost_increase = 2 } #This will multiply the regular propaganda_cost each time a propaganda campaign is activated, so that it's cost is increased
 set_variable = { SOV_propaganda_motherland_calls_cost = SOV_propaganda_cost } # ID = 2
 set_variable = { SOV_propaganda_victory_at_hand_cost = SOV_propaganda_cost } # ID = 3
 set_variable = { SOV_propaganda_defend_moscow_cost = SOV_propaganda_cost } # ID = 4
@@ -505,7 +508,7 @@ set_variable = { SOV_fyp_factory_requirement_tier_5 = 200 }
 #THIRD FIVE YEAR PLAN NATIONAL SPIRIT VARS
 set_variable = { SOV_fyp_production_factory_efficiency_gain_factor = -0.15 }
 set_variable = { SOV_fyp_production_factory_max_efficiency_factor = 0.05 }
-set_variable = { SOV_fyp_consumer_goods_factor = 0.05 }
+set_variable = { SOV_fyp_consumer_goods_factor = 0.10 }
 set_variable = { SOV_fyp_production_speed_industrial_complex_factor = 0.05 }
 
 set_variable = { SOV_fyp_industrial_concern_cost_factor = -0.15 } #-> Third Five Year Plan
@@ -588,7 +591,7 @@ set_variable = { SOV_the_red_army_heat_attrition_factor = 0 } # -> An Adaptable 
 set_variable = { SOV_the_red_army_winter_attrition_factor = 0 } # -> An Adaptable Army
 set_variable = { SOV_the_red_army_acclimatization_cold_climate_gain_factor = 0 } # -> An Adaptable Army
 set_variable = { SOV_the_red_army_acclimatization_hot_climate_gain_factor = 0 } # -> An Adaptable Army
-set_variable = { SOV_the_red_army_terrain_penalty_reduction = 0 } # -> An Adaptable Army
+set_variable = { SOV_the_red_army_terrain_trait_xp_gain_factor = 0 } # -> An Adaptable Army
 set_variable = { SOV_the_red_army_unit_infantry_design_cost_factor = 0 } # -> Military Reorganization
 set_variable = { SOV_the_red_army_unit_artillery_brigade_design_cost_factor = 0 } # -> Military Reorganization
 set_variable = { SOV_the_red_army_army_org_regain = 0 } # -> Barrier Troops
@@ -637,16 +640,14 @@ set_variable = { SOV_merge_designers_cost = 50 } #Default cost for merge designe
 set_variable = { SOV_merge_designers_time = 180 } #The time to complete merge designer decisions
 
 #INDUSTRIAL RELOCATION
-set_variable = { SOV_industrial_relocation_number = 0 } #Amount of relocation that can happen at the same time
-set_variable = { SOV_industrial_relocation_max_number = 3 } #Amount of relocation that can happen at the same time
 set_variable = { SOV_industrial_relocation_max_factories = 4 } #Max amount of factories that will be relocated by a decision
-set_variable = { SOV_industrial_relocation_days = 80 } #Decision duration (can be halved by focus)
-set_variable = { SOV_industrial_relocation_trains_focus = 60 } #Trains to be used by the focus (10 trains / factory)
-set_variable = { SOV_industrial_relocation_trains_focus_negative = -60 } #Trains to be used by the focus (10 trains / factory)
-set_variable = { SOV_industrial_relocation_trains_decision = 40 } #Trains to be used by the generic decision (10 trains / factory)
-set_variable = { SOV_industrial_relocation_trains_decision_negative = -40 } #Trains to be used by the generic decision (10 trains / factory)
-set_variable = { SOV_industrial_relocation_trains_decision_aluminium = 10 } #Trains to be used by the aluminium decision (10 trains / factory)
-set_variable = { SOV_industrial_relocation_trains_decision_aluminium_negative = -10 } #Trains to be used by the aluminium decision (10 trains / factory)
+set_variable = { SOV_industrial_relocation_days = 60 } #Decision duration (can be halved by focus)
+set_variable = { SOV_industrial_relocation_trains_focus = 120 } #Trains to be used by the focus (20 trains / factory)
+set_variable = { SOV_industrial_relocation_trains_focus_negative = -120 } #Trains to be used by the focus (20 trains / factory)
+set_variable = { SOV_industrial_relocation_trains_decision = 80 } #Trains to be used by the generic decision (20 trains / factory)
+set_variable = { SOV_industrial_relocation_trains_decision_negative = -80 } #Trains to be used by the generic decision (20 trains / factory)
+set_variable = { SOV_industrial_relocation_trains_decision_aluminium = 20 } #Trains to be used by the aluminium decision (20 trains / factory)
+set_variable = { SOV_industrial_relocation_trains_decision_aluminium_negative = -20 } #Trains to be used by the aluminium decision (20 trains / factory)
 
 #DECISIONS COST - For cost reductions
 set_variable = { SOV_pressure_country_government_cost = 50 }
@@ -697,10 +698,9 @@ set_technology = {
 #### VANILLA ####
 ####
 
-capital = 229
+capital = 219 # Moscow
 
-starting_train_buffer = 8.0
-starting_truck_buffer = 2.0
+starting_train_buffer = 3.0
 
 if = {
 	limit = {
@@ -739,6 +739,7 @@ if = {
 			basic_medium_airframe = 1
 			aircraft_construction = 1
 			air_torpedoe_1 = 1
+			bba_early_transport_plane = 1
 		}
 	else = {
 		set_air_oob = "SOV_1936_air_legacy"
@@ -748,6 +749,7 @@ if = {
 			early_bomber = 1
 			strategic_bomber1 = 1
 			naval_bomber1 = 1
+			early_transport_plane = 1
 		}
 	}
 }
@@ -755,22 +757,38 @@ if = {
 set_research_slots = 3
 set_stability = 0.5
 set_war_support = 0.3
+
+add_breakthrough_progress = {
+	specialization = specialization_land
+	value = 0.2
+}
+
+add_breakthrough_progress = {
+	specialization = specialization_naval
+	value = 0.2
+}
+
+add_breakthrough_progress = {
+	specialization = specialization_air
+	value = 0.3
+}
+
 # Starting tech
 set_technology = { #WARNING: Do not just remove techs from here -> It can impact a lot of stuff. Before removing, double check that content does not count on these techs being researched
 	infantry_weapons = 1
 	infantry_weapons1 = 1
 	tech_recon = 1
-	tech_support = 1
-	tech_trucks = 1		
+	tech_support = 1		
 	tech_engineers = 1
 	tech_military_police = 1
 	tech_mountaineers = 1
+	tech_trucks = 1
 	motorised_infantry = 1
 	paratroopers = 1
 	gw_artillery = 1
 	interwar_antiair = 1
-	#mass_assault = 1
-	#fleet_in_being = 1
+	mass_assault = 1
+	fleet_in_being = 1
 	fuel_silos = 1
 	fuel_refining = 1
 	basic_train = 1
@@ -846,8 +864,6 @@ add_ideas = {
 	home_of_revolution
 	trotskyite_plot_nsb
 	SOV_politicized_military
-	sov_manpower_from_east
-	partial_economic_mobilisation
 
 	SOV_genrikh_yagoda #NKVD Chief (political advisor)
 }
@@ -869,6 +885,19 @@ add_ideas = {
 	}
 
 
+	IF = {
+		limit = {
+			has_dlc = "No Step Back"
+		}
+		complete_special_project = {
+			project = sp:sp_land_flamethrower_tank
+		}
+	}
+
+	complete_special_project = {
+		project = sp:sp_naval_cruiser_submarine
+	}
+
 	###################
 	### Purge stuff ###
 	###################
@@ -882,7 +911,7 @@ add_ideas = {
 	#PURGE NSs
 	add_timed_idea = {
 		idea = SOV_understaffed_bureaucracy
-		days  =365
+		days = 365
 	}
 	add_ideas = {
 		SOV_anti_soviet_military_thinking_banned_army
@@ -1000,8 +1029,8 @@ add_ideas = {
 	add_opinion_modifier = { target = GER modifier = MR_pact }# pact 
 	set_global_flag = sov_yes_pact
 	add_state_claim = 146 #KARELIA (FIN)
-	add_state_claim = 147 #SALLA (FIN)
-	add_state_claim = 722 #PETSAMO (FIN)
+	#add_state_claim = 147 #SALLA (FIN) # Claim removed from MR pact (AAT)
+	#add_state_claim = 722 #PETSAMO (FIN) # Claim removed from MR pact (AAT)
 	add_state_claim = 13 #PÄRNU (EST)
 	add_state_claim = 191 #TARTU (EST)
 	add_state_claim = 811 #SAAREMAA (EST)
@@ -1123,7 +1152,7 @@ add_ideas = {
 
 	#FYP NS
 	add_to_variable = { SOV_fyp_production_factory_efficiency_gain_factor = 0.05 }
-	add_to_variable = { SOV_fyp_consumer_goods_factor = 0.05 }
+	add_to_variable = { SOV_fyp_consumer_goods_factor = 0.10 }
 	remove_dynamic_modifier = { modifier = SOV_second_five_year_plan_dynamic_modifier }
 	add_dynamic_modifier = { modifier = SOV_third_five_year_plan_dynamic_modifier }
 
@@ -1170,14 +1199,13 @@ add_ideas = {
 		submarine_operations = 1
 
 		#Air
-		#formation_flying = 1		
+		formation_flying = 1		
 		dive_bombing = 1
 		direct_ground_support = 1
 
 		#electronics
 		electronic_mechanical_engineering = 1
 		radio = 1
-		radio_detection = 1
 		mechanical_computing = 1
 		computing_machine = 1
 		basic_encryption = 1
@@ -1197,6 +1225,13 @@ add_ideas = {
 		concentrated_industry2 = 1
 		concentrated_industry3 = 1
 	}
+	
+	complete_special_project = {
+		project = sp:sp_air_radar
+		scientist = SOV_vladimir_kotelnikov
+		state = 260
+	}
+
 	if = {
 		limit = {
 			NOT = { has_dlc = "No Step Back" }
@@ -1238,7 +1273,7 @@ add_ideas = {
 }
 
 
-set_convoys = 2000 #More convoys for lend lease
+set_convoys = 50
 
 set_politics = {
 	ruling_party = communism
@@ -1252,15 +1287,18 @@ set_popularities = {
 	communism = 88
 }
 
-create_faction_from_template = faction_template_comintern
+create_faction = Comintern
 add_to_faction = SOV
+add_to_faction = MON
+add_to_faction = TAN
 
 if = {
 	limit = {
 		has_dlc = "La Resistance"
 	}
+
 	create_operative_leader = {
-		name = "Alexander Radó"
+		name = SOV_alexander_rado
 		GFX = GFX_portrait_alexander_rado
 		traits = { operative_natural_orator }
 		bypass_recruitment = no
@@ -1269,21 +1307,32 @@ if = {
 	}
 
 	create_operative_leader = {
-		name = "Kim Philby"
+		name = SOV_kim_philby
 		GFX = GFX_portrait_kim_philby
 		traits = { operative_double_agent operative_infiltrator }
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		nationalities = { SOV ENG }
 	}
+
 	create_operative_leader = {
-		name = "Richard Sorge"
+		name = SOV_richard_sorge
 		GFX = GFX_portrait_richard_sorge
 		traits = { operative_well_groomed }
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		nationalities = { SOV GER }
 	}
+
+	create_operative_leader = {
+		name = SOV_yan_chernyak
+		GFX = GFX_portrait_SOV_yan_chernyak
+		traits = { operative_linguist operative_infiltrator }
+		bypass_recruitment = no
+		available_to_spy_master = yes
+		nationalities = { SOV GER HUN ROM CZE SLO }
+	}
+
 }
 
 
@@ -1294,7 +1343,7 @@ if = {
 	limit = {
 		has_dlc = "By Blood Alone"
 	}
-	create_equipment_variant = {
+	create_equipment_variant = { #Note: There is a copy of this variant in Finnish Scripted Effects file (FIN_purchase_soviet_equipment_for_cw). Any changes here should also be applied there
 		name = "I-15" #
 		type = small_plane_airframe_0
 		modules = {
@@ -1354,7 +1403,7 @@ if = {
 	limit = {
 		has_dlc = "No Step Back"
 	}
-	create_equipment_variant = {
+	create_equipment_variant = { #Note: There is a copy of this variant in Finnish Scripted Effects file (FIN_purchase_soviet_equipment_for_cw). Any changes here should also be applied there
 		name = "T-27"
 		type = light_tank_chassis_0
 		parent_version = 0
@@ -1392,7 +1441,7 @@ if = {
 		}
 		icon = "GFX_SOV_basic_light_tank_medium"
 	}
-	create_equipment_variant = {
+	create_equipment_variant = { #Note: There is a copy of this variant in Finnish National Focus file (FIN_bring_foreign_armor_experts). Any changes here should also be applied there
 		name = "BT-5"
 		type = light_tank_chassis_1
 		design_team = mio:SOV_morozov_design_bureau_organization
@@ -1427,8 +1476,7 @@ if = {
 			tank_nsb_engine_upgrade = 10
 			tank_nsb_armor_upgrade = 2
 		}
-		icon = "GFX_SOV_improved_light_tank_medium" #More similar to BT-7 than to T-26
-		model = "SOV_light_armor_entity" #More similar to BT-7 than to T-26
+		icon = "GFX_SOV_improved_light_tank_medium"
 	}
 
 	create_equipment_variant = {
@@ -1688,6 +1736,7 @@ if = {
 		type = ship_hull_cruiser_1				# minelayer
 		name_group = SOV_MINELAYERS_HISTORICAL
 		parent_version = 0
+		role_icon_index = 4
 		modules = {
 			fixed_ship_battery_slot = ship_light_medium_battery_1
 			fixed_ship_anti_air_slot = ship_anti_air_1
@@ -1735,6 +1784,200 @@ if = {
 			mid_1_custom_slot = empty
 			mid_2_custom_slot = empty
 			rear_1_custom_slot = empty
+		}
+	}
+}
+
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = {
+			has_dlc = "By Blood Alone"
+		}
+		create_equipment_variant = {
+			name = "I-153" #
+			type = small_plane_airframe_0
+			modules = {
+				fixed_main_weapon_slot = light_mg_4x
+				fixed_auxiliary_weapon_slot_1 = rocket_rails
+				engine_type_slot = engine_1_1x
+				special_type_slot_1 = empty
+			}
+		}
+		create_equipment_variant = {
+			name = "I-16 Type 10" #
+			type = small_plane_airframe_1
+			modules = {
+				fixed_main_weapon_slot = light_mg_4x
+				fixed_auxiliary_weapon_slot_1 = empty
+				engine_type_slot = engine_2_1x
+				special_type_slot_1 = empty
+			}
+		}
+		create_equipment_variant = {
+			name = "MBR-2" #
+			type = small_plane_cas_airframe_1
+			modules = {
+				fixed_main_weapon_slot = bomb_locks
+				fixed_auxiliary_weapon_slot_1 = empty
+				engine_type_slot = engine_2_1x
+				special_type_slot_1 = floats
+				special_type_slot_2 = fuel_tanks_small
+			}
+		}
+		create_equipment_variant = {
+			name = "Pe-8" #
+			type = large_plane_airframe_1
+			modules = {
+				fixed_main_weapon_slot = large_bomb_bay
+				fixed_auxiliary_weapon_slot_1 = large_bomb_bay
+				engine_type_slot = engine_3_4x #Increased tier due to thrust/weight issues
+				special_type_slot_1 = lmg_defense_turret
+				special_type_slot_2 = cannon_defense_turret_2x
+			}
+		}
+	}
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+		create_equipment_variant = {
+			name = "Series X Shchuka"
+			type = submarine_2
+			upgrades = {
+				ship_reliability_upgrade = 3
+				sub_engine_upgrade = 3
+				sub_stealth_upgrade = 3
+				sub_torpedo_upgrade = 3
+			}
+		}
+
+		create_equipment_variant = {
+			name = "Maxim Gorky Class"
+			type = heavy_cruiser_2
+			upgrades = {
+				ship_reliability_upgrade = 2
+				ship_engine_upgrade = 2
+				ship_armor_upgrade = 2
+				ship_gun_upgrade = 2
+			}
+		}
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Submarines #
+		create_equipment_variant = {
+			name = "Series XIII Leninets"				
+			type = ship_hull_submarine_2
+			name_group = SOV_SS_LENINETS
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_2
+				fixed_ship_engine_slot = sub_ship_engine_2
+				rear_1_custom_slot = ship_mine_layer_sub
+			}
+		}
+		create_equipment_variant = {
+			name = "Series XIV K-Class"				
+			type = ship_hull_submarine_3
+			name_group = SOV_SS_SHCHUKA
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_2
+				fixed_ship_engine_slot = sub_ship_engine_3
+				front_1_custom_slot = ship_mine_layer_sub
+				mid_1_custom_slot = empty
+				rear_1_custom_slot = ship_torpedo_sub_2
+			}
+		}
+		# Destroyers #
+		create_equipment_variant = {
+			name = "Gnevnyy Class"				
+			type = ship_hull_light_2
+			name_group = SOV_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_2
+				fixed_ship_anti_air_slot = empty
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_2
+				fixed_ship_torpedo_slot = empty
+				mid_1_custom_slot = empty
+				rear_1_custom_slot = ship_depth_charge_1
+			}
+			obsolete = yes
+		}
+		create_equipment_variant = {
+			name = "Soobrazitelnyi Class"				
+			type = ship_hull_light_3
+			name_group = SOV_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_2
+				fixed_ship_torpedo_slot = empty
+				mid_1_custom_slot = empty
+				rear_1_custom_slot = ship_depth_charge_1
+			}
+		}
+		create_equipment_variant = {
+			name = "Tashkent Class"				
+			type = ship_hull_light_3
+			name_group = SOV_DD_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_battery_slot = ship_light_battery_2
+				fixed_ship_anti_air_slot = ship_anti_air_1
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = light_ship_engine_3
+				fixed_ship_torpedo_slot = ship_torpedo_1
+				mid_1_custom_slot = ship_anti_air_1
+				rear_1_custom_slot = ship_depth_charge_1
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_dlc = "No Step Back"
+		}
+		create_equipment_variant = {
+			name = "A-20"
+			type = medium_tank_chassis_1
+			parent_version = 0
+			modules = {
+				main_armament_slot = tank_small_cannon_2
+				turret_type_slot = tank_medium_two_man_tank_turret
+				suspension_type_slot = tank_christie_suspension
+				armor_type_slot = tank_welded_armor
+				engine_type_slot = tank_diesel_engine
+				special_type_slot_1 = sloped_armor
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 8
+				tank_nsb_armor_upgrade = 2
+			}
+			icon = "GFX_SOV_basic_medium_tank_medium"
+		}
+		create_equipment_variant = {
+			name = "KV-1"
+			type = heavy_tank_chassis_1
+			parent_version = 0
+			modules = {
+				main_armament_slot = tank_medium_cannon
+				turret_type_slot = tank_heavy_three_man_tank_turret
+				suspension_type_slot = tank_torsion_bar_suspension
+				armor_type_slot = tank_welded_armor
+				engine_type_slot = tank_diesel_engine		
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 10
+				tank_nsb_armor_upgrade = 9
+			}
+			icon = "GFX_SOV_improved_heavy_tank_medium"
 		}
 	}
 }

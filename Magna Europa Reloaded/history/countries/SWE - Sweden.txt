@@ -1,5 +1,6 @@
-﻿capital = 141
-every_owned_state = { set_state_flag = SWE_INITIAL_STATE }
+﻿capital = 141	
+
+#add_opinion_modifier = { target = GER modifier = GER_SWE_historic_trade_Partners } CUT
 oob = "SWE_1936"
 if = {
 	limit = { has_dlc = "Man the Guns" }
@@ -15,6 +16,7 @@ if = {
 			iw_small_airframe = 1
 			aa_lmg = 1
 			engines_1 = 1
+			bba_early_transport_plane = 1
 		}
 	else = {
 		set_air_oob = "SWE_1936_air_legacy"
@@ -24,6 +26,7 @@ if = {
 			naval_bomber1 = 1
 			cv_naval_bomber1 = 1
 			early_bomber = 1
+			early_transport_plane = 1
 		}
 	}
 }
@@ -42,8 +45,8 @@ if = {
 
 
 	add_dynamic_modifier = { modifier = SWE_folkhemmet }
-	set_stability = 0.43
-	set_war_support = 0.1
+	set_stability = 0.47
+	set_war_support = 0.05
 }
 if = {
 	limit = {
@@ -62,11 +65,11 @@ if = {
 set_technology = {
 	infantry_weapons = 1
 	infantry_weapons1 = 1
+	tech_trucks = 1
 	gw_artillery = 1
 	interwar_antiair = 1
 	tech_recon = 1
-	tech_support = 1
-	tech_trucks = 1		
+	tech_support = 1		
 	tech_engineers = 1
 	basic_train = 1
 	interwar_antitank = 1 # 
@@ -118,6 +121,7 @@ if = {
 		coastal_defense_ships = 1
 		mtg_transport = 1
 		early_ship_hull_carrier = 1
+		early_ship_hull_heavy = 1
 	}
 }
 
@@ -209,15 +213,14 @@ if = {
 		#doctrines
 		air_superiority = 1
 		grand_battle_plan = 1
-		#trench_warfare = 1
-		#fleet_in_being = 1
+		trench_warfare = 1
+		fleet_in_being = 1
 		battlefleet_concentration = 1
 		submarine_operations = 1
 
 		#electronics
 		electronic_mechanical_engineering = 1
 		radio = 1
-		radio_detection = 1
 		mechanical_computing = 1
 		computing_machine = 1
 
@@ -233,6 +236,9 @@ if = {
 		construction2 = 1
 		dispersed_industry = 1
 		dispersed_industry2 = 1
+	}
+	complete_special_project = {
+		project = sp:sp_air_radar
 	}
 	if = {
 		limit = {
@@ -281,6 +287,21 @@ set_popularities = {
 	neutrality = 14
 	communism = 8
 	fascism = 3
+}
+
+1939.1.1 = {
+	set_politics = {
+		ruling_party = democratic
+		last_election = "1936.9.20"
+		election_frequency = 48
+		elections_allowed = yes
+	}
+	set_popularities = {
+		democratic = 85
+		neutrality = 10
+		communism = 4
+		fascism = 1
+	}
 }
 
 set_convoys = 25
@@ -364,7 +385,7 @@ if = {
 		}
 		obsolete = yes #used for oob
 	}
-	create_equipment_variant = {
+	create_equipment_variant = { #Note: There is a copy of this variant in Finnish National Focus file (FIN_bring_foreign_armor_experts). Any changes here should also be applied there
 		name = "Stridsvagn m/31"
 		type = light_tank_chassis_1
 		parent_version = 0
@@ -554,7 +575,7 @@ if = {
 		name_group = SWE_CA_HISTORICAL
 		parent_version = 0
 		modules = {
-			fixed_ship_battery_slot = ship_medium_battery_1
+			fixed_ship_battery_slot = ship_heavy_battery_1
 			fixed_ship_anti_air_slot = ship_anti_air_1
 			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
 			fixed_ship_radar_slot = empty
@@ -585,6 +606,40 @@ if = {
 	}
 }
 
+# 1939 Start #
+1939.1.1 = {
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		# Ship variants #
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+		# Submarines #
+		create_equipment_variant = {
+			name = "Delfinen Class"				
+			type = ship_hull_submarine_2
+			name_group = SWE_SS_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_1
+				fixed_ship_engine_slot = sub_ship_engine_1
+				rear_1_custom_slot = ship_mine_layer_sub
+			}
+			obsolete = yes
+		}
+		create_equipment_variant = {
+			name = "Sjölejonet Class"				
+			type = ship_hull_submarine_2
+			name_group = SWE_SS_HISTORICAL
+			parent_version = 0
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub_2
+				fixed_ship_engine_slot = sub_ship_engine_2
+				rear_1_custom_slot = empty
+			}
+		}
+	}
+}
 
 add_equipment_to_stockpile = {
 	type = infantry_equipment
@@ -677,6 +732,8 @@ if = {
 
 	set_variable = { SWE_hygenic_housing_cooldown = 0 }
 
+	set_variable = { SWE_civs_built = 0 }
+
 
 	# Election/BoP Stuff
 	#set_power_balance = {
@@ -735,6 +792,7 @@ if = {
 	recruit_character = SWE_raoul_wallenberg
 	recruit_character = SWE_natanael_beskow
 	recruit_character = SWE_olof_thornell
+	recruit_character = SWE_lise_meitner
 }
 
 if = {
@@ -749,5 +807,6 @@ if = {
 		traits = { operative_seducer operative_infiltrator operative_tough }
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { SWE HUN }	}
+		nationalities = { SWE HUN }
+	}
 }
