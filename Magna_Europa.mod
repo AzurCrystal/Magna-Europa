@@ -1,4 +1,4 @@
-version="0.2.3"
+version="0.2.2"
 tags={
 	"Map"
 }
@@ -12,7 +12,6 @@ replace_path="map/strategicregions"
 replace_path="map/supplyareas"
 replace_path="common/abilities"
 replace_path="common/ai_areas"
-replace_path="common/ai_equipment"
 replace_path="common/ai_focuses"
 replace_path="common/ai_peace"
 replace_path="common/ai_strategy_plans"
