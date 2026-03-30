@@ -2239,151 +2239,6 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = wuw_HUN_press_maximilians_and_the_iturbides_claims
-		icon = GFX_focus_mex_jefe_maximo
-		prerequisite = { focus = wuw_HUN_a_grand_habsburg_alliance }
-		#mutually_exclusive = { focus = wuw_HUN_seek_an_alliance_with_the_kaiser focus = wuw_HUN_the_old_grand_alliance }
-		x = -3
-		y = 1
-		relative_position_id = wuw_HUN_a_grand_habsburg_alliance
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 5
-		}
-
-		available = {
-
-			has_government = neutrality
-			is_subject = no
-			is_faction_leader = yes
-			OR = {
-				MEX = {
-					exists = yes
-					has_civil_war = no
-					NOT = {
-						has_government = communism
-					}
-				}
-				AND = {
-					MEX = {
-						exists = no
-					}
-					OR = {
-						277 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 277
-						}
-					}
-				}
-			}
-
-		}
-
-		bypass = {
-
-		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL }
-
-		cancel_if_invalid = no
-		continue_if_invalid = yes
-		available_if_capitulated = no
-
-		completion_reward = {
-
-				IF = {
-					limit = {
-						MEX = {
-							exists = yes
-							is_subject = no
-						}
-					}
-					MEX = {
-						country_event = {
-							id = WW_hungary.62
-							days = 1
-							random_days = 2
-						}
-					}
-				}
-				ELSE_IF = {
-					limit = {
-						MEX = {
-							is_subject = yes
-							NOT = {
-								is_subject_of = ROOT
-							}
-						}
-					}
-					create_wargoal = {
-						type = puppet_wargoal_focus
-						target = MEX
-					}
-					unlock_decision_tooltip = HUN_place_a_habsburg_on_the_mexican_throne
-				}
-				ELSE_IF = {
-					limit = {
-						MEX = {
-							OR = {
-								is_subject_of = ROOT
-								exists = no
-							}
-						}
-					}
-
-					every_state = {
-						limit = {
-							OR = {
-								is_controlled_by = ROOT
-								any_country = {
-									is_subject_of = ROOT
-									controls_state = PREV
-								}
-							}
-							NOT = {
-								is_core_of = ROOT
-							}
-							is_core_of = MEX
-							NOT = {
-								is_owned_and_controlled_by = MEX
-							}
-						}
-						transfer_state_to = MEX
-					}
-
-					MEX = {
-						drop_cosmetic_tag = yes
-						set_cosmetic_tag = MEX_habsburg_empire
-						country_event = {
-							id = WW_hungary.61
-							hours = 0
-						}
-					}
-
-					IF = {
-						limit = {
-							MEX = {
-								NOT = {
-									is_subject_of = ROOT
-								}
-							}
-						}
-						puppet = MEX
-					}
-
-					hidden_effect = {
-						set_country_flag = HUN_created_mexican_habsburg_monarchy
-					}
-
-				}
-		}
-	}
 
 	focus = {
 		id = wuw_HUN_reenlist_the_sich_riflemen
@@ -2931,19 +2786,19 @@ focus_tree = {
 
 			NOT = {
 				OR = {
-					76 = {
+					655 = {
 						is_owned_by = ROOT
 					}
-					83 = {
+					680 = {
 						is_owned_by = ROOT
 					}
-					84 = {
+					736 = {
 						is_owned_by = ROOT
 					}
 				}
 			}
 
-			76 = {
+			736 = {
 				OWNER = {
 					NOT = {
 						OR = {
@@ -2957,7 +2812,7 @@ focus_tree = {
 			IF = {
 				limit = {
 					ROM = {
-						owns_state = 76
+						owns_state = 736
 					}
 				}
 				strength_ratio = { tag = ROM ratio > 0.66 }
@@ -2969,12 +2824,12 @@ focus_tree = {
 		bypass = {
 
 			OR = {
-				76 = {
+				736 = {
 					OWNER = {
 						has_war_with = ROOT
 					}
 				}
-				76 = {
+				736 = {
 					is_owned_by = ROOT
 				}
 			}
@@ -2991,17 +2846,16 @@ focus_tree = {
 
 			every_state = {
 				limit = {
-					OR = {
-						state = 76
-						state = 83
-						state = 84
-						state = 82
+					OR ={
+						is_core_of = BNT
+						is_core_of = TRA
 					}
 					NOT = {
 						OR = {
 							is_claimed_by = ROOT
 							is_core_of = ROOT
 							is_owned_by = ROOT
+							is_core_of = YUG
 						}
 					}
 				}
@@ -3013,7 +2867,7 @@ focus_tree = {
 			custom_effect_tooltip = HUN_demands_tt
 			random_country = {
 				limit = {
-					owns_state = 76
+					owns_state = 665
 				}
 				country_event = {
 					id = WW_hungary.4
@@ -3049,19 +2903,128 @@ focus_tree = {
 
 			NOT = {
 				AND = {
-					664 = {
+					#Slovakia
+					541 = {
 						is_core_of = ROOT
 						is_owned_and_controlled_by = ROOT
 					}
-					70 = {
+					550 = {
 						is_core_of = ROOT
 						is_owned_and_controlled_by = ROOT
 					}
-					71 = {
+					555 = {
 						is_core_of = ROOT
 						is_owned_and_controlled_by = ROOT
 					}
-					73 = {
+					562 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					564 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					569 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					574 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					577 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					580 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					586 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					591 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					593 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					610 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1437 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1438 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1439 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1440 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1441 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1442 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1607 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					1608 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2246 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2247 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}  
+					2313 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2660 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2661 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2662 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2663 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2929 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2930 = {
+						is_core_of = ROOT
+						is_owned_and_controlled_by = ROOT
+					}
+					2978 = {
 						is_core_of = ROOT
 						is_owned_and_controlled_by = ROOT
 					}
@@ -3088,11 +3051,38 @@ focus_tree = {
 						is_core_of = ROOT
 					}
 					OR = {
-						state = 664
+						#Slovakia
+						state = 541
+						state = 550
+						state = 555
+						state = 562
+						state = 564
+						state = 569
+						state = 574
+						state = 577
+						state = 580
+						state = 586
+						state = 591
+						state = 593
+						state = 610
 						state = 1437
-						state = 71
-						state = 73
-						state = 526
+						state = 1438
+						state = 1439
+						state = 1440
+						state = 1441
+						state = 1442
+						state = 1607
+						state = 1608
+						state = 2246
+						state = 2247  
+						state = 2313
+						state = 2660
+						state = 2661
+						state = 2662
+						state = 2663
+						state = 2929
+						state = 2930
+						state = 2978
 					}
 				}
 				add_core_of = ROOT
@@ -3110,11 +3100,38 @@ focus_tree = {
 						owns_state = PREV
 					}
 					OR = {
-						state = 664
-						state = 1437
-						state = 71
-						state = 73
-						state = 526
+					#Slovakia
+					state = 541
+					state = 550
+					state = 555
+					state = 562
+					state = 564
+					state = 569
+					state = 574
+					state = 577
+					state = 580
+					state = 586
+					state = 591
+					state = 593
+					state = 610
+					state = 1437
+					state = 1438
+					state = 1439
+					state = 1440
+					state = 1441
+					state = 1442
+					state = 1607
+					state = 1608
+					state = 2246
+					state = 2247  
+					state = 2313
+					state = 2660
+					state = 2661
+					state = 2662
+					state = 2663
+					state = 2929
+					state = 2930
+					state = 2978
 					}
 				}
 				transfer_state_to = ROOT
@@ -3132,11 +3149,38 @@ focus_tree = {
 						}
 					}
 					OR = {
-						owns_state = 664
+						#Slovakia
+						owns_state = 541
+						owns_state = 550
+						owns_state = 555
+						owns_state = 562
+						owns_state = 564
+						owns_state = 569
+						owns_state = 574
+						owns_state = 577
+						owns_state = 580
+						owns_state = 586
+						owns_state = 591
+						owns_state = 593
+						owns_state = 610
 						owns_state = 1437
-						owns_state = 71
-						owns_state = 73
-						owns_state = 526
+						owns_state = 1438
+						owns_state = 1439
+						owns_state = 1440
+						owns_state = 1441
+						owns_state = 1442
+						owns_state = 1607
+						owns_state = 1608
+						owns_state = 2246
+						owns_state = 2247  
+						owns_state = 2313
+						owns_state = 2660
+						owns_state = 2661
+						owns_state = 2662
+						owns_state = 2663
+						owns_state = 2929
+						owns_state = 2930
+						owns_state = 2978
 					}
 				}
 				ROOT = {
@@ -3177,9 +3221,9 @@ focus_tree = {
 
 			any_other_country = {
 				OR = {
-					owns_state = 762
-					owns_state = 67
-					owns_state = 66
+					owns_state = 1663
+					owns_state = 1658
+					owns_state = 481
 				}
 				NOT = {
 					has_war_with = ROOT
@@ -3250,12 +3294,12 @@ focus_tree = {
 								controls_state = 762
 							}
 							AND = {
-								owns_state = 67
-								controls_state = 67
+								owns_state = 1658
+								controls_state = 1658
 							}
 							AND = {
-								owns_state = 66
-								controls_state = 66
+								owns_state = 481
+								controls_state = 481
 							}
 						}
 						NOT = {
@@ -3268,7 +3312,7 @@ focus_tree = {
 					}
 				}
 				country_event = {
-					id = WW_hungary.526
+					id = WW_hungary.72
 					days = 2
 					random_days = 3
 				}
@@ -3298,18 +3342,42 @@ focus_tree = {
 
 			NOT = {
 				AND = {
-					88 = {
-						is_owned_by = ROOT
-					}
-					89 = {
-						is_owned_by = ROOT
-					}
-					91 = {
-						is_owned_by = ROOT
-					}
-					80 = {
-						is_owned_by = ROOT
-					}
+					#Galicia
+					484 = { is_owned_by = ROOT }
+					490 = { is_owned_by = ROOT }
+					496 = { is_owned_by = ROOT }
+					501 = { is_owned_by = ROOT }
+					502 = { is_owned_by = ROOT }
+					509 = { is_owned_by = ROOT }
+					542 = { is_owned_by = ROOT }
+					836 = { is_owned_by = ROOT }
+					923 = { is_owned_by = ROOT }
+					1143 = { is_owned_by = ROOT }
+					1157 = { is_owned_by = ROOT }
+					1162 = { is_owned_by = ROOT }
+					1164 = { is_owned_by = ROOT }
+					1219 = { is_owned_by = ROOT }
+					1223 = { is_owned_by = ROOT }
+					1233 = { is_owned_by = ROOT }
+					1258 = { is_owned_by = ROOT }
+					1265 = { is_owned_by = ROOT }
+					1270 = { is_owned_by = ROOT }
+					1272 = { is_owned_by = ROOT }
+					1292 = { is_owned_by = ROOT }
+					1293 = { is_owned_by = ROOT }
+					1294 = { is_owned_by = ROOT }
+					2312 = { is_owned_by = ROOT }
+					2318 = { is_owned_by = ROOT }
+					2336 = { is_owned_by = ROOT }
+					2345 = { is_owned_by = ROOT }
+					2346 = { is_owned_by = ROOT }
+					2347 = { is_owned_by = ROOT }
+					2692 = { is_owned_by = ROOT }
+					2880 = { is_owned_by = ROOT }
+					2931 = { is_owned_by = ROOT }
+					2932 = { is_owned_by = ROOT }
+					1440 = { is_owned_by = ROOT }
+					1441 = { is_owned_by = ROOT }
 				}
 			}
 
@@ -3320,18 +3388,76 @@ focus_tree = {
 			OR = {
 				all_country = {
 					OR = {
-						owns_state = 88
-						owns_state = 89
-						owns_state = 91
-						owns_state = 80
+						owns = 484
+						owns = 490
+						owns = 496
+						owns = 501
+						owns = 502
+						owns = 509
+						owns = 542
+						owns = 836
+						owns = 923
+						owns = 1143
+						owns = 1157
+						owns = 1162
+						owns = 1164
+						owns = 1219
+						owns = 1223
+						owns = 1233
+						owns = 1258
+						owns = 1265
+						owns = 1270
+						owns = 1272
+						owns = 1292
+						owns = 1293
+						owns = 1294
+						owns = 2312
+						owns = 2318
+						owns = 2336
+						owns = 2345
+						owns = 2346
+						owns = 2347
+						owns = 2692
+						owns = 2880
+						owns = 2931
+						owns = 2932
 					}
 					has_war_with = ROOT
 				}
 				AND = {
-					owns_state = 88
-					owns_state = 89
-					owns_state = 91
-					owns_state = 80
+					owns_state = 484
+					owns_state = 490
+					owns_state = 496
+					owns_state = 501
+					owns_state = 502
+					owns_state = 509
+					owns_state = 542
+					owns_state = 836
+					owns_state = 923
+					owns_state = 1143
+					owns_state = 1157
+					owns_state = 1162
+					owns_state = 1164
+					owns_state = 1219
+					owns_state = 1223
+					owns_state = 1233
+					owns_state = 1258
+					owns_state = 1265
+					owns_state = 1270
+					owns_state = 1272
+					owns_state = 1292
+					owns_state = 1293
+					owns_state = 1294
+					owns_state = 2312
+					owns_state = 2318
+					owns_state = 2336
+					owns_state = 2345
+					owns_state = 2346
+					owns_state = 2347
+					owns_state = 2692
+					owns_state = 2880
+					owns_state = 2931
+					owns_state = 2932
 				}
 			}
 
@@ -3348,10 +3474,39 @@ focus_tree = {
 			every_state = {
 				limit = {
 					OR = {
-						state = 88
-						state = 89
-						state = 91
-						state = 80
+					state = 484
+					state = 490
+					state = 496
+					state = 501
+					state = 502
+					state = 509
+					state = 542
+					state = 836
+					state = 923
+					state = 1143
+					state = 1157
+					state = 1162
+					state = 1164
+					state = 1219
+					state = 1223
+					state = 1233
+					state = 1258
+					state = 1265
+					state = 1270
+					state = 1272
+					state = 1292
+					state = 1293
+					state = 1294
+					state = 2312
+					state = 2318
+					state = 2336
+					state = 2345
+					state = 2346
+					state = 2347
+					state = 2692
+					state = 2880
+					state = 2931
+					state = 2932
 					}
 					NOT = {
 						OR = {
@@ -3372,20 +3527,136 @@ focus_tree = {
 					AND = {
 						OR = {
 							AND = {
-								owns_state = 88
-								controls_state = 88
+								owns_state = 484
+								controls_state = 484
 							}
 							AND = {
-								owns_state = 89
-								controls_state = 89
+								owns_state = 490
+								controls_state = 490
 							}
 							AND = {
-								owns_state = 91
-								controls_state = 91
+								owns_state = 496
+								controls_state = 496
 							}
 							AND = {
-								owns_state = 80
-								controls_state = 80
+								owns_state = 501
+								controls_state = 501
+							}
+							AND = {
+								owns_state = 502
+								controls_state = 502
+							}
+							AND = {
+								owns_state = 509
+								controls_state = 509
+							}
+							AND = {
+								owns_state = 542
+								controls_state = 542
+							}
+							AND = {
+								owns_state = 836
+								controls_state = 836
+							}
+							AND = {
+								owns_state = 923
+								controls_state = 923
+							}
+							AND = {
+								owns_state = 1143
+								controls_state = 1143
+							}
+							AND = {
+								owns_state = 1157
+								controls_state = 1157
+							}
+							AND = {
+								owns_state = 1162
+								controls_state = 1162
+							}
+							AND = {
+								owns_state = 1164
+								controls_state = 1164
+							}
+							AND = {
+								owns_state = 1219
+								controls_state = 1219
+							}
+							AND = {
+								owns_state = 1223
+								controls_state = 1223
+							}
+							AND = {
+								owns_state = 1233
+								controls_state = 1233
+							}
+							AND = {
+								owns_state = 1258
+								controls_state = 1258
+							}
+							AND = {
+								owns_state = 1265
+								controls_state = 1265
+							}
+							AND = {
+								owns_state = 1270
+								controls_state = 1270
+							}
+							AND = {
+								owns_state = 1272
+								controls_state = 1272
+							}
+							AND = {
+								owns_state = 1292
+								controls_state = 1292
+							}
+							AND = {
+								owns_state = 1293
+								controls_state = 1293
+							}
+							AND = {
+								owns_state = 1294
+								controls_state = 1294
+							}
+							AND = {
+								owns_state = 2312
+								controls_state = 2312
+							}
+							AND = {
+								owns_state = 2318
+								controls_state = 2318
+							}
+							AND = {
+								owns_state = 2336
+								controls_state = 2336
+							}
+							AND = {
+								owns_state = 2345
+								controls_state = 2345
+							}
+							AND = {
+								owns_state = 2346
+								controls_state = 2346
+							}
+							AND = {
+								owns_state = 2347
+								controls_state = 2347
+							}
+							AND = {
+								owns_state = 2692
+								controls_state = 2692
+							}
+							AND = {
+								owns_state = 2880
+								controls_state = 2880
+							}
+							AND = {
+								owns_state = 2931
+								controls_state = 2931
+							}
+							AND = {
+								owns_state = 2932
+								controls_state = 2932
 							}
 						}
 						NOT = {
@@ -3882,36 +4153,27 @@ focus_tree = {
 					limit = {
 						OR = {
 							#slovenia
-							state = 541
-							state = 550
-							state = 555
-							state = 562
-							state = 564
-							state = 569
-							state = 574
-							state = 577
-							state = 580
-							state = 586
-							state = 591
-							state = 593
-							state = 610
-							state = 1437
-							state = 1438
-							state = 1439
-							state = 1440
-							state = 1441
-							state = 1442
-							state = 1607
-							state = 1608
-							state = 2247
-							state = 2313
-							state = 2660
-							state = 2661
-							state = 2662
-							state = 2663
-							state = 2929
-							state = 2930
-							state = 2978
+							state = 695
+							state = 703
+							state = 714
+							state = 720
+							state = 743
+							state = 1483
+							state = 1484
+							state = 1485
+							state = 1486
+							state = 1487
+							state = 1488
+							state = 1489
+							state = 1490
+							state = 1784
+							state = 2825
+							state = 2784
+							state = 2861
+							state = 2900
+							state = 2901
+							state = 2907
+							state = 2972
 						}
 						NOT = {
 							is_core_of = AUS
@@ -4045,30 +4307,30 @@ focus_tree = {
 							exists = no
 							AND = {
 								OR = {
-									160 = {
+									547 = {
 										is_owned_and_controlled_by = ROOT
 									}
 									any_country = {
 										is_subject_of = ROOT
-										controls_state = 160
+										controls_state = 547
 									}
 								}
 								OR = {
-									850 = {
+									709 = {
 										is_owned_and_controlled_by = ROOT
 									}
 									any_country = {
 										is_subject_of = ROOT
-										controls_state = 850
+										controls_state = 709
 									}
 								}
 								OR = {
-									159 = {
+									1370 = {
 										is_owned_and_controlled_by = ROOT
 									}
 									any_country = {
 										is_subject_of = ROOT
-										controls_state = 159
+										controls_state = 1370
 									}
 								}
 							}
@@ -4128,9 +4390,9 @@ focus_tree = {
 									}
 								}
 								OR = {
-									owns_state = 160
-									owns_state = 850
-									owns_state = 159
+									owns_state = 547
+									owns_state = 709
+									owns_state = 1370
 								}
 							}
 						}
@@ -4164,9 +4426,9 @@ focus_tree = {
 								}
 							}
 							OR = {
-								owns_state = 160
-								owns_state = 850
-								owns_state = 159
+								owns_state = 547
+								owns_state = 709
+								owns_state = 1370
 							}
 						}
 						ROOT = {
@@ -4194,8 +4456,11 @@ focus_tree = {
 					every_state = {
 						limit = {
 							OR = {
-								state = 736
-								state = 39
+								state = 744
+								state = 1482
+								state = 762
+								state = 2971
+								state = 2330
 							}
 							NOT = {
 								is_core_of = AUS
@@ -4616,7 +4881,7 @@ focus_tree = {
 
 		available = {
 
-			454 = {
+			1902 = {
 				is_fully_controlled_by = owner
 				owner = {
 					NOT = {
@@ -4628,7 +4893,7 @@ focus_tree = {
 		}
 
 		bypass = {
-			454 = {
+			1902 = {
 				is_owned_and_controlled_by = ROOT
 			}
 		}
@@ -4641,7 +4906,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			454 = {
+			1902 = {
 				add_claim_by = ROOT
 			}
 
@@ -4649,8 +4914,8 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					NOT = { owns_state = 454 }
-					454 = {
+					NOT = { owns_state = 1902 }
+					1902 = {
 						is_fully_controlled_by = owner
 						owner = {
 							NOT = {
@@ -4659,7 +4924,7 @@ focus_tree = {
 						}
 					}
 				}
-				454 = {
+				1902 = {
 					owner = {
 						country_event = {
 							id = WW_hungary.75
@@ -4670,9 +4935,9 @@ focus_tree = {
 				}
 				custom_effect_tooltip = if_they_accept_tt
 				effect_tooltip = {
-					transfer_state = 454 #PALESTINE
+					transfer_state = 1902 #PALESTINE
 					add_war_support = 0.03
-					454 = {
+					1902 = {
 						set_state_category = town
 						add_extra_state_shared_building_slots = 2
 						add_building_construction = {
@@ -4722,7 +4987,7 @@ focus_tree = {
 		available = {
 
 			has_government = neutrality
-			454 = {
+			1902 = {
 				is_owned_and_controlled_by = ROOT
 			}
 
@@ -5006,7 +5271,7 @@ focus_tree = {
 				AUS = {
 					is_subject_of = ROOT
 				}
-				4 = {
+				1817 = {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -5015,7 +5280,7 @@ focus_tree = {
 				CZE = {
 					is_subject_of = ROOT
 				}
-				9 = {
+				513 = {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -5039,7 +5304,7 @@ focus_tree = {
 					is_core_of = ROOT
 					is_fully_controlled_by = ROOT
 				}
-				prioritize = { 4 9 633 }
+				prioritize = { 1817 513 633 }
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -5107,7 +5372,7 @@ focus_tree = {
 							is_core_of = ROOT
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 9 }
+						prioritize = { 1817 }
 						add_extra_state_shared_building_slots = 2
 						add_building_construction = {
 							type = industrial_complex
@@ -5125,7 +5390,7 @@ focus_tree = {
 							is_core_of = ROOT
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 4 }
+						prioritize = { 513 }
 						add_extra_state_shared_building_slots = 1
 						add_building_construction = {
 							type = arms_factory
