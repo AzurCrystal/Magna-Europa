@@ -3198,7 +3198,8 @@ HUN_the_empire_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 975
+				state = 621
+				state = 1805
 			}
 		}
 
@@ -3210,7 +3211,12 @@ HUN_the_empire_category = {
 			original_tag = HUN
 			has_completed_focus = wuw_HUN_demand_austrian_restoration
 			NOT = { has_country_flag = HUN_reannexed_burgenland_flag }
-			975 = {
+			621 = {
+				NOT = {
+					is_owned_by = ROOT
+				}
+			}
+			1805 = {
 				NOT = {
 					is_owned_by = ROOT
 				}
@@ -3220,10 +3226,15 @@ HUN_the_empire_category = {
 		available = {
 			has_completed_focus = wuw_HUN_demand_austrian_restoration
 			OR = {
-				controls_state = 975
+				controls_state = 621
+				controls_state = 1805
 				any_country = {
 					is_subject_of = ROOT
-					controls_state = 975
+					controls_state = 621
+				}
+				any_country = {
+					is_subject_of = ROOT
+					controls_state = 1805
 				}
 			}
 			
@@ -3242,34 +3253,17 @@ HUN_the_empire_category = {
 
 		remove_effect = {
 
-			975 = {
+			621 = {
+				transfer_state_to = ROOT
+			}
+			1805 = {
 				transfer_state_to = ROOT
 			}
 			
-			IF = {
-				limit = {
-					975 = {
-						is_claimed_by = ROOT
-					}
-				}
-				975 = {
-					remove_claim_by = ROOT
-				}
-			}
-
-			IF = {
-				limit = {
-					975 = {
-						NOT = {
-							is_core_of = ROOT
-						}
-					}
-				}
-				975 = {
-					add_core_of = ROOT
-				}
-			}
-
+			IF = {limit = {621 = {is_claimed_by = ROOT}}621 = {remove_claim_by = ROOT}}
+			IF = {limit = {1805 = {is_claimed_by = ROOT}}1805 = {remove_claim_by = ROOT}}
+			IF = {limit = {	621 = {NOT = {is_core_of = ROOT}}}621 = {add_core_of = ROOT}}
+			IF = {limit = {1805 = {NOT = {is_core_of = ROOT}}}1805 = {add_core_of = ROOT}}
 			hidden_effect = {
 				set_country_flag = HUN_reannexed_burgenland_flag 
 			}
@@ -3309,20 +3303,11 @@ HUN_the_empire_category = {
 					AUS = {
 						exists = no
 					}
-					4 = {
-						is_owned_by = ROOT
-					}
-					152 = {
-						is_owned_by = ROOT
-					}
-					153 = {
-						is_owned_by = ROOT
-					}
-					848 = {
-						is_owned_by = ROOT
-					}
-					976 = {
-						is_owned_by = ROOT
+					every_state = {
+						limit = {
+							is_core_of = AUS
+							is_controlled_by = ROOT
+						}
 					}
 				}
 			}
@@ -3402,14 +3387,11 @@ HUN_the_empire_category = {
 					ALB = {
 						exists = no
 					}
-					934 = {
-						is_owned_by = ROOT
-					}
-					44 = {
-						is_owned_by = ROOT
-					}
-					805 = {
-						is_owned_by = ROOT
+					every_state = {
+						limit = {
+							is_core_of = ALB
+							is_controlled_by = ROOT
+						}
 					}
 				}
 			}
@@ -3419,13 +3401,12 @@ HUN_the_empire_category = {
 
 		complete_effect = {
 
-			802 = {
+			every_state = {
+				limit = {
+					is_core_of = KOS
+				}
 				add_core_of = ALB
 			}
-
-			970 = {
-				add_core_of = ALB
-			} 
 
 			every_state = {
 				limit = {
@@ -3669,27 +3650,37 @@ HUN_the_empire_category = {
 					CZE = {
 						exists = no
 					}
-					9 = {
-						is_owned_by = ROOT
-					}
-					75 = {
-						is_owned_by = ROOT
-					}
-					70 = {
-						is_owned_by = ROOT
-					}
-					71 = {
-						is_owned_by = ROOT
-					}
-					664 = {
-						is_owned_by = ROOT
-					}
-					73 = {
-						is_owned_by = ROOT
-					}
-					972 = {
-						is_owned_by = ROOT
-					}
+					471 = {is_controlled_by = ROOT}
+					473 = {is_controlled_by = ROOT}
+					486 = {is_controlled_by = ROOT}
+					489 = {is_controlled_by = ROOT}
+					498 = {is_controlled_by = ROOT}
+					513 = {is_controlled_by = ROOT}
+					514 = {is_controlled_by = ROOT}
+					522 = {is_controlled_by = ROOT}
+					523 = {is_controlled_by = ROOT}
+					529 = {is_controlled_by = ROOT}
+					539 = {is_controlled_by = ROOT}
+					1425 = {is_controlled_by = ROOT}
+					1426 = {is_controlled_by = ROOT}
+					1427 = {is_controlled_by = ROOT}
+					1430 = {is_controlled_by = ROOT}
+					1431 = {is_controlled_by = ROOT}
+					1434 = {is_controlled_by = ROOT}
+					1435 = {is_controlled_by = ROOT}
+					499 = {is_controlled_by = ROOT}
+					504 = {is_controlled_by = ROOT}
+					507 = {is_controlled_by = ROOT}
+					526 = {is_controlled_by = ROOT}
+					528 = {is_controlled_by = ROOT}
+					532 = {is_controlled_by = ROOT}
+					535 = {is_controlled_by = ROOT}
+					536 = {is_controlled_by = ROOT}
+					1428 = {is_controlled_by = ROOT}
+					1429 = {is_controlled_by = ROOT}
+					1432 = {is_controlled_by = ROOT}
+					1433 = {is_controlled_by = ROOT}
+					1977 = {is_controlled_by = ROOT}
 				}
 			}
 		}
@@ -3697,25 +3688,37 @@ HUN_the_empire_category = {
 		cost = 10
 
 		complete_effect = {
-
-			every_state = {
-				limit = {
-					is_controlled_by = ROOT
-					NOT = {
-						is_core_of = ROOT
-					}
-					is_core_of = CZE
-					NOT = {
-						OR = {
-							state = 73
-							state = 664
-							state = 71
-							state = 70
-						}
-					}
-				}
-				transfer_state_to = CZE
-			}
+			471 = {transfer_state_to = CZE}
+			473 = {transfer_state_to = CZE}
+			486 = {transfer_state_to = CZE}
+			489 = {transfer_state_to = CZE}
+			498 = {transfer_state_to = CZE}
+			513 = {transfer_state_to = CZE}
+			514 = {transfer_state_to = CZE}
+			522 = {transfer_state_to = CZE}
+			523 = {transfer_state_to = CZE}
+			529 = {transfer_state_to = CZE}
+			539 = {transfer_state_to = CZE}
+			1425 = {transfer_state_to = CZE}
+			1426 = {transfer_state_to = CZE}
+			1427 = {transfer_state_to = CZE}
+			1430 = {transfer_state_to = CZE}
+			1431 = {transfer_state_to = CZE}
+			1434 = {transfer_state_to = CZE}
+			1435 = {transfer_state_to = CZE}
+			499 = {transfer_state_to = CZE}
+			504 = {transfer_state_to = CZE}
+			507 = {transfer_state_to = CZE}
+			526 = {transfer_state_to = CZE}
+			528 = {transfer_state_to = CZE}
+			532 = {transfer_state_to = CZE}
+			535 = {transfer_state_to = CZE}
+			536 = {transfer_state_to = CZE}
+			1428 = {transfer_state_to = CZE}
+			1429 = {transfer_state_to = CZE}
+			1432 = {transfer_state_to = CZE}
+			1433 = {transfer_state_to = CZE}
+			1977 = {transfer_state_to = CZE}
 
 			CZE = {
 				add_political_power = 75
