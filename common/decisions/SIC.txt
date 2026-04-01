@@ -101,10 +101,57 @@ Secret_Chinese_Decisions = {
                 is_debug = yes
             }
         }
+        fire_only_once = yes
+
         cost = 25 
 
         complete_effect = {
             country_event = { id = sic_communism_event.2 }
+        }
+    }
+
+    Sic_send_expertise_to_china = {
+        visible = { has_country_flag = sic_chinese_communist_cooperation_flag}
+        allowed = {
+            original_tag = SIC
+        }
+        available = {
+            has_government = communism
+            has_country_flag = sic_chinese_communist_cooperation_flag
+            is_at_war = yes
+        }
+        customn_cost_trigger = {
+            has_army_experience > 49
+        }
+        custom_cost_text = decision_cost_ArmXP_50
+
+        complete_effect = {
+            add_army_experience = -50
+            add_popularity = {
+                ideology = communism
+                popularity = 0.05
+            }
+            set_country_flag = sic_chinese_communist_expertise_flag
+        }
+    }
+
+    Sic_the_Chinese_Invitation_2 = {
+        visible = { has_country_flag = sic_chinese_communist_expertise_flag }
+        allowed = {
+            original_tag = SIC
+        }  
+        available = {
+            has_government = communism
+            has_country_flag = sic_chinese_communist_expertise_flag
+            OR = {
+                date > 1941.1.1
+                is_debug = yes
+            }
+        }
+        fire_only_once = yes
+        cost = 25
+        complete_effect = {
+            country_event = { id = sic_communism_event.3 }
         }
     }
 }
