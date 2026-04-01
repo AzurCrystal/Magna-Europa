@@ -1,4 +1,110 @@
-SIC_Hidden_china = {
-    visible = {
-        is_ai = no
+Secret_Chinese_Decisions = {
+
+    sic_trigger_communist_event = {
+        icon = generic_communism
+        allowed = {
+            original_tag = SIC
+        }
+        available = {
+            has_government = communism
+        }
+        fire_only_once = yes
+
+        cost = 50
+        complete_effect = {
+            country_event = { id = sic_communism_event.1 }
+        }
+    }
+
+    sic_send_equipment_to_china = {
+        visible = { has_country_flag = sic_chinese_communist_approach_flag }
+        allowed = {
+            original_tag = SIC
+        }
+        available = {
+            has_government = communism
+            has_country_flag = sic_chinese_communist_approach_flag
+        }
+        custom_cost_trigger = {
+            has_equipment = { infantry_equipment > 999 }
+        }
+
+        custom_cost_text = decision_cost_ie_1000
+        complete_effect = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = -1000
+            }
+
+            add_offsite_building = {
+					type = industrial_complex
+					level = 1
+            }
+
+            add_manpower = 10000
+
+            add_popularity = {
+                ideology = communism
+                popularity = 0.05
+            }
+
+                
+            set_country_flag = sic_chinese_communist_aid1_flag
+        }
+    }
+
+    sic_send_more_equipment_to_china = {
+        visible = { has_country_flag = sic_chinese_communist_aid1_flag }
+        allowed = {
+            original_tag = SIC
+        }
+        available = {
+            has_government = communism
+            has_country_flag = sic_chinese_communist_aid1_flag
+        }
+        custom_cost_trigger = {
+            has_equipment = { infantry_equipment > 1999 }
+        }
+        custom_cost_text = decision_cost_ie_2000
+
+        complete_effect = {
+            add_equipment_to_stockpile = {
+                type = infantry_equipment
+                amount = -2000
+            }
+
+            add_offsite_building = {
+                    type = industrial_complex
+                    level = 2
+            }
+            add_offsite_building = {
+                    type = arms_factory
+                    level = 2
+            }
+
+            add_manpower = 50000
+
+            set_country_flag = sic_chinese_communist_aid2_flag
+        }
+    }
+
+    Sic_the_chinese_invitation = {
+        visible = { has_country_flag = sic_chinese_communist_aid2_flag }
+        allowed = {
+            original_tag = SIC
+        }
+        available = {
+            has_government = communism
+            has_country_flag = sic_chinese_communist_aid2_flag
+            OR = {
+                date > 1940.1.1
+                is_debug = yes
+            }
+        }
+        cost = 25 
+
+        complete_effect = {
+            country_event = { id = sic_communism_event.2 }
+        }
+    }
 }
