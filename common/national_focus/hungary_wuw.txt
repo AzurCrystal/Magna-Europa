@@ -4520,19 +4520,39 @@ focus_tree = {
 			hidden_effect = {
 				IF = { #set up Sardinia-Piedmont puppet
 					limit = {
-						158 = {
-							is_owned_or_subject_trigger = yes
-						}
-						114 = {
-							is_owned_or_subject_trigger = yes
-						}
-						SPM = {
+						718 = {is_owned_or_subject_trigger = yes}
+						1353 = {is_owned_or_subject_trigger = yes}
+						1354 = {is_owned_or_subject_trigger = yes}
+						1355 = {is_owned_or_subject_trigger = yes}
+						1356 = {is_owned_or_subject_trigger = yes}
+						1357 = {is_owned_or_subject_trigger = yes}
+						1423 = {is_owned_or_subject_trigger = yes}
+						1983 = {is_owned_or_subject_trigger = yes}
+						1984 = {is_owned_or_subject_trigger = yes}
+						1985 = {is_owned_or_subject_trigger = yes}
+						2356 = {is_owned_or_subject_trigger = yes}
+						2357 = {is_owned_or_subject_trigger = yes}
+						2358 = {is_owned_or_subject_trigger = yes}
+						2543 = {is_owned_or_subject_trigger = yes}
+						PIE = {
 							exists = no
 						}
 					}
-					SPM = {
-						transfer_state = 158
-						transfer_state = 114
+					PIE = {
+						transfer_state = 718
+						transfer_state = 1353
+						transfer_state = 1354
+						transfer_state = 1355
+						transfer_state = 1356
+						transfer_state = 1357
+						transfer_state = 1423
+						transfer_state = 1983
+						transfer_state = 1984
+						transfer_state = 1985
+						transfer_state = 2356
+						transfer_state = 2357
+						transfer_state = 2358
+						transfer_state = 2543
 						add_offsite_building = {
 							type = industrial_complex
 							level = 2
@@ -4582,43 +4602,24 @@ focus_tree = {
 						}
 					}
 					ITA = {
-						ITA_vittorio_emanuele_iii = { set_nationality = SPM }
+						ITA_vittorio_emanuele_iii = { set_nationality = PIE }
 					}
-					SPM = {
+					PIE = {
 						country_event = {
 							id = WW_hungary.79
 							hours = 0
 						}
 					}
-					puppet = SPM
-				}
-				IF = { # Sardinia-Piedmont puppet can gain Corsica if you control it
-					limit = {
-						1 = {
-							is_owned_or_subject_trigger = yes
-						}
-					}
-					SPM = {
-						transfer_state = 1
-						add_state_core = 1
-					}
-				}
-				IF = { # Sardinia-Piedmont puppet can gain Savoy if you control it
-					limit = {
-						735 = {
-							is_owned_or_subject_trigger = yes
-						}
-					}
-					SPM = {
-						transfer_state = 735
-						add_state_core = 735
-					}
+					puppet = PIE
 				}
 
 				IF = { # Lombardy-Venetia puppet can gain Ticino if you control it
 					limit = {
 						AND = {
-							846 = {
+							708 = {
+								is_owned_or_subject_trigger = yes
+							}
+							1446 = {
 								is_owned_or_subject_trigger = yes
 							}
 							LBV = {
@@ -4628,22 +4629,36 @@ focus_tree = {
 
 					}
 					LBV = {
-						transfer_state = 846
-						add_state_core = 846
+						transfer_state = 708
+						add_state_core = 708
+						transfer_state = 1446
+						add_state_core = 1446
 					}
 				}
 
-				IF = { #set up Tuscany puppet
+				IF = { #set up Parma puppet
 					limit = {
-						162 = {
+						1374 = {
 							is_owned_or_subject_trigger = yes
 						}
-						TOS = {
+						1375 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2884 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2885 = {
+							is_owned_or_subject_trigger = yes
+						}
+						PRM = {
 							exists = no
 						}
 					}
-					TOS = {
-						transfer_state = 162
+					PRM = {
+						transfer_state = 1374
+						transfer_state = 1375
+						transfer_state = 2884
+						transfer_state = 2885
 						add_offsite_building = {
 							type = industrial_complex
 							level = 2
@@ -4692,28 +4707,1598 @@ focus_tree = {
 							}
 						}
 					}
-					puppet = TOS
+					puppet = PRM
 				}
-
-				IF = { #set up Papal puppet
+				IF = { #set up Aosta Valley puppet
 					limit = {
-						2 = {
+						745 = {
 							is_owned_or_subject_trigger = yes
 						}
-						157 = {
-							is_owned_or_subject_trigger = yes
-						}
-						161 = {
-							is_owned_or_subject_trigger = yes
-						}
-						PAP = {
+						AOS = {
 							exists = no
 						}
 					}
-					PAP = {
-						transfer_state = 2
-						transfer_state = 157
-						transfer_state = 161
+					AOS = {
+						transfer_state = 745
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = AOS
+				}
+				IF = { #set up Modena puppet
+					limit = {
+						1376 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1377 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1381 = {
+							is_owned_or_subject_trigger = yes
+						}
+						MDN = {
+							exists = no
+						}
+					}
+					MDN = {
+						transfer_state = 1376
+						transfer_state = 1377
+						transfer_state = 1381
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = MDN
+				}
+
+				IF = { #set up Bologna puppet
+					limit = {
+						779 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2876 = {
+							is_owned_or_subject_trigger = yes
+						}
+						BLG = {
+							exists = no
+						}
+					}
+					BLG = {
+						transfer_state = 779
+						transfer_state = 2876
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = BLG
+				}
+
+				IF = { #set up Ferra puppet
+					limit = {
+						1378 = {
+							is_owned_or_subject_trigger = yes
+						}
+						FRR = {
+							exists = no
+						}
+					}
+					FRR = {
+						transfer_state = 1378
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = FRR
+				}
+
+				IF = { #set up Lucca puppet
+					limit = {
+						2556 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1382 = {
+							is_owned_or_subject_trigger = yes
+						}
+						LCC = {
+							exists = no
+						}
+					}
+					LCC = {
+						transfer_state = 2556
+						transfer_state = 1382
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = LCC
+				}
+
+				IF = { #set up Pisa puppet
+					limit = {
+						1387 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1386 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2945 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						PIS = {
+							exists = no
+						}
+					}
+					PIS = {
+						transfer_state = 1387
+						transfer_state = 1386
+						transfer_state = 2945
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = PIS
+				}
+
+				IF = { #set up Tucanny puppet
+					limit = {
+						1383 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2606 = {
+							is_owned_or_subject_trigger = yes
+						}
+						805 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1388 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						TUS = {
+							exists = no
+						}
+					}
+					TUS = {
+						transfer_state = 1383
+						transfer_state = 2606
+						transfer_state = 805
+						transfer_state = 1388
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = TUS
+				}
+
+				IF = { #set up Romangna puppet
+					limit = {
+						2877 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1379 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1380 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2883 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2605 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						RMG = {
+							exists = no
+						}
+					}
+					RMG = {
+						transfer_state = 2877
+						transfer_state = 1379
+						transfer_state = 1380
+						transfer_state = 2883
+						transfer_state = 2605
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = RMG
+				}
+
+				IF = { #set up Marches puppet
+					limit = {
+						823 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1389 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1390 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1391 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2847 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+
+						MAR = {
+							exists = no
+						}
+					}
+					MAR = {
+						transfer_state = 823
+						transfer_state = 1389
+						transfer_state = 1390
+						transfer_state = 1391
+						transfer_state = 2847
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = MAR
+				}
+
+				IF = { #set up Umbria puppet
+					limit = {
+						839 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1392 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1394 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						UMB = {
+							exists = no
+						}
+					}
+					UMB = {
+						transfer_state = 839
+						transfer_state = 1392
+						transfer_state = 1394
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = UMB
+				}
+
+				IF = { #set up Siena puppet
+					limit = {
+						1384 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1385 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						SNA = {
+							exists = no
+						}
+					}
+					SNA = {
+						transfer_state = 1384
+						transfer_state = 1385
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = SNA
+				}
+
+				IF = { #set up Latium puppet
+					limit = {
+						876 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1393 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1395 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1396 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2597 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2598 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2599 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2600 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2601 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2602 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2607 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						LAZ = {
+							exists = no
+						}
+					}
+					LAZ = {
+						transfer_state = 876
+						transfer_state = 1393
+						transfer_state = 1395
+						transfer_state = 1396
+						transfer_state = 2597
+						transfer_state = 2598
+						transfer_state = 2599
+						transfer_state = 2600
+						transfer_state = 2601
+						transfer_state = 2602
+						transfer_state = 2607
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = LAZ
+				}
+
+				IF = { #set up Abbruzo puppet
+					limit = {
+						872 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1397 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1398 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1399 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2557 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						ABR = {
+							exists = no
+						}
+					}
+					ABR = {
+						transfer_state = 872
+						transfer_state = 1397
+						transfer_state = 1398
+						transfer_state = 1399
+						transfer_state = 2557
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = ABR
+				}
+
+				IF = { #set up Pisa puppet
+					limit = {
+						2848 = {
+							is_owned_or_subject_trigger = yes
+						}
+						908 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						MLS = {
+							exists = no
+						}
+					}
+					MLS = {
+						transfer_state = 2848
+						transfer_state = 908
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = MLS
+				}
+
+				IF = { #set up Apulia puppet
+					limit = {
+						912 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1404 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1405 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1406 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1407 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2912 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2913 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2914 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2921 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						PUG = {
+							exists = no
+						}
+					}
+					PUG = {
+						transfer_state = 912
+						transfer_state = 1404
+						transfer_state = 1405
+						transfer_state = 1406
+						transfer_state = 1407
+						transfer_state = 2912
+						transfer_state = 2913
+						transfer_state = 2914
+						transfer_state = 2921
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = PUG
+				}
+
+				IF = { #set up Naples puppet
+					limit = {
+						920 = {
+							is_owned_or_subject_trigger = yes
+						}
+						934 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1400 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1401 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1402 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1403 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2947 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+
+						NAP = {
+							exists = no
+						}
+					}
+					NAP = {
+						transfer_state = 920
+						transfer_state = 934
+						transfer_state = 1400
+						transfer_state = 1401
+						transfer_state = 1402
+						transfer_state = 1403
+						transfer_state = 2947
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = NAP
+				}
+
+				IF = { #set up Lucannia puppet "Potato"
+					limit = {
+						956 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1409 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						LUC = {
+							exists = no
+						}
+					}
+					LUC = {
+						transfer_state = 956
+						transfer_state = 1409
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = LUC
+				}
+
+				IF = { #set up Calabria puppet
+					limit = {
+						1009 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1410 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1411 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2956 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2957 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+
+						CAL = {
+							exists = no
+						}
+					}
+					CAL = {
+						transfer_state = 1009
+						transfer_state = 1410
+						transfer_state = 1411
+						transfer_state = 2956
+						transfer_state = 2957
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = CAL
+				}
+
+				IF = { #set up Sicily puppet
+					limit = {
+						1075 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1412 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1413 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1414 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1415 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1416 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1417 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1418 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1419 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1620 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1621 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2915 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+
+						SIC = {
+							exists = no
+						}
+					}
+					SIC = {
+						transfer_state = 1075
+						transfer_state = 1412
+						transfer_state = 1413
+						transfer_state = 1414
+						transfer_state = 1415
+						transfer_state = 1416
+						transfer_state = 1417
+						transfer_state = 1418
+						transfer_state = 1419
+						transfer_state = 1620
+						transfer_state = 1621
+						transfer_state = 2915
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = SIC
+				}
+
+				IF = { #Sicily can get Malta if you control it
+					limit = {
+						1622 = {
+							is_owned_or_subject_trigger = yes
+						}
+					}
+					TTS = {
+						transfer_state = 1622
+						add_state_core = 1622
+					}
+				}
+
+				IF = { #set up Sardinia puppet
+					limit = {
+						944 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1420 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1421 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2894 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2967 = {
+							is_owned_or_subject_trigger = yes
+						}
+						2968 = {
+							is_owned_or_subject_trigger = yes
+						}
+
+						SRD = {
+							exists = no
+						}
+					}
+					SRD = {
+						transfer_state = 944
+						transfer_state = 1420
+						transfer_state = 1421
+						transfer_state = 2894
+						transfer_state = 2967
+						transfer_state = 2968
+						add_offsite_building = {
+							type = industrial_complex
+							level = 2
+						}
+						add_offsite_building = {
+							type = arms_factory
+							level = 1
+						}
+						add_political_power = 75
+						delete_unit_template_and_units = {
+							division_template = "Battaglione delle Guardie Reali"
+							disband = yes #if yes, will refund equipment/manpower.
+						}
+
+						division_template = {
+							name = "Battaglione delle Guardie Reali"
+							division_names_group = ITA_INF_01
+							role = infantry
+							is_locked = no
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 0 y = 2 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 1 y = 2 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+								infantry = { x = 2 y = 2 }
+							}
+							support = {
+								engineer = { x = 0 y = 0 }
+								artillery = { x = 0 y = 1 }
+							}
+						}
+
+						random_state = {
+							limit = {
+								is_fully_controlled_by = PREV
+								is_owned_by = PREV
+								is_core_of = PREV
+							}
+							create_unit = {
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    owner = PREV
+							}
+						}
+					}
+					puppet = SRD
+				}
+
+				IF = { #Sardinia can get Corsica if you control it
+					limit = {
+						1422 = {
+							is_owned_or_subject_trigger = yes
+						}
+						866 = {
+							is_owned_or_subject_trigger = yes
+						}
+					}
+					SRD = {
+						transfer_state = 1422
+						add_state_core = 1422
+						transfer_state = 866
+						add_state_core = 866
+					}
+				}
+
+				IF = { #set up Genoa puppet
+					limit = {
+						1366 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1367 = {
+							is_owned_or_subject_trigger = yes
+						}
+						798 = {
+							is_owned_or_subject_trigger = yes
+						}
+						1368 = {
+							is_owned_or_subject_trigger = yes
+						}
+						LIG = {
+							exists = no
+						}
+					}
+					LIG = {
+						transfer_state = 1366
+						transfer_state = 1367
+						transfer_state = 798
+						transfer_state = 1368
 						add_offsite_building = {
 							type = industrial_complex
 							level = 2
@@ -4762,103 +6347,9 @@ focus_tree = {
 							}
 						}
 					}
-					ITA = {
-						ITA_papa_pio_xii = { set_nationality = PAP }
-					}
-					PAP = {
-						country_event = {
-							id = WW_hungary.78
-							hours = 0
-						}
-					}
-					puppet = PAP
+					puppet = LIG
 				}
 
-				IF = { #set up Neapolitanian puppet
-					limit = {
-						117 = {
-							is_owned_or_subject_trigger = yes
-						}
-						849 = {
-							is_owned_or_subject_trigger = yes
-						}
-						156 = {
-							is_owned_or_subject_trigger = yes
-						}
-						115 = {
-							is_owned_or_subject_trigger = yes
-						}
-						TTS = {
-							exists = no
-						}
-					}
-					TTS = {
-						transfer_state = 117
-						transfer_state = 849
-						transfer_state = 156
-						transfer_state = 115
-						add_offsite_building = {
-							type = industrial_complex
-							level = 2
-						}
-						add_offsite_building = {
-							type = arms_factory
-							level = 1
-						}
-						add_political_power = 75
-						delete_unit_template_and_units = {
-							division_template = "Battaglione delle Guardie Reali"
-							disband = yes #if yes, will refund equipment/manpower.
-						}
-
-						division_template = {
-							name = "Battaglione delle Guardie Reali"
-							division_names_group = ITA_INF_01
-							role = infantry
-							is_locked = no
-							regiments = {
-								infantry = { x = 0 y = 0 }
-								infantry = { x = 0 y = 1 }
-								infantry = { x = 0 y = 2 }
-								infantry = { x = 1 y = 0 }
-								infantry = { x = 1 y = 1 }
-								infantry = { x = 1 y = 2 }
-								infantry = { x = 2 y = 0 }
-								infantry = { x = 2 y = 1 }
-								infantry = { x = 2 y = 2 }
-							}
-							support = {
-								engineer = { x = 0 y = 0 }
-								artillery = { x = 0 y = 1 }
-							}
-						}
-
-						random_state = {
-							limit = {
-								is_fully_controlled_by = PREV
-								is_owned_by = PREV
-								is_core_of = PREV
-							}
-							create_unit = {
-							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
-							    owner = PREV
-							}
-						}
-					}
-					puppet = TTS
-				}
-
-				IF = { # Neapolitanian/two sicilies puppet can gain Malta if you control it
-					limit = {
-						116 = {
-							is_owned_or_subject_trigger = yes
-						}
-					}
-					TTS = {
-						transfer_state = 116
-						add_state_core = 116
-					}
-				}
 			}
 
 		}
