@@ -1,6 +1,6 @@
-Secret_Chinese_Decisions = {
+SIC_Secret_Chinese_Decisions = {
 
-    sic_trigger_communist_event = {
+    SIC_contact_chinese_spies = {
         icon = generic_communism
         allowed = {
             original_tag = SIC
@@ -26,14 +26,14 @@ Secret_Chinese_Decisions = {
             has_country_flag = sic_chinese_communist_approach_flag
         }
         custom_cost_trigger = {
-            has_equipment = { infantry_equipment > 999 }
+            has_equipment = { infantry_equipment > 499 }
         }
 
-        custom_cost_text = decision_cost_ie_1000
+        custom_cost_text = decision_cost_ie_500
         complete_effect = {
             add_equipment_to_stockpile = {
                 type = infantry_equipment
-                amount = -1000
+                amount = -500
             }
 
             add_offsite_building = {
@@ -101,7 +101,7 @@ Secret_Chinese_Decisions = {
                 is_debug = yes
             }
         }
-        fire_only_once = yes
+        fire_only_once = no
 
         cost = 25 
 
@@ -120,38 +120,395 @@ Secret_Chinese_Decisions = {
             has_country_flag = sic_chinese_communist_cooperation_flag
             is_at_war = yes
         }
-        customn_cost_trigger = {
+        custom_cost_trigger = {
             has_army_experience > 49
         }
         custom_cost_text = decision_cost_ArmXP_50
 
         complete_effect = {
-            add_army_experience = -50
+            army_experience = -50
             add_popularity = {
                 ideology = communism
                 popularity = 0.05
             }
+            add_manpower = 20000
             set_country_flag = sic_chinese_communist_expertise_flag
         }
     }
 
-    Sic_the_Chinese_Invitation_2 = {
+    Sic_The_Manpower_for_Factorys_Deal = {
         visible = { has_country_flag = sic_chinese_communist_expertise_flag }
         allowed = {
             original_tag = SIC
-        }  
+        }
         available = {
             has_government = communism
             has_country_flag = sic_chinese_communist_expertise_flag
-            OR = {
-                date > 1941.1.1
-                is_debug = yes
+            is_at_war = yes
+        }
+        cost = 150
+        fire_only_once   = yes
+        complete_effect = {
+            swap_ideas = {
+                remove_idea = Sic_chinese_communist_elements
+                add_idea = SIC_manpower_for_factorys_deal_idea
             }
         }
+    }
+    
+    Sic_the_third_meeting = {
+        visible = { has_idea = SIC_manpower_for_factorys_deal_idea }
+        allowed = {
+            original_tag = SIC
+        }
+        available = {
+            has_government = communism
+            has_idea = SIC_manpower_for_factorys_deal_idea
+        }
         fire_only_once = yes
-        cost = 25
+        cost = 50
+
         complete_effect = {
             country_event = { id = sic_communism_event.3 }
         }
+    }
+
+    Sic_Final_Communist_Takeover = {
+        visible = { has_idea = SIC_manpower_for_factorys_deal_2_idea }
+        allowed = {
+            original_tag = SIC
+        }
+        activation = {
+            has_government = communism
+            has_idea = SIC_manpower_for_factorys_deal_2_idea
+        }
+        available = {
+            NOT = { has_government = communism }
+            NOT = { has_idea = SIC_manpower_for_factorys_deal_2_idea }
+        }
+        days_mission_timeout = 90
+        fire_only_once = yes
+        cost = 100
+
+        timeout_effect = {
+            country_event = { id = sic_communism_event.4 }
+        }
+    }
+
+}
+SIC_The_new_China = {
+    Announce_the_birth_of_an_empire = {
+
+        icon = generic_communism
+
+        highlight_states = {
+            highlight_states_trigger = {
+                is_core_of = ITA
+                NOT = { is_core_of = SRD }
+                NOT = { 
+                    state = 2912
+                    state = 2913
+                    state = 1534
+                    state = 2914
+                }
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+        allowed = {
+            original_tag = SIC
+            has_country_flag = sic_chinese_communist_takeover_flag
+        }
+
+        visible = {
+            original_tag = SIC
+            has_country_flag = sic_chinese_communist_takeover_flag
+            ruling_party = communism
+        }
+        fire_only_once = yes
+        cost = 25
+
+        available = {
+            original_tag = SIC
+            has_country_flag = sic_chinese_communist_takeover_flag
+
+            custom_trigger_tooltip = {
+                tooltip = SIC_need_control_italy_states_tt
+                NOT = {
+                    any_state = {
+                        is_core_of = ITA
+                        NOT = { is_core_of = SIC }
+                        NOT = { is_core_of = SRD }
+
+                        is_controlled_by = SIC
+
+                        NOT = { state = 2912 }
+                        NOT = { state = 2913 }
+                        NOT = { state = 1534 }
+                        NOT = { state = 2914 }
+                        NOT = { state = 1476 }
+                    }
+                }
+            }
+        }
+                    
+
+        complete_effect = {
+            every_state = {
+                limit = {
+                    is_core_of = ITA
+                    NOT = { is_core_of = SRD }
+                }
+                add_core_of = SIC
+            }
+            set_country_flag = SIC_new_empire_flag
+        }
+    }
+
+    Surrounding_the_Adriatic = {
+        
+        highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+                    is_core_of = YUG
+                    is_core_of = ALB
+                }
+                NOT = { is_core_of = SIC }
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+        allowed = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+        }
+        visible = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+            ruling_party = communism
+        }
+        cost = 25
+        fire_only_once = yes
+        available = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+
+            custom_trigger_tooltip = {
+                tooltip = SIC_need_control_yugoslavia_states_tt
+                NOT = {
+                    any_state = {
+                        OR = {
+                            is_core_of = YUG
+                            is_core_of = ALB
+                        }
+
+                        NOT = { is_controlled_by = SIC }
+                    }
+                }
+                
+            }
+        }
+        complete_effect = {
+            every_state = {
+                limit = {
+                    OR = {
+                        is_core_of = YUG
+                        is_core_of = ALB
+                    }
+                    NOT = { is_core_of = SIC }
+
+                }
+                add_core_of = SIC
+            }
+            set_country_flag = SIC_new_empire_flag
+        }
+    }
+
+    The_Final_Victory_for_Indochina = {
+        highlight_states = {
+            highlight_states_trigger = {
+                is_core_of = FRA
+                NOT = { is_core_of = SIC }
+                NOT = { is_core_of = COR }
+                NOT = { is_core_of = ALG }
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+        allowed = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+        }
+        visible = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+            ruling_party = communism
+        }
+        cost = 25
+        fire_only_once = yes
+        available = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+
+            custom_trigger_tooltip = {
+                tooltip = SIC_need_control_France_states_tt
+                NOT = {
+                    any_state = {
+                        is_core_of = FRA
+                        NOT = { is_core_of = SIC }
+                        NOT = { is_core_of = COR }
+                        NOT = { is_core_of = ALG }
+                        NOT = {is_controlled_by = SIC}
+                    }
+                }
+            }
+        }        
+        complete_effect = {
+            every_state = {
+                limit = {
+                    is_core_of = FRA
+
+                    NOT = { is_core_of = SIC }
+                    NOT = { is_core_of = COR }
+                    NOT = { is_core_of = ALG }
+                }
+                add_core_of = SIC
+            }
+            set_country_flag = SIC_new_empire_flag
+        }
+    }
+
+    Punish_the_Old_Colonisers = {
+        highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+                    is_core_of = SPR
+                    is_core_of = POR
+                }
+                NOT = { state = 2963}
+                NOT = { state = 1016}
+                NOT = { state = 2962}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+        allowed = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+        }
+        visible = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+            ruling_party = communism
+        }
+        cost = 25
+        fire_only_once = yes
+        available = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+
+            custom_trigger_tooltip = {
+                tooltip = SIC_need_control_Iberia_states_tt
+                NOT = {
+                    any_state = {
+                        OR = {
+                            is_core_of = POR
+                            is_core_of = SPR
+                        }
+                        NOT = { state = 2963}
+                        NOT = { state = 1016}
+                        NOT = { state = 2962}
+                        NOT = {is_controlled_by = SIC}
+                    }
+                }
+            }
+        }
+        complete_effect = {
+            every_state = {
+                limit = {
+                    OR = {
+                        is_core_of = POR
+                        is_core_of = SPR
+                    }
+                    NOT = { state = 2963}
+                    NOT = { state = 1016}
+                    NOT = { state = 2962}
+                }
+                add_core_of = SIC
+            }
+            set_country_flag = SIC_new_empire_flag
+        }
+    }
+
+
+    The_Final_Blow_to_the_Island = {
+        highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+                    is_core_of = ENG
+                    is_core_of = IRE
+                }
+                NOT = { state = 187}
+                NOT = { state = 116}
+                NOT = { state = 2780}
+                NOT = { state = 2958}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+        allowed = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+        }
+        visible = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+            ruling_party = communism
+        }
+        cost = 25
+        fire_only_once = yes
+        available = {
+            original_tag = SIC
+            has_country_flag = sic_new_empire_flag
+
+            custom_trigger_tooltip = {
+                tooltip = SIC_need_control_Britain_states_tt
+                NOT = {
+                    any_state = {
+                        OR = {
+                            is_core_of = ENG
+                            is_core_of = IRE
+                        }
+                        NOT = { state = 187}
+                        NOT = { state = 116}
+                        NOT = { state = 2780}
+                        NOT = { state = 2958}
+                        NOT = {is_controlled_by = SIC}
+                    }
+                }
+            }
+        }
+        complete_effect = {
+            every_state = {
+                limit = {
+                    OR = {
+                        is_core_of = IRE
+                        is_core_of = ENG
+                        state = 130
+                        state = 2909
+                        state = 607
+                    }
+
+                }
+                add_core_of = SIC
+            }
+            set_country_flag = SIC_new_empire_flag
+        }
+        
     }
 }
