@@ -85,7 +85,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = convoy
-		value = 20
+		value = 10
 	}
 
 	ai_strategy = {
@@ -97,13 +97,13 @@ GER_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = anti_tank
-		value = 20
+		value = 30
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = anti_air
-		value = 25
+		value = 15
 	}
 
 	ai_strategy = {
@@ -114,7 +114,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype #Build these up over time, don't stall
 		id = anti_air_equipment
-		value = 2
+		value = 1
 	}
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
@@ -1315,12 +1315,6 @@ GER_force_concentration_through_maginot_hurts_too_much = {
 		value = -100 # -100 % / Don't even consider targets here. Infantry and Artillery are better at dealing with the Maginot than tank formations are
 	}
 	ai_strategy = {
-		type = force_concentration_front_factor
-		state = 606  # Alsace-Lorraine
-		ratio = 0.50     # Only if > 50 % of the front consists of Alsace-Lorraine. This should make it deactivate if the frontline extends around the maginot
-		value = -100
-	}
-	ai_strategy = {
 		type = force_concentration_target_weight
 		state = 606 # Alsace-Lorraine
 		value = -100 # -100 % / Don't even consider targets here. Infantry and Artillery are better at dealing with the Maginot than tank formations are
@@ -1742,19 +1736,13 @@ GER_area_priority = {
 
 	ai_strategy = {
 		type = area_priority
-		id = africa
+		id = libya
 		value = -70
 	}
 
 	ai_strategy = {
 		type = area_priority
-		id = pacific
-		value = -120 #less focus here
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = oceania
+		id = egypt_front
 		value = -80
 	}
 }
@@ -1770,6 +1758,7 @@ GER_start_the_blitz = {
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
 		date > 1940.1.1
+		date < 1940.11.1
 	}
 
 	abort_when_not_enabled = yes
@@ -1797,7 +1786,14 @@ GER_upgrade_the_blitz = {
 		ENG = { controls_state = 2475 } # Checks that they control London
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
+		NOT = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+		}
 		date > 1940.3.1
+		date < 1940.11.1
 	}
 
 	abort_when_not_enabled = yes
@@ -1819,7 +1815,34 @@ GER_upgrade_the_blitz_again = {
 		ENG = { controls_state = 2475 } # Checks that they control London
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
+		NOT = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+		}
 		date > 1940.6.1
+		date < 1940.11.1
+	}
+
+	abort_when_not_enabled = yes
+ 
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 45 #Strategic Region ID - Southern England
+		value = 10000 #value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+GER_stop_blitz = { #prevents GER air from suicidally continuing the Blitz after they decide to focus east next year, until the USSR is knocked out
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		is_historical_focus_on = yes
+		has_war_with = ENG
+		SOV = { has_capitulated = no }
+		date > 1940.11.2
 	}
 
 	abort_when_not_enabled = yes
@@ -1827,7 +1850,166 @@ GER_upgrade_the_blitz_again = {
 	ai_strategy = {
 		type = strategic_air_importance
 		id = 45 #Strategic Region ID - Southern England
-		value = 10000 #value of stocked main front in active combat is usually around 35,000
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 46 #Strategic Region ID - Northern England
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 3 #Strategic Region ID - Scotland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 2 #Strategic Region ID - Ireland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 1 #Strategic Region ID - Ireland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 209 #Strategic Region ID - English Channel
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 240 #Strategic Region ID - Western Approaches
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+GER_avoid_air_war_before_fall_gelb = { #prevents GER air from uselessly beating itself up prior to the invasion of France
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		is_historical_focus_on = yes
+		has_war_with = FRA
+		FRA = { controls_state = 16 } # Checks that they control Paris
+		HOL = { has_capitulated = no }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 1 #Strategic Region ID - Southern England
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 2 #Strategic Region ID - Northern England
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 3 #Strategic Region ID - Scotland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 4 #Strategic Region ID - Ireland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 18 #Strategic Region ID - English Channel
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 43 #Strategic Region ID - Western Approaches
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 42 #Strategic Region ID - Bay of Biscay
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 19 #Strategic Region ID - Northern France
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 208 #Strategic Region ID - Western France
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 20 #Strategic Region ID - Southern France
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+GER_avoid_early_blitz = { #prevents GER air from uselessly attacking England while Fall Gelb is still on
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		is_historical_focus_on = yes
+		has_war_with = ENG
+		FRA = { has_capitulated = no }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 1 #Strategic Region ID - Southern England
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 2 #Strategic Region ID - Northern England
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 3 #Strategic Region ID - Scotland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 4 #Strategic Region ID - Ireland
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 18 #Strategic Region ID - English Channel
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 43 #Strategic Region ID - Western Approaches
+		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
 
@@ -1882,19 +2064,34 @@ GER_worry_about_barbarossa_before_africa = {
 
 	ai_strategy = {
 		type = area_priority
-		id = egypt_front
+		id = middle_east
 		value = -30
 	}
 	ai_strategy = {
 		type = area_priority
-		id = libya
+		id = suez
 		value = -30
 	}
 
 	ai_strategy = {
 		type = area_priority
-		id = suez
+		id = east_africa
 		value = -200
+	}
+	ai_strategy = {
+		type = front_unit_request
+		area = east_africa
+		value = -100
+	}
+	ai_strategy = {
+		type = area_priority
+		id = belgian_congo
+		value = -200
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		area = belgian_congo
+		value = -50
 	}
 }
 
@@ -2106,6 +2303,12 @@ AXIS_dont_mess_with_volunteers = {
 	ai_strategy = {
 		type = send_volunteers_desire
 		id = MAN
+		value = -500
+	}
+
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = MEN
 		value = -500
 	}
 }
@@ -2377,10 +2580,7 @@ GER_market_management_after_anschluss = {
 	}
 	enable = {
 		has_government = fascism
-		OR = {
-			has_completed_focus = GER_anschluss
-			has_completed_focus = GER_anschluss
-		}
+		has_completed_focus = GER_anschluss
 	}
 	abort_when_not_enabled = yes
 
@@ -2388,22 +2588,42 @@ GER_market_management_after_anschluss = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = infantry
-		value = 100000
+		value = 200000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = support
-		value = 500
+		value = 1000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = artillery
-		value = 500
+		value = 1500
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = anti_air
+		value = 1000
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = anti_tank
+		value = 1500
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = armor
-		value = 500
+		value = 1000
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = motorized
+		value = 2000
+	}
+	ai_strategy = {
+		type = equipment_market_for_sale_threshold
+		id = train
+		value = 200
 	}
 }
 
@@ -2421,38 +2641,37 @@ GER_market_management_after_sudetenland = {
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = infantry
-		value = 20000
-		value = 200000
+		value = 400000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = support
-		value = 1500
+		value = 3000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = artillery
-		value = 1500
+		value = 3000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = anti_air
-		value = 1500
+		value = 2000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = anti_tank
-		value = 1500
+		value = 3000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = armor
-		value = 1000
+		value = 2000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
 		id = motorized
-		value = 2000
+		value = 4000
 	}
 	ai_strategy = {
 		type = equipment_market_for_sale_threshold
@@ -2518,11 +2737,12 @@ GER_we_are_bad_at_espionage_because_it_is_expensive_and_not_tanks = {
 GER_my_precisioussss = {
 	allowed = {
 		original_tag = GER
+		is_historical_focus_on = yes
 	}
 
 	enable = {
 		OR = {
-			date < 1944.6.1
+			date < 1938.1.1
 			has_war = yes
 		}
 	}
@@ -2537,6 +2757,31 @@ GER_my_precisioussss = {
 	ai_strategy = {
 		type = send_lend_lease_desire
 		id = MAN
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = CHI
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = YUN
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = SHX
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = XSM
+		value = -999
+	}
+	ai_strategy = {
+		type = send_lend_lease_desire
+		id = SIK
 		value = -999
 	}
 }
@@ -3297,11 +3542,12 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 
 	enable = {
 		date < 1942.8.1
-		date > 1941.7.1
-		has_war_with = SOV
 		OR = {
-			has_idea = GER_barbarossa
-			SOV = { has_idea = SOV_desperate_measures_ns }
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+			has_war_with = SOV
 		}
 		has_equipment = { infantry_equipment > 15000 } #WE NEED GUNS
 	}
@@ -3320,26 +3566,177 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 		execution_type = rush
 		execute_order = yes
 	}
+}
 
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 43 #Strategic Region ID - Eastern Poland
-		id = 42
-		id = 41
-		id = 96
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
+GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border defenses in the initial stages of Barb
+	allowed = {
+		original_tag = GER
 	}
 
+	enable = {
+		date < 1942.1.1
+
+		OR = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+			has_war_with = SOV
+		}
+		NOT = {
+			GER = {
+				#Lithuania
+				controls_state = 101
+				controls_state = 107
+				controls_state = 205
+				controls_state = 206
+				controls_state = 207
+				controls_state = 208
+				controls_state = 225
+				controls_state = 227
+				controls_state = 236
+				controls_state = 238
+				controls_state = 241
+				controls_state = 242
+				controls_state = 244
+				controls_state = 259
+				controls_state = 274
+				controls_state = 275
+				controls_state = 294
+				controls_state = 1104
+				controls_state = 1135
+				controls_state = 1178
+				controls_state = 1246
+				controls_state = 1280
+				controls_state = 1296
+				controls_state = 1304
+				controls_state = 1309
+				controls_state = 1329
+				controls_state = 1339
+				controls_state = 2371
+
+				#Latvia
+				controls_state = 67
+				controls_state = 87
+				controls_state = 91
+				controls_state = 94
+				controls_state = 95
+				controls_state = 112
+				controls_state = 170
+				controls_state = 172
+				controls_state = 174
+				controls_state = 185
+				controls_state = 188
+				controls_state = 196
+				controls_state = 1344
+				controls_state = 1345
+				controls_state = 1346
+				controls_state = 1347
+				controls_state = 1348
+				controls_state = 1349
+				controls_state = 1350
+				controls_state = 1351
+				controls_state = 1352
+				controls_state = 2523
+				controls_state = 2541
+				controls_state = 2720
+				controls_state = 2772
+				controls_state = 2773
+				controls_state = 2774
+				controls_state = 2775
+
+				#Estonia
+				controls_state = 133
+				controls_state = 134
+				controls_state = 137
+				controls_state = 143
+				controls_state = 145
+				controls_state = 146
+				controls_state = 152
+				controls_state = 155
+				controls_state = 156
+				controls_state = 157
+				controls_state = 165
+				controls_state = 166
+				controls_state = 173
+				controls_state = 2791
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 99 #Strategic Region ID - Ukraine
-		id = 100
-		id = 101
-		id = 106
-		id = 107
+		id = 27 #Strategic Region ID - Baltic States
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 56 #Strategic Region ID - Baltic States
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 28 #Strategic Region ID - Baltic States
 		value = 20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
+
+GER_blitzkrieg_russia_hard_air_center  = { #get GER to focus on breaking border defenses in the initial stages of Barb
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		date < 1942.1.1
+		OR = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+			has_war_with = SOV
+		}
+		NOT = {
+			GER = {
+				controls_state = 300
+				controls_state = 1310
+				controls_state = 326
+				controls_state = 1132
+				controls_state = 1153
+				controls_state = 1041
+				controls_state = 434
+				controls_state = 1272
+				controls_state = 1293
+				controls_state = 1233
+				controls_state = 490
+				controls_state = 2345
+				controls_state = 2929
+				controls_state = 593
+				controls_state = 2930
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 96 #Strategic Region ID - Eastern Poland
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 42 #Strategic Region ID - Eastern Poland
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 41 #Strategic Region ID - Eastern Poland
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+}
+
 
 GER_blitzkrieg_russia_soft  = { #Rolling incursions
 	allowed = {
@@ -4016,11 +4413,17 @@ GER_gotta_have_enough_medium_tanks = {
 		}
 	}
 	abort_when_not_enabled = yes
-
+	
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 1
+	}
+	
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = medium_tank_chassis
-		value = 2  # Germany need medium tanks to crush the enemies!
+		value = 3  # Germany need medium tanks to crush the enemies!
 	}
 }
 
@@ -4086,7 +4489,7 @@ GER_dont_send_half_the_army_to_finland_if_not_in_our_faction = {
 
 		# states to put garrison orders (if no state is friendly, strat is invalid)
 		states = {
-			925  # Finnmark
+			17  # Finnmark
 		}
 
 		# ai areas that the orders will use these buffers in
@@ -4294,6 +4697,35 @@ GER_dont_DOW_benelux = { #Don't try to bypass Around the Maginot!
 	}
 }
 
+# FACTION RELATED STRATEGIES
+
+GER_base_faction_priorities = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	# Note these adds to the base, as defined in default
+	ai_strategy = {
+		type = spent_faction_initiative_priority
+		id = program
+		value = 15
+	}
+	ai_strategy = {
+		type = spent_faction_initiative_priority
+		id = unlock_faction_commander
+		value = 5
+	}
+	ai_strategy = {
+		type = spent_faction_initiative_priority
+		id = unlock_doctrine_sharing
+		value = 10
+	}
+}
+
+
 # SPECIAL PROJECT FACILITIES
 # Penemünde
 GER_build_an_air_facility_in_penemunde = {
@@ -4303,7 +4735,7 @@ GER_build_an_air_facility_in_penemunde = {
 	enable = {
 		1634 = { is_owned_and_controlled_by = GER }
 		air_facility < 1 # one is enough
-		date > 1940.6.1 # Was 1937.2.1 Moving it to later in order to let them focus on building their indurty
+		date > 1940.6.1 # Was 1937.2.1 Moving it to later in order to let them focus on building their industry
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
@@ -4367,7 +4799,10 @@ GER_tanks_in_greece = { #Gotta rush GRE so we're ready for SOV
 GER_raid_the_north_sea = {
 	allowed = { original_tag = GER }
 	enable = {
-		has_war = yes
+		OR = {
+			has_war_with = NOR
+			has_war_with = SOV
+		}
 	}
 	abort_when_not_enabled = yes
 
@@ -4386,11 +4821,6 @@ GER_raid_the_north_sea = {
 		id = 236 #Eastern North Sea
 		value = 250
 	}
-	ai_strategy = {
-		type = naval_convoy_raid_region
-		id = 235 #Danish Belts
-		value = 100
-	}
 }
 
 #Yo-ho-ho and a bottle of rum! We set sail for the North Atlantic aaaargh!
@@ -4400,6 +4830,7 @@ GER_raid_the_atlantic = {
 		OR = {
 			has_war_with = ENG
 			has_war_with = USA
+			has_war_with = CAN
 		}
 		#Gotta control the Western coast of France
 		any_controlled_state = {
@@ -4425,11 +4856,8 @@ GER_raid_the_atlantic = {
 				state = 684
 			}
 		}
-		has_navy_size = {
-		    type = submarine
-		    size < 30
-		}
 	}
+
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
