@@ -1,4 +1,4 @@
-version="0.2.6"
+version="0.2.7"
 tags={
 	"Map"
 }
@@ -35,6 +35,7 @@ replace_path="common/on_actions"
 replace_path="common/operation_phases"
 replace_path="common/operations"
 replace_path="common/peace_conference/ai_peace"
+replace_path="common/raids"
 replace_path="common/scripted_effects"
 replace_path="common/scripted_guis"
 replace_path="common/scripted_localisation"
