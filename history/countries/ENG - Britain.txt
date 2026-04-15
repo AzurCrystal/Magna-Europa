@@ -4,15 +4,35 @@ if = {
 	limit = {
 		NOT = {
 			has_dlc = "No Step Back"
+			has_dlc = "La Resistance"
 		}
 	}
 	set_oob = "ENG_1936"
 }
 if = {
 	limit = {
+		NOT = {
+			has_dlc = "No Step Back"
+		}
+		has_dlc = "La Resistance"
+	}
+	set_oob = "ENG_1936_LaR"
+}
+if = {
+	limit = {
+		NOT = {
+			has_dlc = "La Resistance"
+		}
 		has_dlc = "No Step Back"
 	}
 	set_oob = "ENG_1936_nsb"
+}
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+		has_dlc = "No Step Back"
+	}
+	set_oob = "ENG_1936_nsb_LaR"
 }
 
 starting_train_buffer = 4
@@ -24,6 +44,15 @@ if = {
 	set_naval_oob = "ENG_1936_Naval"
 	else = {
 		set_naval_oob = "ENG_1936_Naval_Legacy"
+	}
+}
+
+if = {
+	limit = {
+		has_dlc = "La Resistance"
+	}
+	set_technology = {
+		armored_car1 = 1
 	}
 }
 
@@ -57,19 +86,32 @@ if = {
 		}
 	}
 }
-if = {
+
+IF = {
 	limit = {
 		has_dlc = "Gotterdammerung"
 	}
 	give_guarantee = BEL
 }
-if = {
+
+IF = {
 	limit = {
 		has_dlc = "Graveyard of Empires"
 	}
 	give_guarantee = IRQ
-	IRQ = {
-		give_military_access = ENG
+}
+
+IRQ = {
+	give_military_access = ENG
+	IF = {
+		limit = {
+			has_dlc = "No Compromise, No Surrender"
+		}
+		diplomatic_relation = { 
+			country = ENG
+			relation = OFFER_AIR_BASE_ACCESS 
+			active = yes
+		}
 	}
 }
 
@@ -91,13 +133,14 @@ set_technology = {
 	gw_artillery = 1
 	interwar_antiair = 1
 	basic_train = 1
-	#trench_warfare = 1
-	fleet_in_being = 1
 	electronic_mechanical_engineering = 1
 	radio = 1
 	fuel_silos = 1
 	fuel_refining = 1
 }
+
+set_grand_doctrine = grand_battleplan
+set_grand_doctrine = new_fleet_in_being
 
 complete_special_project = {
 	project = sp:sp_air_radar
@@ -172,6 +215,7 @@ if = {
 		basic_ship_hull_carrier = 1
 		basic_battery = 1
 		basic_light_battery = 1
+		#basic_medium_battery = 1
 		basic_heavy_battery = 1
 		basic_torpedo = 1
 		sonar = 1
@@ -182,29 +226,11 @@ if = {
 		mtg_transport = 1
 		basic_fire_control_system = 1
 		basic_dp_light_battery = 1
+		coastal_defense_ships = 1
 	}
 	add_ideas = MTG_naval_treaty_adherent
 	set_global_flag = MTG_second_london_conference
 	set_global_flag = { flag = MTG_naval_treaty_signatories value = 5 }
-}
-
-if = {
-	limit = {
-		has_dlc = "La Resistance"
-	}
-	set_technology = {
-		armored_car1 = 1
-	}
-}
-
-IF = {
-	limit = {
-		has_dlc = "La Resistance"
-	}
-	load_oob = "ENG_LAR_Motorized"
-	ELSE = {
-		load_oob = "ENG_Motorized"
-	}
 }
 
 set_variable = { var = eng_gateway_to_europe_influence value = 0 }
@@ -241,6 +267,7 @@ if = {
 	set_autonomy = {
 		target = BHR
 		autonomous_state = autonomy_colony
+		freedom_level = 0.35
 	}
 	set_autonomy = {
 		target = OMA
@@ -433,6 +460,13 @@ if = {
 		infantry_weapons2 = 1
 		support_weapons = 1
 		support_weapons2 = 1
+		
+
+		#doctrines
+		#Air
+		#air_superiority = 1
+		#home_defence = 1
+		#naval_strike_tactics = 1
 
 		#electronics
 		electronic_mechanical_engineering = 1
@@ -458,6 +492,46 @@ if = {
 		dispersed_industry2 = 1
 		dispersed_industry3 = 1
 	}
+
+	set_grand_doctrine = grand_battleplan
+	set_grand_doctrine = new_fleet_in_being
+	set_grand_doctrine = new_strategic_destruction
+	set_sub_doctrine = defensive_postures
+	add_mastery = {
+	    amount = 100
+	    sub_doctrine = defensive_postures
+	}
+	set_sub_doctrine = grand_assault
+	add_mastery = {
+	    amount = 50
+	    sub_doctrine = grand_assault
+	}
+	set_sub_doctrine = convoy_escort
+	add_mastery = {
+	    amount = 100
+	    sub_doctrine = convoy_escort
+	}
+	set_sub_doctrine = line_of_battle
+	add_mastery = {
+	    amount = 50
+	    sub_doctrine = line_of_battle
+	}
+	set_sub_doctrine = floating_airfields
+	add_mastery = {
+	    amount = 25
+	    sub_doctrine = floating_airfields
+	}
+	set_sub_doctrine = air_subdoctrine_dogfighting_mastery
+	add_mastery = {
+	    amount = 75
+	    sub_doctrine = air_subdoctrine_dogfighting_mastery
+	}
+	set_sub_doctrine = air_subdoctrine_flying_artillery
+	add_mastery = {
+	    amount = 25
+	    sub_doctrine = air_subdoctrine_flying_artillery
+	}
+
 
 	if = {
 		limit = {
@@ -538,7 +612,16 @@ set_popularities = {
 }
 
 
-create_faction = Allies
+create_faction_from_template = faction_template_allies
+IF= {
+	limit = {
+		has_dlc = "No Compromise, No Surrender"
+	}
+	add_faction_goal_slot = {
+		category  = long_term
+		value = 1 
+	}
+}
 add_to_faction = ENG
 #add_to_faction = FRA
 add_to_faction = CAN
@@ -788,6 +871,12 @@ if = {
 			ship_armor_upgrade = 3
 			ship_gun_upgrade = 3
 		}
+		optional_assets = {
+			{
+				icon = "GFX_commonwealth_heavy_cruiser_australia"
+				model = "commonwealth_gfx_heavy_cruiser_entity"
+			}
+		}
 	}
 	# Battlecruisers #
 	create_equipment_variant = {
@@ -1016,6 +1105,12 @@ if = {
 			mid_1_custom_slot = empty
 			rear_1_custom_slot = ship_depth_charge_1
 		}
+		optional_assets = {
+			{
+				icon = "GFX_commonwealth_destroyer_vampire"
+				model = "commonwealth_gfx_destroyer_1_entity"
+			}
+		}
 		obsolete = yes
 	}
 	create_equipment_variant = {
@@ -1114,6 +1209,12 @@ if = {
 			mid_2_custom_slot = ship_airplane_launcher_1
 			rear_1_custom_slot = ship_light_medium_battery_2
 		}
+		optional_assets = {
+			{
+				icon = "GFX_commonwealth_light_cruiser_hobart"
+				model = "commonwealth_gfx_light_cruiser_entity"
+			}
+		}
 	}
 	create_equipment_variant = {
 		name = "Adventure Class"						# cruiser minelayer
@@ -1135,25 +1236,25 @@ if = {
 		}
 	}
 	create_equipment_variant = {
-			name = "Town Class"
-			type = ship_hull_cruiser_2
-			name_group = ENG_CL_HISTORICAL
-			parent_version = 0
-			design_team = mio:ENG_harland_wolff_organization
-			modules = {
-				fixed_ship_battery_slot = ship_light_medium_battery_2
-				fixed_ship_anti_air_slot = ship_anti_air_2
-				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-				fixed_ship_radar_slot = empty
-				fixed_ship_engine_slot = cruiser_ship_engine_2
-				fixed_ship_armor_slot = ship_armor_cruiser_2
-				fixed_ship_secondaries_slot = dp_ship_secondaries_2
-				front_1_custom_slot = ship_anti_air_2
-				mid_1_custom_slot = ship_torpedo_1
-				mid_2_custom_slot = ship_secondaries_2
-				rear_1_custom_slot = ship_light_medium_battery_2
-			}
+		name = "Town Class"
+		type = ship_hull_cruiser_2
+		name_group = ENG_CL_HISTORICAL
+		parent_version = 0
+		design_team = mio:ENG_harland_wolff_organization
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_2
+			fixed_ship_anti_air_slot = ship_anti_air_2
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_2
+			fixed_ship_armor_slot = ship_armor_cruiser_2
+			fixed_ship_secondaries_slot = dp_ship_secondaries_2
+			front_1_custom_slot = ship_anti_air_2
+			mid_1_custom_slot = ship_torpedo_1
+			mid_2_custom_slot = ship_secondaries_2
+			rear_1_custom_slot = ship_light_medium_battery_2
 		}
+	}
 	# Heavy Cruisers #
 	create_equipment_variant = {
 		name = "County Class"
@@ -1172,6 +1273,12 @@ if = {
 			mid_1_custom_slot = ship_airplane_launcher_1
 			mid_2_custom_slot = ship_torpedo_1
 			rear_1_custom_slot = ship_medium_battery_2
+		}
+		optional_assets = {
+			{
+				icon = "GFX_commonwealth_heavy_cruiser_australia"
+				model = "commonwealth_gfx_heavy_cruiser_entity"
+			}
 		}
 	}
 	create_equipment_variant = {
@@ -1276,6 +1383,35 @@ if = {
 			rear_1_custom_slot = empty
 		}
 	}
+
+	# Monitors
+	create_equipment_variant = {
+		name = "Erebus Class"
+		type = ship_hull_cruiser_coastal_defense_ship
+		name_group = ENG_BM_HISTORICAL
+		parent_version = 0
+		design_team = mio:ENG_harland_wolff_organization
+		modules = {
+			fixed_ship_battery_slot = ship_heavy_battery_1
+			fixed_ship_anti_air_slot = empty
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_1
+			fixed_ship_secondaries_slot = empty
+			fixed_ship_armor_slot = ship_armor_cruiser_2
+			mid_1_custom_slot = empty
+			mid_2_custom_slot = empty
+			rear_1_custom_slot = empty
+		}
+		optional_assets = {
+			{
+				icon = "GFX_commonwealth_heavy_cruiser_erebus"
+				model = "commonwealth_gfx_heavy_cruiser_2_entity"
+			}
+		}
+		obsolete = yes
+	}
+
 	# Battleships #
 	create_equipment_variant = {
 		name = "Nelson Class"
@@ -1316,6 +1452,12 @@ if = {
 			mid_1_custom_slot = ship_airplane_launcher_1
 			mid_2_custom_slot = ship_secondaries_1
 			rear_1_custom_slot = ship_heavy_battery_1
+		}
+		optional_assets = {
+			{
+				icon = "GFX_commonwealth_battleship_warspite"
+				model = "commonwealth_gfx_battleship_entity"
+			}
 		}
 		obsolete = yes
 	}
@@ -1491,6 +1633,7 @@ if = {
 				special_type_slot_1 = empty
 			}
 			obsolete = yes
+			icon = GFX_ENG_early_bomber_medium
 		}
 		create_equipment_variant = {
 			name = "Bristol Blenheim" 
@@ -1553,6 +1696,12 @@ if = {
 				front_1_custom_slot = ship_deck_space
 				mid_1_custom_slot = ship_armor_carrier_deck
 			}
+			optional_assets = {
+				{
+					icon = "GFX_commonwealth_carrier_illustrious"
+					model = "commonwealth_gfx_carrier_entity"
+				}
+			}
 		}
 		create_equipment_variant = {
 			name = "Dido Class"
@@ -1572,6 +1721,12 @@ if = {
 				mid_1_custom_slot = ship_anti_air_1
 				mid_2_custom_slot = ship_torpedo_1
 				rear_1_custom_slot = dp_light_battery_3
+			}
+			optional_assets = {
+				{
+					icon = "GFX_commonwealth_light_cruiser_dido"
+					model = "commonwealth_gfx_light_cruiser_1_entity"
+				}
 			}
 		}
 		create_equipment_variant = {
@@ -1667,6 +1822,34 @@ if = {
 				rear_1_custom_slot = ship_heavy_battery_3
 			}
 		}
+		# Monitors
+		create_equipment_variant = {
+			name = "Erebus Class"
+			type = ship_hull_cruiser_coastal_defense_ship
+			name_group = ENG_BM_HISTORICAL
+			parent_version = 0
+			design_team = mio:ENG_harland_wolff_organization
+			modules = {
+				fixed_ship_battery_slot = ship_heavy_battery_1
+				fixed_ship_anti_air_slot = ship_anti_air_2
+				fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+				fixed_ship_radar_slot = empty
+				fixed_ship_engine_slot = cruiser_ship_engine_1
+				fixed_ship_secondaries_slot = ship_secondaries_1
+				fixed_ship_armor_slot = ship_armor_cruiser_2
+				mid_1_custom_slot = empty
+				mid_2_custom_slot = empty
+				rear_1_custom_slot = empty
+			}
+			optional_assets = {
+				{
+					icon = "GFX_commonwealth_heavy_cruiser_erebus"
+					model = "commonwealth_gfx_heavy_cruiser_2_entity"
+				}
+			}
+			obsolete = yes
+		}
+
 		create_equipment_variant = {
 			name = "T Class"
 			type = ship_hull_submarine_2
@@ -1677,6 +1860,12 @@ if = {
 				fixed_ship_torpedo_slot = ship_torpedo_sub_2
 				fixed_ship_engine_slot = sub_ship_engine_2
 				rear_1_custom_slot = empty
+			}
+			optional_assets = {
+				{
+					icon = "GFX_commonwealth_submarine_trenchant"
+					model = "commonwealth_gfx_submarine_entity"
+				}
 			}
 		}
 		create_equipment_variant = {
