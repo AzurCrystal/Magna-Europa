@@ -47,7 +47,7 @@ NDefines.NAI.WANTED_UNITS_THREAT_BASE = 0.7                             -- If no
 NDefines.NAI.WANTED_UNITS_THREAT_MAX = 25.0                             -- Normalized threat is clamped to this
 NDefines.NAI.WANTED_UNITS_WAR_THREAT_FACTOR = 1.5                      -- Factor threat with this if country is at war. this value is overriden by the value in ideology database if that value exceedes this.
 NDefines.NAI.WANTED_UNITS_DANGEROUS_NEIGHBOR_FACTOR = 1.25              -- Factor if has dangerous neighbor
-NDefines.NAI.WANTED_UNITS_MANPOWER_DIVISOR = 22000                      -- Normalizing divisor for AI manpower. (for each x max available manpower, they want one division)
+NDefines.NAI.WANTED_UNITS_MANPOWER_DIVISOR = 14000                      -- Normalizing divisor for AI manpower. (for each x max available manpower, they want one division)
 NDefines.NAI.WANTED_UNITS_WEIGHT_FRONTS_WANT = 0.40                      -- Weight of front needs when computing final nr wanted units
 NDefines.NAI.WANTED_UNITS_WEIGHT_FACTORIES = 0.5                        -- Weight of military factories when computing final nr wanted units
 NDefines.NAI.WANTED_UNITS_WEIGHT_MANPOWER = 0.3                         -- Weight of manpower availability when computing final nr wanted units
@@ -91,7 +91,7 @@ NDefines.NOperatives.INTEL_NETWORK_GAIN_DECAY_PER_STEP_FACTOR = 0.8				-- Factor
 NDefines.NOperatives.INTEL_NETWORK_STRENGTH_DECAY_WHEN_ABOVE_TARGET = -1.5			-- The amount of strength removed each tick from a state that has more strength than the target
 NDefines.NOperatives.INTEL_NETWORK_OPERATIVE_GAIN_STACKING_FACTOR = 0.9			-- When multiple operative are present in the same location, this factor is applied for each operative with a lower gain than the max. So if operatives have the gain [ 3, 1, 2 ] in the same location, it is sorted to [ 1, 2, 3 ] then converted to [ 1*D^2, 2*D^1, 3 ], with D being this define, so if D=0.5 we have [ 0.25, 1, 3 ] and the final gain from operative at this location will be 4.25. Putting this define to 0 is equivalent to considering the maximum value only.
 
-NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 30	-- How many divisions a corps commander is limited to. 0 = inf, < 0 = blocked
-NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 36	-- How many divisions a field marshall is limited to. 0 = inf, < 0 = blocked
+NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 48	-- How many divisions a corps commander is limited to. 0 = inf, < 0 = blocked
+NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 72	-- How many divisions a field marshall is limited to. 0 = inf, < 0 = blocked
 
 NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.35 --Reduced from 0.75
