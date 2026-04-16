@@ -769,10 +769,10 @@ GER_blitzkrieg_poland = {
 
 	ai_strategy = {
 		type = force_concentration_target_weight
-		state = 381 # Lodz
-		state = 508 # Warsaw
-
-		value = 25 # +25%
+		state = 2567 #danzig corridor cut
+		state = 693 
+		state = 381 # Warsaw
+		value = 40 # +40%
 	}
 
 	ai_strategy = {
@@ -1897,7 +1897,7 @@ GER_avoid_air_war_before_fall_gelb = { #prevents GER air from uselessly beating 
 	enable = {
 		is_historical_focus_on = yes
 		has_war_with = FRA
-		FRA = { controls_state = 16 } # Checks that they control Paris
+		FRA = { controls_state = 571 } # Checks that they control Paris
 		HOL = { has_capitulated = no }
 	}
 
@@ -2110,7 +2110,7 @@ GER_make_sure_poland_is_ganked_before_we_move = {
 				has_capitulated = yes
                 days_since_capitulated > 8
 			}
-			date > 1940.2.1
+			date > 1940.5.1
 		}
 	}
 
@@ -4139,7 +4139,9 @@ GER_focus_yugo = {
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 24 #Strategic Region ID - Western Balkans
+		id = 23 #Strategic Region ID - Western Balkans
+		id = 24
+		id = 22
 		value = 30000
 	}
 }
@@ -4489,7 +4491,26 @@ GER_dont_send_half_the_army_to_finland_if_not_in_our_faction = {
 
 		# states to put garrison orders (if no state is friendly, strat is invalid)
 		states = {
-			17  # Finnmark
+			4    # Finnmark
+			17   # Petsamo
+			22   # Petsamo peripheral
+			33   # Salla
+			57   # Olonets
+			24   # Olonets peripheral
+			59   # Olonets peripheral
+			74   # Olonets peripheral
+			77   # Karjala
+			100  # Karjala peripheral
+			113  # Karjala peripheral
+			2783 # Karjala peripheral
+			30   # Onega
+			38   # Onega peripheral
+			39   # Onega peripheral
+			52   # Onega peripheral
+			62   # Onega peripheral
+			19   # Murmansk
+			2709 # Murmansk peripheral
+			2785 # Murmansk peripheral
 		}
 
 		# ai areas that the orders will use these buffers in
