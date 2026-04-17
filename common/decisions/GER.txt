@@ -1644,31 +1644,35 @@ GER_fortify_the_vaterland_cat = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = todt
 			if = {
-				custom_trigger_tooltip = {
-				tooltip = mer_GER_rhineland_bypass
-				537 = { is_demilitarized_zone = no } #closest state to french border with most industrial power
-			}
-			OR = {
-				custom_trigger_tooltip = {
-					tooltip = mer_GER_west_wall_baden_tt
+				limit = {
+					custom_trigger_tooltip = {
+						tooltip = mer_GER_rhineland_bypass
+						537 = { is_demilitarized_zone = no }
+					}
+
 					OR = {
-						has_full_control_of_state = 1763
-						has_full_control_of_state = 589
-						has_full_control_of_state = 1764
+						custom_trigger_tooltip = {
+							tooltip = mer_GER_west_wall_baden_tt
+							OR = {
+								has_full_control_of_state = 1763
+								has_full_control_of_state = 589
+								has_full_control_of_state = 1764
+							}
+						}
+						custom_trigger_tooltip = {
+							tooltip = mer_GER_west_wall_bavarian_palatinate_tt
+							AND = {
+								has_full_control_of_state = 2340
+								has_full_control_of_state = 524
+							}
+						}
+						controls_state = 537
 					}
 				}
-				custom_trigger_tooltip = {
-					tooltip = mer_GER_west_wall_bavarian_palatinate_tt
-					AND = {
-						has_full_control_of_state = 2340
-						has_full_control_of_state = 524
-					}
-				}
-				controls_state = 537
-			}
+
 				custom_effect_tooltip = mer_GER_west_wall_forts_baden_tt
 			}
-			1763 = {
+						1763 = {
 				if = {
 					limit = { is_fully_controlled_by = ROOT }
 					hidden_effect = {
@@ -1841,7 +1845,6 @@ GER_fortify_the_vaterland_cat = {
 					}
 				}
 			}
-		}
 			hidden_effect = {
 				set_country_flag = GER_constructed_the_westwall
 			}
@@ -4005,6 +4008,7 @@ GER_fortify_the_vaterland_cat = {
 			}
 		}
 	}
+}
 
 GER_hilfskreuzer_cat = {
 	GER_refit_convoys_to_cruisers = {
@@ -7506,31 +7510,75 @@ GER_reichskommissariats = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				119 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				113 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				134 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				135 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				932 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
+				248 = { is_controlled_by_ROOT_or_subject = yes }
+				253 = { is_controlled_by_ROOT_or_subject = yes }
+				254 = { is_controlled_by_ROOT_or_subject = yes }
+				262 = { is_controlled_by_ROOT_or_subject = yes }
+				268 = { is_controlled_by_ROOT_or_subject = yes }
+				272 = { is_controlled_by_ROOT_or_subject = yes }
+				276 = { is_controlled_by_ROOT_or_subject = yes }
+				279 = { is_controlled_by_ROOT_or_subject = yes }
+				283 = { is_controlled_by_ROOT_or_subject = yes }
+				288 = { is_controlled_by_ROOT_or_subject = yes }
+				291 = { is_controlled_by_ROOT_or_subject = yes }
+				296 = { is_controlled_by_ROOT_or_subject = yes }
+				297 = { is_controlled_by_ROOT_or_subject = yes }
+				302 = { is_controlled_by_ROOT_or_subject = yes }
+				304 = { is_controlled_by_ROOT_or_subject = yes }
+				308 = { is_controlled_by_ROOT_or_subject = yes }
+				317 = { is_controlled_by_ROOT_or_subject = yes }
+				321 = { is_controlled_by_ROOT_or_subject = yes }
+				320 = { is_controlled_by_ROOT_or_subject = yes }
+				333 = { is_controlled_by_ROOT_or_subject = yes }
+				337 = { is_controlled_by_ROOT_or_subject = yes }
+				343 = { is_controlled_by_ROOT_or_subject = yes }
+				345 = { is_controlled_by_ROOT_or_subject = yes }
+				348 = { is_controlled_by_ROOT_or_subject = yes }
+				349 = { is_controlled_by_ROOT_or_subject = yes }
+				360 = { is_controlled_by_ROOT_or_subject = yes }
+				361 = { is_controlled_by_ROOT_or_subject = yes }
+				368 = { is_controlled_by_ROOT_or_subject = yes }
+				371 = { is_controlled_by_ROOT_or_subject = yes }
+				378 = { is_controlled_by_ROOT_or_subject = yes }
+				394 = { is_controlled_by_ROOT_or_subject = yes }
+				395 = { is_controlled_by_ROOT_or_subject = yes }
 			}
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 119
-				state = 113
-				state = 134
-				state = 135
-				state = 932
+				state = 248
+				state = 253
+				state = 254
+				state = 262
+				state = 268
+				state = 272
+				state = 276
+				state = 279
+				state = 283
+				state = 288
+				state = 291
+				state = 296
+				state = 297
+				state = 302
+				state = 304
+				state = 308
+				state = 317
+				state = 321
+				state = 320
+				state = 333
+				state = 337
+				state = 343
+				state = 345
+				state = 348
+				state = 349
+				state = 360
+				state = 361
+				state = 368
+				state = 371
+				state = 378
+				state = 394
+				state = 395
 			}
 		}
 
@@ -9305,18 +9353,44 @@ GER_reich_labor_service_cat = {
 		}
 
 		available = {
-			469 = { is_fully_controlled_by = ROOT }
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = RHN
+						is_core_of = WST
+						is_core_of = NAS
+					}
+				}
+				is_controlled_by = ROOT
+			}
 		}
 
 		cancel_trigger = { 
 			NOT = { 
-				469 = { is_controlled_by = ROOT }
+				any_state = {
+					limit = {
+						OR = {
+							is_core_of = RHN
+							is_core_of = WST
+							is_core_of = NAS
+						}
+					}
+					is_controlled_by = ROOT
+				}
 			} 
 		}
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 469 #Weser-Ems
+				any_state = {
+					limit = {
+						OR = {
+							is_core_of = RHN
+							is_core_of = WST
+							is_core_of = NAS
+						}
+					}
+				}
 			}
 		}
 
@@ -9331,10 +9405,12 @@ GER_reich_labor_service_cat = {
 		}
 		
 		remove_effect = {
-			every_core_state = {
+			every_state = {
 				limit = {
 					OR = {
-						state = 469
+						is_core_of = RHN
+						is_core_of = WST
+						is_core_of = NAS
 					}
 				}
 				add_extra_state_shared_building_slots = 1
