@@ -234,7 +234,10 @@ FRA_vichy_france = {
 	}
 	FRA_demand_unification_with_vichy = {
 		available = {
-			VIC = {
+			any_country = {
+				limit = {
+					has_country_flag = vichy_france
+				}
 				exists = yes
 				NOT = {
 					has_war_with = ROOT
@@ -245,9 +248,14 @@ FRA_vichy_france = {
 
 		visible = {
 			NOT = {
-				tag = VIC
+				has_country_tag = vichy_france
 			}
-			country_exists = VIC
+			any_country = {
+				limit = {
+					has_country_flag = vichy_france
+				}
+				exists = yes
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -265,7 +273,7 @@ FRA_vichy_france = {
 	}
 	FRA_failsafe_join_axis = {
 		available = {
-			tag = VIC
+			has_country_tag = vichy_france
 			NOT = {
 				has_war_with = GER
 				is_in_faction_with = GER
@@ -281,7 +289,7 @@ FRA_vichy_france = {
 			}
 		}
 		visible = {
-			is_ai = yes #if you are not a member of the dev team - avert thy eyes, traveller, for thou hath gazed upon my shame
+			is_ai = yes #if you are not a member of the dev team - avert thy eyes, traveller, for thou hath gazed upon my shame -someone else #I do that a lot, this is fine if noone sees this -Bace
 		}
 		ai_will_do = {
 			factor = 10
