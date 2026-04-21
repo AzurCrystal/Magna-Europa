@@ -2739,6 +2739,25 @@ form_european_union_category = {
 
 		icon = generic_form_nation
 
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = LUX_INITIAL_STATE
+					has_state_flag = HOL_INITIAL_STATE
+					has_state_flag = BEL_INITIAL_STATE
+					has_state_flag = GER_INITIAL_STATE
+					has_state_flag = FRA_INITIAL_STATE
+					has_state_flag = ITA_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+
 		allowed = {
 			OR = {
 				original_tag = HOL
@@ -2749,6 +2768,13 @@ form_european_union_category = {
 				original_tag = GER
 				original_tag = WGR
 				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
 			}
 			OR = {
 				has_dlc = "Waking the Tiger"
@@ -2756,111 +2782,8 @@ form_european_union_category = {
 			}
 		}
 
-		available = {
-			is_subject = no
-			controls_state = 8
-			# Netherlands
-			custom_trigger_tooltip = {
-				tooltip = form_eu_netherlands_required_states_tt
-				all_state = {
-					if = {
-						limit = {
-							is_core_of = HOL
-						}
-						is_controlled_by = ROOT
-					}
-				}
-			}
-			# Belgium
-			custom_trigger_tooltip = {
-				tooltip = form_eu_belgium_required_states_tt
-				all_state = {
-					if = {
-						limit = {
-							is_core_of = BEL
-						}
-						is_controlled_by = ROOT
-					}
-				}
-			}
-			# France
-			custom_trigger_tooltip = {
-				tooltip = form_eu_france_required_states_tt
-				all_state = {
-					if = {
-						limit = {
-							is_core_of = FRA
-							is_on_continent = europe
-						}
-						is_controlled_by = ROOT
-					}
-				}
-			}
-			# Italy
-			custom_trigger_tooltip = {
-				tooltip = form_eu_italy_required_states_tt
-				all_state = {
-					if = {
-						limit = {
-							OR = {
-								region = 16
-								region = 25
-								region = 17
-								region = 18
-								region = 19
-							}
-						}
-						is_controlled_by = ROOT
-					}
-				}
-			}
-			# Germany
-			custom_trigger_tooltip = {
-				tooltip = form_country_germany_required_states_tt
-				all_state = {
-					if = {
-						limit = {
-							OR = {
-								region = 35
-								region = 36
-								region = 70
-								region = 64
-								region = 40
-								region = 69
-								region = 68
-								region = 9
-								AND = {
-									region = 95
-									NOT = {
-										state = 2341
-										state = 264
-										state = 267
-										state = 1979
-										state = 546
-										state = 2729
-										state = 280
-									}
-								}
-								AND = {
-									region = 11
-									NOT = {
-										state = 2329
-										state = 481
-										state = 2262
-										state = 467
-										state = 509
-										state = 2932
-									}
-								}
-							}
-						}
-						is_controlled_by = ROOT
-					}
-				}
-			}
-		}
-
 		visible = {
+
 			OR = { 
 				AND = {
 					OR = {
@@ -2881,124 +2804,1591 @@ form_european_union_category = {
 					}
 					has_completed_focus = ENG_imperial_federation
 				}
+				AND = {
+					original_tag = HUN
+					has_country_leader = {
+						character = HUN_otto_von_habsburg
+						ruling_only = yes
+					}
+					has_government = neutrality
+					has_completed_focus = wuw_HUN_renovato_imperii
+				}
+				AND = {
+					original_tag = AUS
+					OR = {
+						AND = {
+							has_country_leader = {
+								character = HUN_otto_von_habsburg
+								ruling_only = yes
+							}
+							has_completed_focus = AUS_the_danubian_federation
+							is_faction_leader = yes
+						}	
+						AND = {
+							has_completed_focus = AUS_the_right_to_self_determination
+							has_government = democratic
+						}
+					}
+				}
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_european_confederation
+				}
 			}
+
 			NOT = { has_global_flag = form_european_union_flag }
+
 			is_major = yes
+
+		}
+
+		available = {
+			is_subject = no
+
+			# Luxemburg
+			custom_trigger_tooltip = {
+				tooltip = form_eu_luxemburg_required_states_tt
+				NOT = {
+                    any_state = {
+						has_state_flag = LUX_INITIAL_STATE
+                        NOT = {is_controlled_by = ROOT }
+                    }
+                }
+			}
+
+
+			# Netherlands
+			custom_trigger_tooltip = {
+				tooltip = form_eu_netherlands_required_states_tt
+				NOT = {
+                    any_state = {
+						has_state_flag = HOL_INITIAL_STATE
+                        NOT = {is_controlled_by = ROOT }
+                    }
+                }
+			}
+
+			# Belgium
+			custom_trigger_tooltip = {
+				tooltip = form_eu_belgium_required_states_tt
+				NOT = {
+                    any_state = {
+						has_state_flag = BEL_INITIAL_STATE
+                        NOT = {is_controlled_by = ROOT }
+                    }
+                }
+			}
+
+			# France
+			custom_trigger_tooltip = {
+				tooltip = form_eu_france_required_states_tt
+				NOT = {
+                    any_state = {
+						has_state_flag = FRA_INITIAL_STATE
+                        NOT = {is_controlled_by = ROOT }
+                    }
+                }
+			}
+
+			# Italy
+			custom_trigger_tooltip = {
+				tooltip = form_eu_italy_required_states_tt
+				NOT = {
+                    any_state = {
+						has_state_flag = ITA_INITIAL_STATE
+                        NOT = {is_controlled_by = ROOT }
+                    }
+                }
+			}
+
+			# Germany
+			custom_trigger_tooltip = {
+				tooltip = form_country_germany_required_states_tt
+				NOT = {
+                    any_state = {
+						has_state_flag = GER_INITIAL_STATE
+                        NOT = {is_controlled_by = ROOT }
+                    }
+                }
+			}
 		}
 
 		complete_effect = {
-			if = {
+
+			IF = {
 				limit = {
 					NOT = { original_tag = ENG }
 				}
-			set_cosmetic_tag = EUR_UNIFIED
+				set_cosmetic_tag = EUR_UNIFIED
 			}
-			else = {
+			ELSE = {
 				set_cosmetic_tag = ENG_imperial_federation_unified #Europe-a-Nation
 			}
+
+			hidden_effect = {
+				every_state = {
+					limit = {
+						has_state_flag = LUX_INITIAL_STATE
+					}
+					add_core_of = ROOT
+				}
+			}
+
 			# Netherlands
 			custom_effect_tooltip = form_eu_netherlands_coring_states_tt 
 			hidden_effect = {
 				every_state = {
 					limit = {
-						region = 4
+						has_state_flag = HOL_INITIAL_STATE
 					}
 					add_core_of = ROOT
 				}
 			}
+
 			# Belgium
 			custom_effect_tooltip = form_eu_belgium_coring_states_tt
 			hidden_effect = {
 				every_state = {
 					limit = {
-						region = 4
+						has_state_flag = BEL_INITIAL_STATE
 					}
 					add_core_of = ROOT
 				}
 			}
+
 			# France
 			custom_effect_tooltip = form_eu_france_coring_states_tt
 			hidden_effect = {
+				hidden_effect = {
 				every_state = {
 					limit = {
-						is_core_of = FRA
+						has_state_flag = FRA_INITIAL_STATE
 					}
 					add_core_of = ROOT
 				}
 			}
+			}
+
 			# Italy
 			custom_effect_tooltip = form_eu_italy_coring_states_tt
 			hidden_effect = {
+				hidden_effect = {
 				every_state = {
 					limit = {
-						OR = {
-								region = 16
-								region = 25
-								region = 17
-								region = 18
-								region = 19
-							}
+						has_state_flag = ITA_INITIAL_STATE
 					}
 					add_core_of = ROOT
 				}
 			}
+			}
+
 			# Germany
 			custom_effect_tooltip = form_country_germany_coring_states_tt
 			hidden_effect = {
+				hidden_effect = {
 				every_state = {
 					limit = {
-						OR = {
-								region = 35
-								region = 36
-								region = 70
-								region = 64
-								region = 40
-								region = 69
-								region = 68
-								region = 9
-								AND = {
-									region = 95
-									NOT = {
-										state = 2341
-										state = 264
-										state = 267
-										state = 1979
-										state = 546
-										state = 2729
-										state = 280
-									}
-								}
-								AND = {
-									region = 11
-									NOT = {
-										state = 2329
-										state = 481
-										state = 2262
-										state = 467
-										state = 509
-										state = 2932
-									}
-								}
-							}
+						has_state_flag = GER_INITIAL_STATE
 					}
 					add_core_of = ROOT
 				}
 			}
+			}
+
+			1622 = { add_core_of = ROOT } # Malta
+
 			hidden_effect = {
 				news_event = { id = wtt_news.62 hours = 6 }
 				set_global_flag = form_european_union_flag
 				set_country_flag = form_european_union_flag
 			}
+
 		}
 
 		ai_will_do = {
-			factor = 200
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
+			base = 200
 		}
 	}
+
+	EU_alpine_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = SWI_INITIAL_STATE
+					has_state_flag = AUS_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_alpine_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							has_state_flag = AUS_INITIAL_STATE
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+					has_state_flag = SWI_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		# YES it is intentional that these don't have any cancel triggers!
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = AUS_INITIAL_STATE
+							has_state_flag = SWI_INITIAL_STATE
+							state = 1460 #Liestenstein
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_alpine_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_iberian_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = SPR_INITIAL_STATE
+					has_state_flag = POR_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							has_state_flag = POR_INITIAL_STATE
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+					has_state_flag = SPR_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = POR_INITIAL_STATE
+							has_state_flag = SPR_INITIAL_STATE
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_iberian_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_west_slavic_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					AND = {
+						has_state_flag = CZE_INITIAL_STATE
+						NOT = { is_core_of = UKR}
+					}
+					AND = {
+						has_state_flag = POL_INITIAL_STATE
+						NOT = {has_state_flag = SOV_POL_STATE}
+						NOT = {is_core_of = LIT}
+					}
+				
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							has_state_flag = CZE_INITIAL_STATE
+							NOT = { is_core_of = UKR}
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+						has_state_flag = POL_INITIAL_STATE
+						NOT = {has_state_flag = SOV_POL_STATE}
+						NOT = {is_core_of = LIT}
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							AND = {
+								has_state_flag = CZE_INITIAL_STATE
+								NOT = { is_core_of = UKR}
+							}
+							AND = {
+								has_state_flag = POL_INITIAL_STATE
+								NOT = {has_state_flag = SOV_POL_STATE}
+								NOT = {is_core_of = LIT}
+							}
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_west_slavic_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_baltic_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = LIT_INITIAL_STATE
+					has_state_flag = LAT_INITIAL_STATE
+					has_state_flag = EST_INITIAL_STATE
+					
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+						has_state_flag = LIT_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+				NOT = {
+					any_state = {
+						has_state_flag = LAT_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+				NOT = {
+					any_state = {
+						has_state_flag = EST_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = LIT_INITIAL_STATE
+							has_state_flag = LAT_INITIAL_STATE
+							has_state_flag = EST_INITIAL_STATE
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_baltic_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_british_isles_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = ENG_INITIAL_STATE
+					has_state_flag = IRE_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							has_state_flag = ENG_INITIAL_STATE
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+					has_state_flag = IRE_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = ENG_INITIAL_STATE
+							has_state_flag = IRE_INITIAL_STATE
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_isles_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_scandinavian_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = DEN_INITIAL_STATE
+					has_state_flag = SWE_INITIAL_STATE
+					has_state_flag = NOR_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							has_state_flag = DEN_INITIAL_STATE
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+					has_state_flag = SWE_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+				NOT = {
+					any_state = {
+					has_state_flag = NOR_INITIAL_STATE
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = DEN_INITIAL_STATE
+							has_state_flag = SWE_INITIAL_STATE
+							has_state_flag = NOR_INITIAL_STATE
+							is_core_of = ICE
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_scandinavia_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_karelo_finnish_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = FIN_INITIAL_STATE
+					state = 437
+					state = 57
+					state = 24
+					state = 74
+					state = 59
+					state = 30
+					state = 39
+					state = 52
+					state = 38
+					state = 62
+					state = 2785
+					state = 19
+					state = 2709
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							has_state_flag = FIN_INITIAL_STATE
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+						OR = {
+							state = 437
+							state = 57
+							state = 24
+							state = 74
+							state = 59
+							state = 30
+							state = 39
+							state = 52
+							state = 38
+							state = 62
+							state = 2785
+							state = 19
+							state = 2709
+						}
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = FIN_INITIAL_STATE
+							state = 437
+							state = 57
+							state = 24
+							state = 74
+							state = 59
+							state = 30
+							state = 39
+							state = 52
+							state = 38
+							state = 62
+							state = 2785
+							state = 19
+							state = 2709
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_finnish_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_balkan_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 150
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = YUG_INITIAL_STATE
+					has_state_flag = ALB_INITIAL_STATE
+					has_state_flag = BUL_INITIAL_STATE
+					has_state_flag = ROM_INITIAL_STATE
+					has_state_flag = HUN_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+						OR = {
+							has_state_flag = YUG_INITIAL_STATE
+							has_state_flag = ALB_INITIAL_STATE
+							has_state_flag = BUL_INITIAL_STATE
+							has_state_flag = ROM_INITIAL_STATE
+							has_state_flag = HUN_INITIAL_STATE
+						}
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = YUG_INITIAL_STATE
+							has_state_flag = ALB_INITIAL_STATE
+							has_state_flag = BUL_INITIAL_STATE
+							has_state_flag = ROM_INITIAL_STATE
+							has_state_flag = HUN_INITIAL_STATE
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_balkan_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_aegean_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					has_state_flag = GRE_INITIAL_STATE
+					has_state_flag = TUR_INITIAL_STATE
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+						OR = {
+							has_state_flag = GRE_INITIAL_STATE
+							has_state_flag = TUR_INITIAL_STATE
+						}
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = GRE_INITIAL_STATE
+							has_state_flag = TUR_INITIAL_STATE
+							is_core_of = cyp
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_aegean_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_belarusian_and_ukrainian_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					is_core_of = BLR
+					AND = {
+					is_core_of = UKR
+					NOT = {is_core_of = ROM}
+					}	
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							is_core_of = BLR
+							NOT = {is_controlled_by = ROOT }
+						}
+					}
+				NOT = {
+					any_state = {
+					is_core_of = BLR
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = BLR
+							is_core_of = UKR
+						}
+						NOT = {is_core_of = ROM}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_ukrainian_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_caucasian_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					is_core_of = GEO
+					is_core_of = ARM
+					is_core_of = AZR
+					is_core_of = MOU
+					is_core_of = DAG
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+				        OR = {
+							is_core_of = GEO
+							is_core_of = ARM
+							is_core_of = AZR
+							is_core_of = MOU
+							is_core_of = DAG
+						}
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = GEO
+							is_core_of = ARM
+							is_core_of = AZR
+							is_core_of = MOU
+							is_core_of = DAG
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_caucasian_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_kuban_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 100
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					is_core_of = KUB
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+							is_core_of = KUB
+							NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = KUB
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_kuban_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
+	EU_russian_expansion_decision = {
+
+		icon = GFX_decision_generic_nationalism
+
+		cost = 150
+
+		on_map_mode = decision_view_only
+
+		highlight_states = {
+            highlight_states_trigger = {
+				has_state_flag = SOV_INITIAL_STATE
+				NOT = {
+					is_core_of = KUB
+					is_core_of = GEO
+					is_core_of = AZR
+					is_core_of = ARM
+					is_core_of = BLR
+					is_core_of = UKR
+					is_core_of = MOU
+					is_core_of = DAG
+					state = 437
+					state = 57
+					state = 24
+					state = 74
+					state = 59
+					state = 30
+					state = 39
+					state = 52
+					state = 38
+					state = 62
+					state = 2785
+					state = 19
+					state = 2709
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
+		allowed = {
+			OR = {
+				original_tag = HOL
+				original_tag = BEL
+				original_tag = LUX
+				original_tag = FRA
+				original_tag = ITA
+				original_tag = GER
+				original_tag = WGR
+				original_tag = ENG
+				AND = {
+					OR = {
+						original_tag = AUS
+						original_tag = HUN
+					}
+					has_dlc = "Gotterdammerung"
+				}
+			}
+			OR = {
+				has_dlc = "Waking the Tiger"
+				has_dlc = "Man the Guns"
+			}
+		}
+
+		visible = { 
+			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			has_global_flag = form_european_union_flag
+		}
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+						has_state_flag = SOV_INITIAL_STATE
+						NOT = {
+							is_core_of = KUB
+							is_core_of = GEO
+							is_core_of = AZR
+							is_core_of = ARM
+							is_core_of = BLR
+							is_core_of = UKR
+							is_core_of = MOU
+							is_core_of = DAG
+							state = 437
+							state = 57
+							state = 24
+							state = 74
+							state = 59
+							state = 30
+							state = 39
+							state = 52
+							state = 38
+							state = 62
+							state = 2785
+							state = 19
+							state = 2709
+						}
+						NOT = {is_controlled_by = ROOT }
+					}
+				}
+			}
+		}
+
+		days_remove = 70
+
+		remove_effect = {
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = SOV_INITIAL_STATE
+							NOT = {
+								is_core_of = KUB
+								is_core_of = GEO
+								is_core_of = AZR
+								is_core_of = ARM
+								is_core_of = BLR
+								is_core_of = UKR
+								is_core_of = MOU
+								is_core_of = DAG
+								state = 437
+								state = 57
+								state = 24
+								state = 74
+								state = 59
+								state = 30
+								state = 39
+								state = 52
+								state = 38
+								state = 62
+								state = 2785
+								state = 19
+								state = 2709
+							}
+						}
+					}
+					add_core_of = ROOT
+				}
+			}
+			 
+			hidden_effect = { 
+				set_global_flag = EU_integrated_russian_states_flag
+			}
+
+		}
+
+		ai_will_do = {
+			base = 200
+		}
+	}
+
 }
 
 form_roman_empire_category = {

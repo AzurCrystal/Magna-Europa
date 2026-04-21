@@ -4393,7 +4393,6 @@ GER_reichskommissariats = {
 			GER_improve_rosenbergs_trait_effect = yes
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			# Hauptstadt = 124 (statt 110)
 			124 = {
 				IF = {
 					limit = { OWNER = { NOT = { original_tag = GER } } }
@@ -12734,20 +12733,23 @@ GER_realpolitik_cat = {
 					}
 					create_faction = GER_mitteleuropa_alliance
 				}
-				HOL = {
-					add_state_claim = 977
-					add_state_claim = 6
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = BEL
+						}
+						NOT = {state = 485}
+					}
+					add_claim_by = HOL
 				}
 
 				custom_effect_tooltip = generic_skip_one_line_tt
 
-				add_state_claim = 980
-				add_state_claim = 34
 				add_to_faction = HOL
 				create_wargoal = {
 					type = take_claimed_state
 					target = BEL
-					generator = { 980 34 }
+					generator = { 2969 }
 				}	
 			}
 
@@ -12842,19 +12844,19 @@ GER_realpolitik_cat = {
 					}
 					create_faction = GER_mitteleuropa_alliance
 				}
-				BEL = {
-					add_state_claim = 35
+				every_state = {
+					limit = {
+						is_core_of = HOL
+					}
+					add_claim_by = BEL
 				}
-
 				custom_effect_tooltip = generic_skip_one_line_tt
 
-				add_state_claim = 7
-				add_state_claim = 36
 				add_to_faction = BEL
 				create_wargoal = {
 					type = take_claimed_state
 					target = HOL
-					generator = { 7 36 }
+					generator = { 358 }
 				}	
 			}
 
@@ -12990,53 +12992,27 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_eastern_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				810 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				12 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				808 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				809 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				190 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				13 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				191 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				813 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				812 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				811 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						OR = {
+							has_state_flag = LAT_INITIAL_STATE
+							has_state_flag = EST_INITIAL_STATE
+						}
+					}
+					is_controlled_by_Root_or_subject = yes
 				}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 810
-				state = 12
-				state = 808
-				state = 809
-				state = 190
-				state = 13
-				state = 191
-				state = 813
-				state = 812
-				state = 811
-			}
-		}
+            highlight_states_trigger = {
+				OR = {                
+				has_state_flag = LAT_INITIAL_STATE
+				has_state_flag = EST_INITIAL_STATE}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 
 		cost = 25
 
@@ -13090,16 +13066,8 @@ GER_realpolitik_cat = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 810
-							state = 12
-							state = 808
-							state = 809
-							state = 190
-							state = 13
-							state = 191
-							state = 813
-							state = 812
-							state = 811
+							has_state_flag = LAT_INITIAL_STATE
+							has_state_flag = EST_INITIAL_STATE
 						}
 					}
 					add_core_of = UBD
@@ -13150,30 +13118,15 @@ GER_realpolitik_cat = {
 		fire_only_once = yes
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 202
-				state = 201
-				state = 93
-				state = 199
-				state = 198
-				state = 834
-				state = 192
-				state = 203
-				state = 193
-				state = 225
-				state = 259
-				state = 226
-				state = 197
-				state = 196
-				state = 200
-				state = 221
-				state = 227
-				state = 228
-				state = 137
-				state = 218
-				state = 234
-			}
-		}
+            highlight_states_trigger = {
+				is_core_of = UKR
+				NOT = {is_core_of = ROM}
+				NOT = {is_core_of = POL}
+				NOT = {is_core_of = CZE}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 	
 		allowed = {  
 			original_tag = GER
@@ -13194,68 +13147,14 @@ GER_realpolitik_cat = {
 			is_subject = no
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				202 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				201 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				93 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				199 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				198 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				834 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				192 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				203 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				193 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				225 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				259 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				226 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				197 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				196 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				200 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				221 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				227 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				228 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				137 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				218 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				234 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						is_core_of = UKR
+						NOT = {is_core_of = ROM}
+						NOT = {is_core_of = POL}
+						NOT = {is_core_of = CZE}
+					}
+				is_controlled_by_Root_or_subject = yes
 				}
 			}
 		}
@@ -13294,29 +13193,10 @@ GER_realpolitik_cat = {
 			hidden_effect = {
 				every_state = {
 					limit = {
-						OR = {
-							state = 202
-							state = 201
-							state = 93
-							state = 199
-							state = 198
-							state = 834
-							state = 192
-							state = 203
-							state = 193
-							state = 225
-							state = 259
-							state = 226
-							state = 197
-							state = 196
-							state = 200
-							state = 221
-							state = 227
-							state = 228
-							state = 137
-							state = 218
-							state = 234
-						}
+						is_core_of = UKR
+						NOT = {is_core_of = ROM}
+						NOT = {is_core_of = POL}
+						NOT = {is_core_of = CZE}
 					}
 					add_core_of = UKR
 					transfer_state_to = UKR
@@ -13362,41 +13242,45 @@ GER_realpolitik_cat = {
 
 		visible = {
 			has_completed_focus = GER_establish_eastern_grand_duchies
-			GEO = {
-				exists = no
-			}
 		}
 
 		fire_only_once = yes
 
 		available = {
 			is_subject = no
+			GEO = {
+				OR = {
+					exists = no
+					has_capitualated = yes
+				}
+			}
 			has_completed_focus = GER_establish_eastern_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				231 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				826 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				230 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				229 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = AZR
+							is_core_of = ARM
+							is_core_of = GEO
+						}
+					}
+					is_controlled_by = GER
 				}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 231
-				state = 826
-				state = 230
-				state = 229
-			}
-		}
+            highlight_states_trigger = {
+				OR = {
+					is_core_of = AZR
+					is_core_of = ARM
+					is_core_of = GEO
+				}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 
 		cost = 25
 
@@ -13450,10 +13334,9 @@ GER_realpolitik_cat = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 231
-							state = 826
-							state = 230
-							state = 229
+							is_core_of = AZR
+							is_core_of = ARM
+							is_core_of = GEO
 						}
 					}
 					add_core_of = GEO
@@ -13504,33 +13387,30 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_eastern_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				827 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				828 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				821 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				232 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				233 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = KUB
+							is_core_of = MOU
+							is_core_of = DAG
+						}
+					}
+					is_controlled_by = GER
 				}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 827
-				state = 828
-				state = 821
-				state = 232
-				state = 233
-			}
-		}
+            highlight_states_trigger = {
+				OR = {
+					is_core_of = KUB
+					is_core_of = MOU
+					is_core_of = DAG
+				}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 
 		cost = 15
 
@@ -13559,11 +13439,9 @@ GER_realpolitik_cat = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 827
-							state = 828
-							state = 821
-							state = 232
-							state = 233
+							is_core_of = KUB
+							is_core_of = MOU
+							is_core_of = DAG
 						}
 					}
 					add_core_of = GEO
@@ -13602,15 +13480,12 @@ GER_realpolitik_cat = {
 		fire_only_once = yes
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 194 # Mozyr
-				state = 204 # Bobryusk
-				state = 206 # Minsk
-				state = 207 # Vitebsk
-				state = 241 # Gomel
-				state = 96 # Wiljeka
-			}
-		}
+            highlight_states_trigger = {
+				is_core_of = BLR
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 	
 		allowed = {  
 			original_tag = GER
@@ -13631,23 +13506,11 @@ GER_realpolitik_cat = {
 			is_subject = no
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				194 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				204 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				206 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				207 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				241 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				96 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						is_core_of = BLR
+					}
+					is_controlled_by = GER
 				}
 			}
 		}
@@ -13686,14 +13549,7 @@ GER_realpolitik_cat = {
 			hidden_effect = {
 				every_state = {
 					limit = {
-						OR = {
-							state = 194 # Mozyr
-							state = 204 # Bobryusk
-							state = 206 # Minsk
-							state = 207 # Vitebsk
-							state = 241 # Gomel
-							state = 96 # Wiljeka
-						}
+						is_core_of = BLR
 					}
 					add_core_of = BLR
 					transfer_state_to = BLR
@@ -13742,29 +13598,36 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				6 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				34 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				977 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				29 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = FLA
+							is_core_of = WLN
+							state = 2969
+						}
+						NOT = {state = 1974}
+						NOT = {state = 485}
+					}
+				is_controlled_by_root_or_subject = yes
 				}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 6
-				state = 34
-				state = 977
-				state = 29
-			}
-		}
+            highlight_states_trigger = {
+				OR = {
+					is_core_of = WLN
+					is_core_of = FLA
+					state = 2969
+				}
+				NOT = {state = 1974}
+				NOT = {state = 485}
+				
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+	
 
 		cost = 25
 
@@ -13838,17 +13701,23 @@ GER_realpolitik_cat = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 6
-							state = 34
-							state = 977
-							state = 29
+							is_core_of = FLA
+							is_core_of = WLN
+							state = 2969
 						}
+						NOT = {state = 1974}
+						NOT = {state = 485}
 					}
-					add_core_of = BEL
 					transfer_state_to = BEL
+					add_core_of = BEL
 				}
-				980 = {
+				485 = {
 					remove_core_of = BEL
+					add_core_of = GER
+					
+				}
+				1974 = {
+					add_core_of = BEL
 				}
 			}
 
@@ -13886,20 +13755,22 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				14 = {
+				every_state = {
+					limit = {
+						is_core_of = BRI
+					}
 					is_controlled_by_ROOT_or_subject = yes
 				}
-				30 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
+			
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 14
-				state = 30
+			highlight_states_trigger = {
+				is_core_of = BRI
 			}
+			highlight_color_while_active = 3
+            highlight_color_before_active = 2
 		}
 
 		cost = 25
@@ -13974,8 +13845,7 @@ GER_realpolitik_cat = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 14
-							state = 30
+						 is_core_of = BRI	
 						}
 					}
 					add_core_of = BRI
@@ -14023,32 +13893,20 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				122 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				132 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				128 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				338 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				123 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						is_core_of = WLS
+					}
 				}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 122
-				state = 132
-				state = 128
-				state = 338
-				state = 123
+			highlight_states_trigger = {
+				is_core_of = WLS
 			}
+			highlight_color_while_active = 3
+            highlight_color_before_active = 2
 		}
 
 		cost = 25
@@ -14122,13 +13980,7 @@ GER_realpolitik_cat = {
 			hidden_effect = {
 				every_state = {
 					limit = {
-						OR = {
-							state = 122
-							state = 132
-							state = 128
-							state = 338
-							state = 123
-						}
+						is_core_of = WLS
 					}
 					add_core_of = WLS
 					transfer_state_to = WLS
@@ -14175,45 +14027,28 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				121 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				133 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				136 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				120 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				933 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				131 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				931 = {
-					is_controlled_by_ROOT_or_subject = yes
-				}
-				932 = {
-					is_controlled_by_ROOT_or_subject = yes
+				every_state = {
+					limit = {
+						OR = {
+							is_core_of = SCO
+							is_core_of = NRT
+						}
+					}
 				}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 121
-				state = 133
-				state = 136
-				state = 120
-				state = 933
-				state = 131
-				state = 931
-				state = 932
+			highlight_states_trigger = {
+				OR = {
+					is_core_of = SCO
+					is_core_of = NRT
+				}
 			}
+			highlight_color_while_active = 3
+            highlight_color_before_active = 2
 		}
+
 
 		cost = 25
 
@@ -14287,14 +14122,8 @@ GER_realpolitik_cat = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 121
-							state = 133
-							state = 136
-							state = 120
-							state = 933
-							state = 131
-							state = 931
-							state = 932
+							is_core_of = SCO
+							is_core_of = NRT
 						}
 					}
 					add_core_of = SCO
