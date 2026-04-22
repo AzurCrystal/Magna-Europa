@@ -1089,8 +1089,18 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			set_rule = { can_create_factions = yes } 
-			create_faction = HUN_BALKAN_FACTION
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_balkan_pact
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction = HUN_BALKAN_FACTION
+			}
 		}
 	}
 
@@ -1736,7 +1746,7 @@ focus_tree = {
 		}
 
 		available = {
-			ROOT = { has_full_control_of_state = 633 }
+			ROOT = { has_full_control_of_state = 43 }
 		}
 
 		bypass = {
@@ -1750,7 +1760,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			633 = {
+			43 = {
 				add_resource = {
 					type = aluminium
 					amount = 16
@@ -2009,7 +2019,13 @@ focus_tree = {
 				limit = {
 					CZE = {
 						exists = yes 
-						owns_state = 664
+						OR = {
+							owns_state = 664
+							SLO = {
+								is_subject_of = PREV
+								owns_state = 664
+							}
+						}
 					}
 				}
 				if = {
@@ -2027,7 +2043,16 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
+			else_if = {
+				limit = {
+					SLO = { 
+						exists = yes 
+						owns_state = 664
+					}
+				}
+				SLO = { country_event = DOD_hungary.80 }
+			}
+			else_if = {
 				limit = {
 					664 = { is_owned_by = POL } #exchanged Danzig for Slovakia
 				}
@@ -2037,15 +2062,6 @@ focus_tree = {
 					expire = 0
 					generator = { 664 }
 				}
-			}
-			if = {
-				limit = {
-					SLO = { 
-						exists = yes 
-						owns_state = 664
-					}
-				}
-				SLO = { country_event = DOD_hungary.80 }
 			}
 			
 		}
@@ -2592,7 +2608,10 @@ focus_tree = {
 
 		completion_reward = {
 			set_rule = { can_create_factions = yes } 
-			create_faction = HUN_FACTION_COMMIE
+			create_faction_from_template = {
+				template = faction_template_POR_popular_front_bloc
+				name = HUN_FACTION_COMMIE
+			}
 		}
 	}
 
@@ -2795,7 +2814,7 @@ focus_tree = {
 				set_state_flag = HUN_reintegrate_the_railroads_Inf
 			}
 			random_owned_controlled_state = {
-				prioritize = { 633 }
+				prioritize = { 43 }
 				limit = {
 					free_building_slots = {
 						building = infrastructure
@@ -2925,7 +2944,7 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					633 = {
+					43 = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
@@ -2933,7 +2952,7 @@ focus_tree = {
 						}
 					}
 				}
-				633 = {
+				43 = {
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
 						type = industrial_complex
@@ -3161,7 +3180,7 @@ focus_tree = {
 
 		completion_reward = {
 			random_owned_controlled_state = {
-				prioritize = { 633 }
+				prioritize = { 43 }
 				limit = {
 					ROOT = { has_full_control_of_state = PREV } 
 					free_building_slots = {
@@ -3200,7 +3219,7 @@ focus_tree = {
 		}
 
 		available = {
-			ROOT = { has_full_control_of_state = 633 }
+			ROOT = { has_full_control_of_state = 43 }
 		}
 
 		bypass = {
@@ -3213,7 +3232,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			633 = {
+			43 = {
 				add_resource = {
 					type = aluminium
 					amount = 16
@@ -4350,11 +4369,12 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			add_doctrine_cost_reduction = {
+
+			add_mastery_bonus = {
 				name = HUN_mobile_focus
-				cost_reduction = 0.25
-				uses = 1
-				category = cat_mobile_warfare
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_mobile_warfare
 			}
 		}
 	}
@@ -4641,12 +4661,16 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+
 		completion_reward = {
-			add_doctrine_cost_reduction = {
+
+			add_mastery_bonus = {
 				name = HUN_mobile_corps_doctrine
-				cost_reduction = 0.25
-				uses = 2
-				category = cat_mobile_warfare
+				bonus = 0.25
+				days = 180
+				track = armor
+				
 			}
 		}
 	}
@@ -4684,12 +4708,14 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			add_doctrine_cost_reduction = {
+			
+			add_mastery_bonus = {
 				name = HUN_home_defense
-				cost_reduction = 0.25
-				uses = 1
-				category = cat_grand_battle_plan
+				bonus = 0.2
+				days = 180
+				grand_doctrine = grand_battleplan
 			}
+
 		}
 	}
 
@@ -4844,7 +4870,7 @@ focus_tree = {
 					}
 				}	
 				random_owned_controlled_state = {
-					prioritize = { 633 }
+					prioritize = { 43 }
 					limit = { ROOT = { has_full_control_of_state = PREV } }
 					create_unit = {
 						division = "name = \"1. Light Division\" division_template = \"Light Division\" start_experience_factor = 1.0" 
@@ -4912,8 +4938,7 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
-				is_controlled_by = HUN
+			any_controlled_state = {
 				is_coastal = yes
 			}
 		}
@@ -4981,11 +5006,18 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
 			navy_experience = 15
+
+			add_mastery_bonus = {
+				name = HUN_restauration
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_fleet_in_being
+			}
 			add_doctrine_cost_reduction = {
 				name = HUN_restauration
 				cost_reduction = 0.5
 				uses = 1
-				category = cat_fleet_in_being
+				category = naval_doctrine
 			}
 
 		}
@@ -5050,9 +5082,8 @@ focus_tree = {
 		
 		available = {
 			has_tech = basic_ship_hull_heavy
-			any_state = {
+			any_controlled_state = {
 				is_coastal = yes
-				is_controlled_by = ROOT
 			}
 		}
 
@@ -5136,12 +5167,20 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
 			navy_experience = 15
+
+
+			add_mastery_bonus = {
+				name = HUN_reform
+				bonus = 0.2
+				days = 180
+				grand_doctrine = new_convoy_raiding
+			}
+
 			add_doctrine_cost_reduction = {
 				name = HUN_reform
 				cost_reduction = 0.5
-				uses = 2
-				category = cat_trade_interdiction
-				category = cat_base_strike
+				uses = 1
+				category = naval_doctrine
 			}
 
 		}
@@ -5162,9 +5201,8 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
+			any_controlled_state = {
 				is_coastal = yes
-				is_controlled_by = ROOT
 			}
 		}
 
@@ -5284,7 +5322,6 @@ focus_tree = {
 				name = HUN_cruisers
 				bonus = 1.0
 				uses = 2
-				category = cl_tech
 				category = ca_tech
 			}
 

@@ -1075,11 +1075,17 @@ focus_tree = {
 				add_idea = HUN_hungarian_monarchy_resored_habsburgs_otto
 			}
 
+			add_mastery_bonus = {
+				name = HUN_feldmarchall_augusts_expertise
+				bonus = 0.15
+				days = 180
+			}
+
 			add_doctrine_cost_reduction = {
 				name = HUN_feldmarchall_augusts_expertise
-				cost_reduction = 0.25
+				cost_reduction = 0.2
 				uses = 1
-				category = cat_grand_battle_plan
+				category = land_doctrine
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -1428,7 +1434,7 @@ focus_tree = {
 						every_state = {
 							limit = {
 								is_core_of = AUS
-							}
+						}
 							is_owned_by = ROOT
 						}
 					}
@@ -1682,7 +1688,11 @@ focus_tree = {
 			}
 			ELSE = {
 				set_rule = { can_create_factions = yes }
-				create_faction = GER_central_powers_faction
+				create_faction_from_template = {
+					template = faction_template_GER_mitteleuropa_alliance
+					name = GER_central_powers_faction
+					icon = GFX_faction_logo_generic_13
+				}
 				# We create our own faction and invite Germany
 				GER = {
 					country_event = {
@@ -1730,9 +1740,19 @@ focus_tree = {
 
 			add_political_power = 25
 
-			create_faction = habsburg_alliance_faction
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_habsburg_alliance
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_habsburg_alliance
+			}
 
-			set_rule = { can_create_factions = yes }
 
 		}
 	}
@@ -2239,6 +2259,151 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = wuw_HUN_press_maximilians_and_the_iturbides_claims
+		icon = GFX_focus_mex_jefe_maximo
+		prerequisite = { focus = wuw_HUN_a_grand_habsburg_alliance }
+		#mutually_exclusive = { focus = wuw_HUN_seek_an_alliance_with_the_kaiser focus = wuw_HUN_the_old_grand_alliance }
+		x = -3
+		y = 1
+		relative_position_id = wuw_HUN_a_grand_habsburg_alliance
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 5
+		}
+
+		available = {
+
+			has_government = neutrality
+			is_subject = no
+			is_faction_leader = yes
+			OR = {
+				MEX = {
+					exists = yes
+					has_civil_war = no
+					NOT = {
+						has_government = communism
+					}
+				}
+				AND = {
+					MEX = {
+						exists = no
+					}
+					OR = {
+						277 = {
+							is_controlled_by = ROOT
+						}
+						any_country = {
+							is_subject_of = ROOT
+							controls_state = 277
+						}
+					}
+				}
+			}
+
+		}
+
+		bypass = {
+
+		}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+		available_if_capitulated = no
+
+		completion_reward = {
+
+				IF = {
+					limit = {
+						MEX = {
+							exists = yes
+							is_subject = no
+						}
+					}
+					MEX = {
+						country_event = {
+							id = WW_hungary.62
+							days = 1
+							random_days = 2
+						}
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						MEX = {
+							is_subject = yes
+							NOT = {
+								is_subject_of = ROOT
+							}
+						}
+					}
+					create_wargoal = {
+						type = puppet_wargoal_focus
+						target = MEX
+					}
+					unlock_decision_tooltip = HUN_place_a_habsburg_on_the_mexican_throne
+				}
+				ELSE_IF = {
+					limit = {
+						MEX = {
+							OR = {
+								is_subject_of = ROOT
+								exists = no
+							}
+						}
+					}
+
+					every_state = {
+						limit = {
+							OR = {
+								is_controlled_by = ROOT
+								any_country = {
+									is_subject_of = ROOT
+									controls_state = PREV
+								}
+							}
+							NOT = {
+								is_core_of = ROOT
+							}
+							is_core_of = MEX
+							NOT = {
+								is_owned_and_controlled_by = MEX
+							}
+						}
+						transfer_state_to = MEX
+					}
+
+					MEX = {
+						drop_cosmetic_tag = yes
+						set_cosmetic_tag = MEX_habsburg_empire
+						country_event = {
+							id = WW_hungary.61
+							hours = 0
+						}
+					}
+
+					IF = {
+						limit = {
+							MEX = {
+								NOT = {
+									is_subject_of = ROOT
+								}
+							}
+						}
+						puppet = MEX
+					}
+
+					hidden_effect = {
+						set_country_flag = HUN_created_mexican_habsburg_monarchy
+					}
+
+				}
+		}
+	}
 
 	focus = {
 		id = wuw_HUN_reenlist_the_sich_riflemen
@@ -4583,8 +4748,8 @@ focus_tree = {
 					limit = {
 						AND = {
 							708 = {
-								is_owned_or_subject_trigger = yes
-							}
+							is_owned_or_subject_trigger = yes
+						}
 							1446 = {
 								is_owned_or_subject_trigger = yes
 							}
@@ -4662,7 +4827,7 @@ focus_tree = {
 						}
 
 						random_state = {
-							limit = {
+					limit = {
 								is_fully_controlled_by = PREV
 								is_owned_by = PREV
 								is_core_of = PREV
@@ -4678,12 +4843,12 @@ focus_tree = {
 				IF = { #set up Aosta Valley puppet
 					limit = {
 						745 = {
-							is_owned_or_subject_trigger = yes
-						}
+								is_owned_or_subject_trigger = yes
+							}
 						AOS = {
 							exists = no
+							}
 						}
-					}
 					AOS = {
 						transfer_state = 745
 						add_offsite_building = {
@@ -4723,7 +4888,7 @@ focus_tree = {
 						}
 
 						random_state = {
-							limit = {
+					limit = {
 								is_fully_controlled_by = PREV
 								is_owned_by = PREV
 								is_core_of = PREV
@@ -6019,13 +6184,11 @@ focus_tree = {
 							}
 						}
 					}
-					puppet = CAL
+					puppet = SPM
 				}
 
-				IF = { #set up Sicily puppet
 					limit = {
 						1075 = {
-							is_owned_or_subject_trigger = yes
 						}
 						1412 = {
 							is_owned_or_subject_trigger = yes
@@ -6054,20 +6217,19 @@ focus_tree = {
 						1620 = {
 							is_owned_or_subject_trigger = yes
 						}
-						1621 = {
+					}
 							is_owned_or_subject_trigger = yes
 						}
-						2915 = {
-							is_owned_or_subject_trigger = yes
 						}
 
+					}
+					LBV = {
 
 						SIC = {
+				IF = { #set up Tuscany puppet
 							exists = no
 						}
 					}
-					SIC = {
-						transfer_state = 1075
 						transfer_state = 1412
 						transfer_state = 1413
 						transfer_state = 1414
@@ -6127,8 +6289,6 @@ focus_tree = {
 							}
 						}
 					}
-					puppet = SIC
-				}
 
 				IF = { #Sicily can get Malta if you control it
 					limit = {
@@ -6142,10 +6302,9 @@ focus_tree = {
 					}
 				}
 
-				IF = { #set up Sardinia puppet
+				IF = { #set up Papal puppet
 					limit = {
 						944 = {
-							is_owned_or_subject_trigger = yes
 						}
 						1420 = {
 							is_owned_or_subject_trigger = yes
@@ -6156,19 +6315,16 @@ focus_tree = {
 						2894 = {
 							is_owned_or_subject_trigger = yes
 						}
-						2967 = {
+						157 = {
 							is_owned_or_subject_trigger = yes
 						}
-						2968 = {
+						161 = {
 							is_owned_or_subject_trigger = yes
 						}
-
-						SRD = {
+						Pap = {
 							exists = no
 						}
 					}
-					SRD = {
-						transfer_state = 944
 						transfer_state = 1420
 						transfer_state = 1421
 						transfer_state = 2894
@@ -6217,13 +6373,11 @@ focus_tree = {
 								is_core_of = PREV
 							}
 							create_unit = {
-							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    division = "name = \"Primo Battaglione delle Guardie Papa\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
 							    owner = PREV
 							}
 						}
 					}
-					puppet = SRD
-				}
 
 				IF = { #Sardinia can get Corsica if you control it
 					limit = {
@@ -6235,33 +6389,31 @@ focus_tree = {
 						}
 					}
 					SRD = {
-						transfer_state = 1422
 						add_state_core = 1422
 						transfer_state = 866
 						add_state_core = 866
 					}
 				}
 
-				IF = { #set up Genoa puppet
+				IF = { #set up Neapolitanian puppet
 					limit = {
 						1366 = {
+						117 = {
 							is_owned_or_subject_trigger = yes
 						}
-						1367 = {
+						849 = {
 							is_owned_or_subject_trigger = yes
 						}
-						798 = {
+						156 = {
 							is_owned_or_subject_trigger = yes
 						}
-						1368 = {
+						115 = {
 							is_owned_or_subject_trigger = yes
 						}
-						LIG = {
+						TTS = {
 							exists = no
 						}
 					}
-					LIG = {
-						transfer_state = 1366
 						transfer_state = 1367
 						transfer_state = 798
 						transfer_state = 1368
@@ -6308,14 +6460,16 @@ focus_tree = {
 								is_core_of = PREV
 							}
 							create_unit = {
-							    division = "name = \"Primo Battaglione delle Guardie Papa\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
 							    owner = PREV
 							}
 						}
 					}
-					puppet = LIG
+					puppet = TTS
 				}
 
+				IF = { # Neapolitanian/two sicilies puppet can gain Malta if you control it
+					limit = {
 			}
 
 		}
@@ -6338,7 +6492,7 @@ focus_tree = {
 
 		available = {
 
-			1902 = {
+			454 = {
 				is_fully_controlled_by = owner
 				owner = {
 					NOT = {
@@ -6350,7 +6504,7 @@ focus_tree = {
 		}
 
 		bypass = {
-			1902 = {
+			454 = {
 				is_owned_and_controlled_by = ROOT
 			}
 		}
@@ -6363,7 +6517,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			1902 = {
+			454 = {
 				add_claim_by = ROOT
 			}
 
@@ -6371,8 +6525,6 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					NOT = { owns_state = 1902 }
-					1902 = {
 						is_fully_controlled_by = owner
 						owner = {
 							NOT = {
@@ -6381,7 +6533,7 @@ focus_tree = {
 						}
 					}
 				}
-				1902 = {
+				454 = {
 					owner = {
 						country_event = {
 							id = WW_hungary.75
@@ -6392,9 +6544,10 @@ focus_tree = {
 				}
 				custom_effect_tooltip = if_they_accept_tt
 				effect_tooltip = {
-					transfer_state = 1902 #PALESTINE
+					transfer_state = 454 #PALESTINE
 					add_war_support = 0.03
 					1902 = {
+					454 = {
 						set_state_category = town
 						add_extra_state_shared_building_slots = 2
 						add_building_construction = {
@@ -6444,7 +6597,7 @@ focus_tree = {
 		available = {
 
 			has_government = neutrality
-			1902 = {
+			454 = {
 				is_owned_and_controlled_by = ROOT
 			}
 
@@ -6728,7 +6881,7 @@ focus_tree = {
 				AUS = {
 					is_subject_of = ROOT
 				}
-				1817 = {
+				4 = {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -6737,7 +6890,7 @@ focus_tree = {
 				CZE = {
 					is_subject_of = ROOT
 				}
-				513 = {
+				9 = {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -6761,7 +6914,7 @@ focus_tree = {
 					is_core_of = ROOT
 					is_fully_controlled_by = ROOT
 				}
-				prioritize = { 1817 513 633 }
+				prioritize = { 4 9 43 }
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -6829,7 +6982,7 @@ focus_tree = {
 							is_core_of = ROOT
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 1817 }
+						prioritize = { 9 }
 						add_extra_state_shared_building_slots = 2
 						add_building_construction = {
 							type = industrial_complex
@@ -6847,7 +7000,7 @@ focus_tree = {
 							is_core_of = ROOT
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 513 }
+						prioritize = { 4 }
 						add_extra_state_shared_building_slots = 1
 						add_building_construction = {
 							type = arms_factory
@@ -7037,6 +7190,27 @@ focus_tree = {
 					}
 				}
 			}
+
+			IF = {
+				limit = {
+					AND = {
+						has_dlc = "Trial of Allegiance"
+						CHL = {
+							OR = {
+								has_completed_focus = CHL_repeal_the_separation_of_church_an_state
+								has_completed_focus = CHL_state_catholicism
+							}
+						}
+					}
+				}
+				CHL = {
+					add_opinion_modifier = {
+						target = ROOT
+						modifier = embraced_catholicism
+					}
+				}
+			}
+
 		}
 	}
 
@@ -7187,21 +7361,21 @@ focus_tree = {
 					}
 				}
 				random_owned_controlled_state = {
-					prioritize = { 633 }
+					prioritize = { 43 }
 					create_unit = {
 						division = "name = \"1 Magyar Királyi Huszárok\" division_template = \"Magyar Királyi Huszárok\" start_experience_factor = 1.0"
 						owner = HUN
 					}
 				}
 				random_owned_controlled_state = {
-					prioritize = { 633 }
+					prioritize = { 43 }
 					create_unit = {
 						division = "name = \"2 Magyar Királyi Huszárok\" division_template = \"Magyar Királyi Huszárok\" start_experience_factor = 1.0"
 						owner = HUN
 					}
 				}
 				random_owned_controlled_state = {
-					prioritize = { 633 }
+					prioritize = { 43 }
 					create_unit = {
 						division = "name = \"3 Magyar Királyi Huszárok\" division_template = \"Magyar Királyi Huszárok\" start_experience_factor = 1.0"
 						owner = HUN
@@ -7310,12 +7484,15 @@ focus_tree = {
 
 		completion_reward = {
 
-			add_doctrine_cost_reduction = {
+
+
+			add_mastery_bonus = {
 				name = wuw_HUN_the_legacy_of_the_isonzo_front
-				cost_reduction = 0.5
-				uses = 2
-				category = cat_grand_battle_plan
+				bonus = 0.2
+				days = 180
+				track = combat_support
 			}
+
 
 			add_tech_bonus = {
 				name = wuw_HUN_the_legacy_of_the_isonzo_front
@@ -7444,7 +7621,7 @@ focus_tree = {
 						state = 975
 						state = 976
 						state = 4
-						state = 526
+						state = 72
 						state = 972
 						state = 75
 						state = 762
@@ -8086,7 +8263,7 @@ focus_tree = {
 			}
 			random_owned_controlled_state = {
 				limit = { ROOT = { has_full_control_of_state = PREV } }
-				prioritize = { 633 }
+				prioritize = { 43 }
 				create_unit = {
 					division = "name = \"1 Magyar Királyi Huszárok\" division_template = \"Magyar Királyi Huszárok\" start_experience_factor = 1.0"
 					owner = HUN
@@ -8275,10 +8452,17 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
+			add_mastery_bonus = {
+				name = wuw_HUN_a_mobile_army
+				bonus = 0.1
+				days = 180
+				grand_doctrine = new_mobile_warfare
+			}
+
 			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 1
-				category = cat_mobile_warfare
+				category = land_doctrine
 				name = wuw_HUN_a_mobile_army
 			}
 
@@ -8318,10 +8502,17 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
+			add_mastery_bonus = {
+				name = wuw_HUN_an_airforce_to_be_reckoned_with
+				bonus = 0.15
+				days = 180
+				grand_doctrine = superior_firepower
+			}
+
 			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 1
-				category = cat_superior_firepower
+				category = land_doctrine
 				name = wuw_HUN_an_airforce_to_be_reckoned_with
 			}
 
@@ -8992,7 +9183,7 @@ focus_tree = {
 						state = 152
 						state = 153
 						state = 848
-						state = 526
+						state = 72
 						state = 972
 						state = 75
 						state = 762
@@ -9427,8 +9618,20 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			set_rule = { can_create_factions = yes }
-			create_faction = HUN_BALKAN_FACTION
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_balkan_pact
+				add_faction_initiative = 1
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_balkan_pact
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
 
 			IF = {
 				limit = {
@@ -11630,7 +11833,6 @@ focus_tree = {
 						state = 738
 						state = 1512
 						state = 2933
-						state = 664
 						state = 2671
 						state = 2859
 						state = 622
@@ -11883,7 +12085,12 @@ focus_tree = {
 					1442 = {
 						NOT = {
 							OR = {
-								is_owned_by = SLO
+								AND = {
+									is_owned_by = SLO
+									SLO = {
+										is_subject = no
+									}
+								}
 								is_owned_by = CZE
 								is_owned_by = ROOT
 							}
@@ -13326,12 +13533,16 @@ focus_tree = {
 				}
 				ROOT = {
 					set_rule = { can_create_factions = yes }
-					create_faction = HUN_PACT_OF_ROME_FACTION
+					create_faction_from_template = {
+						template = faction_template_regional
+						name = HUN_PACT_OF_ROME_FACTION
+						icon = GFX_faction_logo_generic_11
+					}
 					ITA = {
 						country_event = generic.5
 						add_ai_strategy = {
 							type = alliance
-							id = "HUN"
+							id = HUN
 							value = 200
 						}
 					}
@@ -14695,9 +14906,12 @@ focus_tree = {
 		completion_reward = {
 
 			add_political_power = 50
-			create_faction = AUS_danubian_federation
 			set_rule = {
 				can_create_factions = yes
+			}
+			create_faction_from_template = {
+				template = faction_template_balkan_pact 
+				name = AUS_danubian_federation
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -18528,8 +18742,7 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
-				is_controlled_by = ROOT
+			any_controlled_state = {
 				is_coastal = yes
 			}
 			wuw_HUN_does_not_have_trianon = yes
@@ -19089,10 +19302,10 @@ focus_tree = {
 						type = industrial_complex
 						level = 2
 						instant_build = yes
-					}
+					}				
 					add_resource = {
-						type = steel
-						amount = 2
+						type = coal
+						amount = 8 
 					}
 				}
 			}
@@ -19458,8 +19671,7 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
-				is_owned_by = ROOT
+			any_owned_state = {
 				is_core_of = ROOT
 			}
 			#has_country_flag = HUN_activated_huba_1_flag
@@ -19671,8 +19883,7 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
-				is_owned_by = ROOT
+			any_owned_state = {
 				is_core_of = ROOT
 			}
 			#has_country_flag = HUN_activated_huba_1_flag
@@ -22342,9 +22553,8 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
+			any_controlled_state = {
 				is_coastal = yes
-				is_controlled_by = ROOT
 			}
 		}
 
@@ -22453,11 +22663,18 @@ focus_tree = {
 
 			navy_experience = 15
 
+			add_mastery_bonus = {
+				name = wuw_HUN_embrace_navy_traditions
+				bonus = 0.15
+				days = 240
+				grand_doctrine = new_fleet_in_being
+			}
+
 			add_doctrine_cost_reduction = {
 				name = wuw_HUN_embrace_navy_traditions
-				cost_reduction = 0.5
-				uses = 2
-				category = cat_fleet_in_being
+				cost_reduction = 0.25
+				uses = 1
+				category = naval_doctrine
 			}
 
 		}
@@ -22494,12 +22711,25 @@ focus_tree = {
 
 		completion_reward = {
 			navy_experience = 15
+			
+			add_mastery_bonus = {
+				name = wuw_HUN_a_reformed_navy
+				bonus = 0.15
+				days = 240
+				grand_doctrine = new_convoy_raiding
+			}
+			add_mastery_bonus = {
+				name = wuw_HUN_a_reformed_navy
+				bonus = 0.15
+				days = 240
+				grand_doctrine = new_base_strike
+			}
+
 			add_doctrine_cost_reduction = {
 				name = wuw_HUN_a_reformed_navy
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 2
-				category = cat_trade_interdiction
-				category = cat_base_strike
+				category = naval_doctrine
 			}
 		}
 	}
@@ -22584,7 +22814,6 @@ focus_tree = {
 				name = wuw_HUN_cruiser_investments
 				bonus = 1.0
 				uses = 2
-				category = cl_tech
 				category = ca_tech
 			}
 
@@ -22742,9 +22971,8 @@ focus_tree = {
 
 		available = {
 			has_tech = basic_ship_hull_heavy
-			any_state = {
+			any_controlled_state = {
 				is_coastal = yes
-				is_controlled_by = ROOT
 			}
 		}
 

@@ -79,6 +79,22 @@ technology_sharing_group = {
 
 technology_sharing_group = {
 
+	id = NORDIC_research_tech_sharing  #NORDIC_NTH: Write Description and image
+	name = NORDIC_research_tech_sharing_name
+	desc = us_research_desc
+	picture = GFX_technology_sharing_default 
+
+	research_sharing_per_country_bonus = 0.05
+
+    available = {
+        NORDIC_basic_joint_trigger = yes 
+        #has_completed_focus = NORDIC_nordic_research
+    }
+
+}
+
+technology_sharing_group = {
+
 	id = tizard_mission
 	name = tizard_mission_name
 	desc = tizard_mission_desc
@@ -495,10 +511,10 @@ technology_sharing_group = {
 	categories = { industry electronics nuclear rocketry }
 
 	available = {
-		OR = {
-			original_tag = SOV
-			SOV_is_valid_academy_of_sciences_target = yes
-		}
+		#OR = {
+		#	original_tag = SOV
+		#	SOV_is_valid_academy_of_sciences_target = yes
+		#}
 	}
 }
 
@@ -514,10 +530,10 @@ technology_sharing_group = { #Alternative Soviet Academy of Sciences for non com
 	categories = { industry electronics nuclear rocketry }
 
 	available = {
-		OR = {
-			original_tag = SOV
-			SOV_is_valid_academy_of_sciences_target = yes
-		}
+		#OR = {
+		#	original_tag = SOV
+		#	SOV_is_valid_academy_of_sciences_target = yes
+		#}
 	}
 }
 
@@ -641,3 +657,271 @@ technology_sharing_group = {
 		}
 	}
 }
+
+
+#### AAT ####
+
+technology_sharing_group = {
+
+	id = FIN_joint_research_and_development_program
+	name = FIN_joint_research_and_development_program_name
+	desc = FIN_joint_research_and_development_program_desc
+	picture = GFX_technology_sharing_default
+
+	research_sharing_per_country_bonus = 0.2
+
+	available = {
+		OR = {
+			AND = {
+				original_tag = FIN
+				OR = {
+					has_idea = FIN_the_lone_wolf
+					is_in_faction = yes
+				}
+			}
+			is_in_faction_with = FIN
+			overlord = {
+				original_tag = FIN
+				has_idea = FIN_the_lone_wolf
+			}
+		}
+	}
+}
+
+technology_sharing_group = {
+
+	id = DEN_danish_partnership_tech_sharing
+	name = DEN_danish_partnership_tech_sharing
+	desc = DEN_danish_partnership_tech_sharing_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.1
+
+    available = {
+       OR = {
+			AND = {
+				original_tag = DEN
+				is_subject = no
+				NOT = {
+					has_war_with = var:DEN.DEN_guaranteeing_nation
+				}
+			}
+			AND = {
+				tag = var:DEN.DEN_guaranteeing_nation
+				is_subject = no
+				NOT = {
+					var:DEN.DEN_guaranteeing_nation = {	has_war_with = DEN }
+				}
+			}
+		}
+	}
+}
+
+technology_sharing_group = {
+
+	id = DEN_danish_military_cooperation_program
+	name = DEN_danish_military_cooperation_program
+	desc = DEN_danish_military_cooperation_program_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.15
+
+    available = {
+       OR = {
+			AND = {
+				original_tag = DEN
+				is_subject = no
+				NOT = {
+					has_war_with = var:DEN.DEN_allied_nation
+				}
+			}
+			AND = {
+				tag = var:DEN.DEN_allied_nation
+				is_subject = no
+				NOT = {
+					var:DEN.DEN_allied_nation = { has_war_with = DEN }
+				}
+			}
+		}
+	}
+}
+
+technology_sharing_group = {
+
+	id = DEN_german_danish_joint_military_program
+	name = DEN_german_danish_joint_military_program
+	desc = DEN_german_danish_joint_military_program_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.2
+
+	categories = { armor air_equipment naval_equipment }
+
+    available = {
+		OR = {
+			original_tag = DEN
+			is_in_faction_with = DEN
+		}
+	}
+}
+
+technology_sharing_group = {
+
+	id = DEN_northern_technological_advancements_group
+	name = DEN_northern_technological_advancements_group
+	desc = DEN_northern_technological_advancements_group_desc
+	picture = GFX_technology_sharing_default
+
+	research_sharing_per_country_bonus = 0.15
+
+	available = {
+		OR = {
+			original_tag = DEN
+			is_in_faction_with = DEN
+		}
+	}
+}
+
+technology_sharing_group = {
+
+	id = ger_fra_research
+	name = ger_fra_research_name
+	desc = ger_fra_research_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.1
+
+    available = {
+       	NOT = {
+       		has_war_with = GER
+       	}
+        GER = { has_government = democratic }
+    }
+
+}
+
+technology_sharing_group = {
+
+	id = ger_chi_research
+	name = ger_chi_research_name
+	desc = ger_chi_research_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.1
+
+    available = {
+        NOT = {
+        	OR = {
+        		has_war_with = GER
+        		has_war_with = CHI
+        	}
+        }
+    }
+
+}
+
+technology_sharing_group = {
+
+	id = ger_mitteleuropa_research
+	name = ger_mitteleuropa_research_name
+	desc = ger_mitteleuropa_research_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.1
+
+    available = {
+        NOT = {
+        	has_war_with = GER
+        }
+    }
+
+}
+
+technology_sharing_group = {
+
+	id = RAJ_naval_tech_sharing_group
+	name = RAJ_naval_tech_sharing_group_name
+	desc = RAJ_naval_tech_sharing_group_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.15
+
+    available = {
+        NOT = {
+        	has_war_with = RAJ
+        }
+    }
+}
+
+technology_sharing_group = {
+
+	id = jap_geacps_research
+	name = jap_geacps_research_name
+	desc = jap_geacps_research_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.1
+
+    available = {
+        NOT = {
+        	has_war_with = JAP
+        }
+        is_in_faction_with = JAP
+    }
+
+}
+
+technology_sharing_group = {
+
+	id = jap_usa_japan_research
+	name = jap_usa_japan_research_name
+	desc = jap_usa_japan_research_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.15
+
+    available = {
+        NOT = {
+        	has_war_with = JAP
+        }
+    }
+
+}
+
+technology_sharing_group = {
+
+	id = CZE_balkan_tech_sharing_group
+	name = CZE_balkan_tech_sharing_group_name
+	desc = CZE_balkan_tech_sharing_group_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.15
+
+    available = {
+        NOT = {
+        	has_war_with = CZE
+        }
+    }
+}
+
+technology_sharing_group = {
+
+	id = CZE_german_czechoslovak_equipment_design_group
+	name = CZE_german_czechoslovak_equipment_design_group_name
+	desc = CZE_german_czechoslovak_equipment_design_group_desc
+	picture = GFX_technology_sharing_default
+    
+	research_sharing_per_country_bonus = 0.2
+
+	categories = { armor air_equipment }
+
+    available = {
+		OR = {
+			original_tag = CZE
+			is_ally_with = CZE
+		}
+	}
+}
+
+
+
