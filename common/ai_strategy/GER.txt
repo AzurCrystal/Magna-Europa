@@ -79,7 +79,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
-		value = 20
+		value = 40
 	}
 
 	ai_strategy = {
@@ -764,7 +764,7 @@ GER_blitzkrieg_poland = {
 	ai_strategy = {
 		type = front_armor_score
 		id = POL
-		value = 100
+		value = 250
 	}
 
 	ai_strategy = {
@@ -1755,6 +1755,12 @@ GER_start_the_blitz = {
 		ENG = { controls_state = 2475 } # Checks that they control London
 		FRA = { has_capitulated = yes }
 		NOT = { has_war_with = SOV }
+		NOT = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+		}
 		date > 1940.1.1
 		date < 1940.11.1
 	}
@@ -2108,7 +2114,7 @@ GER_make_sure_poland_is_ganked_before_we_move = {
 				has_capitulated = yes
                 days_since_capitulated > 8
 			}
-			date > 1940.5.1
+			date > 1940.2.1
 		}
 	}
 
@@ -3464,7 +3470,7 @@ GER_tanks_in_the_snow = {
 	ai_strategy = {
 		type = front_armor_score
 		id = SOV
-		value = 250
+		value = 500
 	}
 
 	ai_strategy = {
@@ -3479,6 +3485,11 @@ GER_tanks_in_the_snow = {
 		type = prepare_for_war
 		id = SOV
 		value = 100
+	}
+	
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 20
 	}
 }
 
@@ -3539,7 +3550,7 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 	}
 
 	enable = {
-		date < 1942.8.1
+		date < 1941.9.1
 		OR = {
 			focus_progress = {
 				focus = GER_war_with_the_ussr
@@ -3557,7 +3568,7 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 
 		tag = SOV
 
-		ratio = 0.5
+		ratio = 0.65
 
 		priority = 100
 		ordertype = front
@@ -3735,7 +3746,6 @@ GER_blitzkrieg_russia_hard_air_center  = { #get GER to focus on breaking border 
 	}
 }
 
-
 GER_blitzkrieg_russia_soft  = { #Rolling incursions
 	allowed = {
 		original_tag = GER
@@ -3763,7 +3773,7 @@ GER_blitzkrieg_russia_soft  = { #Rolling incursions
 
 		tag = SOV
 
-		ratio = 0.5
+		ratio = 0.65
 
 		priority = 100
 		ordertype = front
@@ -4904,9 +4914,250 @@ GER_raid_the_atlantic = {
 		id = 233 #Denmark Strait
 		value = 250
 	}
+}
+
+#Pfot starts
+GER_take_advantage_of_sokolov_raid = {
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		exists = yes
+		has_war_with = CZE
+		has_war_with_major = no
+		surrender_progress < 0.02 #I'm still in okay shape
+		OR = {
+			has_idea = CZE_sokolov_raid_pfot_limited_success_ns
+			has_idea = CZE_sokolov_raid_pfot_success_ns
+			has_idea = CZE_sokolov_raid_pfot_critical_success_ns
+		}
+	}
+
+	abort_when_not_enabled = yes
+
 	ai_strategy = {
-		type = naval_convoy_raid_region
-		id = 242 #Mid Atlantic
-		value = 100
+    	type = front_control
+		state = 69
+    	state_trigger = {
+        	is_controlled_by = CZE
+    	}
+    	ratio = 0.25
+    	ordertype = front
+    	execution_type = rush
+		execute_order = yes
+	}
+
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 69
+
+		value = 25 # +25%
 	}
 }
+
+GER_sokol_raids_store_some_equipment = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		has_war_with = CZE
+		date > 1938.3.3
+		date < 1939.9.9
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = save_equipment
+		id = transport_plane_equipment
+		value = 25 #Need to save ~ten more for that Bel raid and try nudge to fill the 20 unit gap it has at this time
+	}
+}
+
+GER_why_would_i_ally_you_i_want_to_annex_you = { #Pfot, making sure czech's don't undermine germany by joining the axis just by turning fascist
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		has_government = fascism
+		is_faction_leader = yes
+		is_neighbor_of = CZE
+		NOT = {
+			has_completed_focus = GER_befriend_czechoslovakia
+		}
+		CZE = { #I owe you an apology, I wasn't familiar with your game
+			exists = yes
+			NOT = {
+				OR = {
+					#DoD focuses
+					has_completed_focus = CZE_german_puppet
+					has_completed_focus = CZE_german_minor_ally
+					has_completed_focus = CZE_german_ally
+					#Pfot focuses
+					has_completed_focus = CZE_work_with_germany
+					has_completed_focus = CZE_complete_capitulation
+					
+				}
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = CZE
+		value = -75
+	}
+	ai_strategy = {
+		type = befriend
+		id = CZE
+		value = -75
+	}
+}
+
+GER_wait_on_attacking_CZE_if_im_about_to_get_dogpiled = { #Makes Germany think twice before charging into a strong little entente early game
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = { #Czech + Poland + France or Soviets + other tag near Germany in Czech's faction counts as a dogpile
+		has_war = no
+		country_exists = CZE
+		has_war_with_wargoal_against = {
+    		target = CZE
+		}
+		date < 1939.9.1 #Enough time stalling, we got to start WW2
+		OR = {
+			country_exists = FRA
+			country_exists = SOV
+		}
+		country_exists = POL
+		CZE = {
+			controls_state = 9 
+			has_army_manpower = { size > 299999 }
+			OR = { #Needs to be atleast one of these guys or else it really isn't a dogpile
+				is_in_faction_with = FRA
+				AND = {
+					is_in_faction_with = SOV
+					SOV = {
+						OR = {
+							is_neighbor_of = GER
+							is_neighbor_of = POL
+						}
+					}
+				}
+			}
+		}
+		POL = { #Always need to be in a faction with Poland or the else the Germany AI has a pretty good chance to fight off the dogpile and doesn't need to delay.
+			has_army_manpower = { size > 394999 }
+			#is_neighbor_of = GER
+			is_in_faction_with = CZE
+			NOT = {
+				has_war_with = SOV
+			}
+		}
+		any_other_country = {
+			is_in_faction_with = CZE
+			OR = {
+				is_neighbor_of = CZE
+				is_neighbor_of = GER
+			}
+			OR = {
+				original_tag = ITA
+				original_tag = YUG
+				original_tag = AUS
+				original_tag = ROM
+				original_tag = HUN
+				original_tag = SWI
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = declare_war
+		id = CZE
+		value = -2000
+	}
+}
+
+GER_im_getting_stalled_out_in_war_with_CZE_try_to_break_out_in_the_south_and_go_for_brono = { 
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		exists = yes
+		has_war_with_major = no #we have bigger problems now
+		controls_state = 4
+		controls_state = 152
+		has_war_with = CZE
+		surrender_progress < 0.03 #I'm still in okay shape
+		CZE = { #CZE is in goodish shape
+			surrender_progress < 0.25
+		}
+		casualties_inflicted_by = { #I'm stalled and taking loses
+    		opponent = CZE
+    		thousands > 19
+		}
+		casualties_inflicted_by = { #alright, stop charging into them
+    		opponent = CZE
+    		thousands < 249
+		}
+		date < 1940.1.1 #Stop messing around
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+     	type = front_control
+	 	state = 972
+	 	state = 70
+     	state_trigger = {
+         	is_controlled_by = CZE
+     	}
+     	ratio = 0.80
+     	ordertype = front
+     	execution_type = rush
+	 	execute_order = yes
+	}
+
+	ai_strategy = { #We want to cut aross to the Brno and Bratislava supply hubs and work from there
+		type = force_concentration_target_weight
+		state = 972 #South Sudetenland
+		state = 75 # Moravia
+		#state = 70 #Western Slovakia
+
+		value = 80 # +80% Need alot to break forts
+	}
+}
+
+GER_dont_send_air_to_middle_east = {
+	allowed = { original_tag = GER }
+	enable = {
+		is_historical_focus_on = yes
+		date > 1941.3.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 28 # Middle East
+		value = -30000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 232 # Levant
+		value = -30000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 116 # Iran
+		value = -30000
+	}
+}
+#Pfot ends

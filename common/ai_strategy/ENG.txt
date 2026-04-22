@@ -1930,7 +1930,7 @@ ENG_defend_mediterranean = {
 	ai_strategy = {
 		type = theatre_distribution_demand_increase
 		id = 447
-		value = 10
+		value = 15
 	}
 
 	# Gibraltar
@@ -1945,6 +1945,65 @@ ENG_defend_mediterranean = {
 		type = theatre_distribution_demand_increase
 		id = 116
 		value = 4
+	}
+}
+
+ENG_defend_alexandria = {
+	allowed = { original_tag = ENG }
+	enable = {
+		is_historical_focus_on = yes
+		has_war_with = ITA
+		NOT = {
+			controls_state = 448 # Tripoli
+			controls_state = 451 # Tobruk
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		area = north_east_africa
+		value = 25
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 447 # Alexandria
+		value = 10
+	}
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.07
+		states = {
+			447 # Alexandria
+		}
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+ENG_defend_alexandria_reduced = {
+	allowed = { original_tag = ENG }
+	enable = {
+		is_historical_focus_on = yes
+		has_war_with = ITA
+		controls_state = 448 # Tripoli
+		controls_state = 451 # Tobruk
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		area = north_east_africa
+		value = 10
+	}
+	ai_strategy = {
+		type = put_unit_buffers
+		ratio = 0.02
+		states = {
+			447 # Alexandria
+		}
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
 	}
 }
 
@@ -2056,7 +2115,7 @@ ENG_prepare_for_war_with_iraq = {
 	ai_strategy = {
 		type = put_unit_buffers
 
-		ratio = 0.05
+		ratio = 0.08
 
 		# you can specify an order id. ratio of same orders ids will be share same ratio
 		#order_id = 2
@@ -2067,6 +2126,11 @@ ENG_prepare_for_war_with_iraq = {
 
 		subtract_invasions_from_need = no
 		subtract_fronts_from_need = yes
+	}
+	ai_strategy = {
+		type = theatre_distribution_demand_increase
+		id = 656 # Kuwait
+		value = 5
 	}
 }
 
@@ -2706,53 +2770,31 @@ ENG_ethiopian_continuation_war = {
 	}
 }
 
-ENG_no_naval_landings_in_libya_yet = {
-	allowed = { original_tag = ENG }
-	enable = {
-		is_historical_focus_on = yes
-		date < 1942.1.1
-		has_war_with = ITA
-		# More complex conditions will already be handled by the AI planning system
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = invasion_unit_request
-		area = north_africa
-		value = -100
-	}
-}
-
 ENG_to_tobruk = {
 	allowed = { original_tag = ENG }
 	enable = {
 		is_historical_focus_on = yes
 		date > 1940.12.1
-		date < 1943.6.1
+		date < 1943.3.1
 		ITA = { is_ai = yes }
 	}
 	abort_when_not_enabled = yes
 
+	# Land push toward Tobruk
 	ai_strategy = {
 		type = front_control
-
 		state = 451 #derna
-
 		ratio = 0.1
-
 		priority = 100
 		ordertype = front
 		execution_type = rush
 		execute_order = yes
 	}
-	
+
 	ai_strategy = {
 		type = front_control
-
 		state = 452 #matrouh
-
 		ratio = 0.1
-
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -2766,26 +2808,40 @@ ENG_to_tobruk = {
 	}
 
 	ai_strategy = {
-		type = invade
-		id = ITA
-		value = 550  # Counter-balances the ENG_ALLIES_careful_with_early_invasions strategy, so we get positive again
+		type = area_priority
+		id = italy
+		value = -50
 	}
 }
 
-ENG_navy_to_tobruk = {
+ENG_naval_landings_in_libya = {
 	allowed = { original_tag = ENG }
 	enable = {
 		is_historical_focus_on = yes
-		date > 1941.4.1 # We should have taken it by land route by now...
+		date > 1942.1.1
 		date < 1943.6.1
-		451 = { is_controlled_by = ITA }
+		has_war_with = ITA
 	}
 	abort_when_not_enabled = yes
 
+	# Open the invasion gate for ITA (counters -500 from ENG_ALLIES_careful_with_early_invasions)
+	ai_strategy = {
+		type = invade
+		id = ITA
+		value = 550
+	}
+
+	# Direct naval landings at Tobruk/Tripoli, not the Italian mainland
 	ai_strategy = {
 		type = invasion_unit_request
 		area = north_africa
 		value = 50
+	}
+
+	ai_strategy = {
+		type = invasion_unit_request
+		area = italy
+		value = -100
 	}
 }
 
