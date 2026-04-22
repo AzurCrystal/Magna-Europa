@@ -12992,15 +12992,15 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_eastern_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
+				NOT = {
+                    any_state = {
 						OR = {
 							has_state_flag = LAT_INITIAL_STATE
 							has_state_flag = EST_INITIAL_STATE
 						}
-					}
-					is_controlled_by_Root_or_subject = yes
-				}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			}
 		}
 
@@ -13121,7 +13121,6 @@ GER_realpolitik_cat = {
             highlight_states_trigger = {
 				is_core_of = UKR
 				NOT = {is_core_of = ROM}
-				NOT = {is_core_of = POL}
 				NOT = {is_core_of = CZE}
             }
             highlight_color_while_active = 3
@@ -13147,15 +13146,16 @@ GER_realpolitik_cat = {
 			is_subject = no
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
-						is_core_of = UKR
+				NOT = {
+                    any_state = {
+						OR = {
+							is_core_of = UKR
+						}
+                        NOT = {is_controlled_by_root_or_subject = yes }
 						NOT = {is_core_of = ROM}
-						NOT = {is_core_of = POL}
 						NOT = {is_core_of = CZE}
-					}
-				is_controlled_by_Root_or_subject = yes
-				}
+                    }
+                }
 			}
 		}
 	
@@ -13195,7 +13195,6 @@ GER_realpolitik_cat = {
 					limit = {
 						is_core_of = UKR
 						NOT = {is_core_of = ROM}
-						NOT = {is_core_of = POL}
 						NOT = {is_core_of = CZE}
 					}
 					add_core_of = UKR
@@ -13257,16 +13256,16 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_eastern_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
+				NOT = {
+                    any_state = {
 						OR = {
+							is_core_of = GEO
 							is_core_of = AZR
 							is_core_of = ARM
-							is_core_of = GEO
 						}
-					}
-					is_controlled_by = GER
-				}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			}
 		}
 
@@ -13387,16 +13386,16 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_eastern_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
+				NOT = {
+                    any_state = {
 						OR = {
-							is_core_of = KUB
 							is_core_of = MOU
 							is_core_of = DAG
+							is_core_of = KUB
 						}
-					}
-					is_controlled_by = GER
-				}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			}
 		}
 
@@ -13506,12 +13505,14 @@ GER_realpolitik_cat = {
 			is_subject = no
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
-						is_core_of = BLR
-					}
-					is_controlled_by = GER
-				}
+				NOT = {
+                    any_state = {
+						OR = {
+							is_core_of = BLR
+						}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			}
 		}
 	
@@ -13598,18 +13599,18 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
+				NOT = {
+                    any_state = {
 						OR = {
-							is_core_of = FLA
 							is_core_of = WLN
+							is_core_of = FLA
 							state = 2969
 						}
+                        NOT = {is_controlled_by_root_or_subject = yes }
 						NOT = {state = 1974}
 						NOT = {state = 485}
-					}
-				is_controlled_by_root_or_subject = yes
-				}
+                    }
+                }
 			}
 		}
 
@@ -13755,12 +13756,14 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
-						is_core_of = BRI
-					}
-					is_controlled_by_ROOT_or_subject = yes
-				}
+				NOT = {
+                    any_state = {
+						OR = {
+							is_core_of = BRI
+						}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			
 			}
 		}
@@ -13893,11 +13896,14 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
-						is_core_of = WLS
-					}
-				}
+				NOT = {
+                    any_state = {
+						OR = {
+							is_core_of = WLS
+						}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			}
 		}
 
@@ -14027,14 +14033,15 @@ GER_realpolitik_cat = {
 			has_completed_focus = GER_establish_western_grand_duchies
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				every_state = {
-					limit = {
+				NOT = {
+                    any_state = {
 						OR = {
 							is_core_of = SCO
 							is_core_of = NRT
 						}
-					}
-				}
+                        NOT = {is_controlled_by_root_or_subject = yes }
+                    }
+                }
 			}
 		}
 

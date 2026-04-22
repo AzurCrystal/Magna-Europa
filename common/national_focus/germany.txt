@@ -25566,55 +25566,49 @@ focus_tree = {
 					}
 				}
 			}
-
-			effect_tooltip = {
-				every_state = {
-					limit = {
-						OR = {
-							state = 102 #N Slovenia
-							state = 853 #Ljubljana
-							state = 103 #Dalmatia
-							state = 104 #Bosnia
-							state = 804 #Herzegovina
-							state = 109 #Croatia
-							state = 155 #N Transnubia
-							state = 43 #N Hungary
-							state = 973 #Bacs-Kiskun
-							state = 974 #S Transnubia
-							state = 154 #Tiszantul
-						}
-						NOT = { 
-							is_claimed_by = ROOT
-							is_owned_by = ROOT 
-						}
-					}
-					display_individual_scopes = yes
-					if = {
-						limit = {
-							is_fully_controlled_by = ROOT
-						}
-						transfer_state_to = AUS
-						if = {
+			custom_effect_tooltip = mer_GER_austrian_claims_tt
+				effect_tooltip = {
+					hidden_effect = {
+						every_state = {
 							limit = {
-								NOT = {
-									is_core_of = AUS
+								OR = {
+									is_core_of = SLO
+									is_core_of = CRO
+									is_core_of = HUN
+								}
+								NOT = { 
+									is_claimed_by = ROOT
+									is_owned_by = ROOT 
 								}
 							}
-							add_core_of = AUS
-						}
-					}
-					else_if = {
-						limit = {
-							controller = {
-								NOT = {
-									is_ally_with = ROOT
+							display_individual_scopes = yes
+							if = {
+								limit = {
+									is_fully_controlled_by = ROOT
+								}
+								transfer_state_to = AUS
+								if = {
+									limit = {
+										NOT = {
+											is_core_of = AUS
+										}
+									}
+									add_core_of = AUS
 								}
 							}
+							else_if = {
+								limit = {
+									controller = {
+										NOT = {
+											is_ally_with = ROOT
+										}
+									}
+								}
+								add_claim_by = AUS
+							}
 						}
-						add_claim_by = AUS
 					}
 				}
-			}
 		}
 	}
 
@@ -29944,34 +29938,32 @@ focus_tree = {
 			POL = {
 				is_subject = no
 				exists = yes
-				OR = {
-					custom_effect_tooltip = mer_GER_owns_danzig_corridor_tt
-					hidden_effect = {
-						owns_state = 287
-						owns_state = 310
-						owns_state = 2567
-						owns_state = 546
-						owns_state = 2341
-						owns_state = 264
-						owns_state = 267
-			 		}
-					custom_effect_tooltip = mer_GER_owns_poznan_tt
-					hidden_effect = {
-						owns_state = 80
-						owns_state = 335
-						owns_state = 243
-						owns_state = 79
-						owns_state = 122
-						owns_state = 99
-						owns_state = 82
-						owns_state = 549
+				every_state = {
+					limit = {
+						OR = {
+							State = 280
+							State = 2729
+							State = 287
+							State = 310
+							State = 2567
+							State = 546
+							State = 2341
+							State = 264
+							State = 267
+							State = 80
+							State = 335
+							State = 243
+							State = 79
+							State = 122
+							State = 99
+							State = 82
+							State = 549
+							State = 2329
+							State = 481
+							State = 2262
+						}
 					}
-					custom_effect_tooltip = mer_GER_owns_katowice
-					hidden_effect= {
-						owns_state = 2329
-						owns_state = 481
-						owns_state = 2262
-					}
+					is_owned_by = POL
 				}
 			}
 		}
@@ -29989,7 +29981,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			custom_effect_tooltip = mer_GER_claims_on_Danzig_tt
+			custom_effect_tooltip = mer_GER_claims_on_danzig_tt
 			hidden_effect = {
 				280 = { add_claim_by = GER }
 				2729 = { add_claim_by = GER }
@@ -30138,55 +30130,6 @@ focus_tree = {
 			POL = {
 				is_subject = no
 				exists = yes
-				OR = {
-					#Bialystok
-					custom_effect_tooltip = mer_GER_owns_bialystol_tt
-					hidden_effect = {
-						owns_state = 2026
-						owns_state = 1287
-						owns_state = 2522
-						owns_state = 306
-						owns_state = 2766
-						owns_state = 284
-						owns_state = 312
-						owns_state = 351
-						owns_state = 1982 
-						owns_state = 2927 
-						owns_state = 319
-						owns_state = 2485
-
-					}
-					#Plock
-					custom_effect_tooltip = mer_GER_owns_Plock_tt
-					hidden_effect = {
-						owns_state = 752
-						owns_state = 651
-						owns_state = 311
-						owns_state = 376
-						owns_state = 122
-						owns_state = 5
-						owns_state = 387
-						owns_state = 407
-					}
-					#Lodz
-					custom_effect_tooltip = mer_GER_owns_Lodz_tt
-					hidden_effect = {
-						owns_state = 612
-						owns_state = 656
-						owns_state = 594
-						owns_state = 79
-						owns_state = 381
-						owns_state = 693
-						owns_state = 687
-						owns_state = 329
-					}
-					custom_effect_tooltip = mer_GER_owns_Sliesian Remenants_tt
-					hidden_effect = {
-						owns_state = 1975
-						owns_state = 407
-
-					}
-				}
 			}
 		}
 
@@ -30207,7 +30150,7 @@ focus_tree = {
 
 			# Claims
 				#Bialystok
-				custom_effect_tooltip = mer_GER_claims_on_Bialystock_tt
+				custom_effect_tooltip = mer_GER_claims_on_bialystock_tt
 				 hidden_effect = {
                 2026 = { add_claim_by = GER }
                 1287 = { add_claim_by = GER }
@@ -30482,6 +30425,7 @@ focus_tree = {
 							controls_state = 1119
 							controls_state = 1080
 						}
+						NOT = { original_tag = YUG}
 					}
 					ROOT = {
 						create_wargoal = {
