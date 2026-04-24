@@ -669,11 +669,11 @@ focus_tree = {
 			if = {
 				limit = {
 					OR = {
-						70 = {
-							is_owned_and_controlled_by = ROOT
-						}
-						71 = {
-							is_owned_and_controlled_by = ROOT
+						any_state = {
+							limit = {
+								has_state_flag = SLO_initial_core
+							}
+							is_controlled_by = ROOT
 						}
 					}
 					NOT = {
@@ -1177,24 +1177,22 @@ focus_tree = {
 			build_railway = {	#internal railway, necessary to connect with Hungary
 				level = 2
 				fallback = yes
-				path = { 6562 6576 3484 }
-				start_province = 6562
-				target_province = 3484
+				start_province = 20056
+				target_province = 20848
 			}
 
 			build_railway = {	#Increase Hungary connection to level 2
 				level = 1		#it sums the level by building on top of the pre-existing one
 				fallback = yes
-				path = { 541 11679 6561 9690 9660 }
-				start_province = 541
-				target_province = 9660
+				start_province = 20056
+				target_province = 18280
 			}
 
 			build_railway = {	#Increase Hungary-Yugoslavia connection to level 2
 				level = 1		#it sums the level by building on top of the pre-existing one
 				fallback = yes
-				start_province = 9660
-				target_province = 619
+				start_province = 20056
+				target_province = 20120
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			every_other_country = {
@@ -1246,8 +1244,8 @@ focus_tree = {
 		available = {
 			is_subject = no
 			NOT = {
-				has_war_with = 66.owner
-				is_ally_with = 66.owner
+				has_war_with = 1663.owner
+				is_ally_with = 1663.owner
 			}
 		}
 
@@ -1255,7 +1253,7 @@ focus_tree = {
 			base = 0
 			modifier = {
 				add = 10
-				66 = {
+				1663 = {
 					owner = {
 						OR = {
 							AND = {
@@ -1281,8 +1279,8 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				owns_state = 66
-				has_war_with = 66.owner
+				owns_state = 1663
+				has_war_with = 1663.owner
 			}
 		}
 
@@ -1317,8 +1315,8 @@ focus_tree = {
 			# custom_effect_tooltip = generic_skip_one_line_tt
 			create_wargoal = {
 				type = take_state_focus
-				target = 66.owner
-				generator = { 66 }
+				target = 1663.owner
+				generator = { 1663 }
 				expire = 720
 			}
 

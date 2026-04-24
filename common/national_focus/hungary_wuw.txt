@@ -6184,11 +6184,13 @@ focus_tree = {
 							}
 						}
 					}
-					puppet = SPM
+					puppet = CAL
 				}
 
+				IF = { #set up Sicily puppet
 					limit = {
 						1075 = {
+							is_owned_or_subject_trigger = yes
 						}
 						1412 = {
 							is_owned_or_subject_trigger = yes
@@ -6217,19 +6219,20 @@ focus_tree = {
 						1620 = {
 							is_owned_or_subject_trigger = yes
 						}
-					}
+						1621 = {
 							is_owned_or_subject_trigger = yes
 						}
+						2915 = {
+							is_owned_or_subject_trigger = yes
 						}
 
-					}
-					LBV = {
 
 						SIC = {
-				IF = { #set up Tuscany puppet
 							exists = no
 						}
 					}
+					SIC = {
+						transfer_state = 1075
 						transfer_state = 1412
 						transfer_state = 1413
 						transfer_state = 1414
@@ -6289,6 +6292,8 @@ focus_tree = {
 							}
 						}
 					}
+					puppet = SIC
+				}
 
 				IF = { #Sicily can get Malta if you control it
 					limit = {
@@ -6302,9 +6307,10 @@ focus_tree = {
 					}
 				}
 
-				IF = { #set up Papal puppet
+				IF = { #set up Sardinia puppet
 					limit = {
 						944 = {
+							is_owned_or_subject_trigger = yes
 						}
 						1420 = {
 							is_owned_or_subject_trigger = yes
@@ -6315,16 +6321,19 @@ focus_tree = {
 						2894 = {
 							is_owned_or_subject_trigger = yes
 						}
-						157 = {
+						2967 = {
 							is_owned_or_subject_trigger = yes
 						}
-						161 = {
+						2968 = {
 							is_owned_or_subject_trigger = yes
 						}
-						Pap = {
+
+						SRD = {
 							exists = no
 						}
 					}
+					SRD = {
+						transfer_state = 944
 						transfer_state = 1420
 						transfer_state = 1421
 						transfer_state = 2894
@@ -6373,11 +6382,13 @@ focus_tree = {
 								is_core_of = PREV
 							}
 							create_unit = {
-							    division = "name = \"Primo Battaglione delle Guardie Papa\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
 							    owner = PREV
 							}
 						}
 					}
+					puppet = SRD
+				}
 
 				IF = { #Sardinia can get Corsica if you control it
 					limit = {
@@ -6389,31 +6400,33 @@ focus_tree = {
 						}
 					}
 					SRD = {
+						transfer_state = 1422
 						add_state_core = 1422
 						transfer_state = 866
 						add_state_core = 866
 					}
 				}
 
-				IF = { #set up Neapolitanian puppet
+				IF = { #set up Genoa puppet
 					limit = {
 						1366 = {
-						117 = {
 							is_owned_or_subject_trigger = yes
 						}
-						849 = {
+						1367 = {
 							is_owned_or_subject_trigger = yes
 						}
-						156 = {
+						798 = {
 							is_owned_or_subject_trigger = yes
 						}
-						115 = {
+						1368 = {
 							is_owned_or_subject_trigger = yes
 						}
-						TTS = {
+						LIG = {
 							exists = no
 						}
 					}
+					LIG = {
+						transfer_state = 1366
 						transfer_state = 1367
 						transfer_state = 798
 						transfer_state = 1368
@@ -6460,18 +6473,14 @@ focus_tree = {
 								is_core_of = PREV
 							}
 							create_unit = {
-							    division = "name = \"Primo Battaglione delle Guardie Reali'\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+							    division = "name = \"Primo Battaglione delle Guardie Papa\" division_template = \"Battaglione delle Guardie Reali\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
 							    owner = PREV
 							}
 						}
 					}
-					puppet = TTS
+					puppet = LIG
 				}
-
-				IF = { # Neapolitanian/two sicilies puppet can gain Malta if you control it
-					limit = {
 			}
-
 		}
 	}
 
