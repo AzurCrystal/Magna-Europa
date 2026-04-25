@@ -8,17 +8,17 @@ country_event = { # annex liechtenstein
 
     is_triggered_only = yes
 
-    option = { # ja
+    option = {
         name = MA_germany.1a
-        country_event = { id = MA_germany.1a hours = 1 }
+        GER = { country_event = { id = MA_germany.1a hours = 1 } }
 
 		ai_chance = {
 			factor = 99
 		}
     }
-    option = { # nein
+    option = {
         name = MA_germany.1b
-        country_event = { id = MA_germany.1b hours = 1 }
+        GER = { country_event = { id = MA_germany.1b hours = 1 } }
 
 		ai_chance = {
 			factor = 1
@@ -26,22 +26,21 @@ country_event = { # annex liechtenstein
     }
 }
 
-# --- Option A: Annex + Cores + 2 Civ
+#annex
 country_event = {
     id = MA_germany.1a
     title = MA_germany.1a.t
     desc  = MA_germany.1a.desc
     is_triggered_only = yes
 
-    immediate = {
-        annex_country = { target = LIE transfer_troops = yes }
+    option = {
+        name = MA_germany.1a.1
 
         every_state = {
             limit = { is_core_of = LIE }
             add_core_of = GER
         }
 
-        # In State 1460 eine Civ sofort bauen
         1460 = {
 			add_extra_state_shared_building_slots = 2
             add_building_construction = {
@@ -49,18 +48,21 @@ country_event = {
                 level = 2
                 instant_build = yes
             }
+            transfer_state_to = GER 
         }
     }
 }
 
-# --- Option B: Wargoal für 1460 auf LIE ---
+# refusal
 country_event = {
     id = MA_germany.1b
     title = MA_germany.1b.t
     desc  = MA_germany.1b.desc
     is_triggered_only = yes
 
-    immediate = {
+    option = {
+        name = MA_germany.1b.1
+
         create_wargoal = {
             type = take_state_focus
             target = LIE

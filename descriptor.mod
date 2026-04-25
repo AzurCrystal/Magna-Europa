@@ -1,4 +1,4 @@
-version="0.2.9.1"
+version="0.2.9.2"
 tags={
 	"Map"
 }
@@ -44,5 +44,5 @@ replace_path="common/scripted_triggers"
 replace_path="common/unit_leader"
 replace_path="common/units"
 replace_path="events"
-supported_version="1.18.0"
+supported_version="1.18.*"
 remote_file_id="3586596093"

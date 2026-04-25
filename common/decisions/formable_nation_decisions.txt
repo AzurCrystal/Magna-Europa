@@ -2745,11 +2745,25 @@ form_european_union_category = {
             highlight_states_trigger = {
                 OR = {
 					has_state_flag = LUX_INITIAL_STATE
-					has_state_flag = HOL_INITIAL_STATE
+					AND = {
+						has_state_flag = HOL_INITIAL_STATE
+						NOT = { state = 2975}
+					}
 					has_state_flag = BEL_INITIAL_STATE
 					has_state_flag = GER_INITIAL_STATE
-					has_state_flag = FRA_INITIAL_STATE
-					has_state_flag = ITA_INITIAL_STATE
+					AND = {
+						has_state_flag = FRA_INITIAL_STATE
+						NOT = { is_core_of = ALG }
+					}
+					AND = {
+						has_state_flag = ITA_INITIAL_STATE
+						NOT = { is_core_of = LBA }
+						NOT = { state = 1554}
+						NOT = { state = 1476}
+						NOT = { state = 1534}
+						NOT = { state = 2914}
+
+					}
 				}
                 
             }
@@ -2863,6 +2877,7 @@ form_european_union_category = {
 				NOT = {
                     any_state = {
 						has_state_flag = HOL_INITIAL_STATE
+						NOT = { state = 2975}
                         NOT = {is_controlled_by = ROOT }
                     }
                 }
@@ -2886,6 +2901,7 @@ form_european_union_category = {
                     any_state = {
 						has_state_flag = FRA_INITIAL_STATE
                         NOT = {is_controlled_by = ROOT }
+						NOT = { is_core_of = ALG }
                     }
                 }
 			}
@@ -2897,6 +2913,11 @@ form_european_union_category = {
                     any_state = {
 						has_state_flag = ITA_INITIAL_STATE
                         NOT = {is_controlled_by = ROOT }
+						NOT = { state = 1554}
+						NOT = { state = 1476}
+						NOT = { state = 1534}
+						NOT = { state = 2914}
+						NOT = { is_core_of = LBA }
                     }
                 }
 			}
@@ -2940,6 +2961,7 @@ form_european_union_category = {
 				every_state = {
 					limit = {
 						has_state_flag = HOL_INITIAL_STATE
+						NOT = { state = 2975}
 					}
 					add_core_of = ROOT
 				}
@@ -2963,6 +2985,7 @@ form_european_union_category = {
 				every_state = {
 					limit = {
 						has_state_flag = FRA_INITIAL_STATE
+						NOT = { is_core_of = ALG }
 					}
 					add_core_of = ROOT
 				}
@@ -2976,6 +2999,7 @@ form_european_union_category = {
 				every_state = {
 					limit = {
 						has_state_flag = ITA_INITIAL_STATE
+						NOT = { is_core_of = LBA }
 					}
 					add_core_of = ROOT
 				}
@@ -3090,7 +3114,7 @@ form_european_union_category = {
 						OR = {
 							has_state_flag = AUS_INITIAL_STATE
 							has_state_flag = SWI_INITIAL_STATE
-							state = 1460 #Liestenstein
+							state = 1460 #Liechtenstein
 						}
 					}
 					add_core_of = ROOT
@@ -3119,8 +3143,18 @@ form_european_union_category = {
 		highlight_states = {
             highlight_states_trigger = {
                 OR = {
-					has_state_flag = SPR_INITIAL_STATE
-					has_state_flag = POR_INITIAL_STATE
+					AND = {
+						has_state_flag = SPR_INITIAL_STATE
+						NOT = { is_core_of = MOR }
+						NOT = { is_core_of = CNR }
+						NOT = { state = 1852 }
+						NOT = { state = 893 }
+					}
+					AND = {
+						has_state_flag = POR_INITIAL_STATE
+						NOT = { state = 1823 }
+
+					}
 				}
                 
             }
@@ -3164,12 +3198,17 @@ form_european_union_category = {
 					any_state = {
 							has_state_flag = POR_INITIAL_STATE
 							NOT = {is_controlled_by = ROOT }
+							NOT = { state = 1823 }
 						}
 					}
 				NOT = {
 					any_state = {
 					has_state_flag = SPR_INITIAL_STATE
 						NOT = {is_controlled_by = ROOT }
+						NOT = { state = 1852 }
+						NOT = { state = 893 }
+						NOT = { is_core_of = MOR }
+						NOT = { is_core_of = CNR }
 					}
 				}
 			}
@@ -3186,7 +3225,10 @@ form_european_union_category = {
 						OR = {
 							has_state_flag = POR_INITIAL_STATE
 							has_state_flag = SPR_INITIAL_STATE
+							state = 1619
+							state = 882
 						}
+						NOT = { is_core_of = MOR }
 					}
 					add_core_of = ROOT
 				}
@@ -3256,7 +3298,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_west_slavic_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3363,7 +3405,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_baltic_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3431,7 +3473,13 @@ form_european_union_category = {
 		highlight_states = {
             highlight_states_trigger = {
                 OR = {
-					has_state_flag = ENG_INITIAL_STATE
+					AND = {
+						has_state_flag = ENG_INITIAL_STATE
+						NOT = { state = 882}
+						NOT = {is_core_of = CYP}
+						NOT = { state = 1285}
+						NOT = { state = 64}
+					}
 					has_state_flag = IRE_INITIAL_STATE
 				}
                 
@@ -3465,7 +3513,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_isles_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3476,6 +3524,10 @@ form_european_union_category = {
 					any_state = {
 							has_state_flag = ENG_INITIAL_STATE
 							NOT = {is_controlled_by = ROOT }
+							NOT = { state = 882}
+							NOT = { is_core_of = CYP }
+							NOT = { state = 1285 }
+							NOT = { state = 64 }
 						}
 					}
 				NOT = {
@@ -3496,7 +3548,13 @@ form_european_union_category = {
 				every_state = {
 					limit = {
 						OR = {
-							has_state_flag = ENG_INITIAL_STATE
+							AND = {
+								has_state_flag = ENG_INITIAL_STATE
+								NOT = {is_core_of = CYP}
+								NOT = { state = 882}
+								NOT = { state = 1285 }
+								NOT = { state = 64 }
+							}
 							has_state_flag = IRE_INITIAL_STATE
 						}
 					}
@@ -3561,7 +3619,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_scandinavia_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3676,7 +3734,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_finnish_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3800,7 +3858,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_balkan_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3899,7 +3957,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_aegean_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -3996,7 +4054,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_belarus_ukraine_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -4095,7 +4153,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_caucasian_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -4192,7 +4250,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_kuban_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 
@@ -4300,7 +4358,7 @@ form_european_union_category = {
 		}
 
 		visible = { 
-			NOT = { has_global_flag = EU_integrated_iberian_states_flag }
+			NOT = { has_global_flag = EU_integrated_russian_states_flag }
 			has_global_flag = form_european_union_flag
 		}
 

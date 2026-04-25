@@ -11011,11 +11011,17 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			if = {
-				limit = { controls_state = 1460 }   # GER kontrolliert Liechtenstein
-				add_state_core = 1460
-
-				1460 = {
+			IF = {
+				limit = {
+					LIE = { exists = yes }
+				}
+				LIE = {
+					country_event = { id = MA_germany.1 }
+				}
+			}
+			else = {
+				1460 = { 
+					add_core_of = ROOT
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
@@ -11023,13 +11029,10 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
+
 			}
-			else_if = {
-				 limit = { country_exists = LIE }
-       			 LIE = { country_event = { id = MA_germany.1 days = 1 } }
-        }
+		}
     }
-}
 
 
 	focus = {
@@ -12873,22 +12876,16 @@ focus_tree = {
 		
 		available = {
 			is_subject = no
-				custom_trigger_tooltip = {
-				tooltip = mer_GER_reintegrate_luxemburg_and_alsace_lorraine_controls_alslor_tt
-				has_full_control_of_state = 606
-				has_full_control_of_state = 2746
-				has_full_control_of_state = 566
-				has_full_control_of_state = 2747
-				has_full_control_of_state = 2608
-				has_full_control_of_state = 547
-				}
-				custom_trigger_tooltip = {
-				tooltip = mer_GER_reintegrate_luxemburg_and_alsace_lorraine_controls_lux_tt
-				has_full_control_of_state = 512
-				has_full_control_of_state = 427
-				has_full_control_of_state = 405
-				}
-				has_full_control_of_state = 485
+			427 = { is_fully_controlled_by = ROOT }
+			404 = { is_fully_controlled_by = ROOT }
+			512 = { is_fully_controlled_by = ROOT }
+			606 = { is_fully_controlled_by = ROOT }
+			2746 = { is_fully_controlled_by = ROOT }
+			566 = { is_fully_controlled_by = ROOT }
+			2747 = { is_fully_controlled_by = ROOT }
+			2608 = { is_fully_controlled_by = ROOT }
+			547 = { is_fully_controlled_by = ROOT }
+
 			OR = {
 				FRA = { has_capitulated = yes }
 				FRA = { is_subject_of = ROOT }
@@ -12905,7 +12902,7 @@ focus_tree = {
 					exists = no
 				}
 			}		
-			or = {
+			OR = {
 				BEL = { has_capitulated = yes }
 				BEL = {is_subject_of = ROOT }
 				all_country_with_original_tag = {
@@ -24590,7 +24587,7 @@ focus_tree = {
 
 		prerequisite = { focus = GER_military_dictatorship }
 
-		x = 2
+		x = 4
 		y = 1
 		relative_position_id = GER_return_of_the_kaiser_ww
 
@@ -30071,6 +30068,7 @@ focus_tree = {
 							State = 2329
 							State = 481
 							State = 2262
+							state =1979
 						}
 					}
 					is_owned_by = POL
@@ -30107,6 +30105,7 @@ focus_tree = {
                 264 = { add_claim_by = GER }
                 267 = { add_claim_by = GER }
 				287 = { add_claim_by = GER }
+				1979 = { add_claim_by = GER }
             }
             # 86 = { add_claim_by = GER } # poznan
             custom_effect_tooltip = mer_GER_claims_on_poznan_tt
@@ -30147,6 +30146,7 @@ focus_tree = {
 							state = 264
 							state = 267
 							state = 287
+							state = 1979
 
 
 							state = 80
@@ -30194,6 +30194,7 @@ focus_tree = {
 									state = 264
 									state = 267
 									state = 287
+									state = 1979
 
 
 									state = 80
@@ -30996,7 +30997,7 @@ focus_tree = {
 		icon = GFX_focus_ger_accept_british_naval_dominance
 		prerequisite = { focus = GER_expatriate_the_communists_ww }
 		mutually_exclusive = { focus = GER_the_second_naval_race }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = GER_expatriate_the_communists_ww
 		cost = 5
@@ -31033,7 +31034,7 @@ focus_tree = {
 		icon = GFX_goal_generic_occupy_states_coastal
 		prerequisite = { focus = GER_expatriate_the_communists_ww }
 		mutually_exclusive = { focus = GER_accept_british_naval_dominance_ww }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = GER_expatriate_the_communists_ww
 		cost = 5
@@ -31104,7 +31105,7 @@ focus_tree = {
 		icon = GFX_focus_generic_naval_discipline
 		prerequisite = { focus = GER_accept_british_naval_dominance_ww }
 
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = GER_accept_british_naval_dominance_ww
 		cost = 10
@@ -31170,11 +31171,12 @@ focus_tree = {
 			id = GER_carte_blanche_for_alsace_ww
 			icon = GFX_focus_attack_france
 
-			prerequisite = { focus = GER_anglo_germanic_defense_pact }
+			prerequisite = {	focus = GER_anglo_germanic_defense_pact }
+			prerequisite = {	focus = GER_anglo_germanic_cooperation_program }
 
 			mutually_exclusive = { focus = GER_Rachekrieg }
 
-			x = 0
+			x = 1
 			y = 1
 			relative_position_id = GER_anglo_germanic_defense_pact
 
@@ -31340,11 +31342,11 @@ focus_tree = {
 	focus = {
 		id = GER_anglo_germanic_defense_pact
 		icon = GFX_focus_chi_british_cooperation
-		prerequisite = { focus = GER_anglo_germanic_cooperation_program }
+		prerequisite = { focus = GER_accept_british_naval_dominance_ww }
 
-		x = 0
+		x = -1
 		y = 1
-		relative_position_id = GER_anglo_germanic_cooperation_program
+		relative_position_id = GER_accept_british_naval_dominance_ww
 		cost = 10
 		available = {
 			has_added_tension_amount < 25
@@ -31398,86 +31400,18 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = GER_prepare_for_the_next_naval_blockade
-
-		icon = GFX_goal_generic_navy_cruiser
-		prerequisite = { focus = GER_rebuild_the_high_seas_fleet_ww }
-
-		x = 0
-		y = 1
-		relative_position_id = GER_rebuild_the_high_seas_fleet_ww
-
-		cost = 5
-
-		available = {
-			has_war = no
-		} 
-
-		bypass = {
-			has_war = yes
-		}
-
-		dynamic = yes
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-
-		completion_reward = {
-
-			add_equipment_to_stockpile = { 
-				type = convoy_1
-				amount = 50
-				producer = ROOT
-			}
-
-			add_equipment_to_stockpile = {
-				type = train_equipment
-				amount = 25
-			}
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-			custom_effect_tooltip = GER_war_preparations_tt
-			effect_tooltip = {
-				add_timed_idea = {
-					idea = GER_strengthened_supply_lines_ns
-					days = 730
-				}
-			}
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-			IF = {
-				limit = {
-					has_idea = GER_reichswerke
-				}
-				swap_ideas = {
-					remove_idea = GER_reichswerke
-					add_idea = GER_reichswerke_improved
-				}
-			}
-			ELSE = {
-				effect_tooltip = {
-					swap_ideas = {
-						remove_idea = GER_reichswerke
-						add_idea = GER_reichswerke_improved
-					}
-				}
-			}
-		}
-	}
 
 	focus = {
 		id = GER_Rache_für_Vesaille
 		icon = GFX_goal_generic_territory_or_war
-		prerequisite = { focus = GER_prepare_for_the_next_naval_blockade }
+		prerequisite = { focus = GER_rebuild_the_high_seas_fleet_ww }
 
 		x = 0
-		y = 3
+		y = 1
 
 		cost = 5
 
-		relative_position_id = GER_the_second_naval_race
+		relative_position_id = GER_rebuild_the_high_seas_fleet_ww
 
 		available = {
 			OR = {
@@ -31549,7 +31483,7 @@ focus_tree = {
 		
 
 		mutually_exclusive = { focus = GER_schlieffen_once_more_ww focus = GER_bypass_maginot_in_the_south_ww }
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = GER_carte_blanche_for_alsace_ww
 		cost = 10
@@ -31655,7 +31589,7 @@ focus_tree = {
 		prerequisite = { focus = GER_carte_blanche_for_alsace_ww }
 		prerequisite = { focus = GER_Rache_für_Vesaille }
 		mutually_exclusive = { focus = GER_backdoor_negotiations focus = GER_bypass_maginot_in_the_south_ww }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = GER_carte_blanche_for_alsace_ww
 		cost = 4
@@ -31747,7 +31681,7 @@ focus_tree = {
 
 		mutually_exclusive = { focus = GER_backdoor_negotiations focus = GER_schlieffen_once_more_ww }
 
-		x = 3
+		x = 4
 		y = 1
 		relative_position_id = GER_carte_blanche_for_alsace_ww
 
