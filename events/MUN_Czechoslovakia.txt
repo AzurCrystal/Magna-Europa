@@ -1192,7 +1192,7 @@ country_event = {
 					original_tag = CRO
 					original_tag = BOS
 					original_tag = HRZ
-					has_cosmetic_tag = vojvodina
+					original_tag = VJV
 				}
 			}
 			CZE = {
@@ -1272,13 +1272,15 @@ country_event = {
 		}
 		every_owned_state = {
 			limit = {
-				OR = {
-					state = 102
-					state = 853
-					state = 736
-					state = 852	#never theirs, but avoids Italian exclave
-					#state = 160	#partially theirs, but only the northern 1/3rd
-				}
+				has_state_flag = ITA_INITIAL_STATE
+				is_core_of = JUL
+			}
+			transfer_state_to = CZE
+		}
+		every_owned_state = {
+			limit = {
+				has_state_flag = YUG_INITIAL_STATE
+				is_core_of = SLV
 			}
 			transfer_state_to = CZE
 		}
@@ -1547,9 +1549,21 @@ country_event = {	#Czechoslovakia pressures Romania with USSR
 			every_state = {
 				limit = {
 					OR = {
-						state = 78
-						state = 80
-						state = 766
+						state = 1601
+						state = 794
+						state = 1602
+						state = 2744
+						state = 2745
+						state = 1603
+						state = 1604
+						state = 1605
+						state = 600
+						state = 592
+						state = 1599
+						state = 1600
+						state = 590
+						state = 1606
+						state = 2980
 					}
 					is_owned_by = ROM
 					NOT = {
@@ -1576,9 +1590,21 @@ country_event = {	#Czechoslovakia pressures Romania with USSR
 			every_state = {
 				limit = {
 					OR = {
-						state = 78
-						state = 80
-						state = 766
+						state = 1601
+						state = 794
+						state = 1602
+						state = 2744
+						state = 2745
+						state = 1603
+						state = 1604
+						state = 1605
+						state = 600
+						state = 592
+						state = 1599
+						state = 1600
+						state = 590
+						state = 1606
+						state = 2980
 					}
 					is_owned_by = ROM
 					NOT = {
@@ -1856,9 +1882,9 @@ country_event = {	#event to Poland to demand Katowice
 	option = {		#no
 		name = MUN_czech.1022.b		#reused
 		FROM = {
-			762 = {
-				add_claim_by = FROM
-			}
+			2262 = { add_claim_by = FROM }
+			481 = { add_claim_by = FROM }
+			2329 = { add_claim_by = FROM }
 			country_event = MUN_czech.1003
 		}
 	}
@@ -2137,32 +2163,16 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			if = {
+			every_state = {
 				limit = {
-					762 = {
-						owner = {
-							owns_state = 66
-						}
+					is_core_of = SIL
+					NOT = { state = 441}
+					owner = {
+						owns_state = 1663
 					}
 				}
-				762 = {
-					transfer_state_to = CZE
-				}
-			}
-			if = {
-				limit = {
-					67 = {
-						owner = {
-							owns_state = 66
-						}
-					}
-				}
-				67 = {
-					transfer_state_to = CZE
-				}
-			}
-			66 = {
-				transfer_state_to = CZE
+			transfer_state_to = CZE
+			set_state_flag = CZE_transferred_to_us
 			}
 		}
 	}
@@ -2186,7 +2196,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 66 }
+			generator = { 1663 }
 			expire = 500
 		}
 	}
@@ -2206,7 +2216,7 @@ country_event = {
 	}
 }
 
-country_event = {	#66 owner notified of Czech border war - currently cut content
+country_event = {	#1663 owner notified of Czech border war - currently cut content
 	id = MUN_czech.1023
 	title = MUN_czech.1023.t
 	desc = MUN_czech.1023.d
@@ -2220,7 +2230,7 @@ country_event = {	#66 owner notified of Czech border war - currently cut content
 }
 
 
-country_event = {	#66 owner requested white peace with CZE
+country_event = {	#1663 owner requested white peace with CZE
 	id = MUN_czech.1024
 	title = MUN_czech.1024.t
 	desc = MUN_czech.1024.d
@@ -2250,36 +2260,18 @@ country_event = {	#66 owner requested white peace with CZE
 				}
 			}
 		}
-		if = {
+		every_state = {
 			limit = {
-				762 = {
-					owner = {
-						owns_state = 66
-					}
+				is_core_of = SIL
+				NOT = { state = 441}
+				owner = {
+					owns_state = 1663
 				}
 			}
-			762 = {
-				transfer_state_to = CZE
-				set_state_flag = CZE_transferred_to_us
-			}
-		}
-		if = {
-			limit = {
-				67 = {
-					owner = {
-						owns_state = 66
-					}
-				}
-			}
-			67 = {
-				transfer_state_to = CZE
-				set_state_flag = CZE_transferred_to_us
-			}
-		}
-		66 = {
 			transfer_state_to = CZE
 			set_state_flag = CZE_transferred_to_us
 		}
+		
 		white_peace = FROM
 		set_global_flag = CZE_block_silesia_war_negotations		#sanity effect: if a new war comes, the decision shouldn't reappear
 
@@ -2811,7 +2803,7 @@ country_event = { #CZE asks to enter exile
 						}
 					}
 				}
-				9 = {
+				513 = {
 					IF = {
 						limit = {
 							is_owned_by = FROM
@@ -2834,7 +2826,7 @@ country_event = { #CZE asks to enter exile
 				every_state = {	
 					limit = {
 						NOT = {
-							state = 7
+							state = 536
 						}
 						is_owned_by = FROM
 					}
@@ -4103,16 +4095,10 @@ country_event = {
 		FROM = {
 			country_event = MUN_czech.1003
 		}
-		76 = {
-			add_core_of = HUN
-		}
-		84 = {
-			add_claim_by = HUN
-		}
-		83 = {
-			add_claim_by = HUN
-		}
-		82 = {
+		every_state = {
+			limit = {
+				is_core_of = TRA
+			}
 			add_claim_by = HUN
 		}
 	}
