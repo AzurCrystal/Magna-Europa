@@ -1342,6 +1342,20 @@ political_actions = {
 
 	CZE_white_peace_silesia_owner = {
 		icon = GFX_decision_generic_operation
+
+		on_map_mode = decision_view_only
+		
+		highlight_states = {
+            highlight_states_trigger = {
+				is_core_of = SIL
+				is_owned_by = GER
+				NOT = { state = 441}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
+
 		allowed = {
 			original_tag = CZE
 		}
@@ -1357,12 +1371,21 @@ political_actions = {
 				has_global_flag = CZE_block_silesia_war_negotations	#lets Germany player block annoying CZE
 			}
 		}
+		
 		available = {
 			all_owned_state = {
 				is_controlled_by = ROOT
 			}
-			1663 = {
-				is_controlled_by = ROOT
+			custom_trigger_tooltip = {
+				tooltip = GER_reichskommissariat_highlighted_required_states
+				NOT = {
+					any_state = {
+						is_core_of = SIL
+						is_owned_by = GER
+						NOT = {is_controlled_by_Root_or_subject = yes }
+						NOT = { state = 441}
+					}
+				}
 			}
 		}
 		remove_effect = {
@@ -3813,8 +3836,7 @@ CZE_the_second_fortification_program_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-       			#Sudetenland
-				state = 471 
+       			state = 471 
 				state = 473 
 				state = 498 
 				state = 499 
@@ -3830,6 +3852,9 @@ CZE_the_second_fortification_program_category = {
 				state = 1435 
 				state = 1977
     		}
+			highlight_provinces = { 
+				12551 8664
+			}
 		}
 
 		on_map_mode = map_and_decisions_view
@@ -4085,6 +4110,16 @@ CZE_the_second_fortification_program_category = {
 						level < 3
 					}
 				}
+				486 = {
+					any_province_building_level = {
+						province = {
+							id = 12551
+							id = 8664
+						}
+						building = bunker
+						level < 3
+					}
+				}
 			}
 		}
 
@@ -4128,7 +4163,7 @@ CZE_the_second_fortification_program_category = {
 			499 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			504 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			507 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
-			52  = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
+			522  = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			1428 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			1430 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			1431 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
@@ -4136,7 +4171,9 @@ CZE_the_second_fortification_program_category = {
 			1433 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			1434 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
 			1435 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
-			1977 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }			
+			1977 = { set_building_level = { type = bunker level = 3 province = { all_provinces = yes level < 3 } } }
+			486 = { set_building_level = { type = bunker level = 3 province = { id = 12551 id = 8664 level < 3 } } }
+
 
 			if = {
 				limit = {
@@ -4186,6 +4223,9 @@ CZE_the_second_fortification_program_category = {
 				state = 1435 
 				state = 1977
     		}
+			highlight_provinces = {
+				12551 8664
+			}
 		}
 
 		on_map_mode = map_and_decisions_view
@@ -4292,7 +4332,7 @@ CZE_the_second_fortification_program_category = {
 					level < 5
 				}
 			}
-			52 = {
+			522 = {
 				any_province_building_level = {
 					province = {
 						all_provinces = yes
@@ -4431,6 +4471,24 @@ CZE_the_second_fortification_program_category = {
 				any_province_building_level = {
 					province = {
 						all_provinces = yes
+					}
+					building = bunker
+					level < 5
+				}
+			}
+			486 = {
+				any_province_building_level = {
+					province = {
+						id = 12551
+						id = 8664
+					}
+					building = bunker
+					level > 2
+				}
+				any_province_building_level = {
+					province = {
+						id = 12551
+						id = 8664
 					}
 					building = bunker
 					level < 5
@@ -4715,6 +4773,17 @@ CZE_the_second_fortification_program_category = {
 						}
 					}
 				}
+				486 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 12551
+							id = 8664
+							level < 5
+						}
+					}
+				}
 
 			if = {
 				limit = {
@@ -4766,6 +4835,9 @@ CZE_the_second_fortification_program_category = {
 				state = 1435 
 				state = 1977
     		}
+			highlight_provinces = {
+				12551 8664
+			}
 		}
 
 		on_map_mode = map_and_decisions_view
@@ -5041,6 +5113,24 @@ CZE_the_second_fortification_program_category = {
 					province = {
 						all_provinces = yes
 						#limit_to_border = yes
+					}
+					building = bunker
+					level < 7
+				}
+			}
+			486 = {
+				any_province_building_level = {
+					province = {
+						id = 12551
+						id = 8664
+					}
+					building = bunker
+					level > 4
+				}
+				any_province_building_level = {
+					province = {
+						id = 12551
+						id = 8664
 					}
 					building = bunker
 					level < 7
@@ -5335,6 +5425,17 @@ CZE_the_second_fortification_program_category = {
 						province = {
 							all_provinces = yes
 							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+				486 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 12551
+							id = 8664
 							level < 7
 						}
 					}

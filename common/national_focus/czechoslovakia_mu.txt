@@ -1288,6 +1288,14 @@ focus_tree = {
 			set_country_flag = CZE_unlock_white_peace
 			unlock_decision_tooltip = CZE_white_peace_silesia_owner
 			show_unit_leaders_tooltip = CZE_josef_shnejdarek
+
+			every_state = {
+				limit = {
+					is_core_of = SIL
+					is_owned_by = GER
+				}
+				add_claim_by = ROOT
+			}
 		}
 
 		completion_reward = {
@@ -1313,6 +1321,13 @@ focus_tree = {
 			# custom_effect_tooltip = generic_skip_one_line_tt
 			# unlock_decision_tooltip = CZE_escalate_border_war
 			# custom_effect_tooltip = generic_skip_one_line_tt
+			every_state = {
+				limit = {
+					is_core_of = SIL
+					is_owned_by = GER
+				}
+				add_claim_by = ROOT
+			}
 			create_wargoal = {
 				type = take_state_focus
 				target = 1663.owner
@@ -1642,10 +1657,6 @@ focus_tree = {
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
 			}
-			88 = {
-				add_core_of = GAL
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
 		}
 
 		completion_reward = {
@@ -1674,6 +1685,11 @@ focus_tree = {
 				82 = { add_claim_by = ROOT }
 				549 = { add_claim_by = ROOT }
 			}
+			custom_effect_tooltip = mer_claims_on_polish_slovak_terrotory_tt
+			hidden_effect = {
+				1441 = { add_claim_by = ROOT }
+				1440 = { add_claim_by = ROOT }
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
 				limit = {
@@ -1687,20 +1703,15 @@ focus_tree = {
 						}
 					}
 				}
-				91 = {
-					add_core_of = RUT
-				}
-				89 = {
-					add_core_of = RUT
-				}
-				93 = {
+				every_state = {
+					limit = {
+						is_core_of = GAL
+					}
 					add_core_of = RUT
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
 			}
-			88 = {
-				add_core_of = GAL
-			}
+
 			custom_effect_tooltip = generic_skip_one_line_tt
 			create_wargoal = {
 				type = puppet_wargoal_focus
@@ -1891,6 +1902,11 @@ focus_tree = {
 					}
 					add_core_of = CZE
 				}
+			}
+			custom_effect_tooltip = mer_cores_on_polish_slovak_terrotory_tt
+			hidden_effect = {
+				1441 = { add_core_of = ROOT }
+				1440 = { add_core_of = ROOT }
 			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -3107,7 +3123,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = mer_claims_on_austria_tt
+			custom_effect_tooltip = mer_GER_claims_on_austria
 			hidden_effect = {
 				every_state = {
 					limit = {
