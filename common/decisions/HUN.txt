@@ -2334,30 +2334,21 @@ HUN_territorial_revision_category = {
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 202
-				state = 201
-				state = 93
-				state = 199
-				state = 198
-				state = 834
-				state = 192
-				state = 203
-				state = 193
-				state = 225
-				state = 259
-				state = 226
-				state = 197
-				state = 196
-				state = 200
-				state = 221
-				state = 227
-				state = 228
-				state = 137
-				state = 218
-				state = 234
-			}
-		}
+            highlight_states_trigger = {
+                AND = {
+					OR = {
+						is_core_of = UKR
+						is_core_of = CRI
+					}
+					NOT = { has_state_flag = POL_INITIAL_STATE }
+					NOT = { has_state_flag = ROM_INITIAL_STATE }
+					NOT = { has_state_flag = CZE_INITIAL_STATE }
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 	
 		allowed = {  
 			original_tag = HUN
@@ -2377,195 +2368,16 @@ HUN_territorial_revision_category = {
 			is_subject = no
 			custom_trigger_tooltip = {
 				tooltip = wuw_HUN_the_kingdom_of_ukraine_required_states_tt
-				AND = {
-					OR = {
-						93 = {
-							is_controlled_by = ROOT
+				NOT = {
+					any_state = {
+						OR = {
+							is_core_of = UKR
+							is_core_of = CRI
 						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 93
-						}
-					}
-					OR = {
-						199 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 199
-						}
-					}
-					OR = {
-						201 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 201
-						}
-					}
-					OR = {
-						202 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 202
-						}
-					}
-					OR = {
-						198 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 198
-						}
-					}
-					OR = {
-						834 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 834
-						}
-					}
-					OR = {
-						192 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 192
-						}
-					}
-					OR = {
-						203 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 203
-						}
-					}
-					OR = {
-						197 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 197
-						}
-					}
-					OR = {
-						193 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 193
-						}
-					}
-					OR = {
-						225 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 225
-						}
-					}
-					OR = {
-						259 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 259
-						}
-					}
-					OR = {
-						226 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 226
-						}
-					}
-					OR = {
-						196 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 196
-						}
-					}
-					OR = {
-						200 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 200
-						}
-					}
-					OR = {
-						227 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 227
-						}
-					}
-					OR = {
-						221 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 221
-						}
-					}
-					OR = {
-						228 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 228
-						}
-					}
-					OR = {
-						137 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 137
-						}
-					}
-					OR = {
-						218 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 218
-						}
-					}
-					OR = {
-						234 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 234
-						}
+						NOT = { has_state_flag = POL_INITIAL_STATE }
+						NOT = { has_state_flag = ROM_INITIAL_STATE }
+						NOT = { has_state_flag = CZE_INITIAL_STATE }
+						NOT = {is_controlled_by = ROOT }
 					}
 				}
 			}
@@ -2586,73 +2398,14 @@ HUN_territorial_revision_category = {
 				every_state = {
 					limit = {
 						OR = {
-							is_controlled_by = ROOT
-							any_country = {
-								is_subject_of = ROOT
-								controls_state = PREV
-							}
+							is_core_of = UKR
+							is_core_of = CRI
 						}
-						NOT = {
-							is_core_of = ROOT
-						}
-						OR = {
-							state = 93
-							state = 199
-							state = 201
-							state = 198
-							state = 834
-							state = 192
-							state = 766
-							state = 202
-							state = 193
-							state = 225
-							state = 259
-							state = 203
-							state = 197
-							state = 226
-							state = 196
-							state = 200
-							state = 221
-							state = 227
-							state = 228
-							state = 137
-							state = 218
-							state = 234
-						}
+						NOT = { has_state_flag = POL_INITIAL_STATE }
+						NOT = { has_state_flag = ROM_INITIAL_STATE }
+						NOT = { has_state_flag = CZE_INITIAL_STATE }
 					}
 					transfer_state_to = UKR
-				}
-
-				every_state = {
-					limit = {
-						NOT = {
-							is_core_of = UKR
-						}
-						OR = {
-							state = 93
-							state = 199
-							state = 201
-							state = 198
-							state = 834
-							state = 192
-							state = 766
-							state = 202
-							state = 193
-							state = 225
-							state = 259
-							state = 203
-							state = 197
-							state = 226
-							state = 196
-							state = 200
-							state = 221
-							state = 227
-							state = 228
-							state = 137
-							state = 218
-							state = 234
-						}
-					}
 					add_core_of = UKR
 				}
 
