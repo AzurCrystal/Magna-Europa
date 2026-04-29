@@ -1352,6 +1352,20 @@ country_event = {	#puppet Hungary, but they get expanded
 	is_triggered_only = yes
 
 	option = {
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 0
+				OR = {
+					is_faction_leader = yes
+					is_major = yes
+					strength_ratio = {
+						tag = FROM
+						ratio > 1
+					}
+				}
+			}
+		}
 		name = MUN_czech.1013.a
 		FROM = {
 			add_named_threat = {
@@ -1387,17 +1401,6 @@ country_event = {	#puppet Hungary, but they get expanded
 	option = {
 		ai_chance = {
 			base = 1
-			modifier = {
-				factor = 0
-				OR = {
-					is_faction_leader = yes
-					is_major = yes
-					strength_ratio = {
-						tag = FROM
-						ratio > 1
-					}
-				}
-			}
 		}
 		name = MUN_czech.1007.b
 		FROM = {
@@ -2173,11 +2176,11 @@ country_event = {
 				limit = {
 					is_core_of = SIL
 					NOT = { state = 441}
-					owner = {
+						owner = {
 						owns_state = 1663
+						}
 					}
-				}
-			transfer_state_to = CZE
+					transfer_state_to = CZE
 			set_state_flag = CZE_transferred_to_us
 			}
 		}
@@ -2222,7 +2225,7 @@ country_event = {
 	}
 }
 
-country_event = {	#1663 owner notified of Czech border war - currently cut content
+country_event = {	#66 owner notified of Czech border war - currently cut content
 	id = MUN_czech.1023
 	title = MUN_czech.1023.t
 	desc = MUN_czech.1023.d
@@ -2236,7 +2239,7 @@ country_event = {	#1663 owner notified of Czech border war - currently cut conte
 }
 
 
-country_event = {	#1663 owner requested white peace with CZE
+country_event = {	#66 owner requested white peace with CZE
 	id = MUN_czech.1024
 	title = MUN_czech.1024.t
 	desc = MUN_czech.1024.d
@@ -2270,13 +2273,13 @@ country_event = {	#1663 owner requested white peace with CZE
 			limit = {
 				is_core_of = SIL
 				NOT = { state = 441}
-				owner = {
+					owner = {
 					owns_state = 1663
+					}
 				}
+				transfer_state_to = CZE
+				set_state_flag = CZE_transferred_to_us
 			}
-			transfer_state_to = CZE
-			set_state_flag = CZE_transferred_to_us
-		}
 		
 		white_peace = FROM
 		set_global_flag = CZE_block_silesia_war_negotations		#sanity effect: if a new war comes, the decision shouldn't reappear
@@ -2652,8 +2655,8 @@ country_event = { #Tells ROOT a divided nation decision can be taken
 		custom_effect_tooltip = generic_has_happen_tt
 		effect_tooltip = {
 			custom_effect_tooltip = CZE_modify_a_divided_nation_ns_intro_tt
-			add_to_variable = { CZE_a_divided_nation_stability_factor = 0.004 tooltip = stability_factor_tt }
-			add_to_variable = { CZE_a_divided_nation_drift_defence_factor = 0.006 tooltip = drift_defence_factor_tt }
+			add_to_variable = { CZE_a_divided_nation_stability_factor = 0.02 tooltip = stability_factor_tt }
+			add_to_variable = { CZE_a_divided_nation_drift_defence_factor = 0.03 tooltip = drift_defence_factor_tt }
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -3022,6 +3025,7 @@ country_event = {
 						has_cosmetic_tag = CZE_fall_of_the_republic
 					}
 				}
+				set_country_flag = achievement_became_second_cze_republic
 				set_cosmetic_tag = CZE_second_republic
 			}
 			set_country_flag = CZE_gave_in_to_hlinka_guard
@@ -3105,6 +3109,7 @@ country_event = {
 						has_cosmetic_tag = CZE_fall_of_the_republic
 					}
 				}
+				set_country_flag = achievement_became_second_cze_republic
 				set_cosmetic_tag = CZE_second_republic
 			}
 			set_country_flag = CZE_gave_in_to_hlinka_guard
@@ -3742,6 +3747,19 @@ country_event = { #divided nation is over
 
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = {	#this is for if the very last decision was interrupted by releasing
+			if = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = CZE_a_divided_nation_dynamic_modifier
+					}
+				}
+				remove_dynamic_modifier = { modifier = CZE_a_divided_nation_dynamic_modifier }
+			}
+		}
+	}
+
 	option = { #good news
 		name = MUN_czech.1046.a
 		custom_effect_tooltip = generic_has_happen_tt
@@ -3859,6 +3877,16 @@ country_event = {
 	option = {
 		name = MUN_czech.1046.a		#reused
 		trigger = {
+			check_variable = { global.CZE_origin_event = 1056 }
+		}
+		custom_effect_tooltip = generic_has_happen_tt
+		effect_tooltip = {
+			transfer_state = 975
+		}
+	}
+	option = {
+		name = MUN_czech.1046.a		#reused
+		trigger = {
 			check_variable = { global.CZE_origin_event = 1024 }
 		}
 		custom_effect_tooltip = generic_has_happen_tt
@@ -3878,6 +3906,7 @@ country_event = {
 			NOT = {
 				check_variable = { global.CZE_origin_event = 1019 }
 				check_variable = { global.CZE_origin_event = 1024 }
+				check_variable = { global.CZE_origin_event = 1056 }
 			}
 		}
 	}
@@ -4068,11 +4097,28 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 2
+				original_tag = ROM
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value > 75
+				}
+			}
+		}
 		name = MUN_czech.1052.a
 		give_military_access = SOV
 		add_ideas = CZE_soviet_influence
 	}
 	option = {
+		ai_chance = {
+			base = 2
+		}
 		name = MUN_czech.1007.b
 	}
 }
@@ -4087,6 +4133,30 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 0.25
+				any_other_country = {
+					OR = {
+						is_in_faction_with = ROOT
+						AND = {
+							has_guaranteed = ROOT
+							NOT = {
+								has_guaranteed = FROM
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 3
+				strength_ratio = {
+					tag = ROOT
+					ratio < 0.66
+				}
+			}
+		}
 		name = MUN_czech.1012.a
 		FROM = {
 			add_named_threat = {
@@ -4097,6 +4167,9 @@ country_event = {
 		}
 	}
 	option = {
+		ai_chance = {
+			base = 1
+		}
 		name = MUN_czech.1012.b
 		FROM = {
 			country_event = MUN_czech.1003
@@ -4104,7 +4177,7 @@ country_event = {
 		every_state = {
 			limit = {
 				is_core_of = TRA
-			}
+		}
 			add_claim_by = HUN
 		}
 	}
@@ -4185,6 +4258,77 @@ country_event = {
 	}
 }
 
+country_event = {	#event to Austria to demand Burgenland
+	id = MUN_czech.1056
+	title = MUN_czech.1056.t
+	desc = MUN_czech.1056.d
+	picture = GFX_report_event_czech_soldiers_02
+
+	is_triggered_only = yes
+
+	option = {		#sure
+		name = MUN_czech.1019.a		#reused
+		ai_chance = {
+			base = 2
+			modifier = {
+				factor = 0.5
+				any_other_country = {
+					OR = {
+						is_in_faction_with = ROOT
+						AND = {
+							has_guaranteed = ROOT
+							NOT = {
+								has_guaranteed = FROM
+							}
+						}
+					}
+				}
+			}
+			modifier = {	#slightly more sympathetic to same ideology CZE protecting itself
+				factor = 2
+				has_government = democratic
+				FROM = {
+					has_government = democratic
+				}
+			}
+			modifier = {
+				factor = 3
+				strength_ratio = {
+					tag = ROOT
+					ratio < 0.5
+				}
+			}
+		}
+		1805 = {
+			transfer_state_to = FROM
+		}
+		621 = {
+			transfer_state_to = FROM
+		}
+
+		FROM = {
+			set_variable = { global.CZE_origin_event = 1056 }
+			country_event = MUN_czech.1048
+		}
+	}
+
+	option = {		#no
+		name = MUN_czech.1020.b		#reused
+		ai_chance = {
+			base = 2
+		}
+		FROM = {
+			1805 = {
+				add_claim_by = FROM
+			}
+			621 = {
+				add_claim_by = FROM
+			}
+			country_event = MUN_czech.1003
+		}
+	}
+}
+
 #KAAS - marijn211: let's me easily find this line
 
 ########################
@@ -4250,6 +4394,7 @@ country_event = { #The government is on its last legs
 				limit = {
 					has_government = democratic
 				}
+				set_country_flag = achievement_became_second_cze_republic
 				set_cosmetic_tag = CZE_second_republic
 				set_party_name = {
 					ideology = neutrality
@@ -4260,10 +4405,55 @@ country_event = { #The government is on its last legs
 			if = {
 				limit = {
 					OR = {
-						70 = {
+						2661 = {
 							is_owned_and_controlled_by = ROOT
 						}
-						71 = {
+						569 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						550 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						2313 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						562 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						2929 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						541 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						574 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						2660 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						577 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						586 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						2662 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						2978 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						1437 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						591 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						555 = {
+							is_owned_and_controlled_by = ROOT
+						}
+						2663 = {
 							is_owned_and_controlled_by = ROOT
 						}
 					}
@@ -4278,15 +4468,72 @@ country_event = { #The government is on its last legs
 			}
 			else_if = {
 				limit = { #if we somehow own 73 while SLO is a thing we skip to the next event in line
-					73 = {
+					610 = {
+						is_owned_and_controlled_by = ROOT
+					}
+					580 = {
+						is_owned_and_controlled_by = ROOT
+					}
+					1439 = {
+						is_owned_and_controlled_by = ROOT
+					}
+					1438 = {
+						is_owned_and_controlled_by = ROOT
+					}
+					1442 = {
 						is_owned_and_controlled_by = ROOT
 					}
 					NOT = {
 						OR = {
-							70 = {
+							2661 = {
+							is_owned_and_controlled_by = ROOT
+							}
+							569 = {
 								is_owned_and_controlled_by = ROOT
 							}
-							71 = {
+							550 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							2313 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							562 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							2929 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							541 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							574 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							2660 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							577 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							586 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							2662 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							2978 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							1437 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							591 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							555 = {
+								is_owned_and_controlled_by = ROOT
+							}
+							2663 = {
 								is_owned_and_controlled_by = ROOT
 							}
 						}
@@ -4331,6 +4578,7 @@ country_event = { #The government is on its last legs
 	 			promote_character = yes
 			}
 			add_country_leader_trait = CZE_3rd_prezident
+			set_country_flag = achievement_became_second_cze_republic
 			set_cosmetic_tag = CZE_fall_of_the_republic
 		}
 		effect_tooltip = {

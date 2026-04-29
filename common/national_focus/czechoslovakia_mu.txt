@@ -672,7 +672,7 @@ focus_tree = {
 						any_state = {
 							limit = {
 								has_state_flag = SLO_initial_core
-							}
+						}
 							is_controlled_by = ROOT
 						}
 					}
@@ -1706,7 +1706,7 @@ focus_tree = {
 				every_state = {
 					limit = {
 						is_core_of = GAL
-					}
+				}
 					add_core_of = RUT
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
@@ -1900,9 +1900,9 @@ focus_tree = {
 					limit = {
 						is_core_of = SAX
 					}
-					add_core_of = CZE
-				}
+				add_core_of = CZE
 			}
+		}
 			custom_effect_tooltip = mer_cores_on_polish_slovak_terrotory_tt
 			hidden_effect = {
 				1441 = { add_core_of = ROOT }
@@ -3125,12 +3125,12 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = mer_GER_claims_on_austria
 			hidden_effect = {
-				every_state = {
-					limit = {
+			every_state = {
+				limit = {
 						has_state_flag = AUS_INITIAL_STATE
-					}
-					add_claim_by = ROOT
 				}
+				add_claim_by = ROOT
+			}
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			create_wargoal = {
@@ -4556,7 +4556,7 @@ focus_tree = {
 				}
 				FRA = {
 					random_owned_controlled_state = {
-						prioritize = { 51 }
+						prioritize = { 16 }
 						create_unit = {
 							division = "name = \"Czechoslovak Exile Army\" division_template = \"Czech and Slovak Legion\" start_experience_factor = 1.0" 
 							owner = ROOT
@@ -4981,6 +4981,128 @@ focus_tree = {
 	}
 
 	focus = {
+		id = CZE_wielding_the_hammer
+		icon = GFX_focus_AUS_lawmaking_leniency
+		x = -2
+		y = 0
+		cost = 5
+
+		prerequisite = { focus = CZE_placate_benes_faction focus =  CZE_unify_the_fascist_parties }
+
+		relative_position_id = CZE_merge_the_paramilitaries
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			if = {
+				limit = {
+					has_government = democratic
+					NOT = {
+						has_completed_focus = CZE_appeal_to_the_castle
+					}
+				}
+				democratic > 0.75
+			}
+			if = {
+				limit = {
+					has_completed_focus = CZE_appeal_to_the_castle
+				}
+				fascism > 0.75
+			}
+		}
+		
+
+		completion_reward = {
+			add_political_power = 25
+			add_command_power = 25
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_ideas = CZE_wielding_the_hammer_idea
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+	}
+
+	focus = {
+		id = CZE_emergency_measures
+		icon = GFX_focus_generic_expropriate_industrialist
+		x = 0
+		y = 1
+		cost = 10
+
+		prerequisite = { focus = CZE_wielding_the_hammer }
+
+		relative_position_id = CZE_wielding_the_hammer
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			OR = {
+				has_war = yes
+				threat > 0.15
+				GER = {
+					has_completed_focus = GER_anschluss
+				}
+				any_neighbor_country = {
+					OR = {
+						has_added_tension_amount > 10
+						is_justifying_wargoal_against = PREV #PREV is ROOT (CZE) here
+					}
+				}
+			}
+		}
+		
+
+		completion_reward = {
+			custom_effect_tooltip = AUS_seek_papal_support_tt
+			hidden_effect = {
+				add_popularity = {
+					ideology = ROOT
+					popularity = 0.05
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+					has_intelligence_agency = yes
+				}
+				IF = {
+					limit = {
+						agency_upgrade_number < 4
+					}
+				
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+					upgrade_intelligence_agency = upgrade_passive_defense
+
+					custom_effect_tooltip = generic_skip_one_line_tt
+
+				}
+			}
+
+			add_timed_idea = {
+				idea = CZE_emergency_measures_idea
+				days = 1095
+			}
+
+			if = {
+				limit = {
+					has_power_balance = {
+    					id = CZE_bop_army_readiness
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				CZE_bop_very_low_increase_effect = yes
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_BALANCE_OF_POWER }
+	}
+
+	focus = {
 		id = CZE_leverage_sokol
 		icon = GFX_focus_generic_workers
 		prerequisite = { focus = CZE_negotiations_with_the_autonomous_bloc focus = CZE_placate_benes_faction }
@@ -5350,9 +5472,9 @@ focus_tree = {
 				every_state = {
 					limit = {
 						is_core_of = CRP
-						is_owned_and_controlled_by = ROOT
-					}
-					remove_core_of = SLO
+							is_owned_and_controlled_by = ROOT
+						}
+						remove_core_of = SLO
 				}
 				release_autonomy = {
     				target = SLO
@@ -5384,8 +5506,8 @@ focus_tree = {
 					limit = {
 						is_core_of = CRP
 						is_owned_and_controlled_by = ROOT
-					}
-					add_core_of = SLO
+							}
+						add_core_of = SLO
 				}
 				country_event = {
 					id = MUN_czech.1047
@@ -9871,7 +9993,7 @@ focus_tree = {
 							state = 590
 							state = 1606
 							state = 2980
-						}
+							}
 							is_owned_by = ROM
 							NOT = {
 								is_claimed_by = SOV
@@ -9939,7 +10061,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -15
+			x = -13
 			trigger = {
 				has_completed_focus = CZE_increase_funding_from_moscow
 				has_game_rule = {
@@ -10498,8 +10620,8 @@ focus_tree = {
 				every_state = {
 					limit = {
 						is_core_of = ROOT
-						is_owned_by = UKR
-					}
+							is_owned_by = UKR
+						}
 					transfer_state_to = ROOT
 				}
 			}
@@ -10630,7 +10752,7 @@ focus_tree = {
 			}
 		}
 		offset = {
-			x = -15
+			x = -13
 			trigger = {
 				has_game_rule = {
 					rule = obsolete_focus_branches_visibility
@@ -10659,7 +10781,7 @@ focus_tree = {
 		}
 
 		relative_position_id = CZE_forgive_trading_debts
-		x = -5
+		x = -4
 		y = 1
 
 		cost = 5
@@ -10694,7 +10816,7 @@ focus_tree = {
 		cost = 10
 
 		relative_position_id = CZE_improve_balkan_trade_relations
-		x = 7
+		x = 6
 		y = 0
 
 		available = {	#marijn211: Could bypass instead if France is leader since then its equivalent to giving France leadership?
@@ -10825,8 +10947,8 @@ focus_tree = {
 		icon = GFX_focus_invite_romania
 
 		relative_position_id = CZE_improve_balkan_trade_relations
-		x = 1
-		y = 1
+		x = -2
+		y = 2
 
 		cost = 5
 
@@ -10913,7 +11035,7 @@ focus_tree = {
 		cost = 5
 
 		relative_position_id = CZE_improve_balkan_trade_relations
-		x = 3
+		x = 2
 		y = 1
 
 		prerequisite = {
@@ -11180,11 +11302,14 @@ focus_tree = {
 			focus = CZE_ally_hungary
 			focus = CZE_neutralize_the_hungarian_threat
 		}
+		mutually_exclusive = {
+			focus = CZE_demand_the_czech_corridor
+		}
 
 		cost = 5
 
 		relative_position_id = CZE_neutralize_the_hungarian_threat
-		x = -1
+		x = -2
 		y = 1
 
 		available = {
@@ -11252,6 +11377,8 @@ focus_tree = {
 
 		prerequisite = {
 			focus = CZE_ally_austria
+			focus = CZE_demand_the_czech_corridor
+			focus = CZE_ally_romania
 		}
 
 		cost = 10
@@ -11367,14 +11494,12 @@ focus_tree = {
 		}
 
 		prerequisite = {
-			focus = CZE_ally_hungary
-			focus = CZE_neutralize_the_hungarian_threat
-			focus = CZE_ally_romania
+		 	focus = CZE_strengthen_the_little_entente
 		}
 
 		relative_position_id = CZE_improve_balkan_trade_relations
 		x = 0
-		y = 2
+		y = 1
 
 		cost = 5
 
@@ -11438,19 +11563,79 @@ focus_tree = {
 	}
 
 	focus = {
+		id = CZE_demand_the_czech_corridor
+		icon = GFX_focus_CZE_demand_the_czech_corridor
+
+		cost = 5
+
+		prerequisite = {
+			focus = CZE_ally_yugoslavia
+		}
+		mutually_exclusive = {
+			focus = CZE_ally_austria
+		}
+		relative_position_id = CZE_ally_yugoslavia
+		x = 0
+		y = 1
+
+		available = {
+			is_subject = no
+			is_ally_with = YUG
+			975 = {
+				owner = {
+					is_subject = no
+					NOT = {
+						is_ally_with = ROOT
+					}
+				}
+			}
+		}
+
+		bypass = {
+			OR = {
+				owns_state = 975
+				155 = {
+					owner = {
+						is_ally_with = ROOT
+					}
+				}
+				975 = {
+					owner = {
+						OR = {
+							is_ally_with = ROOT
+							is_subject = yes
+							has_war_with = ROOT
+						}
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			975 = {
+				owner = {
+					country_event = MUN_czech.1056
+				}
+			}
+		}
+	}
+
+	focus = {
 		id = CZE_exchange_technology
 		icon = GFX_goal_tfv_generic_tech_sharing
 
 		prerequisite = {
 			focus = CZE_ally_austria
-			focus = CZE_ally_yugoslavia
+			#focus = CZE_ally_yugoslavia
+			focus = CZE_ally_romania
+			focus = CZE_demand_the_czech_corridor
 		}
 
 		cost = 5
 
 		relative_position_id = CZE_ally_yugoslavia
-		x = 0
-		y = 1
+		x = -2
+		y = 2
 
 		available = {
 			num_faction_members > 2
@@ -11473,12 +11658,13 @@ focus_tree = {
 		icon = GFX_focus_generic_agricultural_subsidies
 
 		relative_position_id = CZE_ally_yugoslavia
-		x = 2
-		y = 1
+		x = 0
+		y = 2
 
 		prerequisite = {
 			focus = CZE_ally_austria
-			focus = CZE_ally_yugoslavia
+			focus = CZE_demand_the_czech_corridor
+			focus = CZE_ally_romania
 		}
 
 		cost = 10
@@ -11867,8 +12053,8 @@ focus_tree = {
 			every_state = {
 				limit = {
 					is_core_of = GAL
-					is_controlled_by = ROOT
-				}
+				is_controlled_by = ROOT
+			}
 				compliance > 30
 			}
 		}
@@ -11878,8 +12064,8 @@ focus_tree = {
 				limit = {
 					is_core_of = GAL
 					is_controlled_by = ROOT
-				}
-				add_core_of = ROOT
+					}
+					add_core_of = ROOT
 			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -12008,6 +12194,9 @@ focus_tree = {
 					is_subject_of = ROOT
 				}
 				has_capitulated = yes
+				all_enemy_country = {
+					has_war_with = ROOT
+				}
 			}
 		}
 
@@ -12502,6 +12691,11 @@ focus_tree = {
 					start_province = 20070
 					target_province = 7661
 				}
+			}
+			custom_effect_tooltip =  generic_skip_one_line_tt
+				
+			add_timed_idea = {
+				idea = CZE_double_tracking_efforts days = 365
 			}
 		}
 	}
@@ -15328,8 +15522,17 @@ focus_tree = {
 									value > 19
 								}
 							}
+							original_tag = AFG
 							original_tag = BUL
+							original_tag = JAP
 							original_tag = TUR
+							original_tag = BOL
+							original_tag = ECU
+							original_tag = GUT
+							original_tag = NIC
+							original_tag = VEN
+							original_tag = COL
+							original_tag = URG
 						}
 					}
 					add_relation_modifier = {
