@@ -4783,13 +4783,13 @@ country_event = {
 			create_wargoal = {
 				type = take_state_focus
 				target = ROM
-				generator = { 83 84 76 }
+				generator = {  622 2675 2672 628 1582 2680 649 665 680 1587 674 158 2671 2859 639  2860  2676  664  2673  686  2674  705  2679  2669  226  2678 692 713 727 2024 1583 730 1584 1585 737 }
 			}
 		}
 		create_wargoal = {
 			type = take_state_focus
 			target = ROM
-			generator = { 80 78 }
+			generator = { 592 2980 600 1606 1605 1604 1603 2744 1602 2745 }
 		}
 	}	
 }
@@ -4953,7 +4953,10 @@ country_event = {
 		}
 		if = {
 			limit = { 
-				664 = { is_owned_by = CZE }
+				any_state = {
+					is_core_of = SLO
+					is_owned_by = CZE
+				}
 			}
 			HUN = {
 				country_event = DOD_hungary.81
@@ -5145,15 +5148,12 @@ country_event = {
 			factor = 0 #makes pretty much no sense
 		}
 		GER = { country_event = DOD_hungary.130 }
-		add_state_claim = 70
-		add_state_claim = 71
-		add_state_claim = 72
-		add_state_claim = 73
-		add_state_claim = 9
-		add_state_claim = 69
-		add_state_claim = 972
-		add_state_claim = 75
-		add_state_claim = 74
+		every_state = {
+			limit = {
+				has_state_flag = CZE_INITIAL_STATE
+			}
+			add_claim_by = ROOT
+		}
 	}
 }
 
@@ -5175,10 +5175,12 @@ country_event = {
 	option = {# we shall consider force
 		name = DOD_hungary.128.b
 		ai_chance = { factor = 90 }
-		add_state_claim = 70
-		add_state_claim = 71
-		add_state_claim = 72
-		add_state_claim = 73
+		every_state = {
+			limit = {
+				has_state_flag = SLO_INITIAL_CORE
+			}
+			add_claim_by = ROOT
+		}
 	}
 }
 
@@ -5201,23 +5203,33 @@ country_event = {
 			}
 			modifier = {
 				NOT = {
-					owns_state = 69 #Sudetenland
-					owns_state = 972
+					any_state = {
+						is_core_of = SDT
+					}
 				}
 				factor = 10 #indefensible
 			}
 		}
 		custom_effect_tooltip = GAME_OVER_TT
 		GER = { 
-			transfer_state = 9
-			transfer_state = 69
-			transfer_state = 972
-			transfer_state = 75
-			transfer_state = 74
+			every_state = {
+				limit = {
+					is_core_of = BOH
+					is_core_of = MRV
+				}
+				transfer_state_to = GER
+			}
 		}
 		HUN = {
-			transfer_state = 664
-			transfer_state = 73
+			every_state = {
+				limit = {
+					OR = {
+						is_southern_slovakia = yes
+						is_carpathian_ruthenia = yes
+					}
+					transfer_state_to = HUN
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -5235,17 +5247,13 @@ country_event = {
 					}
 				}
 			}
-			FROM = {
-				transfer_state = 70
-				transfer_state = 71
-				transfer_state = 72
-			}
-			SLO = {
-				add_state_core = 70
-				add_state_core = 71
-				add_state_core = 72
-				add_state_core = 73
-				add_state_core = 664
+			every_state = {
+				limit = {
+					has_state_flag = SLO_INITIAL_CORE
+					NOT = {	is_southern_slovakia = yes }
+					NOT = {	is_carpathian_ruthenia = yes }
+				}
+				transfer_state_to = FROM
 			}
 		}
 	}
@@ -5266,21 +5274,21 @@ country_event = {
 			create_wargoal = {
 				type = take_state_focus
 				target = CZE
-				generator = { 9 69 75 74 }
+				generator = { 513 536 507 }
 			}
 		}
 		HUN = { 
 			create_wargoal = {
 				type = take_state_focus
 				target = CZE
-				generator = { 664 }
+				generator = { 593 1608 1442 }
 			}
 		}
 		FROM = {
 			create_wargoal = {
 				type = take_state_focus
 				target = CZE
-				generator = { 70 71 72 73 }
+				generator = { 1442 586 1437}
 			}
 			
 		}
