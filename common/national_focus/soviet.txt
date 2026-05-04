@@ -26,7 +26,7 @@ focus_tree = {
 	
 	default = no
 
-	continuous_focus_position = { x = 55 y = 1500 }
+	continuous_focus_position = { x = 55 y = 1600 }
 
 
 ##    ##  #######      ######  ######## ######## ########     ########     ###     ######  ##    ## 
@@ -945,8 +945,8 @@ focus_tree = {
 			NOT = { has_completed_focus = SOV_curtailment_of_the_collective_farms }
 			has_full_control_of_state = 229 #MOSCOW
 			OR = {
-				has_full_control_of_state = 260 #VORONEZH
-				has_full_control_of_state = 223 #TULA
+				has_full_control_of_state = 412 #VORONEZH
+				has_full_control_of_state = 265 #TULA
 			}
 		}
 		
@@ -958,9 +958,9 @@ focus_tree = {
 			# ADD SYNTHETICS IN HISTORICAL STATES (VORONEZH AND TULA)
 			if = {
 				limit = {
-					has_full_control_of_state = 260 #VORONEZH
+					has_full_control_of_state = 412 #VORONEZH
 				}
-				260 = { #VORONEZH
+				412 = { #VORONEZH
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = synthetic_refinery
@@ -970,20 +970,21 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						has_full_control_of_state = 254 #RYAZAN
-						has_full_control_of_state = 258 #LIPETSK
+						has_full_control_of_state = 250 #RYAZAN
+						has_full_control_of_state = 359 #LIPETSK
 					}
 					# Moscow - Voronezh
 					build_railway = {
-						path = { 6380 6414 9348 9282 11268 9330 3356 6279 6230 6398 6341 413 3527 }
-					}
+					start_province = 18646
+					target_province = 11984
+				}
 				}
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 223 #TULA
+					has_full_control_of_state = 265 #TULA
 				}
-				223 = { #TULA
+				265 = { #TULA
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = synthetic_refinery
@@ -993,7 +994,8 @@ focus_tree = {
 				}
 				# Moscow - Tula
 				build_railway = {
-					path = { 6380 6414 9348 6290 6396 6262 }
+					start_province = 18646
+					target_province = 10952
 				}
 			}
 			add_tech_bonus = {
@@ -1324,6 +1326,44 @@ focus_tree = {
 			}
 
 			unlock_decision_category_tooltip = SOV_comecon_dec_cat
+		}
+	}
+
+		focus = {
+		id = SOV_found_the_warsaw_pact
+
+		icon = GFX_focus_SOV_found_the_warsaw_pact
+		prerequisite = { focus = SOV_found_the_comecon }
+		x = 0
+		y = 1
+		relative_position_id = SOV_found_the_comecon
+		cost = 10
+
+		allow_branch = {
+			has_government = communism
+			has_dlc = "No Compromise, No Surrender"
+		}
+
+		available = {
+			num_subjects > 0
+			is_subject = no
+			is_faction_leader = yes
+			has_government = communism
+		}
+		
+		search_filters = {  }
+
+		completion_reward = {
+			
+			set_faction_name = SOV_warsaw_pact_faction 
+			set_faction_manifest = faction_manifest_an_iron_curtain
+			add_faction_goal_slot = {
+				category  = long_term # options: short_term, medium_term, long_term 
+				value = 1 
+			}
+			add_faction_goal = faction_goal_eastern_european_security
+			add_faction_initiative = 1
+
 		}
 	}
 

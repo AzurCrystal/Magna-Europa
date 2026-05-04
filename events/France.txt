@@ -557,23 +557,37 @@ country_event = {
 				}
 		if = {
 			limit = {
-				
-					866 = { #Corsica
-						is_controlled_by = ITA
-					}
-				
+				866 = { #Corsica
+					is_controlled_by = ITA
+				}
+				1422 = { # Corsica
+					is_controlled_by = ITA
+				}
 			}
-			ITA = { transfer_state = 866 }
+			ITA = { 
+				transfer_state = 866
+				transfer_state = 1422
+				}
+
 		}
-		if = {
+		every_state = {
 			limit = {
-				
-					1422 = { #Savoy
-						is_controlled_by = ITA
-					}
-				
+				NOT = { 
+					is_claimed_by = ITA 
+					has_state_flag = ITA_INITIAL_STATE
+				}
+				OR = {
+					is_core_of = TUN
+					is_core_of = MLT
+					is_core_of = COR
+					is_core_of = TIC
+					is_core_of = LOM
+					is_core_of = SAV
+					is_core_of = NZA
+				}
+				is_controlled_by = ITA
 			}
-			ITA = { transfer_state = 1422 }
+			transfer_state_to = ITA
 		}
 		
 		#Spanish occupation zone
@@ -1053,7 +1067,7 @@ country_event = {
 					can_create_factions = no
 					can_not_declare_war = yes
 				}
-				set_capital = { state = 26 }
+				set_capital = { state = 699 }
 				set_politics = {
 					ruling_party = fascism
 					elections_allowed = no

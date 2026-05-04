@@ -14176,7 +14176,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = ITA_pact_of_steel
-		cost = 8
+		cost = 10
 		available = {
 			is_subject = no
 		}
@@ -14184,7 +14184,30 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus ITA_italian_irredentism"
+
+			
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+					is_in_faction = no  
+				}
+				custom_effect_tooltip = add_faction_goal_secure_north_africa_tt
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			ELSE_IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+					is_in_faction = yes 
+				}
+				add_faction_goal_slot = {
+					category  = medium_term # options: short_term, medium_term, long_term 
+					value = 1 
+				}
+				add_faction_goal = faction_goal_secure_north_africa 
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+
+
 			add_political_power = 50
 			add_war_support = 0.03
 			add_popularity = {
@@ -14192,9 +14215,7 @@ focus_tree = {
 				popularity = 0.05
 			}
 			add_ideas = ITA_italian_irredentism_ns
-			#TODO_Manu: Might need to remove some/all of the claims below due to overlap with other focuses
-			add_named_threat = { threat = 5 name = ITA_italian_irredentism } #Comes from the old Claims in Yugoslavia focus
-			
+			add_named_threat = { threat = 4 name = ITA_italian_irredentism } #Comes from the old Claims in Yugoslavia focus
 			if = {
 				limit = {
 					YUG = { has_completed_focus = YUG_surrender_italian_claims }
@@ -14266,11 +14287,6 @@ focus_tree = {
 					NOT = { has_rule = can_send_volunteers }
 				}
 				set_rule = { can_send_volunteers = yes }
-			}
-			add_ai_strategy = {
-				type = ignore_claim
-				id = TUN
-				value = 1
 			}
 		}
 	}
