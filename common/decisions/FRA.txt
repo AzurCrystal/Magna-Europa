@@ -248,7 +248,7 @@ FRA_vichy_france = {
 
 		visible = {
 			NOT = {
-				has_country_tag = vichy_france
+				has_country_flag = vichy_france
 			}
 			any_country = {
 				limit = {
@@ -273,7 +273,7 @@ FRA_vichy_france = {
 	}
 	FRA_failsafe_join_axis = {
 		available = {
-			has_country_tag = vichy_france
+			has_country_flag = vichy_france
 			NOT = {
 				has_war_with = GER
 				is_in_faction_with = GER
@@ -289,7 +289,11 @@ FRA_vichy_france = {
 			}
 		}
 		visible = {
-			is_ai = yes #if you are not a member of the dev team - avert thy eyes, traveller, for thou hath gazed upon my shame -someone else #I do that a lot, this is fine if noone sees this -Bace
+			OR = {
+				is_ai = yes #if you are not a member of the dev team - avert thy eyes, traveller, for thou hath gazed upon my shame -someone else #I do that a lot, this is fine if noone sees this -Bace
+				is_debug = yes
+			}
+			
 		}
 		ai_will_do = {
 			factor = 10

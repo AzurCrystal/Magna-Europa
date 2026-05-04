@@ -462,7 +462,6 @@ country_event = {
 # France wants Armistice (Germany)
 country_event = {
 	id = france.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event france.14 FROM = [From.GetName]" }
 	title = france.14.t
 	desc = france.14.d
 	picture = GFX_report_event_german_parade_paris
@@ -472,7 +471,7 @@ country_event = {
 	option = { # Agree
 		name = france.14.a
 		ai_chance = {
-			factor = 100000
+			factor = 50
 		}
 		trigger = {
 			has_government = fascism
@@ -485,93 +484,93 @@ country_event = {
 		every_state = {
 			limit = {
 				is_alsace_lorraine = yes
-				owner = { original_tag = FRA }
+						owner = { original_tag = FRA }
 			}
 			transfer_state_to = GER
-		}
+					}
 		# Italian Occupation Zone PART 1
 		every_state = {
 			limit = {
 				is_ita_occupation_zone = yes
-				is_controlled_by = ITA
-			}
+						is_controlled_by = ITA
+					}
 			transfer_state_to = ITA
-		}
+					}
 		if = { #PART 2
 					limit = {
 						all_state = {
-							if = {
-								limit = {
+		if = {
+			limit = {
 									is_ita_occupation_zone = yes	
 								}
-								is_controlled_by = ITA
-							}
-						}
-					}
-					every_state = {
-						limit = {
-							is_ita_occupation_zone_2 = yes
-							is_controlled_by = ITA
-						}
-						transfer_state_to = ITA
+						is_controlled_by = ITA
 					}
 				}
+			}
+					every_state = {
+			limit = {
+							is_ita_occupation_zone_2 = yes
+						is_controlled_by = ITA
+					}
+						transfer_state_to = ITA
+				}
+			}
 				if = { #PART 3
 					limit = {
 						all_state = {
-							if = {
-								limit = {
+		if = {
+			limit = {
 									is_ita_occupation_zone_2 = yes	
 								}
-								is_controlled_by = ITA
-							}
-						}
+						is_controlled_by = ITA
 					}
+				}
+			}
 					every_state = {
-						limit = {
+			limit = {
 							is_ita_occupation_zone_3 = yes
-							is_controlled_by = ITA
+						is_controlled_by = ITA
 							owner = { tag = FRA }
 						}
 						transfer_state_to = ITA
 					}
-				}
+		}
 				if = { #PART 4
-					limit = {
+			limit = {
 						all_state = {
-							if = {
-								limit = {
+				if = {
+					limit = {
 									is_ita_occupation_zone_3 = yes	
-								}
-								is_controlled_by = ITA
 							}
+								is_controlled_by = ITA
 						}
 					}
+				}
 					every_state = {
-						limit = {
+					limit = {
 							is_ita_occupation_zone_4 = yes
 							is_controlled_by = ITA
-						}
+							}
 						transfer_state_to = ITA
-					}
+						}
 				}
-		if = {
-			limit = {
+				if = {
+					limit = {
 				866 = { #Corsica
 					is_controlled_by = ITA
 				}
 				1422 = { # Corsica
 					is_controlled_by = ITA
-				}
-			}
+							}
+						}
 			ITA = { 
 				transfer_state = 866
 				transfer_state = 1422
 				}
 
-		}
+						}
 		every_state = {
-			limit = {
+					limit = {
 				NOT = { 
 					is_claimed_by = ITA 
 					has_state_flag = ITA_INITIAL_STATE
@@ -591,14 +590,14 @@ country_event = {
 		}
 		
 		#Spanish occupation zone
-		if = {
-			limit = {
+				if = {
+					limit = {
 				871 = { #Midi-Pyrinees
 					controller = { original_tag = SPR }
-				}
-			}
+						}
+					}
 			random_other_country = {
-				limit = {
+					limit = {
 					original_tag = SPR
 					has_war_with = FRA
 				}
@@ -610,7 +609,7 @@ country_event = {
 			save_event_target_as = vichy_france
 			set_country_flag = vichy_france
 			every_state = { #transfer French colonial empire
-				limit = {
+					limit = {
 					is_controlled_by = FRA
 					is_owned_by = FRA
 					OR = {
@@ -629,7 +628,7 @@ country_event = {
 					}
 					CONTROLLER = { 
 						OR = {
-							original_tag = FRA
+								original_tag = FRA
 							has_war_with = FRA
 						} 
 					} #failsafe for weird shit (tm)
@@ -653,12 +652,17 @@ country_event = {
 				}
 				set_nationality = FRA
 			}
+			
+			set_country_flag = vichy_france
+			save_event_target_as = vichy_france
+
 			FRA = { #Move Petain to Vichy
 				set_nationality = {
 					target_country = PREV
 					character = FRA_philippe_petain
 				}
 			}
+
 			add_country_leader_role = {
 				character = FRA_philippe_petain
 				country_leader = {
@@ -668,17 +672,19 @@ country_event = {
 				}
 				promote_leader = yes 
 			}
-			set_cosmetic_tag = FRA_VICHY
+			transfer_advisors_to_vichy = yes
 			# FRA Player Switches to Vichy
 			if = {
 				limit = { FRA = { has_country_flag = become_vichy } }
 				change_tag_from = FRA
 			}
-			
 		}
 		country_event = { hours = 6 id = news.34 }
 		hidden_effect =  {
 			FRA = { news_event = { id = france.20 days = 1 } }
+		}
+		FROM = {
+			clr_country_flag = GER_dont_seize_gold_reserves_flag
 		}
 	}
 
@@ -688,9 +694,7 @@ country_event = {
 			factor = 50
 		}
 		trigger = {
-			GER = {
-				has_government = neutrality
-			}
+			has_government = neutrality
 		}
 		#Set same cosmetic tag they would get on capitulation
 		FRA = {
@@ -737,7 +741,7 @@ country_event = {
 			}
 			
 				every_state = {
-					limit = {
+			limit = {
 						is_ita_occupation_zone_3 = yes
 						is_controlled_by = ITA
 						owner = { tag = FRA }
@@ -750,18 +754,18 @@ country_event = {
 			limit = {
 				all_state = {
 					is_ita_occupation_zone_3 = yes	
-					is_controlled_by = ITA
+						is_controlled_by = ITA
 					
 				}
 			}
 			
 			every_state = {
-				limit = {
+			limit = {
 					is_ita_occupation_zone_4 = yes
-					is_controlled_by = ITA
-				}
+						is_controlled_by = ITA
+					}
 				transfer_state_to = ITA
-			}
+				}
 			
 		}
 		if = {
@@ -771,7 +775,7 @@ country_event = {
 						is_controlled_by = ITA
 					}
 				
-			}
+				}
 			ITA = { transfer_state = 866 }
 		}
 		if = {
@@ -844,43 +848,26 @@ country_event = {
 				fascism = 16
 				communism = 2
 			}
-			every_unit_leader = {
-				limit = {
-					has_id = 101
-				}
-				set_nationality = FRA
-			}
-			FRA = { #Move Petain to Vichy
-				set_nationality = {
-					target_country = PREV
-					character = FRA_philippe_petain
-				}
-			}
-			add_country_leader_role = {
-				character = FRA_philippe_petain
-				country_leader = {
-					ideology = fascism_ideology 
-					expire = "1965.1.1.1"
-					id = -1
-				}
-				promote_leader = yes 
-			}
-			set_cosmetic_tag = FRA_VICHY
 			# FRA Player Switches to Vichy
 			if = {
 				limit = { FRA = { has_country_flag = become_vichy } }
 				change_tag_from = FRA
 			}
+			save_event_target_as = vichy_france
+			set_country_flag = vichy_france
 		}
 		country_event = { hours = 6 id = news.34 }
 		hidden_effect =  {
 			FRA = { news_event = { id = france.20 days = 1 } }
 		}
+		FROM = {
+			clr_country_flag = GER_dont_seize_gold_reserves_flag
+		}
 	}
 	option = { # Agree - Fascism - LaR
 		name = france.14.a
 		ai_chance = { 
-			factor = 50
+			factor = 50 
 		}
 		trigger = {
 			has_government = fascism
@@ -912,6 +899,9 @@ country_event = {
 			}
 		}
 		custom_effect_tooltip = establishing_vichy_tt
+
+		GER_set_consumer_goods_war_reparations = yes
+
 		hidden_effect = {
 			create_dynamic_country = {
 				original_tag = FRA
@@ -1078,76 +1068,39 @@ country_event = {
 					neutrality = 30
 					communism = 2
 				}
+				set_cosmetic_tag = FRA_VICHY
 				FRA = {
 					FRA_philippe_petain= {
 						set_nationality = event_target:vichy_france	
 					}
-					FRA_philippe_petain= {
-						add_country_leader_role = {
-							country_leader = {
-								expire = "1965.1.1"
-								ideology = fascism_ideology
-								traits = {
-									
-								}
+				}
+				FRA_philippe_petain= {
+					add_country_leader_role = {
+						country_leader = {
+							expire = "1965.1.1"
+							ideology = fascism_ideology
+							traits = {
+								
 							}
-							promote_leader = yes
 						}
+						promote_leader = yes
 					}
 				}
-				set_cosmetic_tag = FRA_VICHY
+
+				transfer_advisors_to_vichy = yes
+				
 				add_ideas = FRA_occupation_costs_4
-				add_ideas = disarmed_nation
-				add_ideas = isolation
-				add_ideas = uncontrolled_exports
 				load_focus_tree = vichy_french_focus
 				FRA = {
 					transfer_units_fraction = {
 						target = event_target:vichy_france
-						size = 0.8
-						stockpile_ratio = 0.8
-						army_ratio = 0.8
+						size = 0.9
+						stockpile_ratio = 0.7
+						army_ratio = 0.5
 						navy_ratio = 0.85
 						air_ratio = 1.0
 					}
 				}
-				transfer_units_fraction = {
-					target = SYR
-					size = 0.2
-					stockpile_ratio = 0.2
-					army_ratio = 0.2
-					navy_ratio = 0
-					air_ratio = 0.2
-					keep_unit_leaders_trigger = { always = yes }
-				}
-				transfer_units_fraction = {
-					target = LEB
-					size = 0.2
-					stockpile_ratio = 0.2
-					army_ratio = 0.2
-					navy_ratio = 0
-					air_ratio = 0.2
-					keep_unit_leaders_trigger = { always = yes }
-				}
-				transfer_units_fraction = {
-					target = TUN
-					size = 0.2
-					stockpile_ratio = 0.2
-					army_ratio = 0.2
-					navy_ratio = 0
-					air_ratio = 0.2
-					keep_unit_leaders_trigger = { always = yes }
-				}
-				transfer_units_fraction = {
-					target = MOR
-					size = 0.2
-					stockpile_ratio = 0.2
-					army_ratio = 0.2
-					navy_ratio = 0
-					air_ratio = 0.2
-					keep_unit_leaders_trigger = { always = yes }
-				}
-				
 				if = {
 					limit = { FRA = { has_country_flag = become_vichy } }
 					change_tag_from = FRA
@@ -1191,13 +1144,8 @@ country_event = {
 				}
 			}
 		}
-		every_state = {
-			limit = {
-				is_alsace_lorraine = yes
-				owner = { original_tag = FRA }
-				is_controlled_by = GER
-			}
-			transfer_state_to = GER
+		FROM = {
+			clr_country_flag = GER_dont_seize_gold_reserves_flag
 		}
 	}
 	option = { # Conquer everything!
@@ -1206,11 +1154,14 @@ country_event = {
 			factor = 50 
 			modifier = {
 				is_historical_focus_on = yes
-				factor = 0 
+				factor = 0
 			}
 		}
 		FRA = {
 			country_event = { hours = 6 id = france.15 }
+		}
+		FROM = {
+			clr_country_flag = GER_dont_seize_gold_reserves_flag
 		}
 		set_global_flag = NO_VICHY
 	}
