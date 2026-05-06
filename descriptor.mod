@@ -1,4 +1,4 @@
-version="0.2.9.5"
+version="0.2.9.6"
 tags={
 	"Map"
 }
@@ -27,6 +27,7 @@ replace_path="common/decisions"
 replace_path="common/decisions/categories"
 replace_path="common/dynamic_modifiers"
 replace_path="common/factions/templates"
+replace_path="common/ideas"
 replace_path="common/intelligence_agencies"
 replace_path="common/intelligence_agency_upgrades"
 replace_path="common/military_industrial_organization/organizations"

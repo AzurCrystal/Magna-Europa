@@ -291,40 +291,13 @@ country_event = {
 		}
 
 		HUN = {
-			IF = {
+			every_state = {
 				limit = {
-					FROM = {
-						controls_state = 76
-					}
+					is_transylvania_proper = yes
+					is_controlled_by = FROM
 				}
-				transfer_state = 76
-			}
+				transfer_state_to = ROOT
 
-			IF = {
-				limit = {
-					FROM = {
-						controls_state = 83
-					}
-				}
-				transfer_state = 83
-			}
-
-			IF = {
-				limit = {
-					FROM = {
-						controls_state = 84
-					}
-				}
-				transfer_state = 84
-			}
-			
-			IF = {
-				limit = {
-					FROM = {
-						controls_state = 82
-					}
-				}
-				transfer_state = 82
 			}
 		}
 
@@ -353,8 +326,7 @@ country_event = {
 
 		declare_war_on = {
 			target = FROM
-			type = take_state_focus
-			generator = { 76 83 84 } 
+			type = take_claimed_state
 		}
 
 	}
@@ -368,9 +340,14 @@ country_event = {
 
 		add_stability = -0.1
 		add_war_support = -0.05
-		remove_state_claim = 76
-		remove_state_claim = 83
-		remove_state_claim = 84
+		every_state = {
+			limit = {
+				is_transylvania_proper = yes 
+				is_claimed_by = ROOT
+				is_owned_by = FROM
+			}
+			remove_claim_by = ROOT
+		}
 		add_threat = -1
 
 	}
@@ -501,7 +478,10 @@ country_event = {
 			factor = 100
 		}
 
-		975 = {
+		621 = {
+			transfer_state_to = ROOT
+		}
+		1805 = {
 			transfer_state_to = ROOT
 		}
 
