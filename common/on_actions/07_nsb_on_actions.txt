@@ -63,46 +63,54 @@ on_actions = {
 							state = 280 
 							state = 2729
 						}
-					}
+				}
 				}
 				FROM.FROM = { POL_remove_danzig_effect = yes }
 				if = {
 					limit = {
 						FROM.FROM = { state = 280 }
 					}
-					if = {
-						limit = {
-							ROOT = {
-								OR = {
-									original_tag = GER
-									original_tag = DNZ
-								}
+				if = {
+					limit = {
+						ROOT = {
+							OR = {
+								original_tag = GER
+								original_tag = DNZ
 							}
 						}
-						280 = {
-							reset_state_name = yes
-						}
-						reset_province_name = 362
 					}
-					if = {
-						limit = { ROOT = { original_tag = POL } }
+						280 = {
+						reset_state_name = yes
+					}
+					reset_province_name = 362
+				}
+				if = {
+					limit = { ROOT = { original_tag = POL } }
 						280 = { set_state_name = "Gdańsk" }
-						set_province_name = {
-							id = 362
-							name = "Gdańsk"
-						}
+					set_province_name = {
+						id = 362
+						name = "Gdańsk"
 					}
 				}
+			}
 			}
 			if = {
 				limit = {
 					divisions_in_state = { state = FROM.FROM size > 0 }
 					FROM.FROM = { 
-						NOT = { has_state_flag = already_sabotaged_flag }
+						NOT = { 
+							AND = { 
+								has_state_flag = already_sabotaged_flag
+								is_core_of = controller # Should solve most instances of peaceful annexation
+							}
+						}
 					}
 					FROM = {
 						original_tag = POL
 						has_completed_focus = POL_sabotage_polish_industry
+						NOT = { 
+							has_country_flag = GER_sent_annex_proposal_flag # To solve GER European Confederation
+						}
 					}
 				}
 				FROM.FROM = { 
@@ -1037,7 +1045,9 @@ on_actions = {
 					}
 				}
 			}
-			else_if = {
+
+			
+			if = {
 				limit = {
 					FROM = { has_idea = instilled_aggression_spirit }
 				}
@@ -1046,10 +1056,10 @@ on_actions = {
 						limit = { is_navy_leader = yes }
 		
 						random_list = {
-							40 = { 
+							50 = { 
 								add_attack = 1 
 							}
-							60 = {}
+							50 = {}
 						}
 					}
 				}
@@ -1063,10 +1073,10 @@ on_actions = {
 						limit = { is_navy_leader = yes }
 					
 						random_list = {
-							40 = { 
+							50 = { 
 								add_defense = 1 
 							}
-							60 = {}
+							50 = {}
 						}
 					}
 				}
@@ -1080,11 +1090,11 @@ on_actions = {
 						limit = { is_navy_leader = yes }
 					
 						random_list = {
-							40 = { 
+							50 = { 
 								add_maneuver = 1
 								add_coordination = 1
 							}
-							60 = {}
+							50 = {}
 						}
 					}
 				}
@@ -1122,7 +1132,7 @@ on_actions = {
 						root = {
 							random_list = {
 								50 = { 
-									add_unit_leader_trait = panzer_leader
+									add_unit_leader_trait = armor_officer
 								}
 								50 = {}
 							}
@@ -1245,7 +1255,7 @@ on_actions = {
 			}
 		}
 	}
-	on_peace = { 
+	on_peace = {
 		effect = { 
 			IF = {
 				limit = {
@@ -1257,7 +1267,7 @@ on_actions = {
 				THIS = { clr_country_flag = SOV_unrecognized_country_flag }
 				set_rule = { can_join_factions = yes }
 			}
-		} 
+		}
 	}
 	
 	#ROOT - country that just went to peace
@@ -1343,12 +1353,23 @@ on_actions = {
 				}
 				GER = { #Stop democratic Germany from doing Anschluss and awakening their ambition of global domination
 					uncomplete_national_focus = {
-						focus = GER_rhineland
+						focus = GER_remilitarize_the_rhineland
 						uncomplete_children = yes
 					}
-					uncomplete_national_focus = {
-						focus = GER_oppose_hitler
-						uncomplete_children = yes
+					if = {
+						limit = {
+							has_dlc = "Gotterdammerung"
+						}
+						uncomplete_national_focus = {
+							focus = GER_oppose_hitler_ww
+							uncomplete_children = yes
+						}
+					}
+					else = {
+						uncomplete_national_focus = {
+							focus = GER_oppose_hitler
+							uncomplete_children = yes
+						}
 					}
 				}
 			}
@@ -1504,12 +1525,6 @@ on_actions = {
 							ROOT = { original_tag = SOV }
 							FROM = {
 								is_major = yes
-								NOT = { 
-									AND = {
-										original_tag = POL
-										is_ai = yes
-									}
-								}
 								NOT = { original_tag = SOV }
 							}
 						}
@@ -1517,16 +1532,16 @@ on_actions = {
 							FROM = { original_tag = SOV }
 							ROOT = {
 								is_major = yes
-								NOT = { 
-									AND = {
-										original_tag = POL
-										is_ai = yes
-									}
-								}
 								NOT = { original_tag = SOV }
 							}
 						}
 					}
+				}
+				if = { ## GREAT PATRIOTIC WAR
+					limit = {
+						NOT = { has_country_flag = SOV_great_patriotic_war_flag }
+					}
+					SOV = { set_country_flag = SOV_great_patriotic_war_flag }
 				}
 				if = { ## THIRD FIVE YEAR PLAN
 					limit = {
@@ -1546,10 +1561,6 @@ on_actions = {
 							random_enemy_country = {
 								limit = {
 									is_major = yes
-									NOT = { 
-										original_tag = POL
-										is_ai = yes
-									}
 								}
 								set_country_flag = SOV_third_five_year_plan_disruptor_flag
 							}
@@ -1617,7 +1628,7 @@ on_actions = {
 				}
 				country_event = { id = NSB_soviet_propaganda_capmaign_events.2 hours = 4 random_hours = 2 }
 			}
-			else_if = { #SOV is defender - SOV gets mild punishment // #TODO_Manu: This is not triggering when someone declares on SOV
+			else_if = { #SOV is defender - SOV gets mild punishment // #MM: This is not triggering when someone declares on SOV
 				limit = {
 					FROM = { original_tag = SOV }
 					SOV = {
@@ -1637,8 +1648,26 @@ on_actions = {
 					FROM = { tag = FIN }
 					NOT = { has_global_flag = SOV_winter_war_flag }
 				}
+				clear_variable = FIN_white_death_target_country
+				set_variable = { FIN_white_death_target_country = ROOT }
 				set_global_flag = SOV_winter_war_flag
-				FIN = { country_event = finland.10 }
+				FIN = {
+					country_event = finland.10
+					set_country_flag = FIN_winter_war_ongoing_flag #Used to prevent Finland from demanding territory from Soviets just by occupying Leningrad, when not in the Winter War
+				}
+
+				if = {
+					limit = {
+						FIN = {
+							has_country_leader = {
+								ruling_only = yes # default = yes
+								character = FIN_kyosti_kallio # recommended
+							}
+						}
+					}
+					FIN = { set_country_flag = FIN_winter_war_kallio }
+					#Used to flag if Kallio is Finland's leader during the Winter War
+				}
 			}
 		}
 		effect = {
@@ -1876,7 +1905,7 @@ on_actions = {
 				# nationalist uprisings 
 				IF = { 
 					limit = { 
-						check_variable = { SOV.SOV_civil_war_months > 1 } #civil war takes less time so pump breakaways out quicker
+						check_variable = { SOV.SOV_civil_war_months > 2 }
 						SOV = { SOV_is_exiles = yes } # currently exiles only
 					}
 					SOV = {
@@ -1995,7 +2024,7 @@ on_actions = {
 						SOV_puppet_international_of_soviet_republics_idea
 					}
 				}
-			}
+			}	
 		}
 	}
 
