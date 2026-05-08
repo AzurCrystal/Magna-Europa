@@ -1,20 +1,34 @@
 GER_ultimatum_to_Danzig_category = {
-    allowed = {
-		original_tag = GER
-	}
-
-    visible = {
-        DNZ = exists
-        OR = {
-            at_war_with = POL
-            controls_state = 267
+    GER_ultimatum_to_Danzig = {
+        allowed = {
+            original_tag = GER
         }
-    }
-    available = = {
-        DNZ = exists
-        OR = {
-            at_war_with = POL
-            controls_state = 267
+
+        visible = {
+            DNZ = exists
+            OR = {
+                has_war_with = POL
+                controls_state = 267
+            }
+        }
+        available = {
+            DNZ =  {
+                exists = yes
+                is_ai = yes
+            }
+            OR = {
+                has_war_with = POL
+                controls_state = 267
+            }
+        }
+
+        cost = 50
+
+        complete_effect = {
+            annex_country = {
+                target = DNZ
+                transfer_troops = yes
+            }
         }
     }
 }
