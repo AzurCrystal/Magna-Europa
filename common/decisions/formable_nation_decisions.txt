@@ -1075,17 +1075,50 @@ form_austria_hungary_category = {
 
 		icon = generic_form_nation
 
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					has_state_flag = CZE_INITIAL_STATE
+					has_state_flag = HUN_INITIAL_STATE
+					has_state_flag = AUS_INITIAL_STATE
+					is_core_of = TRA
+					is_core_of = BNT
+					is_core_of = VJV
+					AND = {
+						OR = {
+							is_core_of = SLV
+							is_core_of = CRO
+							is_core_of = BOS
+						}
+						NOT = {has_state_flag = ITA_INITIAL_STATE}
+					}
+				}
+			}
+			highlight_color_while_active = 3
+            highlight_color_before_active = 2
+		}
+
+		on_map_mode = decision_view_only
+
 		allowed = {
 			OR = {
 				original_tag = AUS
 				original_tag = CZE
 				original_tag = CRO
+				original_tag = SLO
+				original_tag = SLV
+				original_tag = TRA
+				original_tag = LBV
+				original_tag = BOS
+				original_tag = SIL
 			}
 			has_dlc = "Waking the Tiger"
 		}
 
+
 		available = {
 			is_subject = no
+
 			custom_trigger_tooltip = {
 				tooltip = mer_illyria_controlled_states_tt
 				all_state = {
@@ -1105,7 +1138,7 @@ form_austria_hungary_category = {
 					}
 				}
 			}
-			# Austria
+				# Austria
 			custom_trigger_tooltip = {
 				tooltip = form_country_austria_required_states_tt
 				AUS = {
@@ -1114,7 +1147,7 @@ form_austria_hungary_category = {
 					}
 				}
 			}
-			# Czechoslovakia
+				# Czechoslovakia
 			custom_trigger_tooltip = {
 				tooltip = form_country_czechoslovakia_required_states_tt
 				CZE = {
@@ -1124,14 +1157,14 @@ form_austria_hungary_category = {
 					}
 				}
 			}
-			# Hungary
+				# Hungary
 			custom_trigger_tooltip = {
 				tooltip = form_country_hungary_required_states_tt
 				HUN = {
 					all_core_state = {
 						is_controlled_by = ROOT
 					}
-				}
+			}
 			}
 		}
 
@@ -1140,14 +1173,25 @@ form_austria_hungary_category = {
 				original_tag = AUS
 				original_tag = CZE
 				original_tag = CRO
+				original_tag = SLO
+				original_tag = SLV
+				original_tag = TRA
+				original_tag = LBV
+				original_tag = BOS
+				original_tag = SIL
 			}
 			NOT = { has_global_flag = form_austria_hungary_flag }
 		}
 
 		complete_effect = {
 			set_cosmetic_tag = HUN_EMPIRE
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+
 			hidden_effect = {
-				if = {
+				IF = {
 					limit = {
 						NOT = { tag = AUS }
 					}
@@ -1155,21 +1199,21 @@ form_austria_hungary_category = {
 				}
 			}
 			every_state = {
-					limit =  {
-						OR = {
-							is_core_of = TRA
-							is_core_of = VJV
-							is_core_of = BNT
-							is_core_of = SLV
-							is_core_of = TIR
-							is_core_of = CRO
-							is_core_of = BOS
-							is_core_of = SLO
-							is_core_of = DLM
-						}
+				limit =  {
+					OR = {
+						is_core_of = TRA
+						is_core_of = VJV
+						is_core_of = BNT
+						is_core_of = SLV
+						is_core_of = TIR
+						is_core_of = CRO
+						is_core_of = BOS
+						is_core_of = SLO
+						is_core_of = DLM
 					}
-					add_core_of = ROOT
 				}
+				add_core_of = ROOT
+			}
 			# Austria
 			custom_effect_tooltip = form_country_austria_coring_states_tt
 			hidden_effect = {
@@ -1208,10 +1252,6 @@ form_austria_hungary_category = {
 
 		ai_will_do = {
 			factor = 200
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
 		}
 	}
 
@@ -1222,6 +1262,29 @@ form_austria_hungary_category = {
 		allowed = {
 			original_tag = HUN
 			has_dlc = "Waking the Tiger"
+		}
+
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					has_state_flag = CZE_INITIAL_STATE
+					has_state_flag = HUN_INITIAL_STATE
+					has_state_flag = AUS_INITIAL_STATE
+					is_core_of = TRA
+					is_core_of = BNT
+					is_core_of = VJV
+					AND = {
+						OR = {
+							is_core_of = SLV
+							is_core_of = CRO
+							is_core_of = BOS
+						}
+						NOT = {has_state_flag = ITA_INITIAL_STATE}
+					}
+				}
+			}
+			highlight_color_while_active = 3
+            highlight_color_before_active = 2
 		}
 
 		available = {
@@ -1255,13 +1318,48 @@ form_austria_hungary_category = {
 			}
 		}
 
+		on_map_mode = decision_view_only
+
 		visible = {
 			tag = HUN
-			has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary
+			OR = {
+				has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary
+				has_completed_focus = wuw_HUN_renovato_imperii
+			}
 			NOT = { has_global_flag = reintegrate_the_empire_flag }
 		}
 
 		complete_effect = {
+			set_cosmetic_tag = HUN_EMPIRE
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = gain_cores_on_the_highlighted_states_tt
+
+			hidden_effect = {
+				IF = {
+					limit = {
+						NOT = { tag = AUS }
+					}
+					AUS = { set_cosmetic_tag = AUS_NOT_WHITE }
+				}
+			}
+			every_state = {
+				limit =  {
+					OR = {
+						is_core_of = TRA
+						is_core_of = VJV
+						is_core_of = BNT
+						is_core_of = SLV
+						is_core_of = TIR
+						is_core_of = CRO
+						is_core_of = BOS
+						is_core_of = SLO
+						is_core_of = DLM
+					}
+				}
+				add_core_of = ROOT
+			}
 			# Austria
 			custom_effect_tooltip = form_country_austria_coring_states_tt
 			hidden_effect = {
@@ -1292,27 +1390,91 @@ form_austria_hungary_category = {
 					add_core_of = ROOT
 				}
 			}
-			every_state = {
-					limit =  {
-						OR = {
-							region = 12
-							region = 23
-							region = 24
-							is_core_of = JUL 
-							is_core_of = TIR 
-						}
-					}
-					add_core_of = ROOT
-				}
 			set_global_flag = reintegrate_the_empire_flag
 		}
 
 		ai_will_do = {
-			factor = 200
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
+			factor = 202
+		}
+	}
+}
+form_sweden_hungary_category = {
+	
+	proclaim_sweden_hungary = { 
+
+		icon = generic_form_nation
+
+		allowed = {
+			original_tag = HUN # Hungary
+		}
+
+		visible = {
+			
+			original_tag = HUN # Hungary
+			
+			#NOT = { has_global_flag = sweden_hungary_formed_flag }
+
+			has_completed_focus = wuw_HUN_elect_a_democratic_king
+			
+		}
+
+		highlight_states = {
+			highlight_states_trigger = {
+				OR = {
+					is_core_of = SWE
+					has_state_flag = HUN_INITIAL_STATE
+				}
 			}
+			highlight_color_while_active = 3
+            highlight_color_before_active = 2
+		}
+
+		available = {
+			has_completed_focus = wuw_HUN_elect_a_democratic_king # They have a Swedish King
+			#has_country_flag = HUN_carl_wilhelm_took_absolute_control
+			custom_trigger_tooltip = {
+				tooltip = sweden_hungary_required_states
+				HUN = {
+					all_core_state = {
+						is_controlled_by = HUN
+					}
+				}
+			}  
+			custom_trigger_tooltip = {
+				tooltip = sweden_hungary_required_other_states 
+				NOT = {
+                    any_state = {
+						has_state_flag = SWE_INITIAL_STATE
+                        NOT = {is_controlled_by_ROOT_or_subject = yes }
+                    }
+                }
+			}
+			
+		}
+
+		complete_effect = {
+			set_cosmetic_tag = HUN_sweden_hungary_unified 
+			
+			custom_effect_tooltip = sweden_hungary_effect_tooltip
+			
+			hidden_effect = { 
+
+				every_state = {
+					limit = {
+						has_state_flag = SWE_INITIAL_STATE
+						is_controlled_by_ROOT_or_subject = yes
+					}
+					transfer_state_to = HUN
+					add_core_of = HUN
+				}
+
+				set_global_flag = sweden_hungary_formed_flag
+
+			}
+		}
+
+		ai_will_do = {
+			base = 500
 		}
 	}
 }
