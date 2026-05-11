@@ -1769,12 +1769,6 @@ GER_fortify_the_vaterland_cat = {
 						add_building_construction = {
 							type = bunker
 							level = 4
-							province = 20724
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							level = 4
 							province = 13035
 							instant_build = yes
 						}
@@ -1862,7 +1856,7 @@ GER_fortify_the_vaterland_cat = {
 			}
 		}
 
-		visible = {
+		visible = {is_debug = yes #doesnt work
 		}
 
 		available = { 
@@ -3005,32 +2999,14 @@ GER_fortify_the_vaterland_cat = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_controls_norway_tt
-				925 = { #Finnmark
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+				NOT ={
+				Any_state = {
+    				has_state_flag = NOR_INITIAL_STATE
+   					 state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 1822
+   					 }
 				}
-				924 = { #Troms
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				144 = { #Nordland
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				923 = { #Helgeland
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				143 = { #Trondelag
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				142 = { #Vestlandet
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				922 = { #Agder
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				123 = { #Telemark
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				110 = { #Oslo
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 				}
 			}
 			NOT = { has_country_flag = GER_constructing_forts_flag }
@@ -3055,33 +3031,13 @@ GER_fortify_the_vaterland_cat = {
 			custom_trigger_tooltip = {
 				tooltip = GER_not_controls_norway_tt
 				OR = {
-					925 = { #Finnmark
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					924 = { #Troms
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					144 = { #Nordland
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					923 = { #Helgeland
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					143 = { #Trondelag
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					142 = { #Vestlandet
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					922 = { #Agder
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					123 = { #Telemark
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					110 = { #Oslo
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
+				Any_state = {
+    				has_state_flag = NOR_INITIAL_STATE
+   					 state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 1822
+   					 }
+				}
 				}
 			}
 		}
@@ -3106,19 +3062,10 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From Finnmark to Västergötland
-						state = 925
-						state = 924
-						state = 144
-						state = 923
-						state = 143
-						state = 142
-						state = 922
-						state = 921
-						state = 110
-						state = 915
-						state = 140
-					}
+    				has_state_flag = NOR_INITIAL_STATE
+					NOT = {
+						state = 1822
+   					}
 					coastal_bunker < 10
 					is_coastal = yes 
 				}
@@ -3134,19 +3081,10 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From Finnmark to Västergötland
-						state = 925
-						state = 924
-						state = 144
-						state = 923
-						state = 143
-						state = 142
-						state = 922
-						state = 921
-						state = 110
-						state = 915
-						state = 140
-					}
+    				has_state_flag = NOR_INITIAL_STATE
+					NOT = {
+						state = 1822
+   					}
 					coastal_bunker < 10
 					is_coastal = yes 
 					naval_base > 1
@@ -3195,38 +3133,32 @@ GER_fortify_the_vaterland_cat = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_controls_atlantic_coast_jylland_vlaanderen_tt
-				99 = { #Jylland
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				912 = { #Sonderjylland
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				909 = { #Schleswig
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				58 = { #Holstein
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				59 = { #Hannover
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				56 = { #Weser-Ems
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				36 = { #Friesland
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				7 = { #Holland
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				35 = { #Brabant
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				6 = { #Vlaanderen
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				977 = { #Antwerpen
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+				NOT = {
+					Any_state = {
+					OR = {
+					is_core_of = HAN
+					state = 2572
+					state = 1705
+					state = 1709
+					state = 1720
+					state = 260
+					state = 2961
+					state = 246
+					state = 228
+					state = 197
+					state = 181
+					state = 144
+					state = 140
+					state = 322
+					state = 314
+					has_state_flag = HOL_INITIAL_STATE
+					has_state_flag = BEL_INITIAL_STATE
+					}
+   					state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 2975
+   					}
+					}
 				}
 			}
 			NOT = { has_country_flag = GER_constructing_forts_flag }
@@ -3250,41 +3182,31 @@ GER_fortify_the_vaterland_cat = {
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = GER_not_controls_atlantic_coast_jylland_vlaanderen_tt
-				OR = {
-					99 = { #Jylland
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					Any_state = {
+					OR = {
+					is_core_of = HAN
+					state = 2572
+					state = 1705
+					state = 1709
+					state = 1720
+					state = 260
+					state = 2961
+					state = 246
+					state = 228
+					state = 197
+					state = 181
+					state = 144
+					state = 140
+					state = 322
+					state = 314
+					has_state_flag = HOL_INITIAL_STATE
+					has_state_flag = BEL_INITIAL_STATE
 					}
-					912 = { #Sonderjylland
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+   					state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 2975
+   					}
 					}
-					909 = { #Schleswig
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					58 = { #Holstein
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					59 = { #Hannover
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					56 = { #Weser-Ems
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					36 = { #Friesland
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					7 = { #Holland
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					35 = { #Brabant
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					6 = { #Vlaanderen
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					977 = { #Antwerpen
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-				}
 			}
 		}
 
@@ -3308,19 +3230,31 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From Jylland to Vlaanderen
-						state = 99
-						state = 912
-						state = 909
-						state = 58 
-						state = 59
-						state = 56
-						state = 36
-						state = 7
-						state = 35
-						state = 6
-						state = 977
+					OR = {
+					is_core_of = HAN
+					state = 2572
+					state = 1705
+					state = 1709
+					state = 1720
+					state = 260
+					state = 2961
+					state = 246
+					state = 228
+					state = 197
+					state = 181
+					state = 144
+					state = 140
+					state = 322
+					state = 314
+					has_state_flag = HOL_INITIAL_STATE
+					has_state_flag = BEL_INITIAL_STATE
 					}
+					NOT = {
+						state = 2975
+						state = 399
+						state = 383
+						state = 364
+   					}
 					coastal_bunker < 10
 					is_coastal = yes 
 				}
@@ -3336,19 +3270,31 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From Jylland to Vlaanderen
-						state = 99
-						state = 912
-						state = 909
-						state = 58 
-						state = 59
-						state = 56
-						state = 36
-						state = 7
-						state = 35
-						state = 6
-						state = 977
+					OR = {
+					is_core_of = HAN
+					state = 2572
+					state = 1705
+					state = 1709
+					state = 1720
+					state = 260
+					state = 2961
+					state = 246
+					state = 228
+					state = 197
+					state = 181
+					state = 144
+					state = 140
+					state = 322
+					state = 314
+					has_state_flag = HOL_INITIAL_STATE
+					has_state_flag = BEL_INITIAL_STATE
 					}
+					NOT = {
+						state = 2975
+						state = 399
+						state = 383
+						state = 364
+   					}
 					coastal_bunker < 10
 					is_coastal = yes 
 					naval_base > 1
@@ -3397,29 +3343,24 @@ GER_fortify_the_vaterland_cat = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_controls_french_coast_tt
-				29 = { #Nord-Pas-de_calais
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+				NOT = {
+					Any_state = {
+    				has_state_flag = FRA_INITIAL_STATE
+					NOT = {
+						OR= {
+							is_core_of = ALG
+							is_core_of = COR
+							is_core_of = PRV
+							is_core_of = LDC
+						}
+					}
+   					state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 871
+						state = 2920
+   					 }
+					is_costal = yes
 				}
-				785 = { #Picardy
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				15 = { #Normandy
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				14 = { #Brittany
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				30 = { #Loire
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				23 = { #Poitou
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				19 = { #Aquitaine
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				806 = { #Pyrenees-Atlantique
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 				}
 			}
 			NOT = { has_country_flag = GER_constructing_forts_flag }
@@ -3443,32 +3384,23 @@ GER_fortify_the_vaterland_cat = {
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = GER_not_controls_french_coast_tt
-				OR = {
-					29 = { #Nord-Pas-de_calais
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					Any_state = {
+    					has_state_flag = FRA_INITIAL_STATE
+						NOT = {
+							OR= {
+								is_core_of = ALG
+								is_core_of = COR
+								is_core_of = PRV
+								is_core_of = LDC
+							}
+						}
+   						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+						NOT = {
+							state = 871
+							state = 2920
+   						 }
+						is_costal = yes
 					}
-					785 = { #Picardy
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					15 = { #Normandy
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					14 = { #Brittany
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					30 = { #Loire
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					23 = { #Poitou
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					19 = { #Aquitaine
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					806 = { #Pyrenees-Atlantique
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-				}
 			}
 		}
 
@@ -3492,16 +3424,19 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From ord-Pas-de_calais to Pyrenees-Atlantique
-						state = 29
-						state = 785
-						state = 15
-						state = 14
-						state = 30
-						state = 23
-						state = 19
-						state = 806
+    				has_state_flag = FRA_INITIAL_STATE
+					NOT = {
+						OR= {
+							is_core_of = ALG
+							is_core_of = COR
+							is_core_of = PRV
+							is_core_of = LDC
+						}
 					}
+					NOT = {
+						state = 871
+						state = 2920
+   					 }
 					coastal_bunker < 10
 					is_coastal = yes 
 				}
@@ -3517,16 +3452,19 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From ord-Pas-de_calais to Pyrenees-Atlantique
-						state = 29
-						state = 785
-						state = 15
-						state = 14
-						state = 30
-						state = 23
-						state = 19
-						state = 806
+    				has_state_flag = FRA_INITIAL_STATE
+					NOT = {
+						OR= {
+							is_core_of = ALG
+							is_core_of = COR
+							is_core_of = PRV
+							is_core_of = LDC
+						}
 					}
+					NOT = {
+						state = 871
+						state = 2920
+   					 }
 					coastal_bunker < 10
 					is_coastal = yes 
 					naval_base > 1
@@ -3571,26 +3509,29 @@ GER_fortify_the_vaterland_cat = {
 
 		visible = { #It's a secret to everybody!
 			OR = {
-				792 = { #Pais Vasco
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+				NOT = {
+					Any_state = {
+    				has_state_flag = SPR_INITIAL_STATE
+					NOT = {
+						OR= {
+							is_core_of = CAT
+							is_core_of = VAL
+							is_core_of = BAL
+							is_core_of = MOR
+							is_core_of = CNR
+						}
+					}
+   					state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 893
+						state = 1103
+						state = 1083
+						state = 1086
+						state = 1057
+						state = 1823
+   					 }
+					is_costal = yes
 				}
-				790 = { #Asturias
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				171 = { #Galicia
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				180 = { #Porto
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				112 = { #Lisbon
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				179 = { #Beja
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				169 = { #Sevilla
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 				}
 			}
 		}
@@ -3598,26 +3539,33 @@ GER_fortify_the_vaterland_cat = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_controls_iberian_coast_tt
-				792 = { #Pais Vasco
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+				NOT = {
+					Any_state = {
+					OR = {
+    				has_state_flag = SPR_INITIAL_STATE
+					has_state_flag = POR_INITIAL_STATE
+					}
+					NOT = {
+						OR= {
+							is_core_of = CAT
+							is_core_of = VAL
+							is_core_of = BAL
+							is_core_of = MOR
+							is_core_of = CNR
+						}
+					}
+   					state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 893
+						state = 1103
+						state = 1083
+						state = 1086
+						state = 1057
+						state = 1823
+						state = 1852
+   					 }
+					is_costal = yes
 				}
-				790 = { #Asturias
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				171 = { #Galicia
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				180 = { #Porto
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				112 = { #Lisbon
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				179 = { #Beja
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				169 = { #Sevilla
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 				}
 			}
 			NOT = { has_country_flag = GER_constructing_forts_flag }
@@ -3641,29 +3589,32 @@ GER_fortify_the_vaterland_cat = {
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = GER_not_controls_iberian_coast_tt
-				OR = {
-					792 = { #Pais Vasco
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+					Any_state = {
+					OR = {
+    				has_state_flag = SPR_INITIAL_STATE
+					has_state_flag = POR_INITIAL_STATE
 					}
-					790 = { #Asturias
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+					NOT = {
+						OR= {
+							is_core_of = CAT
+							is_core_of = VAL
+							is_core_of = BAL
+							is_core_of = MOR
+							is_core_of = CNR
+						}
 					}
-					171 = { #Galicia
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+   					state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+					NOT = {
+						state = 893
+						state = 1103
+						state = 1083
+						state = 1086
+						state = 1057
+						state = 1823
+						state = 1852
+   					 }
+					is_costal = yes
 					}
-					180 = { #Porto
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					}
-					112 = { #Lisbon
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					}
-					179 = { #Beja
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					}
-					169 = { #Sevilla
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					}
-				}
 			}
 		}
 
@@ -3687,15 +3638,28 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From Pais Vasco to Sevilla
-						state = 792
-						state = 790
-						state = 171
-						state = 180
-						state = 112
-						state = 179
-						state = 169
+					OR = {
+    				has_state_flag = SPR_INITIAL_STATE
+					has_state_flag = POR_INITIAL_STATE
 					}
+					NOT = {
+						OR= {
+							is_core_of = CAT
+							is_core_of = VAL
+							is_core_of = BAL
+							is_core_of = MOR
+							is_core_of = CNR
+						}
+					}
+					NOT = {
+						state = 893
+						state = 1103
+						state = 1083
+						state = 1086
+						state = 1057
+						state = 1823
+						state = 1852
+   					 }
 					coastal_bunker < 10
 					is_coastal = yes 
 				}
@@ -3711,15 +3675,28 @@ GER_fortify_the_vaterland_cat = {
 			every_state = {
 				limit = { 
 					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-					OR = { #From Pais Vasco to Sevilla
-						state = 792
-						state = 790
-						state = 171
-						state = 180
-						state = 112
-						state = 179
-						state = 169
+					OR = {
+    				has_state_flag = SPR_INITIAL_STATE
+					has_state_flag = POR_INITIAL_STATE
 					}
+					NOT = {
+						OR= {
+							is_core_of = CAT
+							is_core_of = VAL
+							is_core_of = BAL
+							is_core_of = MOR
+							is_core_of = CNR
+						}
+					}
+					NOT = {
+						state = 893
+						state = 1103
+						state = 1083
+						state = 1086
+						state = 1057
+						state = 1823
+						state = 1852
+   					 }
 					coastal_bunker < 10
 					is_coastal = yes 
 					naval_base > 1
@@ -3758,7 +3735,7 @@ GER_fortify_the_vaterland_cat = {
 			}
 		}
 
-		visible = {
+		visible = {is_debug = yes #doesnt work
 		}
 
 		available = {
@@ -14237,7 +14214,7 @@ GER_proletarian_revolution_cat = {
 
 		fire_only_once = yes
 
-		cost = 25
+		cost = 15
 
 		days_remove = 30
 
@@ -14267,7 +14244,7 @@ GER_proletarian_revolution_cat = {
 			}
 			multiply_temp_variable = {
 				var = increased_communist_support
-				value = 0.002
+				value = 0.0075
 			}
 
 			FROM = { #Decreased Stability based on the amount of factories in the state
@@ -14278,7 +14255,7 @@ GER_proletarian_revolution_cat = {
 			}
 			multiply_temp_variable = {
 				var = decreased_stability
-				value = -0.004
+				value = -0.0075
 			}
 
 			add_to_variable = { GER_communist_stability_influence = increased_communist_support }
@@ -15115,8 +15092,8 @@ GER_industrial_relocation_cat = {
 			FROM = {
 				is_fully_controlled_by = SOV
 				OR = {
-					state = 229 #Azerbaijan
-					state = 234 #Krasnodar
+					state = 546 #Azerbaijan
+					state = 696 #Krasnodar
 				}
 			}
 			
@@ -15178,8 +15155,8 @@ GER_industrial_relocation_cat = {
 			FROM = {
 				is_fully_controlled_by = SOV
 				OR = {
-					state = 564 #Buryatia
-					state = 401 #Balakovo
+					state = 2589 #Buryatia
+					state = 2429 #Balakovo
 				}
 			}
 		}
@@ -15240,8 +15217,8 @@ GER_industrial_relocation_cat = {
 			FROM = {
 				is_fully_controlled_by = SOV
 				OR = {
-					state = 402 #Akhtubinsk
-					state = 573 #Zlatoust
+					state = 2763 #Akhtubinsk
+					state = 2471 #Zlatoust
 				}
 			}
 		}
