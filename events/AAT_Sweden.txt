@@ -3331,35 +3331,8 @@ country_event = {
 		name = AAT_Sweden.28.b
 		ai_chance = {
 			base = 1
-			modifier = {
-				original_tag = USA
-				factor = 0.1
-			}
-
-			modifier = {
-				OR = { #France is in a weak position
-					AND = {
-						country_exists = VIC
-		 				VIC = { 
-		 					NOT = { has_war_with = SWE } 
-
-	 					}
-		 				tag = VIC
-					}
-
-					AND = {
-						tag = FRA
-						VIC = { exists = yes }
-						FRA = { NOT = { has_war_with = SWE } }
-					}
-
-				}
-
-				add = 1
-			}
 			
 			modifier = {
-				NOT = { original_tag = USA } 
 				has_opinion = {
 					target = SWE
 					value  > 79 # Use < or >
@@ -3369,7 +3342,7 @@ country_event = {
 			}
 		}
 		
-		var:SWE_state_to_transfer = {
+		47 = {
 			transfer_state_to = SWE
 		}
 
@@ -4043,7 +4016,10 @@ country_event = { #yes
 			}
 		}
 
-		148 = {
+		14 = {
+			set_demilitarized_zone = yes
+		}
+		2699 = {
 			set_demilitarized_zone = yes
 		}
 
