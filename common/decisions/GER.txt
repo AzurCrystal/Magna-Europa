@@ -3726,11 +3726,11 @@ GER_fortify_the_vaterland_cat = {
 				factor = 3
 				any_enemy_country = {
 					OR = {
-						controls_state = 158 #Piemonte
-						controls_state = 159 #Lombardia
-						controls_state = 39 #Alto Adige
-						controls_state = 160 #Veneto
-						controls_state = 161 #Emilia Romagna
+						controls_state = 718 #Piemonte
+						controls_state = 709 #Lombardia
+						controls_state = 683 #Alto Adige
+						controls_state = 744 #Veneto
+						controls_state = 1370 #Emilia Romagna
 					}
 
 				}
@@ -3743,21 +3743,17 @@ GER_fortify_the_vaterland_cat = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_controls_the_alps_tt
-				845 = { #Jura Mountains
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				847 = { #Western Swiss Alps
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				151 = { #Eastern Swiss Alps
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				153 = { #Tirol
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
-				976 = { #Steiremark
-					state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
-				}
+				has_full_control_of_state = 1449
+				has_full_control_of_state = 1448
+				has_full_control_of_state = 661
+				has_full_control_of_state = 669
+				has_full_control_of_state = 647
+				has_full_control_of_state = 643
+				has_full_control_of_state = 1460
+				has_full_control_of_state = 1792
+				has_full_control_of_state = 644
+				has_full_control_of_state = 679
+				has_full_control_of_state = 1797
 			}
 			NOT = { has_country_flag = GER_constructing_forts_flag }
 		}
@@ -3780,21 +3776,19 @@ GER_fortify_the_vaterland_cat = {
 		cancel_trigger = {
 			custom_trigger_tooltip = {
 				tooltip = GER_not_controls_the_alps_tt
+				NOT ={
 				OR = {
-					845 = { #Jura Mountains
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					847 = { #Western Swiss Alps
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					151 = { #Eastern Swiss Alps
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					153 = { #Tirol
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
-					}
-					976 = { #Steiremark
-						state_is_fully_controlled_by_ROOT_subject_or_faction_member = no
+				has_full_control_of_state = 1449
+				has_full_control_of_state = 1448
+				has_full_control_of_state = 661
+				has_full_control_of_state = 669
+				has_full_control_of_state = 647
+				has_full_control_of_state = 643
+				has_full_control_of_state = 1460
+				has_full_control_of_state = 1792
+				has_full_control_of_state = 644
+				has_full_control_of_state = 679
+				has_full_control_of_state = 1797
 					}
 				}
 			}
@@ -3823,11 +3817,28 @@ GER_fortify_the_vaterland_cat = {
 						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 						bunker < 10
 						OR = {
-							state = 845 #Jura Mountains
-							state = 847 #Western Swiss Alps
-							state = 151 #Eastern Swiss Alps
-							state = 153 #Tirol
-							state = 976 #Steiremark
+							state = 1448
+							state = 1460
+						}
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+					    }
+					}
+				}
+			}
+			if = {
+				every_state = {
+					limit = { 
+						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+						bunker < 10
+						OR = {
+							state = 1448
+							state = 1460
 						}
 					}
 					add_building_construction = {
@@ -3842,41 +3853,56 @@ GER_fortify_the_vaterland_cat = {
 			}
 			if = {
 				limit = { 
-					845 = {
+					1449 = {
 						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 						bunker < 10
 					}
 				}
 				hidden_effect = {
-					845 = {
+					1449 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 9638
+							province = 7715
 							instant_build = yes
 						}
+					}
+				}
+			}
+		
+			if = {
+				limit = { 
+					661 = {
+						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+						bunker < 10
+					}
+				}
+				hidden_effect = {
+					661 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 6683
+							province = 6433
 							instant_build = yes
 						}
+					}
+				}
+				hidden_effect = {
+					661 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 9622
+							province = 20109
 							instant_build = yes
 						}
+					}
+				}
+				hidden_effect = {
+					661 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 6666
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							level = 1
-							province = 4640
+							province = 9078
 							instant_build = yes
 						}
 					}
@@ -3884,17 +3910,17 @@ GER_fortify_the_vaterland_cat = {
 			}
 			if = {
 				limit = { 
-					847 = {
+					669 = {
 						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 						bunker < 10
 					}
 				}
 				hidden_effect = {
-					847 = {
+					669 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 636
+							province = 20110
 							instant_build = yes
 						}
 					}
@@ -3902,17 +3928,27 @@ GER_fortify_the_vaterland_cat = {
 			}
 			if = {
 				limit = { 
-					151 = {
+					647 = {
 						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 						bunker < 10
 					}
 				}
 				hidden_effect = {
-					151 = {
+					647 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 658
+							province = 7132
+							instant_build = yes
+						}
+					}
+				}
+				hidden_effect = {
+					647 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							province = 13725
 							instant_build = yes
 						}
 					}
@@ -3920,29 +3956,27 @@ GER_fortify_the_vaterland_cat = {
 			}
 			if = {
 				limit = { 
-					153 = {
+					643 = {
 						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 						bunker < 10
 					}
 				}
 				hidden_effect = {
-					153 = {
+					643 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 11618
+							province = 6343
 							instant_build = yes
 						}
+					}
+				}
+				hidden_effect = {
+					643 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 671
-							instant_build = yes
-						}
-						add_building_construction = {
-							type = bunker
-							level = 1
-							province = 6673
+							province = 13812
 							instant_build = yes
 						}
 					}
@@ -3950,29 +3984,121 @@ GER_fortify_the_vaterland_cat = {
 			}
 			if = {
 				limit = { 
-					976 = {
+					1792 = {
 						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
 						bunker < 10
 					}
 				}
 				hidden_effect = {
-					976 = {
+					1792 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 11612
+							province = 9483
 							instant_build = yes
 						}
+					}
+				}
+				hidden_effect = {
+					1792 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 653
+							province = 13909
 							instant_build = yes
 						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					567 = {
+						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+					}
+				}
+				hidden_effect = {
+				 set_province_name = { id = 2432 name = Sonthofen } set_victory_points = { province = 2432 value = 1 }
+				}
+			}
+			if = {
+				limit = { 
+					644 = {
+						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+						bunker < 10
+					}
+				}
+				hidden_effect = {
+					644 = {
 						add_building_construction = {
 							type = bunker
 							level = 1
-							province = 9646
+							province = 1984 #literally 1984
+							instant_build = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					679 = {
+						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+						bunker < 10
+					}
+				}
+				hidden_effect = {
+					679 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							province = 13885
+							instant_build = yes
+						}
+					}
+				}
+				hidden_effect = {
+					679 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							province = 20822
+							instant_build = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					1797 = {
+						state_is_fully_controlled_by_ROOT_subject_or_faction_member = yes
+						bunker < 10
+					}
+				}
+				hidden_effect = {
+					1797 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							province = 13953
+							instant_build = yes
+						}
+					}
+				}
+				hidden_effect = {
+					1797 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							province = 8168
+							instant_build = yes
+						}
+					}
+				}
+				hidden_effect = {
+					1797 = {
+						add_building_construction = {
+							type = bunker
+							level = 1
+							province = 13994
 							instant_build = yes
 						}
 					}
@@ -3981,6 +4107,8 @@ GER_fortify_the_vaterland_cat = {
 		}
 	}
 }
+	
+
 
 GER_hilfskreuzer_cat = {
 	GER_refit_convoys_to_cruisers = {
