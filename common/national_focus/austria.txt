@@ -1176,11 +1176,11 @@ focus_tree = {
 						has_completed_focus = AUS_schutzbund_support
 					}
 
-					4 = {
+					random_owned_controlled_state = {
 						create_unit = {
 						division = "division_template =\"Schutzbund Division\" 	start_experience_factor = 0.6" 
 						owner = PREV
-						count = 3
+						count = 6
 						}
 					}
 				}
@@ -1198,7 +1198,7 @@ focus_tree = {
 
 				hidden_effect = {
 					set_capital = {
-						state = 152 #Oberösterreich
+						state = 1817 #Insbruck
 						remember_old_capital = yes
 					}
 					news_event = {
@@ -1218,7 +1218,7 @@ focus_tree = {
 					ruling_party = communism
 					ideology = neutrality
 					size = AUS_total_anti_com_size
-					states = { 152 153 848 976 } #Oberösterreich, Tirol, Voralberg and Steirmark-Kärnten
+					states = { 654 1792 644 1793 1794 625 679 1797 681 1796 1806 635} #Oberösterreich, Tirol, Voralberg and Steirmark-Kärnten
 				}
 
 				IF = {
@@ -1255,11 +1255,11 @@ focus_tree = {
 							}
 						}
 
-						152 = {
+						random_owned_controlled_state = {
 							create_unit = {
 								division = "division_template =\"Heimwehr Division\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
 								owner = PREV
-								count = 2
+								count = 8
 							} 
 						}
 					}
@@ -1286,7 +1286,7 @@ focus_tree = {
 							has_civil_war = yes
 						}
 
-						4 = {
+						random_owned_controlled_state = {
 							create_unit = {
 								division = "division_template =\"Schutzbund Division\" 	start_experience_factor = 0.6" 
 								owner = PREV
@@ -1321,11 +1321,11 @@ focus_tree = {
 							}
 						}
 
-						152 = {
+						random_owned_controlled_state = {
 							create_unit = {
 								division = "division_template =\"Heimwehr Division\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
 								owner = PREV
-								count = 1
+								count = 8
 							} 
 						}
 					}
@@ -1686,7 +1686,7 @@ focus_tree = {
 					has_completed_focus = AUS_schutzbund_support
 				}
 
-				4 = {
+				random_owned_controlled_state = {
 					create_unit = {
 					division = "division_template =\"Schutzbund Division\" 	start_experience_factor = 0.6" 
 					owner = PREV
@@ -1992,7 +1992,11 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			create_faction = AUS_danubian_bloc 
+			create_faction_from_template = {
+				template = faction_template_POR_popular_front_bloc
+				name = AUS_danubian_bloc
+				icon = GFX_faction_logo_generic_14
+			}
 			set_rule = { can_create_factions = yes }
 
 			hidden_effect = {
@@ -2654,40 +2658,14 @@ focus_tree = {
 
 			custom_effect_tooltip = AUS_seize_galicia_tt
 			hidden_effect = {
-				88 ={
-					add_core_of = ROOT
-					OWNER = {
-						ROOT = {
-							create_wargoal = {
-								type = take_core_state
-								target = PREV
-								generator = { 88 } 
-							}
-						}
+				every_state = {
+					limit = {
+						is_core_of = GAL
 					}
-				}
-				89 ={
 					add_core_of = ROOT
-					OWNER = {
-						ROOT = {
-							create_wargoal = {
-								type = take_core_state
-								target = PREV
-								generator = { 89 } 
-							}
-						}
-					}
-				}
-				91 ={
-					add_core_of = ROOT
-					OWNER = {
-						ROOT = {
-							create_wargoal = {
-								type = take_core_state
-								target = PREV
-								generator = { 91 } 
-							}
-						}
+					create_wargoal = {
+					type = take_claimed_state
+					target = POL
 					}
 				}
 			}
@@ -3428,7 +3406,11 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			create_faction = AUS_alpine_federation 
+			create_faction_from_template = {
+				template = faction_template_defensive_democratic
+				name = AUS_alpine_federation
+				icon = GFX_faction_logo_generic_2
+			}
 			set_rule = { can_create_factions = yes }
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -4700,7 +4682,11 @@ focus_tree = {
 		completion_reward = {
 			set_cosmetic_tag = AUS_federal_state
 
-			create_faction = AUS_danubian_federation
+			create_faction_from_template = {
+				template = faction_template_balkan_pact 
+				name = AUS_danubian_federation
+			}
+
 
 			custom_effect_tooltip = HABSBURG_joint_ft_unlock_tt
 			hidden_effect = {
@@ -5063,6 +5049,12 @@ focus_tree = {
 			set_cosmetic_tag = european_union_leader
 			custom_effect_tooltip = generic_skip_one_line_tt
 			set_faction_name = BEL_european_union
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_faction_manifest = faction_manifest_strength_in_unity
+			}
 			custom_effect_tooltip = AUS_via_danube_to_europe_tt
 
 			hidden_effect = {
@@ -7984,25 +7976,31 @@ focus_tree = {
 			controls_state = 2908
 		}
 
+		bypass_effect = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = JUL
+						is_core_of = LBV
+						state = 1476
+					}
+				}
+			}
+		}
+
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
 
 		completion_reward = {
-			160 = { #Veneto
-				add_claim_by = ROOT
-			}
-			159 = { #Lombardia
-				add_claim_by = ROOT
-			}
-			736 = { #Litorale
-				add_claim_by = ROOT
-			}
-			852 = { #Istria
-				add_claim_by = ROOT
-			}
-			163 = { #Zara
-				add_claim_by = ROOT
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = JUL
+						is_core_of = LBV
+						state = 1476
+					}
+				}
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -8026,23 +8024,10 @@ focus_tree = {
 		}
 
 		available = {
-			ITA = {
-				OR = {
-					controls_state = 39
-					any_subject_country = {
-						controls_state = 39
-					}
-				}
-
-				OR = {
-					controls_state = 850
-					any_subject_country = {
-						controls_state = 850
-					}
-				}
-				
-				exists = yes
-				NOT = { has_war_with =  ROOT}
+			any_state = {
+				has_state_flag = ITA_INITIAL_STATE
+				is_core_of = TIR
+				is_controlled_by = ITA
 			}
 		}
 		
@@ -8072,8 +8057,7 @@ focus_tree = {
 						limit = {
 							is_core_of = ITA
 							NOT = {
-								state = 39
-								state = 850
+								is_core_of = TIR
 							}
 						}
 						add_extra_state_shared_building_slots = 2

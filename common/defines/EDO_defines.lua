@@ -97,4 +97,4 @@ NDefines.NOperatives.INTEL_NETWORK_OPERATIVE_GAIN_STACKING_FACTOR = 0.9			-- Whe
 NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 48	-- How many divisions a corps commander is limited to. 0 = inf, < 0 = blocked
 NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 72	-- How many divisions a field marshall is limited to. 0 = inf, < 0 = blocked
 
-NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.35 --Reduced from 0.75
+NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.6 --Reduced from 0.75
