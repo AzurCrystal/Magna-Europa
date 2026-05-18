@@ -9168,6 +9168,18 @@ GER_reich_labor_service_cat = {
 				has_political_power > 100
 			}
 		}
+		highlight_states = {
+            highlight_states_trigger = {
+                OR = {
+					is_core_of = RHN
+					is_core_of = WST
+					is_core_of = NAS
+				}
+                
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 
 		available = {
 			every_state = {
@@ -9197,20 +9209,6 @@ GER_reich_labor_service_cat = {
 			} 
 		}
 
-		highlight_states = {
-			highlight_state_targets = {
-				any_state = {
-					limit = {
-						OR = {
-							is_core_of = RHN
-							is_core_of = WST
-							is_core_of = NAS
-						}
-					}
-				}
-			}
-		}
-
 		cost = 50
 
 		fire_only_once = yes
@@ -9236,9 +9234,11 @@ GER_reich_labor_service_cat = {
 					days = 545
 					scope = GER
 				}
+				transfer_state_to = LIE
 			}
 		}
 	}
+
 	GER_northern_state_development = {
 		priority = 1
 		icon = GFX_decision_generic_construction
@@ -9251,33 +9251,91 @@ GER_reich_labor_service_cat = {
 			}
 		}
 
+
 		available = {
-			909 = { is_fully_controlled_by = ROOT }
-			58 = { is_fully_controlled_by = ROOT }
-			61 = { is_fully_controlled_by = ROOT }
-			62 = { is_fully_controlled_by = ROOT }
-			63 = { is_fully_controlled_by = ROOT }
+			NOT = {
+				any_state = {
+					OR = {
+						is_core_of = HAN
+						AND = {
+							is_core_of = OLD
+							NOT = {is_core_of = RHN}
+						}
+						is_core_of = LIP
+						is_core_of = SCL
+						AND = {
+							is_core_of = SHL
+							NOT = { has_State_Flag = DEN_INITIAL_STATE}
+						}
+						is_core_of = MEK
+						state = 2563
+						state = 1703
+						state = 1707
+						state = 1761
+						state = 1702
+						state = 1704
+					}
+					NOT = {is_controlled_by = GER}
+				}
+			}
 		}
 
 		cancel_trigger = { 
 			NOT = { 
-				909 = { is_controlled_by = ROOT }
-				58 = { is_controlled_by = ROOT }
-				61 = { is_controlled_by = ROOT }
-				62 = { is_controlled_by = ROOT }
-				63 = { is_controlled_by = ROOT }
+				any_state = {
+					limit = {
+						OR = {
+							is_core_of = HAN
+							AND = {
+								is_core_of = OLD
+								NOT = {is_core_of = RHN}
+							}
+							is_core_of = LIP
+							is_core_of = SCL
+							AND = {
+								is_core_of = SHL
+								NOT = { has_State_Flag = DEN_INITIAL_STATE}
+							}
+							is_core_of = MEK
+							state = 2563
+							state = 1703
+							state = 1707
+							state = 1761
+							state = 1702
+							state = 1704
+						}
+					}
+					is_controlled_by = ROOT
+				}
 			} 
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 909 #Schleswig
-				state = 58 #Holstein
-				state = 61 #Mecklenburg
-				state = 62 #Vorpommern
-				state = 63 #Hinterpommern
-			}
-		}
+			highlight_states_trigger = {
+				OR = {
+					is_core_of = HAN
+					AND = {
+						is_core_of = OLD
+						NOT = {is_core_of = RHN}
+					}
+					is_core_of = LIP
+					is_core_of = SCL
+					AND = {
+						is_core_of = SHL
+						NOT = { has_State_Flag = DEN_INITIAL_STATE}
+					}
+					is_core_of = MEK
+					state = 2563
+					state = 1703
+					state = 1707
+					state = 1761
+					state = 1702
+					state = 1704
+				}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 
 		cost = 50
 
@@ -9293,11 +9351,21 @@ GER_reich_labor_service_cat = {
 			every_core_state = {
 				limit = {
 					OR = {
-						state = 909 #Schleswig
-						state = 58 #Holstein
-						state = 61 #Mecklenburg
-						state = 62 #Vorpommern
-						state = 63 #Hinterpommern
+						is_core_of = HAN
+						AND = {
+							is_core_of = OLD
+							NOT = {is_core_of = RHN}
+						}
+						is_core_of = LIP
+						is_core_of = SCL
+						is_core_of = SHL
+						is_core_of = MEK
+						state = 2563
+						state = 1703
+						state = 1707
+						state = 1761
+						state = 1702
+						state = 1704
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -9306,9 +9374,11 @@ GER_reich_labor_service_cat = {
 					days = 545
 					scope = GER
 				}
+				transfer_state_to = HUN
 			}
 		}
 	}
+
 	GER_eastern_state_development = {
 		priority = 1
 		icon = GFX_decision_generic_construction
@@ -9322,74 +9392,71 @@ GER_reich_labor_service_cat = {
 		}
 
 		available = {
-			763 = { is_fully_controlled_by = ROOT }
-			5 = { is_fully_controlled_by = ROOT }
-			66 = { is_fully_controlled_by = ROOT }
-			67 = { is_fully_controlled_by = ROOT }
+			NOT = {
+				any_state = {
+					OR = {
+						is_core_of = SIL
+						is_core_of = ESP
+						is_core_of = WSP
+						is_core_of = WPR
+						is_core_of = DNZ
+						state = 80
+						state = 335
+						state = 243
+						state = 79
+						state = 122
+						state = 99
+						state = 82
+						state = 549
+					}
+					NOT = {is_controlled_by = GER}
+					has_state_flag = GER_INITIAL_FLAG
+				}
+			}
 		}
 
 		cancel_trigger = { 
-			NOT = { 
-				763 = { is_controlled_by = ROOT }
-				5 = { is_controlled_by = ROOT }
-				66 = { is_controlled_by = ROOT }
-				67 = { is_controlled_by = ROOT }
-			}
-			if = {
-				limit = {
-					85 = { is_core_of = ROOT }
+			any_state = {
+				OR = {
+					is_core_of = SIL
+					is_core_of = ESP
+					is_core_of = WSP
+					is_core_of = WPR
+					is_core_of = DNZ
+					state = 80
+					state = 335
+					state = 243
+					state = 79
+					state = 122
+					state = 99
+					state = 82
+					state = 549
 				}
-				NOT = {
-					85 = { is_controlled_by = ROOT }
-				}
-			}
-			if = {
-				limit = {
-					807 = { is_core_of = ROOT }
-				}
-				NOT = {
-					807 = { is_controlled_by = ROOT }
-				}
-			}
-			if = {
-				limit = {
-					86 = { is_core_of = ROOT }
-				}
-				NOT = {
-					86 = { is_controlled_by = ROOT }
-				}
-			}
-			if = {
-				limit = {
-					762 = { is_core_of = ROOT }
-				}
-				NOT = {
-					762 = { is_controlled_by = ROOT }
-				}
-			}
-			if = {
-				limit = {
-					 = { is_core_of = ROOT }
-				}
-				NOT = {
-					 = { is_controlled_by = ROOT }
-				}
+				NOT = {is_controlled_by = GER}
 			}
 		}
 
 		highlight_states = {
-			highlight_state_targets = {
-				state = 763 #Königsberg
-				state = 5 #Ermland-Masuren
-				state = 66 #Niederschlesien
-				state = 67 #Oberschlesien
-				state = 85 #Danzig, hinting to the player they can develop this state too
-				state = 807 #Gdynia, hinting to the player they can develop this state too
-				state = 86 #Poznan, hinting to the player they can develop this state too
-				state = 762 #Katowice, hinting to the player they can develop this state too
-				state =  #Memel, hinting to the player they can develop this state too
-			}
-		}
+			highlight_states_trigger = {
+				OR = {
+					is_core_of = SIL
+					is_core_of = ESP
+					is_core_of = WSP
+					is_core_of = WPR
+					is_core_of = DNZ
+					state = 80
+					state = 335
+					state = 243
+					state = 79
+					state = 122
+					state = 99
+					state = 82
+					state = 549
+				}
+            }
+            highlight_color_while_active = 3
+            highlight_color_before_active = 2
+        }
 
 		cost = 50
 
@@ -9405,15 +9472,19 @@ GER_reich_labor_service_cat = {
 			every_core_state = {
 				limit = {
 					OR = {
-						state = 763 #Königsberg
-						state = 5 #Ermland-Masuren
-						state = 66 #Niederschlesien
-						state = 67 #Oberschlesien
-						state = 85 #Danzig - in case Germany has cored it
-						state = 807 #Gdynia - in case Germany has cored it
-						state = 86 #Poznan - in case Germany has cored it
-						state = 762 #Katowice- in case Germany has cored it
-						state =  #Memel - in case Germany has cored it
+						is_core_of = SIL
+						is_core_of = ESP
+						is_core_of = WSP
+						is_core_of = WPR
+						is_core_of = DNZ
+						state = 80
+						state = 335
+						state = 243
+						state = 79
+						state = 122
+						state = 99
+						state = 82
+						state = 549
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -9422,9 +9493,11 @@ GER_reich_labor_service_cat = {
 					days = 545
 					scope = GER
 				}
+				transfer_state_to = VAT
 			}
 		}
 	}
+
 	GER_central_state_development = {
 		priority = 1
 		icon = GFX_decision_generic_construction
