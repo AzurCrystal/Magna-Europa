@@ -2626,8 +2626,18 @@ focus_tree = {
 		relative_position_id = GER_seize_foreign_industries
 		cost = 10
 		available = {
-			all_core_state = {
-				is_fully_controlled_by = ROOT
+			NOT = {
+				NOT = {
+					any_state = {
+						is_core_of = GER
+						NOT = { is_core_of = ITA }
+						controller = {
+							NOT = {
+								original_tag = GER
+							}
+						}
+					}
+				}
 			}
 			OR = {
 				has_resources_in_country = {

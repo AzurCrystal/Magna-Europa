@@ -9736,14 +9736,17 @@ GER_rebuild_the_nation_cat = {
 		}
 
 		available = {
-			every_state = {
-				limit = {
-					OR = {
-						region = 36
-						region = 70
+			NOT = {
+				any_state = {
+					limit = {
+						OR = {
+							region = 36
+							region = 70
+						}
 					}
+					NOT = { is_controlled_by = ROOT }
+					has_state_flag = GER_INITIAL_FLAG
 				}
-				is_controlled_by = ROOT
 			}
 		}
 
@@ -9821,6 +9824,7 @@ GER_rebuild_the_nation_cat = {
 							region = 40
 						}
 					}
+					has_state_flag = GER_INITIAL_FLAG
 					NOT = { is_controlled_by = ROOT }
 				}
 			}
@@ -9830,6 +9834,7 @@ GER_rebuild_the_nation_cat = {
 			NOT = { 
 				any_state = {
 					limit = {
+						has_state_flag = GER_INITIAL_FLAG
 						OR = {
 							region = 64
 							region = 40
@@ -9854,6 +9859,7 @@ GER_rebuild_the_nation_cat = {
 					region = 64
 					region = 40
 				}
+				has_state_flag = GER_INITIAL_FLAG
 			}
 			highlight_color_while_active = 3
 			highlight_color_before_active = 2
