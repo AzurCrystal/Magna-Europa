@@ -142,7 +142,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -159,7 +158,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -243,7 +241,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					is_owned_and_controlled_by = ROOT
 				}
@@ -261,7 +258,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					is_owned_and_controlled_by = ROOT
 				}
@@ -332,7 +328,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -406,7 +401,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -423,7 +417,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -775,7 +768,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -923,7 +915,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -940,7 +931,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -957,7 +947,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -974,7 +963,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1033,7 +1021,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1115,7 +1102,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -1137,7 +1123,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1154,7 +1139,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1214,7 +1198,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1466,7 +1449,7 @@ focus_tree = {
 			}
 			#50% armor research
 			
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 				custom_effect_tooltip = can_invites_mio_tt
 				show_mio_tooltip = ENG_vickers_armstrong_eng_organization
@@ -1533,7 +1516,7 @@ focus_tree = {
 			}
 			#1 x 50% for Artillery Equipment
 			
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 				custom_effect_tooltip = can_invites_mio_tt
 				show_mio_tooltip = SWE_bofors_organization
@@ -1609,7 +1592,7 @@ focus_tree = {
 
 		available = {
 			has_country_flag = invited_motor_co
-			IF = {
+			if = {
 				limit = { NOT = { has_dlc = "Arms Against Tyranny" } }
 				OR = {
 					has_idea = POL_vauxhall
@@ -1622,11 +1605,11 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
-				IF = { 
+				if = { 
 					limit = { has_country_flag = POL_somua_motors }
 					mio:FRA_somua_organization = {
 						add_mio_funds = 500
@@ -1634,14 +1617,14 @@ focus_tree = {
 					}
 
 				}
-				IF = { 
+				if = { 
 					limit = { has_country_flag = POL_vauxhall_motors }
 					mio:ENG_vauxhall_organization = {
 						add_mio_funds = 500
 						add_mio_funds_gain_factor = 0.1
 					}
 				}
-				IF = { 
+				if = { 
 					limit = { has_country_flag = POL_ford_motors }
 					mio:USA_ford_motor_company_organization = {
 						add_mio_funds = 500
@@ -1649,7 +1632,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE = {
+			else = {
 
 				if = {
 					limit = {
@@ -1767,7 +1750,7 @@ focus_tree = {
 			}
 			#1x50% research bonus to fighter models
 			
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 				custom_effect_tooltip = can_invites_mio_tt
 				show_mio_tooltip = FRA_morane_saulnier_organization
@@ -1947,7 +1930,7 @@ focus_tree = {
 				category = air_doctrine
 			}
 			
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 				custom_effect_tooltip = can_invites_mio_tt
 				show_mio_tooltip = ENG_fairey_aviation_organization
@@ -4474,7 +4457,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -4491,7 +4473,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -4843,7 +4824,7 @@ focus_tree = {
 				exists = yes
 				has_capitulated = no
 			}
-			784 = {
+			241 = { # was vanilla 784
 				owns_or_subject_of = yes
 			}
 			hidden_trigger = {
@@ -4856,7 +4837,7 @@ focus_tree = {
 		
 		bypass = {
 			NOT = {
-				784 = { owns_or_subject_of = yes }
+				241 = { owns_or_subject_of = yes } # was vanilla 784
 			}
 		}
 
@@ -4999,11 +4980,11 @@ focus_tree = {
 
 		bypass = {
 			ROOT = {
-				controls_state = 814
-				controls_state = 11
-				controls_state = 815
-				controls_state = 189
-				controls_state = 784
+				controls_state = 2522 # was vanilla 814
+				controls_state = 274 # was vanilla 11
+				controls_state = 1339 # was vanilla 815
+				controls_state = 208 # was vanilla 189
+				controls_state = 241 # was vanilla 784
 			}			
 		}
 		available = {
@@ -5013,7 +4994,7 @@ focus_tree = {
 				has_capitulated = no
 				NOT = { has_war_with = ROOT }
 			}
-			784 = {
+			241 = { # was vanilla 784
 				owns_or_subject_of = yes
 			}
 			GER = {
@@ -5904,7 +5885,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 2
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 3
@@ -5922,7 +5902,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -6129,66 +6108,66 @@ focus_tree = {
 			overlord = { country_event = NSB_poland_communist_events.6 }
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
-				96 = { add_core_of = POL }
-				95 = { add_core_of = POL }
-				94 = { add_core_of = POL }
-				93 = { add_core_of = POL }
-				91 = { add_core_of = POL }
-				89 = { add_core_of = POL }
-				97 = { add_core_of = POL }
+				1000 = { add_core_of = POL } # was vanilla 96
+				326 = { add_core_of = POL } # was vanilla 95
+				2316 = { add_core_of = POL } # was vanilla 94
+				434 = { add_core_of = POL } # was vanilla 93
+				1292 = { add_core_of = POL } # was vanilla 91
+				1164 = { add_core_of = POL } # was vanilla 89
+				2485 = { add_core_of = POL } # was vanilla 97
 				if = {
-					limit = { SOU = { owns_state = 96 controls_state = 96 } }
-					transfer_state = 96
+					limit = { SOU = { owns_state = 1000 controls_state = 1000 } } # was vanilla 96,96
+					transfer_state = 1000 # was vanilla 96
 				}
 				if = {
-					limit = { SOU = { owns_state = 95 controls_state = 95 } }
-					transfer_state = 95
+					limit = { SOU = { owns_state = 326 controls_state = 326 } } # was vanilla 95,95
+					transfer_state = 326 # was vanilla 95
 				}
 				if = {
-					limit = { SOU = { owns_state = 94 controls_state = 94 } }
-					transfer_state = 94
+					limit = { SOU = { owns_state = 2316 controls_state = 2316 } } # was vanilla 94,94
+					transfer_state = 2316 # was vanilla 94
 				}
 				if = {
-					limit = { SOU = { owns_state = 93 controls_state = 93 } }
-					transfer_state = 93
+					limit = { SOU = { owns_state = 434 controls_state = 434 } } # was vanilla 93,93
+					transfer_state = 434 # was vanilla 93
 				}
 				if = {
-					limit = { SOU = { owns_state = 91 controls_state = 91 } }
-					transfer_state = 91
+					limit = { SOU = { owns_state = 1292 controls_state = 1292 } } # was vanilla 91,91
+					transfer_state = 1292 # was vanilla 91
 				}
 				if = {
-					limit = { SOU = { owns_state = 89 controls_state = 89 } }
-					transfer_state = 89
+					limit = { SOU = { owns_state = 1164 controls_state = 1164 } } # was vanilla 89,89
+					transfer_state = 1164 # was vanilla 89
 				}
 				if = {
-					limit = { SOU = { owns_state = 97 controls_state = 97 } }
-					transfer_state = 97
+					limit = { SOU = { owns_state = 2485 controls_state = 2485 } } # was vanilla 97,97
+					transfer_state = 2485 # was vanilla 97
 				}
 				#Lithuanian states
 				if = {
-					limit = { SOU = { owns_state = 784 controls_state = 784 } }
-					transfer_state = 784
-					784 = { add_core_of = POL }
+					limit = { SOU = { owns_state = 241 controls_state = 241 } } # was vanilla 784,784
+					transfer_state = 241 # was vanilla 784
+					241 = { add_core_of = POL } # was vanilla 784
 				}
 				if = {
-					limit = { SOU = { owns_state = 11 controls_state = 11 } }
-					transfer_state = 11
+					limit = { SOU = { owns_state = 274 controls_state = 274 } } # was vanilla 11,11
+					transfer_state = 274 # was vanilla 11
 				}
 				if = {
-					limit = { SOU = { owns_state = 188 controls_state = 188 } }
-					transfer_state = 188
+					limit = { SOU = { owns_state = 227 controls_state = 227 } } # was vanilla 188,188
+					transfer_state = 227 # was vanilla 188
 				}
 				if = {
-					limit = { SOU = { owns_state = 189 controls_state = 189 } }
-					transfer_state = 189
+					limit = { SOU = { owns_state = 208 controls_state = 208 } } # was vanilla 189,189
+					transfer_state = 208 # was vanilla 189
 				}
 				if = {
-					limit = { SOU = { owns_state = 814 controls_state = 814 } }
-					transfer_state = 814
+					limit = { SOU = { owns_state = 2522 controls_state = 2522 } } # was vanilla 814,814
+					transfer_state = 2522 # was vanilla 814
 				}
 				if = {
-					limit = { SOU = { owns_state = 815 controls_state = 815 } }
-					transfer_state = 815
+					limit = { SOU = { owns_state = 1339 controls_state = 1339 } } # was vanilla 815,815
+					transfer_state = 1339 # was vanilla 815
 				}
 			}
 		}
@@ -6982,7 +6961,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POL_dismantle_soviet_empire"
-			IF = {
+			if = {
 				limit = { SOV = { has_civil_war = no } }
 				POL = {
 					create_wargoal = {
@@ -6991,7 +6970,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE = {
+			else = {
 				every_country = {
 					limit = { original_tag = SOV }
 					POL = {
@@ -7162,11 +7141,11 @@ focus_tree = {
 				}
 			}
 			hidden_effect = {
-				13 = { add_core_of = ROOT }
-				191 = { add_core_of = ROOT }
-				811 = { add_core_of = ROOT }
-				812 = { add_core_of = ROOT }
-				813 = { add_core_of = ROOT }
+				155 = { add_core_of = ROOT } # was vanilla 13
+				152 = { add_core_of = ROOT } # was vanilla 191
+				146 = { add_core_of = ROOT } # was vanilla 811
+				133 = { add_core_of = ROOT } # was vanilla 812
+				134 = { add_core_of = ROOT } # was vanilla 813
 				activate_decision = form_commonwealth
 			}
 			effect_tooltip = {
@@ -7269,14 +7248,14 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					OR = {
-						state = 96 
-						state = 95 
-						state = 94 
-						state = 93 
-						state = 91 
-						state = 89 
+						state = 1000 # was vanilla 96
+						state = 326 # was vanilla 95
+						state = 2316 # was vanilla 94
+						state = 434 # was vanilla 93
+						state = 1292 # was vanilla 91
+						state = 1164 # was vanilla 89
 						state = 1157  
-						state = 97
+						state = 2485 # was vanilla 97
 					} 
 				}
 				add_dynamic_modifier = { modifier = POL_peasant_communities scope = POL }
@@ -7830,15 +7809,15 @@ focus_tree = {
 				every_state = {
 					limit = {
 						OR = {
-							state = 664
-							state = 69
-							state = 70
-							state = 71
+							state = 1439 # was vanilla 664
+							state = 1672 # was vanilla 69
+							state = 2662 # was vanilla 70
+							state = 2661 # was vanilla 71
 							state = 526
-							state = 73
-							state = 74
-							state = 75
-							state = 9
+							state = 2246 # was vanilla 73
+							state = 499 # was vanilla 74
+							state = 532 # was vanilla 75
+							state = 513 # was vanilla 9
 						}
 					}
 					add_claim_by = POL
@@ -7846,15 +7825,15 @@ focus_tree = {
 				every_other_country = {
 					limit = {
 						OR = {
-							owns_state = 664
-							owns_state = 69
-							owns_state = 70
-							owns_state = 71
+							owns_state = 1439 # was vanilla 664
+							owns_state = 1672 # was vanilla 69
+							owns_state = 2662 # was vanilla 70
+							owns_state = 2661 # was vanilla 71
 							owns_state = 526
-							owns_state = 73
-							owns_state = 74
-							owns_state = 75
-							owns_state = 9
+							owns_state = 2246 # was vanilla 73
+							owns_state = 499 # was vanilla 74
+							owns_state = 532 # was vanilla 75
+							owns_state = 513 # was vanilla 9
 						}
 					}
 					custom_effect_tooltip = gain_take_claim_tt
@@ -7864,7 +7843,7 @@ focus_tree = {
 								type = take_state_focus
 								target = PREV
 								generator = {
-									664 69 70 71 526 73 74 75 9
+									1439 1672 2662 2661 526 2246 499 532 513 # was vanilla 664,69,70,71,73,74,75,9
 								}
 							}
 						}
@@ -8614,7 +8593,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -8631,7 +8609,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -8696,7 +8673,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -8713,7 +8689,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -8780,7 +8755,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -8797,7 +8771,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -9080,11 +9053,11 @@ focus_tree = {
 		
 		available = {
 			is_subject = no 
-			IF = {
+			if = {
 				limit = { has_completed_focus = POL_romanov }
 				has_government = neutrality
 			}
-			ELSE = {
+			else = {
 				has_government = fascism
 			}
 			LIT = { 
@@ -9164,11 +9137,11 @@ focus_tree = {
 		
 		available = {
 			is_subject = no
-			IF = {
+			if = {
 				limit = { has_completed_focus = POL_romanov }
 				has_government = neutrality
 			}
-			ELSE = {
+			else = {
 				has_government = fascism
 			}
 			has_army_manpower = { size > 499999 }	
@@ -9263,11 +9236,11 @@ focus_tree = {
 		
 		available = {
 			is_subject = no
-			IF = {
+			if = {
 				limit = { has_completed_focus = POL_romanov }
 				has_government = neutrality
 			}
-			ELSE = {
+			else = {
 				has_government = fascism
 			}
 			has_army_manpower = { size > 549999 }	
@@ -9422,7 +9395,7 @@ focus_tree = {
 						}
 						state = 2423
 						state = 2424
-						state = 450
+						state = 1251 # was vanilla 450
 						state = 2426
 						state = 2428
 						state = 2425
@@ -9818,15 +9791,15 @@ focus_tree = {
 		
 		available = {
 			OR = {
-				controls_state = 219
-				controls_state = 195
+				controls_state = 229 # was vanilla 219
+				controls_state = 138 # was vanilla 195
 			}
 			OR = {
-				controls_state = 137
-				controls_state = 202
+				controls_state = 2127 # was vanilla 137
+				controls_state = 2081 # was vanilla 202
 			}
 			OR = {
-				controls_state = 217
+				controls_state = 457 # was vanilla 217
 				controls_state = 408
 			}
 			SOV = {
@@ -10318,7 +10291,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 2
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 3
@@ -10384,7 +10356,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -10400,7 +10371,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -10438,7 +10408,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -10455,7 +10424,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -10493,7 +10461,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -10509,7 +10476,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -10567,7 +10533,6 @@ focus_tree = {
 					free_building_slots = {
 						building = infrastructure
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -10616,7 +10581,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -10770,7 +10734,7 @@ focus_tree = {
 						region = 132
 						region = 109
 						state = 2426
-						state = 450
+						state = 1251 # was vanilla 450
 						state = 2424
 					}
 				}
@@ -10829,7 +10793,7 @@ focus_tree = {
 						state = 2180
 						state = 2685
 						state = 2424
-						state = 450
+						state = 1251 # was vanilla 450
 						state = 2426
 						state = 2428
 						state = 2425
@@ -13323,7 +13287,7 @@ focus_tree = {
 						}
 						state = 2423
 						state = 2424
-						state = 450
+						state = 1251 # was vanilla 450
 						state = 2426
 						state = 2428
 						state = 2425
@@ -15381,7 +15345,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 3
-						include_locked = yes
 					}
 					NOT = { state = 280 }
 				}
@@ -15483,7 +15446,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -15677,7 +15639,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POL_expand_gdynia_seaport"
 			random_owned_controlled_state = {
-				prioritize = { 807 }
+				prioritize = { 280 } # was vanilla 807
 				limit = {
 					is_coastal = yes
 				}
@@ -15688,12 +15650,12 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			807 = {
+			280 = { # was vanilla 807
 				add_building_construction = { type = bunker province = 9263 level = 2 instant_build = yes }
 				add_building_construction = { type = bunker province = 334 level = 2 instant_build = yes }
 				add_building_construction = { type = bunker province = 389 level = 2 instant_build = yes }
 			}
-			85 = {
+			280 = { # was vanilla 85
 				add_building_construction = { type = bunker province = 362 level = 2 instant_build = yes }
 			}
 			#Add 2 Dockyards at Gdansk			
@@ -15829,7 +15791,7 @@ focus_tree = {
 			}
 			#1x50% bonus to Naval Doctrine Research
 			
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 				custom_effect_tooltip = can_invites_mio_tt
 				show_mio_tooltip = ENG_yarrow_shipbuilders_organization
@@ -15862,7 +15824,7 @@ focus_tree = {
 				name = POL_a_cruiser_navy
 				bonus = 1.0
 				uses = 1
-				category = cl_tech
+				category = industry
 			}
 			#1x50% research bonus to Light Cruisers
 		}
@@ -15984,7 +15946,7 @@ focus_tree = {
 					name = POL_strike_force
 					bonus = 1.0
 					uses = 2
-					category = cl_tech
+					category = industry
 				}
 				add_tech_bonus = {
 					name = POL_strike_force
@@ -15998,7 +15960,7 @@ focus_tree = {
 					name = POL_strike_force
 					bonus = 1.0
 					uses = 2
-					category = cl_tech
+					category = industry
 				}
 			}
 			#1x50% research bonus to Light Cruisers & 1x50% bonus to Heavy Cruisers

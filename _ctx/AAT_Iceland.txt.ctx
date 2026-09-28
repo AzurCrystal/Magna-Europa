@@ -1,0 +1,42 @@
+    938|
+    939|# X country returns Greenland
+    940|country_event = { 
+    941|	id = iceland_events.21
+    942|	title = iceland_events.21.t
+    943|	desc = {
+    944|		text = iceland_events.21.desc
+    945|	}
+    946|
+    947|	picture = GFX_report_event_generic_read_write
+    948|
+    949|	is_triggered_only = yes
+    950|	# Great!
+    951|	option = { 
+    952|		name = iceland_events.21.a
+    953|		ai_chance = {
+    954|			base = 100
+    955|		}
+    956|
+    957|		ROOT = {
+>>  958|			transfer_state = 101
+    959|		}
+    960|		101 = {
+    961|			add_core_of = ROOT
+    962|		}
+    963|
+    964|		IF = {
+    965|			limit = {
+    966|				101 = {
+    967|					is_core_of = FROM
+    968|				}
+    969|			}
+    970|			101 = {
+    971|				remove_core_of = FROM
+    972|			}
+    973|		}
+    974|
+    975|	}
+    976|}
+    977|
+    978|# X country does not return Greenland
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

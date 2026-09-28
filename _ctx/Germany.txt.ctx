@@ -1,0 +1,43 @@
+   7865|		}
+   7866|		add_stability = -0.05 #because fuck you
+   7867|							  #language
+   7868|	}
+   7869|
+   7870|}
+   7871|
+   7872|#reset city name if retaken
+   7873|country_event = {
+   7874|	id = germany.1000
+   7875|	immediate = { log = "[GetDateText]: [Root.GetName]: event germany.1000 FROM = [From.GetName]" }
+   7876|	title = germany.1000.t
+   7877|	desc = germany.1000.desc
+   7878|	picture = GFX_report_event_german_reichstag_gathering
+   7879|
+   7880|	hidden = yes
+   7881|
+   7882|	trigger = {
+   7883|		SOV = {
+   7884|			has_government = communism
+>> 7885|			owns_state = 457
+>> 7886|			owns_state = 138
+   7887|		}
+   7888|		OR = {
+   7889|			has_global_flag = GER_cities_renamed
+   7890|			has_global_flag = ROM_king_is_silly
+   7891|		}
+   7892|	}
+   7893|
+   7894|	mean_time_to_happen = { days = 2 }
+   7895|
+   7896|	option = { #a great idea!
+   7897|		name = germany.1000.a
+   7898|		ai_chance = {
+   7899|			base = 100
+   7900|		}
+   7901|		reset_province_name = 13216
+   7902|		reset_province_name = 9985
+   7903|		clr_global_flag = GER_cities_renamed
+   7904|		clr_global_flag = ROM_king_is_silly
+   7905|	}
+   7906|}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -385,7 +385,7 @@ GER_halt_light_armor_production_in_transitioning = {
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = light_tank_chassis
-		value = -100
+		value = -80
 	}
 
 	ai_strategy = {
@@ -1860,13 +1860,14 @@ GER_stop_blitz = { #prevents GER air from suicidally continuing the Blitz after 
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 3 #Strategic Region ID - Scotland
+		id = 2 #Strategic Region ID - Scotland
+		id = 1
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 2 #Strategic Region ID - Ireland
+		id = 1 #Strategic Region ID - Ireland
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
@@ -1884,7 +1885,7 @@ GER_stop_blitz = { #prevents GER air from suicidally continuing the Blitz after 
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 240 #Strategic Region ID - Western Approaches
+		id = 244 #Strategic Region ID - Western Approaches
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -1904,61 +1905,66 @@ GER_avoid_air_war_before_fall_gelb = { #prevents GER air from uselessly beating 
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 1 #Strategic Region ID - Southern England
+		id = 45 #Strategic Region ID - Southern England
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 2 #Strategic Region ID - Northern England
+		id = 46 #Strategic Region ID - Northern England
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 3 #Strategic Region ID - Scotland
+		id = 2 #Strategic Region ID - Scotland
+		id = 1
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 4 #Strategic Region ID - Ireland
+		id = 1 #Strategic Region ID - Ireland
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 18 #Strategic Region ID - English Channel
+		id = 209 #Strategic Region ID - English Channel
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 43 #Strategic Region ID - Western Approaches
+		id = 244 #Strategic Region ID - Western Approaches
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 42 #Strategic Region ID - Bay of Biscay
+		id = 220 #Strategic Region ID - Bay of Biscay
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 19 #Strategic Region ID - Northern France
+		id = 89 #Strategic Region ID - Northern France
+		id = 62
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 208 #Strategic Region ID - Western France
+		id = 67 #Strategic Region ID - Western France
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 20 #Strategic Region ID - Southern France
+		id = 87 #Strategic Region ID - Southern France
+		id = 91
+		id = 92
+		id = 61
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -1977,37 +1983,38 @@ GER_avoid_early_blitz = { #prevents GER air from uselessly attacking England whi
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 1 #Strategic Region ID - Southern England
+		id = 45 #Strategic Region ID - Southern England
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 2 #Strategic Region ID - Northern England
+		id = 46 #Strategic Region ID - Northern England
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 3 #Strategic Region ID - Scotland
+		id = 2 #Strategic Region ID - Scotland
+		id = 1
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 4 #Strategic Region ID - Ireland
+		id = 1 #Strategic Region ID - Ireland
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 18 #Strategic Region ID - English Channel
+		id = 209 #Strategic Region ID - English Channel
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 43 #Strategic Region ID - Western Approaches
+		id = 244 #Strategic Region ID - Western Approaches
 		value = -20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -2069,23 +2076,18 @@ GER_worry_about_barbarossa_before_africa = {
 	ai_strategy = {
 		type = area_priority
 		id = suez
-		value = -30
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = east_africa
 		value = -200
 	}
 	ai_strategy = {
 		type = front_unit_request
-		area = east_africa
+		area = suez
 		value = -100
 	}
+
 	ai_strategy = {
-		type = area_priority
-		id = belgian_congo
-		value = -200
+		type = front_unit_request
+		area = east_africa
+		value = -100
 	}
 	ai_strategy = {
 		type = invasion_unit_request
@@ -2238,12 +2240,7 @@ AXIS_stay_away_from_the_royal_navy = {
 	}
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 240 #around UK
-		value = 100
-	}
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 211 #around UK
+		id = 244 #around UK
 		value = 100
 	}
 }
@@ -3673,16 +3670,20 @@ GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border d
 	ai_strategy = {
 		type = strategic_air_importance
 		id = 27 #Strategic Region ID - Baltic States
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-	}
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 56 #Strategic Region ID - Baltic States
+		id = 28
+		id = 56
 		value = 20000 #value of stocked main front in active combat is usually around 35,000
 	}
 	ai_strategy = {
 		type = strategic_air_importance
 		id = 28 #Strategic Region ID - Baltic States
+		id = 56
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 28 #Strategic Region ID - Baltic States
+		id = 56
 		value = 20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -3726,17 +3727,10 @@ GER_blitzkrieg_russia_hard_air_center  = { #get GER to focus on breaking border 
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 96 #Strategic Region ID - Eastern Poland
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-	}
-	ai_strategy = {
-		type = strategic_air_importance
 		id = 42 #Strategic Region ID - Eastern Poland
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-	}
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 41 #Strategic Region ID - Eastern Poland
+		id = 43
+		id = 94
+		id = 96
 		value = 20000 #value of stocked main front in active combat is usually around 35,000
 	}
 }
@@ -4142,9 +4136,15 @@ GER_focus_yugo = {
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 23 #Strategic Region ID - Western Balkans
-		id = 24
+		id = 16 #Strategic Region ID - Western Balkans
+		id = 17
+		id = 18
+		id = 25
 		id = 22
+		id = 24
+		id = 23
+		id = 8
+		id = 21
 		value = 30000
 	}
 }
@@ -4448,7 +4448,7 @@ GER_gotta_have_enough_light_tanks = {
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = light_tank_chassis
-		value = 1  # Germany need light tanks to support their bigger brother tanks
+		value = 3  # Germany need light tanks to support their bigger brother tanks
 	}
 }
 
@@ -4759,6 +4759,11 @@ GER_build_an_air_facility_in_penemunde = {
 	enable = {
 		1634 = { is_owned_and_controlled_by = GER }
 		air_facility < 1 # one is enough
+		NOT = {
+			any_controlled_state = {
+				air_facility > 0
+			}
+		}
 		date > 1940.6.1 # Was 1937.2.1 Moving it to later in order to let them focus on building their industry
 	}
 	abort_when_not_enabled = yes
@@ -4766,7 +4771,7 @@ GER_build_an_air_facility_in_penemunde = {
 		type = build_building
 		id = air_facility
 		target = 9388
-		value = 1
+		value = 50
 	}
 }
 
@@ -4777,13 +4782,18 @@ GER_build_an_air_facility_anywhere = {
 	enable = {
 		1634 = { NOT = { is_owned_and_controlled_by = GER } }
 		air_facility < 1 # one is enough
+		NOT = {
+			any_controlled_state = {
+				air_facility > 0
+			}
+		}
 		date > 1940.6.1 # Was 1937.2.1
 	}
 	abort_when_not_enabled = yes
 	ai_strategy = {
 		type = build_building
 		id = air_facility
-		value = 1
+		value = 50
 	}
 }
 
@@ -4832,17 +4842,17 @@ GER_raid_the_north_sea = {
 
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 234 #Norwegian Sea
+		id = 232 #Norwegian Sea
 		value = 100
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 233 #Norwegian coast
+		id = 230 #Norwegian coast
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 236 #Eastern North Sea
+		id = 239 #Eastern North Sea
 		value = 250
 	}
 }
@@ -4896,17 +4906,17 @@ GER_raid_the_atlantic = {
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 249 #North Atlantic Ridge
-		value = 250
-	}
-	ai_strategy = {
-		type = naval_convoy_raid_region
 		id = 243 #North Atlantic Ridge
 		value = 250
 	}
 	ai_strategy = {
 		type = naval_convoy_raid_region
-		id = 233 #Denmark Strait
+		id = 250 #North Atlantic Ridge
+		value = 250
+	}
+	ai_strategy = {
+		type = naval_convoy_raid_region
+		id = 234 #Denmark Strait
 		value = 250
 	}
 }
@@ -5141,18 +5151,40 @@ GER_dont_send_air_to_middle_east = {
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 28 # Middle East
+		id = 227 # Middle East
+		id = 226
 		value = -30000
 	}
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 232 # Levant
+		id = 49 # Levant
 		value = -30000
 	}
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 116 # Iran
+		id = 227 # Iran
+		id = 226
 		value = -30000
+	}
+}
+
+GER_build_tank_destroyers = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_tech = basic_medium_tank_chassis
+		date > 1939.9.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = medium_tank_destroyer_chassis
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = modern_tank_destroyer_chassis
+		value = 1
 	}
 }
 #Pfot ends

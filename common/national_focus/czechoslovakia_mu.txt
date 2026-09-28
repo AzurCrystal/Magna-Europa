@@ -670,9 +670,7 @@ focus_tree = {
 				limit = {
 					OR = {
 						any_state = {
-							limit = {
-								has_state_flag = SLO_INITIAL_CORE
-							}
+							has_state_flag = SLO_INITIAL_CORE
 							is_controlled_by = ROOT
 						}
 					}
@@ -1670,13 +1668,13 @@ focus_tree = {
 						}
 					}
 				}
-				91 = {
+				1292 = { # was vanilla 91
 					add_core_of = RUT
 				}
-				89 = {
+				1164 = { # was vanilla 89
 					add_core_of = RUT
 				}
-				93 = {
+				434 = { # was vanilla 93
 					add_core_of = RUT
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
@@ -3420,18 +3418,17 @@ focus_tree = {
 				limit = {
 						has_state_flag = AUS_INITIAL_STATE
 				}
-				add_claim_by = ROOT
-			}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			create_wargoal = {
-				type = annex_everything
-				target = AUS
-				expire = 730
-			}
+			add_claim_by = ROOT
 		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		custom_effect_tooltip = generic_skip_one_line_tt
+		create_wargoal = {
+			type = annex_everything
+			target = AUS
+			expire = 730
+		}
 	}
+	search_filters = { FOCUS_FILTER_ANNEXATION }
+}
 
 	focus = {
 		id = CZE_the_legacy_of_ottokar
@@ -4870,7 +4867,7 @@ focus_tree = {
 				}
 				POL = {
 					random_owned_controlled_state = {
-						prioritize = { 10 }
+						prioritize = { 508 } # was vanilla 10
 						create_unit = {
 							division = "name = \"Czech and Slovak Legion\" division_template = \"Czech and Slovak Legion\" start_experience_factor = 1.0" 
 							owner = ROOT
@@ -5406,7 +5403,7 @@ focus_tree = {
 					has_dlc = "La Resistance"
 					has_intelligence_agency = yes
 				}
-				IF = {
+				if = {
 					limit = {
 						agency_upgrade_number < 4
 					}
@@ -5836,9 +5833,9 @@ focus_tree = {
 				every_state = {
 					limit = {
 						is_core_of = CRP
-							is_owned_and_controlled_by = ROOT
-						}
-						remove_core_of = SLO
+						is_owned_and_controlled_by = ROOT
+					}
+					remove_core_of = SLO
 				}
 				release_autonomy = {
     				target = SLO
@@ -5866,13 +5863,13 @@ focus_tree = {
 				SLO = {
 					add_ideas = CZE_federalization_agreement_puppets
 				}
-				if = {
+				every_state = {
 					limit = {
 						is_core_of = CRP
 						is_owned_and_controlled_by = ROOT
-							}
-						add_core_of = SLO
+						NOT = { is_core_of = SLO }
 					}
+					add_core_of = SLO
 				}
 				country_event = {
 					id = MUN_czech.1047
@@ -5882,7 +5879,38 @@ focus_tree = {
 				hidden_effect = {
 					if = {
 						limit = {
-							is_core_of = SLO
+							2662 = {
+								NOT = {
+									is_core_of = ROOT
+								}
+							}
+						}
+						2662 = {
+							add_core_of = ROOT
+						}
+					}
+					if = {
+						limit = {
+							2661 = {
+								NOT = {
+									is_core_of = ROOT
+								}
+							}
+						}
+						2661 = {
+							add_core_of = ROOT
+						}
+					}
+					if = {
+						limit = {
+							611 = {
+								NOT = {
+									is_core_of = ROOT
+								}
+							}
+						}
+						611 = {
+							add_core_of = ROOT
 						}
 					}
 				}
@@ -6061,13 +6089,13 @@ focus_tree = {
 			}
 			else_if = {
 				limit = {
-					73 = {
+					2246 = { # was vanilla 73
 						has_dynamic_modifier = {
 							modifier = CZE_nationalist_protests
 						}
 					}
 				}
-				73 = {
+				2246 = { # was vanilla 73
 					remove_dynamic_modifier = {
 						modifier = CZE_nationalist_protests
 					}
@@ -6075,7 +6103,7 @@ focus_tree = {
 				custom_effect_tooltip = generic_skip_one_line_tt
 			}
 
-			73 = {
+			2246 = { # was vanilla 73
 				add_dynamic_modifier = { modifier = CZE_rut_comprise_agreement_modifier }
 			}
 
@@ -6157,13 +6185,13 @@ focus_tree = {
 			}
 			else_if = {
 				limit = {
-					73 = {
+					2246 = { # was vanilla 73
 						has_dynamic_modifier = {
 							modifier = CZE_nationalist_protests
 						}
 					}
 				}
-				73 = {
+				2246 = { # was vanilla 73
 					remove_dynamic_modifier = {
 						modifier = CZE_nationalist_protests
 					}
@@ -9275,7 +9303,7 @@ focus_tree = {
 					set_country_flag = CZE_remove_cores
 					civil_war_anti_exploiter_punitive_action = yes	#give free units if player deleted army
 					random_controlled_state = {
-						prioritize = { 70 }	#close to the border
+						prioritize = { 2662 }	#close to the border
 						create_unit = {
 							division = "name = \"Finanční Stráž\" division_template = \"Finanční Stráž\" start_experience_factor = 0.2"
 							owner = PREV
@@ -9568,7 +9596,7 @@ focus_tree = {
 						#state = 71
 						#state = 73
 						#state = 74
-						state = 75
+						state = 532 # was vanilla 75
 					}
 				}
 				increase_state_category = yes
@@ -9621,7 +9649,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -9678,7 +9705,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_building_construction = {
@@ -10450,7 +10476,7 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			IF = {
+			if = {
 				limit = { 
 					2978 = {
 						can_construct_building = land_facility
@@ -11063,7 +11089,7 @@ focus_tree = {
 					}
 					custom_effect_tooltip = generic_skip_one_line_tt
 				}
-				IF = {
+				if = {
 					limit = {
 						NOT = {
 							has_done_agency_upgrade = upgrade_army_department
@@ -11071,7 +11097,7 @@ focus_tree = {
 					}
 					upgrade_intelligence_agency = upgrade_army_department
 				}
-				IF = {
+				if = {
 					limit = {
 						NOT = {
 							has_done_agency_upgrade = upgrade_economy_civilian 
@@ -11281,10 +11307,7 @@ focus_tree = {
 			hidden_effect = {
 				if = {
 					limit = {
-						any_state = {
-							limit = {
-								is_core_of = CRP
-							}
+						2246 = {
 							is_owned_by = ROOT
 							is_core_of = ROOT
 						}
@@ -11297,12 +11320,12 @@ focus_tree = {
 				if = {
 					limit = {
 						has_country_flag = CZE_return_state_temp
-						73 = {
+						2246 = { # was vanilla 73
 							is_owned_by = UKR
 						}
 					}
-					transfer_state = 73
-					add_state_core = 73
+					transfer_state = 2246 # was vanilla 73
+					add_state_core = 2246 # was vanilla 73
 					clr_country_flag = CZE_return_state_temp
 				}
 			}
@@ -12490,7 +12513,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_building_construction = {
@@ -12692,7 +12714,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			73 = {
+			2246 = { # was vanilla 73
 				is_controlled_by = ROOT
 				air_base > 0
 			}
@@ -12845,22 +12867,35 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			every_state = {
-				limit = {
-					is_core_of = GAL
+			1292 = {
 				is_controlled_by = ROOT
+				compliance > 30
 			}
+			1143 = {
+				is_controlled_by = ROOT
 				compliance > 30
 			}
 		}
 
 		completion_reward = {
-			every_state = {
+			1292 = {
+				add_core_of = ROOT
+			}
+			1143 = {
+				add_core_of = ROOT
+			}
+			434 = {
+				add_core_of = ROOT
+			}
+			if = {
 				limit = {
 					NOT = {
 						has_completed_focus = CZE_soviet_alliance
 					}
+				}
+				1294 = {
 					add_core_of = ROOT
+				}
 			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -13093,7 +13128,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13103,7 +13137,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -13503,15 +13536,15 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					71 = { #Western Slovakia
+					2661 = { #Western Slovakia
 						state_is_fully_controlled_by_ROOT_or_subject = yes
 					}
-					73 = { #Podkarpatska
+					2246 = { #Podkarpatska
 						state_is_fully_controlled_by_ROOT_or_subject = yes
 					}
 					can_build_railway = {
-						start_state = 71
-						target_state = 73
+						start_state = 2661 # was vanilla 71
+						target_state = 2246 # was vanilla 73
 					}
 				}
 				#Zilina - Presov
@@ -13521,18 +13554,18 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					9 = { #Bohemia
+					513 = { #Bohemia
 						state_is_fully_controlled_by_ROOT_or_subject = yes
 					}
-					74 = { #Slezsko
+					499 = { #Slezsko
 						state_is_fully_controlled_by_ROOT_or_subject = yes
 					}
-					75 = { #Moravia
+					532 = { #Moravia
 						state_is_fully_controlled_by_ROOT_or_subject = yes
 					}
 					can_build_railway = {
-						start_state = 9
-						target_state = 75
+						start_state = 513 # was vanilla 9
+						target_state = 532 # was vanilla 75
 					}
 				}
 				#Bohemia - #Moravia
@@ -13613,7 +13646,7 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					593 = { #Moravia
+					532 = { #Moravia
 						is_fully_controlled_by = ROOT
 					}
 				}
@@ -13694,7 +13727,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13704,7 +13736,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -13720,7 +13751,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13730,7 +13760,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -13746,7 +13775,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13756,7 +13784,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -13772,7 +13799,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13782,7 +13808,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -13798,7 +13823,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13808,7 +13832,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -13880,7 +13903,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -13890,7 +13912,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14120,11 +14141,10 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
-						state = 9
-						state = 75
+						state = 513 # was vanilla 9
+						state = 532 # was vanilla 75
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -14183,7 +14203,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -14363,7 +14382,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14373,7 +14391,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14397,7 +14414,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14407,7 +14423,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14508,7 +14523,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14518,7 +14532,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14584,7 +14597,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14594,7 +14606,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14714,7 +14725,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14724,7 +14734,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14836,7 +14845,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14846,7 +14854,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -14918,7 +14925,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -14928,7 +14934,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -15014,7 +15019,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -15024,7 +15028,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -15085,7 +15088,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						OR = {
 							is_in_home_area = yes
@@ -15095,7 +15097,6 @@ focus_tree = {
 										free_building_slots = {
 											building = industrial_complex
 											size > 0
-											include_locked = yes
 										}
 										is_in_home_area = yes
 									}
@@ -15187,7 +15188,6 @@ focus_tree = {
 							free_building_slots = {
 								building = industrial_complex
 								size > 0
-								include_locked = yes
 							}
 						}
 						add_extra_state_shared_building_slots = 1
@@ -15255,7 +15255,7 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_tech = atomic_research
@@ -15272,7 +15272,7 @@ focus_tree = {
 					value = 0.5
 				}
 			}
-			ELSE = {
+			else = {
 				add_breakthrough_progress = {
 					specialization = specialization_nuclear
 					value = 0.75
@@ -15648,7 +15648,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						OR = {
 							is_in_home_area = yes
@@ -15658,7 +15657,6 @@ focus_tree = {
 										free_building_slots = {
 											building = industrial_complex
 											size > 0
-											include_locked = yes
 										}
 										is_in_home_area = yes
 									}
@@ -15809,7 +15807,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				random_select_amount = 2
@@ -15888,7 +15885,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						any_state = {
 							is_core_of = SDL
@@ -15906,7 +15902,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						OR = {
 							any_state = {
@@ -15923,7 +15918,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						OR = {
 							any_state = {
@@ -16014,7 +16008,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -16024,7 +16017,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -16045,7 +16037,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -16055,7 +16046,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -16076,7 +16066,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -16086,7 +16075,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -16107,7 +16095,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -16117,7 +16104,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -16373,7 +16359,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -16383,7 +16368,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -17128,7 +17112,6 @@ focus_tree = {
 							free_building_slots = {
 								building = arms_factory
 								size > 1
-								include_locked = yes
 							}
 							OR = {
 								is_in_home_area = yes
@@ -17138,7 +17121,6 @@ focus_tree = {
 											free_building_slots = {
 												building = arms_factory
 												size > 0
-												include_locked = yes
 											}
 											is_in_home_area = yes
 										}
@@ -17175,7 +17157,6 @@ focus_tree = {
 							free_building_slots = {
 								building = arms_factory
 								size > 1
-								include_locked = yes
 							}
 							OR = {
 								is_in_home_area = yes
@@ -17185,7 +17166,6 @@ focus_tree = {
 											free_building_slots = {
 												building = arms_factory
 												size > 0
-												include_locked = yes
 											}
 											is_in_home_area = yes
 										}
@@ -17222,7 +17202,6 @@ focus_tree = {
 							free_building_slots = {
 								building = arms_factory
 								size > 0
-								include_locked = yes
 							}
 							OR = {
 								is_in_home_area = yes
@@ -17232,7 +17211,6 @@ focus_tree = {
 											free_building_slots = {
 												building = arms_factory
 												size > 0
-												include_locked = yes
 											}
 											is_in_home_area = yes
 										}
@@ -17337,7 +17315,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -17347,7 +17324,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -17500,7 +17476,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -17510,7 +17485,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -17589,7 +17563,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -17599,7 +17572,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -17707,7 +17679,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -17717,7 +17688,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -17801,7 +17771,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -17811,7 +17780,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -17993,7 +17961,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -18003,7 +17970,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -18024,7 +17990,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -18034,7 +17999,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -18095,7 +18059,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				random_select_amount = 20 #Some limit on this madness
@@ -18180,7 +18143,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -18190,7 +18152,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -18201,12 +18162,11 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 			}
 			random_owned_controlled_state = {
-				prioritize = { 75 }
+				prioritize = { 532 } # was vanilla 75
 				limit = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -18216,7 +18176,6 @@ focus_tree = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -18651,15 +18610,15 @@ focus_tree = {
 			# Moravia
 			if = {
 				limit = {
-					controls_state = 75
+					controls_state = 532 # was vanilla 75
 				}
 				if = {
 					limit = {
-						75 = {
+						532 = { # was vanilla 75
 							air_base < 9
 						}
 					}
-					75 = {
+					532 = { # was vanilla 75
 						add_building_construction = {
 							type = air_base
 							level = 2
@@ -19372,7 +19331,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -19382,7 +19340,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -19512,7 +19469,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -19522,7 +19478,6 @@ focus_tree = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -20438,7 +20393,7 @@ focus_tree = {
 					OR = {
 						state = 513
 						state = 536
-						state = 70
+						state = 2662 # was vanilla 70
 					}
 				}
 				add_dynamic_modifier = { modifier = CZE_river_monitor_fleet }
@@ -20781,6 +20736,7 @@ focus_tree = {
 	focus = {
 		id = CZE_opl_exercises
 		icon = {
+			GFX_focus_PRC_a_modern_army = {
 				ROOT = {
 					has_government = communism
 				}
@@ -22454,13 +22410,13 @@ focus_tree = {
 						icon = GFX_intelligence_agency_logo_cze
 					}
 				}
-				IF = {
+				if = {
 					limit = {
 						agency_upgrade_number < 4
 					}
 					upgrade_intelligence_agency = upgrade_passive_defense
 				}
-				IF = {
+				if = {
 					limit = {
 						NOT = {
 							has_done_agency_upgrade = upgrade_form_department
@@ -22709,12 +22665,12 @@ focus_tree = {
 						limit = {
 							is_controlled_by = GER
 							OR = {
-								state = 4
-								state = 53
-								state = 54
-								state = 65
-								state = 66
-								state = 67
+								state = 1802 # was vanilla 4
+								state = 1783 # was vanilla 53
+								state = 1773 # was vanilla 54
+								state = 411 # was vanilla 65
+								state = 1666 # was vanilla 66
+								state = 1658 # was vanilla 67
 								state = 473
 								state = 507
 								state = 1433
@@ -22748,12 +22704,12 @@ focus_tree = {
 						limit = {
 							is_controlled_by = GER
 							OR = {
-								state = 4
-								state = 53
-								state = 54
-								state = 65
-								state = 66
-								state = 67
+								state = 1802 # was vanilla 4
+								state = 1783 # was vanilla 53
+								state = 1773 # was vanilla 54
+								state = 411 # was vanilla 65
+								state = 1666 # was vanilla 66
+								state = 1658 # was vanilla 67
 								state = 473
 								state = 507
 								state = 1433
@@ -22915,7 +22871,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -22990,7 +22945,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 2
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 3
@@ -23478,7 +23432,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1

@@ -45,8 +45,8 @@ country_event = {
 		}
 		custom_effect_tooltip = anschluss_mefo_bills_tt
 		hidden_effect = { # Having it appear twice might be confusing
-			GER_mefo_bills_level_down = yes
-			GER_mefo_bills_level_down = yes
+#			GER_mefo_bills_level_down = yes
+#			GER_mefo_bills_level_down = yes
 		}
 		custom_effect_tooltip = anschluss_mefo_bills_double_reduction
 		add_to_variable = { var = GER_mefo_bill_counter value = -10 }
@@ -318,7 +318,7 @@ country_event = {
 				add_claim_by = SOV
 			}
 		}
-		hidden_effect =  { add_timed_idea = { idea = SOV_molotov_ribbentrop_pact days = 730 } remove_opinion_modifier = { target = GER modifier = pre_sov_ger_treaty_trade } }
+		hidden_effect =  { add_timed_idea = { idea = SOV_molotov_ribbentrop_pact days = 730 } remove_opinion_modifier = { target = GER modifier = sov_ger_treaty_trade } }
 		GER = {
 			country_event = { days = 1 id = germany.12 }
 			effect_tooltip = {
@@ -380,7 +380,7 @@ country_event = {
 		}
 		hidden_effect = {
 			country_event = { hours = 6 id = news.32 }
-			remove_opinion_modifier = { target = SOV modifier = pre_sov_ger_treaty_trade } #added here as well because not sure which one is supposed to be scope and which target
+			remove_opinion_modifier = { target = SOV modifier = sov_ger_treaty_trade } #added here as well because not sure which one is supposed to be scope and which target
 		}
 	}
 }
@@ -425,7 +425,6 @@ country_event = {
 		NOT =  { has_war_with = SOU }
 		OR = {
 			custom_trigger_tooltip = {
-				tooltip =  "Soviet Molotov-Ribbentrop States are owned by Germany or its allies"
 				POL = {
 					all_core_state = {
 						if = {
@@ -450,7 +449,6 @@ country_event = {
 			AND = {
 				POL = { has_capitulated = yes }
 				custom_trigger_tooltip = {
-					tooltip =  "Soviet Molotov-Ribbentrop States are controlled by Germany or its allies"
 					POL = {
 						all_core_state = {
 							if = {
@@ -475,7 +473,6 @@ country_event = {
 			AND = {
 				POL = { has_capitulated = yes }
 				custom_trigger_tooltip = {
-					tooltip =  "Soviet Molotov-Ribbentrop States are controlled by Germany or its allies or Russia"
 					POL = {
 						all_core_state = {
 							if = {
@@ -616,7 +613,7 @@ country_event = {
 			}
 		}
 		else = { #MR Pact as OG
-			MR_pact_transfer_state_effect_OG = yes
+			MR_pact_transfer_state_effect = yes
 			SOU = { country_event = { id = germany.15 hours = 3 } }
 		}
 		unlock_decision_tooltip = GER_lithuanian_ultimatum
@@ -3085,7 +3082,7 @@ country_event = {
 
 		custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 
 		hidden_effect = {
 			country_event = { hours = 6 id = news.60 }
@@ -3134,7 +3131,7 @@ country_event = {
 		}
 		custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 	}
 	option = {
 		name = germany.55.c
@@ -3160,7 +3157,7 @@ country_event = {
 		}
 		custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 	}
 
 	option = {
@@ -3179,7 +3176,7 @@ country_event = {
 		add_war_support = 0.1
 		custom_effect_tooltip = end_of_czechoslovakia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 	}
 }
 
@@ -6001,7 +5998,7 @@ country_event = {
 		}
 		custom_effect_tooltip = yugoslavia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 		if = {
 			limit = {
 				ENG = {
@@ -6078,7 +6075,7 @@ country_event = {
 		}
 		custom_effect_tooltip = yugoslavia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 		if = {
 			limit = {
 				ENG = {
@@ -6150,7 +6147,7 @@ country_event = {
 
 		custom_effect_tooltip = yugoslavia_mefo_bills_tt
 		add_to_variable = { var = GER_mefo_bill_counter value = -5 }
-		GER_mefo_bills_level_down = yes
+#		GER_mefo_bills_level_down = yes
 		if = {
 			limit = {
 				ENG = {
@@ -6758,7 +6755,6 @@ country_event = {
 				has_country_flag = GER_POL_danzig_promised
 				has_civil_war = no
 
-				tooltip = mer_GER_danzig_or_war_poland_owns_controls_danzig_tt
 				287 = {
 					owner = {
 						original_tag = POL

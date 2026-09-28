@@ -6009,7 +6009,6 @@ ENG_concessions_to_the_trade_unions = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 					NOT = { has_state_flag = ENG_trade_unions_demand_referendum_1AF }
 				}
@@ -6227,10 +6226,10 @@ ENG_move_to_secure_the_dominions = {
 		}
 
 		available = {
-			NOT = { army_manpower_in_state = { state = 1 amount < 28000 } }
-			NOT = { army_manpower_in_state = { state = 9 amount < 38000 } }
-			NOT = { army_manpower_in_state = { state = 6 amount < 38000 } }
-			NOT = { army_manpower_in_state = { state = 8 amount < 38000 } }
+			NOT = { army_manpower_in_state = { state = 1422 amount < 28000 } } # was vanilla 1
+			NOT = { army_manpower_in_state = { state = 513 amount < 38000 } } # was vanilla 9
+			NOT = { army_manpower_in_state = { state = 455 amount < 38000 } } # was vanilla 6
+			NOT = { army_manpower_in_state = { state = 500 amount < 38000 } } # was vanilla 8
 		}
 
 		targets = { CAN }
@@ -6308,10 +6307,10 @@ ENG_move_to_secure_the_dominions = {
 		}
 
 		available = {
-			NOT = { army_manpower_in_state = { state = 1 amount < 28000 } }
-			NOT = { army_manpower_in_state = { state = 9 amount < 38000 } }
-			NOT = { army_manpower_in_state = { state = 6 amount < 38000 } }
-			NOT = { army_manpower_in_state = { state = 8 amount < 38000 } }
+			NOT = { army_manpower_in_state = { state = 1422 amount < 28000 } } # was vanilla 1
+			NOT = { army_manpower_in_state = { state = 513 amount < 38000 } } # was vanilla 9
+			NOT = { army_manpower_in_state = { state = 455 amount < 38000 } } # was vanilla 6
+			NOT = { army_manpower_in_state = { state = 500 amount < 38000 } } # was vanilla 8
 			FROM = { has_country_flag = ENG_cannot_leave_faction }
 		}
 
@@ -6383,10 +6382,10 @@ ENG_move_to_secure_the_dominions = {
 		}
 
 		available = {
-			NOT = { army_manpower_in_state = { state = 1 amount < 28000 } }
-			NOT = { army_manpower_in_state = { state = 9 amount < 38000 } }
-			NOT = { army_manpower_in_state = { state = 6 amount < 38000 } }
-			NOT = { army_manpower_in_state = { state = 8 amount < 38000 } }
+			NOT = { army_manpower_in_state = { state = 1422 amount < 28000 } } # was vanilla 1
+			NOT = { army_manpower_in_state = { state = 513 amount < 38000 } } # was vanilla 9
+			NOT = { army_manpower_in_state = { state = 455 amount < 38000 } } # was vanilla 6
+			NOT = { army_manpower_in_state = { state = 500 amount < 38000 } } # was vanilla 8
 			FROM = { 
 				has_country_flag = ENG_cannot_leave_faction
 				fascism > 0.2
@@ -6444,10 +6443,10 @@ ENG_move_to_secure_the_dominions = {
 		}
 
 		available = {
-			NOT = { army_manpower_in_state = { state = 6 amount < 24600 } }
-			NOT = { army_manpower_in_state = { state = 8 amount < 24600 } }
-			NOT = { army_manpower_in_state = { state = 1 amount < 24600 } }
-			NOT = { army_manpower_in_state = { state = 9 amount < 24600 } }
+			NOT = { army_manpower_in_state = { state = 455 amount < 24600 } } # was vanilla 6
+			NOT = { army_manpower_in_state = { state = 500 amount < 24600 } } # was vanilla 8
+			NOT = { army_manpower_in_state = { state = 1422 amount < 24600 } } # was vanilla 1
+			NOT = { army_manpower_in_state = { state = 513 amount < 24600 } } # was vanilla 9
 			FROM = { 
 				has_country_flag = ENG_cannot_leave_faction
 				communism > 0.2
@@ -7644,9 +7643,10 @@ political_actions = {
 							} 
 						}
 					}
-					transfer_state = Any_state = {
-    									has_state_flag = USA_INITIAL_STATE
-									}
+					every_state = {
+						limit = { has_state_flag = USA_INITIAL_STATE }
+						event_target:MTG_loyalist_canada = { transfer_state = PREV }
+					}
 				}
 			}
 			hidden_effect = { news_event = { id = mtg_news.57 hours = 6 } }
@@ -7744,8 +7744,8 @@ operations = {
 		}
 		
 		complete_effect = {
-			add_state_claim = 113
-			add_state_claim = 134
+			add_state_claim = 345 # was vanilla 113
+			add_state_claim = 288 # was vanilla 134
 			add_state_claim = 135
 			declare_war_on = { target = IRE type = annex_everything }
 			add_popularity = { ideology = democratic popularity = -0.03 }

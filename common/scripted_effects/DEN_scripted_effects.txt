@@ -3773,3 +3773,155 @@ DEN_independence_war_effects = {
 
 	mark_focus_tree_layout_dirty = yes
 }
+
+DEN_create_the_plenipotentiary = { #This is set up in an event and will create a new country leader in the Overlord country, but retires that character immediately so that character doesn't assume power 
+	if = {
+		limit = {
+			FROM = { #Overlord Scope
+				original_tag = GER
+				has_government = fascism
+			}
+		}
+		DEN_werner_best = {
+			add_country_leader_role = {
+				country_leader = {
+					ideology = nazism
+					expire = "1965.1.1.1"
+					id = -1
+					traits = {
+						DEN_plenipotentiary
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			FROM = { #Overlord Scope
+				NOT = { original_tag = GER }
+				has_government = fascism
+			}
+		}
+		FROM = {
+			create_country_leader = {
+				picture = GFX_portrait_Europe_Generic_1
+				expire = "1965.1.1"
+				ideology = fascism_ideology
+				traits = {
+					DEN_plenipotentiary
+				}	
+			}
+			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
+		}
+	}
+	else_if = {
+		limit = {
+			FROM = { #Overlord Scope
+				has_government = communism
+			}
+		}
+		FROM = {
+			create_country_leader = {
+				picture = GFX_portrait_Europe_Generic_1
+				expire = "1965.1.1"
+				ideology = stalinism
+				traits = {
+					DEN_plenipotentiary
+				}	
+			}
+			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
+		}
+	}
+	else_if = {
+		limit = {
+			FROM = { #Overlord Scope
+				has_government = neutrality
+			}
+		}
+		FROM = {
+			create_country_leader = {
+				picture = GFX_portrait_Europe_Generic_1
+				expire = "1965.1.1"
+				ideology = despotism
+				traits = {
+					DEN_plenipotentiary
+				}	
+			}
+			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
+		}
+	}
+	else_if = {
+		limit = {
+			FROM = { #Overlord Scope
+				has_government = democratic
+			}
+		}
+		FROM = {
+			create_country_leader = {
+				picture = GFX_portrait_Europe_Generic_1
+				expire = "1965.1.1"
+				ideology = conservatism
+				traits = {
+					DEN_plenipotentiary
+				}	
+			}
+			retire_country_leader = yes #Necessary to not install this character as the Overlord's new country leader
+		}
+	}
+}
+DEN_puppet_on_action_effects = { #This is triggered when Denmark is set free or otherwise called through on_action, like peace conferences or being set free through other means than through the focus tree
+	if = {
+		limit = {
+			DEN  = {
+				has_cosmetic_tag = DEN_occupied_denmark
+			}
+		}
+		DEN  = {	
+			drop_cosmetic_tag = yes
+		}
+	}
+	if = {
+		limit = {
+			DEN = {
+				has_country_flag = DEN_is_protectorate_flag
+			}
+		}
+		DEN = { clr_country_flag = DEN_is_protectorate_flag }
+	}
+	if = {
+		limit = {	
+			DEN = {
+				has_country_flag = DEN_cannot_join_factions_flag
+			}
+		}
+		DEN = {
+			set_rule = { can_join_factions = yes }
+			set_rule = { can_decline_call_to_war = no }
+			clr_country_flag = DEN_cannot_join_factions_flag
+		}
+	}
+	if = { #If the Overlord installed a country leader of their own, that dude needs to go for ever
+		limit = {	
+			DEN = {
+				has_country_leader_with_trait = DEN_plenipotentiary
+			}
+		}
+		DEN = {
+			retire_country_leader = yes
+			restore_ruling_party = yes
+		}
+	}
+	if = {
+		limit = {
+			DEN = { is_subject = no	}
+		}
+		DEN = {
+			set_power_balance = {
+				id = DEN_balance_of_power
+				left_side = DEN_welfare_side
+				right_side = DEN_warfare_side
+				set_value = 0
+			}
+		}
+	}
+}

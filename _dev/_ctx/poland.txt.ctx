@@ -1,0 +1,111 @@
+    430|	desc = poland.12.d
+    431|	picture = GFX_report_event_polish_tanks_01
+    432|	
+    433|	trigger = {
+    434|		tag = POL
+    435|		has_completed_focus = POL_artillery_modernisation
+    436|		has_government = neutrality
+    437|		has_war_with = ITA
+    438|		NOT = { is_in_faction_with = SOV }
+    439|		417 = {
+    440|			controller = {
+    441|				OR = {
+    442|					tag = POL
+    443|					is_in_faction_with = POL			
+    444|				}
+    445|				has_war_with = ITA
+    446|			}
+    447|		}
+    448|		OR = {
+    449|			divisions_in_state = {
+>>  450|				state = 1387
+    451|				size > 0
+    452|			}
+    453|			divisions_in_state = {
+>>  454|				state = 157
+    455|				size > 0
+    456|			}
+    457|			divisions_in_state = {
+>>  458|				state = 2607
+    459|				size > 0
+    460|			}
+    461|		}
+    462|	}
+    463|
+    464|	mean_time_to_happen = {
+    465|		days = 1
+    466|	}
+    467|
+    468|	fire_only_once = yes
+    469|
+    470|	option = {
+    471|		name = poland.12.a
+    472|		custom_effect_tooltip = WOJTEK_COMMANDER
+    473|		hidden_effect = {
+    474|			set_country_flag = POL_vojtek_commander
+    475|		}
+    476|	}
+    477|
+    478|}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1646|		trigger = {
+   1647|			DNZ = { is_ai = no }
+   1648|		}
+   1649|		807 = {
+   1650|			add_core_of = DNZ
+   1651|		}
+   1652|	}
+   1653|}
+   1654|
+   1655|country_event = { #Event for independent Danzig winning the war
+   1656|	id = poland.22
+   1657|	title = poland.22.t
+   1658|	desc = poland.22.d
+   1659|	picture = GFX_report_event_generic_conference
+   1660|	
+   1661|	trigger = {
+   1662|		tag = POL
+   1663|		DNZ = {
+   1664|			is_subject = no
+   1665|			has_war_with = POL
+>> 1666|			controls_state = 280
+   1667|		}
+   1668|		OR = {
+   1669|			DNZ = { has_country_flag = rejected_germany_flag }
+   1670|			GER = { has_completed_focus = GER_oppose_hitler }
+   1671|		}
+   1672|	}
+   1673|
+   1674|	mean_time_to_happen = {
+   1675|		days = 30
+   1676|	}
+   1677|
+   1678|	fire_only_once = yes
+   1679|
+   1680|	option = {
+   1681|		name = poland.22.a
+   1682|		ai_chance = {
+   1683|			factor = 50 #TODO
+   1684|		}
+>> 1685|		DNZ = { transfer_state = 280 }
+   1686|		white_peace = DNZ
+   1687|		GER = { country_event = { id = poland.2102 days = 7 } }
+   1688|	}
+   1689|
+   1690|	option = {
+   1691|		name = poland.22.b
+   1692|		ai_chance = {
+   1693|			factor = 50 #TODO
+   1694|		}
+   1695|	}
+   1696|}
+   1697|
+   1698|state_event = { #Event for Polish sabotage
+   1699|	id = poland.23
+   1700|	title = poland.23.t
+   1701|	desc = poland.23.d
+   1702|	picture = GFX_report_event_generic_battle
+   1703|
+   1704|	is_triggered_only = yes
+   1705|	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

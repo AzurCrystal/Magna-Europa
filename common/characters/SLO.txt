@@ -417,4 +417,194 @@ characters={
 			}
 		}
 	}
+
+	SLO_augustin_malar = { #Pfot/Mun Locked
+		name=SLO_augustin_malar
+		portraits={
+			army={
+				large=GFX_portrait_SLO_augustin_malar
+				small=GFX_portrait_SLO_augustin_malar_small
+			}
+		}
+		corps_commander={
+			traits={ infantry_officer trickster }
+			skill=2
+			attack_skill=2
+			defense_skill=3
+			planning_skill=1
+			logistics_skill=1
+			legacy_id=-1
+		}
+		advisor = {
+			slot = high_command
+			idea_token = SLO_augustin_malar
+			ledger = army
+			allowed = {
+				original_tag = SLO
+			}
+			traits = {
+				surveyor
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+	}
+	SLO_jan_ursiny = { #Pfot/Mun Locked
+		name = SLO_jan_ursiny
+		portraits = {
+			civilian = {
+				large = GFX_portrait_SLO_jan_ursiny
+				small = GFX_portrait_SLO_jan_ursiny_small
+			}
+		}
+		country_leader = {
+			ideology = conservatism
+			expire = "1965.1.1"
+			id = -1
+			traits  = {
+				agrarian_old_guard
+			}
+		}
+	}
+	SLO_julius_thorzo = {
+		name=SLO_julius_thorzo
+		portraits={
+			army={
+				small="GFX_idea_generic_navy_europe_3"
+			}
+		}
+		advisor={
+			slot = navy_chief
+			idea_token = SLO_julius_thorzo
+			allowed  = {
+				original_tag  = SLO
+			}
+			#cost = 150
+			traits  = {
+				navy_chief_reform_2 
+			}
+			ai_will_do  = {
+				factor  = 1.000
+			}
+		}
+	}
+	SLO_karol_smidke = { #Pfot/Mun Locked
+		name = SLO_karol_smidke
+		portraits = {
+			civilian = {
+				large = GFX_portrait_SLO_karol_smidke
+				small = GFX_portrait_SLO_karol_smidke_small
+			}
+		}
+		country_leader = {
+			ideology = stalinism
+			expire = "1965.1.1"
+			id = -1
+			traits  = {
+				veteran_communist
+			}
+		}
+	}
+	SLO_stefan_jurech = { #Pfot/Mun Locked
+		name=SLO_stefan_jurech
+		portraits={
+			army={
+				large = GFX_portrait_SLO_stefan_jurech
+				small = GFX_portrait_SLO_stefan_jurech_small
+			}
+		}
+		field_marshal={
+			traits={ career_officer infantry_officer }
+			skill=2
+			attack_skill=1
+			defense_skill=1
+			planning_skill=3
+			logistics_skill=2
+			legacy_id=-1
+			visible = {
+				NOT = {
+					is_subject_of = CZE
+				}
+			}
+		}
+		advisor={
+			slot = high_command
+			idea_token = SLO_stefan_jurech
+			ledger = army
+			allowed = {
+				original_tag = SLO
+			}
+			available = {
+				NOT = {
+					is_subject_of = CZE
+				}
+			}
+			traits = {
+				army_infantry_2
+			}
+			cost = 150
+			ai_will_do = {
+				factor = 1.000
+			}
+		}
+	}
+	SLO_vojtech_tuka = { #Pfot/Mun Locked - Alt Fascist
+		name = CZE_vojtech_tuka
+		portraits = {
+			civilian = {
+				large = GFX_portrait_SLO_vojtech_tuka
+				small = GFX_portrait_SLO_vojtech_tuka_small
+			}
+		}
+		country_leader = {
+			ideology = gen_nazism
+			expire = "1965.1.1"
+			id = -1
+			traits  = {
+				SLO_head_of_the_radical_wing
+			}
+		}
+		advisor={
+			slot = political_advisor
+			idea_token = SLO_vojtech_tuka
+			allowed = {
+				original_tag = SLO
+				has_dlc = "Peace For Our Time"
+			}
+			available = {
+				is_country_leader = no
+				has_government = fascism
+				NOT = {
+					is_subject_of = CZE
+				}
+			}
+			ai_will_do = {
+				factor = 10
+			}
+			visible = {
+				NOT = {
+					is_subject_of = CZE
+				}
+			}
+			traits = {
+				SLO_head_of_the_radical_wing
+			}
+		}
+		field_marshal={
+			traits={ old_guard politically_connected harsh_leader militias_officer }
+			skill=1
+			attack_skill=1
+			defense_skill=1
+			planning_skill=1
+			logistics_skill=1
+			legacy_id=-1
+			visible = {
+				has_country_flag = SLO_revenge_of_the_radical_wing_flag
+				#is_country_leader = yes
+			}
+		}
+	}
+
 }

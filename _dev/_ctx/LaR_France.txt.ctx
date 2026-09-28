@@ -1,0 +1,156 @@
+   2465|#  # #  #  #  ### #     #        #  #  # ###     ##   #  #  # ### ##  #  #     #   #  #  ##  #  #  #  
+   2466|
+   2467|add_namespace = lar_ratify_the_stresa_front
+   2468|
+   2469|#initial event for Italy
+   2470|country_event = {
+   2471|	id = lar_ratify_the_stresa_front.1
+   2472|	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_ratify_the_stresa_front.1 FROM = [From.GetName]" }
+   2473|	title = lar_ratify_the_stresa_front.1.t
+   2474|	desc = lar_ratify_the_stresa_front.1.desc
+   2475|	picture = GFX_report_event_generic_sign_treaty1
+   2476|	is_triggered_only = yes
+   2477|	option = {
+   2478|		name = lar_ratify_the_stresa_front.1.a #agree
+   2479|		ai_chance = {
+   2480|			factor = 80
+   2481|		}
+   2482|		FRA = {
+   2483|			country_event = lar_ratify_the_stresa_front.2
+   2484|		}
+>> 2485|		effect_tooltip = { transfer_state = 268 }
+   2486|		if = {
+   2487|			limit = {
+   2488|				has_global_flag = ITA_agrees_ENG_FRA_concessions
+   2489|			}
+>> 2490|			effect_tooltip = { transfer_state = 269 }
+   2491|		}
+   2492|		add_ai_strategy = {
+   2493|			type = alliance
+   2494|			id = FROM
+   2495|			value = 200
+   2496|		}
+   2497|		if = {
+   2498|			limit = {
+   2499|				country_exists = AUS
+   2500|				AUS = {
+   2501|					is_subject = no
+   2502|					is_major = no
+   2503|					has_war = no
+   2504|					NOT = {
+   2505|						is_in_faction_with = GER
+   2506|					}
+   2507|				}
+   2508|			}
+   2509|			give_guarantee = AUS
+   2510|		}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2862|}
+   2863|# Germany approves
+   2864|country_event = {
+   2865|	id = lar_end_the_occupation.2
+   2866|	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.2 FROM = [From.GetName]" }
+   2867|	title = lar_end_the_occupation.2.t
+   2868|	desc = lar_end_the_occupation.2.desc
+   2869|	picture = GFX_report_event_generic_military_parade
+   2870|
+   2871|	is_triggered_only = yes
+   2872|
+   2873|	option = {
+   2874|		name = lar_end_the_occupation.2.a 
+   2875|		ai_chance = {
+   2876|			factor = 50
+   2877|		}
+   2878|		hidden_effect = { news_event = { id = lar_news.4 days = 3 random_days = 5 } }
+   2879|		every_state = { #take over core french territory that is being held by Germany
+   2880|			limit = {
+   2881|				is_core_of = ROOT
+>> 2882|				NOT = { state = 2747 } #Elsass-Lothringen ist deutsch!
+>> 2883|				NOT = { state = 268 } #Savoy is Italian
+   2884|				OR = {
+   2885|					is_controlled_by = FROM
+   2886|					CONTROLLER = {
+   2887|						is_in_faction_with = FROM 
+   2888|					}
+   2889|				}
+   2890|			}
+   2891|			ROOT = { transfer_state = PREV }
+   2892|		}
+   2893|		if = {
+   2894|			limit = {
+   2895|				NOT = { is_in_faction_with = FROM }
+   2896|			}
+   2897|			FROM = { add_to_faction = ROOT }
+   2898|		}
+   2899|		load_focus_tree = french_focus
+   2900|		unlock_national_focus = FRA_revive_the_national_bloc
+   2901|		unlock_national_focus = FRA_utilize_the_leagues
+   2902|		unlock_national_focus = FRA_national_regeneration
+   2903|		unlock_national_focus = FRA_diplomatic_freedom
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4251|		}
+   4252|		effect_tooltip = { FRA = { FRA_transfer_north_africa_effect = yes } }
+   4253|	}
+   4254|}
+   4255|
+   4256|# event for Vichy - madagascar has decided to side with de gaulle
+   4257|country_event = {
+   4258|	id = LaR_france_vichy_notification_events.6
+   4259|	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.6 FROM = [From.GetName]" }
+   4260|	title =  LaR_france_vichy_notification_events.6.t
+   4261|	desc =  LaR_france_vichy_notification_events.1.desc
+   4262|	picture = GFX_report_event_generic_read_write
+   4263|
+   4264|	is_triggered_only = yes
+   4265|	
+   4266|	option = { #accept
+   4267|		name =  LaR_france_vichy_notification_events.1.a
+   4268|		ai_chance = {
+   4269|			factor = 100
+   4270|		}
+>> 4271|		effect_tooltip = { FRA = { transfer_state = 543 } }
+   4272|	}
+   4273|}
+   4274|
+   4275|# event for Vichy - coup in Syria
+   4276|country_event = {
+   4277|	id = LaR_france_vichy_notification_events.7
+   4278|	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.7 FROM = [From.GetName]" }
+   4279|	title =  LaR_france_vichy_notification_events.7.t
+   4280|	desc =  LaR_france_vichy_notification_events.7.desc
+   4281|	picture = GFX_report_event_generic_read_write
+   4282|
+   4283|	is_triggered_only = yes
+   4284|	
+   4285|	option = { #accept
+   4286|		name =  LaR_france_vichy_notification_events.7.a
+   4287|		ai_chance = {
+   4288|			factor = 100
+   4289|		}
+   4290|		effect_tooltip = { FRA = { FRA_transfer_syria_effect = yes } }
+   4291|	}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4365|		}
+   4366|		effect_tooltip = { FRA = { FRA_transfer_north_africa_effect = yes } }
+   4367|	}
+   4368|}
+   4369|
+   4370|# event for Vichy - coup in Madagascar
+   4371|country_event = {
+   4372|	id = LaR_france_vichy_notification_events.12
+   4373|	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.12 FROM = [From.GetName]" }
+   4374|	title =  LaR_france_vichy_notification_events.12.t
+   4375|	desc =  LaR_france_vichy_notification_events.7.desc
+   4376|	picture = GFX_report_event_generic_read_write
+   4377|
+   4378|	is_triggered_only = yes
+   4379|	
+   4380|	option = { #accept
+   4381|		name =  LaR_france_vichy_notification_events.7.a
+   4382|		ai_chance = {
+   4383|			factor = 100
+   4384|		}
+>> 4385|		effect_tooltip = { FRA = { transfer_state = 543 } }
+   4386|	}
+   4387|}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

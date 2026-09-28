@@ -1,0 +1,124 @@
+    864|			clr_country_flag = GER_dont_seize_gold_reserves_flag
+    865|		}
+    866|	}
+    867|	option = { # Agree - Fascism - LaR
+    868|		name = france.14.a
+    869|		ai_chance = { 
+    870|			factor = 50 
+    871|		}
+    872|		trigger = {
+    873|			has_government = fascism
+    874|			has_dlc = "La Resistance"
+    875|		}
+    876|		FRA = { 
+    877|			set_cosmetic_tag = FRA_FREE 
+    878|			add_ideas = FRA_defeatism
+    879|			load_focus_tree = free_french_focus
+    880|			if = {
+    881|				limit = {
+    882|					capital_scope = {
+    883|						NOT = {
+>>  884|							state = 563
+>>  885|							state = 635
+    886|						}
+    887|					}
+>>  888|					controls_state = 635
+    889|				}
+>>  890|				set_capital = { state = 635 }
+    891|			}
+    892|			country_event = france.20
+    893|			every_owned_state = {
+    894|				limit = { 
+    895|					is_controlled_by = ITA 
+    896|					is_core_of = FRA
+    897|				}
+    898|				set_state_flag = vichy_italian_conquest
+    899|			}
+    900|		}
+    901|		custom_effect_tooltip = establishing_vichy_tt
+    902|
+    903|		GER_set_consumer_goods_war_reparations = yes
+    904|
+    905|		hidden_effect = {
+    906|			create_dynamic_country = {
+    907|				original_tag = FRA
+    908|				save_event_target_as = vichy_france
+    909|				set_country_flag = vichy_france
+    910|				every_state = { #transfer French colonial empire
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1694|			}
+   1695|		} 
+   1696|	}
+   1697|	desc = { 
+   1698|		text = france.27.d_both
+   1699|		trigger = { 
+   1700|			has_global_flag = ITA_claims_on_france_735 
+   1701|			has_global_flag = ITA_claims_on_france_1
+   1702|		} 
+   1703|	}
+   1704|	picture = GFX_report_event_worried_french
+   1705|
+   1706|	is_triggered_only	= yes
+   1707|
+   1708|	option = {
+   1709|		name = france.27.a
+   1710|		
+   1711|		effect_tooltip = {
+   1712|			if = {
+   1713|				limit = { has_global_flag = ITA_claims_on_france_735 }
+>> 1714|				ITA = { transfer_state = 268 }
+   1715|			}
+   1716|			if = {
+   1717|				limit = { has_global_flag = ITA_claims_on_france_1 }
+>> 1718|				ITA = { transfer_state = 1422 }
+   1719|			}
+   1720|		}
+   1721|
+   1722|		if = {
+   1723|			limit = {
+   1724|				has_global_flag = ITA_claims_on_france_735
+   1725|				has_global_flag = ITA_claims_on_france_1
+   1726|				OR = {
+>> 1727|					owns_state = 554
+>> 1728|					owns_state = 677
+>> 1729|					owns_state = 680
+   1730|				}
+   1731|
+   1732|			}
+   1733|			random_other_country = {
+   1734|				limit = {
+   1735|					original_tag = FRA
+   1736|					has_government = democratic
+   1737|				}
+   1738|				if = {
+>> 1739|					limit = { ROOT = { owns_state = 554 } }
+>> 1740|					transfer_state = 554
+   1741|				}
+   1742|				if = {
+>> 1743|					limit = { ROOT = { owns_state = 677 } }
+>> 1744|					transfer_state = 677
+   1745|				}
+   1746|				if = {
+>> 1747|					limit = { ROOT = { owns_state = 680 } }
+>> 1748|					transfer_state = 680
+   1749|				}
+   1750|				country_event = france.28
+   1751|			}
+   1752|		}
+   1753|	}
+   1754|
+   1755|}
+   1756|
+   1757|# France - Syria defects to us
+   1758|country_event = {
+   1759|	id = france.28
+   1760|	immediate = { log = "[GetDateText]: [Root.GetName]: event france.28 FROM = [From.GetName]" }
+   1761|	title = france.28.t
+   1762|	desc = france.28.d
+   1763|	picture = GFX_report_event_worried_french
+   1764|
+   1765|	is_triggered_only	= yes
+   1766|
+   1767|	option = {
+   1768|		name = france.28.a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

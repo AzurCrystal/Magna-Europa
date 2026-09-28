@@ -160,28 +160,28 @@ ideas = {
 				always = no
 			}
 			cancel = {
-				IF = {
+				if = {
 					limit = {
 						tag = BRA
 					}
 					AND = {
-						ARG = {
-							OR = {
-								has_capitulated = yes
-                    			exists = no
-                    			is_subject_of = ROOT
-							}
-						}
-						CHL = {
-							OR = {
-								has_capitulated = yes
-                    			exists = no
-                    			is_subject_of = ROOT
-							}
-						}
+#						ARG = {
+#							OR = {
+#								has_capitulated = yes
+#                    			exists = no
+#                    			is_subject_of = ROOT
+#							}
+#						}
+#						CHL = {
+#							OR = {
+#								has_capitulated = yes
+#                    			exists = no
+#                    			is_subject_of = ROOT
+#							}
+#						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
 						tag = ARG
 					}
@@ -193,16 +193,16 @@ ideas = {
                     			is_subject_of = ROOT
 							}
 						}
-						CHL = {
-							OR = {
-								has_capitulated = yes
-                    			exists = no
-                    			is_subject_of = ROOT
-							}
-						}
+#						CHL = {
+#							OR = {
+#								has_capitulated = yes
+#                    			exists = no
+#                    			is_subject_of = ROOT
+#							}
+#						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
 						tag = CHL
 					}
@@ -214,13 +214,13 @@ ideas = {
                     			is_subject_of = ROOT
 							}
 						}
-						ARG = {
-							OR = {
-								has_capitulated = yes
-                    			exists = no
-                    			is_subject_of = ROOT
-							}
-						}
+#						ARG = {
+#							OR = {
+#								has_capitulated = yes
+#                    			exists = no
+#                    			is_subject_of = ROOT
+#							}
+#						}
 					}
 				}
 			}
@@ -252,7 +252,7 @@ ideas = {
 				always = yes
 			}
 
-			#picture = 
+			picture = generic_flexible_foreign_policy 
 
 			modifier = {
 				army_core_defence_factor = 0.05
@@ -292,7 +292,7 @@ ideas = {
 
 			on_add = {
 				hidden_effect = {
-					IF = {
+					if = {
 						limit = { is_subject = no }
 						add_to_array = { global.monroe_doctrine_countries_to_destabilize = ROOT }
 						#log = "[THIS.GetName] (country) Was added to standard Array"
@@ -308,7 +308,7 @@ ideas = {
 
 			on_remove = {
 				hidden_effect = {
-					IF = {
+					if = {
 						limit = {
 							is_in_array = {
 								array = global.monroe_doctrine_countries_to_destabilize
@@ -319,7 +319,7 @@ ideas = {
 						#log = "[THIS.GetName] (country) Was removed from standard Array"
 					}
 
-					IF = {
+					if = {
 						limit = {
 							ROOT = {
 								capital_scope = {

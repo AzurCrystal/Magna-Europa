@@ -571,30 +571,24 @@ propaganda_efforts = {
 		icon = generic_prepare_civil_war
 
 		available = {
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "Trial of Allegiance"
 					tag = BRA
 				}
 				threat > 0.25
 				#has_tech = radio
-				has_completed_focus = BRA_radio_nacional
+#				has_completed_focus = BRA_radio_nacional
 			}
-			ELSE = {
-				threat > 0.25
-				has_tech = radio
-			}
-		
-
-			IF = {
+			else_if = {
 				limit = {
 					tag = AFG
 				}
 				threat > 0.25
 				#has_tech = radio
-				has_completed_focus = AFG_establish_radio_networks
+#				has_completed_focus = AFG_establish_radio_networks
 			}
-			ELSE = {
+			else = {
 				threat > 0.25
 				has_tech = radio
 			}
@@ -1716,8 +1710,8 @@ war_measures = {
         				original_tag = PRC
         			}
         			NOT = { 
-        				has_completed_focus = PRC_holding_half_the_sky
-        				has_completed_focus = PRC_promote_womens_suffrage
+#        				has_completed_focus = PRC_holding_half_the_sky
+#        				has_completed_focus = PRC_promote_womens_suffrage
         			}
         		}
 			}
@@ -1739,7 +1733,7 @@ war_measures = {
 					has_idea = tot_economic_mobilisation
 					has_idea = national_defense_state
 				}
-				NOT = { has_completed_focus = JAP_democratic_women_in_the_workforce }
+#				NOT = { has_completed_focus = JAP_democratic_women_in_the_workforce }
 			}
             OR = {
                 AND = {
@@ -1932,15 +1926,13 @@ war_measures = {
 		allowed = {
 			has_dlc = "Arms Against Tyranny"
 			NOT = {
-				OR = {
-					tag = ENG #has a focus
-					tag = USA #has a focus
-					tag = SOV #has a focus
-					tag = JAP #has a focus
-					tag = AST #has a focus
-					tag = FRA #has a focus
-					tag = GER #has a focus
-				}
+				tag = ENG #has a focus
+				tag = USA #has a focus
+				tag = SOV #has a focus
+				tag = JAP #has a focus
+				tag = AST #has a focus
+				tag = FRA #has a focus
+				tag = GER #has a focus
 			}
 		}
 
@@ -1950,44 +1942,53 @@ war_measures = {
 		visible = {
 			is_major = yes
 			date > 1940.1.1
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "Trial of Allegiance"
 				}
 				NOT = {
-					OR = {
-						tag = CHL #has a focus
-						tag = BRA #has a focus
-						tag = ARG #has a focus
-						tag = URG #has a focus
-						tag = PAR #has a focus
-					}
+					tag = CHL #has a focus
+					tag = BRA #has a focus
+					tag = ARG #has a focus
+					tag = URG #has a focus
+					tag = PAR #has a focus
 				}
 			}
-			IF = {
+			if = {
 				limit = {
             		has_dlc = "Graveyard of Empires"
 				}
 				NOT = {
-					OR = {
-						tag = PER #has a focus
-						tag = IRQ #has a focus
-						tag = RAJ #has a focus
-					}
+					tag = PER #has a focus
+					tag = IRQ #has a focus
+					tag = RAJ #has a focus
 				}
 			}
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "Gotterdammerung"
 				}
 				NOT = {
-					OR = {
-						tag = BEL #has a focus
-						tag = COG #has a focus
-					}
+					tag = BEL #has a focus
+					tag = COG #has a focus
 				}
 			}
-			PHI_SEA = no
+			if = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				NOT = {
+					tag = PHI #has a focus
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Thunder at Our Gates"
+				}
+				NOT = {
+					tag = INS #has a focus
+				}
+			}
 		}
 
 		fire_only_once = yes
@@ -2022,10 +2023,14 @@ war_measures = {
 			modifier = {
 				factor = 0
 				NOT = {
-					has_tech = special_forces_mountaineers
-					has_tech = special_forces_marines
-					has_tech = special_forces_paratroopers
-					has_tech = special_forces_rangers
+					has_doctrine = mountaineers_1
+					has_doctrine = mountaineers_2
+					has_doctrine = marines_1
+					has_doctrine = marines_2
+					has_doctrine = paratroopers_1
+					has_doctrine = paratroopers_2
+					has_doctrine = rangers_1
+					has_doctrine = rangers_2
 				}
 			}
 		}
@@ -2137,7 +2142,6 @@ economy_decisions = {
             		free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					free_building_slots = {
 						building = infrastructure
@@ -2170,7 +2174,7 @@ economy_decisions = {
         fire_only_once = no
 
         available = {
-			IF = { 
+			if = { 
 				limit = { 
 					OR = { 
 						has_dlc = "Man the Guns" 	
@@ -2179,7 +2183,7 @@ economy_decisions = {
 				}
 				has_war_with_non_exiled_country = yes   
 			}
-			ELSE = {
+			else = {
 				has_war = yes
 			}
 			any_owned_state = {
@@ -2206,7 +2210,6 @@ economy_decisions = {
             			free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 						NOT = { has_state_flag = war_building_slot_flag }
 						infrastructure > 4
@@ -2218,7 +2221,6 @@ economy_decisions = {
             			free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 						NOT = { has_state_flag = war_building_slot_flag }
 						infrastructure > 4
@@ -2234,7 +2236,6 @@ economy_decisions = {
             			free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 						NOT = { has_state_flag = war_building_slot_flag }
 						infrastructure > 2
@@ -2246,7 +2247,6 @@ economy_decisions = {
             			free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 						NOT = { has_state_flag = war_building_slot_flag }
 						infrastructure > 2
@@ -2262,7 +2262,6 @@ economy_decisions = {
             			free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 						NOT = { has_state_flag = war_building_slot_flag }
 					}

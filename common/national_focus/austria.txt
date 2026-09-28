@@ -161,7 +161,7 @@ focus_tree = {
 					nationalities = { AUS }
 				}
 
-				IF = {
+				if = {
 					limit = {
 						has_opinion_modifier = AUS_austrofascism_opm
 					}
@@ -406,7 +406,7 @@ focus_tree = {
 
 	
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_dynamic_modifier = {
@@ -430,7 +430,7 @@ focus_tree = {
 				add_to_variable = { AUS_austromarxism_production_factory_efficiency_gain_factor = 0.05 tooltip = production_factory_efficiency_gain_factor_tt }
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_austrostalinism
@@ -442,7 +442,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_austrotrotskyism
@@ -454,7 +454,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 
 				add_dynamic_modifier = {
 					modifier = AUS_austromarxism
@@ -753,7 +753,7 @@ focus_tree = {
 		}
 
 		available = {
-			IF = {
+			if = {
 				OR = {
 					has_completed_focus = AUS_austromarxism_focus
 					AND = {
@@ -796,7 +796,7 @@ focus_tree = {
 			}
 
 
-			IF = {
+			if = {
 				limit = { 
 					has_completed_focus = AUS_austromarxism_focus 
 					NOT = { has_completed_focus = AUS_properly_trained_militias }
@@ -813,7 +813,7 @@ focus_tree = {
 				show_unit_leaders_tooltip = AUS_julius_deutsch
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_completed_focus = AUS_properly_trained_militias
 				}
@@ -834,7 +834,7 @@ focus_tree = {
 				}
 			}
 			
-			ELSE = {
+			else = {
 
 				add_ideas = AUS_militia_support
 
@@ -956,7 +956,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_global_flag = spanish_civil_war
 					NOT = {
@@ -977,14 +977,14 @@ focus_tree = {
 				}	
 			}
 
-			ELSE = { #just a tooltip for when SPD does not exist, will never happen
+			else = { #just a tooltip for when SPD does not exist, will never happen
 				add_relation_rule_override = {
 				  	target = SPR
 				  	can_send_volunteers = yes
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_idea = AUS_volunteer_effort
@@ -1087,7 +1087,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = { has_global_flag = scw_over }
 				SPD = {
 					country_event = {
@@ -1096,7 +1096,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE = {
+			else = {
 				random_country = {
 					limit = {
 						original_tag = SPR
@@ -1159,7 +1159,7 @@ focus_tree = {
 				value = party_popularity@neutrality #adds non-aligned support to variable
 			}
 
-			IF = { #peaceful revolution!
+			if = { #peaceful revolution!
 				limit = {
 					communism > 0.6
 				}
@@ -1171,7 +1171,7 @@ focus_tree = {
 					elections_allowed = no
 				}
 
-				IF = {
+				if = {
 					limit = {
 						has_completed_focus = AUS_schutzbund_support
 					}
@@ -1194,7 +1194,7 @@ focus_tree = {
 			}
 
 
-			ELSE = { #armed revolution
+			else = { #armed revolution
 
 				hidden_effect = {
 					set_capital = {
@@ -1206,7 +1206,7 @@ focus_tree = {
 						hours = 24
 					}
 
-					IF = {
+					if = {
 						limit = {
 							has_country_flag = AUS_antischluss_measures_flag
 						}
@@ -1221,7 +1221,7 @@ focus_tree = {
 					states = { 654 1792 644 1793 1794 625 679 1797 681 1796 1806 635} #Oberösterreich, Tirol, Voralberg and Steirmark-Kärnten
 				}
 
-				IF = {
+				if = {
 					limit = {
 						NOT = {
 							has_completed_focus = AUS_schutzbund_support
@@ -1273,7 +1273,7 @@ focus_tree = {
 					custom_effect_tooltip = AUS_revolution_tt_2
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit = { 
 						has_completed_focus = AUS_schutzbund_support 
 						has_idea = AUS_militia_support
@@ -1442,7 +1442,7 @@ focus_tree = {
 			add_to_variable = { AUS_austromarxism_high_command_cost_factor = -0.1 tooltip = high_command_cost_factor_tt }
 			add_to_variable = { AUS_austromarxism_command_power_gain_mult = 0.15 tooltip = command_power_gain_mult_tt }
 
-			IF = {
+			if = {
 
 				custom_effect_tooltip = generic_skip_one_line_tt
 
@@ -1500,7 +1500,7 @@ focus_tree = {
 				add_logistics = 1
 			}
 
-			IF = {
+			if = {
 				limit = { has_completed_focus = AUS_properly_trained_militias }
 				AUS_julius_deutsch = {
 					add_skill_level = 1
@@ -1548,7 +1548,7 @@ focus_tree = {
 				amount = 500
 				producer = ROOT
 			}
-			IF= {
+			if= {
 				limit = {
 					has_tech = motorised_infantry
 				}
@@ -1558,7 +1558,7 @@ focus_tree = {
 					producer = ROOT
 				}
 			}
-			ELSE = {
+			else = {
 				add_equipment_to_stockpile = { 
 					type = motorized_equipment_0
 					amount = 200
@@ -1596,7 +1596,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_peoples_army
@@ -1608,12 +1608,12 @@ focus_tree = {
 				add_to_variable = { AUS_peoples_army_mobilization_speed = 0.1 tooltip = mobilization_speed_tt }
 			}
 
-			IF = {
+			if = {
 				limit = {
 					has_completed_focus = AUS_schutzbund_support
 				}
 
-				4 = {
+				1802 = { # was vanilla 4
 					create_unit = {
 					division = "division_template =\"Schutzbund Division\" 	start_experience_factor = 0.6" 
 					owner = PREV
@@ -1622,7 +1622,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				add_dynamic_modifier = {
 					modifier = AUS_peoples_army
 				}
@@ -1631,7 +1631,7 @@ focus_tree = {
 				add_to_variable = { AUS_peoples_army_mobilization_speed = 0.1 tooltip = mobilization_speed_tt }
 			}
 
-			IF = {
+			if = {
 				limit = { has_completed_focus = AUS_schutzbund_support }
 
 				custom_effect_tooltip = generic_skip_one_line_tt
@@ -1676,12 +1676,12 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = { has_idea = AUS_militia_support }
 				remove_ideas = AUS_militia_support
 			}
 
-			IF = {
+			if = {
 				limit = {
 					has_completed_focus = AUS_schutzbund_support
 				}
@@ -1695,7 +1695,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				show_unit_leaders_tooltip = AUS_julius_deutsch
 			}
 
@@ -1703,7 +1703,7 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_peoples_army
@@ -1715,7 +1715,7 @@ focus_tree = {
 				add_to_variable = { AUS_peoples_army_militia_speed = 0.15 tooltip = modifier_army_sub_unit_militia_speed_factor_tt }
 			}
 
-			ELSE = {
+			else = {
 				add_dynamic_modifier = {
 					modifier = AUS_peoples_army
 				}
@@ -1726,7 +1726,7 @@ focus_tree = {
 			}
 			
 
-			IF = {
+			if = {
 				limit = { has_completed_focus = AUS_schutzbund_support }
 
 				custom_effect_tooltip = generic_skip_one_line_tt
@@ -2176,7 +2176,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					SOU = {
 						has_completed_focus = SOV_the_centre
@@ -2184,7 +2184,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						has_country_leader = {
 							ruling_only = yes # default = yes
@@ -2211,7 +2211,7 @@ focus_tree = {
 					
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						has_country_leader = {
 							ruling_only = yes # default = yes
@@ -2261,14 +2261,14 @@ focus_tree = {
 				}
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					SOU = {
 						has_completed_focus = SOV_long_live_the_workers_government
 						has_government = communism
 					}
 				}
-				IF = {
+				if = {
 					limit = {
 						has_country_leader = {
 							ruling_only = yes # default = yes
@@ -2296,7 +2296,7 @@ focus_tree = {
 					
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						has_country_leader = {
 							ruling_only = yes # default = yes
@@ -2333,7 +2333,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_align_with_ussr_tt
 			}
 
@@ -2663,14 +2663,13 @@ focus_tree = {
 						is_core_of = GAL
 					}
 					add_core_of = ROOT
-					create_wargoal = {
-					type = take_claimed_state
-					target = POL
-					}
 				}
 			}
 
-			
+			create_wargoal = {
+				type = take_claimed_state
+				target = POL
+			}
 		}
 	}
 
@@ -2859,7 +2858,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_dynamic_modifier = {
@@ -2876,7 +2875,7 @@ focus_tree = {
 				add_to_variable = { AUS_farr_democratic_drift = 0.03 tooltip = democratic_drift_tt }
 			}
 
-			ELSE = { #this is purely for tooltip reasons
+			else = { #this is purely for tooltip reasons
 				add_dynamic_modifier = {
 					modifier = AUS_farr
 				}
@@ -2933,7 +2932,7 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 
 			
-			IF = {
+			if = {
 				limit = { 
 					FRA = {
 						exists = yes
@@ -2948,7 +2947,7 @@ focus_tree = {
 				}
 			}
 			
-			IF = {
+			if = {
 				limit = { 
 					USA = {
 						exists = yes
@@ -2963,7 +2962,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = { 
 					ENG = {
 						exists = yes
@@ -2982,7 +2981,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_approach_democratic_guarantors_tt
 			custom_effect_tooltip = generic_skip_one_line_tt
 			effect_tooltip = {
-				IF = {
+				if = {
 					limit = { has_dlc = "Arms Against Tyranny" }
 
 					
@@ -3018,7 +3017,7 @@ focus_tree = {
 					
 					
 				}
-				ELSE = {
+				else = {
 					AUS = {
 						add_equipment_to_stockpile = { 
 							type = infantry_equipment
@@ -3240,7 +3239,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					ENG = {
 						exists = yes
@@ -3262,7 +3261,7 @@ focus_tree = {
 				custom_effect_tooltip = generic_skip_one_line_tt
 				custom_effect_tooltip = AUS_join_the_allies_tt
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					FRA = {
 						exists = yes
@@ -3284,7 +3283,7 @@ focus_tree = {
 				custom_effect_tooltip = generic_skip_one_line_tt
 				custom_effect_tooltip = AUS_join_the_allies_tt
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					USA = {
 						exists = yes
@@ -3307,7 +3306,7 @@ focus_tree = {
 				custom_effect_tooltip = AUS_join_the_allies_tt
 			}
 
-			ELSE = {
+			else = {
 				set_rule = { can_create_factions = yes }
 
 				create_faction = AUS_danubian_federation
@@ -3348,7 +3347,7 @@ focus_tree = {
 					is_fully_controlled_by = ROOT
 				}
 
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -3418,7 +3417,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_alpine_federation_focus_tt
 			
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
 						SWI = {
 							exists = yes
@@ -3444,7 +3443,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						FRA = {
 							exists = yes
@@ -3470,7 +3469,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						ITA = {
 							exists = yes
@@ -3575,7 +3574,7 @@ focus_tree = {
 		custom_effect_tooltip = AUS_invite_the_entente_tt
 
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
 						YUG = {
 							exists = yes
@@ -3592,7 +3591,7 @@ focus_tree = {
 					}
 				}
 	
-				IF = {
+				if = {
 					limit = {
 						ROM = {
 							exists = yes
@@ -3609,7 +3608,7 @@ focus_tree = {
 					}
 				}
 	
-				IF = {
+				if = {
 					limit = {
 						CZE = {
 							exists = yes
@@ -3673,7 +3672,7 @@ focus_tree = {
 				add_ideas = AUS_alpine_federation_against_fascism
 			}
 
-			IF = {
+			if = {
 				limit = {
 					has_government = democratic
 					NOT = {
@@ -3721,7 +3720,7 @@ focus_tree = {
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = AUS_franz_winkler
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_country_leader = {
@@ -3804,7 +3803,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = { has_government = democratic }
 
 				custom_effect_tooltip = AUS_the_right_to_rearm_dem_tt
@@ -3823,7 +3822,7 @@ focus_tree = {
 				custom_effect_tooltip = AUS_seek_support_from_guarantors_tt
 
 				hidden_effect = {
-					IF = {
+					if = {
 						limit ={ 
 							ITA = {
 								exists = yes
@@ -3837,7 +3836,7 @@ focus_tree = {
 						}
 					}
 
-					ELSE_IF = {
+					else_if = {
 						limit ={ 
 							ITA = {
 								exists = no
@@ -3854,7 +3853,7 @@ focus_tree = {
 						}
 					}
 
-					ELSE_IF = {
+					else_if = {
 						limit ={ 
 							ITA = {
 								exists = no
@@ -3874,7 +3873,7 @@ focus_tree = {
 						}
 					}
 
-					ELSE_IF = {
+					else_if = {
 						limit ={ 
 							ITA = {
 								exists = no
@@ -3899,7 +3898,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 
 				custom_effect_tooltip = AUS_the_right_to_rearm_fed_tt
 
@@ -4115,7 +4114,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "La Resistance" 
 					has_intelligence_agency = no
@@ -4125,19 +4124,19 @@ focus_tree = {
 					icon = GFX_intelligence_agency_logo_AUS_evidenzbureau_democratic
 				}
 			}
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
 
-				IF = {
+				if = {
 					limit = {
 						has_dynamic_modifier = {
 							modifier = AUS_doth
 						}
 					}
 
-					IF = {
+					if = {
 						limit = {
 							NOT = {
 								has_done_agency_upgrade = upgrade_economy_civilian 
@@ -4145,7 +4144,7 @@ focus_tree = {
 						}
 						upgrade_intelligence_agency = upgrade_economy_civilian 
 					}
-					IF = {
+					if = {
 						limit = {
 							NOT = {
 								has_done_agency_upgrade =upgrade_passive_defense
@@ -4155,14 +4154,14 @@ focus_tree = {
 					}
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						has_dynamic_modifier = {
 							modifier = AUS_aggression
 						}
 					}
 
-					IF = {
+					if = {
 						limit = {
 							NOT = {
 								has_done_agency_upgrade =upgrade_economy_civilian 
@@ -4170,7 +4169,7 @@ focus_tree = {
 						}
 						upgrade_intelligence_agency = upgrade_economy_civilian 
 					}
-					IF = {
+					if = {
 						limit = {
 							NOT = {
 								has_done_agency_upgrade = upgrade_army_department
@@ -4179,13 +4178,13 @@ focus_tree = {
 						upgrade_intelligence_agency = upgrade_army_department
 					}
 				}
-				ELSE = {
+				else = {
 					custom_effect_tooltip = AUS_form_evidenzburo_tt
 				}
 			}
 			
 
-			ELSE = {
+			else = {
 				add_tech_bonus = {
 					bonus = 0.75
 					uses = 2
@@ -4470,7 +4469,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_government = neutrality
 				}
@@ -4479,7 +4478,7 @@ focus_tree = {
 					target = GER
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_government = democratic
 					NOT = {
@@ -4535,13 +4534,13 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_government = democratic
 				}
 				custom_effect_tooltip = AUS_end_european_fascism_d_tt
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					NOT = { has_government = democratic }
 				}
@@ -4560,7 +4559,7 @@ focus_tree = {
 						}
 					}
 					ROOT = {
-						IF = {
+						if = {
 							limit = {
 								has_government = democratic
 							}
@@ -4570,7 +4569,7 @@ focus_tree = {
 								expire = 0
 							}
 						}
-						ELSE_IF = {
+						else_if = {
 							limit = {
 								NOT = {
 									has_government = democratic
@@ -4609,7 +4608,7 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			IF = {
+			if = {
 				limit = {
 					has_government = neutrality
 				}
@@ -4875,7 +4874,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					any_country = {
 						original_tag = SOV
@@ -4894,7 +4893,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					any_country = {
 						original_tag = GER
@@ -4947,7 +4946,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					any_country = {
 						is_in_faction_with = ROOT
@@ -4972,7 +4971,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_diplomatic_effort_tt
 			}
 
@@ -5049,7 +5048,7 @@ focus_tree = {
 			set_cosmetic_tag = european_union_leader
 			custom_effect_tooltip = generic_skip_one_line_tt
 			set_faction_name = BEL_european_union
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "No Compromise, No Surrender"
 				}
@@ -5144,7 +5143,7 @@ focus_tree = {
 				}
 				
 
-				IF = {
+				if = {
 					limit = {
 						has_game_rule = {
 							rule = obsolete_focus_branches_visibility
@@ -5155,7 +5154,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					NOT = { 
 						has_global_flag = HUN_otto_von_habsburg_has_joined_hungary_flag
@@ -5176,7 +5175,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_global_flag = HUN_otto_von_habsburg_has_joined_hungary_flag
 				}
@@ -5264,7 +5263,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_country_leader = {
 						ruling_only = yes # default = yes
@@ -5277,7 +5276,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				add_dynamic_modifier = {
 					modifier = AUS_austrian_monarchy_restored
 				}
@@ -5289,7 +5288,7 @@ focus_tree = {
 
 			
 
-			IF = {
+			if = {
 				limit = {
 					HUN = {
 						exists = yes
@@ -5303,7 +5302,7 @@ focus_tree = {
 				}		
 			}
 
-			IF = {
+			if = {
 				limit = {
 					CZE = {
 						exists = yes
@@ -5317,7 +5316,7 @@ focus_tree = {
 				}		
 			}
 
-			IF = {
+			if = {
 				limit = {
 					YUG = {
 						exists = yes
@@ -5331,7 +5330,7 @@ focus_tree = {
 				}		
 			}
 
-			IF = {
+			if = {
 				limit = {
 					ROM = {
 						exists = yes
@@ -5388,7 +5387,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_habsburg_monarchy_restored
@@ -5396,7 +5395,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_habsburg_monarchy_restored_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_austrian_monarchy_restored_intro_tt
 			}
 
@@ -5445,7 +5444,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_country_leader = {
 						ruling_only = yes 
@@ -5455,7 +5454,7 @@ focus_tree = {
 				swap_ruler_traits = { remove = HUN_the_habsburg_prince add = AUS_king_of_austria }
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_country_leader = {
 						ruling_only = yes 
@@ -5467,7 +5466,7 @@ focus_tree = {
 				
 			}
 
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_bring_back_the_habsburg_rule_tt
 			}
 
@@ -5549,7 +5548,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_habsburg_monarchy_restored
@@ -5557,7 +5556,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_habsburg_monarchy_restored_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_austrian_monarchy_restored_intro_tt
 			}
 
@@ -5596,7 +5595,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_habsburg_monarchy_restored
@@ -5604,7 +5603,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_habsburg_monarchy_restored_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_austrian_monarchy_restored_intro_tt
 			}
 
@@ -5643,7 +5642,7 @@ focus_tree = {
 
 		completion_reward = { 
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_country_leader = {
@@ -5781,7 +5780,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_habsburg_monarchy_restored
@@ -5789,7 +5788,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_habsburg_monarchy_restored_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_austrian_monarchy_restored_intro_tt
 			}
 
@@ -5831,7 +5830,7 @@ focus_tree = {
 			add_war_support = 0.05
 			add_stability = -0.1
 
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_habsburg_monarchy_restored
@@ -5839,13 +5838,13 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_habsburg_monarchy_restored_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_austrian_monarchy_restored_intro_tt
 			}
 
 			add_to_variable = { AUS_habsburg_monarchy_restored_drift_defence_factor = 0.1 tooltip = drift_defence_factor_tt }
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_country_leader = {
@@ -5890,7 +5889,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
@@ -5899,7 +5898,7 @@ focus_tree = {
 					icon = GFX_intelligence_agency_logo_AUS_evidenzbureau
 				}
 
-				IF = {
+				if = {
 					limit = {
 						NOT = {
 							has_done_agency_upgrade = upgrade_economy_civilian 
@@ -5908,7 +5907,7 @@ focus_tree = {
 					upgrade_intelligence_agency = upgrade_economy_civilian 
 				}
 
-				IF = {
+				if = {
 					limit = {
 						NOT = {
 							has_done_agency_upgrade = upgrade_passive_defense
@@ -6122,7 +6121,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_government = democratic
 					SOV = {
@@ -6134,7 +6133,7 @@ focus_tree = {
 					target = SOV
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					NOT = { has_government = democratic }
 					SOV = {
@@ -6177,13 +6176,13 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_government = democratic
 				}
 				custom_effect_tooltip = AUS_crusade_on_communism_d_tt
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					NOT = { has_government = democratic }
 				}
@@ -6204,7 +6203,7 @@ focus_tree = {
 					}
 					ROOT = {
 
-						IF = {
+						if = {
 							limit = {
 								has_government = democratic
 							}
@@ -6214,7 +6213,7 @@ focus_tree = {
 								expire = 0
 							}
 						}
-						ELSE_IF = {
+						else_if = {
 							limit = {
 								NOT = {
 									has_government = democratic
@@ -6399,7 +6398,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					AND = {
 						GER = {
@@ -6424,7 +6423,7 @@ focus_tree = {
 				custom_effect_tooltip = AUS_join_the_axis_tt
 			}
 
-			ELSE_IF = { #If Germany has died, check Italy
+			else_if = { #If Germany has died, check Italy
 				limit = {
 					AND = {
 						ITA = {
@@ -6482,7 +6481,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_reforming_the_central_powers_tt
 
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = { 
 						TUR = {
 							exists = yes
@@ -6503,7 +6502,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = { 
 						GER = {
 							exists = yes
@@ -6524,7 +6523,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = { 
 						BUL = {
 							exists = yes
@@ -6605,7 +6604,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					OR = {
 						AND = {
@@ -6653,7 +6652,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					OR = {
 						AND = {
@@ -6702,7 +6701,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = {
 						has_country_leader = {
 							ruling_only = yes # default = yes
@@ -6731,7 +6730,7 @@ focus_tree = {
 
 			}
 
-			ELSE = {
+			else = {
 				create_faction = AUS_royal_alliance
 			}
 		}
@@ -6767,7 +6766,7 @@ focus_tree = {
 
 			hidden_effect = {
 
-				IF = {
+				if = {
 					limit = { 
 						CZE = { 
 							exists = yes
@@ -6793,7 +6792,7 @@ focus_tree = {
 				
 
 
-				IF = {
+				if = {
 					limit = { 
 						YUG = { 
 							exists = yes 
@@ -6818,7 +6817,7 @@ focus_tree = {
 				}
 
 
-				IF = {
+				if = {
 					limit = { 
 						ROM = { 
 							exists = yes 
@@ -6843,7 +6842,7 @@ focus_tree = {
 				}
 
 
-				IF = {
+				if = {
 					limit = { 
 						POL = { 
 							exists = yes 
@@ -6867,7 +6866,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = { 
 						SLO = { 
 							exists = yes 
@@ -6892,7 +6891,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = { 
 						CRO = { 
 							exists = yes 
@@ -6919,7 +6918,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = { 
 						LBV = { 
 							exists = yes 
@@ -6946,7 +6945,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = { 
 						SIL = { 
 							exists = yes 
@@ -6973,7 +6972,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = { 
 						MNT = { 
 							exists = yes 
@@ -7000,7 +6999,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = { 
 						BOS = { 
 							exists = yes 
@@ -7027,7 +7026,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = { 
 						SLV = { 
 							exists = yes 
@@ -7054,7 +7053,7 @@ focus_tree = {
 
 				
 
-				IF = {
+				if = {
 					limit = { 
 						HRZ = { 
 							exists = yes 
@@ -7079,7 +7078,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = { 
 						ALB = { 
 							exists = yes 
@@ -7249,7 +7248,7 @@ focus_tree = {
 		completion_reward = {
 
 			# FALL 1: Ein Land kontrolliert ALLE Ziel-States (AND über alle IDs)
-			IF = {
+			if = {
 				limit = {
 					any_country = {
 						controls_state = 523
@@ -7372,7 +7371,7 @@ focus_tree = {
 			}
 
 			# FALL 2: Mindestens EIN Ziel-State wird von irgendeinem Land gehalten (OR)
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					any_country = {
 						OR = {
@@ -7529,7 +7528,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = { 
+			if = { 
 				limit = {
 					has_country_leader = {
 						ruling_only = yes # default = yes
@@ -7613,8 +7612,8 @@ focus_tree = {
 				SWI = {
 					is_subject_of = AUS
 				}
-				every_state = {
-					limit = { is_core_of = SWI}
+				all_state = {
+					is_core_of = SWI
 					is_controlled_by = AUS
 				}
 			}
@@ -7774,7 +7773,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					ENG = {
 						NOT = { has_guaranteed = ROOT }
@@ -7790,7 +7789,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					FRA = {
 						NOT = { has_guaranteed = ROOT }
@@ -7806,7 +7805,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					USA = {
 						NOT = { has_guaranteed = ROOT }
@@ -8318,7 +8317,7 @@ focus_tree = {
 
 			OR = {
 				AND = {
-					69 = { #Sudetenland
+					1672 = { #Sudetenland
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8331,7 +8330,7 @@ focus_tree = {
 						}
 					}
 
-					972 = { #South Sudetenland
+					539 = { #South Sudetenland
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8344,12 +8343,12 @@ focus_tree = {
 						}
 					}
 
-					9 = { #Bohemia
+					513 = { #Bohemia
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
 								is_in_faction_with = ROOT
-								controls_state = 9
+								controls_state = 513 # was vanilla 9
 							}
 							OWNER = {
 								has_war_with = ROOT
@@ -8357,7 +8356,7 @@ focus_tree = {
 						}
 					}
 
-					75 = { #Moravia
+					532 = { #Moravia
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8496,7 +8495,7 @@ focus_tree = {
 		}
 		
 		bypass = { #No check for YUG as a subject or not existing as that happens quite often due to YUG being YUG
-			102 = { #North Slovenia
+			1490 = { #North Slovenia
 				OR = {
 					is_fully_controlled_by = ROOT
 					any_country = {
@@ -8509,7 +8508,7 @@ focus_tree = {
 				}
 			}
 
-			109 = { #Croatia
+			2830 = { #Croatia
 				OR = {
 					is_fully_controlled_by = ROOT
 					any_country = {
@@ -8522,7 +8521,7 @@ focus_tree = {
 				}
 			}
 
-			853 = { #Ljubljana
+			743 = { #Ljubljana
 				OR = {
 					is_fully_controlled_by = ROOT
 					any_country = {
@@ -8540,12 +8539,12 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					YUG = {
-						controls_state = 102 #North Slovenia
-						controls_state = 109 #Croatia
-						controls_state = 853 #Lubljana
+						controls_state = 1490 #North Slovenia
+						controls_state = 2830 #Croatia
+						controls_state = 743 #Lubljana
 					}
 				}
 				YUG = {
@@ -8558,10 +8557,10 @@ focus_tree = {
 				}	
 			}
 
-			ELSE = {
-				IF = {
+			else = {
+				if = {
 					limit = {
-						853 = { #Ljubljana
+						743 = { #Ljubljana
 							NOT = {
 								is_fully_controlled_by = ROOT
 							}
@@ -8570,7 +8569,7 @@ focus_tree = {
 
 					853 = {
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -8589,17 +8588,17 @@ focus_tree = {
 						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
-						109 = { #Croatia
+						2830 = { #Croatia
 							NOT = {
 								is_fully_controlled_by = ROOT
 							}
 						}
 					}
-					109 = { #Croatia
+					2830 = { #Croatia
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -8618,18 +8617,18 @@ focus_tree = {
 						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
-						102 = { #North Slovenia
+						1490 = { #North Slovenia
 							NOT = {
 								is_fully_controlled_by = ROOT
 							}
 						}
 					}
 				
-					102 = { #North Slovenia
+					1490 = { #North Slovenia
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -8678,9 +8677,9 @@ focus_tree = {
 			NOT = {
 				has_idea = AUS_treaty_of_saint_germain_en_laye
 				has_war_with = ALB
-				934 = { is_fully_controlled_by = ROOT }
-				44 = { is_fully_controlled_by = ROOT }
-				805 = { is_fully_controlled_by = ROOT }
+				1519 = { is_fully_controlled_by = ROOT } # was vanilla 934
+				1523 = { is_fully_controlled_by = ROOT } # was vanilla 44
+				885 = { is_fully_controlled_by = ROOT } # was vanilla 805
 			}
 			is_subject = no
 			ALB = {
@@ -8693,7 +8692,7 @@ focus_tree = {
 			OR = {
 
 				AND = {
-					934 = { #Shkodër
+					1519 = { #Shkodër
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8706,7 +8705,7 @@ focus_tree = {
 						}
 					}
 
-					44 = { #Central Albania
+					1523 = { #Central Albania
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8719,7 +8718,7 @@ focus_tree = {
 						}
 					}
 
-					805 = { #Northern Epirus
+					885 = { #Northern Epirus
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8780,9 +8779,9 @@ focus_tree = {
 			NOT = {
 				has_idea = AUS_treaty_of_saint_germain_en_laye
 				has_war_with = POL
-				88 = { is_fully_controlled_by = ROOT }
-				89 = { is_fully_controlled_by = ROOT }
-				91 = { is_fully_controlled_by = ROOT }
+				1157 = { is_fully_controlled_by = ROOT } # was vanilla 88
+				1164 = { is_fully_controlled_by = ROOT } # was vanilla 89
+				1292 = { is_fully_controlled_by = ROOT } # was vanilla 91
 			}
 			is_subject = no
 			POL = {
@@ -8795,7 +8794,7 @@ focus_tree = {
 			OR = {
 
 				AND = {
-					88 = { #Krakow
+					1157 = { #Krakow
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8808,7 +8807,7 @@ focus_tree = {
 						}
 					}
 
-					89 = { #Stanislawow
+					1164 = { #Stanislawow
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8821,7 +8820,7 @@ focus_tree = {
 						}
 					}
 
-					91 = { #Lwow
+					1292 = { #Lwow
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8958,7 +8957,7 @@ focus_tree = {
 			OR = {
 				AND = {
 
-					76 = { #North Transylvania
+					1582 = { #North Transylvania
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8971,7 +8970,7 @@ focus_tree = {
 						}
 					}
 
-					83 = { #Crisana
+					705 = { #Crisana
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8984,7 +8983,7 @@ focus_tree = {
 						}
 					}
 
-					84 = { #Transylvania
+					713 = { #Transylvania
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -8997,7 +8996,7 @@ focus_tree = {
 						}
 					} 
 
-					82 = { #Banat
+					2668 = { #Banat
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -9010,7 +9009,7 @@ focus_tree = {
 						}
 					}
 
-					80 = { #Bucovina
+					590 = { #Bucovina
 						OR = {
 							is_fully_controlled_by = ROOT
 							any_country = {
@@ -9038,14 +9037,14 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					ROM = {
-						controls_state = 76
-						controls_state = 80
-						controls_state = 82
-						controls_state = 83
-						controls_state = 84
+						controls_state = 1582 # was vanilla 76
+						controls_state = 590 # was vanilla 80
+						controls_state = 2668 # was vanilla 82
+						controls_state = 705 # was vanilla 83
+						controls_state = 713 # was vanilla 84
 					}
 				}
 
@@ -9059,8 +9058,8 @@ focus_tree = {
 				}
 			}
 
-			ELSE_IF = {
-				IF = {
+			else_if = {
+				if = {
 					limit = {
 						76 = { 
 							NOT = {
@@ -9071,7 +9070,7 @@ focus_tree = {
 				
 					76 = { 
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -9091,7 +9090,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						80 = { 
 							NOT = {
@@ -9102,7 +9101,7 @@ focus_tree = {
 				
 					80 = { 
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -9122,7 +9121,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						82 = { 
 							NOT = {
@@ -9133,7 +9132,7 @@ focus_tree = {
 				
 					82 = { 
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -9153,7 +9152,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						83 = { 
 							NOT = {
@@ -9164,7 +9163,7 @@ focus_tree = {
 				
 					83 = { 
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -9184,7 +9183,7 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						84 = { 
 							NOT = {
@@ -9195,7 +9194,7 @@ focus_tree = {
 				
 					84 = { 
 						controller = {
-							IF = {
+							if = {
 								limit = {
 									NOT = {
 										is_in_array = {
@@ -9247,16 +9246,16 @@ focus_tree = {
 				69 = {
 					is_core_of = ROOT
 				}
-				972 = {
+				539 = { # was vanilla 972
 					is_core_of = ROOT
 				}
-				9 = {
+				513 = { # was vanilla 9
 					is_core_of = ROOT
 				}
-				75 = {
+				532 = { # was vanilla 75
 					is_core_of = ROOT
 				}
-				74 = {
+				499 = { # was vanilla 74
 					is_core_of = ROOT
 				}
 				526 = {
@@ -9270,34 +9269,34 @@ focus_tree = {
 			69 = {
 				is_core_of = ROOT
 			}
-			972 = {
+			539 = { # was vanilla 972
 				is_core_of = ROOT
 			}
-			9 = {
+			513 = { # was vanilla 9
 				is_core_of = ROOT
 			}
-			75 = {
+			532 = { # was vanilla 75
 				is_core_of = ROOT
 			}
-			74 = {
+			499 = { # was vanilla 74
 				is_core_of = ROOT
 			}
 			526 = {
 				is_core_of = ROOT
 			}
-			155 = {
+			624 = { # was vanilla 155
 				is_core_of = ROOT
 			}
-			43 = {
+			611 = { # was vanilla 43
 				is_core_of = ROOT
 			}
-			154 = {
+			646 = { # was vanilla 154
 				is_core_of = ROOT
 			}
-			973 = {
+			1821 = { # was vanilla 973
 				is_core_of = ROOT
 			}
-			974 = {
+			690 = { # was vanilla 974
 				is_core_of = ROOT
 			}
 		}
@@ -9306,7 +9305,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					69 = {
 						NOT = {
@@ -9314,10 +9313,10 @@ focus_tree = {
 						}
 					}
 				}
-				add_state_core = 69 #Sudetenland
+				add_state_core = 1672 #Sudetenland
 			}
 
-			IF = {
+			if = {
 				limit = {
 					972 = {
 						NOT = {
@@ -9325,21 +9324,21 @@ focus_tree = {
 						}
 					}
 				}
-				add_state_core = 972 #South Sudetenland
+				add_state_core = 539 #South Sudetenland
 			}
 
-			IF = {
+			if = {
 				limit = {
-					9 = {
+					513 = { # was vanilla 9
 						NOT = {
 							is_core_of = ROOT
 						}
 					}
 				}
-				add_state_core = 9 #Bohemia
+				add_state_core = 513 #Bohemia
 			}
 
-			IF = {
+			if = {
 				limit = {
 					75 = {
 						NOT = {
@@ -9347,10 +9346,10 @@ focus_tree = {
 						}
 					}
 				}
-				add_state_core = 75 #Moravia
+				add_state_core = 532 #Moravia
 			}
 
-			IF = {
+			if = {
 				limit = {
 					74 = {
 						NOT = {
@@ -9361,7 +9360,7 @@ focus_tree = {
 				add_state_core = 74 #East Sudetenland
 			}
 
-			IF = {
+			if = {
 				limit = {
 					526 = {
 						NOT = {
@@ -9392,7 +9391,7 @@ focus_tree = {
 		available = {
 			
 			NOT = {
-				any_state {
+				any_state = {
 					is_core_of = HUN
 					is_core_of = AUS
 				}
@@ -9427,7 +9426,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					155 = {
 						NOT = {
@@ -9435,21 +9434,21 @@ focus_tree = {
 						}
 					}
 				}
-				add_state_core = 155 #North transdanubia
+				add_state_core = 624 #North transdanubia
 			}
 
-			IF = {
+			if = {
 				limit = {
-					43 = {
+					611 = { # was vanilla 43
 						NOT = {
 							is_core_of = ROOT
 						}
 					}
 				}
-				add_state_core = 43 #Northern Hungary
+				add_state_core = 611 #Northern Hungary
 			}
 
-			IF = {
+			if = {
 				limit = {
 					154 = {
 						NOT = {
@@ -9460,7 +9459,7 @@ focus_tree = {
 				add_state_core = 154 #Alföld 
 			}
 
-			IF = {
+			if = {
 				limit = {
 					973 = {
 						NOT = {
@@ -9471,7 +9470,7 @@ focus_tree = {
 				add_state_core = 973 #Bacs-Bodrog
 			}
 
-			IF = {
+			if = {
 				limit = {
 					974 = {
 						NOT = {
@@ -9479,7 +9478,7 @@ focus_tree = {
 						}
 					}
 				}
-				add_state_core = 974 #South Transdanubia
+				add_state_core = 690 #South Transdanubia
 			}
 		}
 	}
@@ -9501,32 +9500,32 @@ focus_tree = {
 
 		available = { 
 
-			controls_state = 155 #Transdanubia
+			controls_state = 624 #Transdanubia
 			controls_state = 154 #Alföld
-			controls_state = 43 #Northern Hungary
+			controls_state = 611 #Northern Hungary
 			controls_state = 973 #Bacs-Bodrog
-			controls_state = 974 #South Transdanubia
+			controls_state = 690 #South Transdanubia
 
-			controls_state = 69 #Sudetenland
-			controls_state = 972 #south Sudetenland
-			controls_state = 9 #Bohemia
-			controls_state = 75 #Moravia
+			controls_state = 1672 #Sudetenland
+			controls_state = 539 #south Sudetenland
+			controls_state = 513 #Bohemia
+			controls_state = 532 #Moravia
 			controls_state = 74 #EasternSudetenland
 			controls_state = 526 #Zaolzie
 
-			controls_state = 102 #North Slovenia
-			controls_state = 103 #Dalmatia
-			controls_state = 853 #Lubljana 
+			controls_state = 1490 #North Slovenia
+			controls_state = 2828 #Dalmatia
+			controls_state = 743 #Lubljana 
 
-			controls_state = 88 #Krakow
-			controls_state = 89 #Stanislawow
-			controls_state = 91 #Lwow
+			controls_state = 1157 #Krakow
+			controls_state = 1164 #Stanislawow
+			controls_state = 1292 #Lwow
 
-			controls_state = 76 #North Transylvania
-			controls_state = 83 #Crisana
-			controls_state = 84 #Transylvania
-			controls_state = 82 #Banat
-			controls_state = 80 #Bucovina
+			controls_state = 1582 #North Transylvania
+			controls_state = 705 #Crisana
+			controls_state = 713 #Transylvania
+			controls_state = 2668 #Banat
+			controls_state = 590 #Bucovina
 
 		}
 		
@@ -9566,12 +9565,12 @@ focus_tree = {
 				modifier = AUS_empire_restored
 			}
 
-			IF = {
+			if = {
 				limit = { has_government = fascism }
 
 				set_cosmetic_tag = AUS_austrian_empire
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { has_government = neutrality }
 
 				set_cosmetic_tag = AUS_austrian_empire
@@ -9872,7 +9871,7 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 
 			
-			IF = {
+			if = {
 				limit = { 
 					FRA = {
 						has_government = democratic 
@@ -9886,7 +9885,7 @@ focus_tree = {
 				}
 			}
 			
-			IF = {
+			if = {
 				limit = { 
 					USA = {
 						has_government = democratic 
@@ -9900,7 +9899,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = { 
 					ENG = {
 						has_government = democratic 
@@ -9918,7 +9917,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_approach_democratic_guarantors_tt
 			custom_effect_tooltip = generic_skip_one_line_tt
 			effect_tooltip = {
-				IF = {
+				if = {
 					limit = { has_dlc = "Arms Against Tyranny" }
 
 					
@@ -9954,7 +9953,7 @@ focus_tree = {
 					
 					
 				}
-				ELSE = {
+				else = {
 					AUS = {
 						add_equipment_to_stockpile = { 
 							type = infantry_equipment
@@ -10062,7 +10061,7 @@ focus_tree = {
 			custom_effect_tooltip = if_they_accept_tt
 
 			effect_tooltip = {
-				IF = {
+				if = {
 					limit = { has_dlc = "Arms Against Tyranny" }
 
 					AUS = {
@@ -10193,7 +10192,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_seek_support_from_guarantors_tt
 
 			hidden_effect = {
-				IF = {
+				if = {
 					limit ={ 
 						ITA = {
 							exists = yes
@@ -10207,7 +10206,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit ={ 
 						ITA = {
 							exists = no
@@ -10224,7 +10223,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit ={ 
 						ITA = {
 							exists = no
@@ -10244,7 +10243,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit ={ 
 						ITA = {
 							exists = no
@@ -10449,7 +10448,7 @@ focus_tree = {
 
 		completion_reward = { 
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_country_leader = {
@@ -10548,7 +10547,7 @@ focus_tree = {
   				can_send_volunteers = yes
   			}	
 
-  			IF = {
+  			if = {
   				limit = {
   					NOT = {
   						has_idea = AUS_volunteer_effort
@@ -10722,7 +10721,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						OR = {
@@ -10739,7 +10738,7 @@ focus_tree = {
 			add_to_variable = { AUS_austrofascism_mobilization_laws_cost_factor = -0.15 tooltip = mobilization_laws_cost_factor_tt }
 			add_to_variable = { AUS_austrofascism_trade_laws_cost_factor = -0.15 tooltip = trade_laws_cost_factor_tt }
 
-			IF = {
+			if = {
 				limit = { 
 					has_completed_focus = AUS_clamp_down_on_dnsap
 
@@ -10790,7 +10789,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "La Resistance"
 				}
@@ -11238,7 +11237,7 @@ focus_tree = {
 
 		completion_reward = {
 			
-			463 = { #Alaska
+			2292 = { #Alaska
 				OWNER = {
 					country_event = {
 						id = AUS_political_events.92
@@ -11618,7 +11617,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_tech = fuel_silos
@@ -11630,7 +11629,7 @@ focus_tree = {
 				set_technology = { synth_oil_experiments = 1 }
 				
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_tech = fuel_silos
 					NOT = {
@@ -11705,7 +11704,7 @@ focus_tree = {
 				}	
 			}
 
-			IF = {
+			if = {
 				limit = {
 					has_tech = fuel_silos
 				}
@@ -11718,7 +11717,7 @@ focus_tree = {
 					}	
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					NOT = {
 						has_tech = fuel_silos
@@ -11885,7 +11884,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					1795 = {
 						free_building_slots = {
@@ -11904,7 +11903,7 @@ focus_tree = {
 				
 			}
 
-			IF = {
+			if = {
 				limit = {
 					1798 = {
 						free_building_slots = {
@@ -11922,7 +11921,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					644 = {
 						free_building_slots = {
@@ -11940,7 +11939,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					582 = {
 						free_building_slots = {
@@ -11958,7 +11957,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					GER = {
 						exists = yes
@@ -12015,7 +12014,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					# TODO: Should be Styria
 					679 = {
@@ -12032,7 +12031,7 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						# TODO: Should be Styria
 						679 = {
@@ -12058,7 +12057,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					1797 = {
 						free_building_slots = {
@@ -12076,7 +12075,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					ITA = {
 						exists = yes
@@ -12130,7 +12129,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					# TODO: Should be Burgenland
 					1805 = {
@@ -12147,7 +12146,7 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						# TODO: Should be Burgenland
 						1805 = {
@@ -12173,7 +12172,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					# TODO: Should be Burgenland
 					621 = {
@@ -12190,7 +12189,7 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						# TODO: Should be Burgenland
 						621 = {
@@ -12216,7 +12215,7 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					HUN = {
 						exists = yes
@@ -12270,7 +12269,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_bbo_focus_tt
 			show_ideas_tooltip = AUS_bbo_improved
 
-			IF = {
+			if = {
 				limit = {
 					has_idea =  AUS_bbo
 				}
@@ -12313,7 +12312,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_idea = AUS_recurrent_economic_depression
 				}
@@ -12324,7 +12323,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_economic_resuscitation_tt
 			}	
 		}
@@ -12413,7 +12412,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = { has_idea = AUS_covering_the_phonix_insurances }
 
 				swap_ideas = {
@@ -12422,7 +12421,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					has_idea = AUS_phonix_insurance
 				}
@@ -12464,7 +12463,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_idea = AUS_recovering_from_the_depression
 				}
@@ -12474,7 +12473,7 @@ focus_tree = {
 				}	
 			}
 
-			ELSE_IF = {
+			else_if = {
 				limit = { has_idea = AUS_recurrent_economic_depression }
 
 				custom_effect_tooltip = AUS_great_austrian_economic_push_tt
@@ -12550,7 +12549,7 @@ focus_tree = {
 					is_core_of = ROOT
 				}
 
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -12596,7 +12595,7 @@ focus_tree = {
 				limit = {
 					is_core_of = ROOT
 				}
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -12645,7 +12644,7 @@ focus_tree = {
 				limit = {
 					is_core_of = ROOT
 				}
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -12826,7 +12825,7 @@ focus_tree = {
 					is_core_of = ROOT
 				}
 				
-				prioritize = { 4 } #niederösterreich
+				prioritize = { 1802 } #niederösterreich
 
 				add_extra_state_shared_building_slots = 1
 
@@ -12866,12 +12865,12 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = { #subsidy airframe version
+			if = { #subsidy airframe version
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
 
-				IF = {
+				if = {
 					limit = { has_government = fascism }
 
 					add_equipment_subsidy = {
@@ -12881,7 +12880,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit = { has_government = communism }
 
 					add_equipment_subsidy = {
@@ -12891,7 +12890,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE = {
+				else = {
 
 					add_equipment_subsidy = {
 						cic = 1000 
@@ -12901,10 +12900,10 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = { has_dlc = "By Blood Alone"}
 
-				IF = {
+				if = {
 					limit = { 
 						OR = {
 							has_government = fascism
@@ -12922,7 +12921,7 @@ focus_tree = {
 						producer = ITA
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = { 
 						has_government = communism
 						any_country = {
@@ -12936,7 +12935,7 @@ focus_tree = {
 						producer = SOV
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = { 
 						has_government = democratic
 						any_country = {
@@ -12951,7 +12950,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE = { #this means we're ahistorical af, giving us Austrian planes as a fallback
+				else = { #this means we're ahistorical af, giving us Austrian planes as a fallback
 					add_equipment_to_stockpile = {
 						type = small_plane_airframe_0 
 						amount = 50 
@@ -12962,9 +12961,9 @@ focus_tree = {
 
 			
 
-			ELSE = {
+			else = {
 
-				IF = {
+				if = {
 					limit = { 
 						OR = {
 							has_government = fascism
@@ -12982,7 +12981,7 @@ focus_tree = {
 					}
 				}
 
-				ELSE_IF = {
+				else_if = {
 					limit = { 
 						has_government = communism
 						any_country = {
@@ -12996,7 +12995,7 @@ focus_tree = {
 						producer = SOV
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = { 
 						has_government = democratic
 						any_country = {
@@ -13010,7 +13009,7 @@ focus_tree = {
 						producer = ENG
 					}
 				}
-				ELSE = {
+				else = {
 					add_equipment_to_stockpile = {
 						type = fighter_equipment_0 
 						amount = 50 
@@ -13127,7 +13126,7 @@ focus_tree = {
 			air_experience = 25
 
 			ENG = {
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							has_war_with = AUS 
@@ -13146,7 +13145,7 @@ focus_tree = {
 
 			}
 			USA = {
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							has_war_with = AUS 
@@ -13165,7 +13164,7 @@ focus_tree = {
 
 			}
 			FRA = {
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							has_war_with = AUS 
@@ -13183,7 +13182,7 @@ focus_tree = {
 				}
 			}
 			HUN = {
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							has_war_with = AUS 
@@ -13206,7 +13205,7 @@ focus_tree = {
 
 			}
 			SOV = {
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							has_war_with = AUS 
@@ -13225,7 +13224,7 @@ focus_tree = {
 
 			}
 			ITA = {
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							has_war_with = AUS 
@@ -13256,7 +13255,7 @@ focus_tree = {
 				
 					air_experience = 50
 
-					IF = {
+					if = {
 						limit = {
 							NOT = { has_market_access_with = FROM }
 							has_dlc = "Arms Against Tyranny" 
@@ -13268,7 +13267,7 @@ focus_tree = {
 			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = AUS_seek_international_partners_tt2
 
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 
 				custom_effect_tooltip = AUS_seek_international_partners_tt3
@@ -13535,7 +13534,7 @@ focus_tree = {
 					is_core_of = ROOT
 				}
 				
-				prioritize = { 153 } 
+				prioritize = { 1793 } # was vanilla 153
 
 				add_building_construction = {
 					type = air_base
@@ -13581,7 +13580,7 @@ focus_tree = {
 					is_core_of = ROOT
 				}
 				
-				prioritize = { 4 } #niederösterreich
+				prioritize = { 1802 } #niederösterreich
 
 				add_building_construction = {
 					type = anti_air_building
@@ -13621,7 +13620,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = { has_tech = cavity_magnatron }
 
 				random_owned_controlled_state = {
@@ -13629,7 +13628,7 @@ focus_tree = {
 						is_core_of = ROOT
 					}
 					
-					prioritize = { 152 } #niederösterreich
+					prioritize = { 1800 } #niederösterreich
 
 					add_building_construction = {
 						type = radar_station
@@ -13643,7 +13642,7 @@ focus_tree = {
 						is_core_of = ROOT
 					}
 					
-					prioritize = { 153 } #niederösterreich
+					prioritize = { 1793 } #niederösterreich
 
 					add_building_construction = {
 						type = radar_station
@@ -13652,7 +13651,7 @@ focus_tree = {
 					}	
 				}
 
-				ELSE = {
+				else = {
 					add_tech_bonus = {
 						name = AUS_radar_effort
 						bonus = 0.5
@@ -13699,7 +13698,7 @@ focus_tree = {
 
 			random_owned_controlled_state = {
 				
-				prioritize = { 4 } 
+				prioritize = { 1802 } # was vanilla 4
 
 				add_extra_state_shared_building_slots = 1
 
@@ -13832,7 +13831,7 @@ focus_tree = {
 					is_fully_controlled_by = ROOT
 				}
 
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 
 				add_extra_state_shared_building_slots = 2
 
@@ -13874,14 +13873,14 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_completed_focus = AUS_legacy_of_the_empire
 					}
 				}
 
-				IF = {
+				if = {
 					limit = { 
 						NOT = { 
 							OR = {
@@ -13903,7 +13902,7 @@ focus_tree = {
 					add_to_variable = { AUS_army_army_core_defence_factor = 0.1 tooltip = 	army_core_defence_factor_tt }
 				}
 
-				ELSE = {
+				else = {
 					custom_effect_tooltip = AUS_army_intro_tt
 
 					add_to_variable = { AUS_army_army_core_attack_factor = 0.1 tooltip = 	army_core_attack_factor_tt }
@@ -13911,9 +13910,9 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 
-				IF = {
+				if = {
 					limit = {
 						NOT = { 
 							OR = {
@@ -13932,7 +13931,7 @@ focus_tree = {
 					add_dynamic_modifier = { modifier = AUS_army_monarchy }
 				}
 
-				ELSE = {
+				else = {
 					custom_effect_tooltip = AUS_army_monarchy_intro_tt
 				}
 
@@ -13975,14 +13974,14 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 50
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_completed_focus = AUS_legacy_of_the_empire
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
 						NOT = { 
 							OR = {
@@ -14002,16 +14001,16 @@ focus_tree = {
 
 					add_to_variable = { AUS_army_training_time_factor = -0.1 tooltip = training_time_factor_tt }
 				}
-				ELSE = {
+				else = {
 					custom_effect_tooltip = AUS_army_intro_tt
 
 					add_to_variable = { AUS_army_training_time_factor = -0.1 tooltip = training_time_factor_tt }
 				}
 			}
 
-			ELSE = {
+			else = {
 
-				IF = {
+				if = {
 					limit = {
 						NOT = { 
 							OR = {
@@ -14031,7 +14030,7 @@ focus_tree = {
 
 					add_to_variable = { AUS_army_training_time_factor = -0.1 tooltip = training_time_factor_tt }
 				}
-				ELSE = {
+				else = {
 					custom_effect_tooltip = AUS_army_intro_tt
 
 					add_to_variable = { AUS_army_training_time_factor = -0.1 tooltip = training_time_factor_tt }
@@ -14080,15 +14079,30 @@ focus_tree = {
 				category = para_tech 
 			}
 
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				add_doctrine_cost_reduction = {
 					name = AUS_osterreichische_fallschirmsjager
 					cost_reduction = 0.3
 					uses = 2
-					category = cat_paratroopers_doctrine
+					category = special_forces_doctrine
 				}
+				custom_effect_tooltip = paratrooper_subdoctrines_default_add_mastery_bonus_effect_tooltip
+				hidden_effect = {
+					add_mastery_bonus = {
+						name = AUS_osterreichische_fallschirmsjager
+						bonus = 0.1
+						days = 240
+						sub_doctrine = paratroopers_1
+					}
+					add_mastery_bonus = {
+						name = AUS_osterreichische_fallschirmsjager
+						bonus = 0.1
+						days = 240
+						sub_doctrine = paratroopers_2
+					}
+				}				
 			}
 
 		}
@@ -14129,14 +14143,30 @@ focus_tree = {
 				category = mountaineers_tech
 			}
 
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				add_doctrine_cost_reduction = {
+					name = AUS_osterreichische_gebirgsjager
 					cost_reduction = 0.2
 					uses = 2
-					category = cat_mountaineers_doctrine
+					category = special_forces_doctrine
 				}
+				custom_effect_tooltip = mountaineer_subdoctrines_default_add_mastery_bonus_effect_tooltip
+				hidden_effect = {
+					add_mastery_bonus = {
+						name = AUS_osterreichische_gebirgsjager
+						bonus = 0.1
+						days = 240
+						sub_doctrine = mountaineers_1
+					}
+					add_mastery_bonus = {
+						name = AUS_osterreichische_gebirgsjager
+						bonus = 0.1
+						days = 240
+						sub_doctrine = mountaineers_2
+					}
+				}				
 			}
 
 			custom_effect_tooltip = ROM_mountain_artillery_tech_tt
@@ -14196,15 +14226,30 @@ focus_tree = {
 
 			}
 
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				add_doctrine_cost_reduction = {
 					name = AUS_osterreichische_seebataillon
 					cost_reduction = 0.5
 					uses = 2
-					category = cat_marines_doctrine
+					category = special_forces_doctrine
 				}
+				custom_effect_tooltip = marine_subdoctrines_default_add_mastery_bonus_effect_tooltip
+				hidden_effect = {
+					add_mastery_bonus = {
+						name = AUS_osterreichische_seebataillon
+						bonus = 0.1
+						days = 240
+						sub_doctrine = marines_1
+					}
+					add_mastery_bonus = {
+						name = AUS_osterreichische_seebataillon
+						bonus = 0.1
+						days = 240
+						sub_doctrine = marines_2
+					}
+				}				
 			}
 		}
 	}
@@ -14235,7 +14280,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				mio:AUS_steyr_organization = {
@@ -14245,7 +14290,7 @@ focus_tree = {
 				}
 
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_steyr_arms_investment_tt
 			}
 		}
@@ -14412,7 +14457,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_follow_the_jansa_plan_tt
 
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
 						GER = {
 							has_government = fascism
@@ -14461,7 +14506,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					OR = {
 						AND = {
@@ -14521,7 +14566,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_army_monarchy
@@ -14529,7 +14574,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_army_monarchy_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_army_intro_tt
 			}
 
@@ -14555,10 +14600,10 @@ focus_tree = {
 
 		available = {
 			OR = {
-				152 = {
+				1800 = { # was vanilla 152
 					is_fully_controlled_by = ROOT
 				}
-				4 = {
+				1802 = { # was vanilla 4
 					is_fully_controlled_by = ROOT
 				}
 			}
@@ -14566,7 +14611,7 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = AUS_fortify_the_traun_line_available_tt
 				OR = {
-					152 = {
+					1800 = { # was vanilla 152
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14586,7 +14631,7 @@ focus_tree = {
 						}
 					}
 
-					4 = {
+					1802 = { # was vanilla 4
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14604,13 +14649,13 @@ focus_tree = {
 			OR = {
 				AND = {
 					NOT = {
-						152 = {
+						1800 = { # was vanilla 152
 							is_fully_controlled_by = ROOT
 						}
 					}
 
 					NOT = {
-						4 = {
+						1802 = { # was vanilla 4
 							is_fully_controlled_by = ROOT
 						}
 					}
@@ -14621,7 +14666,7 @@ focus_tree = {
 					tooltip = AUS_fortify_the_traun_line_bypass_tt
 					
 					AND = {
-						152 = {
+						1800 = { # was vanilla 152
 							free_building_slots = {
 								building = bunker
 								size < 2
@@ -14638,7 +14683,7 @@ focus_tree = {
 								province = 688
 							}
 						}
-						4 = {
+						1802 = { # was vanilla 4
 							free_building_slots = {
 								building = bunker
 								size < 2
@@ -14662,9 +14707,9 @@ focus_tree = {
 
 			custom_effect_tooltip = AUS_fortify_the_traun_line_tt
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
-						152 = {
+						1800 = { # was vanilla 152
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14673,7 +14718,7 @@ focus_tree = {
 						}
 					}
 
-					152 = {
+					1800 = { # was vanilla 152
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14685,9 +14730,9 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
-						152 = {
+						1800 = { # was vanilla 152
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14696,7 +14741,7 @@ focus_tree = {
 						}
 					}
 
-					152 = {
+					1800 = { # was vanilla 152
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14708,9 +14753,9 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
-						152 = {
+						1800 = { # was vanilla 152
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14719,7 +14764,7 @@ focus_tree = {
 						}
 					}
 
-					152 = {
+					1800 = { # was vanilla 152
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14731,9 +14776,9 @@ focus_tree = {
 					}
 				}
 
-				IF = {
+				if = {
 					limit = {
-						4 = {
+						1802 = { # was vanilla 4
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14742,7 +14787,7 @@ focus_tree = {
 						}
 					}
 
-					4 = {
+					1802 = { # was vanilla 4
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14775,14 +14820,14 @@ focus_tree = {
 		}
 
 		available = {
-			153 = {
+			1793 = { # was vanilla 153
 				is_fully_controlled_by = ROOT
 			}
 
 			custom_trigger_tooltip = {
 				tooltip = AUS_extend_the_traun_line_available_tt
 				OR = {
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14790,7 +14835,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14798,7 +14843,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14806,7 +14851,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14814,7 +14859,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size > 2
@@ -14829,14 +14874,14 @@ focus_tree = {
 		}
 		
 		bypass = {
-			153 = {
+			1793 = { # was vanilla 153
 				NOT = { is_fully_controlled_by = ROOT } 
 			}
 
 			custom_trigger_tooltip = {
 				tooltip = AUS_extend_the_traun_line_bypass_tt
 				OR = {
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size < 3
@@ -14844,7 +14889,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size < 3
@@ -14852,7 +14897,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size < 3
@@ -14860,7 +14905,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size < 3
@@ -14868,7 +14913,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						free_building_slots = {
 							building = bunker
 							size < 3
@@ -14885,9 +14930,9 @@ focus_tree = {
 			custom_effect_tooltip = AUS_extend_the_traun_line_tt
 
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
-						153 = {
+						1793 = { # was vanilla 153
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14896,7 +14941,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14905,9 +14950,9 @@ focus_tree = {
 						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
-						153 = {
+						1793 = { # was vanilla 153
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14916,7 +14961,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14925,9 +14970,9 @@ focus_tree = {
 						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
-						153 = {
+						1793 = { # was vanilla 153
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14936,7 +14981,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14945,9 +14990,9 @@ focus_tree = {
 						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
-						153 = {
+						1793 = { # was vanilla 153
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14956,7 +15001,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -14965,9 +15010,9 @@ focus_tree = {
 						}
 					}
 				}
-				IF = {
+				if = {
 					limit = {
-						153 = {
+						1793 = { # was vanilla 153
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -14976,7 +15021,7 @@ focus_tree = {
 						}
 					}
 
-					153 = {
+					1793 = { # was vanilla 153
 						add_building_construction = {
 							type = bunker
 							level = 3
@@ -15024,7 +15069,7 @@ focus_tree = {
 			custom_effect_tooltip = AUS_follow_the_jansa_plan_tt2
 			show_ideas_tooltip = AUS_franz_bohme
 
-			IF = {
+			if = {
 				limit = {
 					NOT = {
 						has_country_flag = AUS_went_with_jansa_flag
@@ -15039,7 +15084,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				AUS_franz_bohme = {
 					add_unit_leader_trait = aggressive_assaulter
 				}
@@ -15078,7 +15123,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_army_monarchy
@@ -15086,7 +15131,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_army_monarchy_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_army_intro_tt
 			}
 
@@ -15123,7 +15168,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_army_monarchy
@@ -15131,7 +15176,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_army_monarchy_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_army_intro_tt
 			}
 			add_to_variable = { AUS_army_conscription_factor = 0.1 tooltip = conscription_factor_tt }
@@ -15174,7 +15219,7 @@ focus_tree = {
 					is_fully_controlled_by = ROOT
 				}
 
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 				add_extra_state_shared_building_slots = 1
 
 				add_building_construction = {
@@ -15189,7 +15234,7 @@ focus_tree = {
 					is_fully_controlled_by = ROOT
 				}
 
-				prioritize = { 4 152 976 975 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
+				prioritize = { 1802 1800 681 621 } #Niederösterreich, Oberösterreich, Steirmark-Kärntern, Burgenland
 				add_extra_state_shared_building_slots = 1
 
 				add_building_construction = {
@@ -15228,7 +15273,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_dynamic_modifier = {
 						modifier = AUS_army_monarchy
@@ -15236,7 +15281,7 @@ focus_tree = {
 				}
 				custom_effect_tooltip = AUS_army_monarchy_intro_tt
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_army_intro_tt
 			}
 
@@ -15282,7 +15327,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				mio:AUS_hirtenberger_organization = {
@@ -15292,7 +15337,7 @@ focus_tree = {
 				}
 
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_hirtenberger_artillery_tt
 			}
 		}
@@ -15325,7 +15370,7 @@ focus_tree = {
 
 		completion_reward = {
 
-		 	IF = {
+		 	if = {
 		 		limit = { 
 		 			AND = {
 		 				has_dlc =  "La Resistance"
@@ -15341,7 +15386,7 @@ focus_tree = {
 				}
 		 	}
 
-		 	ELSE_IF = {
+		 	else_if = {
 		 		limit = {
 		 			has_dlc = "Arms Against Tyranny"
 		 			NOT = { has_dlc = "La Resistance"}
@@ -15357,7 +15402,7 @@ focus_tree = {
 		 	}
 
 
-		 	ELSE = {
+		 	else = {
 		 		custom_effect_tooltip = available_designer
 				show_ideas_tooltip = AUS_osterreichische_sauerwerke
 		 	}
@@ -15390,7 +15435,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny"}
 
 				unlock_military_industrial_organization_tooltip = mio:AUS_graf_and_stift_organization
@@ -15401,7 +15446,7 @@ focus_tree = {
 					add_mio_research_bonus = 0.1
 				}
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = AUS_graf_und_stift
 			}
@@ -15435,13 +15480,13 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				unlock_military_industrial_organization_tooltip = mio:AUS_ansaldo_organization
 			}
 
-			ELSE = {
+			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = AUS_ansaldo
 			}
@@ -15532,7 +15577,7 @@ focus_tree = {
 			add_dynamic_modifier = { modifier = AUS_navy }
 			add_to_variable = { AUS_navy_xp_gain_navy_factor = 0.1 tooltip = experience_gain_navy_factor_tt }
 
-			IF = {
+			if = {
 				limit = {
 					any_controlled_state = {
 						NOT = {
@@ -15550,7 +15595,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 0 
-						include_locked = yes
 					}
 				}
 				
@@ -15640,7 +15684,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 
 				unlock_military_industrial_organization_tooltip = 	mio:AUS_stabilimento_tecnico_triestino_organization	
@@ -15652,7 +15696,7 @@ focus_tree = {
 
 				}		
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = AUS_stabilimento_tecnico_triestino
 			}
@@ -15721,12 +15765,12 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {has_dlc = "Man the Guns"}
 
 
 				
-				IF = {
+				if = {
 					limit = { NOT = { has_tech = early_ship_hull_heavy } }
 					custom_effect_tooltip = AUS_continue_old_production_tt
 					
@@ -15781,9 +15825,9 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 
-				IF = {
+				if = {
 					limit = { NOT = { has_tech = early_battleship } }
 					custom_effect_tooltip = AUS_continue_old_production_tt
 					
@@ -15858,7 +15902,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					any_controlled_state = {
 						NOT = {
@@ -15875,7 +15919,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 0 
-						include_locked = yes
 					}
 				}
 				
@@ -15893,7 +15936,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 0 
-						include_locked = yes
 					}
 				}
 				
@@ -15938,7 +15980,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			IF = {
+			if = {
 				limit = {
 					OR = {
 						has_government = fascism
@@ -15948,7 +15990,7 @@ focus_tree = {
 				custom_effect_tooltip = AUS_promote_admirals_fasc_com_tt
 			}
 
-			ELSE = {
+			else = {
 				custom_effect_tooltip = AUS_promote_admirals_tt
 			}
 
@@ -16030,7 +16072,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -16045,7 +16087,7 @@ focus_tree = {
 				}
 			}
 
-			ELSE = {
+			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = AUS_ELIN
 			}

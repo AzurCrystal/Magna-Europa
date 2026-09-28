@@ -10,7 +10,6 @@ add_namespace = wuw_GER_news
 add_namespace = wuw_GER_releasable
 add_namespace = wuw_GER_civil_war
 add_namespace = wuw_GER_mutual_guarantees
-add_namespace = wuw_GER_weltpolitik
 add_namespace = wuw_GER_chinese_diplomacy
 add_namespace = wuw_GER_monroe
 add_namespace = wuw_GER_monroe_news
@@ -917,12 +916,12 @@ country_event = { #FROM wants their old colonies back (ROOT is Japan)
 
 		IF = {
 			limit = {
-				634 = {
+				1070 = {
 					is_fully_controlled_by = ROOT
 				}
 			}
 
-			634 = { #Solomon Islands (IF Bougainville is ever added, this should be that isntead)
+			1070 = { #Bougainville
 				transfer_state_to = FROM
 			}
 		}
@@ -5063,13 +5062,13 @@ country_event = { #After War SOV/GER hands over states to GER/SOV
 					}
 				}
 
-				transfer_state = 89
-				transfer_state = 91
-				transfer_state = 93
-				transfer_state = 94
-				transfer_state = 95
-				transfer_state = 96
-				transfer_state = 97
+				transfer_state = 1143 # was 89
+				transfer_state = 1292 # was 91
+				transfer_state = 434 # was 93
+				transfer_state = 2315 # was 94
+				transfer_state = 326 # was 95
+				transfer_state = 1106 # was 96
+				transfer_state = 2485 # was 97
 			}
 
 			ELSE_IF = {
@@ -5079,10 +5078,10 @@ country_event = { #After War SOV/GER hands over states to GER/SOV
 					}
 				}
 
-				transfer_state = 70
-				transfer_state = 664
-				transfer_state = 71
-				transfer_state = 73
+				transfer_state = 2662 # was 70
+				transfer_state = 611 # was 664
+				transfer_state = 2661 # was 71
+				transfer_state = 2247 # was 73
 			}
 		}
 
@@ -5099,16 +5098,16 @@ country_event = { #After War SOV/GER hands over states to GER/SOV
 					}
 				}
 
-				transfer_state = 807
-				transfer_state = 85
-				transfer_state = 86
-				transfer_state = 87
-				transfer_state = 88
-				transfer_state = 90
-				transfer_state = 92
-				transfer_state = 98
-				transfer_state = 10
-				transfer_state = 762
+				transfer_state = 280 # was 807
+				transfer_state = 280 # was 85
+				transfer_state = 243 # was 86
+				transfer_state = 693 # was 87
+				transfer_state = 2931 # was 88
+				transfer_state = 867 # was 90
+				transfer_state = 1070 # was 92
+				transfer_state = 5 # was 98
+				transfer_state = 370 # was 10
+				transfer_state = 467 # was 762
 			}
 
 			ELSE_IF = {
@@ -5118,12 +5117,12 @@ country_event = { #After War SOV/GER hands over states to GER/SOV
 					}
 				}
 
-				transfer_state = 69
-				transfer_state = 972
-				transfer_state = 9
-				transfer_state = 75
-				transfer_state = 74
-				transfer_state = 72
+				transfer_state = 1434 # was 69
+				transfer_state = 539 # was 972
+				transfer_state = 513 # was 9
+				transfer_state = 536 # was 75
+				transfer_state = 499 # was 74
+				transfer_state = 2663 # was 72
 			}
 		}
 
@@ -6846,1737 +6845,6 @@ country_event = {
 
 
 
-### WELTPOLITIK EVENTS ###
-
-# Germany Requests the Return of Former Colonial Territories - event for FRA
-country_event = { 
-	id = wuw_GER_weltpolitik.1
-	title = wuw_GER_weltpolitik.1.t
-	desc = wuw_GER_weltpolitik.1.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	option = { # Anything for our friends
-		name = wuw_GER_weltpolitik.1.a
-		ai_chance = {
-			base = 70
-			modifier = {
-				factor = 2
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 55
-					}	
-				}
-			}
-			modifier = {
-				factor = 3
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 90
-					}	
-				}
-			}
-		}		
-
-		add_political_power = 100
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-		
-		FROM = {
-			# FROM gives us the land ☆*:.｡.o(≧▽≦)o.｡.:*☆
-			country_event = { 
-				id = wuw_GER_weltpolitik.2
-				days = 1
-				random_days = 2 
-			}
-		}
-		effect_tooltip = {
-			ROOT = {
-				every_controlled_state = {
-					limit = {
-						OR = {
-							state = 777
-							state = 773
-							state = 895
-							state = 894
-							state = 541
-							state = 893
-							state = 768
-							state = 769
-							state = 546
-						}
-					}
-					transfer_state_to = FROM
-				}
-			}
-		}
-	}
-
-	option = { # No, they are ours now
-		name = wuw_GER_weltpolitik.1.b
-		ai_chance = {
-			base = 30
-			modifier = {
-				factor = 0.5
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 55
-					}	
-				}
-			}
-		}		
-		
-		add_political_power = -50
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		FROM = {
-			# FROM denies us the land 。：゜(；´∩｀；)゜：。
-			country_event = { 
-				id = wuw_GER_weltpolitik.3
-				days = 1
-				random_days = 2 
-			}
-		}
-
-	}
-}
-
-# France returns our Colonies - event for GER
-country_event = { 
-	id = wuw_GER_weltpolitik.2
-	title = wuw_GER_weltpolitik.2.t
-	desc = wuw_GER_weltpolitik.2.desc 
-	picture = GFX_report_event_spr_army_of_africa
-
-	is_triggered_only = yes
-
-	option = { # We are fast approaching a new Golden Age!
-		name = wuw_GER_weltpolitik.2.a
-		ai_chance = {
-			base = 100
-		}		
-		
-		FROM = {
-			every_controlled_state = {
-				limit = {
-					OR = {
-						state = 777
-						state = 773
-						state = 895
-						state = 894
-						state = 541
-						state = 893
-						state = 768
-						state = 769
-						state = 546
-					}
-				}
-				transfer_state_to = ROOT
-			}
-		}
-	}
-}
-
-# France doesn't return our Colonies - event for GER
-country_event = { 
-	id = wuw_GER_weltpolitik.3
-	title = wuw_GER_weltpolitik.3.t
-	desc = wuw_GER_weltpolitik.3.desc 
-	picture = GFX_report_event_gre_allied_diplomacy
-
-	is_triggered_only = yes
-
-	option = { # It wasn't meant to be...
-		name = wuw_GER_weltpolitik.3.a
-		ai_chance = {
-			base = 100
-		}		
-		
-		add_war_support = 0.01
-		add_stability = -0.02
-
-	}
-}
-
-# Germany Wants to Carve up the Congo - event for ENG
-country_event = { 
-	id = wuw_GER_weltpolitik.4
-	title = wuw_GER_weltpolitik.4.t
-	desc = wuw_GER_weltpolitik.4.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	option = { # It is a mutually beneficial deal
-		name = wuw_GER_weltpolitik.4.a
-		ai_chance = {
-			base = 75
-			modifier = {
-				factor = 2
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 55
-					}	
-				}
-			}
-			modifier = {
-				factor = 2
-				FROM = {
-					has_added_tension_amount > 10
-				}
-			}
-			modifier = {
-				factor = 0.02
-				FROM = {
-					has_added_tension_amount > 29
-				}
-			}
-		}	
-
-		IF = {
-			limit = {
-				295 = {
-					OWNER = {
-						NOT = {
-							OR = {
-								original_tag = COG
-								original_tag = BEL
-							}
-						}
-					}
-				}
-				889 = {
-					OWNER = {
-						NOT = {
-							OR = {
-								original_tag = COG
-								original_tag = BEL
-							}
-						}
-					}
-				}
-				718 = {
-					OWNER = {
-						NOT = {
-							OR = {
-								original_tag = COG
-								original_tag = BEL
-							}
-						}
-					}
-				}
-				890 = {
-					OWNER = {
-						NOT = {
-							OR = {
-								original_tag = COG
-								original_tag = BEL
-							}
-						}
-					}
-				}
-				768 = {
-					OWNER = {
-						NOT = {
-							OR = {
-								original_tag = COG
-								original_tag = BEL
-							}
-						}
-					}
-				}
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 769
-						state = 768
-						state = 295
-						state = 538
-						state = 890
-						state = 718
-					}
-				}
-				add_claim_by = GER
-			}
-			every_country = {
-				limit = {
-					OR = {
-						owns_state = 769 
-						owns_state = 768
-						owns_state = 295
-						owns_state = 538
-						owns_state = 890
-						owns_state = 718
-					}
-					NOT = {
-						OR = {
-							is_subject_of = GER
-							is_in_faction_with = GER
-						}
-					}
-				}
-				GER = {
-					create_wargoal = {
-						type = take_claimed_state
-						target = PREV
-					}	
-				}
-			}
-
-			custom_effect_tooltip = generic_skip_one_line_tt
-
-			every_state = {
-				limit = {
-					OR = {
-						state = 889
-						state = 888
-					}
-				}
-				add_claim_by = ROOT
-			}
-			every_country = {
-				limit = {
-					OR = {
-						owns_state = 889 
-						owns_state = 888
-					}
-					NOT = {
-						OR = {
-							is_subject_of = ROOT
-							is_in_faction_with = ROOT
-						}
-					}
-				}
-				ROOT = {
-					create_wargoal = {
-						type = take_claimed_state
-						target = PREV
-					}	
-				}
-			}
-		}	
-		ELSE_IF = {
-			limit = {
-				OR = {
-					295 = {
-						is_owned_and_controlled_by = BEL
-					}
-					COG = {
-						exists = yes
-						OR = {
-							is_subject_of = BEL
-							is_in_faction_with = BEL
-						}
-					}
-				}
-			}
-			BEL = {
-				# England demands we give up the Congo
-				country_event = { 
-					id = wuw_GER_weltpolitik.5
-					days = 1
-					random_days = 2 
-				}
-			}
-
-			custom_effect_tooltip = if_they_accept_tt
-			effect_tooltip = {
-				every_state = {
-					limit = {
-						OR = {
-							state = 888
-							state = 889
-						}
-						OR = {
-							is_fully_controlled_by = BEL
-							is_fully_controlled_by = COG
-						}
-					}
-					transfer_state_to = ENG
-				}
-				every_state = {
-					limit = {
-						OR = {
-							state = 295
-							state = 538
-							state = 718
-							state = 890
-							state = 768
-							state = 769
-						}
-						OR = {
-							is_fully_controlled_by = BEL
-							is_fully_controlled_by = COG
-						}
-					}
-					transfer_state_to = GER
-				}
-			}
-		}
-	}
-
-	option = { # We will not sponsor this aggression
-		name = wuw_GER_weltpolitik.4.b
-		ai_chance = {
-			base = 25
-			modifier = {
-				factor = 0.5
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 55
-					}	
-				}
-			}
-		}		
-
-		FROM = {
-			# FROM rejects the deal 。：゜(；´∩｀；)゜：。
-			country_event = { 
-				id = wuw_GER_weltpolitik.6
-				days = 1
-				random_days = 2 
-			}
-		}
-	}
-}
-
-# Britain Demands we give up the Congo - event for BEL
-country_event = { 
-	id = wuw_GER_weltpolitik.5
-	title = wuw_GER_weltpolitik.5.t
-	desc = wuw_GER_weltpolitik.5.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	option = { # Sadly not much can be done about it
-		name = wuw_GER_weltpolitik.5.a
-		ai_chance = {
-			base = 90
-			modifier = {
-				factor = 2
-				GER = {
-					has_added_tension_amount > 10
-				}
-			}
-		}	
-		
-		ENG = {
-			# Belgium decides to give up the Congo
-			country_event = { 
-				id = wuw_GER_weltpolitik.8
-				days = 1
-			}
-		}
-		GER = {
-			# Belgium decides to give up the Congo
-			country_event = { 
-				id = wuw_GER_weltpolitik.8
-				days = 1
-			}
-		}
-		IF = {
-			limit = {
-				COG = {
-					exists = no
-				}
-			}
-			effect_tooltip = {
-				ROOT = {
-					every_controlled_state = {
-						limit = {
-							OR = {
-								state = 888
-								state = 889
-							}
-						}
-						transfer_state_to = FROM
-					}
-				}
-
-				custom_effect_tooltip = generic_skip_one_line_tt
-				ROOT = {
-					every_controlled_state = {
-						limit = {
-							OR = {
-								state = 295
-								state = 538
-								state = 718
-								state = 890
-								state = 768
-								state = 769
-							}
-						}
-						transfer_state_to = GER
-					}
-				}
-			}
-		}
-
-		IF = {
-			limit = {
-				COG = {
-					exists = yes
-				}
-			}
-			COG = {
-				# Belgium decides to split us
-				country_event = { 
-					id = wuw_GER_weltpolitik.7
-					days = 2
-				}
-			}
-			custom_effect_tooltip = if_they_accept_tt
-			effect_tooltip = {
-				COG = {
-					every_controlled_state = {
-						limit = {
-							OR = {
-								state = 888
-								state = 889
-							}
-						}
-						transfer_state_to = FROM
-					}
-				}
-
-				custom_effect_tooltip = generic_skip_one_line_tt
-				COG = {
-					every_controlled_state = {
-						limit = {
-							OR = {
-								state = 295
-								state = 538
-								state = 718
-								state = 890
-								state = 768
-								state = 769
-							}
-						}
-						transfer_state_to = GER
-					}
-				}
-			}
-		}
-	}
-
-	option = { # We can not accept this
-		name = wuw_GER_weltpolitik.5.b
-		ai_chance = {
-			base = 10
-		}	
-
-		ENG = {
-			# Belgium decides NOT to give up the Congo
-			country_event = { 
-				id = wuw_GER_weltpolitik.9
-				days = 1
-			}
-		}
-		GER = {
-			# Belgium decides NOT to give up the Congo
-			country_event = { 
-				id = wuw_GER_weltpolitik.9
-				days = 1
-			}
-		}	
-		effect_tooltip = {
-
-			every_state = {
-				limit = {
-					OR = {
-						state = 888
-						state = 889
-					}
-					OR = {
-						is_fully_controlled_by = BEL
-						is_fully_controlled_by = COG
-					}
-				}
-				add_claim_by = ENG
-			}
-		
-		
-			every_state = {
-				limit = {
-					OR = {
-						state = 295
-						state = 538
-						state = 718
-						state = 890
-						state = 768
-						state = 769
-					}
-					OR = {
-						is_fully_controlled_by = BEL
-						is_fully_controlled_by = COG
-					}
-				}
-				add_claim_by = GER
-			}
-			
-			
-			IF = {
-				limit = {
-					COG = {
-						exists = yes
-					}
-				}
-				every_country = {
-					limit = {
-						OR = {
-							original_tag = ENG
-							original_tag = GER
-						}
-					}
-					create_wargoal = {
-						type = take_claimed_state
-						target = COG
-					}
-				}	
-			}
-			IF = {
-				limit = {
-					any_state = {
-						OR = {
-							state = 888
-							state = 889
-							state = 295
-							state = 538
-							state = 718
-							state = 890
-							state = 768
-							state = 769
-						}
-						is_fully_controlled_by = ROOT
-					}
-				}
-				every_country = {
-					limit = {
-						OR = {
-							original_tag = ENG
-							original_tag = GER
-						}
-					}
-					create_wargoal = {
-						type = take_claimed_state
-						target = ROOT
-					}
-				}	
-			}
-		}
-
-	}
-}
-
-# Britain Rejects our deal - event for GER
-country_event = { 
-	id = wuw_GER_weltpolitik.6
-	title = wuw_GER_weltpolitik.6.t
-	desc = wuw_GER_weltpolitik.6.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	option = { # In that case it will all be ours!
-		name = wuw_GER_weltpolitik.6.a
-		ai_chance = {
-			base = 60
-		}	
-
-		add_threat = 3
-		
-		every_state = {
-			limit = {
-				OR = {
-					is_core_of = COG
-					is_core_of = RWA
-					is_core_of = BRD
-				}
-			}
-			add_claim_by = ROOT
-		}
-
-		IF = {
-			limit = {
-				COG = {
-					exists = yes
-					owns_state = 295
-				}
-			}
-			create_wargoal = {
-				type = take_claimed_state
-				target = COG
-			}	
-		}
-		ELSE_IF = {
-			limit = {
-				BEL = {
-					owns_state = 295
-				}
-			}
-			create_wargoal = {
-				type = take_claimed_state
-				target = BEL
-			}	
-		}
-		
-	}
-
-	option = { # We should not push further
-		name = wuw_GER_weltpolitik.6.b
-		ai_chance = {
-			base = 40
-		}	
-
-		add_war_support = -0.05
-		add_threat = -2
-
-	}
-}
-
-# Belgium will give up our freedom - event for COG
-country_event = { 
-	id = wuw_GER_weltpolitik.7
-	title = wuw_GER_weltpolitik.7.t
-	desc = wuw_GER_weltpolitik.7.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	option = { # We can not fight this...
-		name = wuw_GER_weltpolitik.7.a
-		ai_chance = {
-			base = 100
-		}	
-		
-		custom_effect_tooltip = GAME_OVER_TT
-
-		ENG = {
-			# Congo is split
-			country_event = { 
-				id = wuw_GER_weltpolitik.10
-				days = 2
-			}
-		}
-		GER = {
-			# Congo is split
-			country_event = { 
-				id = wuw_GER_weltpolitik.10
-				days = 2
-			}
-		}
-
-		BEL = {
-			# Congo folds
-			country_event = { 
-				id = wuw_GER_weltpolitik.11
-				days = 1
-			}
-		}
-		
-		
-	}
-
-	option = { # We can not accept this, to arms!
-		name = wuw_GER_weltpolitik.7.b
-		ai_chance = {
-			base = 0
-		}	
-
-		add_war_support = 0.01
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		ENG = {
-			# Congo needs to be pacified
-			country_event = { 
-				id = wuw_GER_weltpolitik.10
-				days = 2
-			}
-		}
-		GER = {
-			# Congo needs to be pacified
-			country_event = { 
-				id = wuw_GER_weltpolitik.10
-				days = 2
-			}
-		}
-
-		BEL = {
-			# Congo goes against our wishes
-			country_event = { 
-				id = wuw_GER_weltpolitik.11
-				days = 1
-			}
-		}
-
-		set_global_flag = COG_refused_partition_flag
-
-	}
-}
-
-# Belgium will give up the Congo (but we are usually awaiting to see Congo's response if they exist) - event for GER and ENG
-country_event = { 
-	id = wuw_GER_weltpolitik.8
-	title = wuw_GER_weltpolitik.8.t
-	desc = wuw_GER_weltpolitik.8.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	fire_only_once = no
-
-	option = { # Perfect
-		name = wuw_GER_weltpolitik.8.a
-		
-		add_political_power = 50
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		IF = {
-			limit = {
-				original_tag = ENG
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 888
-						state = 889
-					}
-					is_owned_by = BEL
-				}
-				transfer_state_to = ROOT
-			}
-		}
-		ELSE_IF = {
-			limit = {
-				original_tag = GER
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 295
-						state = 538
-						state = 718
-						state = 890
-						state = 768
-						state = 769
-					}
-					is_owned_by = BEL
-				}
-				transfer_state_to = ROOT
-			}
-		}
-		
-	}
-}
-
-# Belgium refuses to give up the Congo - event for GER and ENG
-country_event = { 
-	id = wuw_GER_weltpolitik.9
-	title = wuw_GER_weltpolitik.9.t
-	desc = wuw_GER_weltpolitik.9.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	fire_only_once = no
-
-	is_triggered_only = yes
-
-	option = { # Then they will be destroyed
-		name = wuw_GER_weltpolitik.9.a
-		ai_chance = {
-			base = 10
-			modifier = {
-				factor = 0.5
-				original_tag = ENG
-			}
-		}
-
-		IF = {
-			limit = {
-				original_tag = ENG
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 888
-						state = 889
-					}
-				}
-				add_claim_by = ROOT
-			}
-		}
-		ELSE_IF = {
-			limit = {
-				original_tag = GER
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 295
-						state = 538
-						state = 718
-						state = 890
-						state = 768
-						state = 769
-					}
-				}
-				add_claim_by = ROOT
-			}
-		}
-		
-		IF = {
-			limit = {
-				COG = {
-					exists = yes
-				}
-			}
-			create_wargoal = {
-				type = take_claimed_state
-				target = COG
-			}	
-		}
-		IF = {
-			limit = {
-				any_state = {
-					OR = {
-						state = 888
-						state = 889
-						state = 295
-						state = 538
-						state = 718
-						state = 890
-						state = 768
-						state = 769
-					}
-					is_owned_by = BEL
-				}
-			}
-			create_wargoal = {
-				type = take_claimed_state
-				target = BEL
-			}	
-		}
-		
-	}
-
-	option = { # There is no need to push for it then
-		name = wuw_GER_weltpolitik.9.b
-		ai_chance = {
-			base = 10
-			modifier = {
-				factor = 0
-				original_tag = GER
-			}
-		}
-
-		add_stability = 0.05
-		
-	}
-}
-
-# The Congo Crisis - event for GER and ENG
-country_event = { 
-	id = wuw_GER_weltpolitik.10
-	title = wuw_GER_weltpolitik.10.t
-	desc = wuw_GER_weltpolitik.10.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	fire_only_once = no
-
-	is_triggered_only = yes
-
-	option = { # We will take it by force (OBS: "CONGO SAID NO")
-		name = wuw_GER_weltpolitik.10.a
-		trigger = {
-			has_global_flag = COG_refused_partition_flag
-		}
-		ai_chance = {
-			base = 100
-		}	
-		
-		IF = {
-			limit = {
-				original_tag = ENG
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 888
-						state = 889
-					}
-				}
-				add_claim_by = ROOT
-			}
-		}
-		ELSE_IF = {
-			limit = {
-				original_tag = GER
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 295
-						state = 538
-						state = 718
-						state = 890
-						state = 768
-						state = 769
-					}
-				}
-				add_claim_by = ROOT
-			}
-		}
-		
-		IF = {
-			limit = {
-				COG = {
-					exists = yes
-				}
-			}
-			create_wargoal = {
-				type = take_claimed_state
-				target = COG
-			}	
-		}
-
-	}
-	option = { # Today is a good day (OBS: "CONGO SAID YES")
-		name = wuw_GER_weltpolitik.10.b
-		trigger = {
-			NOT = {
-				has_global_flag = COG_refused_partition_flag
-			}
-		}
-		ai_chance = {
-			base = 100
-		}	
-		
-		IF = {
-			limit = {
-				original_tag = ENG
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 888
-						state = 889
-					}
-				}
-				transfer_state_to = ROOT
-			}
-		}
-		ELSE_IF = {
-			limit = {
-				original_tag = GER
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 295
-						state = 538
-						state = 718
-						state = 890
-						state = 768
-						state = 769
-					}
-				}
-				transfer_state_to = ROOT
-			}
-		}
-
-	}
-}
-
-# The Congo Crisis - event for BEL
-country_event = { 
-	id = wuw_GER_weltpolitik.11
-	title = wuw_GER_weltpolitik.11.t
-	desc = wuw_GER_weltpolitik.11.desc 
-	picture = GFX_report_event_gre_diplomacy
-
-	is_triggered_only = yes
-
-	immediate = {
-
-		hidden_effect = {
-
-			IF = {
-				limit = {
-					COG = {
-						is_subject_of = ROOT
-					}
-				}
-				ROOT = {
-					set_autonomy = {
-						target = COG
-						autonomy_state = autonomy_free
-						freedom_level = 1
-						end_wars  = no
-						end_civil_wars = no
-					}
-				}
-			}
-			IF = {
-				limit = {
-					COG = {
-						has_cosmetic_tag = COG_belgian_congo
-					}
-				}
-				COG = {
-					drop_cosmetic_tag = yes
-					set_politics = {
-						ruling_party = democratic
-						elections_allowed = yes
-					}	
-					add_popularity = {
-						ideology = democratic
-						popularity = 0.25
-					}	
-					add_popularity = {
-						ideology = communism
-						popularity = 0.1
-					}	 
-				}
-				
-			}
-
-			IF = {
-				limit = {
-					COG = {
-						has_idea = BEL_albert_de_vleeschauwer
-					}
-				}
-				COG = {
-					remove_ideas = BEL_albert_de_vleeschauwer
-				}
-			}
-
-			COG = {
-				set_party_name = {
-					ideology = neutrality
-					long_name = house_of_agua_rosada_long
-					name = house_of_agua_rosada
-				}
-
-				add_country_leader_role = {
-					character =  COG_pedro_vii_alfonso
-					promote_leader = yes
-					country_leader = {
-						ideology = despotism
-						expire = "1969.1.1.1"
-						traits = { manikongo_of_kongo } 
-					}
-				}
-			}
-
-		}
-
-	}
-
-	option = { # We must destroy them for the protection of our people! ("CONGO SAID NO!!!")
-		name = wuw_GER_weltpolitik.11.a	
-
-		create_wargoal = {
-			type = puppet_wargoal_focus
-			target = COG
-		}	
-		
-	}
-}
-
-# Germany Requests the Return of Former Colonial Territories - event for ENG
-country_event = { 
-	id = wuw_GER_weltpolitik.12
-	title = wuw_GER_weltpolitik.12.t
-	desc = wuw_GER_weltpolitik.12.desc 
-	picture = GFX_report_event_king_speech
-
-	is_triggered_only = yes
-
-	option = { # Anything for our friends
-		name = wuw_GER_weltpolitik.12.a
-		ai_chance = {
-			base = 70
-			modifier = {
-				factor = 2
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 55
-					}	
-				}
-			}
-			modifier = {
-				factor = 3
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 90
-					}	
-				}
-			}
-		}		
-
-		add_political_power = 100
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-		
-		FROM = {
-			# FROM gives us the land ☆*:.｡.o(≧▽≦)o.｡.:*☆
-			country_event = { 
-				id = wuw_GER_weltpolitik.13
-				days = 1
-				random_days = 2 
-			}
-		}
-		effect_tooltip = {
-			every_state = {
-				limit = {
-					OR = {
-						is_owned_and_controlled_by = ROOT
-						is_owned_and_controlled_by = SAF
-						is_owned_and_controlled_by = NZL
-						is_owned_and_controlled_by = AST
-					}
-					OR = {
-						state = 773
-						state = 777
-						state = 546
-						state = 768
-						state = 769
-						state = 895
-						state = 894
-						state = 541
-						state = 893
-						state = 743
-						state = 647
-						state = 979
-						state = 737
-						state = 684
-						state = 633
-						state = 634 # If Bougainville is ever made it's own state switch this and the associated decision from 634 to that!
-						state = 646
-						state = 726
-						state = 725
-					}
-				}
-				transfer_state_to = FROM
-			}
-		}
-		
-	}
-
-	option = { # No, they are ours now
-		name = wuw_GER_weltpolitik.12.b
-		ai_chance = {
-			base = 30
-			modifier = {
-				factor = 0.5
-				ROOT = {
-					has_opinion = {
-						target = FROM
-						value > 55
-					}	
-				}
-			}
-		}		
-		
-		add_political_power = -50
-
-		custom_effect_tooltip = generic_skip_one_line_tt
-
-		FROM = {
-			# FROM denies us the land 。：゜(；´∩｀；)゜：。
-			country_event = { 
-				id = wuw_GER_weltpolitik.14
-				days = 1
-				random_days = 2 
-			}
-		}
-
-	}
-}
-
-# Britain returns our Colonies - event for GER
-country_event = { 
-	id = wuw_GER_weltpolitik.13
-	title = wuw_GER_weltpolitik.13.t
-	desc = wuw_GER_weltpolitik.13.desc 
-	picture = GFX_report_event_journalists_speech
-
-	is_triggered_only = yes
-
-	option = { # Imperialism is back on the menu!
-		name = wuw_GER_weltpolitik.13.a	
-		
-		every_state = {
-			limit = {
-				is_owned_and_controlled_by = FROM
-				OR = {
-					state = 773
-					state = 777
-					state = 546
-					state = 768
-					state = 769
-					state = 895
-					state = 894
-					state = 541
-					state = 893
-					state = 743
-					state = 647
-					state = 979
-					state = 737
-					state = 684
-					state = 633
-					state = 634 # If Bougainville is ever made it's own state switch this and the associated decision from 634 to that!
-					state = 646
-					state = 726
-					state = 725
-				}
-			}
-			transfer_state_to = ROOT
-		}
-
-		custom_effect_tooltip =  generic_skip_one_line_tt
-
-		IF = {
-			limit = {
-				NZL = {
-					is_subject_of = FROM
-				}
-			}
-			effect_tooltip = {
-				every_state = {
-					limit = {
-						is_owned_and_controlled_by = NZL
-						OR = {
-							state = 773
-							state = 777
-							state = 546
-							state = 768
-							state = 769
-							state = 895
-							state = 894
-							state = 541
-							state = 893
-							state = 743
-							state = 647
-							state = 979
-							state = 737
-							state = 684
-							state = 633
-							state = 634 # If Bougainville is ever made it's own state switch this and the associated decision from 634 to that!
-							state = 646
-							state = 726
-							state = 725
-						}
-					}
-					transfer_state_to = ROOT
-				}
-			}
-			NZL = {
-				country_event = { 
-					id = wuw_GER_weltpolitik.15
-					hours = 1
-					random_hours = 2 
-				}
-			}
-		}
-
-		custom_effect_tooltip =  generic_skip_one_line_tt
-
-		IF = {
-			limit = {
-				AST = {
-					is_subject_of = FROM
-				}
-			}
-			effect_tooltip = {
-				every_state = {
-					limit = {
-						is_owned_and_controlled_by = AST
-						OR = {
-							state = 773
-							state = 777
-							state = 546
-							state = 768
-							state = 769
-							state = 895
-							state = 894
-							state = 541
-							state = 893
-							state = 743
-							state = 647
-							state = 979
-							state = 737
-							state = 684
-							state = 633
-							state = 634 # If Bougainville is ever made it's own state switch this and the associated decision from 634 to that!
-							state = 646
-							state = 726
-							state = 725
-						}
-					}
-					transfer_state_to = ROOT
-				}
-			}
-			AST = {
-				country_event = { 
-					id = wuw_GER_weltpolitik.15
-					hours = 1
-					random_hours = 2 
-				}
-			}
-		}
-		
-		custom_effect_tooltip =  generic_skip_one_line_tt
-
-		IF = {
-			limit = {
-				SAF = {
-					is_subject_of = FROM
-				}
-			}
-			effect_tooltip = {
-				every_state = {
-					limit = {
-						is_owned_and_controlled_by = SAF
-						OR = {
-							state = 773
-							state = 777
-							state = 546
-							state = 768
-							state = 769
-							state = 895
-							state = 894
-							state = 541
-							state = 893
-							state = 743
-							state = 647
-							state = 979
-							state = 737
-							state = 684
-							state = 633
-							state = 634 # If Bougainville is ever made it's own state switch this and the associated decision from 634 to that!
-							state = 646
-							state = 726
-							state = 725
-						}
-					}
-					transfer_state_to = ROOT
-				}
-			}
-			SAF = {
-				country_event = { 
-					id = wuw_GER_weltpolitik.15
-					hours = 1
-					random_hours = 2 
-				}
-			}
-		}
-
-	}
-}
-
-# Britain doesn't return our Colonies - event for GER
-country_event = { 
-	id = wuw_GER_weltpolitik.14
-	title = wuw_GER_weltpolitik.14.t
-	desc = wuw_GER_weltpolitik.14.desc 
-	picture = GFX_report_event_generic_read_write
-
-	is_triggered_only = yes
-
-	option = { # It wasn't meant to be...
-		name = wuw_GER_weltpolitik.14.a	
-		
-		add_political_power = -25
-
-	}
-}
-
-# Our Overlords hands some of our states to GER - event for British subject that owns former German colonies
-country_event = { 
-	id = wuw_GER_weltpolitik.15
-	title = wuw_GER_weltpolitik.15.t
-	desc = wuw_GER_weltpolitik.15.desc 
-	picture = GFX_report_event_generic_read_write
-
-	is_triggered_only = yes
-
-	option = { # We demand compesnation!
-		name = wuw_GER_weltpolitik.15.a		
-
-		every_state = {
-			every_state = {
-				limit = {
-					is_owned_and_controlled_by = ROOT
-					OR = {
-						state = 773
-						state = 777
-						state = 546
-						state = 768
-						state = 769
-						state = 895
-						state = 894
-						state = 541
-						state = 893
-						state = 743
-						state = 647
-						state = 979
-						state = 737
-						state = 684
-						state = 633
-						state = 634 # If Bougainville is ever made it's own state switch this and the associated decision from 634 to that!
-						state = 646
-						state = 726
-						state = 725
-					}
-				}
-				transfer_state_to = GER
-			}
-		}
-		
-		add_political_power = 120
-		add_timed_idea = {
-			idea = GER_compensation_for_transferred_colonies
-			days = 365
-		}	
-
-	}
-}
-
-country_event = { # GER wants Asian Spheres of influence - event for CHINA 
-	id = wuw_GER_weltpolitik.16
-	title = wuw_GER_weltpolitik.16.t
-	desc = wuw_GER_weltpolitik.16.desc
-	picture = GFX_report_event_german_italian_pact
-
-	is_triggered_only = yes
-
-	fire_only_once = yes 
-
-	option = { # okay
-		name = wuw_GER_weltpolitik.16.a
-
-		FROM = {
-			set_country_flag = GER_CHI_agreed_sphere_of_influence
-			country_event = {
-				id = wuw_GER_weltpolitik.17
-				hours = 6
-			}
-		}
-
-		GER_setup_GER_asia_sphere_of_influence_array = yes
-		GER_setup_CHI_sphere_of_influence_array = yes
-	}
-
-	option = { # No thanks
-		name = wuw_GER_weltpolitik.16.b
-
-		add_opinion_modifier = {
-			target = FROM
-			modifier = medium_decrease
-		}
-
-		FROM = {
-			add_opinion_modifier = {
-				target = ROOT
-				modifier = medium_decrease
-			}
-
-			country_event = {
-				id = wuw_GER_weltpolitik.18
-				hours = 6
-			}
-		}
-
-	}
-
-}
-
-country_event = { # CHI accepts sphere of influence - event for GER
-	id = wuw_GER_weltpolitik.17
-	title = wuw_GER_weltpolitik.17.t
-	desc = wuw_GER_weltpolitik.17.desc
-	picture = GFX_report_event_generic_handshake
-
-	is_triggered_only = yes
-
-	fire_only_once = yes 
-
-	option = { # yatta!
-		name = wuw_GER_weltpolitik.17.a
-
-	}
-}
-
-country_event = { # CHI rejects sphere of influence - event for GER
-	id = wuw_GER_weltpolitik.18
-	title = wuw_GER_weltpolitik.18.t
-	desc = wuw_GER_weltpolitik.18.desc
-	picture = GFX_report_event_generic_read_write
-
-	is_triggered_only = yes
-
-	fire_only_once = yes 
-
-	option = { # meesa angy
-		name = wuw_GER_weltpolitik.18.a
-
-	}
-}
-
-# Germany demands ownership of our Angolan territories - event for owner of a Angolan core
-country_event = {
-	id = wuw_GER_weltpolitik.19
-	title = wuw_GER_weltpolitik.19.t
-	desc = wuw_GER_weltpolitik.19.desc
-	picture = GFX_report_event_GER_grenzshutz_forces
-	
-	is_triggered_only = yes
-
-	fire_only_once = no
-	
-	# It is not worth shedding blood over
-	option = { 
-		name = wuw_GER_weltpolitik.19.a
-		ai_chance = {
-			factor = 60
-			modifier = {
-				factor = 0.3
-				original_tag = ANG
-			}
-			modifier = {
-				strength_ratio = { tag = GER ratio < 1 }
-				factor = 2
-			}
-		}
-
-		# They accept - event for GER
-		FROM = { 
-			country_event = {
-				id = wuw_GER_weltpolitik.20
-				days = 2
-				random_days = 3
-			}
-		} 
-
-	}
-
-	# Then come and get it!
-	option = { 
-		name = wuw_GER_weltpolitik.19.b
-		ai_chance = {
-			factor = 40
-			modifier = {
-				factor = 1.5
-				original_tag = ANG
-			}
-			modifier = {
-				strength_ratio = { tag = GER ratio > 1 }
-				factor = 2
-			}
-		}
-
-		# They reject - event for GER
-		FROM = { 
-			country_event = {
-				id = wuw_GER_weltpolitik.21
-				days = 2
-				random_days = 3
-			}
-		} 
-
-	}
-}
-
-# FROM hands over their Angolan territories - event for GER
-country_event = {
-	id = wuw_GER_weltpolitik.20
-	title = wuw_GER_weltpolitik.20.t
-	desc = wuw_GER_weltpolitik.20.desc
-	picture = GFX_report_event_generic_sign_treaty1
-	
-	is_triggered_only = yes
-
-	fire_only_once = no
-	
-	# This is a great day!
-	option = { 
-		name = wuw_GER_weltpolitik.20.a
-		ai_chance = {
-			factor = 100
-		}
-
-		add_war_support = 0.01
-		add_stability = 0.01
-
-		every_state = {
-			limit = {
-				is_core_of = ANG
-				is_owned_and_controlled_by = FROM
-			}
-			transfer_state_to = ROOT
-		}
-
-	}
-}
-
-# FROM does not hand over their Angolan territories - event for GER
-country_event = {
-	id = wuw_GER_weltpolitik.21
-	title = wuw_GER_weltpolitik.21.t
-	desc = wuw_GER_weltpolitik.21.desc
-	picture = GFX_report_event_GER_black_reichswehr_forces
-	
-	is_triggered_only = yes
-
-	fire_only_once = no
-	
-	# They will regret their decision
-	option = { 
-		name = wuw_GER_weltpolitik.21.a
-		ai_chance = {
-			factor = 80
-		}
-
-		add_war_support = 0.02
-
-		create_wargoal = {
-			type = take_claimed_state
-			target = FROM
-		}
-
-	}
-
-	# We must let this go
-	option = { 
-		name = wuw_GER_weltpolitik.21.b
-		ai_chance = {
-			factor = 20
-		}
-
-		add_political_power = 25
-
-		add_war_support = -0.02
-		add_stability = -0.02
-
-	}
-}
-
-
-
 ### CHINESE OVERTURES EVENTS ###
 
 # Germany Sends us Arms and Materials - event for CHI (any country which is LITERALLY china) (＞▽＜)b OK!!
@@ -10026,20 +8294,20 @@ country_event = {
 				add_compliance = 25
 			}
 
-			RKL = {
-				add_manpower = 50000
-				add_equipment_to_stockpile = { 
-					type = infantry_equipment
-					amount = 5000
-					producer = GER
-				}	
-				add_equipment_to_stockpile = { 
-					type = support_equipment
-					amount = 500
-					producer = GER
-				}	
-				load_oob = "RK_OOB"
-			}
+#			RKL = {
+#				add_manpower = 50000
+#				add_equipment_to_stockpile = { 
+#					type = infantry_equipment
+#					amount = 5000
+#					producer = GER
+#				}	
+#				add_equipment_to_stockpile = { 
+#					type = support_equipment
+#					amount = 500
+#					producer = GER
+#				}	
+#				load_oob = "RK_OOB"
+#			}
 		}
 
 		set_autonomy = { 
@@ -10058,36 +8326,36 @@ country_event = {
 					}
 				}
 			}
-			RKL = {
-				POL_rudinger_von_der_goltz = {
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-				add_ideas = GER_german_controlled_reichskommissariat
-			}
+#			RKL = {
+#				POL_rudinger_von_der_goltz = {
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#				custom_effect_tooltip = generic_skip_one_line_tt
+#				add_ideas = GER_german_controlled_reichskommissariat
+#			}
 		}
 		ELSE = {
-			RKL = {
-				GER_friedrich_paulus = {
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-				add_ideas = GER_german_controlled_reichskommissariat
-			}
+#			RKL = {
+#				GER_friedrich_paulus = {
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#				custom_effect_tooltip = generic_skip_one_line_tt
+#				add_ideas = GER_german_controlled_reichskommissariat
+#			}
 		}
 		
 	}
@@ -10162,12 +8430,12 @@ country_event = {
 						}
 					}
 				}
-				RKL = {
-					set_nationality = {
-					    target_country = POL
-					    character = POL_rudinger_von_der_goltz
-					}
-				}
+#				RKL = {
+#					set_nationality = {
+#					    target_country = POL
+#					    character = POL_rudinger_von_der_goltz
+#					}
+#				}
 			}
 		}
 
@@ -10243,12 +8511,12 @@ country_event = {
 						}
 					}
 				}
-				RKL = {
-					set_nationality = {
-					    target_country = POL
-					    character = POL_rudinger_von_der_goltz
-					}
-				}
+#				RKL = {
+#					set_nationality = {
+#					    target_country = POL
+#					    character = POL_rudinger_von_der_goltz
+#					}
+#				}
 			}
 		}
 
@@ -10798,223 +9066,6 @@ country_event = {
 	}
 }
 
-# A Leader for Balkan - event for GER
-country_event = { 
-	id = wuw_GER_reichskommissariats.15
-	title = wuw_GER_reichskommissariats.15.t
-	desc = wuw_GER_reichskommissariats.15.desc 
-	picture = GFX_report_event_german_politician_speech
-
-	immediate = {
-		hidden_effect = {
-			# Local Guy
-			IF = {
-				limit = {
-					CRO = {
-						OR = {
-							NOT = {
-								has_government = fascism
-							}
-							exists = no
-						}
-					}
-				}
-				CRO = {
-					set_nationality = {
-					    target_country = RKC
-					    character = CRO_ante_pavelic
-					}
-				}
-			}
-
-			# German Guy
-			IF = {
-				limit = {
-					HUN = {
-						OR = {
-							NOT = {
-								has_completed_focus = HUN_elect_a_fascist_king
-								has_completed_focus = wuw_HUN_elect_a_fascist_king
-							}
-							exists = no
-						}
-					}
-				}
-				HUN = {
-					set_nationality = {
-					    target_country = RKC
-					    character = HUN_franz_friedrich
-					}
-				}
-			}
-			ELSE = {
-				GER = {
-					set_nationality = {
-					    target_country = RKC
-					    character = GER_georghans_reinhardt
-					}
-				}
-			}
-		}
-	}
-
-	is_triggered_only = yes
-
-	option = { # We Need a German Official
-		name = wuw_GER_reichskommissariats.15.a
-		ai_chance = {
-			base = 55
-		}	
-
-		RKC = {
-			IF = {
-				limit = {
-					HUN = {
-						OR = {
-							NOT = {
-								has_completed_focus = HUN_elect_a_fascist_king
-								has_completed_focus = wuw_HUN_elect_a_fascist_king
-							}
-							exists = no
-						}
-					}
-				}
-				HUN_franz_friedrich = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-			}
-			ELSE = {
-				GER_georghans_reinhardt = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-				custom_effect_tooltip = generic_skip_one_line_tt
-			}
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
-
-		hidden_effect = {
-			IF = { # The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
-				limit = {
-					CRO = {
-						OR = {
-							NOT = {
-								has_government = fascism
-							}
-							exists = no
-						}
-					}
-				}
-				RKC = {
-					set_nationality = {
-					    target_country = CRO
-					    character = CRO_ante_pavelic
-					}
-				}
-			}
-		}
-		hidden_effect = {
-			RKC = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
-		}
-	}
-
-	option = { # It might be wise to use a local puppet
-		name = wuw_GER_reichskommissariats.15.b
-		trigger = {
-			CRO = {
-				OR = {
-					NOT = {
-						has_government = fascism
-					}
-					exists = no
-				}
-			}
-		}
-		ai_chance = {
-			base = ´45
-		}		
-		
-		RKC = {
-			CRO_ante_pavelic = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
-
-		hidden_effect = {
-			IF = { # The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
-				limit = {
-					HUN = {
-						OR = {
-							NOT = {
-								has_completed_focus = HUN_elect_a_fascist_king
-								has_completed_focus = wuw_HUN_elect_a_fascist_king
-							}
-							exists = no
-						}
-					}
-				}
-				RKC = {
-					set_nationality = {
-					    target_country = HUN
-					    character = HUN_franz_friedrich
-					}
-				}
-			}
-			ELSE = {
-				RKC = {
-					set_nationality = {
-					    target_country = GER
-					    character = GER_georghans_reinhardt
-					}
-				}
-			}
-		}
-		hidden_effect = {
-			RKC = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
-		}
-	}
-}
-
 # A Leader for Großbritannien - event for GER
 country_event = { 
 	id = wuw_GER_reichskommissariats.16
@@ -11268,61 +9319,61 @@ country_event = {
 		
 	}
 
-	option = { # It should be incorporated into Balkan
-		name = wuw_GER_reichskommissariats.17.b
-		trigger = {
-			RKC = {
-				exists = yes
-			}
-			has_country_flag = GER_decided_on_hungarian_status
-		}
-		ai_chance = {
-			base = 60
-		}		
-		
-		custom_effect_tooltip = GER_slovakia_rkc_effect_tt
-			
-		hidden_effect = {
-			every_state = {
-				limit = {
-					GER_is_far_north_RKC_state = yes
-					OR = {
-						is_owned_by = ROOT
-						any_country = {
-							is_subject_of = ROOT
-							owns_state = PREV
-						}
-					}
-				}
-				transfer_state_to = RKC
-			}
-			every_state = {	
-				limit = {
-					GER_is_far_north_RKC_state = yes
-					NOT = {
-						OR = {
-							is_owned_by = ROOT
-							any_country = {
-								is_subject_of = ROOT
-								owns_state = PREV
-							}
-						}
-					}
-					OR = {
-						is_controlled_by = ROOT
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = PREV
-						}
-					}
-				}
-				add_contested_owner = RKC
-				set_state_controller_to = RKC
-				add_claim_by = RKC
-			}
-		}
-
-	}
+#	option = { # It should be incorporated into Balkan
+#		name = wuw_GER_reichskommissariats.17.b
+#		trigger = {
+#			RKC = {
+#				exists = yes
+#			}
+#			has_country_flag = GER_decided_on_hungarian_status
+#		}
+#		ai_chance = {
+#			base = 60
+#		}		
+#		
+#		custom_effect_tooltip = GER_slovakia_rkc_effect_tt
+#			
+#		hidden_effect = {
+#			every_state = {
+#				limit = {
+#					GER_is_far_north_RKC_state = yes
+#					OR = {
+#						is_owned_by = ROOT
+#						any_country = {
+#							is_subject_of = ROOT
+#							owns_state = PREV
+#						}
+#					}
+#				}
+#				transfer_state_to = RKC
+#			}
+#			every_state = {	
+#				limit = {
+#					GER_is_far_north_RKC_state = yes
+#					NOT = {
+#						OR = {
+#							is_owned_by = ROOT
+#							any_country = {
+#								is_subject_of = ROOT
+#								owns_state = PREV
+#							}
+#						}
+#					}
+#					OR = {
+#						is_controlled_by = ROOT
+#						any_country = {
+#							is_subject_of = ROOT
+#							controls_state = PREV
+#						}
+#					}
+#				}
+#				add_contested_owner = RKC
+#				set_state_controller_to = RKC
+#				add_claim_by = RKC
+#			}
+#		}
+#
+#	}
 
 	option = { # It should be incorporated into Böhmen-Mähren
 		name = wuw_GER_reichskommissariats.17.c
@@ -11475,9 +9526,9 @@ country_event = {
 			base = 85
 		}	
 
-		RKA = {
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RKA = {
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			IF = { # The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -11491,20 +9542,20 @@ country_event = {
 						}
 					}
 				}
-				RKA = {
-					set_nationality = {
-					    target_country = SAF
-					    character = SAF_d_f_malan
-					}
-				}
+#				RKA = {
+#					set_nationality = {
+#					    target_country = SAF
+#					    character = SAF_d_f_malan
+#					}
+#				}
 			}
 		}
 		hidden_effect = {
-			RKA = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RKA = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -11521,29 +9572,29 @@ country_event = {
 			base = 15
 		}		
 		
-		RKA = {
-			SAF_d_f_malan = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RKA = {
+#			SAF_d_f_malan = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 		hidden_effect = {
-			RKA = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RKA = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -11596,23 +9647,23 @@ country_event = {
 			base = 85
 		}	
 
-		RKV = {
-			GER_adolf_friedrich_von_mecklenburg = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RKV = {
+#			GER_adolf_friedrich_von_mecklenburg = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			IF = { # The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -11626,20 +9677,20 @@ country_event = {
 						}
 					}
 				}
-				RKV = {
-					set_nationality = {
-					    target_country = BRA
-					    character = BRA_plinio_salgado
-					}
-				}
+#				RKV = {
+#					set_nationality = {
+#					    target_country = BRA
+#					    character = BRA_plinio_salgado
+#					}
+#				}
 			}
 		}
 		hidden_effect = {
-			RKV = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RKV = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -11659,40 +9710,40 @@ country_event = {
 			base = 15
 		}		
 		
-		RKV = {
-			BRA_plinio_salgado = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RKV = {
+#			BRA_plinio_salgado = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
-			RKV = {
-				set_nationality = {
-				    target_country = GER
-				    character = GER_adolf_friedrich_von_mecklenburg
-				}
-			}
+#			RKV = {
+#				set_nationality = {
+#				    target_country = GER
+#				    character = GER_adolf_friedrich_von_mecklenburg
+#				}
+#			}
 			
 		}
 		hidden_effect = {
-			RKV = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RKV = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -11731,29 +9782,29 @@ country_event = {
 
 			IF = {
 				limit = {
-					PRU = {
-						NOT = {
-							AND = {
-								has_government = fascism
-								exists = yes
-							}
-						}
-					}
+#					PRU = {
+#						NOT = {
+#							AND = {
+#								has_government = fascism
+#								exists = yes
+#							}
+#						}
+#					}
 				}
-				PRU = {
-					set_nationality = {
-					    target_country = RAN
-					    character = PRU_Óscar_benavides
-					}
-				}
+#				PRU = {
+#					set_nationality = {
+#					    target_country = RAN
+#					    character = PRU_Óscar_benavides
+#					}
+#				}
 			}
 			ELSE = {
-				CHL = {
-					set_nationality = {
-					    target_country = RAN
-					    character = CHL_jorge_gonzález_von_marées
-					}
-				}
+#				CHL = {
+#					set_nationality = {
+#					    target_country = RAN
+#					    character = CHL_jorge_gonzález_von_marées
+#					}
+#				}
 			}
 
 		}
@@ -11767,81 +9818,81 @@ country_event = {
 			base = 95
 		}	
 
-		RAN = {
-			IF = {
-				limit = {
-					MEK = {
-						exists = no
-					}
-				}
-				MEK_christian_louis = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			ELSE = {
-				GER_rolf_carls = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RAN = {
+#			IF = {
+#				limit = {
+#					MEK = {
+#						exists = no
+#					}
+#				}
+#				MEK_christian_louis = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			ELSE = {
+#				GER_rolf_carls = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			# The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
 			IF = {
 				limit = {
-					PRU = {
-						NOT = {
-							AND = {
-								has_government = fascism
-								exists = yes
-							}
-						}
-					}
+#					PRU = {
+#						NOT = {
+#							AND = {
+#								has_government = fascism
+#								exists = yes
+#							}
+#						}
+#					}
 				}
-				RAN = {
-					set_nationality = {
-					    target_country = PRU
-					    character = PRU_Óscar_benavides
-					}
-				}
+#				RAN = {
+#					set_nationality = {
+#					    target_country = PRU
+#					    character = PRU_Óscar_benavides
+#					}
+#				}
 			}
 			ELSE = {
-				RAN = {
-					set_nationality = {
-					    target_country = CHL
-					    character = CHL_jorge_gonzález_von_marées
-					}
-				}
+#				RAN = {
+#					set_nationality = {
+#					    target_country = CHL
+#					    character = CHL_jorge_gonzález_von_marées
+#					}
+#				}
 			}
 		}
 		hidden_effect = {
-			RAN = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RAN = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -11853,50 +9904,50 @@ country_event = {
 			base = 5
 		}		
 		
-		RAN = {
-			IF = {
-				limit = {
-					PRU = {
-						NOT = {
-							AND = {
-								has_government = fascism
-								exists = yes
-							}
-						}
-					}
-				}
-				PRU_Óscar_benavides = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			ELSE = {
-				CHL_jorge_gonzález_von_marées = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RAN = {
+#			IF = {
+#				limit = {
+#					PRU = {
+#						NOT = {
+#							AND = {
+#								has_government = fascism
+#								exists = yes
+#							}
+#						}
+#					}
+#				}
+#				PRU_Óscar_benavides = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			ELSE = {
+#				CHL_jorge_gonzález_von_marées = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
@@ -11906,29 +9957,29 @@ country_event = {
 						exists = no
 					}
 				}
-				RAN = {
-					set_nationality = {
-					    target_country = MEK
-					    character = MEK_christian_louis
-					}
-				}
+#				RAN = {
+#					set_nationality = {
+#					    target_country = MEK
+#					    character = MEK_christian_louis
+#					}
+#				}
 			}
 			ELSE = {
-				RAN = {
-					set_nationality = {
-					    target_country = GER
-					    character = GER_rolf_carls
-					}
-				}
+#				RAN = {
+#					set_nationality = {
+#					    target_country = GER
+#					    character = GER_rolf_carls
+#					}
+#				}
 			}
 			
 		}
 		hidden_effect = {
-			RAN = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RAN = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -11995,45 +10046,45 @@ country_event = {
 			base = 95
 		}	
 
-		RCO = {
-			IF = {
-				limit = {
-					SAX = {
-						exists = no
-					}
-				}
-				SAX_george_of_saxony = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			ELSE = {
-				GER_gunther_lutjens = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RCO = {
+#			IF = {
+#				limit = {
+#					SAX = {
+#						exists = no
+#					}
+#				}
+#				SAX_george_of_saxony = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			ELSE = {
+#				GER_gunther_lutjens = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			# The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -12048,21 +10099,21 @@ country_event = {
 						}
 					}
 				}
-				RCO = {
-					set_nationality = {
-					    target_country = MEX
-					    character = MEX_salvador_abascal
-					}
-				}
+#				RCO = {
+#					set_nationality = {
+#					    target_country = MEX
+#					    character = MEX_salvador_abascal
+#					}
+#				}
 			}
 
 		}
 		hidden_effect = {
-			RCO = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RCO = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -12082,23 +10133,23 @@ country_event = {
 			base = 5
 		}		
 		
-		RCO = {
-			MEX_salvador_abascal = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RCO = {
+#			MEX_salvador_abascal = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
@@ -12108,29 +10159,29 @@ country_event = {
 						exists = no
 					}
 				}
-				RCO = {
-					set_nationality = {
-					    target_country = SAX
-					    character = SAX_george_of_saxony
-					}
-				}
+#				RCO = {
+#					set_nationality = {
+#					    target_country = SAX
+#					    character = SAX_george_of_saxony
+#					}
+#				}
 			}
 			ELSE = {
-				RCO = {
-					set_nationality = {
-					    target_country = GER
-					    character = GER_gunther_lutjens
-					}
-				}
+#				RCO = {
+#					set_nationality = {
+#					    target_country = GER
+#					    character = GER_gunther_lutjens
+#					}
+#				}
 			}
 			
 		}
 		hidden_effect = {
-			RCO = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RCO = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -12476,9 +10527,9 @@ country_event = {
 	option = { # It should be incorporated into Kolumbus
 		name = wuw_GER_reichskommissariats.23.c
 		trigger = {
-			RCO = {
-				exists = yes
-			}
+#			RCO = {
+#				exists = yes
+#			}
 		}
 		ai_chance = {
 			base = 50
@@ -12598,51 +10649,51 @@ country_event = {
 			base = 5
 		}	
 
-		RAR = {
-			IF = {
-				limit = {
-					has_dlc = "By Blood Alone"
-					SWI = {
-						NOT = {
-							AND = {
-								has_government = fascism
-								exists = yes
-							}
-						}
-					}
-				}
-				SWI_robert_tobler = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			ELSE = {
-				GER_walter_model = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RAR = {
+#			IF = {
+#				limit = {
+#					has_dlc = "By Blood Alone"
+#					SWI = {
+#						NOT = {
+#							AND = {
+#								has_government = fascism
+#								exists = yes
+#							}
+#						}
+#					}
+#				}
+#				SWI_robert_tobler = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			ELSE = {
+#				GER_walter_model = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			# The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -12657,21 +10708,21 @@ country_event = {
 						}
 					}
 				}
-				RAR = {
-					set_nationality = {
-					    target_country = IRQ
-					    character = IRQ_rashid_ali_algaylani
-					}
-				}
+#				RAR = {
+#					set_nationality = {
+#					    target_country = IRQ
+#					    character = IRQ_rashid_ali_algaylani
+#					}
+#				}
 			}
 
 		}
 		hidden_effect = {
-			RAR = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RAR = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -12691,23 +10742,23 @@ country_event = {
 			base = 95
 		}		
 		
-		RAR = {
-			IRQ_rashid_ali_algaylani = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RAR = {
+#			IRQ_rashid_ali_algaylani = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
@@ -12723,29 +10774,29 @@ country_event = {
 						}
 					}
 				}
-				RAR = {
-					set_nationality = {
-					    target_country = SWI
-					    character = SWI_robert_tobler
-					}
-				}
+#				RAR = {
+#					set_nationality = {
+#					    target_country = SWI
+#					    character = SWI_robert_tobler
+#					}
+#				}
 			}
 			ELSE = {
-				RAR = {
-					set_nationality = {
-					    target_country = GER
-					    character = GER_walter_model
-					}
-				}
+#				RAR = {
+#					set_nationality = {
+#					    target_country = GER
+#					    character = GER_walter_model
+#					}
+#				}
 			}
 			
 		}
 		hidden_effect = {
-			RAR = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RAR = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -12817,50 +10868,50 @@ country_event = {
 			base = 5
 		}	
 
-		RHD = {
-			IF = {
-				limit = {
-					WUR = {
-						NOT = {
-							AND = {
-								has_government = neutrality
-								exists = yes
-							}
-						}
-					}
-				}
-				WUR_philipp_albrecht = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			ELSE = {
-				GER_alfred_saalwachter = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RHD = {
+#			IF = {
+#				limit = {
+#					WUR = {
+#						NOT = {
+#							AND = {
+#								has_government = neutrality
+#								exists = yes
+#							}
+#						}
+#					}
+#				}
+#				WUR_philipp_albrecht = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			ELSE = {
+#				GER_alfred_saalwachter = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			# The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -12875,21 +10926,21 @@ country_event = {
 						}
 					}
 				}
-				RHD = {
-					set_nationality = {
-					    target_country = RAJ
-					    character = RAJ_v_d_savarkar
-					}
-				}
+#				RHD = {
+#					set_nationality = {
+#					    target_country = RAJ
+#					    character = RAJ_v_d_savarkar
+#					}
+#				}
 			}
 
 		}
 		hidden_effect = {
-			RHD = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RHD = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -12909,23 +10960,23 @@ country_event = {
 			base = 95
 		}		
 		
-		RHD = {
-			RAJ_v_d_savarkar = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RHD = {
+#			RAJ_v_d_savarkar = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
@@ -12940,29 +10991,29 @@ country_event = {
 						}
 					}
 				}
-				RHD = {
-					set_nationality = {
-					    target_country = WUR
-					    character = WUR_philipp_albrecht
-					}
-				}
+#				RHD = {
+#					set_nationality = {
+#					    target_country = WUR
+#					    character = WUR_philipp_albrecht
+#					}
+#				}
 			}
 			ELSE = {
-				RHD = {
-					set_nationality = {
-					    target_country = GER
-					    character = GER_alfred_saalwachter
-					}
-				}
+#				RHD = {
+#					set_nationality = {
+#					    target_country = GER
+#					    character = GER_alfred_saalwachter
+#					}
+#				}
 			}
 			
 		}
 		hidden_effect = {
-			RHD = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RHD = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -13015,25 +11066,25 @@ country_event = {
 			base = 50
 		}	
 
-		ROA = {
-			
-			GER_franz_ritter_von_epp = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		ROA = {
+#			
+#			GER_franz_ritter_von_epp = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			# The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -13048,21 +11099,21 @@ country_event = {
 						}
 					}
 				}
-				ROA = {
-					set_nationality = {
-					    target_country = CHI
-					    character = CHI_wang_jingwei
-					}
-				}
+#				ROA = {
+#					set_nationality = {
+#					    target_country = CHI
+#					    character = CHI_wang_jingwei
+#					}
+#				}
 			}
 
 		}
 		hidden_effect = {
-			ROA = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			ROA = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -13082,40 +11133,40 @@ country_event = {
 			base = 50
 		}		
 		
-		ROA = {
-			CHI_wang_jingwei = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		ROA = {
+#			CHI_wang_jingwei = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
-			ROA = {
-				set_nationality = {
-				    target_country = GER
-				    character = GER_franz_ritter_von_epp
-				}
-			}
+#			ROA = {
+#				set_nationality = {
+#				    target_country = GER
+#				    character = GER_franz_ritter_von_epp
+#				}
+#			}
 			
 		}
 		hidden_effect = {
-			ROA = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			ROA = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -13188,50 +11239,50 @@ country_event = {
 			base = 60
 		}	
 
-		RAA = {
-			IF = {
-				limit = {
-					POL = {
-						NOT = {
-							AND = {
-								has_completed_focus = POL_restore_bermontians
-								exists = yes
-							}
-						}
-					}
-				}
-				POL_pavel_bermondt_avalov = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			ELSE = {
-				GER_werner_von_fritsch = {
-					remove_country_leader_role = {
-						ideology = nazism
-					}	
-					add_country_leader_role = {
-						promote_leader = yes
-						country_leader = {
-							ideology = nazism
-							expire = 1960.1.1
-							traits = { GER_reichskommissar_trait } 
-						}
-					}	
-				}
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_german_controlled_reichskommissariat
-		}
+#		RAA = {
+#			IF = {
+#				limit = {
+#					POL = {
+#						NOT = {
+#							AND = {
+#								has_completed_focus = POL_restore_bermontians
+#								exists = yes
+#							}
+#						}
+#					}
+#				}
+#				POL_pavel_bermondt_avalov = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			ELSE = {
+#				GER_werner_von_fritsch = {
+#					remove_country_leader_role = {
+#						ideology = nazism
+#					}	
+#					add_country_leader_role = {
+#						promote_leader = yes
+#						country_leader = {
+#							ideology = nazism
+#							expire = 1960.1.1
+#							traits = { GER_reichskommissar_trait } 
+#						}
+#					}	
+#				}
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_german_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			# The IF is left here so that it doesn't try to transfer a character back if it hasn' been moved here to begin with
@@ -13246,21 +11297,21 @@ country_event = {
 						}
 					}
 				}
-				RAA = {
-					set_nationality = {
-					    target_country = AST
-					    character = AST_eric_campbell
-					}
-				}
+#				RAA = {
+#					set_nationality = {
+#					    target_country = AST
+#					    character = AST_eric_campbell
+#					}
+#				}
 			}
 
 		}
 		hidden_effect = {
-			RAA = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RAA = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 
@@ -13280,23 +11331,23 @@ country_event = {
 			base = 40
 		}		
 		
-		RAA = {
-			AST_eric_campbell = {
-				remove_country_leader_role = {
-					ideology = nazism
-				}	
-				add_country_leader_role = {
-					promote_leader = yes
-					country_leader = {
-						ideology = nazism
-						expire = 1960.1.1
-						traits = { GER_reichskommissar_trait } 
-					}
-				}	
-			}
-			custom_effect_tooltip = generic_skip_one_line_tt
-			add_ideas = GER_local_controlled_reichskommissariat
-		}
+#		RAA = {
+#			AST_eric_campbell = {
+#				remove_country_leader_role = {
+#					ideology = nazism
+#				}	
+#				add_country_leader_role = {
+#					promote_leader = yes
+#					country_leader = {
+#						ideology = nazism
+#						expire = 1960.1.1
+#						traits = { GER_reichskommissar_trait } 
+#					}
+#				}	
+#			}
+#			custom_effect_tooltip = generic_skip_one_line_tt
+#			add_ideas = GER_local_controlled_reichskommissariat
+#		}
 
 		hidden_effect = {
 			
@@ -13311,29 +11362,29 @@ country_event = {
 						}
 					}
 				}
-				RAA = {
-					set_nationality = {
-					    target_country = POL
-					    character = POL_pavel_bermondt_avalov
-					}
-				}
+#				RAA = {
+#					set_nationality = {
+#					    target_country = POL
+#					    character = POL_pavel_bermondt_avalov
+#					}
+#				}
 			}
 			ELSE = {
-				RAA = {
-					set_nationality = {
-					    target_country = GER
-					    character = GER_werner_von_fritsch
-					}
-				}
+#				RAA = {
+#					set_nationality = {
+#					    target_country = GER
+#					    character = GER_werner_von_fritsch
+#					}
+#				}
 			}
 			
 		}
 		hidden_effect = {
-			RAA = {
-				every_controlled_state = {
-					set_compliance = 25
-				}
-			}
+#			RAA = {
+#				every_controlled_state = {
+#					set_compliance = 25
+#				}
+#			}
 		}
 	}
 }
@@ -13361,6 +11412,11 @@ country_event = {
 					has_game_rule = {
 						rule = GER_ai_behavior
 						option = KAISER
+					}
+					has_country_flag = GER_AI_RANDOM_DEMOCRATIC
+					has_game_rule = {
+						rule = GER_ai_behavior
+						option = DEMOCRATIC
 					}
 				}
 			}

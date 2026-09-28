@@ -507,7 +507,7 @@ focus_tree = {
 
 		completion_reward = {
 			random_core_state = {
-				prioritize = { 139 }
+				prioritize = { 168 } # was vanilla 139
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -1486,7 +1486,7 @@ focus_tree = {
 		custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = SWE_frans_severin
 			random_core_state = {
-				prioritize = { 666 }
+				prioritize = { 23 } # was vanilla 666
 				limit = {
 					infrastructure < 5
 				}
@@ -1979,7 +1979,7 @@ focus_tree = {
 		}
 
 		available = {
-			138 = {
+			202 = { # was vanilla 138
 				is_fully_controlled_by = ROOT
 			}
 		}
@@ -1994,7 +1994,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			138 = {
+			202 = { # was vanilla 138
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard
@@ -2917,7 +2917,8 @@ focus_tree = {
 				category = cat_anti_tank	# optional 
 				# tecnology  = technology_id # optional
 			}
-			custom_effect_tooltip = SWE_bofors_anti_tank_gun_tt
+			custom_effect_tooltip = tech_effect|SWE_bofors_antitank_gun
+			#custom_effect_tooltip = SWE_bofors_anti_tank_gun_tt
 			hidden_effect = {
 				set_technology = {
 					SWE_bofors_antitank_gun = 1
@@ -5727,7 +5728,6 @@ focus_tree = {
 								free_building_slots = {
 									building = arms_factory
 									size > 0
-									include_locked = yes
 								}
 							}
 							add_building_construction = {
@@ -6614,12 +6614,12 @@ focus_tree = {
 
 			if = {
 				limit = {
-					124 = {
+					226 = { # was vanilla 124
 						is_fully_controlled_by = ROOT
 					}
 				}
 
-				124 = {
+				226 = { # was vanilla 124
 					add_building_construction = {
 						type = bunker
 						level = 2
@@ -8202,7 +8202,7 @@ focus_tree = {
 			if = {
 				limit = {
 					GER = {
-						has_completed_focus = GER_rhineland
+#						has_completed_focus = GER_rhineland
 					}
 					
 					NOT = { has_global_flag = von_lettow_is_in_a_country }
@@ -8933,7 +8933,7 @@ focus_tree = {
 		cost = 10
 		available = {
 			OR = {
-				47 = {
+				1074 = { # was vanilla 47
 					NOT = { controller = { has_war_with = ROOT } }
 				}
 			}
@@ -8950,13 +8950,13 @@ focus_tree = {
 			effect_tooltip = {
 				if = {
 					limit = {
-						47 = {
+						1074 = { # was vanilla 47
 							controller = {
 								NOT = { has_war_with = ROOT }
 							}
 						}
 					}
-					47 = {
+					1074 = { # was vanilla 47
 						controller = {
 							country_event = { id = AAT_Sweden.28 hours = 1 }
 						}
@@ -8966,13 +8966,13 @@ focus_tree = {
 
 			if = {
 				limit = {
-					47 = {
+					1074 = { # was vanilla 47
 						controller = {
 							NOT = { has_war_with = ROOT }
 						}
 					}
 				}
-				47 = {
+				1074 = { # was vanilla 47
 					controller = {
 						country_event = { id = AAT_Sweden.28 hours = 1 }
 					}
@@ -9006,7 +9006,11 @@ focus_tree = {
 		}
 
 		bypass = {
-			is_subject = yes
+			AND = {
+				144 = { is_fully_controlled_by = SWE }
+				925 = { is_fully_controlled_by =  SWE }
+				924 = { is_fully_controlled_by =  SWE }
+			}
 		}
 	                
 		search_filters = { FOCUS_FILTER_ANNEXATION }

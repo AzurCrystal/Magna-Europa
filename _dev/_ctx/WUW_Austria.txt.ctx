@@ -1,0 +1,1836 @@
+   1740|					}
+   1741|				}
+   1742|
+   1743|				custom_effect_tooltip = AUS_compensation_for_guarantee_intro_tt
+   1744|
+   1745|				add_to_variable = { AUS_compensation_for_guarantee_consumer_goods_factor = 0.1 tooltip = consumer_goods_factor_tt }
+   1746|			}
+   1747|
+   1748|			IF = {
+   1749|				limit = {
+   1750|					FROM = {
+   1751|						original_tag = ENG
+   1752|					}
+   1753|				}
+   1754|				FROM = { 
+   1755|					random_owned_state = {
+   1756|						limit = {
+   1757|							is_fully_controlled_by = FROM
+   1758|						}
+   1759|	
+>> 1760|						prioritize = { 2475 132 } #Greater London Area or Lancashire
+   1761|	
+   1762|						add_extra_state_shared_building_slots = 2
+   1763|	
+   1764|						add_building_construction = {
+   1765|							type = industrial_complex
+   1766|							level = 2
+   1767|							instant_build = yes
+   1768|						}
+   1769|					}
+   1770|	
+   1771|					give_guarantee = ROOT
+   1772|	
+   1773|	
+   1774|					add_ai_strategy = { 
+   1775|						type = protect
+   1776|						id = ROOT
+   1777|						value = 80
+   1778|					}
+   1779|				
+   1780|				}
+   1781|			
+   1782|			}
+   1783|
+   1784|			IF = {
+   1785|				limit = {
+   1786|					FROM = {
+   1787|						original_tag = USA
+   1788|					}
+   1789|				}
+   1790|	
+   1791|				FROM = {
+   1792|					random_owned_state = {
+   1793|						limit = {
+   1794|							is_fully_controlled_by = FROM
+   1795|						}
+   1796|	
+>> 1797|						prioritize = { 361 378 } #Maryland or California
+   1798|	
+   1799|						add_extra_state_shared_building_slots = 2
+   1800|	
+   1801|						add_building_construction = {
+   1802|							type = industrial_complex
+   1803|							level = 2
+   1804|							instant_build = yes
+   1805|						}
+   1806|					}
+   1807|	
+   1808|					give_guarantee = ROOT
+   1809|	
+   1810|					add_ai_strategy = { 
+   1811|						type = protect
+   1812|						id = ROOT
+   1813|						value = 80
+   1814|					}
+   1815|				}
+   1816|				
+   1817|			}
+   1818|
+   1819|			IF = {
+   1820|				limit = {
+   1821|					FROM = {
+   1822|						original_tag = FRA
+   1823|					}
+   1824|				}
+   1825|	
+   1826|				FROM = {
+   1827|					random_owned_state = {
+   1828|						limit = {
+   1829|							is_fully_controlled_by = FROM
+   1830|						}
+   1831|	
+>> 1832|						prioritize = { 563 19 } #Ile de France or Aquitane
+   1833|	
+   1834|						add_extra_state_shared_building_slots = 2
+   1835|	
+   1836|						add_building_construction = {
+   1837|							type = industrial_complex
+   1838|							level = 2
+   1839|							instant_build = yes
+   1840|						}
+   1841|					}
+   1842|	
+   1843|					give_guarantee = ROOT
+   1844|	
+   1845|					add_ai_strategy = { 
+   1846|						type = protect
+   1847|						id = ROOT
+   1848|						value = 80
+   1849|					}
+   1850|	
+   1851|				}
+   1852|				
+   1853|			}
+   1854|
+   1855|			IF = {
+   1856|				limit = {
+   1857|					FROM = {
+   1858|						original_tag = ITA
+   1859|					}
+   1860|				}
+   1861|	
+   1862|				FROM = {
+   1863|					random_owned_state = {
+   1864|						limit = {
+   1865|							is_fully_controlled_by = FROM
+   1866|						}
+   1867|	
+>> 1868|						prioritize = { 2607 17 } #Lazio or Campania
+   1869|	
+   1870|						add_extra_state_shared_building_slots = 2
+   1871|	
+   1872|						add_building_construction = {
+   1873|							type = industrial_complex
+   1874|							level = 2
+   1875|							instant_build = yes
+   1876|						}
+   1877|					}
+   1878|	
+   1879|					give_guarantee = ROOT
+   1880|	
+   1881|					add_ai_strategy = { 
+   1882|						type = protect
+   1883|						id = ROOT
+   1884|						value = 80
+   1885|					}
+   1886|				}		
+   1887|			}
+   1888|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3478|		
+   3479|		IF = { #Hungary
+   3480|			limit = {
+   3481|				ROOT = {
+   3482|					OR = {
+   3483|						AND = {
+   3484|							original_tag = HUN
+   3485|							has_country_flag = is_current_expansion_target_for_AUS_flag 
+   3486|						}
+   3487|						AND = {
+   3488|							has_subject = HUN
+   3489|							HUN = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   3490|						}
+   3491|					}												
+   3492|				}
+   3493|			}
+   3494|			FROM = {
+   3495|				every_state = {
+   3496|					limit = {
+   3497|						OR = {
+>> 3498|							state = 624
+>> 3499|							state = 690
+>> 3500|							state = 1821
+>> 3501|							state = 646
+>> 3502|							state = 611
+   3503|						}
+   3504|						OR = {
+   3505|							is_fully_controlled_by = ROOT
+   3506|							controller = {
+   3507|								is_subject_of = ROOT
+   3508|							}
+   3509|						}
+   3510|					}
+   3511|					add_claim_by = AUS
+   3512|				}
+   3513|
+   3514|				IF = {
+   3515|					limit = {
+   3516|						HUN = {
+   3517|							is_subject_of = ROOT
+   3518|						}
+   3519|					}
+   3520|					create_wargoal = {
+   3521|						type = take_claimed_state
+   3522|						target = HUN
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3547|			limit = {
+   3548|				ROOT = {
+   3549|					OR = {
+   3550|						AND = {
+   3551|							original_tag = CZE
+   3552|							has_country_flag = is_current_expansion_target_for_AUS_flag 
+   3553|						}
+   3554|						AND = {
+   3555|							has_subject = CZE
+   3556|							CZE = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   3557|						}
+   3558|						
+   3559|					}
+   3560|				}
+   3561|			}
+   3562|			FROM = {
+   3563|
+   3564|				every_state = {
+   3565|					limit = {
+   3566|						OR = {
+>> 3567|							state = 1672
+>> 3568|							state = 539
+>> 3569|							state = 513
+>> 3570|							state = 532
+>> 3571|							state = 499
+>> 3572|							state = 72
+   3573|						}
+   3574|						OR = {
+   3575|							is_fully_controlled_by = ROOT
+   3576|							controller = {
+   3577|								is_subject_of = ROOT
+   3578|							}
+   3579|						}
+   3580|					}
+   3581|					add_claim_by = AUS
+   3582|				}
+   3583|
+   3584|				IF = {
+   3585|					limit = {
+   3586|						CZE = {
+   3587|							is_subject_of = ROOT
+   3588|						}
+   3589|					}
+   3590|					create_wargoal = {
+   3591|						type = take_claimed_state
+   3592|						target = CZE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3600|				}
+   3601|				hidden_effect = {
+   3602|					add_ai_strategy = { 
+   3603|						type = antagonize
+   3604|						id = ROOT
+   3605|						value = 100
+   3606|					}
+   3607|				}
+   3608|
+   3609|				country_event = {
+   3610|					id = AUS_political_events.38
+   3611|					hours = 12 
+   3612|				}
+   3613|			}
+   3614|		}
+   3615|		ELSE_IF = { #Intact Yugoslavia
+   3616|			limit = {
+   3617|				ROOT = {
+   3618|					OR = {
+   3619|						AND = {
+>> 3620|							owns_state = 853
+>> 3621|							controls_state = 853
+   3622|						}
+   3623|						AND = {
+>> 3624|							owns_state = 102
+>> 3625|							controls_state = 102
+   3626|						}
+   3627|						AND = {
+>> 3628|							owns_state = 103
+>> 3629|							controls_state = 103
+   3630|						}
+   3631|					}
+   3632|				}
+   3633|			}
+   3634|			IF = {
+   3635|				limit = { 
+>> 3636|					owns_state = 853
+>> 3637|					controls_state = 853 
+   3638|				}
+   3639|				FROM = {
+   3640|					add_state_claim = 853
+   3641|				}
+   3642|			}
+   3643|			IF = {
+   3644|				limit = { 
+>> 3645|					owns_state = 102 
+>> 3646|					controls_state = 102
+   3647|				}
+   3648|				FROM = {
+   3649|					add_state_claim = 102
+   3650|				}
+   3651|			}
+   3652|
+   3653|			IF = {
+   3654|				limit = {
+>> 3655|					owns_state = 103 
+>> 3656|					controls_state = 103
+   3657|				}
+   3658|
+   3659|				FROM = {
+   3660|					add_state_claim = 103
+   3661|				}
+   3662|			}
+   3663|			FROM = {
+   3664|				effect_tooltip = {
+   3665|					create_wargoal = {
+   3666|						type = take_claimed_state
+   3667|						target = ROOT
+   3668|					}
+   3669|				}
+   3670|				hidden_effect = {
+   3671|					add_ai_strategy = { 
+   3672|						type = antagonize
+   3673|						id = ROOT
+   3674|						value = 100
+   3675|					}
+   3676|				}
+   3677|
+   3678|				country_event = {
+   3679|					id = AUS_political_events.38
+   3680|					hours = 12 
+   3681|				}
+   3682|				
+   3683|
+   3684|			}
+   3685|
+   3686|		}
+   3687|		ELSE_IF = { #Yugoslavian Puppets
+   3688|			limit = {
+   3689|				FROM.FROM = {
+   3690|					OWNER = {
+   3691|						is_subject_of = ROOT
+   3692|						OR = {
+   3693|							AND = {
+>> 3694|								owns_state = 853
+>> 3695|								controls_state = 853
+   3696|							}
+   3697|							AND = {
+>> 3698|								owns_state = 102
+>> 3699|								controls_state = 102
+   3700|							}
+   3701|							AND = {
+>> 3702|								owns_state = 109
+>> 3703|								controls_state = 109
+   3704|							}
+   3705|						}
+   3706|					}
+   3707|				}
+   3708|			}
+   3709|			IF = {
+   3710|				limit = { 
+   3711|					FROM.FROM = {
+   3712|						OWNER = {
+   3713|							is_subject_of = ROOT
+>> 3714|							owns_state = 853
+>> 3715|							controls_state = 853 
+   3716|						}
+   3717|					}
+   3718|					
+   3719|				}
+   3720|
+   3721|				IF = {
+   3722|					limit = {
+   3723|						FROM.FROM = {
+   3724|							OWNER = {
+   3725|								NOT = { has_country_flag = AUS_annexation_demand_sent_flag }
+   3726|							}
+   3727|						}
+   3728|					}
+   3729|					FROM.FROM = {
+   3730|						OWNER = {
+   3731|							set_country_flag = AUS_annexation_demand_sent_flag
+   3732|							set_country_flag = AUS_about_to_be_annexed
+   3733|						}
+   3734|					}
+   3735|				}
+   3736|				
+   3737|				FROM = {
+   3738|					add_state_claim = 853
+   3739|				}
+   3740|			}
+   3741|			IF = {
+   3742|				limit = {
+   3743|					FROM.FROM = {
+   3744|						OWNER = {
+   3745|							is_subject_of = ROOT
+>> 3746|							owns_state = 102
+>> 3747|							controls_state = 102
+   3748|						}
+   3749|					} 
+   3750|				}
+   3751|
+   3752|				IF = {
+   3753|					limit = {
+   3754|						FROM.FROM = {
+   3755|							OWNER = {
+   3756|								NOT = { has_country_flag = AUS_annexation_demand_sent_flag }
+   3757|							}
+   3758|						}
+   3759|					}
+   3760|					FROM.FROM = {
+   3761|						OWNER = {
+   3762|							set_country_flag = AUS_annexation_demand_sent_flag
+   3763|							set_country_flag = AUS_about_to_be_annexed
+   3764|						}
+   3765|					}
+   3766|				}
+   3767|				
+   3768|				FROM = {
+   3769|					add_state_claim = 102
+   3770|				}
+   3771|			}
+   3772|
+   3773|			IF = {
+   3774|				limit = {
+   3775|					FROM.FROM = {
+   3776|						OWNER = {
+   3777|							is_subject_of = ROOT
+>> 3778|							owns_state = 109
+>> 3779|							controls_state = 109 
+   3780|						}
+   3781|					}
+   3782|				}
+   3783|
+   3784|				IF = {
+   3785|					limit = {
+   3786|						FROM.FROM = {
+   3787|							OWNER = {
+   3788|								NOT = { has_country_flag = AUS_annexation_demand_sent_flag }
+   3789|							}
+   3790|						}
+   3791|					}
+   3792|					FROM.FROM = {
+   3793|						OWNER = {
+   3794|							set_country_flag = AUS_annexation_demand_sent_flag
+   3795|							set_country_flag = AUS_about_to_be_annexed
+   3796|						}
+   3797|					}
+   3798|				}
+   3799|				
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3823|		}
+   3824|		ELSE_IF = { #Poland
+   3825|			limit = {
+   3826|				OR = {
+   3827|					ROOT = {
+   3828|						original_tag = POL
+   3829|						POL = { has_country_flag = is_current_expansion_target_for_AUS_flag } 
+   3830|					}
+   3831|					POL = {
+   3832|						is_subject_of = ROOT
+   3833|						has_country_flag = is_current_expansion_target_for_AUS_flag
+   3834|					}
+   3835|				}
+   3836|			}
+   3837|
+   3838|			FROM = {
+   3839|
+   3840|				every_state = {
+   3841|					limit = {
+   3842|						OR = {
+>> 3843|							state = 1157
+>> 3844|							state = 1164
+>> 3845|							state = 1292
+   3846|						}
+   3847|						OR = {
+   3848|							is_fully_controlled_by = ROOT
+   3849|							controller = {
+   3850|								is_subject_of = ROOT
+   3851|							}
+   3852|						}
+   3853|					}
+   3854|					add_claim_by = AUS
+   3855|				}
+   3856|
+   3857|				IF = {
+   3858|					limit = {
+   3859|						POL = {
+   3860|							is_subject_of = ROOT
+   3861|						}
+   3862|					}
+   3863|					create_wargoal = {
+   3864|						type = take_claimed_state
+   3865|						target = POL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3884|				}
+   3885|			}
+   3886|		}
+   3887|		ELSE_IF = { #Romania
+   3888|			limit = {
+   3889|				OR = {
+   3890|					ROOT = {
+   3891|						original_tag = ROM
+   3892|						ROM = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   3893|					}
+   3894|					ROM = {
+   3895|						is_subject_of = ROOT
+   3896|						has_country_flag = is_current_expansion_target_for_AUS_flag
+   3897|					}
+   3898|				}
+   3899|			}
+   3900|
+   3901|			every_state = {
+   3902|				limit = {
+   3903|					OR = {
+>> 3904|						state = 1582
+>> 3905|						state = 705
+>> 3906|						state = 713
+>> 3907|						state = 2668
+>> 3908|						state = 590
+   3909|					}
+   3910|					OR = {
+   3911|						is_fully_controlled_by = ROOT
+   3912|						controller = {
+   3913|							is_subject_of = ROOT
+   3914|						}
+   3915|					}
+   3916|				}
+   3917|				add_claim_by = AUS
+   3918|			}
+   3919|
+   3920|
+   3921|			FROM = {
+   3922|				IF = {
+   3923|					limit = {
+   3924|						ROM = {
+   3925|							is_subject_of = ROOT
+   3926|						}
+   3927|					}
+   3928|					create_wargoal = {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3954|
+   3955|		ELSE_IF = { #Albania
+   3956|			limit = {
+   3957|				OR = {
+   3958|					ROOT = {
+   3959|						original_tag = ALB
+   3960|						ALB = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   3961|					}
+   3962|					ALB = {
+   3963|						is_subject_of = ROOT
+   3964|						has_country_flag = is_current_expansion_target_for_AUS_flag
+   3965|					}
+   3966|				}
+   3967|				
+   3968|			}
+   3969|			FROM = {
+   3970|
+   3971|				every_state = {
+   3972|					limit = {
+   3973|						OR = {
+>> 3974|							state = 1519
+>> 3975|							state = 1523
+>> 3976|							state = 885
+   3977|						}
+   3978|						OR = {
+   3979|							is_fully_controlled_by = ROOT
+   3980|							controller = {
+   3981|								is_subject_of = ROOT
+   3982|							}
+   3983|						}
+   3984|					}
+   3985|					add_claim_by = AUS
+   3986|				}
+   3987|					
+   3988|				IF = {
+   3989|					limit = {
+   3990|						ALB = {
+   3991|							is_subject_of = ROOT
+   3992|						}
+   3993|					}
+   3994|					create_wargoal = {
+   3995|						type = take_claimed_state
+   3996|						target = ALB
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4008|					id = AUS_political_events.38
+   4009|					hours = 12 
+   4010|				}
+   4011|					
+   4012|				hidden_effect = {
+   4013|					add_ai_strategy = { 
+   4014|						type = antagonize
+   4015|						id = ROOT
+   4016|						value = 100
+   4017|					}
+   4018|				}
+   4019|			}
+   4020|		}
+   4021|
+   4022|		ELSE = { #something strange has happened, check all states and add claims/transfer any that might be fully controlled by the mystery owner... apart from YUG. DO NOT TOUCH YUG!
+   4023|			FROM = {
+   4024|				every_state = {
+   4025|					limit = {
+   4026|						is_on_continent = europe
+   4027|						OR = {
+>> 4028|							state = 624
+>> 4029|							state = 690
+>> 4030|							state = 1821
+>> 4031|							state = 646
+>> 4032|							state = 611
+>> 4033|							state = 1672
+>> 4034|							state = 539
+>> 4035|							state = 513
+>> 4036|							state = 532
+>> 4037|							state = 499
+>> 4038|							state = 72
+>> 4039|							state = 1157
+>> 4040|							state = 1164
+>> 4041|							state = 1292
+>> 4042|							state = 1582
+>> 4043|							state = 705
+>> 4044|							state = 713
+>> 4045|							state = 2668
+>> 4046|							state = 590
+>> 4047|							state = 1519
+>> 4048|							state = 1523
+>> 4049|							state = 885
+   4050|						}
+   4051|						OR = {
+   4052|							is_fully_controlled_by = ROOT
+   4053|							controller = {
+   4054|								is_subject_of = ROOT
+   4055|							}
+   4056|						}
+   4057|					}
+   4058|					add_claim_by = AUS
+   4059|				}
+   4060|
+   4061|				create_wargoal = {
+   4062|					type = take_claimed_state
+   4063|					target = ROOT
+   4064|				}
+   4065|
+   4066|				country_event = {
+   4067|					id = AUS_political_events.38
+   4068|					hours = 12 
+   4069|				}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4176|							has_country_flag = is_current_expansion_target_for_AUS_flag 
+   4177|						}
+   4178|						POL = {
+   4179|							is_subject_of = ROOT
+   4180|							POL = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   4181|						}
+   4182|					}
+   4183|				}
+   4184|
+   4185|				FROM = {
+   4186|					country_event = {
+   4187|						id = AUS_political_events.39
+   4188|						hours = 12 
+   4189|					}
+   4190|				}
+   4191|				effect_tooltip = {
+   4192|
+   4193|					every_state = {
+   4194|						limit = {
+   4195|							OR = {
+>> 4196|								state = 1157
+>> 4197|								state = 1164
+>> 4198|								state = 1292
+   4199|							}
+   4200|							OR = {
+   4201|								is_fully_controlled_by = ROOT
+   4202|								controller = {
+   4203|									is_subject_of = ROOT
+   4204|								}
+   4205|							}
+   4206|						}
+   4207|						transfer_state_to = FROM
+   4208|					}
+   4209|				}
+   4210|			}
+   4211|
+   4212|			ELSE_IF = { #Romania
+   4213|				limit = {
+   4214|					OR = {
+   4215|						AND = {
+   4216|							original_tag = ROM
+   4217|							has_country_flag = is_current_expansion_target_for_AUS_flag 
+   4218|						}
+   4219|						ROM = {
+   4220|							is_subject_of = ROOT
+   4221|							ROM = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   4222|						}
+   4223|					}
+   4224|				}
+   4225|
+   4226|				FROM = {
+   4227|					country_event = {
+   4228|						id = AUS_political_events.39
+   4229|						hours = 12 
+   4230|					}
+   4231|				}
+   4232|
+   4233|				effect_tooltip = {
+   4234|					every_state = {
+   4235|						limit = {
+   4236|							OR = {
+>> 4237|								state = 1582
+>> 4238|								state = 705
+>> 4239|								state = 713
+>> 4240|								state = 2668
+>> 4241|								state = 590
+   4242|							}
+   4243|							OR = {
+   4244|								is_fully_controlled_by = ROOT
+   4245|								controller = {
+   4246|									is_subject_of = ROOT
+   4247|								}
+   4248|							}
+   4249|						}
+   4250|						transfer_state_to = FROM
+   4251|					}
+   4252|				}
+   4253|			}
+   4254|
+   4255|			ELSE_IF = { #YUG stuff NEVER TOUCH!!!
+   4256|				limit = {
+   4257|					OR = {
+   4258|						AND = {
+>> 4259|							owns_state = 853
+>> 4260|							controls_state = 853
+   4261|						}
+   4262|						AND = {
+>> 4263|							owns_state = 102
+>> 4264|							controls_state = 102
+   4265|						}
+   4266|						AND = {
+>> 4267|							owns_state = 109
+>> 4268|							controls_state = 109
+   4269|						}
+   4270|					}
+   4271|				}
+   4272|
+   4273|				FROM = {
+   4274|					country_event = {
+   4275|						id = AUS_political_events.39
+   4276|						hours = 12 
+   4277|					}
+   4278|				}
+   4279|
+   4280|				effect_tooltip = {
+   4281|					IF = {
+   4282|						limit = { 853 = { is_fully_controlled_by = ROOT }}
+   4283|						853 = {
+   4284|							transfer_state_to = FROM
+   4285|						}
+   4286|					}
+   4287|					IF = {
+   4288|						limit = { 102 = { is_fully_controlled_by = ROOT }}
+   4289|						102 = {
+   4290|							transfer_state_to = FROM
+   4291|						}
+   4292|					}
+   4293|					IF = {
+   4294|						limit = { 109 = { is_fully_controlled_by = ROOT }}
+   4295|						109 = {
+   4296|							transfer_state_to = FROM
+   4297|						}
+   4298|					}
+   4299|				}
+   4300|			}
+   4301|
+   4302|			ELSE_IF = { #Even more YUG stuff, Save yoursellf DO NOT TOUCH!
+   4303|				limit = {
+   4304|					FROM.FROM = {
+   4305|						OWNER = {
+   4306|							is_subject_of = ROOT
+   4307|							OR = {
+   4308|								AND = {
+>> 4309|									owns_state = 853
+>> 4310|									controls_state = 853
+   4311|								}
+   4312|								AND = {
+>> 4313|									owns_state = 102
+>> 4314|									controls_state = 102
+   4315|								}
+   4316|								AND = {
+>> 4317|									owns_state = 109
+>> 4318|									controls_state = 109
+   4319|								}
+   4320|							}
+   4321|						}
+   4322|					}
+   4323|				}
+   4324|				IF = {
+   4325|					limit = { 
+   4326|						FROM.FROM = {
+   4327|							OWNER = {
+   4328|								is_subject_of = ROOT
+>> 4329|								owns_state = 853
+>> 4330|								controls_state = 853 
+   4331|							}
+   4332|						}
+   4333|						
+   4334|					}
+   4335|
+   4336|					effect_tooltip = {
+   4337|						853 = {
+   4338|							transfer_state_to = FROM
+   4339|						}
+   4340|					}
+   4341|				}
+   4342|				IF = {
+   4343|					limit = {
+   4344|						FROM.FROM = {
+   4345|							OWNER = {
+   4346|								is_subject_of = ROOT
+>> 4347|								owns_state = 102
+>> 4348|								controls_state = 102
+   4349|							}
+   4350|						}  
+   4351|					}
+   4352|
+   4353|					effect_tooltip = {
+   4354|						102 = {
+   4355|							transfer_state_to = FROM
+   4356|						}
+   4357|					}
+   4358|				}
+   4359|
+   4360|				IF = {
+   4361|					limit = {
+   4362|						FROM.FROM = {
+   4363|							OWNER = {
+   4364|								is_subject_of = ROOT
+>> 4365|								owns_state = 109
+>> 4366|								controls_state = 109 
+   4367|							}
+   4368|						}
+   4369|					}
+   4370|
+   4371|					effect_tooltip = {
+   4372|						109 = {
+   4373|							transfer_state_to = FROM
+   4374|						}
+   4375|					}
+   4376|
+   4377|				}
+   4378|				FROM = {
+   4379|					country_event = {
+   4380|						id = AUS_political_events.39
+   4381|						hours = 12 
+   4382|					}
+   4383|				}
+   4384|			}
+   4385|		}	
+   4386|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4494|		IF = { #Poland
+   4495|			limit = { 
+   4496|				FROM = {
+   4497|					OR = {
+   4498|						AND = { 
+   4499|							original_tag = POL
+   4500|							has_country_flag = is_current_expansion_target_for_AUS_flag 
+   4501|						}
+   4502|						AND = { 
+   4503|							has_subject = POL
+   4504|							POL = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   4505|						}
+   4506|					}
+   4507|				} 
+   4508|			}
+   4509|
+   4510|			
+   4511|			every_state = {
+   4512|				limit = {
+   4513|					OR = {
+>> 4514|						state = 1157
+>> 4515|						state = 1164
+>> 4516|						state = 1292
+   4517|					}
+   4518|					OR = {
+   4519|						is_fully_controlled_by = FROM
+   4520|						controller = {
+   4521|							is_subject_of = FROM
+   4522|						}
+   4523|					}
+   4524|				}
+   4525|				transfer_state_to = ROOT
+   4526|			}
+   4527|			
+   4528|
+   4529|			POL = {
+   4530|				clr_country_flag = is_current_expansion_target_for_AUS_flag
+   4531|			}
+   4532|		}
+   4533|
+   4534|		ELSE_IF = { #Romnia/Transylvania
+   4535|			limit = { 
+   4536|				FROM = { 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4542|						AND = {
+   4543|							has_subject = ROM
+   4544|							ROM = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   4545|						} 
+   4546|						AND = {
+   4547|							original_tag = TRA
+   4548|							has_country_flag = is_current_expansion_target_for_AUS_flag
+   4549|						}
+   4550|						AND = {
+   4551|							has_subject = TRA
+   4552|							TRA = { has_country_flag = is_current_expansion_target_for_AUS_flag }
+   4553|						}
+   4554|					}
+   4555|					
+   4556|				} 
+   4557|			}
+   4558|
+   4559|			every_state = {
+   4560|				limit = {
+   4561|					OR = {
+>> 4562|						state = 1582
+>> 4563|						state = 705
+>> 4564|						state = 713
+>> 4565|						state = 2668
+>> 4566|						state = 590
+   4567|					}
+   4568|					OR = {
+   4569|						is_fully_controlled_by = FROM
+   4570|						controller = {
+   4571|							is_subject_of = FROM
+   4572|						}
+   4573|					}
+   4574|				}
+   4575|				transfer_state_to = ROOT
+   4576|			}
+   4577|
+   4578|			IF = {
+   4579|				limit = { ROM = { has_country_flag = is_current_expansion_target_for_AUS_flag }}
+   4580|				ROM = { clr_country_flag = is_current_expansion_target_for_AUS_flag }
+   4581|			}
+   4582|
+   4583|			ELSE_IF = {
+   4584|				limit = { TRA = { has_country_flag = is_current_expansion_target_for_AUS_flag }}
+   4585|				TRA = { clr_country_flag = is_current_expansion_target_for_AUS_flag }
+   4586|			}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4649|							ALB = { has_country_flag = is_current_expansion_target_for_AUS_flag } 
+   4650|						}
+   4651|					}
+   4652|				}
+   4653|			}
+   4654|			annex_country = {
+   4655|				target = ALB
+   4656|				transfer_troops = yes
+   4657|			}
+   4658|
+   4659|			ALB = {
+   4660|				clr_country_flag = is_current_expansion_target_for_AUS_flag
+   4661|			}
+   4662|		}
+   4663|		ELSE = { #something strange has happened, check all states and add claims/transfer any that might be fully controlled by the mystery owner... apart from YUG. DO NOT TOUCH YUG!
+   4664|			ROOT = {
+   4665|				every_state = {
+   4666|					limit = {
+   4667|						is_on_continent = europe
+   4668|						OR = {
+>> 4669|							state = 624
+>> 4670|							state = 690
+>> 4671|							state = 1821
+>> 4672|							state = 646
+>> 4673|							state = 611
+>> 4674|							state = 1672
+>> 4675|							state = 539
+>> 4676|							state = 513
+>> 4677|							state = 532
+>> 4678|							state = 499
+>> 4679|							state = 72
+>> 4680|							state = 1157
+>> 4681|							state = 1164
+>> 4682|							state = 1292
+>> 4683|							state = 1582
+>> 4684|							state = 705
+>> 4685|							state = 713
+>> 4686|							state = 2668
+>> 4687|							state = 590
+>> 4688|							state = 1519
+>> 4689|							state = 1523
+>> 4690|							state = 885
+   4691|						}
+   4692|						OR = {
+   4693|							is_fully_controlled_by = FROM
+   4694|							controller = {
+   4695|								is_subject_of = FROM
+   4696|							}
+   4697|						}
+   4698|					}
+   4699|					transfer_state_to = AUS
+   4700|				}
+   4701|
+   4702|				IF  = {
+   4703|					limit = {
+   4704|						FROM = {
+   4705|							has_country_flag = is_current_expansion_target_for_AUS_flag
+   4706|						}
+   4707|					}
+   4708|					FROM = {
+   4709|						clr_country_flag = is_current_expansion_target_for_AUS_flag
+   4710|					}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4718|							}
+   4719|							
+   4720|						}
+   4721|					}
+   4722|					FROM = {
+   4723|						every_subject_country = {
+   4724|							limit = {
+   4725|								has_country_flag = is_current_expansion_target_for_AUS_flag
+   4726|							}
+   4727|							clr_country_flag = is_current_expansion_target_for_AUS_flag
+   4728|						}
+   4729|					}
+   4730|				}
+   4731|			}
+   4732|		}
+   4733|
+   4734|
+   4735|		IF = { #YUG stuff
+   4736|			limit = { 
+   4737|				FROM = { 
+>> 4738|					owns_state = 102
+>> 4739|					controls_state = 102
+   4740|				}
+   4741|			}
+   4742|
+   4743|			ROOT = {
+>> 4744|				transfer_state = 102
+   4745|			}
+   4746|		}
+   4747|
+   4748|		ELSE_IF = { #YUG stuff
+   4749|			limit = { 
+   4750|				FROM.FROM = { 
+   4751|					OWNER = {
+>> 4752|						owns_state = 102
+>> 4753|						controls_state = 102
+   4754|					}
+   4755|				}
+   4756|			}
+   4757|
+   4758|			ROOT = {
+>> 4759|				transfer_state = 102
+   4760|			}
+   4761|		}
+   4762|		IF = { #YUG stuff
+   4763|			limit = { 
+   4764|				FROM = { 
+>> 4765|					owns_state = 853
+>> 4766|					controls_state = 853
+   4767|				}
+   4768|			}
+   4769|
+   4770|			ROOT = {
+>> 4771|				transfer_state = 853
+   4772|			}
+   4773|		}
+   4774|
+   4775|		ELSE_IF = { #YUG stuff
+   4776|			limit = { 
+   4777|				FROM.FROM = { 
+   4778|					OWNER = {
+>> 4779|						owns_state = 853
+>> 4780|						controls_state = 853
+   4781|					}
+   4782|				}
+   4783|			}
+   4784|
+   4785|			ROOT = {
+>> 4786|				transfer_state = 853
+   4787|			}
+   4788|		}
+   4789|
+   4790|
+   4791|		IF = { #YUG stuff
+   4792|			limit = { 
+   4793|				FROM = { 
+>> 4794|					owns_state = 109
+>> 4795|					controls_state = 109
+   4796|				}
+   4797|			}
+   4798|
+   4799|			109 = {
+   4800|				transfer_state_to = ROOT
+   4801|			}
+   4802|		}
+   4803|
+   4804|		ELSE_IF = { #YUG stuff
+   4805|			limit = { 
+   4806|				FROM.FROM = { 
+   4807|					OWNER = {
+>> 4808|						owns_state = 109
+>> 4809|						controls_state = 109
+   4810|					}
+   4811|				}
+   4812|			}
+   4813|
+   4814|			109 = {
+   4815|				transfer_state_to = ROOT
+   4816|			}
+   4817|		}
+   4818|
+   4819|
+   4820|	}
+   4821|}
+   4822|
+   4823|country_event = { #FROM seeks to join the faction
+   4824|	id = AUS_political_events.40
+   4825|	title = AUS_political_events.40.t
+   4826|	desc = AUS_political_events.40.desc
+   4827|	picture = GFX_report_event_generic_sign_treaty2
+   4828|	is_triggered_only = yes
+   4829|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   5115|			modifier = {
+   5116|				factor = 15
+   5117|				strength_ratio = {
+   5118|					tag = FROM
+   5119|					ratio < 0.5
+   5120|				}
+   5121|			}
+   5122|			modifier = {
+   5123|				factor = 0.1
+   5124|				strength_ratio = {
+   5125|					tag = FROM
+   5126|					ratio > 1
+   5127|				}
+   5128|			}
+   5129|		}
+   5130|
+   5131|		trigger = {
+   5132|			original_tag = POL
+   5133|			ROOT = {
+   5134|				OR = {
+>> 5135|					owns_state = 1157
+>> 5136|					owns_state = 1164
+>> 5137|					owns_state = 1292
+   5138|				}
+   5139|
+   5140|			}
+   5141|		}
+   5142|
+   5143|		effect_tooltip = {
+   5144|			IF = {
+   5145|				limit = {
+   5146|					88 = { #Krakow
+   5147|						is_owned_and_controlled_by = ROOT
+   5148|					}
+   5149|				}
+   5150|
+   5151|				88 = {
+   5152|					transfer_state_to = FROM
+   5153|				}	
+   5154|			}
+   5155|
+   5156|			IF = {
+   5157|				limit = {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   6755|
+   6756|		FROM = {
+   6757|			country_event = {
+   6758|				id = AUS_political_events.71
+   6759|				hours = 12
+   6760|			}
+   6761|		}
+   6762|
+   6763|		IF = {
+   6764|			limit = {
+   6765|				ROOT = {
+   6766|					original_tag = ENG
+   6767|				}
+   6768|			}
+   6769|			ROOT = { 
+   6770|				random_owned_state = {
+   6771|					limit = {
+   6772|						is_fully_controlled_by = ROOT
+   6773|					}
+   6774|		
+>> 6775|					prioritize = { 2475 132 } #Greater London Area or Lancashire
+   6776|		
+   6777|					add_extra_state_shared_building_slots = 2
+   6778|		
+   6779|					add_building_construction = {
+   6780|						type = industrial_complex
+   6781|						level = 2
+   6782|						instant_build = yes
+   6783|					}
+   6784|				}
+   6785|			}
+   6786|		}
+   6787|
+   6788|		IF = {
+   6789|			limit = {
+   6790|				ROOT = {
+   6791|					original_tag = USA
+   6792|				}
+   6793|			}
+   6794|		
+   6795|			ROOT = {
+   6796|				random_owned_state = {
+   6797|					limit = {
+   6798|						is_fully_controlled_by = ROOT
+   6799|					}
+   6800|		
+>> 6801|					prioritize = { 361 378 } #Maryland or California
+   6802|		
+   6803|					add_extra_state_shared_building_slots = 2
+   6804|		
+   6805|					add_building_construction = {
+   6806|						type = industrial_complex
+   6807|						level = 2
+   6808|						instant_build = yes
+   6809|					}
+   6810|				}
+   6811|			}
+   6812|		}
+   6813|
+   6814|		IF = {
+   6815|			limit = {
+   6816|				ROOT = {
+   6817|					original_tag = FRA
+   6818|				}
+   6819|			}
+   6820|		
+   6821|			ROOT = {
+   6822|				random_owned_state = {
+   6823|					limit = {
+   6824|						is_fully_controlled_by = ROOT
+   6825|					}
+   6826|		
+>> 6827|					prioritize = { 563 19 } #Ile de France or Aquitane
+   6828|		
+   6829|					add_extra_state_shared_building_slots = 2
+   6830|		
+   6831|					add_building_construction = {
+   6832|						type = industrial_complex
+   6833|						level = 2
+   6834|						instant_build = yes
+   6835|					}
+   6836|				}
+   6837|			}
+   6838|		}
+   6839|
+   6840|		IF = {
+   6841|			limit = {
+   6842|				ROOT = {
+   6843|					original_tag = ITA
+   6844|				}
+   6845|			}
+   6846|		
+   6847|			ROOT = {
+   6848|				random_owned_state = {
+   6849|					limit = {
+   6850|						is_fully_controlled_by = ROOT
+   6851|					}
+   6852|		
+>> 6853|					prioritize = { 2607 17 } #Lazio or Campania
+   6854|		
+   6855|					add_extra_state_shared_building_slots = 2
+   6856|		
+   6857|					add_building_construction = {
+   6858|						type = industrial_complex
+   6859|						level = 2
+   6860|						instant_build = yes
+   6861|					}
+   6862|				}
+   6863|			}		
+   6864|		}	
+   6865|		give_guarantee = FROM
+   6866|		
+   6867|		
+   6868|		add_ai_strategy = { 
+   6869|			type = protect
+   6870|			id = FROM
+   6871|			value = 80
+   6872|		}
+   6873|	}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   6928|			base = 10
+   6929|			
+   6930|		}
+   6931|			custom_effect_tooltip = AUS_compensation_for_guarantee_intro_tt
+   6932|
+   6933|			add_to_variable = { AUS_compensation_for_guarantee_consumer_goods_factor = 0.1 tooltip = consumer_goods_factor_tt }
+   6934|		
+   6935|		effect_tooltip = {
+   6936|			IF = {
+   6937|				limit = {
+   6938|					FROM = {
+   6939|						original_tag = ENG
+   6940|					}
+   6941|				}
+   6942|				FROM = { 
+   6943|					random_owned_state = {
+   6944|						limit = {
+   6945|							is_fully_controlled_by = FROM
+   6946|						}
+   6947|
+>> 6948|						prioritize = { 2475 132 } #Greater London Area or Lancashire
+   6949|
+   6950|						add_extra_state_shared_building_slots = 2
+   6951|
+   6952|						add_building_construction = {
+   6953|							type = industrial_complex
+   6954|							level = 2
+   6955|							instant_build = yes
+   6956|						}
+   6957|					}
+   6958|
+   6959|					give_guarantee = ROOT
+   6960|
+   6961|
+   6962|					add_ai_strategy = { 
+   6963|						type = protect
+   6964|						id = ROOT
+   6965|						value = 80
+   6966|					}
+   6967|				
+   6968|				}
+   6969|				
+   6970|			}
+   6971|
+   6972|			IF = {
+   6973|				limit = {
+   6974|					FROM = {
+   6975|						original_tag = USA
+   6976|					}
+   6977|				}
+   6978|
+   6979|				FROM = {
+   6980|					random_owned_state = {
+   6981|						limit = {
+   6982|							is_fully_controlled_by = FROM
+   6983|						}
+   6984|
+>> 6985|						prioritize = { 361 378 } #Maryland or California
+   6986|
+   6987|						add_extra_state_shared_building_slots = 2
+   6988|
+   6989|						add_building_construction = {
+   6990|							type = industrial_complex
+   6991|							level = 2
+   6992|							instant_build = yes
+   6993|						}
+   6994|					}
+   6995|
+   6996|					give_guarantee = ROOT
+   6997|
+   6998|					add_ai_strategy = { 
+   6999|						type = protect
+   7000|						id = ROOT
+   7001|						value = 80
+   7002|					}
+   7003|				}
+   7004|				
+   7005|			}
+   7006|
+   7007|			IF = {
+   7008|				limit = {
+   7009|					FROM = {
+   7010|						original_tag = FRA
+   7011|					}
+   7012|				}
+   7013|
+   7014|				FROM = {
+   7015|					random_owned_state = {
+   7016|						limit = {
+   7017|							is_fully_controlled_by = FROM
+   7018|						}
+   7019|
+>> 7020|						prioritize = { 563 19 } #Ile de France or Aquitane
+   7021|
+   7022|						add_extra_state_shared_building_slots = 2
+   7023|
+   7024|						add_building_construction = {
+   7025|							type = industrial_complex
+   7026|							level = 2
+   7027|							instant_build = yes
+   7028|						}
+   7029|					}
+   7030|
+   7031|					give_guarantee = ROOT
+   7032|
+   7033|					add_ai_strategy = { 
+   7034|						type = protect
+   7035|						id = ROOT
+   7036|						value = 80
+   7037|					}
+   7038|
+   7039|				}
+   7040|				
+   7041|			}
+   7042|
+   7043|			IF = {
+   7044|				limit = {
+   7045|					FROM = {
+   7046|						original_tag = ITA
+   7047|					}
+   7048|				}
+   7049|
+   7050|				FROM = {
+   7051|					random_owned_state = {
+   7052|						limit = {
+   7053|							is_fully_controlled_by = FROM
+   7054|						}
+   7055|
+>> 7056|						prioritize = { 2607 17 } #Lazio or Campania
+   7057|
+   7058|						add_extra_state_shared_building_slots = 2
+   7059|
+   7060|						add_building_construction = {
+   7061|							type = industrial_complex
+   7062|							level = 2
+   7063|							instant_build = yes
+   7064|						}
+   7065|					}
+   7066|
+   7067|					give_guarantee = ROOT
+   7068|
+   7069|					add_ai_strategy = { 
+   7070|						type = protect
+   7071|						id = ROOT
+   7072|						value = 80
+   7073|					}
+   7074|				}		
+   7075|			}
+   7076|		}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   8532|
+   8533|		set_cosmetic_tag = AUS_liechtenstein
+   8534|
+   8535|		add_country_leader_role = {
+   8536|			character =  AUS_alois_of_liechtenstein # optional if inside character scope
+   8537|			promote_leader = yes
+   8538|			country_leader = {
+   8539|				ideology = despotism
+   8540|				expire = "1965.1.1.1"
+   8541|				id = -1
+   8542|				traits = { AUS_king_of_liechtenstein }
+   8543|			}
+   8544|		}
+   8545|
+   8546|		add_victory_points = {
+   8547|  			province = 6680
+   8548|  			value = 10
+   8549|  		}
+   8550|
+   8551|		set_capital = {
+>> 8552|			state = 654
+   8553|			remember_old_capital = yes
+   8554|		}
+   8555|
+   8556|		custom_effect_tooltip = AUS_political_events.91.a_tt
+   8557|
+   8558|		custom_effect_tooltip = generic_skip_one_line_tt
+   8559|
+   8560|		custom_effect_tooltip = AUS_political_events.91.a_tt2
+   8561|
+   8562|		set_country_flag = AUS_otto_on_the_battlefield_flag
+   8563|
+   8564|
+   8565|		mark_focus_tree_layout_dirty = yes
+   8566|
+   8567|	}
+   8568|
+   8569|	option = { #stay on the throne you don't know how to fight!
+   8570|		name = AUS_political_events.91.b
+   8571|		ai_chance = {
+   8572|			base = 10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  10043|
+  10044|	is_triggered_only = yes
+  10045|
+  10046|	option = { #yeah
+  10047|		name = AUS_political_events.119.a
+  10048|		ai_chance = {
+  10049|			base = 10
+  10050|			modifier = {
+  10051|				factor = 2
+  10052|				fighting_army_strength_ratio = {
+  10053|					tag = FROM
+  10054|					ratio < 1
+  10055|				}
+  10056|			}
+  10057|		}
+  10058|
+  10059|		effect_tooltip = {
+  10060|			IF = {
+  10061|				limit = {
+  10062|					OR = {
+>>10063|						controls_state = 764
+  10064|						any_subject_country = {
+>>10065|							controls_state = 764
+  10066|						}
+  10067|					}
+  10068|				}
+  10069|				764 = { transfer_state_to = FROM } 
+  10070|			}
+  10071|			IF = {
+  10072|				limit = {
+  10073|					OR = {
+>>10074|						controls_state = 776
+  10075|						any_subject_country = {
+>>10076|							controls_state = 776
+  10077|						}
+  10078|					}
+  10079|				}
+  10080|				104 = { transfer_state_to = FROM } 
+  10081|			}
+  10082|			IF = {
+  10083|				limit = {
+  10084|					OR = {
+>>10085|						controls_state = 103
+  10086|						any_subject_country = {
+>>10087|							controls_state = 103
+  10088|						}
+  10089|					}
+  10090|				}
+  10091|				103 = { transfer_state_to = FROM } 
+  10092|			}
+  10093|			IF = {
+  10094|				limit = {
+  10095|					OR = {
+>>10096|						controls_state = 804
+  10097|						any_subject_country = {
+>>10098|							controls_state = 804
+  10099|						}
+  10100|					}
+  10101|				}
+  10102|				804 = { transfer_state_to = FROM } 
+  10103|			}
+  10104|			IF = {
+  10105|				limit = {
+  10106|					OR = {
+>>10107|						controls_state = 45
+  10108|						any_subject_country = {
+>>10109|							controls_state = 45
+  10110|						}
+  10111|					}
+  10112|				}
+  10113|				45 = { transfer_state_to = FROM } 
+  10114|			}
+  10115|		}
+  10116|			
+  10117|		FROM = {
+  10118|			country_event = {
+  10119|				id = AUS_political_events.120
+  10120|				hours = 6
+  10121|			}
+  10122|		}
+  10123|	}
+  10124|
+  10125|	option = { #nope
+  10126|		name = AUS_political_events.119.b
+  10127|		ai_chance = {
+  10128|			base = 1
+  10129|			modifier = {
+  10130|				factor = 50
+  10131|				fighting_army_strength_ratio = {
+  10132|					tag = FROM
+  10133|					ratio > 2
+  10134|				}
+  10135|			}
+  10136|
+  10137|			modifier = {
+  10138|				factor = 10
+  10139|				fighting_army_strength_ratio = {
+  10140|					tag = FROM
+  10141|					ratio > 1
+  10142|				}
+  10143|			}
+  10144|		}
+  10145|
+  10146|		effect_tooltip = {
+  10147|			IF = {
+  10148|				limit = {
+  10149|					OR = {
+>>10150|						controls_state = 764
+  10151|						any_subject_country = {
+>>10152|							controls_state = 764
+  10153|						}
+  10154|					}
+  10155|				}
+  10156|				764 = { add_claim_by = FROM } 
+  10157|			}
+  10158|			IF = {
+  10159|				limit = {
+  10160|					OR = {
+>>10161|						controls_state = 776
+  10162|						any_subject_country = {
+>>10163|							controls_state = 776
+  10164|						}
+  10165|					}
+  10166|				}
+  10167|				104 = { add_claim_by = FROM } 
+  10168|			}
+  10169|			IF = {
+  10170|				limit = {
+  10171|					OR = {
+>>10172|						controls_state = 103
+  10173|						any_subject_country = {
+>>10174|							controls_state = 103
+  10175|						}
+  10176|					}
+  10177|				}
+  10178|				103 = { add_claim_by = FROM } 
+  10179|			}
+  10180|			IF = {
+  10181|				limit = {
+  10182|					OR = {
+>>10183|						controls_state = 804
+  10184|						any_subject_country = {
+>>10185|							controls_state = 804
+  10186|						}
+  10187|					}
+  10188|				}
+  10189|				804 = { add_claim_by = FROM } 
+  10190|			}
+  10191|			IF = {
+  10192|				limit = {
+  10193|					OR = {
+>>10194|						controls_state = 45
+  10195|						any_subject_country = {
+>>10196|							controls_state = 45
+  10197|						}
+  10198|					}
+  10199|				}
+  10200|				45 = { add_claim_by = FROM } 
+  10201|			}
+  10202|
+  10203|			FROM = {
+  10204|				create_wargoal = {
+  10205|					type = take_claimed_state
+  10206|					target = ROOT
+  10207|				}
+  10208|			}
+  10209|		}
+  10210|		FROM = {
+  10211|			country_event = {
+  10212|				id = AUS_political_events.121
+  10213|				hours = 6
+  10214|			}
+  10215|		}
+  10216|	}
+  10217|}
+  10218|
+  10219|country_event = { #FROM hands over states
+  10220|	id = AUS_political_events.120
+  10221|	title = AUS_political_events.120.t
+  10222|	desc = AUS_political_events.120.desc
+  10223|	picture = GFX_report_event_generic_read_write
+  10224|
+  10225|	is_triggered_only = yes
+  10226|
+  10227|	option = {
+  10228|		name = AUS_political_events.120.a
+  10229|		ai_chance = {
+  10230|			base = 10
+  10231|		}
+  10232|
+  10233|		IF = {
+  10234|			limit = {
+  10235|				FROM = {
+  10236|					OR = {
+>>10237|						controls_state = 764
+  10238|						any_subject_country = {
+>>10239|							controls_state = 764
+  10240|						}
+  10241|					}
+  10242|				}
+  10243|				
+  10244|			}
+  10245|			764 = { transfer_state_to = ROOT } 
+  10246|		}
+  10247|		IF = {
+  10248|			limit = {
+  10249|				FROM = {
+  10250|					OR = {
+>>10251|						controls_state = 776
+  10252|						any_subject_country = {
+>>10253|							controls_state = 776
+  10254|						}
+  10255|					}
+  10256|				}
+  10257|				
+  10258|			}
+  10259|			104 = { transfer_state_to = ROOT } 
+  10260|		}
+  10261|		IF = {
+  10262|			limit = {
+  10263|				FROM = {
+  10264|					OR = {
+>>10265|						controls_state = 103
+  10266|						any_subject_country = {
+>>10267|							controls_state = 103
+  10268|						}
+  10269|					}
+  10270|				}
+  10271|				
+  10272|			}
+  10273|			103 = { transfer_state_to = ROOT } 
+  10274|		}
+  10275|		IF = {
+  10276|			limit = {
+  10277|				FROM = {
+  10278|					OR = {
+>>10279|						controls_state = 804
+  10280|						any_subject_country = {
+>>10281|							controls_state = 804
+  10282|						}
+  10283|					}
+  10284|				}
+  10285|				
+  10286|			}
+  10287|			804 = { transfer_state_to = ROOT } 
+  10288|		}
+  10289|		IF = {
+  10290|			limit = {
+  10291|				FROM = {
+  10292|					OR = {
+>>10293|						controls_state = 45
+  10294|						any_subject_country = {
+>>10295|							controls_state = 45
+  10296|						}
+  10297|					}
+  10298|				}
+  10299|				
+  10300|			}
+  10301|			45 = { transfer_state_to = ROOT } 
+  10302|		}
+  10303|	}
+  10304|}
+  10305|
+  10306|country_event = { #FROM refuses to give us what we want
+  10307|	id = AUS_political_events.121
+  10308|	title = AUS_political_events.121.t
+  10309|	desc = AUS_political_events.121.desc
+  10310|	picture = GFX_report_event_generic_sign_treaty1
+  10311|
+  10312|	is_triggered_only = yes
+  10313|
+  10314|	option = { #then we grab it by force
+  10315|		name = AUS_political_events.121.a
+  10316|		ai_chance = {
+  10317|			base = 10
+  10318|		}
+  10319|
+  10320|		IF = {
+  10321|			limit = {
+  10322|				FROM = {
+  10323|					OR = {
+>>10324|						controls_state = 764
+  10325|						any_subject_country = {
+>>10326|							controls_state = 764
+  10327|						}
+  10328|					}
+  10329|				}
+  10330|				
+  10331|			}
+  10332|			764 = { add_claim_by = ROOT } 
+  10333|		}
+  10334|		IF = {
+  10335|			limit = {
+  10336|				FROM = {
+  10337|					OR = {
+>>10338|						controls_state = 776
+  10339|						any_subject_country = {
+>>10340|							controls_state = 776
+  10341|						}
+  10342|					}
+  10343|				}
+  10344|				
+  10345|			}
+  10346|			104 = { add_claim_by = ROOT } 
+  10347|		}
+  10348|		IF = {
+  10349|			limit = {
+  10350|				FROM = {
+  10351|					OR = {
+>>10352|						controls_state = 103
+  10353|						any_subject_country = {
+>>10354|							controls_state = 103
+  10355|						}
+  10356|					}
+  10357|				}
+  10358|				
+  10359|			}
+  10360|			103 = { add_claim_by = ROOT } 
+  10361|		}
+  10362|		IF = {
+  10363|			limit = {
+  10364|				FROM = {
+  10365|					OR = {
+>>10366|						controls_state = 804
+  10367|						any_subject_country = {
+>>10368|							controls_state = 804
+  10369|						}
+  10370|					}
+  10371|				}
+  10372|				
+  10373|			}
+  10374|			804 = { add_claim_by = ROOT } 
+  10375|		}
+  10376|		IF = {
+  10377|			limit = {
+  10378|				FROM = {
+  10379|					OR = {
+>>10380|						controls_state = 45
+  10381|						any_subject_country = {
+>>10382|							controls_state = 45
+  10383|						}
+  10384|					}
+  10385|				}
+  10386|				
+  10387|			}
+  10388|			45 = { add_claim_by = ROOT } 
+  10389|		}
+  10390|
+  10391|		
+  10392|		create_wargoal = {
+  10393|			type = take_claimed_state
+  10394|			target = FROM
+  10395|		}
+  10396|	}
+  10397|}
+  10398|
+  10399|country_event = { #Georg von Trapp offers his service
+  10400|	id = AUS_political_events.122
+  10401|	title = AUS_political_events.122.t
+  10402|	desc = AUS_political_events.122.desc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

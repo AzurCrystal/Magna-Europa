@@ -700,31 +700,32 @@ ITA_be_careful_transporting_through_the_med = {
 
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 68
+		id = 199
 		value = 50
 	}
 
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 169
+		id = 195
 		value = 50
 	}
 
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 29
+		id = 200
 		value = 50
 	}
 
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 168
+		id = 194
 		value = 50
 	}
 
 	ai_strategy = {
 		type = naval_avoid_region
-		id = 69
+		id = 203
+		id = 206
 		value = 50
 	}
 }
@@ -1001,21 +1002,21 @@ ITA_hold_africa = {
 	# Tripoli
 	ai_strategy = {
 		type = theatre_distribution_demand_increase
-		id = 448
+		id = 1241
 		value = 4
 	}
 
 	# Benghasi
 	ai_strategy = {
 		type = theatre_distribution_demand_increase
-		id = 450
+		id = 1251
 		value = 2
 	}
 
 	# Alexandria
 	ai_strategy = {
 		type = theatre_distribution_demand_increase
-		id = 447
+		id = 1284
 		value = 2
 	}
 }
@@ -1251,26 +1252,8 @@ ITA_commit_to_ethiopian_theatre = {
 	}
 
 	# Eritrea
-	ai_strategy = {
-		type = theatre_distribution_demand_increase
-		id = 550
-		value = 2
-	}
-
 	# Somaliland
-	ai_strategy = {
-		type = theatre_distribution_demand_increase
-		id = 559
-		value = 2
-	}
-
 	#### Horn of Africa
-	ai_strategy = {
-		type = area_priority
-		id = horn_of_africa
-		value = 100
-	}
-	
 	ai_strategy = {
 		type = front_control
 		ordertype = front
@@ -1339,11 +1322,6 @@ ITA_prepare_losing_ethiopian_theatre = {
 	}
 
 	# ethiopia is not defending much
-	ai_strategy = {
-		type = area_priority
-		id = horn_of_africa
-		value = -25
-	}
 }
 
 ITA_attack_north = {
@@ -1352,7 +1330,7 @@ ITA_attack_north = {
 	}
 	enable = {
 		has_war_with = ETH
-		has_active_mission = ITA_conquer_the_north_mission
+#		has_active_mission = ITA_conquer_the_north_mission
 		ITA_is_communist_ai = no
 		ITA_is_socialist_ai = no
 	}
@@ -1377,7 +1355,7 @@ ITA_attack_south = {
 	}
 	enable = {
 		has_war_with = ETH
-		has_active_mission = ITA_conquer_the_south_mission
+#		has_active_mission = ITA_conquer_the_south_mission
 		ITA_is_communist_ai = no
 		ITA_is_socialist_ai = no
 	}
@@ -1402,7 +1380,7 @@ ITA_attack_addis = {
 	}
 	enable = {
 		has_war_with = ETH
-		has_active_mission = ETH_conquer_addis_ababa_mission
+#		has_active_mission = ETH_conquer_addis_ababa_mission
 		ITA_is_communist_ai = no
 		ITA_is_socialist_ai = no
 	}
@@ -1427,7 +1405,7 @@ ITA_attack_harar = {
 	}
 	enable = {
 		has_war_with = ETH
-		has_active_mission = ETH_conquer_harar_mission
+#		has_active_mission = ETH_conquer_harar_mission
 		ITA_is_communist_ai = no
 		ITA_is_socialist_ai = no
 	}
@@ -1479,11 +1457,6 @@ ITA_communists_downplay_ethiopian_theatre = {
 		NOT = { has_war_with = ETH }
 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = horn_of_africa
-		value = -100
-	}
 	ai_strategy = {
 		type = front_control
 
@@ -1730,19 +1703,9 @@ ITA_ignore_sub_saharan_africa = {
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = area_priority
-		id = sub_saharan_africa
-		value = -200
-	}
-	ai_strategy = {
 		type = front_unit_request
 		area = sub_saharan_africa
 		value = -100
-	}
-	ai_strategy = {
-		type = area_priority
-		id = belgian_congo
-		value = -200
 	}
 	ai_strategy = {
 		type = front_unit_request
@@ -1861,19 +1824,20 @@ ITA_air_support_north_africa = {
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 225 # Tripoli
+		id = 38 # Tripoli
 		value = 5500
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 128 # Egypt
+		id = 50 # Egypt
+		id = 58
 		value = 3000
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 29 # Central Mediterranean Sea
+		id = 200 # Central Mediterranean Sea
 		value = 2000
 	}
 }
@@ -1892,7 +1856,10 @@ ITA_air_defense_homeland = {
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 23 # Italy
+id = 16 # Italy
+id = 17
+id = 18
+id = 25
 		value = 10000
 	}
 }
@@ -2003,17 +1970,19 @@ ITA_dont_send_air_to_middle_east = {
 
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 28 # Middle East
+		id = 49 # Middle East
+		id = 32
 		value = -30000
 	}
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 232 # Levant
+		id = 49 # Levant
 		value = -30000
 	}
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 116 # Iran
+		id = 227 # Iran
+		id = 226
 		value = -30000
 	}
 }

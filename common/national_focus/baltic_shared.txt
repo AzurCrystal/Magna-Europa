@@ -316,7 +316,6 @@ shared_focus = {
 				free_building_slots = {
 					building = arms_factory
 					size > 0
-					include_locked = yes
 				}
 				OR = {
 					is_in_home_area = yes
@@ -326,7 +325,6 @@ shared_focus = {
 								free_building_slots = {
 									building = arms_factory
 									size > 0
-									include_locked = yes
 								}
 								is_in_home_area = yes
 							}
@@ -405,7 +403,6 @@ shared_focus = {
 				free_building_slots = {
 					building = industrial_complex
 					size > 0
-					include_locked = yes
 				}
 				OR = {
 					is_in_home_area = yes
@@ -415,7 +412,6 @@ shared_focus = {
 								free_building_slots = {
 									building = industrial_complex
 									size > 0
-									include_locked = yes
 								}
 								is_in_home_area = yes
 							}
@@ -642,8 +638,8 @@ shared_focus = {
 		if = {
 			limit = { tag = LIT }
 			if = {
-				limit = { controls_state = 189 }
-				189 = {
+				limit = { controls_state = 208 } # was vanilla 189
+				208 = { # was vanilla 189
 					add_building_construction = { type = coastal_bunker province = 6314 level = 6 instant_build = yes }
 				}
 			}
@@ -660,10 +656,10 @@ shared_focus = {
 				limit = {
 					controller = { tag = ROOT }
 					OR = {
-						state = 811
-						state = 13
-						state = 812
-						state = 813
+						state = 146 # was vanilla 811
+						state = 155 # was vanilla 13
+						state = 133 # was vanilla 812
+						state = 134 # was vanilla 813
 					}
 				}
 				add_building_construction = {
@@ -683,10 +679,10 @@ shared_focus = {
 				limit = {
 					controller = { tag = ROOT }
 					OR = {
-						state = 190
-						state = 809
-						state = 808
-						state = 12
+						state = 67 # was vanilla 190
+						state = 1352 # was vanilla 809
+						state = 172 # was vanilla 808
+						state = 95 # was vanilla 12
 					}
 				}
 				add_building_construction = {
@@ -1170,14 +1166,14 @@ shared_focus = {
 				category = motorized_equipment
 			}
 		}
-		IF = {
+		if = {
 			limit = {
 					has_dlc = "Arms Against Tyranny"
 			}	
 			custom_effect_tooltip = available_mio_tt
 			show_mio_tooltip = USA_ford_motor_company_organization
 		}
-		ELSE = {
+		else = {
 			show_ideas_tooltip = BALTIC_ford
 		}
 	}
@@ -1259,7 +1255,7 @@ shared_focus = {
 		log = "[GetDateText]: [Root.GetName]: Focus BALTIC_british_designers"
 		add_offsite_building = { type = industrial_complex level = 1 }
 		add_offsite_building = { type = arms_factory level = 1 }
-		IF = {
+		if = {
 			limit = {
 					has_dlc = "Arms Against Tyranny"
 			}	
@@ -1278,7 +1274,7 @@ shared_focus = {
 				add_mio_size = 1
 			}
 		}
-		ELSE = {
+		else = {
 			show_ideas_tooltip = BALTIC_RAF
 			show_ideas_tooltip = BALTIC_RSAF_enfield
 			show_ideas_tooltip = BALTIC_royal_arsenal
@@ -1618,8 +1614,8 @@ shared_focus = {
 		if = {
 			limit = { tag = LIT }
 			if = {
-				limit = { controls_state = 189 }
-				189 = {
+				limit = { controls_state = 208 } # was vanilla 189
+				208 = { # was vanilla 189
 					add_building_construction = { type = coastal_bunker province = 6314 level = 4 instant_build = yes }
 				}
 			}
@@ -1636,10 +1632,10 @@ shared_focus = {
 				limit = {
 					controller = { tag = ROOT }
 					OR = {
-						state = 811
-						state = 13
-						state = 812
-						state = 813
+						state = 146 # was vanilla 811
+						state = 155 # was vanilla 13
+						state = 133 # was vanilla 812
+						state = 134 # was vanilla 813
 					}
 				}
 				add_building_construction = {
@@ -1659,10 +1655,10 @@ shared_focus = {
 				limit = {
 					controller = { tag = ROOT }
 					OR = {
-						state = 190
-						state = 809
-						state = 808
-						state = 12
+						state = 67 # was vanilla 190
+						state = 1352 # was vanilla 809
+						state = 172 # was vanilla 808
+						state = 95 # was vanilla 12
 					}
 				}
 				add_building_construction = {
@@ -1827,7 +1823,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 11 12 13 }
+			prioritize = { 274 95 155 } # was vanilla 11,12,13
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = arms_factory
@@ -1839,7 +1835,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 814 808 811 }
+			prioritize = { 2522 172 146 } # was vanilla 814,808,811
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = arms_factory
@@ -1851,7 +1847,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 227 810 813 }
+			prioritize = { 227 170 134 } # was vanilla 810,813
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = arms_factory
@@ -2016,7 +2012,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 11 12 13 }
+			prioritize = { 274 95 155 } # was vanilla 11,12,13
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = industrial_complex
@@ -2028,7 +2024,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 189 190 191 }
+			prioritize = { 208 67 152 } # was vanilla 189,190,191
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = industrial_complex
@@ -2040,7 +2036,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 814 808 811 }
+			prioritize = { 2522 172 146 } # was vanilla 814,808,811
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = industrial_complex
@@ -2052,7 +2048,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 815 809 812 }
+			prioritize = { 1339 1352 133 } # was vanilla 815,809,812
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = industrial_complex
@@ -2096,7 +2092,6 @@ shared_focus = {
 				free_building_slots = {
 					building = arms_factory
 					size > 0
-					include_locked = yes
 				}
 				OR = {
 					is_in_home_area = yes
@@ -2106,7 +2101,6 @@ shared_focus = {
 								free_building_slots = {
 									building = arms_factory
 									size > 0
-									include_locked = yes
 								}
 								is_in_home_area = yes
 							}
@@ -2294,7 +2288,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 814 808 811 }
+			prioritize = { 2522 172 146 } # was vanilla 814,808,811
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = arms_factory
@@ -2306,7 +2300,7 @@ shared_focus = {
 			limit = {
 				is_core_of = ROOT
 			}
-			prioritize = { 815 809 812 }
+			prioritize = { 1339 1352 133 } # was vanilla 815,809,812
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = arms_factory
@@ -2431,7 +2425,6 @@ shared_focus = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -2441,7 +2434,6 @@ shared_focus = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -2513,7 +2505,6 @@ shared_focus = {
 				free_building_slots = {
 					building = dockyard
 					size > 0
-					include_locked = yes
 				}
 				OR = {
 					is_in_home_area = yes
@@ -2523,7 +2514,6 @@ shared_focus = {
 								free_building_slots = {
 									building = dockyard
 									size > 0
-									include_locked = yes
 								}
 								is_in_home_area = yes
 							}
@@ -3391,7 +3381,6 @@ shared_focus = {
 				free_building_slots = {
 					building = industrial_complex
 					size > 0
-					include_locked = yes
 				}
 				OR = {
 					is_in_home_area = yes
@@ -3401,7 +3390,6 @@ shared_focus = {
 								free_building_slots = {
 									building = industrial_complex
 									size > 0
-									include_locked = yes
 								}
 								is_in_home_area = yes
 							}
@@ -3427,7 +3415,6 @@ shared_focus = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3437,7 +3424,6 @@ shared_focus = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3462,7 +3448,6 @@ shared_focus = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3472,7 +3457,6 @@ shared_focus = {
 									free_building_slots = {
 										building = arms_factory
 										size > 1
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3499,7 +3483,6 @@ shared_focus = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3509,7 +3492,6 @@ shared_focus = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 1
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3529,7 +3511,6 @@ shared_focus = {
 					free_building_slots = {
 						building = arms_factory
 						size > 2
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3539,7 +3520,6 @@ shared_focus = {
 									free_building_slots = {
 										building = arms_factory
 										size > 2
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3565,7 +3545,6 @@ shared_focus = {
 					free_building_slots = {
 						building = dockyard
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3575,7 +3554,6 @@ shared_focus = {
 									free_building_slots = {
 										building = dockyard
 										size > 1
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3606,7 +3584,6 @@ shared_focus = {
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3616,7 +3593,6 @@ shared_focus = {
 									free_building_slots = {
 										building = arms_factory
 										size > 0
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3641,7 +3617,6 @@ shared_focus = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3651,7 +3626,6 @@ shared_focus = {
 									free_building_slots = {
 										building = arms_factory
 										size > 1
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}
@@ -3676,7 +3650,6 @@ shared_focus = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					OR = {
 						is_in_home_area = yes
@@ -3686,7 +3659,6 @@ shared_focus = {
 									free_building_slots = {
 										building = industrial_complex
 										size > 1
-										include_locked = yes
 									}
 									is_in_home_area = yes
 								}

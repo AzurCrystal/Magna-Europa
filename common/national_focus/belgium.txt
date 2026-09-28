@@ -227,7 +227,7 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = BEL_national_redoubt_at_antwerp_available_tt
 				OR = {
-					977 = { #Antwerpen
+					444 = { #Antwerpen
 						free_building_slots = {
 							building = bunker
 							size > 1
@@ -235,7 +235,7 @@ focus_tree = {
 						}
 					}
 
-					6 = { #Vlaanderen
+					454 = { #Vlaanderen
 						free_building_slots = {
 							building = bunker
 							size > 0
@@ -259,7 +259,7 @@ focus_tree = {
 				custom_trigger_tooltip = {
 					tooltip = BEL_national_redoubt_at_antwerp_bypass_tt
 					AND = {
-						977 = { #Antwerpen
+						444 = { #Antwerpen
 							free_building_slots = {
 								building = bunker
 								size < 2
@@ -267,7 +267,7 @@ focus_tree = {
 							}
 						}
 
-						6 = { #Vlaanderen
+						454 = { #Vlaanderen
 							free_building_slots = {
 								building = bunker
 								size < 1
@@ -282,7 +282,7 @@ focus_tree = {
 		completion_reward = {
 			IF = {
 				limit = {
-					6 = { #Vlaanderen
+					454 = { #Vlaanderen
 						free_building_slots = {
 							building = bunker
 							size > 0
@@ -291,7 +291,7 @@ focus_tree = {
 					}
 				}
 
-				6 = { #Vlaanderen
+				454 = { #Vlaanderen
 					add_building_construction = {
 						type = bunker
 						level = 1
@@ -302,7 +302,7 @@ focus_tree = {
 			}
 			IF = {
 				limit = {
-					977 = { #Antwerpen
+					444 = { #Antwerpen
 						free_building_slots = {
 							building = bunker
 							size > 1
@@ -311,7 +311,7 @@ focus_tree = {
 					}
 				}
 
-				977 = { #Antwerpen
+				444 = { #Antwerpen
 					add_building_construction = {
 						type = bunker
 						level = 2
@@ -759,7 +759,7 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					or = {
-						state = 6
+						state = 455 # was vanilla 6
 						state = 977
 						state = 482
 						state = 500
@@ -800,14 +800,14 @@ focus_tree = {
 							province = 9536
 						}
 					}
-					6 = {
+					455 = { # was vanilla 6
 						free_building_slots = {
 							building = bunker
 							size > 0
 							province = 3576
 						}
 					}
-					6 = {
+					455 = { # was vanilla 6
 						free_building_slots = {
 							building = bunker
 							size > 0
@@ -838,7 +838,7 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					6 = {
+					455 = { # was vanilla 6
 						free_building_slots = {
 							building = bunker
 							size > 0
@@ -847,14 +847,14 @@ focus_tree = {
 					}
 				}
 
-				6 = {
+				455 = { # was vanilla 6
 					add_building_construction = { type = bunker province = 3576 level = 1 instant_build = yes }
 				}
 			}
 
 			IF = {
 				limit = {
-					6 = {
+					455 = { # was vanilla 6
 						free_building_slots = {
 							building = bunker
 							size > 0
@@ -863,7 +863,7 @@ focus_tree = {
 					}
 				}
 
-				6 = {
+				455 = { # was vanilla 6
 					add_building_construction = { type = bunker province = 6446 level = 1 instant_build = yes }
 				}
 			}
@@ -1749,13 +1749,13 @@ focus_tree = {
 		cost = 10
 		available_if_capitulated = yes
 		available = {
-			6 = {
+			455 = { # was vanilla 6
 				is_fully_controlled_by = ROOT
 			}
 		}
 
 		bypass = {
-			6 = {
+			455 = { # was vanilla 6
 				NOT = { is_fully_controlled_by = ROOT }
 			}
 		}
@@ -1769,7 +1769,7 @@ focus_tree = {
 		}
 	
 		completion_reward = {
-			6 = {
+			455 = { # was vanilla 6
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
@@ -2973,7 +2973,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -2990,7 +2989,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -3185,7 +3183,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3203,7 +3200,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3221,7 +3217,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}	
 					}
 				}
@@ -3242,7 +3237,6 @@ focus_tree = {
 						free_building_slots = {
 							building = arms_factory
 							size > 1
-							include_locked = yes
 						}	
 					}
 				}
@@ -3355,7 +3349,7 @@ focus = {
 				create_wargoal = {
 					type = take_state_focus
 					target = LUX
-					generator = { 8 }
+					generator = { 500 } # was vanilla 8
 				}
 			}
 
@@ -3899,7 +3893,7 @@ focus = {
 		}
 	
 		completion_reward = {
-			8 = { add_core_of = ROOT }
+			500 = { add_core_of = ROOT } # was vanilla 8
 			# Netherlands
 			custom_effect_tooltip = form_eu_netherlands_coring_states_tt
 			hidden_effect = {
@@ -4132,17 +4126,17 @@ focus = {
 		}
 	
 		completion_reward = {
-			add_state_claim = 29
-			add_state_claim = 785
-			add_state_claim = 18
-			add_state_claim = 28
-			add_state_claim = 17
-			add_state_claim = 27
+			add_state_claim = 466 # was vanilla 29
+			add_state_claim = 442 # was vanilla 785
+			add_state_claim = 552 # was vanilla 18
+			add_state_claim = 2747 # was vanilla 28
+			add_state_claim = 627 # was vanilla 17
+			add_state_claim = 2614 # was vanilla 27
 			create_wargoal = {
 				type = take_claimed_state
 				target = FRA
 				expire = 0
-				generator = { 29 785 18 28 17 27 }
+				generator = { 466 442 552 2747 627 2614 } # was vanilla 29,785,18,28,17,27
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -4172,19 +4166,19 @@ focus = {
 				29 = {
 					is_owned_or_subject_trigger	= yes
 				}
-				785 = {
+				442 = { # was vanilla 785
 					is_owned_or_subject_trigger	= yes
 				}
-				18 = {
+				552 = { # was vanilla 18
 					is_owned_or_subject_trigger	= yes
 				}
-				28 = {
+				2747 = { # was vanilla 28
 					is_owned_or_subject_trigger	= yes
 				}
-				17 = {
+				627 = { # was vanilla 17
 					is_owned_or_subject_trigger	= yes
 				}
-				27 = {
+				2614 = { # was vanilla 27
 					is_owned_or_subject_trigger	= yes
 				}
 			}
@@ -4661,7 +4655,7 @@ focus = {
 							}
 						}
 
-						6 = {
+						455 = { # was vanilla 6
 							free_building_slots = {
 								building = bunker
 								size > 2
@@ -4711,7 +4705,7 @@ focus = {
 							}
 						}
 
-						6 = {
+						455 = { # was vanilla 6
 							free_building_slots = {
 								building = bunker
 								size < 3
@@ -4818,7 +4812,7 @@ focus = {
 					}
 				}
 
-				6 = {
+				455 = { # was vanilla 6
 					add_building_construction = {
 						type = bunker
 						level = 3
@@ -6591,7 +6585,7 @@ focus = {
 			every_owned_state = {
 				limit = {
 					or = {
-						state = 6
+						state = 455 # was vanilla 6
 						state = 977
 						state = 482
 						state = 500
@@ -6606,7 +6600,7 @@ focus = {
 			every_other_country = {
 				limit = {
 					OR = {
-						controls_state = 6
+						controls_state = 455 # was vanilla 6
 						controls_state = 977
 						controls_state = 482
 						controls_state = 500
@@ -7188,7 +7182,6 @@ focus = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -7205,7 +7198,6 @@ focus = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -7250,7 +7242,6 @@ focus = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}	
 					}
 				}
@@ -7807,7 +7798,6 @@ focus = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 					is_owned_and_controlled_by = ROOT
 				}
@@ -8210,7 +8200,7 @@ focus = {
 	
 		completion_reward = {
 			navy_experience = 25
-			6 = {
+			455 = { # was vanilla 6
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
@@ -8247,7 +8237,7 @@ focus = {
 		}
 	
 		completion_reward = {
-			6 = {
+			455 = { # was vanilla 6
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard

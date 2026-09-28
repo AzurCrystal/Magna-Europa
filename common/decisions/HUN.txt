@@ -351,7 +351,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -400,13 +399,13 @@ HUN_gyor_program_initiatives_category = {
 		available = {
 			has_completed_focus = wuw_HUN_announce_the_gyor_program
 			has_completed_focus = wuw_HUN_quantity_over_quality
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "No Step Back"
 				}
 				has_tech = basic_heavy_tank_chassis
 			}
-			ELSE = {
+			else = {
 				has_tech = basic_heavy_tank
 			}
 			has_country_flag = HUN_activated_huba_ii_flag
@@ -438,7 +437,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -514,7 +512,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -594,7 +591,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -678,7 +674,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -695,7 +690,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -790,7 +784,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -944,7 +937,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1025,7 +1017,6 @@ HUN_gyor_program_initiatives_category = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -1317,17 +1308,67 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {limit = {610 = {is_claimed_by = ROOT}}610 = {remove_claim_by = ROOT}}
-			IF = {limit = {580 = {is_claimed_by = ROOT}}588 = {remove_claim_by = ROOT}}
-			IF = {limit = {1439 = {is_claimed_by = ROOT}}1439 = {remove_claim_by = ROOT}}
-			IF = {limit = {1438 = {is_claimed_by = ROOT}}1438 = {remove_claim_by = ROOT}}
-			IF = {limit = {1442 = {is_claimed_by = ROOT}}1442 = {remove_claim_by = ROOT}}
+			if = {
+				limit = {
+					610 = { is_claimed_by = ROOT }
+				}
+				610 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					580 = { is_claimed_by = ROOT }
+				}
+				588 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1439 = { is_claimed_by = ROOT }
+				}
+				1439 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1438 = { is_claimed_by = ROOT }
+				}
+				1438 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1442 = { is_claimed_by = ROOT }
+				}
+				1442 = { remove_claim_by = ROOT }
+			}
 
-			IF = {limit = {610 = {NOT = {is_core_of = ROOT}}}610 = {add_core_of = ROOT}}
-			IF = {limit = {580 = {NOT = {is_core_of = ROOT}}}580 = {add_core_of = ROOT}}
-			IF = {limit = {1439 = {NOT = {is_core_of = ROOT}}}1439 = {add_core_of = ROOT}}
-			IF = {limit = {1438 = {NOT = {is_core_of = ROOT}}}1438 = {add_core_of = ROOT}}
-			IF = {limit = {1442 = {NOT = {is_core_of = ROOT}}}1442 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					610 = { NOT = { is_core_of = ROOT } }
+				}
+				610 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					580 = { NOT = { is_core_of = ROOT } }
+				}
+				580 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1439 = { NOT = { is_core_of = ROOT } }
+				}
+				1439 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1438 = { NOT = { is_core_of = ROOT } }
+				}
+				1438 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1442 = { NOT = { is_core_of = ROOT } }
+				}
+				1442 = { add_core_of = ROOT }
+			}
 			hidden_effect = {
 				set_country_flag = HUN_reintigrated_south_slovakia_flag 
 			}
@@ -1391,7 +1432,7 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					70 = {
 						is_claimed_by = ROOT
@@ -1402,7 +1443,7 @@ HUN_territorial_revision_category = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					70 = {
 						NOT = {
@@ -1478,7 +1519,7 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					71 = {
 						is_claimed_by = ROOT
@@ -1489,7 +1530,7 @@ HUN_territorial_revision_category = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					71 = {
 						NOT = {
@@ -1580,20 +1621,85 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {limit = {593 = {is_claimed_by = ROOT}}593 = {remove_claim_by = ROOT}}
-			IF = {limit = {2930 = {is_claimed_by = ROOT}}2930 = {remove_claim_by = ROOT}}
-			IF = {limit = {1607 = {is_claimed_by = ROOT}}1607 = {remove_claim_by = ROOT}}
-			IF = {limit = {1608 = {is_claimed_by = ROOT}}1608 = {remove_claim_by = ROOT}}
-			IF = {limit = {2246 = {is_claimed_by = ROOT}}2246 = {remove_claim_by = ROOT}}
-			IF = {limit = {564 = {is_claimed_by = ROOT}}564 = {remove_claim_by = ROOT}}
-			IF = {limit = {2247 = {is_claimed_by = ROOT}}2247 = {remove_claim_by = ROOT}}
+			if = {
+				limit = {
+					593 = { is_claimed_by = ROOT }
+				}
+				593 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2930 = { is_claimed_by = ROOT }
+				}
+				2930 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1607 = { is_claimed_by = ROOT }
+				}
+				1607 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1608 = { is_claimed_by = ROOT }
+				}
+				1608 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2246 = { is_claimed_by = ROOT }
+				}
+				2246 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					564 = { is_claimed_by = ROOT }
+				}
+				564 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2247 = { is_claimed_by = ROOT }
+				}
+				2247 = { remove_claim_by = ROOT }
+			}
 
-			IF = {limit = {593 = {NOT = {is_core_of = ROOT}}}593 = {add_core_of = ROOT}}
-			IF = {limit = {2930 = {NOT = {is_core_of = ROOT}}}2930 = {add_core_of = ROOT}}
-			IF = {limit = {1607 = {NOT = {is_core_of = ROOT}}}1607 = {add_core_of = ROOT}}
-			IF = {limit = {1608 = {NOT = {is_core_of = ROOT}}}2246= {add_core_of = ROOT}}
-			IF = {limit = {2246 = {NOT = {is_core_of = ROOT}}}564 = {add_core_of = ROOT}}
-			IF = {limit = {564 = {NOT = {is_core_of = ROOT}}}2247 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					593 = { NOT = { is_core_of = ROOT } }
+				}
+				593 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2930 = { NOT = { is_core_of = ROOT } }
+				}
+				2930 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1607 = { NOT = { is_core_of = ROOT } }
+				}
+				1607 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1608 = { NOT = { is_core_of = ROOT } }
+				}
+				2246 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2246 = { NOT = { is_core_of = ROOT } }
+				}
+				564 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					564 = { NOT = { is_core_of = ROOT } }
+				}
+				2247 = { add_core_of = ROOT }
+			}
 			
 
 			hidden_effect = {
@@ -1708,44 +1814,224 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {limit = {664 = {is_claimed_by = ROOT}664 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2671 = {is_claimed_by = ROOT}2671 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2859 = {is_claimed_by = ROOT}2859 = {remove_claim_by = ROOT}}}
-			IF = {limit = {622 = {is_claimed_by = ROOT}622 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2675 = {is_claimed_by = ROOT}2675 = {remove_claim_by = ROOT}}}
-			IF = {limit = {639 = {is_claimed_by = ROOT}639 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2676 = {is_claimed_by = ROOT}2676 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2860 = {is_claimed_by = ROOT}2860 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2672 = {is_claimed_by = ROOT}2672 = {remove_claim_by = ROOT}}}
-			IF = {limit = {628 = {is_claimed_by = ROOT}628 = {remove_claim_by = ROOT}}}
-			IF = {limit = {1582 = {is_claimed_by = ROOT}1582 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2680 = {is_claimed_by = ROOT}2680 = {remove_claim_by = ROOT}}}
-			IF = {limit = {649 = {is_claimed_by = ROOT}649 = {remove_claim_by = ROOT}}}
-			IF = {limit = {2673 = {is_claimed_by = ROOT}2673 = {remove_claim_by = ROOT}}}
-			IF = {limit = {665 = {is_claimed_by = ROOT}665 = {remove_claim_by = ROOT}}}
-			IF = {limit = {680 = {is_claimed_by = ROOT}680 = {remove_claim_by = ROOT}}}
-			IF = {limit = {1587 = {is_claimed_by = ROOT}1587 = {remove_claim_by = ROOT}}}
-			IF = {limit = {674 = {is_claimed_by = ROOT}674 = {remove_claim_by = ROOT}}}
-			IF = {limit = {1586 = {is_claimed_by = ROOT}1586 = {remove_claim_by = ROOT}}}
+			if = {
+				limit = {
+					664 = { is_claimed_by = ROOT }
+				}
+				664 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2671 = { is_claimed_by = ROOT }
+				}
+				2671 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2859 = { is_claimed_by = ROOT }
+				}
+				2859 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					622 = { is_claimed_by = ROOT }
+				}
+				622 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2675 = { is_claimed_by = ROOT }
+				}
+				2675 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					639 = { is_claimed_by = ROOT }
+				}
+				639 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2676 = { is_claimed_by = ROOT }
+				}
+				2676 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2860 = { is_claimed_by = ROOT }
+				}
+				2860 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2672 = { is_claimed_by = ROOT }
+				}
+				2672 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					628 = { is_claimed_by = ROOT }
+				}
+				628 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1582 = { is_claimed_by = ROOT }
+				}
+				1582 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2680 = { is_claimed_by = ROOT }
+				}
+				2680 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					649 = { is_claimed_by = ROOT }
+				}
+				649 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2673 = { is_claimed_by = ROOT }
+				}
+				2673 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					665 = { is_claimed_by = ROOT }
+				}
+				665 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					680 = { is_claimed_by = ROOT }
+				}
+				680 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1587 = { is_claimed_by = ROOT }
+				}
+				1587 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					674 = { is_claimed_by = ROOT }
+				}
+				674 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1586 = { is_claimed_by = ROOT }
+				}
+				1586 = { remove_claim_by = ROOT }
+			}
 			
 			
-			IF = {limit = {664 = {NOT = {is_core_of = ROOT}}}664 = {add_core_of = ROOT}}
-			IF = {limit = {2671 = {NOT = {is_core_of = ROOT}}}2671 = {add_core_of = ROOT}}
-			IF = {limit = {2859 = {NOT = {is_core_of = ROOT}}}2859 = {add_core_of = ROOT}}
-			IF = {limit = {622 = {NOT = {is_core_of = ROOT}}}622 = {add_core_of = ROOT}}
-			IF = {limit = {2675 = {NOT = {is_core_of = ROOT}}}2675 = {add_core_of = ROOT}}
-			IF = {limit = {639 = {NOT = {is_core_of = ROOT}}}639 = {add_core_of = ROOT}}
-			IF = {limit = {2676 = {NOT = {is_core_of = ROOT}}}2676 = {add_core_of = ROOT}}
-			IF = {limit = {2860 = {NOT = {is_core_of = ROOT}}}2860 = {add_core_of = ROOT}}
-			IF = {limit = {2672 = {NOT = {is_core_of = ROOT}}}2672 = {add_core_of = ROOT}}
-			IF = {limit = {649 = {NOT = {is_core_of = ROOT}}}649 = {add_core_of = ROOT}}
-			IF = {limit = {2673 = {NOT = {is_core_of = ROOT}}}2673 = {add_core_of = ROOT}}
-			IF = {limit = {2673 = {NOT = {is_core_of = ROOT}}}2673 = {add_core_of = ROOT}}
-			IF = {limit = {665 = {NOT = {is_core_of = ROOT}}}665 = {add_core_of = ROOT}}
-			IF = {limit = {680 = {NOT = {is_core_of = ROOT}}}680 = {add_core_of = ROOT}}
-			IF = {limit = {1587 = {NOT = {is_core_of = ROOT}}}1587 = {add_core_of = ROOT}}
-			IF = {limit = {674 = {NOT = {is_core_of = ROOT}}}674 = {add_core_of = ROOT}}
-			IF = {limit = {1586 = {NOT = {is_core_of = ROOT}}}1586 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					664 = { NOT = { is_core_of = ROOT } }
+				}
+				664 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2671 = { NOT = { is_core_of = ROOT } }
+				}
+				2671 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2859 = { NOT = { is_core_of = ROOT } }
+				}
+				2859 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					622 = { NOT = { is_core_of = ROOT } }
+				}
+				622 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2675 = { NOT = { is_core_of = ROOT } }
+				}
+				2675 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					639 = { NOT = { is_core_of = ROOT } }
+				}
+				639 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2676 = { NOT = { is_core_of = ROOT } }
+				}
+				2676 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2860 = { NOT = { is_core_of = ROOT } }
+				}
+				2860 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2672 = { NOT = { is_core_of = ROOT } }
+				}
+				2672 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					649 = { NOT = { is_core_of = ROOT } }
+				}
+				649 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2673 = { NOT = { is_core_of = ROOT } }
+				}
+				2673 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2673 = { NOT = { is_core_of = ROOT } }
+				}
+				2673 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					665 = { NOT = { is_core_of = ROOT } }
+				}
+				665 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					680 = { NOT = { is_core_of = ROOT } }
+				}
+				680 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1587 = { NOT = { is_core_of = ROOT } }
+				}
+				1587 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					674 = { NOT = { is_core_of = ROOT } }
+				}
+				674 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1586 = { NOT = { is_core_of = ROOT } }
+				}
+				1586 = { add_core_of = ROOT }
+			}
 			
 
 			hidden_effect = {
@@ -1852,39 +2138,199 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {limit = {705  = {is_claimed_by = ROOT}}705 = {remove_claim_by = ROOT}}
-			IF = {limit = {2674 = {is_claimed_by = ROOT}} 2674 = {remove_claim_by = ROOT}}
-			IF = {limit = {2669 = {is_claimed_by = ROOT}} 2669 = {remove_claim_by = ROOT}}
-			IF = {limit = {2679 = {is_claimed_by = ROOT}} 2679 = {remove_claim_by = ROOT}}
-			IF = {limit = {686  = {is_claimed_by = ROOT}}686 = {remove_claim_by = ROOT}}
-			IF = {limit = {2678 = {is_claimed_by = ROOT}} 2678 = {remove_claim_by = ROOT}}
-			IF = {limit = {692  = {is_claimed_by = ROOT}}692 = {remove_claim_by = ROOT}}
-			IF = {limit = {2261 = {is_claimed_by = ROOT}} 2261 = {remove_claim_by = ROOT}}
-			IF = {limit = {713  = {is_claimed_by = ROOT}}713 = {remove_claim_by = ROOT}}
-			IF = {limit = {727  = {is_claimed_by = ROOT}}727 = {remove_claim_by = ROOT}}
-			IF = {limit = {2024 = {is_claimed_by = ROOT}} 2024 = {remove_claim_by = ROOT}}
-			IF = {limit = {1583 = {is_claimed_by = ROOT}} 1583 = {remove_claim_by = ROOT}}
-			IF = {limit = {730  = {is_claimed_by = ROOT}}730 = {remove_claim_by = ROOT}}
-			IF = {limit = {1584 = {is_claimed_by = ROOT}} 1584 = {remove_claim_by = ROOT}}
-			IF = {limit = {1585 = {is_claimed_by = ROOT}} 1585 = {remove_claim_by = ROOT}}
-			IF = {limit = {737  = {is_claimed_by = ROOT}}737 = {remove_claim_by = ROOT}}
+			if = {
+				limit = {
+					705 = { is_claimed_by = ROOT }
+				}
+				705 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2674 = { is_claimed_by = ROOT }
+				}
+				2674 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2669 = { is_claimed_by = ROOT }
+				}
+				2669 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2679 = { is_claimed_by = ROOT }
+				}
+				2679 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					686 = { is_claimed_by = ROOT }
+				}
+				686 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2678 = { is_claimed_by = ROOT }
+				}
+				2678 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					692 = { is_claimed_by = ROOT }
+				}
+				692 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2261 = { is_claimed_by = ROOT }
+				}
+				2261 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					713 = { is_claimed_by = ROOT }
+				}
+				713 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					727 = { is_claimed_by = ROOT }
+				}
+				727 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2024 = { is_claimed_by = ROOT }
+				}
+				2024 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1583 = { is_claimed_by = ROOT }
+				}
+				1583 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					730 = { is_claimed_by = ROOT }
+				}
+				730 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1584 = { is_claimed_by = ROOT }
+				}
+				1584 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1585 = { is_claimed_by = ROOT }
+				}
+				1585 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					737 = { is_claimed_by = ROOT }
+				}
+				737 = { remove_claim_by = ROOT }
+			}
 			
-			IF = {limit = {705 = {NOT = {is_core_of = ROOT}}}705 = {add_core_of = ROOT}}
-			IF = {limit = {2674 = {NOT = {is_core_of = ROOT}}}2674 = {add_core_of = ROOT}}
-			IF = {limit = {2669 = {NOT = {is_core_of = ROOT}}}2669 = {add_core_of = ROOT}}
-			IF = {limit = {2679 = {NOT = {is_core_of = ROOT}}}2679 = {add_core_of = ROOT}}
-			IF = {limit = {686 = {NOT = {is_core_of = ROOT}}}686 = {add_core_of = ROOT}}
-			IF = {limit = {2678 = {NOT = {is_core_of = ROOT}}}2678 = {add_core_of = ROOT}}
-			IF = {limit = {692 = {NOT = {is_core_of = ROOT}}}692 = {add_core_of = ROOT}}
-			IF = {limit = {2261 = {NOT = {is_core_of = ROOT}}}2261 = {add_core_of = ROOT}}
-			IF = {limit = {713 = {NOT = {is_core_of = ROOT}}}713 = {add_core_of = ROOT}}
-			IF = {limit = {727 = {NOT = {is_core_of = ROOT}}}727 = {add_core_of = ROOT}}
-			IF = {limit = {2024 = {NOT = {is_core_of = ROOT}}}2024 = {add_core_of = ROOT}}
-			IF = {limit = {1583 = {NOT = {is_core_of = ROOT}}}1583 = {add_core_of = ROOT}}
-			IF = {limit = {730 = {NOT = {is_core_of = ROOT}}}730 = {add_core_of = ROOT}}
-			IF = {limit = {1584 = {NOT = {is_core_of = ROOT}}}1584 = {add_core_of = ROOT}}
-			IF = {limit = {1585 = {NOT = {is_core_of = ROOT}}}1585 = {add_core_of = ROOT}}
-			IF = {limit = {737 = {NOT = {is_core_of = ROOT}}}737 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					705 = { NOT = { is_core_of = ROOT } }
+				}
+				705 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2674 = { NOT = { is_core_of = ROOT } }
+				}
+				2674 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2669 = { NOT = { is_core_of = ROOT } }
+				}
+				2669 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2679 = { NOT = { is_core_of = ROOT } }
+				}
+				2679 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					686 = { NOT = { is_core_of = ROOT } }
+				}
+				686 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2678 = { NOT = { is_core_of = ROOT } }
+				}
+				2678 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					692 = { NOT = { is_core_of = ROOT } }
+				}
+				692 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2261 = { NOT = { is_core_of = ROOT } }
+				}
+				2261 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					713 = { NOT = { is_core_of = ROOT } }
+				}
+				713 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					727 = { NOT = { is_core_of = ROOT } }
+				}
+				727 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2024 = { NOT = { is_core_of = ROOT } }
+				}
+				2024 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1583 = { NOT = { is_core_of = ROOT } }
+				}
+				1583 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					730 = { NOT = { is_core_of = ROOT } }
+				}
+				730 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1584 = { NOT = { is_core_of = ROOT } }
+				}
+				1584 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1585 = { NOT = { is_core_of = ROOT } }
+				}
+				1585 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					737 = { NOT = { is_core_of = ROOT } }
+				}
+				737 = { add_core_of = ROOT }
+			}
 			hidden_effect = {
 				set_country_flag = HUN_reintigrated_south_transylvania_flag 
 			}
@@ -1948,7 +2394,7 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					83 = {
 						is_claimed_by = ROOT
@@ -1959,7 +2405,7 @@ HUN_territorial_revision_category = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					83 = {
 						NOT = {
@@ -2046,19 +2492,79 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {limit = {2668  = {is_claimed_by = ROOT}}2668 = {remove_claim_by = ROOT}}
-			IF = {limit = {736  = {is_claimed_by = ROOT}}736 = {remove_claim_by = ROOT}}
-			IF = {limit = {2670  = {is_claimed_by = ROOT}}2670 = {remove_claim_by = ROOT}}
-			IF = {limit = {1581  = {is_claimed_by = ROOT}}1581 = {remove_claim_by = ROOT}}
-			IF = {limit = {756  = {is_claimed_by = ROOT}}756 = {remove_claim_by = ROOT}}
-			IF = {limit = {2677  = {is_claimed_by = ROOT}}2677 = {remove_claim_by = ROOT}}
+			if = {
+				limit = {
+					2668 = { is_claimed_by = ROOT }
+				}
+				2668 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					736 = { is_claimed_by = ROOT }
+				}
+				736 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2670 = { is_claimed_by = ROOT }
+				}
+				2670 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1581 = { is_claimed_by = ROOT }
+				}
+				1581 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					756 = { is_claimed_by = ROOT }
+				}
+				756 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2677 = { is_claimed_by = ROOT }
+				}
+				2677 = { remove_claim_by = ROOT }
+			}
 
-			IF = {limit = {2668 = {NOT = {is_core_of = ROOT}}}2668 = {add_core_of = ROOT}}
-			IF = {limit = {736 = {NOT = {is_core_of = ROOT}}}736 = {add_core_of = ROOT}}
-			IF = {limit = {2670 = {NOT = {is_core_of = ROOT}}}2670 = {add_core_of = ROOT}}
-			IF = {limit = {1581 = {NOT = {is_core_of = ROOT}}}1581 = {add_core_of = ROOT}}
-			IF = {limit = {756 = {NOT = {is_core_of = ROOT}}}756 = {add_core_of = ROOT}}
-			IF = {limit = {2677 = {NOT = {is_core_of = ROOT}}}2677 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					2668 = { NOT = { is_core_of = ROOT } }
+				}
+				2668 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					736 = { NOT = { is_core_of = ROOT } }
+				}
+				736 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2670 = { NOT = { is_core_of = ROOT } }
+				}
+				2670 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1581 = { NOT = { is_core_of = ROOT } }
+				}
+				1581 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					756 = { NOT = { is_core_of = ROOT } }
+				}
+				756 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2677 = { NOT = { is_core_of = ROOT } }
+				}
+				2677 = { add_core_of = ROOT }
+			}
 
 			hidden_effect = {
 				set_country_flag = HUN_reintigrated_banat_flag 
@@ -2131,17 +2637,67 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {limit = {1513  = {is_claimed_by = ROOT}}1513 = {remove_claim_by = ROOT}}
-			IF = {limit = {738  = {is_claimed_by = ROOT}}738 = {remove_claim_by = ROOT}}
-			IF = {limit = {1512  = {is_claimed_by = ROOT}}1512 = {remove_claim_by = ROOT}}
-			IF = {limit = {2933  = {is_claimed_by = ROOT}}2933 = {remove_claim_by = ROOT}}
-			IF = {limit = {2554  = {is_claimed_by = ROOT}}2554 = {remove_claim_by = ROOT}}
+			if = {
+				limit = {
+					1513 = { is_claimed_by = ROOT }
+				}
+				1513 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					738 = { is_claimed_by = ROOT }
+				}
+				738 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1512 = { is_claimed_by = ROOT }
+				}
+				1512 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2933 = { is_claimed_by = ROOT }
+				}
+				2933 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2554 = { is_claimed_by = ROOT }
+				}
+				2554 = { remove_claim_by = ROOT }
+			}
 
-			IF = {limit = {1513 = {NOT = {is_core_of = ROOT}}}1513 = {add_core_of = ROOT}}
-			IF = {limit = {738 = {NOT = {is_core_of = ROOT}}}738 = {add_core_of = ROOT}}
-			IF = {limit = {1512 = {NOT = {is_core_of = ROOT}}}1512 = {add_core_of = ROOT}}
-			IF = {limit = {2933 = {NOT = {is_core_of = ROOT}}}2933 = {add_core_of = ROOT}}
-			IF = {limit = {2554 = {NOT = {is_core_of = ROOT}}}2554 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					1513 = { NOT = { is_core_of = ROOT } }
+				}
+				1513 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					738 = { NOT = { is_core_of = ROOT } }
+				}
+				738 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1512 = { NOT = { is_core_of = ROOT } }
+				}
+				1512 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2933 = { NOT = { is_core_of = ROOT } }
+				}
+				2933 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2554 = { NOT = { is_core_of = ROOT } }
+				}
+				2554 = { add_core_of = ROOT }
+			}
 
 			hidden_effect = {
 				set_country_flag = HUN_reintigrated_west_banat_flag 
@@ -2219,19 +2775,79 @@ HUN_territorial_revision_category = {
 		remove_effect = {
 					
 			
-			IF = {limit = {1472  = {is_claimed_by = ROOT}} 1472 = {remove_claim_by = ROOT}}
-			IF = {limit = {2856  = {is_claimed_by = ROOT}} 2856 = {remove_claim_by = ROOT}}
-			IF = {limit = {1515  = {is_claimed_by = ROOT}} 1515 = {remove_claim_by = ROOT}}
-			IF = {limit = {735  = {is_claimed_by = ROOT}} 735 = {remove_claim_by = ROOT}}
-			IF = {limit = {1514  = {is_claimed_by = ROOT}} 1514 = {remove_claim_by = ROOT}}
-			IF = {limit = {1516  = {is_claimed_by = ROOT}} 1516 = {remove_claim_by = ROOT}}
+			if = {
+				limit = {
+					1472 = { is_claimed_by = ROOT }
+				}
+				1472 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					2856 = { is_claimed_by = ROOT }
+				}
+				2856 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1515 = { is_claimed_by = ROOT }
+				}
+				1515 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					735 = { is_claimed_by = ROOT }
+				}
+				735 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1514 = { is_claimed_by = ROOT }
+				}
+				1514 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1516 = { is_claimed_by = ROOT }
+				}
+				1516 = { remove_claim_by = ROOT }
+			}
 
-			IF = {limit = {1472 = {NOT = {is_core_of = ROOT}}} 1472 = {add_core_of = ROOT}}
-			IF = {limit = {2856 = {NOT = {is_core_of = ROOT}}} 2856 = {add_core_of = ROOT}}
-			IF = {limit = {1515 = {NOT = {is_core_of = ROOT}}} 1515 = {add_core_of = ROOT}}
-			IF = {limit = {735  = {NOT = {is_core_of = ROOT}}}735 = {add_core_of = ROOT}}
-			IF = {limit = {1514 = {NOT = {is_core_of = ROOT}}} 1514 = {add_core_of = ROOT}}
-			IF = {limit = {1516 = {NOT = {is_core_of = ROOT}}} 1516 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					1472 = { NOT = { is_core_of = ROOT } }
+				}
+				1472 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2856 = { NOT = { is_core_of = ROOT } }
+				}
+				2856 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1515 = { NOT = { is_core_of = ROOT } }
+				}
+				1515 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					735 = { NOT = { is_core_of = ROOT } }
+				}
+				735 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1514 = { NOT = { is_core_of = ROOT } }
+				}
+				1514 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1516 = { NOT = { is_core_of = ROOT } }
+				}
+				1516 = { add_core_of = ROOT }
+			}
 
 
 			hidden_effect = {
@@ -2291,7 +2907,7 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					975 = {
 						is_claimed_by = ROOT
@@ -2302,7 +2918,7 @@ HUN_territorial_revision_category = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					975 = {
 						NOT = {
@@ -2484,7 +3100,7 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					109 = {
 						is_claimed_by = ROOT
@@ -2495,7 +3111,7 @@ HUN_territorial_revision_category = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					109 = {
 						NOT = {
@@ -2571,7 +3187,7 @@ HUN_territorial_revision_category = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					103 = {
 						is_claimed_by = ROOT
@@ -2582,7 +3198,7 @@ HUN_territorial_revision_category = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					103 = {
 						NOT = {
@@ -3119,10 +3735,30 @@ HUN_the_empire_category = {
 				transfer_state_to = ROOT
 			}
 			
-			IF = {limit = {621 = {is_claimed_by = ROOT}}621 = {remove_claim_by = ROOT}}
-			IF = {limit = {1805 = {is_claimed_by = ROOT}}1805 = {remove_claim_by = ROOT}}
-			IF = {limit = {	621 = {NOT = {is_core_of = ROOT}}}621 = {add_core_of = ROOT}}
-			IF = {limit = {1805 = {NOT = {is_core_of = ROOT}}}1805 = {add_core_of = ROOT}}
+			if = {
+				limit = {
+					621 = { is_claimed_by = ROOT }
+				}
+				621 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					1805 = { is_claimed_by = ROOT }
+				}
+				1805 = { remove_claim_by = ROOT }
+			}
+			if = {
+				limit = {
+					621 = { NOT = { is_core_of = ROOT } }
+				}
+				621 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					1805 = { NOT = { is_core_of = ROOT } }
+				}
+				1805 = { add_core_of = ROOT }
+			}
 			hidden_effect = {
 				set_country_flag = HUN_reannexed_burgenland_flag 
 			}
@@ -3162,11 +3798,9 @@ HUN_the_empire_category = {
 					AUS = {
 						exists = no
 					}
-					every_state = {
-						limit = {
-							is_core_of = AUS
-							is_controlled_by = ROOT
-						}
+					all_state = {
+						is_core_of = AUS
+						is_controlled_by = ROOT
 					}
 				}
 			}
@@ -3246,11 +3880,9 @@ HUN_the_empire_category = {
 					ALB = {
 						exists = no
 					}
-					every_state = {
-						limit = {
-							is_core_of = ALB
-							is_controlled_by = ROOT
-						}
+					all_state = {
+						is_core_of = ALB
+						is_controlled_by = ROOT
 					}
 				}
 			}
@@ -3376,7 +4008,7 @@ HUN_the_empire_category = {
 			POL = {
 				drop_cosmetic_tag = yes
 				set_cosmetic_tag = POL_KINGDOM
-				IF = {
+				if = {
 					limit = {
 						has_character = POL_karl_albrecht
 					}
@@ -3674,7 +4306,7 @@ HUN_the_empire_category = {
 				}	
 			}
 			
-			IF = {
+			if = {
 				limit = {
 					MEX = {
 						NOT = {
@@ -3822,7 +4454,7 @@ HUN_the_empire_category = {
 				}	
 			}
 
-			IF = {
+			if = {
 				limit = {
 					CRO = {
 						NOT = {
@@ -3931,7 +4563,7 @@ HUN_the_empire_category = {
 				drop_cosmetic_tag = yes	
 			}
 
-			IF = {
+			if = {
 				limit = {
 					LBV = {
 						NOT = {
@@ -4096,7 +4728,7 @@ political_actions = {
 
 		remove_effect = {
 			
-			IF = {
+			if = {
 				limit = {
 					61 = {
 						is_claimed_by = ROOT
@@ -4107,7 +4739,7 @@ political_actions = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					61 = {
 						NOT = {
@@ -4556,7 +5188,7 @@ HUN_fascist_movements_category = {
 			        }
 			    }
 
-			    IF = {
+			    if = {
 			    	limit = {
 			    		PREV = {
 			    			has_idea = HUN_the_volksbund_idea
@@ -4569,7 +5201,7 @@ HUN_fascist_movements_category = {
 
 			    custom_effect_tooltip = generic_skip_one_line_tt
 
-			    IF = {
+			    if = {
 			    	limit = {
 			    		PREV = {
 			    			NOT = {
@@ -4629,7 +5261,7 @@ HUN_fascist_movements_category = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			IF = {
+			if = {
 				limit = {
 					has_idea = HUN_the_volksbund_idea
 				}
@@ -4771,7 +5403,7 @@ HUN_fascist_movements_category = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			IF = {
+			if = {
 				limit = {
 					GER = {
 						exists = yes
@@ -4792,7 +5424,7 @@ HUN_fascist_movements_category = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			IF = {
+			if = {
 				limit = {
 					has_idea = HUN_the_volksbund_idea
 				}
@@ -5022,7 +5654,6 @@ political_actions = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 2
-						include_locked = yes
 					}		
 				}
 				add_extra_state_shared_building_slots = 2
@@ -5042,7 +5673,6 @@ political_actions = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}		
 					free_building_slots = {
 						building = infrastructure
@@ -5149,7 +5779,7 @@ political_actions = {
 
 		complete_effect = {
 
-			IF = {
+			if = {
 				limit = {
 					GER = {
 						OR = {
@@ -5168,7 +5798,7 @@ political_actions = {
 					activate_advisor = GER_hermann_goring_king_of_hun
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					GER = {
 						has_government = fascism

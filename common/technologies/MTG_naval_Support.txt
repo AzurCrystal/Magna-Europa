@@ -920,7 +920,7 @@ technologies = {
 			mio_cat_tech_all_screen_ship_and_modules
 			mio_cat_tech_all_cruiser_and_modules
 			mio_cat_tech_all_destroyer_and_modules
-			mio_cat_tech_all_submarine_and_modules #Not really Sub but unlocks tech improving Subs torpedo stuff later
+			mio_cat_tech_all_submarine_and_modules #Not really Sub but unlocks tech improving Subs torpedo stuff later #Now it is actually really a Sub Tech
 		}
 		special_project_specialization = { specialization_naval }
 	}
@@ -1154,6 +1154,7 @@ technologies = {
 			mio_cat_tech_all_screen_ship_and_modules
 			mio_cat_tech_all_cruiser_and_modules
 			mio_cat_tech_all_destroyer_and_modules
+			mio_cat_tech_all_submarine_and_modules
 		}
 		special_project_specialization = { specialization_naval }
 	}
@@ -1209,6 +1210,7 @@ technologies = {
 			mio_cat_tech_all_screen_ship_and_modules
 			mio_cat_tech_all_cruiser_and_modules
 			mio_cat_tech_all_destroyer_and_modules
+			mio_cat_tech_all_submarine_and_modules
 		}
 		special_project_specialization = { specialization_naval }
 	}
@@ -1248,6 +1250,7 @@ technologies = {
 			mio_cat_tech_all_screen_ship_and_modules
 			mio_cat_tech_all_cruiser_and_modules
 			mio_cat_tech_all_destroyer_and_modules
+			mio_cat_tech_all_submarine_and_modules
 		}
 		special_project_specialization = { specialization_naval }
 	}
@@ -2223,49 +2226,26 @@ technologies = {
 		}
 
 		ai_will_do = {
-			factor = 2
+			factor = 5
 
 			modifier = {
-				factor = 0.5
+				factor = 0.1
 				has_war = no
 			}
 
 			modifier = {
-				factor = 2
-				tag = USA
+				factor = 15
+				tag = USA				
+				date > 1942.1.1
 			}
 			modifier = {
-				has_war_with = JAP
-				factor = 2
+				factor = 15
+				tag = ENG				
+				date > 1941.6.1
 			}
 			modifier = {
-				factor = 50
+				factor = 15
 				tag = JAP
-				OR = {
-					has_war_with = USA
-					CHI = {
-						OR = {
-							has_capitulated = yes
-							exists = no
-		                    is_subject_of = JAP
-						}
-					}
-				}
-			}
-
-			modifier = {
-				factor = 2
-				tag = ENG
-			}
-
-			modifier = {
-				factor = 10
-				OR = {
-					tag = ENG
-					tag = USA
-				}
-				has_war_with = GER
-				GER = { has_war_with = SOV }
 			}
 		}
 

@@ -1,0 +1,121 @@
+     14|	option = {
+     15|		name = mtg_netherlands.1.a
+     16|	}
+     17|
+     18|	# They're just trying to get the islands for themselves...
+     19|	option = {
+     20|		name = mtg_netherlands.1.b
+     21|		set_global_flag = ven_claims_abc_islands
+     22|	}
+     23|
+     24|	# We can ill afford another crisis - give the British direct control
+     25|	option = {
+     26|		trigger = {
+     27|			AND = {
+     28|				is_in_faction_with = ENG
+     29|				NOT = { is_in_faction_with = USA }
+     30|			}
+     31|		}
+     32|		name = mtg_netherlands.1.c
+     33|		effect_tooltip = {
+>>   34|			ENG = { transfer_state = 695 }
+     35|		}
+     36|		ENG = { country_event = { id = mtg_netherlands.4 days = 1 random_days = 3 } }
+     37|	}
+     38|
+     39|	# We can ill afford another crisis - give the Americans direct control
+     40|	option = {
+     41|		trigger = {
+     42|			is_in_faction_with = USA
+     43|		}
+     44|		name = mtg_netherlands.1.e
+     45|		effect_tooltip = {
+>>   46|			USA = { transfer_state = 695 }
+     47|		}
+     48|		USA = { country_event = { id = mtg_netherlands.4 days = 1 random_days = 3 } }
+     49|	}
+     50|}
+     51|
+     52|# Netherlands accepts 'Venezuelan protection' for Curacao
+     53|country_event = {
+     54|	id = mtg_netherlands.2
+     55|	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_netherlands.2 FROM = [From.GetName]" }
+     56|	title = mtg_netherlands.2.t
+     57|	desc = mtg_netherlands.2.d
+     58|	picture = GFX_report_event_generic_sign_treaty3
+     59|
+     60|	is_triggered_only = yes
+     61|	
+     62|	# Ok
+     63|	option = {
+     64|		name = mtg_netherlands.2.a
+     65|	}
+     66|}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     78|	# Ok
+     79|	option = {
+     80|		name = mtg_netherlands.3.a
+     81|	}
+     82|}
+     83|
+     84|# Netherlands asks USA/ENG to take over Curacao
+     85|country_event = {
+     86|	id = mtg_netherlands.4
+     87|	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_netherlands.4 FROM = [From.GetName]" }
+     88|	title = mtg_netherlands.4.t
+     89|	desc = mtg_netherlands.4.d
+     90|	picture = GFX_report_event_generic_read_write
+     91|
+     92|	is_triggered_only = yes
+     93|	
+     94|	# Great idea!
+     95|	option = {
+     96|		name = mtg_netherlands.4.a
+     97|		effect_tooltip = {
+>>   98|			transfer_state = 695
+     99|		}
+    100|		HOL = { country_event = { id = mtg_netherlands.5 days = 1 random_days = 3 } }
+    101|	}
+    102|
+    103|	# Let's not get involved
+    104|	option = {
+    105|		name = mtg_netherlands.4.b
+    106|		HOL = { country_event = { id = mtg_netherlands.6 days = 1 random_days = 3 } }
+    107|	}
+    108|}
+    109|
+    110|# FROM accepts taking over Curacao
+    111|country_event = {
+    112|	id = mtg_netherlands.5
+    113|	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_netherlands.5 FROM = [From.GetName]" }
+    114|	title = mtg_netherlands.5.t
+    115|	desc = mtg_netherlands.5.d
+    116|	picture = GFX_report_event_generic_sign_treaty2
+    117|
+    118|	is_triggered_only = yes
+    119|	
+    120|	# Ok
+    121|	option = {
+    122|		name = mtg_netherlands.5.a
+>>  123|		FROM = { transfer_state = 695 }
+    124|	}
+    125|}
+    126|
+    127|# FROM rejects taking over Curacao
+    128|country_event = {
+    129|	id = mtg_netherlands.6
+    130|	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_netherlands.6 FROM = [From.GetName]" }
+    131|	title = mtg_netherlands.6.t
+    132|	desc = mtg_netherlands.6.d
+    133|	picture = GFX_report_event_generic_sign_treaty2
+    134|
+    135|	is_triggered_only = yes
+    136|	
+    137|	# I guess we have no choice but to let them have it
+    138|	option = {
+    139|		name = mtg_netherlands.6.a
+    140|	}
+    141|
+    142|	# We won't give it up!
+    143|	option = {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,4 +1,4 @@
-﻿focus_tree = {
+focus_tree = {
 	id = french_focus
 	
 	country = {
@@ -233,7 +233,6 @@
 				free_building_slots = { #less than 24 unlocked slots
 					building = industrial_complex
 					size > 1
-					include_locked = yes
 				}
 			}
 		}
@@ -419,7 +418,6 @@
 				free_building_slots = {
 					building = industrial_complex
 					size > 1
-					include_locked = yes
 				}
 			}
 		}
@@ -1236,13 +1234,13 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus FRA_infantry_tanks"
-			IF = {
+			if = {
 				limit = { has_dlc = "Arms Against Tyranny" }
 				mio:FRA_renault_organization = {
 					add_mio_funds = 2000
 				}
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = FRA_hotchkiss
 			}
@@ -1585,7 +1583,7 @@
 				uses = 2
 				category = land_doctrine
 			}
-			IF = {
+			if = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -1594,7 +1592,7 @@
 					add_mio_research_bonus = 0.02
 				}
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = FRA_AMX
 			}
@@ -1888,7 +1886,6 @@
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 			}
@@ -1909,7 +1906,6 @@
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3048,7 +3044,6 @@
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3065,7 +3060,6 @@
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3196,7 +3190,6 @@
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3213,7 +3206,6 @@
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3230,7 +3222,6 @@
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3247,7 +3238,6 @@
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -3964,7 +3954,6 @@
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -6282,11 +6271,11 @@
 		}
 		will_lead_to_war_with = CAN
 		bypass = {
-			owns_state = 1
-			owns_state = 9
-			owns_state = 6
-			owns_state = 8
-			owns_state = 60
+			owns_state = 1422 # was vanilla 1
+			owns_state = 513 # was vanilla 9
+			owns_state = 455 # was vanilla 6
+			owns_state = 500 # was vanilla 8
+			owns_state = 1681 # was vanilla 60
 		}
 
 		cancel_if_invalid = yes
@@ -6295,7 +6284,7 @@
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus FRA_bring_home_quebec"
-			1 = { 
+			1422 = { # was vanilla 1
 				OWNER = { 
 					ROOT = { 
 						create_wargoal = { 
@@ -6303,7 +6292,7 @@
 							target = PREV
 							expire = 0
 							generator = {
-								1 9 6 8 60
+								1422 513 455 500 1681 # was vanilla 1,9,6,8,60
 							}
 						}
 					} 
@@ -8230,11 +8219,11 @@
 			}
 			if = {
 				limit = {
-					460 = {
+					1122 = { # was vanilla 460
 						is_controlled_by = ROOT
 					}
 				}
-				 460 = {
+				 1122 = { # was vanilla 460
 					transfer_state_to = ROOT
 					set_state_flag = FRA_ANNEX_FLAG
 				}
@@ -9615,7 +9604,7 @@
 				name = FRA_improved_screen_ships
 				bonus = 2.0
 				uses = 1
-				category = cl_tech
+				category = industry
 			}
 		}
 	}

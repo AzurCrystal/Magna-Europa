@@ -1,0 +1,323 @@
+   1729|# Rudolf Hess Trigger (HIDDEN)
+   1730|news_event = {
+   1731|	id = news.52
+   1732|	hidden = yes
+   1733|	
+   1734|	fire_only_once = yes
+   1735|	
+   1736|	trigger = {
+   1737|		country_exists = ENG
+   1738|		country_exists = GER
+   1739|		country_exists = SOV
+   1740|		GER = { 
+   1741|			has_war_with = ENG 
+   1742|			NOT = { has_war_with = SOV }
+   1743|			has_government = fascism
+   1744|			has_country_leader = { ruling_only = yes character = GER_adolf_hitler }
+   1745|		}
+   1746|		has_global_flag = fall_of_france
+   1747|		NOT = { has_global_flag = hindenburg_survives }
+   1748|		ENG = { # No Sea Lion
+>> 1749|			controls_state = 127
+>> 1750|			controls_state = 123
+>> 1751|			controls_state = 2475
+>> 1752|			controls_state = 338
+>> 1753|			controls_state = 125
+>> 1754|			controls_state = 129
+>> 1755|			controls_state = 128
+>> 1756|			controls_state = 122
+>> 1757|			controls_state = 132
+>> 1758|			controls_state = 130
+>> 1759|			controls_state = 131
+>> 1760|			controls_state = 121
+>> 1761|			controls_state = 133
+>> 1762|			controls_state = 136
+>> 1763|			controls_state = 120
+   1764|		}
+   1765|	}
+   1766|	
+   1767|	mean_time_to_happen = {
+   1768|		days = 30
+   1769|	}
+   1770|	
+   1771|	immediate = {
+   1772|		random_list = {
+   1773|			50 = { 
+   1774|				ENG = { news_event = { id = news.44 } }
+   1775|				GER = { country_event = { id = germany.107 } }
+   1776|			}
+   1777|			50 = { 
+   1778|				ENG = { news_event = { id = news.45 } } 
+   1779|				GER = { country_event = { id = germany.108 } }
+   1780|			}
+   1781|		}
+   1782|	}
+   1783|	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1788|
+   1789|# Rudolf Hess Hindenburg Trigger (HIDDEN)
+   1790|news_event = {
+   1791|	id = news.53
+   1792|	hidden = yes
+   1793|	
+   1794|	fire_only_once = yes
+   1795|	
+   1796|	trigger = {
+   1797|		country_exists = ENG
+   1798|		country_exists = GER
+   1799|		country_exists = SOV
+   1800|		GER = { 
+   1801|			has_war_with = ENG 
+   1802|			NOT = { has_war_with = SOV }
+   1803|			has_government = fascism
+   1804|		}
+   1805|		has_global_flag = fall_of_france
+   1806|		has_global_flag = hindenburg_survives
+   1807|		ENG = { # No Sea Lion
+>> 1808|			controls_state = 127
+>> 1809|			controls_state = 123
+>> 1810|			controls_state = 2475
+>> 1811|			controls_state = 338
+>> 1812|			controls_state = 125
+>> 1813|			controls_state = 129
+>> 1814|			controls_state = 128
+>> 1815|			controls_state = 122
+>> 1816|			controls_state = 132
+>> 1817|			controls_state = 130
+>> 1818|			controls_state = 131
+>> 1819|			controls_state = 121
+>> 1820|			controls_state = 133
+>> 1821|			controls_state = 136
+>> 1822|			controls_state = 120
+   1823|		}
+   1824|	}
+   1825|	
+   1826|	mean_time_to_happen = {
+   1827|		days = 30
+   1828|	}
+   1829|	
+   1830|	immediate = {
+   1831|		random_list = {
+   1832|
+   1833|			#Flight in Hinden
+   1834|			15 = { 
+   1835|				ENG = { news_event = { id = news.46 } } 
+   1836|				GER = { country_event = { id = germany.109 } }
+   1837|			}
+   1838|			15 = { 
+   1839|				ENG = { news_event = { id = news.47 } } 
+   1840|				GER = { country_event = { id = germany.110 } }
+   1841|			}
+   1842|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   7994|	}
+   7995|}
+   7996|
+   7997|#No bananas
+   7998|news_event = {
+   7999|	id = news.218
+   8000|	title = news.218.t
+   8001|	desc = news.218.d
+   8002|	picture = GFX_news_event_worker_protests
+   8003|
+   8004|	trigger = {
+   8005|		tag = ENG
+   8006|		OR = {
+   8007|			has_idea = war_economy
+   8008|			has_idea = tot_economic_mobilisation
+   8009|		}
+   8010|		any_other_country = {
+   8011|			is_major = yes
+   8012|			has_war_with = ENG
+   8013|		}
+>> 8014|		controls_state = 2475
+   8015|	}
+   8016|
+   8017|	mean_time_to_happen = {
+   8018|		months = 16
+   8019|	}
+   8020|
+   8021|	fire_only_once = yes
+   8022|
+   8023|	option = {
+   8024|		name = news.218.a
+   8025|	}
+   8026|}
+   8027|
+   8028|#Soviet Union's Great Purge
+   8029|news_event = {
+   8030|	id = news.219
+   8031|	title = news.219.t
+   8032|	desc = news.219.d
+   8033|	picture = GFX_news_event_journalists_speech
+   8034|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   8478|					has_government = fascism
+   8479|					has_government = communism
+   8480|				}
+   8481|			}
+   8482|		}
+   8483|	}
+   8484|}
+   8485|
+   8486|news_event = {
+   8487|	id = news.227
+   8488|	title = news.227.t
+   8489|	desc = news.227.d
+   8490|	picture = GFX_news_event_generic_sign_treaty1
+   8491|
+   8492|	fire_only_once = yes
+   8493|
+   8494|	trigger = {
+   8495|		tag = USA
+   8496|		has_war_with = GER
+   8497|		divisions_in_state = {
+>> 8498|			state = 64
+   8499|			size > 0
+   8500|		}
+   8501|		NOT = {
+   8502|			GER = {
+   8503|				has_capitulated = yes
+   8504|			}
+   8505|		}
+   8506|		NOT = {
+   8507|			SOV = {
+   8508|				divisions_in_state = {
+>> 8509|					state = 64
+   8510|					size > 0
+   8511|				}
+   8512|			}
+   8513|		}
+   8514|	}
+   8515|
+   8516|	mean_time_to_happen = {
+   8517|		months = 60
+   8518|	}
+   8519|
+   8520|	option = {
+   8521|		name = news.227.a
+   8522|	}
+   8523|}
+   8524|
+   8525|
+   8526|#British Diplomatic Balkan Strategy
+   8527|news_event = {
+   8528|	id = news.228
+   8529|	title = news.228.t
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   8922|					is_in_faction_with = BEL
+   8923|				}
+   8924|			}
+   8925|		}
+   8926|	}
+   8927|}
+   8928|
+   8929|news_event = {
+   8930|	id = news.235
+   8931|	title = news.235.t
+   8932|	desc = news.235.d
+   8933|	picture = GFX_news_event_generic_sign_treaty1
+   8934|
+   8935|	fire_only_once = yes
+   8936|
+   8937|	trigger = {
+   8938|		tag = GER
+   8939|		has_government = fascism
+   8940|		has_war_with = USA
+   8941|		divisions_in_state = {
+>> 8942|			state = 378
+   8943|			size > 3
+   8944|		}
+   8945|		NOT = {
+   8946|			OR = {
+   8947|				has_global_flag = chaplin_seized
+   8948|				has_global_flag = chaplin_resistance
+   8949|			}
+   8950|		}
+   8951|	}
+   8952|
+   8953|	mean_time_to_happen = {
+   8954|		months = 12
+   8955|	}
+   8956|
+   8957|	immediate = {
+   8958|		hidden_effect = {
+   8959|			set_global_flag = chaplin_seized
+   8960|		}
+   8961|	}
+   8962|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  12531|				OR = {
+  12532|					TAG = MEX
+  12533|					is_in_faction_with = MEX
+  12534|					TAG = USA
+  12535|					is_in_faction_with = USA
+  12536|				}
+  12537|			}
+  12538|		}
+  12539|	}
+  12540|}
+  12541|
+  12542|# Humiliation in Africa
+  12543|news_event = {
+  12544|	id = news.337
+  12545|	title = news.337.title
+  12546|
+  12547|	desc = {
+  12548|		text = news.337.desc
+  12549|		trigger = {
+  12550|			ITA = {
+>>12551|				NOT = {	owns_state = 550 } #ERITREA
+>>12552|				NOT = {	owns_state = 559 } #SOMALILAND
+>>12553|				NOT = {	owns_state = 844 } #JUBALAND
+  12554|			}
+  12555|		}
+  12556|	}
+  12557|	desc = {
+  12558|		text = news.337.desc_some_states
+  12559|		trigger = {
+  12560|			ITA = {
+  12561|				NOT = {
+  12562|					AND = {
+>>12563|						owns_state = 550 #ERITREA
+>>12564|						owns_state = 559 #SOMALILAND
+>>12565|						owns_state = 844 #JUBALAND
+  12566|					}
+  12567|				}
+  12568|				count_triggers = {
+  12569|					amount = 1
+>>12570|					owns_state = 550 #ERITREA
+>>12571|					owns_state = 559 #SOMALILAND
+>>12572|					owns_state = 844 #JUBALAND
+  12573|				}
+  12574|			}
+  12575|		}
+  12576|	}
+  12577|	desc = {
+  12578|		text = news.337.desc_no_states
+  12579|		trigger = {
+  12580|			ITA = {
+>>12581|				owns_state = 550 #ERITREA
+>>12582|				owns_state = 559 #SOMALILAND
+>>12583|				owns_state = 844 #JUBALAND
+  12584|			}
+  12585|		}
+  12586|	}
+  12587|
+  12588|	picture = GFX_news_event_african_soldiers
+  12589|	
+  12590|	major = yes
+  12591|	
+  12592|	fire_only_once = yes
+  12593|	is_triggered_only = yes
+  12594|	
+  12595|	immediate = {
+  12596|		set_global_flag = humiliation_in_africa
+  12597|	}
+  12598|	
+  12599|	option = {
+  12600|		name = news.337.a
+  12601|		trigger = {
+  12602|			NOT = { tag = ITA }
+  12603|			NOT = { tag = ETH }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

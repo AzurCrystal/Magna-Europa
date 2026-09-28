@@ -1,0 +1,82 @@
+    288|add_namespace = wtt_britain_lease_azores
+    289|
+    290|# England request lease of Azore from POR
+    291|country_event = {
+    292|	id = wtt_britain_lease_azores.1
+    293|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_britain_lease_azores.1 FROM = [From.GetName]" }
+    294|	title = wtt_britain_lease_azores.1.t
+    295|	desc = wtt_britain_lease_azores.1.desc
+    296|	picture = GFX_report_event_degaulle_churchill
+    297|
+    298|	is_triggered_only = yes
+    299|	
+    300|	#Accept lease
+    301|	option = {
+    302|		name = wtt_britain_lease_azores.1.a
+    303|		ai_chance = {
+    304|			base = 10
+    305|		}
+    306|		FROM = {
+    307|			set_country_flag = wtt_britain_lease_azores_accepted
+>>  308|			transfer_state = 698
+    309|			country_event = { id = wtt_britain_lease_azores.2 }
+    310|		}
+    311|	}
+    312|
+    313|	#Never
+    314|	option = {
+    315|		name = wtt_britain_lease_azores.1.b
+    316|		ai_chance = {
+    317|			base = 0
+    318|		}
+    319|		FROM = {
+    320|			country_event = { id = wtt_britain_lease_azores.3 }
+    321|		}
+    322|	}
+    323|}
+    324|
+    325|# Answer from POR - yes
+    326|country_event = {
+    327|	id = wtt_britain_lease_azores.2
+    328|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_britain_lease_azores.2 FROM = [From.GetName]" }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    357|# Was is over - Give control back to POR
+    358|country_event = {
+    359|	id = wtt_britain_lease_azores.4
+    360|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_britain_lease_azores.4 FROM = [From.GetName]" }
+    361|	title = wtt_britain_lease_azores.4.t
+    362|	desc = wtt_britain_lease_azores.4.desc
+    363|	picture = GFX_report_event_ast_navy
+    364|
+    365|	trigger = {
+    366|		has_country_flag = wtt_britain_lease_azores_accepted
+    367|		has_war = no
+    368|	}
+    369|
+    370|	mean_time_to_happen = { days = 2 }
+    371|
+    372|	fire_only_once = yes
+    373|	
+    374|	option = {
+    375|		name = wtt_britain_lease_azores.4.a
+    376|		POR = {
+>>  377|			transfer_state = 698
+    378|			country_event = wtt_britain_lease_azores.5
+    379|		}
+    380|	}
+    381|}
+    382|
+    383|country_event = {
+    384|	id = wtt_britain_lease_azores.5
+    385|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_britain_lease_azores.5 FROM = [From.GetName]" }
+    386|	title = wtt_britain_lease_azores.5.t
+    387|	desc = wtt_britain_lease_azores.5.desc
+    388|	picture = GFX_report_event_ast_navy
+    389|
+    390|	is_triggered_only = yes
+    391|	
+    392|	option = {
+    393|		name = wtt_britain_lease_azores.5.a		
+    394|	}
+    395|}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

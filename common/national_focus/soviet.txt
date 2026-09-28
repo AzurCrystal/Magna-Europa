@@ -1,4 +1,4 @@
-﻿### search_filters = {FOCUS_FILTER_POLITICAL}
+### search_filters = {FOCUS_FILTER_POLITICAL}
 ### search_filters = {FOCUS_FILTER_RESEARCH}
 ### search_filters = {FOCUS_FILTER_INDUSTRY}
 ### search_filters = {FOCUS_FILTER_STABILITY}
@@ -210,7 +210,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_heavy_industry"
  #TODO_Manu: This is just copy-pasted from the old focus -> Is this what we want?
-			IF = {
+			if = {
 				limit = {
 					any_owned_state = {
 						is_controlled_by = ROOT 
@@ -218,7 +218,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						NOT = { has_state_flag = SOV_finish_five_year_plan_2IC }
 					}
@@ -229,7 +228,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -241,14 +239,13 @@ focus_tree = {
 					set_state_flag = SOV_finish_five_year_plan_2IC
 				}
 			}
-			ELSE = {
+			else = {
 				random_owned_controlled_state = {
 					limit = {
 						# industrial_complex > 0
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -260,7 +257,7 @@ focus_tree = {
 					set_state_flag = SOV_finish_five_year_plan_2IC
 				}
 			}
-			IF = {
+			if = {
 				limit = {
 					check_variable = { num_owned_states > 1}
 					any_owned_state = {
@@ -269,7 +266,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						NOT = { has_state_flag = SOV_finish_five_year_plan_2IC }
 					}
@@ -280,7 +276,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						NOT = { has_state_flag = SOV_finish_five_year_plan_2IC }
 					}
@@ -293,7 +288,7 @@ focus_tree = {
 					set_state_flag = SOV_finish_five_year_plan_2IC
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					check_variable = { num_owned_states > 1 }
 				}
@@ -303,7 +298,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						NOT = { has_state_flag = SOV_finish_five_year_plan_2IC }
 					}
@@ -360,7 +354,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 2
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -377,7 +370,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -439,7 +431,7 @@ focus_tree = {
 			}
 
 			#Supply Hub in Yerevan
-			230 = {
+			1005 = { # was vanilla 230
 				add_building_construction = {
 					type = supply_node
 					level = 1
@@ -448,7 +440,7 @@ focus_tree = {
 				}
 			}
 			#Supply Hub in Kandalaksha
-			213 = {
+			19 = { # was vanilla 213
 				add_building_construction = {
 					type = supply_node
 					level = 1
@@ -665,7 +657,6 @@ focus_tree = {
 						free_building_slots = {
 							building = fuel_silo
 							size > 0
-							include_locked = yes
 						}
 						NOT = { has_state_flag = SOV_increase_state_reserves_flag }
 					}
@@ -677,7 +668,6 @@ focus_tree = {
 							free_building_slots = {
 								building = fuel_silo
 								size > 0
-								include_locked = yes
 							}
 							NOT = { has_state_flag = SOV_increase_state_reserves_flag }
 						}
@@ -688,7 +678,6 @@ focus_tree = {
 							free_building_slots = {
 								building = fuel_silo
 								size > 0
-								include_locked = yes
 							}
 							NOT = { has_state_flag = SOV_increase_state_reserves_flag }
 						}
@@ -707,7 +696,6 @@ focus_tree = {
 							free_building_slots = {
 								building = fuel_silo
 								size > 0
-								include_locked = yes
 							}
 							NOT = { has_state_flag = SOV_increase_state_reserves_flag }
 						}
@@ -844,7 +832,6 @@ focus_tree = {
 				free_building_slots = {
 					building = industrial_complex
 					size > 1
-					include_locked = yes
 				}
 			}
 			SOV_third_five_year_plan_available = yes
@@ -870,7 +857,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 1
@@ -895,7 +881,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 						NOT = {	has_state_flag = SOV_steel_casting_industry_flag }
 					}
@@ -909,7 +894,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 						NOT = {	has_state_flag = SOV_steel_casting_industry_flag }
 					}
@@ -1064,9 +1048,9 @@ focus_tree = {
 			#Build Railways in Caucasus
 			if = {
 				limit = {
-					has_full_control_of_state = 229 #BAKU
-					has_full_control_of_state = 230 #ARMENIA
-					has_full_control_of_state = 231 #GEORGIA
+					has_full_control_of_state = 2292 #BAKU
+					has_full_control_of_state = 1005 #ARMENIA
+					has_full_control_of_state = 2271 #GEORGIA
 				}
 				# Baku - Tbilisi
 				build_railway = {
@@ -1075,8 +1059,8 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 232 #DAGESTAN
-					has_full_control_of_state = 821 #CHECHNYA-INGUSHETIA
+					has_full_control_of_state = 2399 #DAGESTAN
+					has_full_control_of_state = 2278 #CHECHNYA-INGUSHETIA
 				}
 				# Makhachkala (Hub province) - Grozny
 				build_railway = {
@@ -1473,7 +1457,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 			}
@@ -1485,7 +1468,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 			}
@@ -1516,7 +1498,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
@@ -1544,7 +1525,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
@@ -1577,14 +1557,13 @@ focus_tree = {
 		cost = 5
 
 		bypass = {
-			175 = { #CHELYABISNK
+			2387 = { #CHELYABISNK
 				is_fully_controlled_by = ROOT
 				NOT = {
 					infrastructure < 5
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 			}
@@ -1596,7 +1575,6 @@ focus_tree = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
-						include_locked = yes
 					}
 				}
 			}
@@ -1604,7 +1582,7 @@ focus_tree = {
 
 		available = {
 			OR = {
-				175 = { #CHELYABISNK
+				2387 = { #CHELYABISNK
 					is_fully_controlled_by = ROOT
 				}
 				97 = { #ZLATOUST
@@ -1621,17 +1599,16 @@ focus_tree = {
 			set_temp_variable = { SOV_states_targeted_eastern_development = 0 } #Used this way to prioritize between desirable states
 			if = {
 				limit = {
-					175 = { #CHELYABISNK
+					2387 = { #CHELYABISNK
 						is_fully_controlled_by = ROOT
 						infrastructure < 5
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
-				175 = { #CHELYABISNK
+				2387 = { #CHELYABISNK
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -1655,7 +1632,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
@@ -1884,7 +1860,6 @@ focus_tree = {
 				free_building_slots = {
 					building = arms_factory
 					size > 1
-					include_locked = yes
 				}
 			}
 		}
@@ -1902,7 +1877,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -2434,7 +2408,6 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -2464,7 +2437,7 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			195 = { #LENINGRAD
+			138 = { #LENINGRAD
 				is_owned_and_controlled_by = ROOT
 			}
 		}
@@ -2480,7 +2453,6 @@ focus_tree = {
 						free_building_slots = {
 							building = dockyard
 							size > 0
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -2936,16 +2908,14 @@ focus_tree = {
 					free_building_slots = {
 						building = dockyard
 						size > 0
-						include_locked = yes
 					}
 				}
 				if = {
 					limit = {
-						state = 195 #LENINGRAD - Gets 2 dockyards instead of 1
+						state = 138 #LENINGRAD - Gets 2 dockyards instead of 1
 						free_building_slots = {
 							building = dockyard
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -3261,7 +3231,7 @@ focus_tree = {
 				bonus = 1.0
 				uses = 1
 				category = ca_tech
-				category = cl_tech
+				category = industry
 			}
 
 			#Kronshtadt Class Battlecruiser
@@ -4117,7 +4087,6 @@ focus_tree = {
 						free_building_slots = {
 							building = arms_factory
 							size > 0
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -4344,16 +4313,15 @@ focus_tree = {
 			
 			if = { # 2 Mils in Chelyabinsk
 				limit = {
-					has_full_control_of_state = 572
-					572 = {
+					has_full_control_of_state = 2387 # was vanilla 572
+					2387 = { # was vanilla 572
 						free_building_slots = {
 							building = arms_factory
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
-				572 = {
+				2387 = { # was vanilla 572
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
@@ -4370,7 +4338,6 @@ focus_tree = {
 						free_building_slots = {
 							building = arms_factory
 							size > 0
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -4599,7 +4566,6 @@ focus_tree = {
 						free_building_slots = {
 							building = arms_factory
 							size > 0
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -5136,7 +5102,7 @@ focus_tree = {
 						if = {
 							limit = {
 								NOT = {
-									state = 227
+									state = 557 # was vanilla 227
 								}
 								is_vilnius = no
 							}
@@ -5363,9 +5329,9 @@ focus_tree = {
 
 		available = {
 			OR = {
-				has_full_control_of_state = 195 #LENINGRAD
-				has_full_control_of_state = 208 #LUGA
-				has_full_control_of_state = 137 #CRIMEA
+				has_full_control_of_state = 138 #LENINGRAD
+				has_full_control_of_state = 2442 #LUGA
+				has_full_control_of_state = 2127 #CRIMEA
 			}
 		}
 		
@@ -5375,7 +5341,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_impregnable_forts"
 			if = {
 				limit = {
-					has_full_control_of_state = 195 #LENINGRAD
+					has_full_control_of_state = 138 #LENINGRAD
 				}
 				119 = { #LENINGRAD
 					add_building_construction = {
@@ -5468,9 +5434,9 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			has_full_control_of_state = 57 #ONEGA
+			has_full_control_of_state = 52 #ONEGA
 			has_full_control_of_state = 2458 #OLONETS
-			has_full_control_of_state = 102 #TIKHVIN
+			has_full_control_of_state = 2454 #TIKHVIN
 			has_full_control_of_state = 119 #LENINGRAD
 		}
 		
@@ -5518,9 +5484,9 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 102 #TIKHVIN
+					has_full_control_of_state = 2454 #TIKHVIN
 				}
-				102 = { #TIKHVIN
+				2454 = { #TIKHVIN
 					add_building_construction = {
 						type = anti_air_building
 						level = 1
@@ -6240,7 +6206,7 @@ focus_tree = {
 
 			#New
 			hidden_effect = {
-				set_technology = { masterful_blitz = 1 popup = no }
+				unlock_tactic = tactic_masterful_blitz
 			}
 			custom_effect_tooltip = SOV_the_glory_of_the_red_army_masterful_blitz_tactic_tt
 		}
@@ -6281,7 +6247,7 @@ focus_tree = {
 
 			#New
 			hidden_effect = {
-				set_technology = { masterful_blitz = 1 popup = no }
+				unlock_tactic = tactic_masterful_blitz
 			}
 			custom_effect_tooltip = SOV_the_glory_of_the_red_army_masterful_blitz_tactic_tt
 		}
@@ -6665,7 +6631,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 				}
@@ -6682,7 +6647,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -6704,7 +6668,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 				}
@@ -6718,7 +6681,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -6736,7 +6698,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 				}
@@ -6746,7 +6707,6 @@ focus_tree = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -6970,16 +6930,15 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					217 = {
+					457 = { # was vanilla 217
 						is_controlled_by = ROOT
 						free_building_slots = {
 							building = arms_factory
 							size > 1
-							include_locked = yes
 						}
 					}
 				}
-				217 = {
+				457 = { # was vanilla 217
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
@@ -6995,7 +6954,6 @@ focus_tree = {
 						free_building_slots = {
 							building = arms_factory
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -7860,12 +7818,12 @@ focus_tree = {
 				}
 				random_owned_state = {
 					limit = {
-						NOT = { state = 214 }
-						NOT = { state = 192 }
-						NOT = { state = 651 }
-						NOT = { state = 137 }
+						NOT = { state = 41 } # was vanilla 214
+						NOT = { state = 2063 } # was vanilla 192
+						NOT = { state = 2388 } # was vanilla 651
+						NOT = { state = 2127 } # was vanilla 137
 						NOT = { state = 405 }
-						NOT = { state = 571 }
+						NOT = { state = 2387 } # was vanilla 571
 					}
 					set_state_flag = SOV_stalinist_state 
 				}
@@ -8026,12 +7984,12 @@ focus_tree = {
 				random_owned_state = {
 					limit = { 
 						OR = {
-							state = 399
-							state = 398
-							state = 400
-							state = 406 
-							state = 402
-							state = 407
+							state = 2658 # was vanilla 399
+							state = 2636 # was vanilla 398
+							state = 108 # was vanilla 400
+							state = 2517 # was vanilla 406
+							state = 632 # was vanilla 402
+							state = 430 # was vanilla 407
 						}
 						#NOT = { has_state_flag = SOV_left_opposition_state }
 						#NOT = { has_state_flag = SOV_right_opposition_state }
@@ -8043,12 +8001,12 @@ focus_tree = {
 				random_owned_state = {
 					limit = { 
 						OR = {
-							state = 399
-							state = 398
-							state = 400
-							state = 406 
-							state = 402
-							state = 407
+							state = 2658 # was vanilla 399
+							state = 2636 # was vanilla 398
+							state = 108 # was vanilla 400
+							state = 2517 # was vanilla 406
+							state = 632 # was vanilla 402
+							state = 430 # was vanilla 407
 						}
 						#NOT = { has_state_flag = SOV_left_opposition_state }
 						#NOT = { has_state_flag = SOV_right_opposition_state }
@@ -8194,16 +8152,16 @@ focus_tree = {
 				random_owned_state = {
 					limit = { 
 						OR = {
-							state = 236
-							state = 406
-							state = 407
-							state = 249 
-							state = 250
-							state = 401
-							state = 194
-							state = 201
-							state = 204
-							state = 206
+							state = 2516 # was vanilla 236
+							state = 2517 # was vanilla 406
+							state = 430 # was vanilla 407
+							state = 2646 # was vanilla 249
+							state = 261 # was vanilla 250
+							state = 2429 # was vanilla 401
+							state = 2577 # was vanilla 194
+							state = 436 # was vanilla 201
+							state = 2686 # was vanilla 204
+							state = 2135 # was vanilla 206
 						}
 						NOT = { has_state_flag = SOV_left_opposition_state }
 						NOT = { has_state_flag = SOV_right_opposition_state }
@@ -8279,11 +8237,11 @@ focus_tree = {
 				random_owned_state = {
 					limit = { 
 						OR = {
-							state = 234
-							state = 227
-							state = 235
-							state = 238 
-							state = 237
+							state = 696 # was vanilla 234
+							state = 557 # was vanilla 227
+							state = 2867 # was vanilla 235
+							state = 2410 # was vanilla 238
+							state = 2513 # was vanilla 237
 						}
 						NOT = { has_state_flag = SOV_left_opposition_state }
 						NOT = { has_state_flag = SOV_right_opposition_state }
@@ -8388,7 +8346,7 @@ focus_tree = {
 				SOV_get_centre_military_support = yes 
 			}
 			custom_effect_tooltip = SOV_exiled_advisors_available_tt
-			IF = {
+			if = {
 				limit = { has_idea = trotskyite_plot_nsb }
 				effect_tooltip = { 
 					remove_ideas = trotskyite_plot_nsb
@@ -8495,14 +8453,14 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_left_purges"
 			custom_effect_tooltip = SOV_left_purges_tt
-			IF = { limit = { has_character = SOV_nikolay_bukharin } retire_character = SOV_nikolay_bukharin }
-			IF = { limit = { has_character = SOV_aleksey_rykov } retire_character = SOV_aleksey_rykov }
-			IF = { limit = { has_character = SOV_mikhail_tomsky } retire_character = SOV_mikhail_tomsky }
-			IF = { limit = { has_character = SOV_grigory_zinovyev } retire_character = SOV_grigory_zinovyev }
-			IF = { limit = { has_character = SOV_martemyan_ryutin } retire_character = SOV_martemyan_ryutin }
-			IF = { limit = { has_character = SOV_mikhail_kalinin } retire_character = SOV_mikhail_kalinin }
-			IF = { limit = { has_character = SOV_nikita_khrushchyov } retire_character = SOV_nikita_khrushchyov }
-			IF = { limit = { has_character = SOV_vsevolod_merkulov } retire_character = SOV_vsevolod_merkulov }
+			if = { limit = { has_character = SOV_nikolay_bukharin } retire_character = SOV_nikolay_bukharin }
+			if = { limit = { has_character = SOV_aleksey_rykov } retire_character = SOV_aleksey_rykov }
+			if = { limit = { has_character = SOV_mikhail_tomsky } retire_character = SOV_mikhail_tomsky }
+			if = { limit = { has_character = SOV_grigory_zinovyev } retire_character = SOV_grigory_zinovyev }
+			if = { limit = { has_character = SOV_martemyan_ryutin } retire_character = SOV_martemyan_ryutin }
+			if = { limit = { has_character = SOV_mikhail_kalinin } retire_character = SOV_mikhail_kalinin }
+			if = { limit = { has_character = SOV_nikita_khrushchyov } retire_character = SOV_nikita_khrushchyov }
+			if = { limit = { has_character = SOV_vsevolod_merkulov } retire_character = SOV_vsevolod_merkulov }
 			set_variable = { SOV_factionalism_political_power_factor = 0 }
 			custom_effect_tooltip = SOV_left_right_purges_factionalism_tt
 			
@@ -8534,7 +8492,6 @@ focus_tree = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -8622,13 +8579,13 @@ focus_tree = {
 				}
 			}
 
-			IF = {
+			if = {
 				limit = {
 					SOV_lev_trotsky = { is_country_leader = yes }
 				}
 				swap_ruler_traits = { remove = permanent_revolutionary add = triumphant_revolutionary }
 			}
-			ELSE = {
+			else = {
 				effect_tooltip = {
 					custom_effect_tooltip = SOV_the_permanent_revolution_trotsky_trait_tt
 					add_trait = {
@@ -8737,12 +8694,11 @@ focus_tree = {
 				category = infantry_weapons 
 			}
 			random_owned_controlled_state = {
-				prioritize = { 252 254 }
+				prioritize = { 171 250 } # was vanilla 252,254
 				limit = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -8753,12 +8709,11 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
-				prioritize = { 256 239 260 }
+				prioritize = { 2641 366 2421 } # was vanilla 256,239,260
 				limit = {
 					free_building_slots = {
 						building = industrial_complex 
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -8769,12 +8724,11 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
-				prioritize = { 195 214 213 408 137 }
+				prioritize = { 138 41 19 408 2127 } # was vanilla 195,214,213,137
 				limit = {
 					free_building_slots = {
 						building = dockyard  
 						size > 1
-						include_locked = yes
 					}
 					is_coastal = yes 
 				}
@@ -8862,23 +8816,22 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					OR = {
-						state = 202 # Kiev
-						state = 229 # Azerbaijan
-						state = 230 # Armenia
-						state = 231 # Georgia
+						state = 2081 # Kiev
+						state = 2293 # Azerbaijan
+						state = 1005 # Armenia
+						state = 2271 # Georgia
 						state = 405 # tashkent
 						state = 408 # Vladivostok
-						state = 584 # Askabad
+						state = 1006 # Askabad
 						state = 586 # Alma Ata
-						state = 654 # Oyrot
+						state = 464 # Oyrot
 						state = 732 # Pamir
 						state = 743 # Dushanbe
-						state = 206 # minsk
+						state = 2135 # minsk
 					}
 					free_building_slots = {
 					    building = industrial_complex 
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -8906,8 +8859,8 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_autonomous_soviet_republics"
 			custom_effect_tooltip = SOV_autonomous_soviet_republics_tt
 			# Georgia
-			IF = {
-				limit = { 231 = { is_owned_and_controlled_by = ROOT }}
+			if = {
+				limit = { 2271 = { is_owned_and_controlled_by = ROOT }} # was vanilla 231
 				release_autonomy = {
 					target = GEO
 					autonomy_state = autonomy_puppet
@@ -8921,8 +8874,8 @@ focus_tree = {
 				}
 			}
 			# Armenia
-			IF = {
-				limit = { 230 = { is_owned_and_controlled_by = ROOT }}
+			if = {
+				limit = { 1005 = { is_owned_and_controlled_by = ROOT }} # was vanilla 230
 				release_autonomy = {
 					target = ARM
 					autonomy_state = autonomy_puppet
@@ -8937,7 +8890,7 @@ focus_tree = {
 			}
 
 			# Axerbaijan
-			IF = {
+			if = {
 				limit = { 229 = { is_owned_and_controlled_by = ROOT }}
 				release_autonomy = {
 					target = AZR
@@ -8953,8 +8906,8 @@ focus_tree = {
 			}
 
 			# Belarus
-			IF = {
-				limit = { 206 = { is_owned_and_controlled_by = ROOT }}
+			if = {
+				limit = { 2135 = { is_owned_and_controlled_by = ROOT }} # was vanilla 206
 				release_autonomy = {
 					target = BLR
 					autonomy_state = autonomy_puppet
@@ -9141,12 +9094,12 @@ focus_tree = {
 				}
 				random_owned_state = {
 					limit = {
-						NOT = { state = 214 }
-						NOT = { state = 192 }
-						NOT = { state = 651 }
-						NOT = { state = 137 }
+						NOT = { state = 41 } # was vanilla 214
+						NOT = { state = 2063 } # was vanilla 192
+						NOT = { state = 2388 } # was vanilla 651
+						NOT = { state = 2127 } # was vanilla 137
 						NOT = { state = 405 }
-						NOT = { state = 571 }
+						NOT = { state = 2387 } # was vanilla 571
 					}
 					set_state_flag = SOV_stalinist_state 
 				}
@@ -9496,9 +9449,9 @@ focus_tree = {
 			add_political_power = 75
 			add_stability = 0.1
 			add_war_support	= 0.1
-			IF = { 
+			if = { 
 				limit = { 
-					NOT = { has_rule = can_join_factions } 
+					NOT = { has_rule = can_join_factions }
 				} 
 				set_rule = { can_join_factions = yes } 
 			}
@@ -9583,7 +9536,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_coup_detat"
 			# Stalin dead
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_character = SOV_iosif_stalin }
 				}
@@ -9615,7 +9568,7 @@ focus_tree = {
 			}
 			
 			# NOT Ready
-			ELSE = {
+			else = {
 				SOV_opposition_support_medium_increase_effect = yes
 				custom_effect_tooltip = SOV_coup_detat_civil_war_tt
 				add_to_variable = { SOV.SOV_right_opposition_army_support = 0.1 }
@@ -9661,14 +9614,14 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_right_purges"
 			
 			custom_effect_tooltip = SOV_right_purges_tt
-			IF = { limit = { has_character = SOV_lev_trotsky } SOV_lev_trotsky = { retire = yes } }
-			IF = { limit = { has_character = SOV_ivan_smirnov } SOV_ivan_smirnov = { retire = yes } }
-			IF = { limit = { has_character = SOV_ivar_smilga } SOV_ivar_smilga = { retire = yes } }
-			IF = { limit = { has_character = SOV_aleksandr_shlyapnikov } SOV_aleksandr_shlyapnikov = { retire = yes } }
+			if = { limit = { has_character = SOV_lev_trotsky } SOV_lev_trotsky = { retire = yes } }
+			if = { limit = { has_character = SOV_ivan_smirnov } SOV_ivan_smirnov = { retire = yes } }
+			if = { limit = { has_character = SOV_ivar_smilga } SOV_ivar_smilga = { retire = yes } }
+			if = { limit = { has_character = SOV_aleksandr_shlyapnikov } SOV_aleksandr_shlyapnikov = { retire = yes } }
 			custom_effect_tooltip = SOV_left_right_purges_factionalism_tt
 			set_variable = { SOV_factionalism_political_power_factor = 0 }
 
-			IF = { 
+			if = { 
 				limit = { has_idea = trotskyite_plot_nsb}
 				remove_ideas = trotskyite_plot_nsb
 			}
@@ -9762,7 +9715,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_a_new_theory_of_revolution"
 			add_political_power = 75
-			IF = {
+			if = {
 				limit = { has_character = SOV_nikolay_bukharin }
 				if = {
 					limit = {
@@ -9881,12 +9834,11 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_paced_industrialization"
 			random_owned_controlled_state = {
-				prioritize = { 252 254 }
+				prioritize = { 171 250 } # was vanilla 252,254
 				limit = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -9897,12 +9849,11 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
-				prioritize = { 256 239 260 }
+				prioritize = { 2641 366 2421 } # was vanilla 256,239,260
 				limit = {
 					free_building_slots = {
 						building = industrial_complex 
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -10126,7 +10077,7 @@ focus_tree = {
 				ideology = communism
 				popularity = 0.1
 			}
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_completed_focus = SOV_the_socialist_bulwark }
 				}
@@ -10356,7 +10307,7 @@ focus_tree = {
 			SOV_paranoia_medium_increase_effect = yes
 			custom_effect_tooltip = SOV_military_support_tt 
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
 						SOV_is_left_opposition = yes 
 					}
@@ -10367,7 +10318,7 @@ focus_tree = {
 						min = 0.1
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						SOV_is_right_opposition = yes
 					}
@@ -10380,7 +10331,7 @@ focus_tree = {
 				}
 				SOV_get_centre_military_support = yes 
 
-				IF = { #Align a valid Field Marshal, if possible
+				if = { #Align a valid Field Marshal, if possible
 					limit = {
 						any_army_leader = {
 							is_field_marshal = yes
@@ -10400,14 +10351,14 @@ focus_tree = {
 							NOT = { has_trait = trait_SOV_trotskyist }
 							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
 						}
-						IF = {
+						if = {
 							limit = {
 								SOV_is_left_opposition = yes 
 							}
 							add_unit_leader_trait = trait_SOV_trotskyist
 							set_character_flag = SOV_aligned_left_opposition_flag
 						}
-						ELSE_IF = {
+						else_if = {
 							limit = {
 								SOV_is_right_opposition = yes
 							}
@@ -10416,7 +10367,7 @@ focus_tree = {
 						}
 					}
 				}
-				ELSE = {
+				else = {
 					random_army_leader = {
 						limit = {
 							NOT = { is_character = SOV_mikhail_tukhachevsky } #Has his own focus in the left oppo, probably wouldn't go with the right oppo straight away
@@ -10427,14 +10378,14 @@ focus_tree = {
 							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
 							
 						}
-						IF = {
+						if = {
 							limit = {
 								SOV_is_left_opposition = yes 
 							}
 							add_unit_leader_trait = trait_SOV_trotskyist
 							set_character_flag = SOV_aligned_left_opposition_flag
 						}
-						ELSE_IF = {
+						else_if = {
 							limit = {
 								SOV_is_right_opposition = yes
 							}
@@ -10555,7 +10506,7 @@ focus_tree = {
 			SOV_paranoia_low_decrease_effect = yes 
 			custom_effect_tooltip = SOV_infiltrate_the_nkvd_tt
 			set_country_flag = SOV_nkvd_aligned_flag
-			IF = {
+			if = {
 				limit = { SOV_is_right_opposition = yes }
 				custom_effect_tooltip = SOV_infiltrate_the_nkvd_coup_tt
 			}
@@ -10580,7 +10531,7 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_cooperation_against_stalin"
 			SOV_paranoia_medium_increase_effect = yes 
-			IF = {
+			if = {
 				limit = {
 					SOV_is_left_opposition = yes 
 				}
@@ -10594,7 +10545,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = {
 					SOV_is_right_opposition = yes 
 				}
@@ -10608,7 +10559,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = SOV_cooperation_against_stalin_other_tt
 			}
 			# Modify Factionalism - change tooltip if changing values!!!
@@ -10714,7 +10665,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_liberate_ryutin"
 			SOV_paranoia_medium_increase_effect = yes 
 			custom_effect_tooltip = SOV_liberate_ryutin_tt 
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				566 = { set_state_flag = SOV_left_opposition_state }
 				hidden_effect = {
@@ -10730,7 +10681,7 @@ focus_tree = {
 					}
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				566 = { set_state_flag = SOV_right_opposition_state }
 				hidden_effect = {
@@ -10769,14 +10720,14 @@ focus_tree = {
 			# Modify Factionalism - change tooltip if changing values!!!
 			custom_effect_tooltip = SOV_return_democracy_to_the_party_factionalism_tt
 			add_to_variable = { SOV_factionalism_political_power_factor = -0.05 }
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				custom_effect_tooltip = SOV_return_democracy_to_the_party_unlock_right_tt 
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = SOV_return_democracy_to_the_party_unlock_left_tt
 			}
-			IF = { 
+			if = { 
 				limit = { has_idea = trotskyite_plot_nsb}
 				remove_ideas = trotskyite_plot_nsb 
 			}
@@ -10828,7 +10779,7 @@ focus_tree = {
 						small = "GFX_idea_SOV_aleksandr_shlyapnikov"
 					}
 				}
-				IF = {
+				if = {
 					limit = { SOV_is_right_opposition = yes }
 					every_character = {
 						limit = {
@@ -10838,7 +10789,7 @@ focus_tree = {
 						clr_character_flag = SOV_exiled_flag
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = { SOV_is_left_opposition = yes }
 					every_character = {
 						limit = {
@@ -12502,7 +12453,7 @@ ai_will_do = {
 							country_event = { id = NSB_soviet_foreign_politics_events.30 hours = 4 random_hours = 2 }
 							custom_effect_tooltip = if_they_accept
 							effect_tooltip = {
-								ROOT = { transfer_state = 463 } #ALASKA
+								ROOT = { transfer_state = 2292 } #ALASKA
 								ROOT = { transfer_state = 650 } #ATTU ISLAND
 								add_opinion_modifier = {
 									target = ROOT
@@ -12527,7 +12478,7 @@ ai_will_do = {
 							country_event = { id = NSB_soviet_foreign_politics_events.30 hours = 4 random_hours = 2 }
 							custom_effect_tooltip = if_they_accept
 							effect_tooltip = {
-								ROOT = { transfer_state = 463 } #ALASKA
+								ROOT = { transfer_state = 2292 } #ALASKA
 								add_opinion_modifier = {
 									target = ROOT
 									modifier = SOV_pressured_our_government
@@ -12600,7 +12551,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 1
-							include_locked = yes
 						}
 					}
 				}
@@ -12620,7 +12570,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
@@ -12642,7 +12591,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 1
-							include_locked = yes
 						}
 					}
 				}
@@ -12662,7 +12610,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
@@ -12684,7 +12631,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 0
-							include_locked = yes
 						}
 					}
 				}
@@ -12925,7 +12871,7 @@ ai_will_do = {
 					is_core_of = LAT
 					is_core_of = LIT
 				}
-				NOT = { state = 227 }
+				NOT = { state = 557 } # was vanilla 227
 				is_controlled_by = ROOT
 			}
 		}
@@ -14545,6 +14491,10 @@ ai_will_do = {
 					id = SOV
 					value = 300
 				}
+				add_relation_rule_override = {
+					target = SOV
+					can_send_volunteers = yes 
+				}
 			}
 		}
 	}
@@ -15189,7 +15139,7 @@ ai_will_do = {
 			promote_character = SOV_konstantin_rodzayevsky
 			add_ideas = SOV_national_brotherhood_idea
 			news_event = { id = nsb_news.401 hours = 12 }
-			IF = { 
+			if = { 
 				limit = { has_idea = SOV_uncertain_counter_revolution_idea }
 				remove_ideas = SOV_uncertain_counter_revolution_idea
 			}
@@ -15231,7 +15181,6 @@ ai_will_do = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					is_core_of = ROOT
 				}
@@ -15248,7 +15197,6 @@ ai_will_do = {
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
-						include_locked = yes
 					}
 					NOT = { has_state_flag = SOV_russian_corporate_state_2IC }
 					is_core_of = ROOT
@@ -15287,7 +15235,7 @@ ai_will_do = {
 				idea = SOV_romanov_reconstruction
 				days = 730
 			}
-			IF = { 
+			if = { 
 				limit = { has_idea = SOV_uncertain_counter_revolution_idea }
 				remove_ideas = SOV_uncertain_counter_revolution_idea
 			}
@@ -15327,7 +15275,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 5
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 6
@@ -15342,7 +15289,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 4
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 5
@@ -15357,7 +15303,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 3
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 4
@@ -15372,7 +15317,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 2
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 3
@@ -15387,7 +15331,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = industrial_complex
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -15497,7 +15440,6 @@ ai_will_do = {
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2
@@ -15825,7 +15767,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = arms_factory
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -16266,7 +16207,7 @@ ai_will_do = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 
 		available = {
-			IF = { 
+			if = { 
 				limit = {
 					NOT = { 
 						has_country_flag = SOV_CSW_transfer_vladivostok_flag 
@@ -16274,7 +16215,7 @@ ai_will_do = {
 				}
 				has_full_control_of_state = 408
 			}
-			ELSE = {
+			else = {
 				OR = {
 					has_country_flag = SOV_CSW_transfer_vladivostok_flag
 					has_full_control_of_state = 408
@@ -16286,7 +16227,7 @@ ai_will_do = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_pacify_the_rim"
-			IF = {
+			if = {
 				limit = {
 					408 = { is_owned_and_controlled_by = ROOT }
 				}
@@ -16296,7 +16237,6 @@ ai_will_do = {
 							free_building_slots = {
 								building = arms_factory
 								size > 1
-								include_locked = yes
 							}
 						}
 						add_extra_state_shared_building_slots = 2
@@ -16329,7 +16269,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = arms_factory
 							size > 1
-							include_locked = yes
 						}
 						NOT = { 408 = { is_owned_and_controlled_by = ROOT } }
 					}
@@ -16659,7 +16598,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 3
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 4
@@ -16676,7 +16614,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 2
@@ -16693,7 +16630,6 @@ ai_will_do = {
 						free_building_slots = {
 							building = dockyard
 							size > 1
-							include_locked = yes
 						}
 					}
 					add_extra_state_shared_building_slots = 1
@@ -16731,7 +16667,7 @@ ai_will_do = {
 				bonus = 1.0
 				uses = 4
 				category = dd_tech
-				category = cl_tech
+				category = industry
 				category = ca_tech
 				category = bb_tech
 				category = cv_tech

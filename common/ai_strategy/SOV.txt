@@ -42,7 +42,7 @@ SOV_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
-		value = 1
+		value = -10
 	}
 
 	ai_strategy = {
@@ -54,19 +54,19 @@ SOV_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 7
+		value = -10
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = heavy_armor
-		value = 1
+		value = -5
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 70 #because doctrine 70
+		value = 75 #because doctrine 70
 	}
 
 	#Air unit factors
@@ -168,7 +168,7 @@ SOV_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 15
+		value = 25
 	}
 
 	ai_strategy = {
@@ -187,6 +187,60 @@ SOV_unit_production = {
 		type = equipment_production_factor
 		id = armor
 		value = 8
+	}
+}
+
+SOV_later_unit_roles = {
+	
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date > 1940.1.1
+	}
+	
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 11
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 13
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = heavy_armor
+		value = 6
+	}
+	
+	#ai_strategy = {
+	#	type = role_ratio
+	#	id = infantry
+	#	value = -5
+	#}
+}
+
+SOV_later_unit_roles = {
+	
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date > 1943.1.1
+	}
+	
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 5
 	}
 }
 
@@ -458,7 +512,7 @@ claims_on_sinkiang = {
 		original_tag = SOV
 	}
 	enable = {
-		has_completed_focus = SOV_spheres_of_influence_in_china
+#		has_completed_focus = SOV_spheres_of_influence_in_china
 		country_exists = CHI
 	}
 	abort = {
@@ -479,7 +533,7 @@ japan_ally = {
 		original_tag = SOV
 	}
 	enable = {
-		has_completed_focus = SOV_reconcile_japan
+#		has_completed_focus = SOV_reconcile_japan
 		country_exists = JAP
 	}
 	abort = {
@@ -615,7 +669,7 @@ manchukuo_soviet_aid = {
 		has_government = communism
 		country_exists = MAN
 		MAN = {
-			has_completed_focus = MAN_tsr_soviet_aid
+#			has_completed_focus = MAN_tsr_soviet_aid
 		}
 	}
 	abort_when_not_enabled = yes
@@ -2459,11 +2513,6 @@ SOV_dont_send_all_convoys_on_holiday_to_vladivostok = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 79 #sea of japan
-		value = 150
-	}
 }
 
 SOV_convoys_are_needed_for_lendlease = {
@@ -2650,5 +2699,25 @@ SOV_aifc_linear_defence = {
 	ai_strategy = {
 		type = force_concentration_factor
 		value = -100  # Just don't
+	}
+}
+
+SOV_build_tank_destroyers = {
+	allowed = { original_tag = SOV }
+	enable = {
+		has_tech = basic_heavy_tank_chassis
+		date > 1942.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = heavy_tank_destroyer_chassis
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = modern_tank_destroyer_chassis
+		value = 1
 	}
 }

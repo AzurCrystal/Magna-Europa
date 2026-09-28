@@ -289,7 +289,7 @@ SOV_paranoia_system = {
 
 			SOV_pick_regular_purge_army_type_effect = yes
 			SOV_paranoia_medium_decrease_effect = yes
-			IF = {
+			if = {
 				limit = { SOV_is_opposition = yes }
 				SOV_decrease_all_opposition_army = yes
 			}
@@ -354,7 +354,7 @@ SOV_paranoia_system = {
 
 			SOV_pick_regular_purge_navy_type_effect = yes
 			SOV_paranoia_low_decrease_effect = yes
-			IF = {
+			if = {
 				limit = { SOV_is_opposition = yes }
 				SOV_decrease_all_opposition_navy = yes
 			}
@@ -413,7 +413,7 @@ SOV_paranoia_system = {
 
 			SOV_pick_regular_purge_airforce_type_effect = yes
 			SOV_paranoia_low_decrease_effect = yes
-			IF = {
+			if = {
 				limit = { SOV_is_opposition = yes }
 				SOV_decrease_all_opposition_air = yes
 			}
@@ -11326,7 +11326,7 @@ SOV_soviet_civil_war_dec_cat = {
 			#}
 		}
 		remove_effect = {
-			IF = {
+			if = {
 				limit = {
 					has_completed_focus = SOV_infiltrate_the_nkvd
 				}
@@ -11353,7 +11353,7 @@ SOV_soviet_civil_war_dec_cat = {
 					# TODO Create events
 				}
 			}
-			ELSE = {
+			else = {
 				custom_effect_tooltip = SOV_assassinate_stalin_bad_tt
 				custom_effect_tooltip = SOV_assassinate_stalin_outcome_tt
 				hidden_effect = {
@@ -11706,21 +11706,21 @@ SOV_soviet_civil_war_dec_cat = {
 	SOV_army_framejob = {
 		icon = generic_police_action
 		available = {
-			IF = {
+			if = {
 				limit = { SOV_is_exiles = yes }
 				any_army_leader = {
 					NOT = { has_trait = trait_SOV_monarchist_sympathizer }
 					NOT = { has_trait = trait_SOV_stalinist }
 				}
 			}
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				any_army_leader = {
 					NOT = { has_trait = trait_SOV_trotskyist }
 					NOT = { has_trait = trait_SOV_stalinist }
 				}
 			}
-			IF = {
+			if = {
 				limit = { SOV_is_right_opposition = yes }
 				any_army_leader = {
 					NOT = { has_trait = trait_SOV_bukharinist }
@@ -11787,21 +11787,21 @@ SOV_soviet_civil_war_dec_cat = {
 	SOV_navy_framejob = {
 		icon = generic_police_action
 		available = {
-			IF = {
+			if = {
 				limit = { SOV_is_exiles = yes }
 				any_navy_leader = {
 					NOT = { has_trait = trait_SOV_monarchist_sympathizer }
 					NOT = { has_trait = trait_SOV_stalinist }
 				}
 			}
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				any_navy_leader = {
 					NOT = { has_trait = trait_SOV_trotskyist }
 					NOT = { has_trait = trait_SOV_stalinist }
 				}
 			}
-			IF = {
+			if = {
 				limit = { SOV_is_right_opposition = yes }
 				any_navy_leader = {
 					NOT = { has_trait = trait_SOV_bukharinist }
@@ -11912,7 +11912,7 @@ SOV_soviet_civil_war_dec_cat = {
 			custom_effect_tooltip = SOV_recruit_general_opposition_tt
 			custom_effect_tooltip = SOV_recruit_cd_tt
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
 						SOV_is_left_opposition = yes
 					}
@@ -11927,7 +11927,7 @@ SOV_soviet_civil_war_dec_cat = {
 						set_character_flag = SOV_aligned_left_opposition_flag
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						SOV_is_right_opposition = yes
 					}
@@ -11942,7 +11942,7 @@ SOV_soviet_civil_war_dec_cat = {
 						set_character_flag = SOV_aligned_right_opposition_flag
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						SOV_is_exiles = yes
 					}
@@ -12015,7 +12015,7 @@ SOV_soviet_civil_war_dec_cat = {
 			custom_effect_tooltip = SOV_recruit_admiral_opposition_tt
 			custom_effect_tooltip = SOV_recruit_cd_tt
 			hidden_effect = {
-				IF = {
+				if = {
 					limit = {
 						SOV_is_left_opposition = yes
 					}
@@ -12030,7 +12030,7 @@ SOV_soviet_civil_war_dec_cat = {
 						set_character_flag = SOV_aligned_left_opposition_flag
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						SOV_is_right_opposition = yes
 					}
@@ -12045,7 +12045,7 @@ SOV_soviet_civil_war_dec_cat = {
 						set_character_flag = SOV_aligned_right_opposition_flag
 					}
 				}
-				ELSE_IF = {
+				else_if = {
 					limit = {
 						SOV_is_exiles = yes
 					}
@@ -12130,14 +12130,14 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		available = {
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				custom_trigger_tooltip = {
 					tooltip = SOV_influence_army_opposition_level_tt
 					check_variable = { SOV.SOV_left_opposition_army_support < 0.70 }
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				custom_trigger_tooltip = {
 					tooltip = SOV_influence_army_opposition_level_tt
@@ -12183,16 +12183,16 @@ SOV_soviet_civil_war_dec_cat = {
 		remove_effect = {
 			custom_effect_tooltip = SOV_influence_army_opposition_tt
 			custom_effect_tooltip = SOV_influence_cd_tt
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				add_to_variable = { SOV.SOV_left_opposition_army_support = 0.1 }
 
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				add_to_variable = { SOV.SOV_right_opposition_army_support = 0.1 }
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_exiles = yes }
 				add_to_variable = { SOV.SOV_exiles_army_support = 0.1 }
 			}
@@ -12210,14 +12210,14 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		available = {
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				custom_trigger_tooltip = {
 					tooltip = SOV_influence_navy_opposition_level_tt
 					check_variable = { SOV.SOV_left_opposition_navy_support < 0.70 }
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				custom_trigger_tooltip = {
 					tooltip = SOV_influence_navy_opposition_level_tt
@@ -12260,15 +12260,15 @@ SOV_soviet_civil_war_dec_cat = {
 		remove_effect = {
 			custom_effect_tooltip = SOV_influence_navy_opposition_tt
 			custom_effect_tooltip = SOV_influence_cd_tt
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				add_to_variable = { SOV_left_opposition_navy_support = 0.1 }
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				add_to_variable = { SOV_right_opposition_navy_support = 0.1 }
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_exiles = yes }
 				add_to_variable = { SOV_exiles_navy_support = 0.1 }
 			}
@@ -12286,14 +12286,14 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		available = {
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				custom_trigger_tooltip = {
 					tooltip = SOV_influence_air_opposition_level_tt
 					check_variable = { SOV.SOV_left_opposition_air_support < 0.70 }
 				}
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				custom_trigger_tooltip = {
 					tooltip = SOV_influence_air_opposition_level_tt
@@ -12332,15 +12332,15 @@ SOV_soviet_civil_war_dec_cat = {
 		remove_effect = {
 			custom_effect_tooltip = SOV_influence_airforce_opposition_tt
 			custom_effect_tooltip = SOV_influence_cd_tt
-			IF = {
+			if = {
 				limit = { SOV_is_left_opposition = yes }
 				add_to_variable = { SOV_left_opposition_air_support = 0.1 }
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_right_opposition = yes }
 				add_to_variable = { SOV_right_opposition_air_support = 0.1 }
 			}
-			ELSE_IF = {
+			else_if = {
 				limit = { SOV_is_exiles = yes }
 				add_to_variable = { SOV_exiles_air_support = 0.1 }
 			}
@@ -13440,7 +13440,7 @@ SOV_soviet_civil_war_dec_cat = {
 		available = {
 			FROM = { SOV_is_unaligned_state = yes }
 			NOT = { has_country_flag = SOV_align_state_in_process }
-			IF = {
+			if = {
 				limit = {
 					SOV_is_exiles = yes
 				}
@@ -13460,7 +13460,7 @@ SOV_soviet_civil_war_dec_cat = {
 		days_remove = 14
 		complete_effect = {
 			SOV_paranoia_very_low_increase_effect = yes
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_country_flag = SOV_siberia_states_unlocked }
 				}
@@ -13554,7 +13554,7 @@ SOV_soviet_civil_war_dec_cat = {
 		available = {
 			FROM = { SOV_is_unaligned_state = yes }
 			NOT = { has_country_flag = SOV_align_state_in_process }
-			IF = {
+			if = {
 				limit = {
 					SOV_is_exiles = yes
 				}
@@ -13574,7 +13574,7 @@ SOV_soviet_civil_war_dec_cat = {
 		days_remove = 14
 		complete_effect = {
 			SOV_paranoia_low_increase_effect = yes
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_country_flag = SOV_far_east_states_unlocked }
 				}
@@ -13719,7 +13719,7 @@ SOV_soviet_civil_war_dec_cat = {
 		days_remove = 14
 		complete_effect = {
 			SOV_paranoia_low_increase_effect = yes
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_country_flag = SOV_northern_states_unlocked }
 				}
@@ -13856,7 +13856,7 @@ SOV_soviet_civil_war_dec_cat = {
 		days_remove = 14
 		complete_effect = {
 			SOV_paranoia_low_increase_effect = yes
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_country_flag = SOV_ukrainian_states_unlocked }
 				}
@@ -14001,7 +14001,7 @@ SOV_soviet_civil_war_dec_cat = {
 		days_remove = 14
 		complete_effect = {
 			SOV_paranoia_low_increase_effect = yes
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_country_flag = SOV_steppe_states_unlocked }
 				}
@@ -14133,7 +14133,7 @@ SOV_soviet_civil_war_dec_cat = {
 		days_remove = 14
 		complete_effect = {
 			SOV_paranoia_low_increase_effect = yes
-			IF = {
+			if = {
 				limit = {
 					NOT = { has_country_flag = SOV_urals_states_unlocked }
 				}

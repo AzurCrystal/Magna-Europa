@@ -33,7 +33,7 @@ ENG_vickers_armstrong_eng_organization = {
 	visible = {
 		IF = {
 			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
+#			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
 		}
 	}
 	
@@ -165,7 +165,7 @@ ENG_vauxhall_organization = {
 		}
 		IF = {
 			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
+#			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
 		}
 	
 	}
@@ -209,7 +209,7 @@ ENG_vauxhall_organization = {
 			custom_trigger_tooltip = {
 				tooltip = has_invited_mio_tt
 				FROM = {
-					has_completed_focus = BRA_invite_foreign_companies
+#					has_completed_focus = BRA_invite_foreign_companies
 					has_country_flag = has_vauxhall_mio_flag
 				}
 			}
@@ -247,9 +247,49 @@ ENG_harland_wolff_organization = {
 	include = generic_task_force_ship_organization
 	icon = GFX_idea_harland_wolff
 	
-	allowed = {	
-		tag = ENG
-		has_dlc = "Arms Against Tyranny"
+	allowed = {
+		OR = {
+			AND = {
+				tag = ENG
+				has_dlc = "Arms Against Tyranny"
+			}
+
+			AND = {
+				original_tag = AST 
+				has_dlc = "Thunder at Our Gates"
+			}
+		}
+	}
+
+	visible = {
+		IF = {
+			limit = { 
+				FROM = { original_tag = AST } 
+			}
+			FROM = { 
+				OR = {
+					has_idea = AST_monarchist_intervention_spirit
+#					has_completed_focus = AST_for_crown_and_empire
+				}
+			}
+		}
+	}
+
+	available = {
+		# When in a Foreign MIO, countries need to be at peace with original country
+		IF = {
+			limit = {
+				FROM = { NOT = { original_tag = ENG } }
+			}
+			FROM = { NOT = { has_war_with = ENG } }
+		}
+
+		IF = {
+			limit = { 
+				FROM = { original_tag = AST } 
+			}
+			FROM = { has_country_flag = AST_harland_wolff_mio_trigger }
+		}
 	}
 
 	override_trait = {
@@ -320,7 +360,7 @@ ENG_cammell_laird_organization = {
 			custom_trigger_tooltip = {
 				tooltip = has_invited_mio_tt
 				FROM = {
-					has_completed_focus = BRA_invite_foreign_companies
+#					has_completed_focus = BRA_invite_foreign_companies
 					has_country_flag = has_cammell_laird_mio_flag
 				}
 			}
@@ -437,7 +477,7 @@ ENG_john_brown_organization = {
 	visible = {
 		IF = {
 			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
+#			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
 		}
 	}
 	
@@ -633,7 +673,7 @@ ENG_fairey_aviation_organization = {
 	visible = {
 		IF = {
 			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
+#			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
 		}
 	}
 	
@@ -701,7 +741,7 @@ ENG_avro_organization = {
 			custom_trigger_tooltip = {
 				tooltip = has_invited_mio_tt
 				FROM = {
-					has_completed_focus = BRA_invite_foreign_companies
+#					has_completed_focus = BRA_invite_foreign_companies
 					has_country_flag = has_avro_mio_flag
 				}
 			}
@@ -834,7 +874,7 @@ ENG_vauxhall_automotive_organization = {
 		}
 		IF = {
 			limit = { FROM = { original_tag = ETH } }
-			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
+#			FROM = { has_completed_focus = ETH_invite_foreign_industrialists }
 		}	
 	}
 	
