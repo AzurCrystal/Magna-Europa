@@ -1,8 +1,8 @@
-version="0.2.9.6"
+version="0.99.2"
 tags={
 	"Map"
 }
-name="Magna Europa Alpha Build"
+name="Magna Europa: Reforged"
 picture="thumbnail.png"
 replace_path="history/countries"
 replace_path="history/states"
@@ -46,4 +46,4 @@ replace_path="common/units"
 replace_path="events"
 supported_version="1.19.*"
 path="D:/Projects/Magna-Europa"
-remote_file_id="3586596093"
+remote_file_id="3809580289"
