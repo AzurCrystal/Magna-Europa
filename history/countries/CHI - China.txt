@@ -1,5 +1,5 @@
 
-capital = 1292
+capital = 1341
 
 set_research_slots = 3
 
@@ -26,4 +26,138 @@ set_popularities = {
 	fascism = 10
 	communism = 15
 	neutrality = 50
+}
+
+
+# SETUP THE 1939 SCENARIO
+1939.1.1 = {
+	
+	set_global_flag = CHI_xian_fired #Don't trigger the Xi'an Incident again
+
+	IF = {
+		limit = {
+			has_dlc = "No Compromise, No Surrender"
+		}
+		set_oob = "CHI_1939_sea"
+		
+		#complete_national_focus = CHI_the_three_year_plan 				
+
+		add_dynamic_modifier = { modifier = CHI_american_support }
+		add_dynamic_modifier = { modifier = CHI_soviet_support }
+
+		set_variable = { nine_power_justify_war_goal_time = -0.14 } #8
+		set_variable = { nine_power_min_export = 0.14 } 
+		set_variable = { nine_power_treaty_cg = 0.14 }
+		else = {
+		}
+	}
+
+	add_political_power = 1198
+	add_command_power = 100
+	set_stability = 0.5
+	set_war_support = 0.7
+	
+
+	add_ideas = {
+		#laws
+		war_economy
+		service_by_requirement
+		closed_economy
+
+		#ministers
+		CHI_bo_yibo
+		CHI_xiao_yisu
+		CHI_chen_shaokuan
+		camco
+
+	}
+	if = {
+		limit = { 
+			NOT = { has_dlc = "No Compromise, No Surrender" }
+		}
+		remove_ideas = CHI_army_corruption_1
+		add_ideas = {
+			#national spirits
+			CHI_hyper_inflation_1
+			CHI_nine_power_treaty
+			CHI_army_corruption_2
+			CHI_ineffective_bureaucracy
+			CHI_incompetent_officers
+			free_trade
+			CHI_military_affairs_commission
+		}
+		set_oob = "CHI_1939"
+	}
+	
+	set_global_flag = fall_of_nanjing
+	# create_faction_from_template = faction_template_chinese_united_front  # 1.19-migration: faction template faction_template_chinese_united_front missing
+	add_to_faction = PRC
+	remove_opinion_modifier = { target = PRC modifier = hostile_status }
+	#load_oob = "CHI_united_front"
+	set_global_flag = CHI_unite
+	
+	if = {
+		limit = { has_dlc = "By Blood Alone" }
+			set_air_oob = "CHI_1939_air_bba"
+		else = {
+			set_air_oob = "CHI_1939_air_legacy"
+		}
+	}
+	if = {
+		limit = { has_dlc = "Man the Guns" }
+			set_naval_oob = "CHI_1939_naval_mtg"
+		else = {
+			set_naval_oob = "CHI_1939_naval_legacy"
+		}
+	}
+	set_technology = {
+
+		#PLACEHOLDER techs for vehicles
+		motorised_infantry = 1
+		tech_support = 1		
+		tech_recon = 1
+		tech_engineers = 1
+		tech_trucks = 1
+
+		#doctrines
+		#air_superiority = 1
+		#pocket_defence = 1
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+		computing_machine = 1
+		basic_encryption = 1
+		basic_decryption = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		synth_oil_experiments = 1
+		fuel_silos = 1
+		oil_processing = 1
+		improved_oil_processing = 1
+		construction1 = 1
+		construction2 = 1
+		construction3 = 1
+		concentrated_industry = 1
+		concentrated_industry2 = 1
+		concentrated_industry3 = 1
+	}
+
+set_grand_doctrine = mass_assault
+set_grand_doctrine = new_fleet_in_being
+set_grand_doctrine = new_strategic_destruction
+set_sub_doctrine = large_unit_tactics
+add_mastery = {
+    amount = 200
+    sub_doctrine = large_unit_tactics
+}
+
+
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
 }

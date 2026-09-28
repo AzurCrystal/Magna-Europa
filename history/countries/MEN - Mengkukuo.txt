@@ -1,5 +1,5 @@
 
-capital = 1292
+capital = 1193
 
 set_research_slots = 3
 
@@ -26,4 +26,91 @@ set_popularities = {
 	fascism = 10
 	communism = 15
 	neutrality = 50
+}
+
+
+# SETUP THE 1939 SCENARIO
+1939.1.1 = {
+
+	add_to_war = {
+		targeted_alliance = JAP
+		enemy = CHI
+		hostility_reason = puppet
+	}
+	
+	add_political_power = 1198
+	add_command_power = 100
+	
+	#generic focuses
+	complete_national_focus = army_effort
+	complete_national_focus = equipment_effort
+	complete_national_focus = motorization_effort
+	complete_national_focus = aviation_effort
+	complete_national_focus = naval_effort
+	complete_national_focus = flexible_navy
+	complete_national_focus = industrial_effort
+	complete_national_focus = construction_effort
+	complete_national_focus = production_effort
+	
+	oob = "MEN_1939"
+	
+	set_technology = {
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		construction1 = 1
+		construction2 = 1
+		dispersed_industry = 1
+		dispersed_industry2 = 1
+	}
+
+	set_grand_doctrine = grand_battleplan
+	set_grand_doctrine = new_fleet_in_being
+
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
+
+	MEN_prince_demchugdongrub = {
+		add_country_leader_role = {
+			promote_leader = yes
+			country_leader = {
+				ideology = despotism
+				expire = "1965.1.1.1"
+				traits = { MEN_borjigin_descendant } 
+			}
+		}
+	}
+
+	set_country_flag = MEN_moved_capital_to_zhangbei
+
+	set_capital = {
+		state = 1193
+		remember_old_capital = yes
+	}
+
+	remove_ideas = MEN_pailingmiao_council_idea
+
+	swap_ideas = {
+		remove_idea = MEN_stretched_administration_idea
+		add_idea = MEN_stretched_administration_idea_2
+	}
+
+	add_ideas = MEN_chin_yung_chang 
+	add_ideas = MEN_wang_ying 
+
+	set_cosmetic_tag = MEN_mengjiang_autonomy
+
+	add_state_core = 1267
+	add_state_core = 1193
+
+	add_ideas = MEN_true_mongol_state
+	
 }

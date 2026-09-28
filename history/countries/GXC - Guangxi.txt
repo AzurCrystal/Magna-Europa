@@ -1,5 +1,5 @@
 
-capital = 1292
+capital = 1274
 
 set_research_slots = 3
 
@@ -26,4 +26,45 @@ set_popularities = {
 	fascism = 10
 	communism = 15
 	neutrality = 50
+}
+
+
+# SETUP THE 1939 SCENARIO
+1939.1.1 = {
+	
+	oob = "GXC_1939"
+
+	add_political_power = 1198
+	add_command_power = 100
+	
+	IF = {
+		limit = {
+			NOT = {
+				has_dlc = "No Compromise, No Surrender"
+			}
+		}
+
+		CHI = { add_to_faction = PREV }
+		add_to_war = {
+			targeted_alliance = CHI
+			enemy = JAP
+			hostility_reason = asked_to_join
+		}
+
+
+		ELSE = {	
+
+			CHI = { add_to_faction = PREV }
+			add_to_war = {
+				targeted_alliance = CHI
+				enemy = JAP
+				hostility_reason = asked_to_join
+			}
+			
+
+
+		}
+	}
+
+
 }

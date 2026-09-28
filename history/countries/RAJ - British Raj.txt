@@ -1,4 +1,4 @@
-capital = 439
+capital = 1343
 if = {
 	limit = {
 		has_dlc = "Graveyard of Empires"
@@ -284,7 +284,26 @@ set_cosmetic_tag = RAJ_UK # British Raj
 		limit = {
 			has_dlc = "Graveyard of Empires"
 		}
-		complete_national_focus = RAJ_provincial_autonomy
+		unlock_national_focus = RAJ_provincial_autonomy   # 1.19-migration: focus def absent mod-side (flagged); kept per vanilla
+
+		retire_character = RAJ_freeman_freeman_thomas
+		add_country_leader_role = {
+			character =  RAJ_lord_linlithgow
+			promote_leader = yes
+			country_leader={
+				ideology=centrism
+				expire="1965.1.1.1"
+				id=-1
+				traits = {
+					aloof_authority
+				}
+			}
+		}
+
+		add_dynamic_modifier = {
+			modifier = idea_RAJ_independence_movement
+		}
+
 		complete_national_focus = RAJ_purna_swaraj
 		complete_national_focus = RAJ_uplifting_the_people_of_india
 		complete_national_focus = RAJ_tenancy_reforms
@@ -307,12 +326,12 @@ set_cosmetic_tag = RAJ_UK # British Raj
 
 	add_political_power = 1198
 	add_command_power = 100
-#	oob = "RAJ_1939"   # 1.19-migration: OOB file missing
+	oob = "RAJ_1939"
 	if = {
 		limit = { has_dlc = "By Blood Alone" }
-#			set_air_oob = "RAJ_1939_air_bba"   # 1.19-migration: OOB file missing
+			set_air_oob = "RAJ_1939_air_bba"
 		else = {
-#			set_air_oob = "RAJ_1939_air_legacy"   # 1.19-migration: OOB file missing
+			set_air_oob = "RAJ_1939_air_legacy"
 			set_technology = {
 				early_fighter = 1
 				fighter1 = 1

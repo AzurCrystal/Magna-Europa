@@ -27,3 +27,126 @@ set_popularities = {
 	communism = 15
 	neutrality = 50
 }
+
+
+# SETUP THE 1939 SCENARIO
+1939.1.1 = {
+	add_political_power = 1198
+	add_command_power = 100
+
+	set_global_flag = flag_mexico_cedillo_has_revolted
+	
+	oob = "MEX_1939"
+	IF = {
+		limit = { has_dlc = "By Blood Alone" }
+			# set_air_oob = "MEX_1936_air_bba" #deliberately using 1936  # 1.19-migration: OOB "MEX_1936_air_bba" missing
+		ELSE = {
+			# set_air_oob = "MEX_1936_air_legacy"  # 1.19-migration: OOB "MEX_1936_air_legacy" missing
+		}
+	}
+	IF = {
+		limit = { has_dlc = "Man the Guns" }
+			set_naval_oob = "MEX_1939_naval_mtg"
+		ELSE = {
+			set_naval_oob = "MEX_1939_naval_legacy"
+		}
+	}
+	
+	set_technology = {
+		interwar_artillery = 1
+		infantry_weapons1 = 1
+		infantry_weapons2 = 1
+		support_weapons = 1
+
+		#doctrines
+		#air_superiority = 1
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+		computing_machine = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		fuel_refining2 = 1
+		construction1 = 1
+		construction2 = 1
+		construction3 = 1
+		dispersed_industry = 1
+		dispersed_industry2 = 1
+		dispersed_industry3 = 1
+	}
+
+set_grand_doctrine = grand_battleplan
+set_grand_doctrine = new_fleet_in_being
+set_grand_doctrine = new_strategic_destruction
+
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
+
+	IF = {
+		limit = {
+			has_dlc = "Man the Guns"
+		}
+
+		remove_ideas = {
+			MEX_cedillo_tension_2 # Already rebelled by this point
+		}
+		
+		# 70
+		# 140
+		# 210
+		# 280
+		# 350
+		# 420
+		# 490
+		# 560
+		# 630
+		# 700
+		# 770
+		# 840
+		# 910
+		# 980
+		remove_ideas = {
+			MEX_oil_concessions
+		}
+		
+		ENG = {
+			add_opinion_modifier = {
+				target = MEX
+				modifier = embargo
+			}
+		}
+		USA = {
+			add_opinion_modifier = {
+				target = MEX
+				modifier = embargo
+			}
+		}
+		add_opinion_modifier = {
+			target = ENG
+			modifier = embargo
+		}
+		add_opinion_modifier = {
+			target = USA
+			modifier = embargo
+		}
+		
+		ELSE = {
+			#generic focuses
+			complete_national_focus = army_effort
+			complete_national_focus = equipment_effort
+			complete_national_focus = motorization_effort
+			complete_national_focus = aviation_effort
+			complete_national_focus = naval_effort
+			complete_national_focus = large_navy
+			complete_national_focus = industrial_effort
+			complete_national_focus = construction_effort
+			complete_national_focus = production_effort
+		}
+	}
+}

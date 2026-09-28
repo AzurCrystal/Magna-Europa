@@ -1,4 +1,4 @@
-capital = 282 # Tokyo/Kanto
+capital = 1314 # Tokyo/Kanto (off-map: PER-state fallback)
 
 # Starting Stats
 set_stability = 0.2 #baseline, THE EMPEROR PROTECTS
@@ -117,7 +117,7 @@ set_grand_doctrine = new_base_strike
 complete_special_project = {
 	project = sp:sp_naval_cruiser_submarine
 	scientist = JAP_keiji_fukuda
-	state = 529
+	state = 1314
 }
 
 add_breakthrough_progress = {
@@ -272,6 +272,29 @@ create_import = {
 # Setyp 1939 Start Date
 1939.1.1 = {
 
+
+	set_country_flag = JAP_1939_start_date_initiated
+
+	IF = {
+		limit = {
+			has_dlc = "No Compromise, No Surrender"
+		}
+		add_country_leader_role = {
+			character = JAP_machida_chuuji
+			promote_leader = yes
+			country_leader = {
+				ideology = liberalism
+				expire = "1989.1.1.1"
+				traits = { HUN_popular_liberal } 
+			}
+		}	
+	}
+
+	set_party_name = {
+		ideology = democratic
+		long_name = JAP_minseito_party_long
+		name = JAP_minseito_party
+	}
 	add_political_power = 1198
 	add_command_power = 100
 	
@@ -285,10 +308,24 @@ create_import = {
 		value = 1.0
 	}
 
+	add_breakthrough_progress = {
+		specialization = specialization_land 
+		value = 0.5
+	}
+
+	set_autonomy = {
+		target = MEN
+		autonomous_state = autonomy_wtt_imperial_protectorate
+	}
+
+	# Kodoha coup has historical outcomes
+	retire_character = JAP_takahashi_korekiyo
+	retire_character = JAP_jotaro_watanabe
+
 	complete_special_project = {
 		project = sp:sp_naval_torpedo_cruiser
 		scientist = JAP_keiji_fukuda
-		state = 528
+		state = 1314
 	}
 
 	#adding ministers
@@ -375,7 +412,7 @@ create_import = {
 	complete_special_project = {
 		project = sp:sp_air_radar
 		scientist = JAP_yoji_ito
-		state = 532
+		state = 1314
 	}
 	IF = {
 		limit = {
@@ -393,9 +430,9 @@ create_import = {
 		complete_special_project = {
 			project = sp:sp_naval_super_heavy_battleship
 			scientist = JAP_keiji_fukuda
-			state = 529
+			state = 1314
 		}
-#		set_naval_oob = "JAP_1939_naval"   # 1.19-migration: OOB file missing
+		set_naval_oob = "JAP_1939_naval"
 
 	}
 	IF = {
@@ -413,9 +450,9 @@ create_import = {
 		complete_special_project = {
 			project = sp:sp_naval_super_heavy_battleship
 			scientist = JAP_keiji_fukuda
-			state = 529
+			state = 1314
 		}
-#		set_naval_oob = "JAP_1939_naval_legacy"   # 1.19-migration: OOB file missing
+		set_naval_oob = "JAP_1939_naval_legacy"
 	}
 	IF = {
 		limit = {
@@ -424,20 +461,23 @@ create_import = {
 		set_technology = {
 			basic_medium_tank_chassis = 1
 		}
-#		set_oob = "JAP_1939_nsb"   # 1.19-migration: OOB file missing
+		set_oob = "JAP_1939_nsb"
 		ELSE = {
-#			set_oob = "JAP_1939"   # 1.19-migration: OOB file missing
+			set_technology = {
+				basic_medium_tank = 1
+			}
+			set_oob = "JAP_1939"
 		}
 	}
 	IF = {
 		limit = { has_dlc = "By Blood Alone" }
-#			set_air_oob = "JAP_1939_air_bba"   # 1.19-migration: OOB file missing
+			set_air_oob = "JAP_1939_air_bba"
 			set_technology = {
 				basic_medium_airframe = 1
 				range_improvements = 1
 			}
 		ELSE = {
-#			set_air_oob = "JAP_1939_air_legacy"   # 1.19-migration: OOB file missing
+			set_air_oob = "JAP_1939_air_legacy"
 			set_technology = {
 				cv_fighter1 = 1
 				fighter1 = 1

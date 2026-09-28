@@ -1,5 +1,5 @@
 
-capital = 1292
+capital = 1274
 
 set_research_slots = 3
 
@@ -26,4 +26,84 @@ set_popularities = {
 	fascism = 10
 	communism = 15
 	neutrality = 50
+}
+
+
+# SETUP THE 1939 SCENARIO
+1939.1.1 = {
+
+	add_political_power = 1198
+	add_command_power = 100
+	
+	IF = {
+		limit = {
+			NOT = {
+				has_dlc = "No Compromise, No Surrender"
+			}
+		}
+
+		CHI = { add_to_faction = PREV }
+		add_to_war = {
+			targeted_alliance = CHI
+			enemy = JAP
+			hostility_reason = asked_to_join
+		}
+
+
+		ELSE = {	
+
+			CHI = { add_to_faction = PREV }
+			add_to_war = {
+				targeted_alliance = CHI
+				enemy = JAP
+				hostility_reason = asked_to_join
+			}
+			
+
+
+		}
+	}
+
+
+	add_ideas = {
+		#laws
+		tot_economic_mobilisation
+		service_by_requirement
+		closed_economy
+	}
+
+	oob = "XSM_1939"
+	
+	set_technology = {
+		#doctrines
+		#air_superiority = 1
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+		computing_machine = 1
+		basic_encryption = 1
+		basic_decryption = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		fuel_silos = 1
+		construction1 = 1
+		construction2 = 1
+		construction3 = 1
+		concentrated_industry = 1
+		concentrated_industry2 = 1
+		concentrated_industry3 = 1
+	}
+
+set_grand_doctrine = mass_assault
+set_grand_doctrine = new_fleet_in_being
+set_grand_doctrine = new_strategic_destruction
+
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
 }

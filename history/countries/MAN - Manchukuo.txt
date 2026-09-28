@@ -1,5 +1,5 @@
 
-capital = 1292
+capital = 1193
 
 set_research_slots = 3
 
@@ -26,4 +26,89 @@ set_popularities = {
 	fascism = 10
 	communism = 15
 	neutrality = 50
+}
+
+
+# SETUP THE 1939 SCENARIO
+1939.1.1 = {
+
+	add_to_war = {
+		targeted_alliance = JAP
+		enemy = CHI
+		hostility_reason = puppet
+	}
+
+	remove_ideas = {
+		MAN_aisin_gioro_puyi
+	}	
+	
+	add_political_power = 1198
+	add_command_power = 100
+	
+	#generic focuses
+	complete_national_focus = army_effort
+	complete_national_focus = equipment_effort
+	complete_national_focus = motorization_effort
+	complete_national_focus = aviation_effort
+	complete_national_focus = naval_effort
+	complete_national_focus = flexible_navy
+	complete_national_focus = industrial_effort
+	complete_national_focus = construction_effort
+	complete_national_focus = production_effort
+
+
+	if = {
+		limit = { has_dlc = "Waking the Tiger" }
+
+		
+		#No bandits
+		remove_ideas = MAN_banditry
+
+
+		#Five year plan
+		add_timed_idea = { days = 1275 idea = MAN_five_year_plan_industry }
+
+	}
+
+	if = {
+		limit = { has_dlc = "No Compromise, No Surrender" }
+
+		
+		#No bandits
+		remove_ideas = MAN_banditry
+
+
+		#Five year plan
+		add_timed_idea = { days = 1275 idea = MAN_five_year_plan_industry }
+
+	}
+	
+	oob = "MAN_1939"
+	set_technology = {
+
+		#electronics
+		electronic_mechanical_engineering = 1
+		radio = 1
+		mechanical_computing = 1
+
+		#industry
+		basic_machine_tools = 1
+		improved_machine_tools = 1
+		advanced_machine_tools = 1
+		fuel_silos = 1
+		construction1 = 1
+		construction2 = 1
+		dispersed_industry = 1
+		dispersed_industry2 = 1
+	}
+
+set_grand_doctrine = grand_battleplan
+set_grand_doctrine = new_fleet_in_being
+
+	complete_special_project = {
+		project = sp:sp_air_radar
+	}
+}
+
+1939.1.1 = {
 }
