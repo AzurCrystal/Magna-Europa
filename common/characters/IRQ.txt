@@ -71,12 +71,12 @@ characters = {
 						has_government = fascism
 						has_country_flag = IRQ_ghazi_died_flag
 					}
-					IRQ_faisal_ii = {
-						is_hired_as_advisor = no
-					}
-					IRQ_abd_al_ilah = {
-						is_hired_as_advisor = no
-					}
+					# faisal_ii/abd_al_ilah are GoE-gated instances; char-scope
+					# refs error at parse-time on non-DLC installs, so use
+					# idea_tokens (has_idea) instead — equivalent when the
+					# advisor is hired.
+					NOT = { has_idea = IRQ_faisal_ii }
+					NOT = { has_idea = IRQ_abd_al_ilah_regent }
 				}
 				available = {
 					# Ghazi has to have NOT died, should prob be locked in from the start

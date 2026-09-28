@@ -234,10 +234,11 @@ FRA_vichy_france = {
 	}
 	FRA_demand_unification_with_vichy = {
 		available = {
-			VIC = {
-				exists = yes
-				NOT = {has_war_with = ROOT }
-				}
+			country_exists = VIC
+			any_country = {
+				has_country_flag = vichy_france
+				NOT = { has_war_with = ROOT }
+			}
 			controls_state = 571 #Paris
 		}
 
@@ -338,7 +339,7 @@ category_test_decisions = {
 					limit = {
 						is_controlled_by = ROOT
 						OR = {
-							state = 268
+							state = 746
 							state = 824
 							state = 851
 							state = 32
