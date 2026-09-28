@@ -102,3 +102,66 @@
 - 2581,1460 X crossing + rivers.bmp palette: provinces.bmp 层
 - cl_tech→industry swap: 死类别, 语义漂移 unavoidable
 - BEL prevent_auto_flip 等 build up: 1.18 遗留
+
+## 看海实跑残留 (待修, 用户跑完再动)
+- has_stability = 60 → 0.6 (Elections_scripted_triggers.txt:16, 1行)
+- GOE_IRQ_news.* 引用 → 整批注释 (13_goe_on_actions.txt)
+- LAR_Spain random_list 0-chance → 待查 base
+
+---
+
+## 1941-42 Observer Run Fixes (Pending — game running, DO NOT EDIT common/ until stopped)
+
+### Script Errors (fix when game stopped)
+- [ ] `mexico.17` — `events/AAT_Norway.txt:254,337` MEX event file not in mod → comment `country_event` refs
+- [ ] `IRE_free_state_idea` — `events/MER_events.txt:170` remove_ideas invalid idea → check/comment
+- [ ] `ITA_prince_umberto` — `italy.txt:7316+7319` add_country_leader_trait on corps_commander-only char → delete line (mod-added, not vanilla)
+- [ ] `expire = "1965.1.1.1"` — ITA characters + germany.txt ~30719 → 4-segment date → "1965.1.1"
+- [ ] `TUR_scripted_effects.txt:180-183` — remove_dynamic_modifier separatist_fatigue/kurdish_agitation/kurdish_separatism/kurdish_rebellion → modifier defs exist in `0_dynamic_modifiers.txt`, scope/event_target issue → check if state scope vs country scope
+- [ ] `BBA_ethiopia_exile_events.53` — event not defined → find callers, comment or stub
+- [ ] `country_capitulated.0` — event not defined → find callers
+- [ ] `GER_german_immigration` ×10 — `reichskommissariat.txt:141` add_ideas invalid → idea deleted/renamed, fix or comment
+- [ ] `15_mun_on_actions.txt:392` — has_border_war_between 喀尔巴阡鲁塞尼亚↔东斯洛伐克 → state ids likely wrong (mod split), check vs base
+- [ ] `BFTB_Turkey.txt:4578-4634` — add_compliance/add_resistance on 卡尔勒奥瓦 (Karliova?) — state has no resistance → wrong state target
+- [ ] `05_lar_on_actions.txt:1364-1365` — remove_dynamic_modifier autonomous_state/semi_autonomous_state → defs missing
+- [ ] `LAR_NewsEvents.txt:251` — remove_dynamic_modifier unplanned_offensive → def missing
+- [ ] `austro_hungarian_releasable_shared.txt:841` — add_doctrine_cost_reduction Invalid tech → `technology = X` → `category = naval_doctrine` (1.19 milestone doctrine system, vanilla france.txt:963 pattern)
+- [ ] `spain.txt:4626` — remove_dynamic_modifier autonomous_state ×16 → def missing
+- [ ] `BBA_Italy.txt:7881` — add_compliance on 13 states w/o resistance → wrong state targets (mod split)
+- [ ] `netherlands.txt:5893-5899` — create_unit on enemy province → OOB location pick
+- [ ] `hungary_wuw.txt:18419,18427` — build_railway prov not neighbours → map layer, defer
+- [ ] `ai_peace/*` — GER Königsberg 2484→252, Luxembourg 2369→512, SOV/00_misc/yalta/GER_peace split-brain — UNFIXED since S_AI2
+- [ ] `S_NORDIC` split-brain leftovers — verify covered or still open
+- [ ] `GER strategy plan` — 4 dead focus ids: GER_befriend_china, GER_befriend_japan, GER_minor_allies, GER_second_vienna_award → comment (same as COG fix)
+- [ ] `has_border_war_between` trigger — possible wrong state ids
+
+### Localization (already committed)
+- [x] `zzz_missing_state_names_l_simp_chinese.yml` — 1065 STATE_ keys filled w/ EN fallback (d073f6e)
+- [ ] Victory points (PROV_x) same gap — check for missing zh
+- [ ] Decision popup tooltips state lists — same fallback issue (诺曼底/瓦隆尼亚 in Jutland decision)
+
+### Vanilla-parity (confirmed no fix needed)
+- `LAR_Spain.txt:4984` random_list all-0 — vanilla same
+- `DEBUG_Manu` duplicate — vanilla same  
+- `poland.txt:276` build_railway — vanilla same
+- `ITA add_country_leader_trait` on VE3 — vanilla same
+- `original_tag = MLD` in GER strategy — dead but harmless
+- GER focus labels (GER_rhineland etc.) — cosmetic log= labels, not missing ids
+- `on_ruling_party_change`/`unlock_trait_command`/`order_set_invasion_source`/`Dropped command` — engine noise
+
+### Map Layer (defer — needs map tool)
+- bunker provs #12165/12205/19891/19890
+- rivers.bmp palette, X-crossing 2581,1460, prov-stack offsets
+- poland.txt:276 railway path disconnected
+- hungary_wuw.txt railways not neighbours
+
+### Asset Layer (defer)
+- Equipment variants: FRA R-35/Char B1/SOMUA/D2, ITA CV35/Ca.301/Ca.310/CR.42/ICR.42, CZE light_tank, USA ship hulls
+- MIO: USA_baldwin_locomotive_works, ITA_crda_organization
+- ITA anti_tank OOB, ~90 missing history files (fixed by Unused.txt)
+- Failed to generate a name ×4 — empty name list
+
+### Crash Analysis
+- First run crash 01:12 — likely file-watcher hot-reloaded mid-edit germany.txt (bad intermediate state)
+- Second run alive 1942.08+, no crashes
+- Rule: DO NOT edit common/* while game is running

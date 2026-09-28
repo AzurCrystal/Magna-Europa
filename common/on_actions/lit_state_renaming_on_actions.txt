@@ -7,10 +7,10 @@
 #							condition
 #						}
 #					}
-#					FROM.FROM = { set_state_name = "Name" }
+#					FROM.FROM = { set_state_name = me_rename_name }
 #					else_if = {
 #						limit = { condition 2 }
-#						FROM.FROM = { set_state_name = "Name2" }
+#						FROM.FROM = { set_state_name = me_rename_name2 }
 #					}
 #					else = { FROM.FROM = { reset_state_name = yes } }
 #				}
@@ -27,14 +27,14 @@ on_actions = {
 				}
 				if = {
 					limit = { ROOT = { is_german = yes } }
-					FROM.FROM = { set_state_name = "Memelland" }
-					set_province_name = { id = 19907 name = "Memelburg" }
-					set_province_name = { id = 136 name = "Heydekrug" }
+					FROM.FROM = { set_state_name = me_rename_memelland }
+					set_province_name = { id = 19907 name = me_rename_memelburg }
+					set_province_name = { id = 136 name = me_rename_heydekrug }
 					else_if = {
 						limit = { ROOT = { is_polish = yes } }
-						FROM.FROM = { set_state_name = "Kłajpedzki" }
-						set_province_name = { id = 19907 name = "Kłajpeda" }
-						set_province_name = { id = 136 name = "Szyłokarczma" }
+						FROM.FROM = { set_state_name = me_rename_kajpedzki }
+						set_province_name = { id = 19907 name = me_rename_kajpeda }
+						set_province_name = { id = 136 name = me_rename_szyokarczma }
 					}
 					else = {
 						FROM.FROM = { reset_state_name = yes }

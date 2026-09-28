@@ -1212,21 +1212,21 @@ operations = {
 			has_dlc = "Waking the Tiger"
 		}
 		available = {
-			controls_state = 446
-			controls_state = 453
+			controls_state = 1889
+			controls_state = 1286   # 1.19-migration: was vanilla 453
 			OR = {
 				NOT = {
-					owns_state = 446
-					owns_state = 453
+					owns_state = 1889
+					owns_state = 1286   # 1.19-migration: was vanilla 453
 				}
 				any_enemy_country = {
 					OR = {
-						controls_state = 452
-						controls_state = 447
-						controls_state = 456
-						controls_state = 457
-						controls_state = 454
-						controls_state = 455
+						controls_state = 1277   # 1.19-migration: was vanilla 452
+						controls_state = 1284   # 1.19-migration: was vanilla 447
+						controls_state = 1888   # 1.19-migration: was vanilla 456
+						controls_state = 1334   # 1.19-migration: was vanilla 457
+						controls_state = 1902   # 1.19-migration: was vanilla 454
+						controls_state = 1911   # 1.19-migration: was vanilla 455
 					}
 				}
 			}
@@ -1258,14 +1258,14 @@ operations = {
 				if = {
 					limit = {
 						NOT = {
-							owns_state = 446
-							owns_state = 453
+							owns_state = 1889
+							owns_state = 1286   # 1.19-migration: was vanilla 453
 						}
 					}
 					random_country = {
 						limit = {
-							owns_state = 446
-							owns_state = 453
+							owns_state = 1889
+							owns_state = 1286   # 1.19-migration: was vanilla 453
 						}
 						country_event = { id = generic.12 days = 1 }
 					}
@@ -1277,8 +1277,8 @@ operations = {
 			if = {
 				limit = {
 					OR = {
-						has_full_control_of_state = 446
-						has_full_control_of_state = 453
+						has_full_control_of_state = 1889
+						has_full_control_of_state = 1286   # 1.19-migration: was vanilla 453
 					}
 				}
 				set_country_flag = blew_up_suez
@@ -1289,8 +1289,8 @@ operations = {
 				if = {
 					limit = {
 						ENG = {
-							owns_state = 446
-							owns_state = 453
+							owns_state = 1889
+							owns_state = 1286   # 1.19-migration: was vanilla 453
 						}
 					}
 					add_war_support = -0.05
@@ -1313,7 +1313,7 @@ operations = {
 			}
 			modifier = {
 				add = 51 # Somewhat important if the baddies are coming
-				446 = {
+				1889 = {
 					OWNER = {
 						OR = {
 							tag = ROOT
@@ -1322,7 +1322,7 @@ operations = {
 					}
 				}
 				OR = {
-					454 = {
+					1902 = {   # 1.19-migration: was vanilla 454
 						NOT = { controller = { tag = ROOT } }
 						controller = { has_war_with = ROOT }
 					}
@@ -1330,7 +1330,7 @@ operations = {
 						NOT = { controller = { tag = ROOT } }
 						controller = { has_war_with = ROOT }
 					}
-					447 = {
+					1284 = {   # 1.19-migration: was vanilla 447
 						NOT = { controller = { tag = ROOT } }
 						controller = { has_war_with = ROOT }
 					}
@@ -1451,8 +1451,8 @@ special_projects = {
 		icon = GFX_decision_generic_special_project
 
 		available = {
-			has_full_control_of_state = 446
-			has_full_control_of_state = 453
+			has_full_control_of_state = 1889
+			has_full_control_of_state = 1286   # 1.19-migration: was vanilla 453
 			num_of_civilian_factories > 15
 		}
 	
@@ -1473,8 +1473,8 @@ special_projects = {
 		remove_effect = {
 			if = {
 				limit = {
-					has_full_control_of_state = 446
-					has_full_control_of_state = 453
+					has_full_control_of_state = 1889
+					has_full_control_of_state = 1286   # 1.19-migration: was vanilla 453
 				}
 				set_country_flag = rebuilt_suez
 				clr_global_flag = SUEZ_CANAL_BLOCKED
@@ -1501,11 +1501,11 @@ special_projects = {
 				}
 				has_war_with = ITA
 				ITA = { surrender_progress > 0.1 }
-				has_full_control_of_state = 447
-				has_full_control_of_state = 454
-				has_full_control_of_state = 452
-				has_full_control_of_state = 456
-				has_full_control_of_state = 457
+				has_full_control_of_state = 1284   # 1.19-migration: was vanilla 447
+				has_full_control_of_state = 1902   # 1.19-migration: was vanilla 454
+				has_full_control_of_state = 1277   # 1.19-migration: was vanilla 452
+				has_full_control_of_state = 1888   # 1.19-migration: was vanilla 456
+				has_full_control_of_state = 1334   # 1.19-migration: was vanilla 457
 				NOT = { has_country_flag = blew_up_suez }
 			}
 			modifier = {
