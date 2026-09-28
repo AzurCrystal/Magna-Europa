@@ -24,6 +24,12 @@
 #	#margin to disable the modifier back. it will be disabled if current value < threshold - margin.
 #	margin = 2
 #	
+#   #if modifier is marked as dynamic it will not be added to states on default, similarly to the static once 
+#   #it will only be active once the threshold has been reached, and will be able to be added/removed from
+#	#the state by the add_state_resistance_compliance_modifier and the remove_state_resistance_compliance_modifier
+# 	#only works for the modifier types state_resistance_modifier and state_compliance_modifier
+#   is_dynamic = yes
+#
 #	#if visible is false, the modifier will not show up anywhere
 #	visible = {
 #		
@@ -59,8 +65,6 @@ resistance_25 = {
 	margin = 2
 	state_modifier = {
 		resistance_garrison_penetration_chance = 0.5
-		local_supplies_for_controller = -0.1
-		local_org_regain = -0.1
 	}
 }
 resistance_50 = {
@@ -71,9 +75,6 @@ resistance_50 = {
 	margin = 2
 	state_modifier = {
 		resistance_damage_to_garrison = 1
-		local_supplies_for_controller = -0.15
-		local_org_regain = -0.15
-		attrition_for_controller = 0.15
 	}
 }
 
@@ -85,9 +86,8 @@ resistance_75 = {
 	margin = 2
 	state_modifier = {
 		army_speed_factor_for_controller = -0.5
-		local_supplies_for_controller = -0.25
-		local_org_regain = -0.25
-		attrition_for_controller = 0.15
+		local_supplies_for_controller = -0.5
+		attrition_for_controller = 0.3
 		disable_strategic_redeployment_for_controller = 1
 	}
 }
@@ -107,6 +107,8 @@ resistance_90 = {
 	}
 	
 	on_enable = {
+		# 1.19-migration: vanilla 1.19 wraps this in an if-guard for RAJ_forward_bloc/DIP (RAJ famine);
+		# RAJ/DIP are dead tags on the mod map so the else-path applies unconditionally
 		custom_effect_tooltip = resistance_90_effect_tooltip
 		hidden_effect = {
 			# avoid effects that can effect state controllers here

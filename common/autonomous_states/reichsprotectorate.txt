@@ -3,7 +3,8 @@ autonomy_state = {
 	
 	default = yes
 	is_puppet = yes
-	use_overlord_color = yes
+	use_overlord_color = yes   # 1.19-migration: mod keeps overlord color; vanilla 1.19 dropped it
+	
 	min_freedom_level = 0.5
 	
 	manpower_influence = 0.7
@@ -29,6 +30,7 @@ autonomy_state = {
 		autonomy_gain_global_factor = -0.3
 		peace_score_ratio_transferred_to_overlord = 0.05
 		lend_lease_tension_with_overlord = -0.30
+		faction_influence_contribution_factor = -0.25
 	}
 	
 	ai_subject_wants_higher = {
@@ -48,8 +50,25 @@ autonomy_state = {
 		OVERLORD = { has_government = fascism }
 		if = {
 			limit = { has_dlc = "Waking the Tiger" }
-			NOT = { OVERLORD = { original_tag = JAP } }
-			NOT = { OVERLORD = { original_tag = MAN } }
+			#NOT = { OVERLORD = { original_tag = JAP } }   # 1.19-migration: dead tag (no-op anyway)
+			#NOT = { OVERLORD = { original_tag = MAN } }   # 1.19-migration: dead tag (no-op anyway)
+		}
+
+		if = {
+			limit = {
+				has_dlc = "No Compromise, No Surrender"
+			}
+
+			NOT = {
+				AND = {
+					OVERLORD = { has_government = fascism } 
+					#OVERLORD = { tag = CHI }    # 1.19-migration: dead tag CHI
+				}
+				AND = {
+					OVERLORD = { has_government = neutrality } 
+					#OVERLORD = { tag = CHI }    # 1.19-migration: dead tag CHI
+				}
+			}
 		}
 	}
 

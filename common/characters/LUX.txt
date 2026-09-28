@@ -1,86 +1,131 @@
-characters={
-	LUX_joseph_bech={
-		name="Joseph Bech"
-		portraits={
-			civilian={
-				large="GFX_portrait_luxembourg_joseph_bech"
+characters = {
+
+	LUX_joseph_bech = {
+		name = LUX_joseph_bech
+		portraits = {
+			civilian = {
+				large = GFX_portrait_luxembourg_joseph_bech
 			}
 		}
-		country_leader={
-			ideology=conservatism
-			expire="1965.1.1.1"
-			id=-1
+		country_leader = {
+			ideology = conservatism
+			traits = { ambitious_diplomat }
+			expire = "1965.1.1.1"
+			id = -1
 		}
 	}
-	LUX_gustave_lebeau={
-		name="Gustave Lebeau"
-		portraits={
-			civilian={
-				large=GFX_portrait_Gustave_Lebeau
+
+	LUX_charles_marx = {
+		name = LUX_charles_marx
+		portraits = {
+			civilian = {
+				large = GFX_portrait_LUX_charles_marx
+				small = GFX_portrait_LUX_charles_marx_small
 			}
 		}
-		country_leader={
-			ideology=stalinism
-			traits={ reluctant_interventionist }
-			expire="1951.1.1.12"
-			id=-1
+		country_leader = {
+			ideology = marxism
+			traits = { marxist_academic }
+			expire = "1951.1.1.12"
+			id = -1
 		}
 	}
-	LUX_frédéric_nagelmackers={
-		name="Frédéric Nagelmackers"
-		portraits={
-			civilian={
-				large=GFX_portrait_Frederic_Nagelmackers
+
+	LUX_damian_kratzenberg = {
+		name = LUX_damian_kratzenberg
+		portraits = {
+			civilian = {
+				large = GFX_portrait_LUX_damian_kratzenberg
+				small = GFX_portrait_LUX_damian_kratzenberg_small
 			}
 		}
-		country_leader={
-			ideology=fascism_ideology
-			traits={ editor }
-			expire="1954.1.1.12"
-			id=-1
+		country_leader = {
+			ideology = nazism
+			traits = { LUX_vocal_pan_germanist }
+			expire = "1954.1.1.12"
+			id = -1
 		}
 	}
-	LUX_jean_pirson={
-		name="Jean Pirson"
-		portraits={
-			civilian={
-				large=GFX_portrait_Jean_Pirson
+
+	LUX_charlotte = {
+		name = LUX_charlotte
+		portraits = {
+			civilian = {
+				large = GFX_portrait_LUX_charlotte_wilhelmine
+				small = GFX_portrait_LUX_charlotte_wilhelmine_small
 			}
 		}
-		country_leader={
-			ideology=oligarchism
-			traits={ quartermaster_general }
-			expire="1942.1.1.12"
-			id=-1
+		country_leader = {
+			ideology = despotism
+			traits = { LUX_grand_duchess_of_luxembourg }
+			expire = "1964.1.1.12"
+			id = -1
 		}
 	}
-	LUX_pierre_dupong={
-		advisor={
-			slot = political_advisor
-			idea_token = LUX_pierre_dupong
-			allowed  = {
+
+	LUX_pierre_dupong = {
+		instance = {
+			allowed = {
+				has_dlc = "Gotterdammerung"
+			}
+			advisor = {
+				slot = political_advisor
+				idea_token = LUX_pierre_dupong
+				allowed = {
 					original_tag  = LUX
 				}
 				traits  = {
 					silent_workhorse 
 				}
-		}
-# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
-		name="Pierre Dupong"
-		portraits={
-			civilian={
-				large=GFX_portrait_Pierre_Dupong
 			}
-			army={
-				small="GFX_idea_generic_political_advisor_europe_1"
+	
+			name = LUX_pierre_dupong
+	
+			portraits = {
+				civilian = {
+					large = GFX_portrait_LUX_pierre_dupong
+					small = GFX_portrait_LUX_pierre_dupong_small
+				}
+			}
+			country_leader = {
+				ideology = conservatism
+				traits = { conservative_grandee }
+				expire = "1965.1.1.1"
+				id = -1
 			}
 		}
-		country_leader={
-			ideology=conservatism
-			expire="1965.1.1.1"
-			id=-1
+		instance = {
+			allowed = {
+				NOT = { has_dlc = "Gotterdammerung" }
+			}
+			advisor = {
+				slot = political_advisor
+				idea_token = LUX_pierre_dupong
+				allowed = {
+					original_tag  = LUX
+				}
+				traits  = {
+					silent_workhorse 
+				}
+			}
+	
+			name = LUX_pierre_dupong
+	
+			portraits = {
+				civilian = {
+					large = GFX_portrait_Europe_Generic_2
+					small = GFX_idea_generic_political_advisor_europe_2
+				}
+			}
+			country_leader = {
+				ideology = conservatism
+				traits = { conservative_grandee }
+				expire = "1965.1.1.1"
+				id = -1
+			}
 		}
 	}
+
 	LUX_damien_roeser={
 		advisor={
 			
@@ -130,31 +175,33 @@ characters={
 			}
 		}
 	}
-	LUX_alexander_von_falkenhausen={
-		advisor={
-			
-			
-			slot = army_chief
-			idea_token = LUX_alexander_von_falkenhausen
-			allowed = {
-					original_tag = LUX
-				}
-				traits = {
-					army_chief_offensive_2
-				}
-				cost = 100
-				ai_will_do = {
-					factor = 1.000
-				}
-		}
-# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
-		name="LUX_alexander_von_falkenhausen"
-		portraits={
-			army={
-				small="GFX_idea_generic_army_europe_2"
-			}
-		}
-	}
+
+	#LUX_alexander_von_falkenhausen={
+	#	advisor={
+	#		
+	#		
+	#		slot = army_chief
+	#		idea_token = LUX_alexander_von_falkenhausen
+	#		allowed = {
+	#				original_tag = LUX
+	#			}
+	#			traits = {
+	#				army_chief_offensive_2
+	#			}
+	#			cost = 100
+	#			ai_will_do = {
+	#				factor = 1.000
+	#			}
+	#	}
+	#	# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
+	#	name="LUX_alexander_von_falkenhausen"
+	#	portraits={
+	#		army={
+	#			small="GFX_idea_generic_army_europe_2"
+	#		}
+	#	}
+	#}
+
 	LUX_pierre_fischbach={
 		advisor={
 			
@@ -191,7 +238,7 @@ characters={
 					original_tag = LUX
 				}
 				traits = {
-					air_air_combat_training_2
+					air_chief_reform_2
 				}
 				cost = 100
 				ai_will_do = {
@@ -254,13 +301,25 @@ characters={
 			}
 		}
 	}
-	LUX_emile_speller={
-		advisor={
-			
-			
-			slot = army_chief
-			idea_token = LUX_emile_speller
+
+	LUX_emile_speller = {
+		instance = {
 			allowed = {
+				has_dlc = "Gotterdammerung"
+			}
+			name = LUX_emile_speller
+			portraits = {
+				army = {
+					large = GFX_portrait_LUX_emile_speller
+					small = GFX_portrait_LUX_emile_speller_small
+				}
+			}
+
+			advisor = {
+				
+				slot = army_chief
+				idea_token = LUX_emile_speller
+				allowed = {
 					original_tag = LUX
 				}
 				traits = {
@@ -270,15 +329,169 @@ characters={
 				ai_will_do = {
 					factor = 1.000
 				}
+
+			}
+
+			corps_commander = {
+				traits = { infantry_officer }
+				skill = 2
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 2
+				visible = {
+				}
+			}
 		}
-# TODO[ PORTRAIT LARGE ]: Missing large portrait please check!
-		name="Emile Speller"
-		portraits={
-			army={
-				small="GFX_idea_generic_army_europe_4"
+		instance = {
+			allowed = {
+				NOT = { has_dlc = "Gotterdammerung" }
+			}
+			name = LUX_emile_speller
+			portraits = {
+				army = {
+					large = GFX_Portrait_Europe_Generic_land_4
+					small = GFX_idea_generic_army_europe_1
+				}
+			}
+
+			advisor = {
+				
+				slot = army_chief
+				idea_token = LUX_emile_speller
+				allowed = {
+					original_tag = LUX
+				}
+				traits = {
+					army_chief_defensive_2
+				}
+				cost = 100
+				ai_will_do = {
+					factor = 1.000
+				}
+
+			}
+
+			corps_commander = {
+				traits = { infantry_officer }
+				skill = 2
+				attack_skill = 1
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 2
+				visible = {
+				}
 			}
 		}
 	}
+
+	LUX_guillaume_konsbruck = {
+		instance = {
+			allowed = {
+				has_dlc = "Gotterdammerung"
+			}
+			name = LUX_guillaume_konsbruck
+			portraits = {
+				army = {
+					large = GFX_portrait_LUX_guillaume_konsbruck
+					small = GFX_portrait_LUX_guillaume_konsbruck_small
+				}
+			}
+
+			advisor = {
+				
+				slot = army_chief
+				idea_token = LUX_guillaume_konsbruck
+				allowed = {
+					original_tag = LUX
+				}
+				traits = {
+					army_chief_offensive_2
+				}
+				cost = 100
+				ai_will_do = {
+					factor = 1.000
+				}
+
+			}
+
+			corps_commander = {
+				traits = { cavalry_officer }
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+				visible = {
+				}
+			}
+		}
+		instance = {
+			allowed = {
+				NOT = { has_dlc = "Gotterdammerung" }
+			}
+			name = LUX_guillaume_konsbruck
+			portraits = {
+				army = {
+					large = GFX_Portrait_Europe_Generic_land_3
+					small = GFX_idea_generic_army_europe_2
+				}
+			}
+
+			advisor = {
+				
+				slot = army_chief
+				idea_token = LUX_guillaume_konsbruck
+				allowed = {
+					original_tag = LUX
+				}
+				traits = {
+					army_chief_offensive_2
+				}
+				cost = 100
+				ai_will_do = {
+					factor = 1.000
+				}
+
+			}
+
+			corps_commander = {
+				traits = { cavalry_officer }
+				skill = 2
+				attack_skill = 2
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 2
+				visible = {
+				}
+			}
+		}		
+	}
+
+	LUX_felix_of_luxembourg = {
+
+		name = LUX_felix_of_luxembourg
+		portraits = {
+			army = {
+				large = GFX_portrait_LUX_felix_bourbon_parma
+				small = GFX_portrait_LUX_felix_bourbon_parma_small
+			}
+		}
+
+		field_marshal = {
+			traits = { organizer }
+			skill = 2
+			attack_skill = 1
+			defense_skill = 1
+			planning_skill = 3
+			logistics_skill = 2
+			visible = {
+				has_government = neutrality
+			}
+		}
+		
+	}
+
 	LUX_francois_schammel={
 		advisor={
 			

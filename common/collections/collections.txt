@@ -118,6 +118,59 @@ europe_non_aligned_countries = {
 	}
 }	
 
+
+countries_china = {
+	input = game:all_countries
+	name = COLLECTION_COUNTRIES_CHINA
+	operators = {
+		limit = {
+			WTT_is_chinese_country = yes 
+		}
+	}
+}
+
+
+# New Order in Asia etc
+
+countries_asia = {
+	input = game:all_countries
+	name = COLLECTION_COUNTRIES_ASIA
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = asia }
+		}
+	}
+}
+
+
+communist_countries_asia = {
+	input = game:all_countries
+	name = COLLECTION_COUNTRIES_ASIA_COMMUNIST
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = asia }
+			has_government = communism
+		}
+	}
+}
+
+non_communist_or_capitulated_countries_asia = {
+	input = game:all_countries
+	name = COLLECTION_COUNTRIES_ASIA_NON_COMMUNIST
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = asia }
+			OR = {
+				NOT = { has_government = communism }
+				AND = {
+					has_capitulated = yes 
+					has_government = communism
+				}
+			}
+		}
+	}
+}
+
 #########################
 
  ## ###  ##  ### ###  ## 
@@ -182,31 +235,13 @@ POL_between_the_seas_states = {
 	operators = {
 		limit = {
 			OR = {
-				region = 28 # Estonia
-				region = 56 # Latvia
-				region = 27 # Lithuania
-
-				# Poland
-				region = 95
-				region = 10
-				region = 44
-				region = 94
-				region = 41
-				region = 42
-				region = 96
-				region = 43
-
-				# Belarus
-				region = 29
-				region = 97
-
-				#Ukraine
-				region = 99
-				region = 100
-				region = 106
-				region = 107
-				region = 78
-				region = 105
+				region = 37 # baltics
+				region = 38 # Western Poland
+				region = 39 # Eastern Poland
+				region = 27 # Northern Balkans
+				region = 26 # Eastern Balkans
+				region = 131 # Belarus
+				region = 130 # Ukraine
 			}
 		}
 	}
@@ -220,6 +255,49 @@ faction_controlled_between_the_seas_states = {
 			is_controlled_by_ROOT_or_ally = yes
 		}
 	}
+}
+
+
+china_potential_core_states = {
+	input = game:all_states
+	operators = {
+		limit = {
+			OR = {
+				is_core_of = CHI
+				is_core_of = PRC
+			}
+		}
+	}
+}
+
+china_potential_core_mainland_states = {
+	input = collection:china_potential_core_states
+	operators = {
+		limit = {
+			NOT = { state = 524 } # Taiwan does not qualify for is_one_state_island
+			is_one_state_island = no 
+		}
+	}
+}
+
+china_core_states_controlled_by_faction_leader_ideology = {
+	input = game:scope
+	operators = {
+		faction_members
+		controlled_states
+		limit = {
+			OR = {
+				is_core_of = CHI
+				is_core_of = PRC
+			}
+			controller = {
+				faction_leader = {
+					has_government = PREV
+				}
+			}
+		}
+	}
+	name = COLLECTION_CHINA_CORE_STATES_CONTROLLED_BY_FACTION_LEADER_IDEOLOGY
 }
 
 states_in_africa = {
@@ -277,75 +355,11 @@ states_in_the_baltics = {
 	operators = {
 		limit = {
 			OR = {
-				region = 28 # Estonia
-				region = 56 # Latvia
-				region = 27 # Lithuania
-				state = 133
-				state = 134
-				state = 137
-				state = 143
-				state = 145
-				state = 146
-				state = 152
-				state = 155
-				state = 156
-				state = 157
-				state = 165
-				state = 166
-				state = 173
-				state = 2791
-				
-				state = 112
-				state = 1344
-				state = 1345
-				state = 1346
-				state = 1347
-				state = 1348
-				state = 1349
-				state = 1350
-				state = 1351
-				state = 1352
-				state = 170
-				state = 172
-				state = 174
-				state = 185
-				state = 188
-				state = 196
-				state = 2523
-				state = 2541
-				state = 2720
-				state = 2772
-				state = 2773
-				state = 2774
-				state = 2775
-				state = 67
-				state = 87
-				state = 91
-				state = 94
-				state = 95
-
-				state = 101
-				state = 107
-				state = 1104
-				state = 1178
-				state = 1246
-				state = 1280
-				state = 1296
-				state = 1309
-				state = 1339
-				state = 205
-				state = 206
-				state = 207
-				state = 208
-				state = 225
-				state = 227
-				state = 2371
-				state = 238
-				state = 242
-				state = 244
-				state = 259
-				state = 274
-				state = 275
+				region = 37
+				state = 763 
+				state = 784  
+				state = 208  
+				state = 209   
 			}
 		}
 	}
@@ -359,75 +373,11 @@ faction_states_in_the_baltics = {
 		controlled_states
 		limit = {
 			OR = {
-				region = 28 # Estonia
-				region = 56 # Latvia
-				region = 27 # Lithuania
-				state = 133
-				state = 134
-				state = 137
-				state = 143
-				state = 145
-				state = 146
-				state = 152
-				state = 155
-				state = 156
-				state = 157
-				state = 165
-				state = 166
-				state = 173
-				state = 2791
-				
-				state = 112
-				state = 1344
-				state = 1345
-				state = 1346
-				state = 1347
-				state = 1348
-				state = 1349
-				state = 1350
-				state = 1351
-				state = 1352
-				state = 170
-				state = 172
-				state = 174
-				state = 185
-				state = 188
-				state = 196
-				state = 2523
-				state = 2541
-				state = 2720
-				state = 2772
-				state = 2773
-				state = 2774
-				state = 2775
-				state = 67
-				state = 87
-				state = 91
-				state = 94
-				state = 95
-
-				state = 101
-				state = 107
-				state = 1104
-				state = 1178
-				state = 1246
-				state = 1280
-				state = 1296
-				state = 1309
-				state = 1339
-				state = 205
-				state = 206
-				state = 207
-				state = 208
-				state = 225
-				state = 227
-				state = 2371
-				state = 238
-				state = 242
-				state = 244
-				state = 259
-				state = 274
-				state = 275 
+				region = 37
+				state = 763 
+				state = 784  
+				state = 208  
+				state = 209   
 			}
 		}
 	}
@@ -439,34 +389,18 @@ states_in_the_nordics = {
 	operators = {
 		limit = {
 			OR = {
-				# North Sea
-				region = 238 # Jutland Sea
-				region = 239 # Eastern North Sea
-				region = 240 # North Sea
-				# Norwegian Coast
-				region = 168 # Skagerrak
-				region = 236 # Southern Norwegian Coast
-				region = 230 # Northern Norwegian Coast
-				region = 231 # Central Norwegian Coast
-				# Norway
-				region = 120 # Northern Fjords
-				region = 121 # Southern Fjords
-				region = 122 # Southern Norway
-				# Sweden
-				region = 119 # South Sapmi
-				region = 123 # Southern Sweden
-				region = 124 # Central Sweden
-				region = 164 # North Swedish Coast
-				region = 165 # South Swedish Coast
-				# Baltic Sea
-				region = 161 # Baltic Coast
-				region = 166 # Prussian Coast
-				region = 160 # Gulf of Finland
-				# Finland  
-				region = 112 # Eastern Finland
-				region = 116 # North Sapmi
-				region = 117 # Western Finland
-				region = 118 # Northern Finland
+				region = 275 
+				region = 10
+				region = 11
+				region = 192
+				region = 276
+				region = 191
+				region = 277
+				region = 278
+				region = 13
+				region = 161
+				region = 36 
+				region = 45 
 			}
 		}
 	}
@@ -480,34 +414,18 @@ faction_states_in_the_nordics = {
 		controlled_states
 		limit = {
 			OR = {
-				# North Sea
-				region = 238 # Jutland Sea
-				region = 239 # Eastern North Sea
-				region = 240 # North Sea
-				# Norwegian Coast
-				region = 168 # Skagerrak
-				region = 236 # Southern Norwegian Coast
-				region = 230 # Northern Norwegian Coast
-				region = 231 # Central Norwegian Coast
-				# Norway
-				region = 120 # Northern Fjords
-				region = 121 # Southern Fjords
-				region = 122 # Southern Norway
-				# Sweden
-				region = 119 # South Sapmi
-				region = 123 # Southern Sweden
-				region = 124 # Central Sweden
-				region = 164 # North Swedish Coast
-				region = 165 # South Swedish Coast
-				# Baltic Sea
-				region = 161 # Baltic Coast
-				region = 166 # Prussian Coast
-				region = 160 # Gulf of Finland
-				# Finland  
-				region = 112 # Eastern Finland
-				region = 116 # North Sapmi
-				region = 117 # Western Finland
-				region = 118 # Northern Finland
+				region = 275 
+				region = 10
+				region = 11
+				region = 192
+				region = 276
+				region = 191
+				region = 277
+				region = 278
+				region = 13
+				region = 161
+				region = 36 
+				region = 45 
 			}
 		}
 	}
@@ -536,6 +454,28 @@ faction_states_in_europe = {
 	name = COLLECTION_FACTION_CONTROLLED_STATES_IN_EUROPE
 }
 
+states_in_asia = {
+	input = game:all_states
+	operators = {
+		limit = {
+			is_on_continent = asia
+		}
+	}
+	name = COLLECTION_STATES_IN_ASIA
+}
+
+faction_states_in_asia = {
+	input = game:scope
+	operators = {
+		faction_members
+		controlled_states
+		limit = {
+			is_on_continent = asia			
+		}
+	}
+	name = COLLECTION_FACTION_CONTROLLED_STATES_IN_ASIA
+}
+
 states_in_middle_east = {
 	input = game:all_states
 	operators = {
@@ -558,6 +498,28 @@ faction_states_in_middle_east = {
 	name = COLLECTION_FACTION_CONTROLLED_STATES_IN_MIDDLE_EAST
 }
 
+states_in_oceania = {
+	input = game:all_states
+	operators = {
+		limit = {
+			is_on_continent = australia
+		}
+	}
+	name = COLLECTION_STATES_IN_OCEANIA
+}
+
+states_in_asia_and_oceania = {
+	input = game:all_states
+	operators = {
+		limit = {
+			OR = {
+				is_on_continent = asia
+				is_on_continent = australia
+			}
+		}
+	}
+	name = COLLECTION_STATES_IN_ASIA_AND_IN_OCEANIA
+}
 faction_states_on_my_continent = {
 	input = game:all_states
 	operators = {
@@ -617,6 +579,37 @@ states_controlled_by_faction_member_and_core_holder = {
 	name = COLLECTION_STATES_CONTROLLED_BY_FACTION_MEMBER_AND_CORE_HOLDER
 }
 
+the_northern_mandate_states = {
+	input = game:all_states
+	operators = {
+		limit = {
+			CHI_northern_mandate_states = yes
+		}
+	}
+	name = COLLECTION_STATES_IN_ASIA_AND_IN_OCEANIA
+}
+
+the_southern_mandate_states = {
+	input = game:all_states
+	operators = {
+		limit = {
+			CHI_southern_mandate_states = yes
+		}
+	}
+	name = COLLECTION_STATES_IN_ASIA_AND_IN_OCEANIA
+}
+
+the_greater_game_states = {
+	input = game:all_states
+	operators = {
+		limit = {
+			CHI_greater_game_states = yes
+		}
+	}
+	name = COLLECTION_STATES_IN_ASIA_AND_IN_OCEANIA
+}
+
+# New Order in east Asia
 communist_controlled_states_my_continent = {
 	input = game:all_states
 	name = COLLECTION_AMOUNT_OF_COMMUNIST_CONTROLLED_STATES_SAME_CONTINENT
@@ -654,6 +647,7 @@ communist_or_capitulated_countries_my_continent = {
 	}
 }
 
+
 fascist_controlled_states_my_continent = {
 	input = game:all_states
 	name = COLLECTION_AMOUNT_OF_FASCIST_CONTROLLED_STATES_SAME_CONTINENT
@@ -666,6 +660,7 @@ fascist_controlled_states_my_continent = {
 		}
 	}
 }
+
 
 anti_communist_controlled_states_my_continent = {
 	input = game:all_states
@@ -698,6 +693,9 @@ anti_fascist_controlled_states_my_continent = {
 		}
 	}
 }
+
+
+
 
 # Balkans Factions
 
@@ -814,6 +812,14 @@ potential_habsburg_countries_total = {
 				}
 				AND = {
 					exists = yes
+					original_tag = TOS
+				}
+				AND = {
+					exists = yes
+					original_tag = LBV
+				}
+				AND = {
+					exists = yes
 					original_tag = CRO
 				}
 			}
@@ -841,7 +847,15 @@ habsburg_countries_in_our_faction = {
 				}
 				has_country_leader = {
 					ruling_only = yes 
+					character = CZE_albrecht_franz
+				}
+				has_country_leader = {
+					ruling_only = yes 
 					character = HUN_vasyl_vyshyvanyi
+				}
+				has_country_leader = {
+					ruling_only = yes 
+					character = SPA_karl_pius_von_habsburg
 				}
 				has_country_leader = {
 					ruling_only = yes 
