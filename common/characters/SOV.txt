@@ -2649,7 +2649,7 @@ characters = {
 				if = {
 					limit = {	has_global_flag = AAT_trotsky_in_mexico }
 					set_global_flag = flag_trotsky_returning_to_ussr_from_mexico
-					MEX = { country_event = { id = mexico.22 } }		
+#					MEX = { country_event = { id = mexico.22 } }		   # 1.19-migration: dead tag
 				}
 				else_if = {
 					limit = { has_global_flag = NOR_trotsky_in_norway }
@@ -2690,10 +2690,10 @@ characters = {
 						NOT = { has_global_flag = flag_trotsky_has_returned_to_ussr_from_mexico }
 						SOV_is_opposition = yes 
 					}
-					MEX = { 
-						NOT = { has_idea = MEX_leon_trotsky }
-						NOT = { has_country_leader = { character = MEX_leon_trotsky } } 
-					}
+#					MEX = {    # 1.19-migration: dead tag
+#						NOT = { has_idea = MEX_leon_trotsky }
+#						NOT = { has_country_leader = { character = MEX_leon_trotsky } } 
+#					}
 				}
 			}
 			traits = {
@@ -3642,24 +3642,24 @@ characters = {
 			allowed = {
 				OR = {
 					original_tag = SOV
-					original_tag = MAN # This is where he starts the game
+#					original_tag = MAN # This is where he starts the game   # 1.19-migration: dead tag
 				}
 			}
 			available = {
-				if = { 
-					limit = { original_tag = MAN }
-					custom_trigger_tooltip = {
-					 	tooltip = SOV_grigory_semyonov_man_tt
-					 	IF = {
-					 		limit = {
-					 			SOV = { 
-					 				has_completed_focus = SOV_approach_semyonov 
-					 			}
-					 		}
-					 		SOV_soviet_civil_war_not_started = yes 
-					 	}
-					}
-				}
+#				if = {    # 1.19-migration: dead tag
+#					limit = { original_tag = MAN }
+#					custom_trigger_tooltip = {
+#					 	tooltip = SOV_grigory_semyonov_man_tt
+#					 	IF = {
+#					 		limit = {
+#					 			SOV = { 
+#					 				has_completed_focus = SOV_approach_semyonov 
+#					 			}
+#					 		}
+#					 		SOV_soviet_civil_war_not_started = yes 
+#					 	}
+#					}
+#				}
 				
 				if = {
 					limit = { original_tag = SOV }

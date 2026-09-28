@@ -2390,7 +2390,10 @@ TUR_kurdish_state_management_category = {
 						event_target:TUR_kurdish_state_event_target = { compliance > 30 }
 					}
 					event_target:TUR_kurdish_state_event_target = {
-						add_compliance = -5
+						if = {   # 1.19-migration: compliance only exists on non-core states; skip TUR-cored targets
+							limit = { has_resistance = yes }
+							add_compliance = -5
+						}
 						TUR_pacify_kurdish_state_effect = yes
 					}
 				}
@@ -5861,19 +5864,19 @@ category_faction_debug_decisions = {
 		visible = {
 			NOT = {
 				AND = {
-					350 = { 
+					1059 = {   # 1.19-migration: was vanilla 350 (Kurdish state); mod Diyarbakir
 						is_core_of = KUR
 						is_core_of = TUR
 					}
-					353 = { 
+					1039 = {   # 1.19-migration: was vanilla 353 (Kurdish state); mod Van
 						is_core_of = KUR
 						is_core_of = TUR
 					}
-					352 = { 
+					973 = {   # 1.19-migration: was vanilla 352 (Kurdish state); mod Erzurum
 						is_core_of = KUR
 						is_core_of = TUR
 					}
-					800 = { 
+					1012 = {   # 1.19-migration: was vanilla 800 (Kurdish state); mod Tunceli
 						is_core_of = KUR
 						is_core_of = TUR
 					}

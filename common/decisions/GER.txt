@@ -4017,7 +4017,7 @@ GER_fortify_the_vaterland_cat = {
 					}
 				}
 				hidden_effect = {
-				 set_province_name = { id = 2432 name = Sonthofen } set_victory_points = { province = 2432 value = 1 }
+				 set_province_name = { id = 2432 name = me_rename_sonthofen } set_victory_points = { province = 2432 value = 1 } # 1.19-migration: name -> me_rename_sonthofen
 				}
 			}
 			if = {
@@ -6545,7 +6545,7 @@ GER_reichskommissariats = {
 				state = 542
 				state = 1143
 				state = 2347
-				state = 2345
+#				state = 2345   # 1.19-migration: duplicate of line above (cosmetic) removed
 				state = 1233
 				state = 501
 				state = 1258
@@ -9734,14 +9734,14 @@ GER_rebuild_the_nation_cat = {
 					is_controlled_by = ROOT
 				}
 			}
-			if = {
-				limit = {
-					912 = { is_core_of = ROOT }
-				}
-				NOT = {
-					912 = { is_controlled_by = ROOT }
-				}
-			}
+#			if = {   # 1.19-migration: 912 is mod Bari, not a German core state; vanilla ref unidentifiable
+#				limit = {
+#					912 = { is_core_of = ROOT }
+#				}
+#				NOT = {
+#					912 = { is_controlled_by = ROOT }
+#				}
+#			}
 		}
 
 		highlight_states = {
@@ -11376,23 +11376,7 @@ GER_south_east_asian_natural_wealth_cat = {
 			FROM = {
 				is_fully_controlled_by = ROOT
 				OR = {
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-#					state = 743 # was vanilla 743 (Qingdao, off-map)
-					state = 2975
-					state = 2975
+					state = 2975   # 1.19-migration: was 16x duplicated vanilla SE-Asia refs; mod Indonesia
 				}
 
 				NOT = {
@@ -11464,23 +11448,7 @@ GER_south_east_asian_natural_wealth_cat = {
 			FROM = {
 				is_fully_controlled_by = ROOT
 				OR = {
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-					state = 2975
-#					state = 743 # was vanilla 743 (Qingdao, off-map)
-					state = 2975
-					state = 2975
+					state = 2975   # 1.19-migration: was 16x duplicated vanilla SE-Asia refs; mod Indonesia
 				}
 
 				NOT = {
@@ -15101,7 +15069,7 @@ GER_industrial_relocation_cat = {
 			FROM = {
 				is_fully_controlled_by = SOV
 				OR = {
-					state = 2292 #Azerbaijan
+					state = 2292 #Baku   # 1.19-migration: stale label (was Azerbaijan)
 					state = 696 #Krasnodar
 				}
 			}
@@ -15164,7 +15132,7 @@ GER_industrial_relocation_cat = {
 			FROM = {
 				is_fully_controlled_by = SOV
 				OR = {
-					state = 2589 #Buryatia
+					state = 2589 #Engels   # 1.19-migration: stale label (was Buryatia)
 					state = 2429 #Balakovo
 				}
 			}
@@ -15226,8 +15194,8 @@ GER_industrial_relocation_cat = {
 			FROM = {
 				is_fully_controlled_by = SOV
 				OR = {
-					state = 2763 #Akhtubinsk
-					state = 2471 #Zlatoust
+					state = 2516 #Akhtubinsk   # 1.19-migration: was 2763 (Shalkar); mod Akhtubinsk=2516
+					state = 2471 #Zhanaqala   # 1.19-migration: stale label (was Zlatoust; no mod Zlatoust)
 				}
 			}
 		}

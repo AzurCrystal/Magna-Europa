@@ -33,25 +33,25 @@ types = {
 			base = 1 # 1 weight = 1% of success chance, but always keep it at base 1 so it tries to do any raid at all
 			# note: do not add negative weight, if you want to reduce it, use a factor like 0.5, to ensure its always above 0 so AI will always do a raid even if all options are bad
 
-			# java is pretty neat we want that
-			modifier = {
-				factor = 5
-				var:target_state = {
-					OR = {
-						state = 335
-						state = 1051
-						state = 1058
-					}
-				}
-			}
+#			# java is pretty neat we want that  # 1.19-migration: INS Java/Sulawesi states off-map/dead
+#			modifier = {
+#				factor = 5
+#				var:target_state = {
+#					OR = {
+#						state = 335
+#						state = 1051
+#						state = 1058
+#					}
+#				}
+#			}
 
-			# sulawesi means a focus gets unlocked
-			modifier = {
-				add = 3
-				var:target_state = {
-					state = 673
-				}
-			}
+#			# sulawesi means a focus gets unlocked
+#			modifier = {
+#				add = 3
+#				var:target_state = {
+#					state = 673
+#				}
+#			}
 
 			# add weight based on how many conditions met, the goal here is to try and emulate a "do raids that are likely to actually succeed first" effect
 			modifier = {
@@ -668,17 +668,17 @@ types = {
 							limit = {
 								is_subject = no #ie you are the netherlands. if not then this shouldnt happen
 							}
-							country_event = {
-								id = INS_revolution_events.11
-								hours = 4
-							}
+#							country_event = {   # 1.19-migration: INS_revolution_events not in mod
+#								id = INS_revolution_events.11
+#								hours = 4
+#							}
 						}
 						else = {
 							overlord = {
-								country_event = {
-									id = INS_revolution_events.11
-									hours = 4
-								}
+#								country_event = {   # 1.19-migration: INS_revolution_events not in mod
+#									id = INS_revolution_events.11
+#									hours = 4
+#								}
 							}
 						}
 					}
@@ -739,17 +739,17 @@ types = {
 							limit = {
 								is_subject = no #ie you are the netherlands. if not then this shouldnt happen
 							}
-							country_event = {
-								id = INS_revolution_events.12
-								hours = 4
-							}
+#							country_event = {   # 1.19-migration: INS_revolution_events not in mod
+#								id = INS_revolution_events.12
+#								hours = 4
+#							}
 						}
 						else = {
 							overlord = {
-								country_event = {
-									id = INS_revolution_events.12
-									hours = 4
-								}
+#								country_event = {   # 1.19-migration: INS_revolution_events not in mod
+#									id = INS_revolution_events.12
+#									hours = 4
+#								}
 							}
 						}
 					}
@@ -817,17 +817,17 @@ types = {
 							limit = {
 								is_subject = no #ie you are the netherlands. if not then this shouldnt happen
 							}
-							country_event = {
-								id = INS_revolution_events.14
-								hours = 4
-							}
+#							country_event = {   # 1.19-migration: INS_revolution_events not in mod
+#								id = INS_revolution_events.14
+#								hours = 4
+#							}
 						}
 						else = {
 							overlord = {
-								country_event = {
-									id = INS_revolution_events.14
-									hours = 4
-								}
+#								country_event = {   # 1.19-migration: INS_revolution_events not in mod
+#									id = INS_revolution_events.14
+#									hours = 4
+#								}
 							}
 						}
 					}
@@ -1284,37 +1284,37 @@ types = {
 
 		command_power = 35
 
-		allowed = {
-			has_dlc = "Thunder at Our Gates"
-			original_tag = AST
-		}
+#		allowed = { # 1.19-migration: AST malaya raid is off-map/dead (AST,MAL unused tags)
+#			has_dlc = "Thunder at Our Gates"
+#			original_tag = AST
+#		}
 
-		visible = {
-			has_country_flag = AST_malaya_foothold_raid_unlocked
-			has_event_target = AST_malaya_cw_communist_country
-		}
+#		visible = {
+#			has_country_flag = AST_malaya_foothold_raid_unlocked
+#			has_event_target = AST_malaya_cw_communist_country
+#		}
 
-		show_target = {
-			var:target_state = {
-				is_core_of = MAL
-				OWNER = { tag = MAL }
-				naval_base > 0
-				OR = {
-					state = 1060
-					state = 1063
-					state = 1348
-					state = 1064
-					state = 1061
-				}
-			}
-		}
+#		show_target = {
+#			var:target_state = {
+#				is_core_of = MAL
+#				OWNER = { tag = MAL }
+#				naval_base > 0
+#				OR = {
+#					state = 1060
+#					state = 1063
+#					state = 1348
+#					state = 1064
+#					state = 1061
+#				}
+#			}
+#		}
 
-		available = {
-			has_event_target = AST_malaya_cw_communist_country
-		}
+#		available = {
+#			has_event_target = AST_malaya_cw_communist_country
+#		}
 
-		launchable = {
-		}
+#		launchable = {
+#		}
 
 		starting_point = {
 			types = { naval_base }
@@ -1382,7 +1382,7 @@ types = {
 					raid_add_unit_experience = 0.05
 					add_raid_history_entry = yes
 					var:actor_country = {
-						country_event = { id = AST_union_control_events.5 days = 1 }
+#						country_event = { id = AST_union_control_events.5 days = 1 }   # 1.19-migration: AST dead tag — event def absent
 					}
 				}
 				division_effects = {
@@ -1442,7 +1442,7 @@ types = {
 								count = 2
 							}
 						}
-						country_event = { id = AST_union_control_events.4 days = 1 }
+#						country_event = { id = AST_union_control_events.4 days = 1 }   # 1.19-migration: AST dead tag — event def absent
 					}
 				}
 				actor_effects = {
@@ -1495,7 +1495,7 @@ types = {
 								count = 3
 							}
 						}
-						country_event = { id = AST_union_control_events.4 days = 1 }
+#						country_event = { id = AST_union_control_events.4 days = 1 }   # 1.19-migration: AST dead tag — event def absent
 					}
 				}
 				actor_effects = {

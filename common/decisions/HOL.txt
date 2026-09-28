@@ -1,364 +1,364 @@
-HOL_obtain_foreign_colonial_investments = {
-
-	HOL_attract_foreign_investors = {
-
-		icon = hol_attract_foreign_investors
-
-		allowed = {
-			tag = HOL
-		}
-
-		available = {
-			OR = {
-				has_idea = export_focus
-				has_idea = free_trade
-				is_in_faction_with = USA
-				is_in_faction_with = ENG
-				is_in_faction_with = JAP
-			}
-			has_war = no
-			OR = {
-				USA = { has_war = no }
-				ENG = { has_war = no }
-				JAP = { has_war = no }
-			}
-			335 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			672 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			334 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			has_full_control_of_state = 695
-			has_full_control_of_state = 309
-		}
-
-		cost = 25
-
-		fire_only_once = no
-
-		days_remove = 90
-
-		modifier = {
-			consumer_goods_factor = -0.05
-		}
-
-		visible = {
-			tag = HOL
-			has_completed_focus = HOL_obtain_foreign_colonial_investments
-		}
-
-		remove_effect = {
-		}
-
-		complete_effect = {
-		}
-
-	}
-
-	HOL_attract_foreign_industry = {
-
-		icon = generic_construction
-
-		allowed = {
-			tag = HOL
-		}
-
-		available = {
-			OR = {
-				has_idea = export_focus
-				has_idea = free_trade
-				is_in_faction_with = USA
-				is_in_faction_with = ENG
-				is_in_faction_with = JAP
-			}
-			has_war = no
-			OR = {
-				USA = { has_war = no }
-				ENG = { has_war = no }
-				JAP = { has_war = no }
-			}
-			335 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			672 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			334 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			has_full_control_of_state = 695
-			has_full_control_of_state = 309
-		}
-
-		cost = 25
-
-		fire_only_once = no
-
-		days_remove = 90
-
-		modifier = {
-			production_speed_buildings_factor = 0.15
-		}
-
-		visible = {
-			tag = HOL
-			has_completed_focus = HOL_obtain_foreign_colonial_investments
-		}
-
-		remove_effect = {
-		}
-
-		complete_effect = {
-		}
-
-	}
-
-	HOL_attract_west_indies_oil_companies = {
-
-		icon = oil
-
-		allowed = {
-			tag = HOL
-		}
-
-		available = {
-			OR = {
-				has_idea = export_focus
-				has_idea = free_trade
-				is_in_faction_with = USA
-				is_in_faction_with = ENG
-			}
-			NOT = { has_war_with = USA }
-			NOT = { has_war_with = ENG }
-			HOL = { has_full_control_of_state = 695 }
-		}
-
-		cost = 30
-
-		fire_only_once = no
-
-		days_remove = 120
-
-		visible = {
-			tag = HOL
-			has_completed_focus = HOL_obtain_foreign_colonial_investments
-		}
-
-		remove_effect = {
-			695 = {
-				add_resource = {
-					type = oil
-					amount = 2
-				}
-			}
-			if = {
-				limit = {
-					check_variable = { var = west_indies_oil value = 4 compare = less_than }
-				}
-				custom_effect_tooltip = HOL_attract_west_indies_oil_companies_tt
-			}
-			if = {
-				limit = {
-					check_variable = { var = west_indies_oil value = 4 compare = equals }
-				}
-				695 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					NOT = { check_variable = { var = west_indies_oil value = 1 compare = greater_than_or_equals } }
-				}
-				set_variable = { var = west_indies_oil value = 0 }
-			}
-			add_to_variable = { var = west_indies_oil value = 1 }
-		}
-
-		complete_effect = {
-		}
-
-	}
-
-	HOL_attract_east_indies_oil_companies = {
-
-		icon = oil
-
-		allowed = {
-			tag = HOL
-		}
-
-		available = {
-			OR = {
-				has_idea = export_focus
-				has_idea = free_trade
-				is_in_faction_with = USA
-				is_in_faction_with = ENG
-			}
-			NOT = { has_war_with = USA }
-			NOT = { has_war_with = ENG }
-			335 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			672 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-			334 = {
-				controller = {
-					OR = {
-						tag = ROOT
-						is_subject_of = ROOT
-					}
-					has_full_control_of_state = PREV
-				}
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		days_remove = 120
-
-		visible = {
-			has_completed_focus = HOL_obtain_foreign_colonial_investments
-		}
-
-		remove_effect = {
-			335 = {
-				add_resource = {
-					type = oil
-					amount = 1
-				}
-			}
-			672 = {
-				add_resource = {
-					type = oil
-					amount = 1
-				}
-			}
-			334 = {
-				add_resource = {
-					type = oil
-					amount = 1
-				}
-			}
-			if = {
-				limit = {
-					check_variable = { var = east_indies_oil value = 2 compare = not_equals }
-					check_variable = { var = east_indies_oil value = 5 compare = not_equals }
-					check_variable = { var = east_indies_oil value = 9 compare = less_than }
-				}
-				custom_effect_tooltip = HOL_attract_east_indies_oil_companies_tt
-			}
-			if = {
-				limit = {
-					check_variable = { var = east_indies_oil value = 2 compare = equals }
-				}
-				335 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					check_variable = { var = east_indies_oil value = 5 compare = equals }
-				}
-				672 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					check_variable = { var = east_indies_oil value = 9 compare = equals }
-				}
-				334 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = {
-				limit = {
-					NOT = { check_variable = { var = east_indies_oil value = 1 compare = greater_than_or_equals } }
-				}
-				set_variable = { var = east_indies_oil value = 0 }
-			}
-			add_to_variable = { var = east_indies_oil value = 1 }
-		}
-
-		complete_effect = {
-		}
-
-	}
-}
+#HOL_obtain_foreign_colonial_investments = {   # 1.19-migration: entire Dutch-colonies layer uses vanilla DEI state ids; HOL has no colonies in mod
+#
+#	HOL_attract_foreign_investors = {
+#
+#		icon = hol_attract_foreign_investors
+#
+#		allowed = {
+#			tag = HOL
+#		}
+#
+#		available = {
+#			OR = {
+#				has_idea = export_focus
+#				has_idea = free_trade
+#				is_in_faction_with = USA
+#				is_in_faction_with = ENG
+#				is_in_faction_with = JAP
+#			}
+#			has_war = no
+#			OR = {
+#				USA = { has_war = no }
+#				ENG = { has_war = no }
+#				JAP = { has_war = no }
+#			}
+#			335 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			672 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			334 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			has_full_control_of_state = 695
+#			has_full_control_of_state = 309
+#		}
+#
+#		cost = 25
+#
+#		fire_only_once = no
+#
+#		days_remove = 90
+#
+#		modifier = {
+#			consumer_goods_factor = -0.05
+#		}
+#
+#		visible = {
+#			tag = HOL
+#			has_completed_focus = HOL_obtain_foreign_colonial_investments
+#		}
+#
+#		remove_effect = {
+#		}
+#
+#		complete_effect = {
+#		}
+#
+#	}
+#
+#	HOL_attract_foreign_industry = {
+#
+#		icon = generic_construction
+#
+#		allowed = {
+#			tag = HOL
+#		}
+#
+#		available = {
+#			OR = {
+#				has_idea = export_focus
+#				has_idea = free_trade
+#				is_in_faction_with = USA
+#				is_in_faction_with = ENG
+#				is_in_faction_with = JAP
+#			}
+#			has_war = no
+#			OR = {
+#				USA = { has_war = no }
+#				ENG = { has_war = no }
+#				JAP = { has_war = no }
+#			}
+#			335 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			672 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			334 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			has_full_control_of_state = 695
+#			has_full_control_of_state = 309
+#		}
+#
+#		cost = 25
+#
+#		fire_only_once = no
+#
+#		days_remove = 90
+#
+#		modifier = {
+#			production_speed_buildings_factor = 0.15
+#		}
+#
+#		visible = {
+#			tag = HOL
+#			has_completed_focus = HOL_obtain_foreign_colonial_investments
+#		}
+#
+#		remove_effect = {
+#		}
+#
+#		complete_effect = {
+#		}
+#
+#	}
+#
+#	HOL_attract_west_indies_oil_companies = {
+#
+#		icon = oil
+#
+#		allowed = {
+#			tag = HOL
+#		}
+#
+#		available = {
+#			OR = {
+#				has_idea = export_focus
+#				has_idea = free_trade
+#				is_in_faction_with = USA
+#				is_in_faction_with = ENG
+#			}
+#			NOT = { has_war_with = USA }
+#			NOT = { has_war_with = ENG }
+#			HOL = { has_full_control_of_state = 695 }
+#		}
+#
+#		cost = 30
+#
+#		fire_only_once = no
+#
+#		days_remove = 120
+#
+#		visible = {
+#			tag = HOL
+#			has_completed_focus = HOL_obtain_foreign_colonial_investments
+#		}
+#
+#		remove_effect = {
+#			695 = {
+#				add_resource = {
+#					type = oil
+#					amount = 2
+#				}
+#			}
+#			if = {
+#				limit = {
+#					check_variable = { var = west_indies_oil value = 4 compare = less_than }
+#				}
+#				custom_effect_tooltip = HOL_attract_west_indies_oil_companies_tt
+#			}
+#			if = {
+#				limit = {
+#					check_variable = { var = west_indies_oil value = 4 compare = equals }
+#				}
+#				695 = {
+#					add_extra_state_shared_building_slots = 1
+#					add_building_construction = {
+#						type = industrial_complex
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			if = {
+#				limit = {
+#					NOT = { check_variable = { var = west_indies_oil value = 1 compare = greater_than_or_equals } }
+#				}
+#				set_variable = { var = west_indies_oil value = 0 }
+#			}
+#			add_to_variable = { var = west_indies_oil value = 1 }
+#		}
+#
+#		complete_effect = {
+#		}
+#
+#	}
+#
+#	HOL_attract_east_indies_oil_companies = {
+#
+#		icon = oil
+#
+#		allowed = {
+#			tag = HOL
+#		}
+#
+#		available = {
+#			OR = {
+#				has_idea = export_focus
+#				has_idea = free_trade
+#				is_in_faction_with = USA
+#				is_in_faction_with = ENG
+#			}
+#			NOT = { has_war_with = USA }
+#			NOT = { has_war_with = ENG }
+#			335 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			672 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#			334 = {
+#				controller = {
+#					OR = {
+#						tag = ROOT
+#						is_subject_of = ROOT
+#					}
+#					has_full_control_of_state = PREV
+#				}
+#			}
+#		}
+#
+#		cost = 50
+#
+#		fire_only_once = no
+#
+#		days_remove = 120
+#
+#		visible = {
+#			has_completed_focus = HOL_obtain_foreign_colonial_investments
+#		}
+#
+#		remove_effect = {
+#			335 = {
+#				add_resource = {
+#					type = oil
+#					amount = 1
+#				}
+#			}
+#			672 = {
+#				add_resource = {
+#					type = oil
+#					amount = 1
+#				}
+#			}
+#			334 = {
+#				add_resource = {
+#					type = oil
+#					amount = 1
+#				}
+#			}
+#			if = {
+#				limit = {
+#					check_variable = { var = east_indies_oil value = 2 compare = not_equals }
+#					check_variable = { var = east_indies_oil value = 5 compare = not_equals }
+#					check_variable = { var = east_indies_oil value = 9 compare = less_than }
+#				}
+#				custom_effect_tooltip = HOL_attract_east_indies_oil_companies_tt
+#			}
+#			if = {
+#				limit = {
+#					check_variable = { var = east_indies_oil value = 2 compare = equals }
+#				}
+#				335 = {
+#					add_extra_state_shared_building_slots = 1
+#					add_building_construction = {
+#						type = industrial_complex
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			if = {
+#				limit = {
+#					check_variable = { var = east_indies_oil value = 5 compare = equals }
+#				}
+#				672 = {
+#					add_extra_state_shared_building_slots = 1
+#					add_building_construction = {
+#						type = industrial_complex
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			if = {
+#				limit = {
+#					check_variable = { var = east_indies_oil value = 9 compare = equals }
+#				}
+#				334 = {
+#					add_extra_state_shared_building_slots = 1
+#					add_building_construction = {
+#						type = industrial_complex
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			if = {
+#				limit = {
+#					NOT = { check_variable = { var = east_indies_oil value = 1 compare = greater_than_or_equals } }
+#				}
+#				set_variable = { var = east_indies_oil value = 0 }
+#			}
+#			add_to_variable = { var = east_indies_oil value = 1 }
+#		}
+#
+#		complete_effect = {
+#		}
+#
+#	}
+#}   # 1.19-migration: end commented colonial block
 
 HOL_prepare_the_inundation_lines = {
 	

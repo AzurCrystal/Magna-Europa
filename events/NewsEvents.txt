@@ -241,7 +241,7 @@ news_event = {
 	id = news.10
 	title = news.10.t
 	desc = news.10.d
-	picture = SOMEPIC
+	picture = GFX_news_event_020
 	
 	major = yes
 	
@@ -12709,4 +12709,38 @@ news_event = {
 
 
 
+
+
+
+# === 1.19-migration: merged from vanilla NewsEvents.txt — restored missing defs ===
+
+news_event = {
+	id = news.400
+	title = news.400.t
+	desc = news.400.desc
+	picture = GFX_news_event_generic_fall_of_budapest
+	
+	major = yes
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	immediate = {
+		set_global_flag = fall_of_budapest_generic_flag
+	}
+	
+	option = {
+		name = news.400.a
+		trigger = {
+			NOT = {
+				TAG = HUN
+			}
+		}
+	}
+	option = {
+		name = news.400.b
+		trigger = { TAG = HUN }
+	}
+}
 

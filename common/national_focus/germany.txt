@@ -1455,7 +1455,7 @@ focus_tree = {
 
 		completion_reward = {
 
-		hidden_effect = { set_province_name = { id = 11719 name = Wolfsburg } set_victory_points = { province = 11719 value = 10 } }
+		hidden_effect = { set_province_name = { id = 11719 name = me_rename_wolfsburg } set_victory_points = { province = 11719 value = 10 } }
 			if = {
 				limit = {
 					has_war = yes
@@ -13998,8 +13998,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GER_first_ljubljana_award
-		prerequisite = { focus = GER_demand_slovenia }"
+			log = "[GetDateText]: [Root.GetName]: Focus GER_first_ljubljana_award"   # 1.19-migration: closed unterminated log string
 			if = {
 				limit = {
 					HUN = {
@@ -23807,7 +23806,7 @@ focus_tree = {
 					NOT = {	has_wargoal_against = HOL }
 					NOT = {	has_war_with = HOL }
 					INS = {
-						is_subject_of = HOL
+						#is_subject_of = HOL
 					}
 				}
 
@@ -23836,7 +23835,7 @@ focus_tree = {
 						}
 					}
 					INS = {
-						add_ideas = GER_german_trade_subject_ns
+						#add_ideas = GER_german_trade_subject_ns
 						add_opinion_modifier = {
 							target = ROOT
 							modifier = GER_trading_partners
@@ -28083,11 +28082,7 @@ focus_tree = {
 			GFX_focus_GER_german_hegemony_in_the_middle_east_demcoratic = {
 					has_government = democratic
 			}
-			GFX_focus_GER_german_hegemony_in_the_middle_east_neutrality = {
-					NOT = {
-						has_government = democratic
-					}
-			}
+			GFX_focus_GER_german_hegemony_in_the_middle_east_neutrality = yes   # 1.19-migration: icon block needs bare fallback
 		}
 
 		prerequisite = { focus = GER_conquer_italy focus = GER_european_confederation focus = GER_align_italy focus = GER_prepare_italian_coup_ww }
@@ -28212,11 +28207,7 @@ focus_tree = {
 			GFX_focus_TUR_pivot_to_the_past = {
 					has_government = neutrality
 			}
-			GFX_focus_generic_befriend_turkey = {
-					NOT = {
-						has_government = neutrality
-					}
-			}
+			GFX_focus_generic_befriend_turkey = yes   # 1.19-migration: icon block needs bare fallback
 		}
 
 		x = 1

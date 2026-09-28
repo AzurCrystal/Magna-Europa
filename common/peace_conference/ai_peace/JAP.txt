@@ -4,108 +4,108 @@
 peace_ai_desires = {
 
     # don't create warlord or PRC puppets
-    JAP_avoid_puppeting_warlords_prc = {
-        peace_action_type = { puppet force_government }
-        enable = {
-            FROM = {
-                OR = {
-                    tag = PRC
-                    always = no
-                }
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = -200
-    }
+    #JAP_avoid_puppeting_warlords_prc = { # 1.19-migration: JAP/PRC tags and all China states are off-map in this mod
+    #    peace_action_type = { puppet force_government }
+    #    enable = {
+    #        FROM = {
+    #            OR = {
+    #                tag = PRC
+    #                always = no
+    #            }
+    #        }
+    #        ROOT = { original_tag = JAP }
+    #    }
+    #    ai_desire = -200
+    #}
 
 
     # Try to grab cities and hainan
-    JAP_take_chinese_cities_if_possible = {
-        peace_action_type = take_states
-        enable = {
-            FROM.FROM.FROM = {
-               always = no
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = 150
-    }
+    #JAP_take_chinese_cities_if_possible = { # 1.19-migration: JAP tag and all China states are off-map in this mod
+    #    peace_action_type = take_states
+    #    enable = {
+    #        FROM.FROM.FROM = {
+    #           always = no
+    #        }
+    #        ROOT = { original_tag = JAP }
+    #    }
+    #    ai_desire = 150
+    #}
 
 
     # If Mengkukuo exists, increase the Inner Mongolian state
-    JAP_inner_mongolia = {
-        peace_action_type = take_states
-        enable = {
-            FROM = {
-                original_tag = MEN
-                is_subject_of = ROOT
-            }
-            FROM.FROM.FROM = {
-                    state = 621 # Suiyuan
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = 100
-    }
+    #JAP_inner_mongolia = { # 1.19-migration: JAP/MEN tags and Suiyuan are off-map in this mod
+    #    peace_action_type = take_states
+    #    enable = {
+    #        FROM = {
+    #            original_tag = MEN
+    #            is_subject_of = ROOT
+    #        }
+    #        FROM.FROM.FROM = {
+    #                state = 621 # Suiyuan
+    #        }
+    #        ROOT = { original_tag = JAP }
+    #    }
+    #    ai_desire = 100
+    #}
 
 
     # Create a chinese puppet state from the rest of China
-    JAP_create_chinese_puppet = {
-        peace_action_type = puppet
-        enable = {
-            FROM.FROM = {
-                original_tag = CHI
-            }
-            FROM.FROM.FROM = {
-                NOT = {
-                    always = no
-                }
-                any_neighbor_state = {
-                    OR = {
-                        is_owned_by = ROOT.FROM
-                        pc_is_state_claimed_by = ROOT
-                        is_coastal = yes
-                    }
-                }
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = 150
-    }
-	
-	 JAP_dont_eat_chinese_puppet = {
-        peace_action_type = take_states
-        enable = {
-            FROM.FROM = {
-                original_tag = CHI
-            }
-            FROM.FROM.FROM = {
-                NOT = {
-                    always = no
-                }
-            }
-            ROOT = { original_tag = JAP }
-        }
-        ai_desire = -100
-    }
+    #JAP_create_chinese_puppet = { # 1.19-migration: JAP/CHI tags and all China states are off-map in this mod
+    #    peace_action_type = puppet
+    #    enable = {
+    #        FROM.FROM = {
+    #            original_tag = CHI
+    #        }
+    #        FROM.FROM.FROM = {
+    #            NOT = {
+    #                always = no
+    #            }
+    #            any_neighbor_state = {
+    #                OR = {
+    #                    is_owned_by = ROOT.FROM
+    #                    pc_is_state_claimed_by = ROOT
+    #                    is_coastal = yes
+    #                }
+    #            }
+    #        }
+    #        ROOT = { original_tag = JAP }
+    #    }
+    #    ai_desire = 150
+    #}
+
+    # JAP_dont_eat_chinese_puppet = { # 1.19-migration: JAP/CHI tags and all China states are off-map in this mod
+    #    peace_action_type = take_states
+    #    enable = {
+    #        FROM.FROM = {
+    #            original_tag = CHI
+    #        }
+    #        FROM.FROM.FROM = {
+    #            NOT = {
+    #                always = no
+    #            }
+    #        }
+    #        ROOT = { original_tag = JAP }
+    #    }
+    #    ai_desire = -100
+    #}
 
 
     #Don't give things to communist china
-    JAP_dont_support_prc = {
-        peace_action_type = take_states
-        enable = {
-            FROM = {
-                OR = {
-                    tag = PRC
-                    tag = SIK
-                }
-                has_government = communism
-            }
-            ROOT = {
-                original_tag = JAP
-                NOT = { has_government = communism }
-            }
-        }
-        ai_desire = -200
-    }
+    #JAP_dont_support_prc = { # 1.19-migration: JAP/PRC/SIK tags are off-map in this mod
+    #    peace_action_type = take_states
+    #    enable = {
+    #        FROM = {
+    #            OR = {
+    #                tag = PRC
+    #                tag = SIK
+    #            }
+    #            has_government = communism
+    #        }
+    #        ROOT = {
+    #            original_tag = JAP
+    #            NOT = { has_government = communism }
+    #        }
+    #    }
+    #    ai_desire = -200
+    #}
 }

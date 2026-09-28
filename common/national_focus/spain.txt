@@ -3833,7 +3833,7 @@ focus_tree = {
 						original_tag = CAT
 						original_tag = NAV
 						original_tag = GLC
-						tag = VIC
+						#tag = VIC
 						original_tag = ITA
 					}
 					is_in_faction = no
@@ -4623,7 +4623,10 @@ focus_tree = {
 						is_pais_group = yes
 					}
 				}
-				remove_dynamic_modifier = { modifier = autonomous_state }
+				if = {   # 1.19-migration: avoid "modifier does not exist" on states that never received it
+					limit = { has_dynamic_modifier = { modifier = autonomous_state } }
+					remove_dynamic_modifier = { modifier = autonomous_state }
+				}
 			}
 		}
 	}
@@ -10529,21 +10532,21 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			if = {
-				limit = {
-					MEX = {
-						has_country_leader = {
-							character = SOV_lev_trotsky
-							ruling_only = yes
-						}
-					}
-				}
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = MEX
-					expire = 0
-				}
-			}
+			#if = {
+				#limit = {
+					#MEX = {
+						#has_country_leader = {
+							#character = SOV_lev_trotsky
+							#ruling_only = yes
+						#}
+					#}
+				#}
+				#create_wargoal = {
+					#type = puppet_wargoal_focus
+					#target = MEX
+					#expire = 0
+				#}
+			#}
 			if = {
 				limit = {
 					any_country = {

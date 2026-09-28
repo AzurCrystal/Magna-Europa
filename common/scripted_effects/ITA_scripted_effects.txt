@@ -4136,62 +4136,62 @@ ITA_change_name_of_state_or_vp = {
 	if = { # Fiume / Rijeka
 		limit = {
 			FROM.FROM = {
-				state = 852 #ISTRIA
+				state = 755 #ISTRIA  # 1.19-migration: was vanilla 852
 			}
 		}
 		if = { #ITALY CONTROLLER
 			limit = {
 				ROOT = { original_tag = ITA }
 			}
-			set_province_name = { id = 11564 name = VICTORY_POINTS_11564_ITA }
+			set_province_name = { id = 14309 name = VICTORY_POINTS_14309 } # 1.19-migration: was province 11564
 		}
 		else_if = { #OTHER CONTROLLER
 			limit = {
 				FROM = { original_tag = ITA }
 			}
-			reset_province_name = 11564
+			reset_province_name = 14309 # 1.19-migration: was province 11564
 		}
 	}
 	else_if = { # ZARA / ZADAR // Zara / Zadar
 		limit = {
 			FROM.FROM = {
-				state = 163 #ZARA
+				state = 1476 #ZARA  # 1.19-migration: was vanilla 163
 			}
 		}
 		if = { #ITALY CONTROLLER
 			limit = {
 				ROOT = { original_tag = ITA }
 			}
-			FROM.FROM = { set_state_name = STATE_163_ITA }
-			set_province_name = { id = 3943 name = VICTORY_POINTS_3943_ITA }
+			FROM.FROM = { set_state_name = me_rename_istria } # 1.19-migration: was STATE_163_ITA (missing loc key)
+			set_province_name = { id = 14584 name = VICTORY_POINTS_14584 } # 1.19-migration: was province 3943
 		}
 		else_if = { #OTHER CONTROLLER
 			limit = {
 				FROM = { original_tag = ITA }
 			}
 			FROM.FROM = { reset_state_name = yes }
-			reset_province_name = 3943
+			reset_province_name = 14584 # 1.19-migration: was province 3943
 		}
 	}
 	else_if = { # DODECANESO / DODECANESE // Rodi / Rhodes
 		limit = {
 			FROM.FROM = {
-				state = 164 #DODECANESO
+				state = 1554 #DODECANESO  # 1.19-migration: was vanilla 164
 			}
 		}
 		if = { #ITALY CONTROLLER
 			limit = {
 				ROOT = { original_tag = ITA }
 			}
-			FROM.FROM = { set_state_name = VICTORY_POINTS_10007_ITA }
-			set_province_name = { id = 10007 name = VICTORY_POINTS_10007_ITA }
+			FROM.FROM = { set_state_name = VICTORY_POINTS_20297 } # 1.19-migration: was VICTORY_POINTS_10007_ITA (missing)
+			set_province_name = { id = 20297 name = VICTORY_POINTS_20297 } # 1.19-migration: was province 10007
 		}
 		else_if = { #OTHER CONTROLLER
 			limit = {
 				FROM = { original_tag = ITA }
 			}
 			FROM.FROM = { reset_state_name = yes }
-			reset_province_name = 10007
+			reset_province_name = 20297 # 1.19-migration: was province 10007
 		}
 	}
 }
@@ -5175,7 +5175,7 @@ ITA_add_citta_dell_aria_templates = {
 				fixed_auxiliary_weapon_slot_1 = recon_camera
 				engine_type_slot = engine_1_2x
 				special_type_slot_1 = fuel_tanks_small
-				special_type_slot_2 = lmg_defense_turret_2x
+				special_type_slot_2 = lmg_defense_turret   # 1.19-migration: was lmg_defense_turret_2x (x2 category not allowed on small_plane special slot)
 			}
 		icon = "GFX_ITA_CAS2_medium"
 	}

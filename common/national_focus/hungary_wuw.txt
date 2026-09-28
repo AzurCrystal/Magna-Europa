@@ -2268,151 +2268,151 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = wuw_HUN_press_maximilians_and_the_iturbides_claims
-		icon = GFX_focus_mex_jefe_maximo
-		prerequisite = { focus = wuw_HUN_a_grand_habsburg_alliance }
+	#focus = {
+		#id = wuw_HUN_press_maximilians_and_the_iturbides_claims
+		#icon = GFX_focus_mex_jefe_maximo
+		#prerequisite = { focus = wuw_HUN_a_grand_habsburg_alliance }
 		#mutually_exclusive = { focus = wuw_HUN_seek_an_alliance_with_the_kaiser focus = wuw_HUN_the_old_grand_alliance }
-		x = -3
-		y = 1
-		relative_position_id = wuw_HUN_a_grand_habsburg_alliance
+		#x = -3
+		#y = 1
+		#relative_position_id = wuw_HUN_a_grand_habsburg_alliance
 
-		cost = 10
+		#cost = 10
 
-		ai_will_do = {
-			factor = 5
-		}
+		#ai_will_do = {
+			#factor = 5
+		#}
 
-		available = {
+		#available = {
 
-			has_government = neutrality
-			is_subject = no
-			is_faction_leader = yes
-			OR = {
-				MEX = {
-					exists = yes
-					has_civil_war = no
-					NOT = {
-						has_government = communism
-					}
-				}
-				AND = {
-					MEX = {
-						exists = no
-					}
-					OR = {
-						277 = {
-							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 277
-						}
-					}
-				}
-			}
+			#has_government = neutrality
+			#is_subject = no
+			#is_faction_leader = yes
+			#OR = {
+				#MEX = {
+					#exists = yes
+					#has_civil_war = no
+					#NOT = {
+						#has_government = communism
+					#}
+				#}
+				#AND = {
+					#MEX = {
+						#exists = no
+					#}
+					#OR = {
+						#277 = {
+							#is_controlled_by = ROOT
+						#}
+						#any_country = {
+							#is_subject_of = ROOT
+							#controls_state = 277
+						#}
+					#}
+				#}
+			#}
 
-		}
+		#}
 
-		bypass = {
+		#bypass = {
 
-		}
+		#}
 
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		#search_filters = { FOCUS_FILTER_POLITICAL }
 
-		cancel_if_invalid = no
-		continue_if_invalid = yes
-		available_if_capitulated = no
+		#cancel_if_invalid = no
+		#continue_if_invalid = yes
+		#available_if_capitulated = no
 
-		completion_reward = {
+		#completion_reward = {
 
-				if = {
-					limit = {
-						MEX = {
-							exists = yes
-							is_subject = no
-						}
-					}
-					MEX = {
-						country_event = {
-							id = WW_hungary.62
-							days = 1
-							random_days = 2
-						}
-					}
-				}
-				else_if = {
-					limit = {
-						MEX = {
-							is_subject = yes
-							NOT = {
-								is_subject_of = ROOT
-							}
-						}
-					}
-					create_wargoal = {
-						type = puppet_wargoal_focus
-						target = MEX
-					}
-					unlock_decision_tooltip = HUN_place_a_habsburg_on_the_mexican_throne
-				}
-				else_if = {
-					limit = {
-						MEX = {
-							OR = {
-								is_subject_of = ROOT
-								exists = no
-							}
-						}
-					}
+				#if = {
+					#limit = {
+						#MEX = {
+							#exists = yes
+							#is_subject = no
+						#}
+					#}
+					#MEX = {
+						#country_event = {
+							#id = WW_hungary.62
+							#days = 1
+							#random_days = 2
+						#}
+					#}
+				#}
+				#else_if = {
+					#limit = {
+						#MEX = {
+							#is_subject = yes
+							#NOT = {
+								#is_subject_of = ROOT
+							#}
+						#}
+					#}
+					#create_wargoal = {
+						#type = puppet_wargoal_focus
+						#target = MEX
+					#}
+					#unlock_decision_tooltip = HUN_place_a_habsburg_on_the_mexican_throne
+				#}
+				#else_if = {
+					#limit = {
+						#MEX = {
+							#OR = {
+								#is_subject_of = ROOT
+								#exists = no
+							#}
+						#}
+					#}
 
-					every_state = {
-						limit = {
-							OR = {
-								is_controlled_by = ROOT
-								any_country = {
-									is_subject_of = ROOT
-									controls_state = PREV
-								}
-							}
-							NOT = {
-								is_core_of = ROOT
-							}
-							is_core_of = MEX
-							NOT = {
-								is_owned_and_controlled_by = MEX
-							}
-						}
-						transfer_state_to = MEX
-					}
+					#every_state = {
+						#limit = {
+							#OR = {
+								#is_controlled_by = ROOT
+								#any_country = {
+									#is_subject_of = ROOT
+									#controls_state = PREV
+								#}
+							#}
+							#NOT = {
+								#is_core_of = ROOT
+							#}
+							#is_core_of = MEX
+							#NOT = {
+								#is_owned_and_controlled_by = MEX
+							#}
+						#}
+						#transfer_state_to = MEX
+					#}
 
-					MEX = {
-						drop_cosmetic_tag = yes
-						set_cosmetic_tag = MEX_habsburg_empire
-						country_event = {
-							id = WW_hungary.61
-							hours = 0
-						}
-					}
+					#MEX = {
+						#drop_cosmetic_tag = yes
+						#set_cosmetic_tag = MEX_habsburg_empire
+						#country_event = {
+							#id = WW_hungary.61
+							#hours = 0
+						#}
+					#}
 
-					if = {
-						limit = {
-							MEX = {
-								NOT = {
-									is_subject_of = ROOT
-								}
-							}
-						}
-						puppet = MEX
-					}
+					#if = {
+						#limit = {
+							#MEX = {
+								#NOT = {
+									#is_subject_of = ROOT
+								#}
+							#}
+						#}
+						#puppet = MEX
+					#}
 
-					hidden_effect = {
-						set_country_flag = HUN_created_mexican_habsburg_monarchy
-					}
+					#hidden_effect = {
+						#set_country_flag = HUN_created_mexican_habsburg_monarchy
+					#}
 
-				}
-		}
-	}
+				#}
+		#}
+	#}
 
 	focus = {
 		id = wuw_HUN_reenlist_the_sich_riflemen
@@ -6819,23 +6819,23 @@ focus_tree = {
 					}
 				}
 
-				if = {
-					limit = {
-						MEX = {
-							has_country_leader = {
-								ruling_only = yes
-								character = MEX_maria_de_iturbide
-							}
-						}
-					}
-					MEX = {
-						add_trait = {
-						    character = MEX_maria_de_iturbide
-						    ideology = despotism
-						    trait = blessed_monarch_trait
-						}
-					}
-				}
+				#if = {
+					#limit = {
+						#MEX = {
+							#has_country_leader = {
+								#ruling_only = yes
+								#character = MEX_maria_de_iturbide
+							#}
+						#}
+					#}
+					#MEX = {
+						#add_trait = {
+						    #character = MEX_maria_de_iturbide
+						    #ideology = despotism
+						    #trait = blessed_monarch_trait
+						#}
+					#}
+				#}
 
 				if = {
 					limit = {
@@ -18418,17 +18418,17 @@ focus_tree = {
 			# Connection into Burgenland
 			build_railway = {
 			    level = 1
-			    path = { 6720 3700 }
-			    start_province = 6720
-			    target_province = 3700
+			    path = { 5714 20844 }   # 1.19-migration: was 6720 3700 (W.Hungary->Burgenland); mod Moson 5714 -> Eisenstadt 20844 (adjacent land pair)
+			    start_province = 5714   # was 6720 (Moson)
+			    target_province = 20844   # was 3700 (Eisenstadt land; 19321 is a lake)
 			}
 
 			# Connection into Southern Slovakia
 			build_railway = {
 			    level = 1
-			    path = { 9690 6561 }
-			    start_province = 9690
-			    target_province = 6561
+			    path = { 5129 13580 }   # 1.19-migration: was 9690 6561 (Nograd->Bars es Hont)
+			    start_province = 5129   # was 9690
+			    target_province = 13580   # was 6561
 			}
 		}
 	}
@@ -19822,11 +19822,11 @@ focus_tree = {
 				show_modifiers = no # default is no
 			}
 
-			unlock_decision_tooltip = {
-				#dead decision ref: decision = HUN_explore_the_oil_fields_around_nagykanizsa
-				show_effect_tooltip = no # default is no
-				show_modifiers = no # default is no
-			}
+#			unlock_decision_tooltip = {   # 1.19-migration: empty block - decision id was dead ref
+#				#dead decision ref: decision = HUN_explore_the_oil_fields_around_nagykanizsa
+#				show_effect_tooltip = no # default is no
+#				show_modifiers = no # default is no
+#			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 

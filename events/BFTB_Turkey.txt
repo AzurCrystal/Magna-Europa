@@ -4374,10 +4374,16 @@ country_event = {
 				limit = {
 					THIS = { has_dynamic_modifier = { modifier = kurdish_agitation } }
 				}
-				add_compliance = 25
+				if = {   # 1.19-migration: compliance/resistance only exist on non-core states; skip TUR-cored Kurdish states
+					limit = { has_resistance = yes }
+					add_compliance = 25
+				}
 			}
 			hidden_effect = {
-				add_resistance = -30
+				if = {   # 1.19-migration: see above
+					limit = { has_resistance = yes }
+					add_resistance = -30
+				}
 				clear_global_event_target = TUR_kurdish_state_event_target
 			}
 		}
@@ -4387,6 +4393,7 @@ country_event = {
 		every_owned_state = {
 			limit = {
 				is_core_of = KUR
+				has_resistance = yes   # 1.19-migration: skip TUR-cored Kurdish states (no resistance mechanic)
 			}
 			add_resistance = 10
 		}
@@ -4412,6 +4419,7 @@ country_event = {
 		every_owned_state = {
 			limit = {
 				is_core_of = KUR
+				has_resistance = yes   # 1.19-migration: skip TUR-cored Kurdish states
 			}
 			add_compliance = 10
 		}
@@ -4424,6 +4432,7 @@ country_event = {
 		every_owned_state = {
 			limit = {
 				is_core_of = KUR
+				has_resistance = yes   # 1.19-migration: skip TUR-cored Kurdish states
 			}
 			add_resistance = 5
 		}
@@ -4459,6 +4468,7 @@ country_event = {
 		every_owned_state = {
 			limit = {
 				is_core_of = KUR
+				has_resistance = yes   # 1.19-migration: skip TUR-cored Kurdish states
 			}
 			add_resistance = 10
 		}
@@ -4483,6 +4493,7 @@ country_event = {
 		add_stability = 0.05
 		add_manpower = -6475
 		random_owned_state = {
+			limit = { has_resistance = yes }   # 1.19-migration: compliance/resistance only exist on non-core states
 			if = {
 				limit = {
 					is_core_of = KUR
@@ -4513,6 +4524,7 @@ country_event = {
 			}
 		}
 		random_owned_state = {
+			limit = { has_resistance = yes }   # 1.19-migration: compliance/resistance only exist on non-core states
 			if = {
 				limit = {
 					is_core_of = KUR
@@ -4552,6 +4564,7 @@ country_event = {
 		every_owned_state = {
 			limit = {
 				is_core_of = KUR
+				has_resistance = yes   # 1.19-migration: skip TUR-cored Kurdish states
 			}
 			add_compliance = -25
 		}
@@ -4575,8 +4588,11 @@ country_event = {
 		name = bftb_turkey.110.a #one republic, indivisible
 		add_political_power = 50
 		event_target:TUR_kurdish_state_event_target = { 
-			add_compliance = 10
-			add_resistance = -15
+			if = {   # 1.19-migration: compliance/resistance only exist on non-core states
+				limit = { has_resistance = yes }
+				add_compliance = 10
+				add_resistance = -15
+			}
 		}
 		hidden_effect = {
 			event_target:TUR_kurdish_state_event_target = { 
@@ -4606,7 +4622,7 @@ country_event = {
 					limit = {
 						THIS = { has_dynamic_modifier = { modifier = kurdish_agitation } }
 					}
-					add_compliance = 10
+					if = { limit = { has_resistance = yes } add_compliance = 10 }   # 1.19-migration: skip TUR-cored states
 				}
 			}
 			clr_country_flag = TUR_acted_against_kurd_rebels_recently_flag
@@ -4630,8 +4646,11 @@ country_event = {
 		add_political_power = 25
 		add_stability = -0.05
 		event_target:TUR_kurdish_state_event_target = { 
-			add_compliance = -5
-			add_resistance = 10
+			if = {   # 1.19-migration: compliance/resistance only exist on non-core states
+				limit = { has_resistance = yes }
+				add_compliance = -5
+				add_resistance = 10
+			}
 		}
 		hidden_effect = {
 			event_target:TUR_kurdish_state_event_target = { 

@@ -3,7 +3,18 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					FROM.FROM = { state = 2246 }
+					FROM.FROM = {
+					OR = {   # 1.19-migration: vanilla single state 73 covered all Ruthenia; mod splits into CRP-core states
+						state = 593
+						state = 2246
+						state = 2247
+						state = 1607
+						state = 1608
+						state = 2929
+						state = 2930
+						state = 564
+					}
+				}
 				}
 				if =  {
 					limit = {
@@ -24,7 +35,18 @@ on_actions = {
 			}
 			if = {
 				limit = {
-					FROM.FROM = { state = 2246 }
+					FROM.FROM = {
+					OR = {   # 1.19-migration: vanilla single state 73 covered all Ruthenia; mod splits into CRP-core states
+						state = 593
+						state = 2246
+						state = 2247
+						state = 1607
+						state = 1608
+						state = 2929
+						state = 2930
+						state = 564
+					}
+				}
 				}
 				if =  {
 					limit = {
@@ -73,8 +95,8 @@ on_actions = {
 				limit = {
 					FROM.FROM = {
 						OR = {
-							state = 2246
-							state = 2661
+							state = 593   # 1.19-migration: was vanilla 73 (Ruthenia -> Uzhorod)
+							state = 562   # was vanilla 71
 						}
 					}
 				}
@@ -86,16 +108,16 @@ on_actions = {
 								original_tag = HUN
 							}
 							has_border_war_between = {
-    							attacker = 73
-    							defender = 71
+    							attacker = 593   # 1.19-migration: was vanilla 73 (Ruthenia -> Uzhorod)
+    							defender = 562   # 1.19-migration: was vanilla 71 (E.Slovakia -> Sobrance)
 							}
 						}
 					}
 					FROM = {
 						cancel_border_war = {
     						dont_fire_events = no
-							attacker = 73
- 							defender = 71
+							attacker = 593   # 1.19-migration: was vanilla 73 (Ruthenia -> Uzhorod)
+ 							defender = 562   # 1.19-migration: was vanilla 71 (E.Slovakia -> Sobrance)
 						}
 					}
 				}
@@ -385,21 +407,21 @@ on_actions = {
 						}
 						NOT = {
 							AND = {
-								controls_state = 2246
-								controls_state = 2661
+								controls_state = 593   # 1.19-migration: was vanilla 73 (Ruthenia -> Uzhorod)
+								controls_state = 562   # was vanilla 71
 							}
 						}
 						has_border_war_between = {
-    						attacker = 73
-    						defender = 71
+    						attacker = 593   # 1.19-migration: was vanilla 73 (Ruthenia -> Uzhorod)
+    						defender = 562   # 1.19-migration: was vanilla 71 (E.Slovakia -> Sobrance)
 						}
 					}
 				}
 				ROOT = {
 					cancel_border_war = {
     					dont_fire_events = no
-						attacker = 73
- 						defender = 71
+    					attacker = 593   # 1.19-migration: was vanilla 73 (Ruthenia -> Uzhorod)
+ 						defender = 562   # 1.19-migration: was vanilla 71 (E.Slovakia -> Sobrance)
 					}
 				}
 			}

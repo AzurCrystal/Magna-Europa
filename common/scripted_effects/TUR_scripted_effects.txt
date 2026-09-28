@@ -7,25 +7,25 @@ TUR_pacify_kurdish_state_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_agitation }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_agitation }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_separatism }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_separatism }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_rebellion }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_rebellion }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_rebellion } } remove_dynamic_modifier = { modifier = kurdish_rebellion } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			if = {
 				limit = {
@@ -49,21 +49,21 @@ TUR_placate_kurdish_state_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_agitation }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_agitation }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_separatism }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_separatism }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = kurdish_agitation }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_rebellion }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_rebellion }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_rebellion } } remove_dynamic_modifier = { modifier = kurdish_rebellion } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = kurdish_separatism }
 			}
 		}
@@ -89,25 +89,25 @@ TUR_pacify_random_kurdish_state_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_agitation }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_agitation }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_separatism }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_separatism }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_rebellion }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_rebellion }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_rebellion } } remove_dynamic_modifier = { modifier = kurdish_rebellion } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = separatist_fatigue }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			if = {
 				limit = {
@@ -135,10 +135,10 @@ TUR_integrate_kurdish_state_effect = {
 					}
 				}
 				event_target:TUR_kurdish_state_event_target = { add_core_of = TUR }
-				remove_dynamic_modifier = { modifier = separatist_fatigue }
-				remove_dynamic_modifier = { modifier = kurdish_agitation }
-				remove_dynamic_modifier = { modifier = kurdish_separatism }
-				remove_dynamic_modifier = { modifier = kurdish_rebellion }
+				if = { limit = { has_dynamic_modifier = { modifier = separatist_fatigue } } remove_dynamic_modifier = { modifier = separatist_fatigue } }   # 1.19-migration: guard
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_rebellion } } remove_dynamic_modifier = { modifier = kurdish_rebellion } }   # 1.19-migration: guard
 			}
 			if = {
 				limit = {
@@ -177,10 +177,10 @@ TUR_integrate_kurdish_state_forced_effect = {
 	hidden_effect = {
 		event_target:TUR_kurdish_state_event_target = { 
 			add_core_of = TUR
-			remove_dynamic_modifier = { modifier = separatist_fatigue }
-			remove_dynamic_modifier = { modifier = kurdish_agitation }
-			remove_dynamic_modifier = { modifier = kurdish_separatism }
-			remove_dynamic_modifier = { modifier = kurdish_rebellion }
+			if = { limit = { has_dynamic_modifier = { modifier = separatist_fatigue } } remove_dynamic_modifier = { modifier = separatist_fatigue } }   # 1.19-migration: guard non-existent modifier
+			if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }
+			if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }
+			if = { limit = { has_dynamic_modifier = { modifier = kurdish_rebellion } } remove_dynamic_modifier = { modifier = kurdish_rebellion } }
 		}
 	}
 }
@@ -194,23 +194,23 @@ TUR_agitate_kurdish_state_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_rebellion }
 				}
-				add_resistance = 20
+				if = { limit = { has_resistance = yes } add_resistance = 20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_separatism }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_separatism }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = kurdish_rebellion }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_agitation }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_agitation }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = kurdish_separatism }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 		}
 	}
@@ -235,23 +235,23 @@ TUR_agitate_kurdish_state_random_target_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_rebellion }
 				}
-				add_resistance = 20
+				if = { limit = { has_resistance = yes } add_resistance = 20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_separatism }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_separatism }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = kurdish_rebellion }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = kurdish_agitation }
 				}
-				remove_dynamic_modifier = { modifier = kurdish_agitation }
+				if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = kurdish_separatism }
-				add_resistance = -20
+				if = { limit = { has_resistance = yes } add_resistance = -20 }   # 1.19-migration: skip TUR-cored states
 			}
 		}
 	}
@@ -295,21 +295,21 @@ TUR_downgrade_fundamentalist_defiance_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_opposition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_opposition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_sedition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_sedition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_opposition }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_insurgency }
 				}
-				remove_dynamic_modifier = { modifier = islamist_insurgency }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_insurgency } } remove_dynamic_modifier = { modifier = islamist_insurgency } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_sedition }
 			}
 		}
@@ -331,21 +331,21 @@ TUR_upgrade_fundamentalist_defiance_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_sedition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_sedition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_insurgency }
 			}
 			else_if = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_opposition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_opposition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_sedition }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamists_placated }
 				}
-				remove_dynamic_modifier = { modifier = islamists_placated }
+				if = { limit = { has_dynamic_modifier = { modifier = islamists_placated } } remove_dynamic_modifier = { modifier = islamists_placated } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_opposition }
 			}
 		}
@@ -377,21 +377,21 @@ TUR_upgrade_random_fundamentalist_defiance_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_sedition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_sedition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_insurgency }
 			}
 			else_if = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_opposition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_opposition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_sedition }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamists_placated }
 				}
-				remove_dynamic_modifier = { modifier = islamists_placated }
+				if = { limit = { has_dynamic_modifier = { modifier = islamists_placated } } remove_dynamic_modifier = { modifier = islamists_placated } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamist_opposition }
 			}
 		}
@@ -407,21 +407,21 @@ TUR_placate_fundamentalist_state_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_opposition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_opposition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_sedition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_sedition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_insurgency }
 				}
-				remove_dynamic_modifier = { modifier = islamist_insurgency }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_insurgency } } remove_dynamic_modifier = { modifier = islamist_insurgency } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			if = {
@@ -453,21 +453,21 @@ TUR_placate_fundamentalist_state_random_target_effect = {
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_opposition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_opposition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_sedition }
 				}
-				remove_dynamic_modifier = { modifier = islamist_sedition }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			else_if = { 	
 				limit = {
 					has_dynamic_modifier = { modifier = islamist_insurgency }
 				}
-				remove_dynamic_modifier = { modifier = islamist_insurgency }
+				if = { limit = { has_dynamic_modifier = { modifier = islamist_insurgency } } remove_dynamic_modifier = { modifier = islamist_insurgency } }   # 1.19-migration: guard
 				add_dynamic_modifier = { modifier = islamists_placated }
 			}
 			if = {
@@ -497,21 +497,21 @@ TUR_placate_fundamentalist_state_all_targets_effect = {
 			limit = {
 				THIS = { has_dynamic_modifier = { modifier = islamist_opposition } }
 			}
-			remove_dynamic_modifier = { modifier = islamist_opposition }
+			if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 			add_dynamic_modifier = { modifier = islamists_placated }
 		}
 		every_state = {
 			limit = {
 				THIS = { has_dynamic_modifier = { modifier = islamist_sedition } }
 			}
-			remove_dynamic_modifier = { modifier = islamist_sedition }
+			if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 			add_dynamic_modifier = { modifier = islamists_placated }
 		}
 		every_state = {
 			limit = {
 				THIS = { has_dynamic_modifier = { modifier = islamist_insurgency } }
 			}
-			remove_dynamic_modifier = { modifier = islamist_insurgency }
+			if = { limit = { has_dynamic_modifier = { modifier = islamist_insurgency } } remove_dynamic_modifier = { modifier = islamist_insurgency } }   # 1.19-migration: guard
 			add_dynamic_modifier = { modifier = islamists_placated }
 		}
 	}
@@ -525,7 +525,7 @@ TUR_empower_all_fundamentalists_effect = {
 			limit = {
 				has_dynamic_modifier = { modifier = islamists_placated }
 			}
-			remove_dynamic_modifier = { modifier = islamists_placated }
+			if = { limit = { has_dynamic_modifier = { modifier = islamists_placated } } remove_dynamic_modifier = { modifier = islamists_placated } }   # 1.19-migration: guard
 			add_dynamic_modifier = { modifier = devout_islamists }
 		}
 	}
@@ -956,7 +956,7 @@ TUR_kemalist_turn_hostile_effect = {
 			limit = {
 				has_dynamic_modifier = { modifier = kemalist_loyalties }
 			}
-			remove_dynamic_modifier = { modifier = kemalist_loyalties }
+			if = { limit = { has_dynamic_modifier = { modifier = kemalist_loyalties } } remove_dynamic_modifier = { modifier = kemalist_loyalties } }   # 1.19-migration: guard
 			add_dynamic_modifier = { modifier = kemalist_schemers }
 		}
 		set_variable = { var = TUR_kemalist_officers_loyalty value = 1 }
@@ -973,7 +973,7 @@ TUR_kemalist_turn_ally_effect = {
 			limit = {
 				has_dynamic_modifier = { modifier = kemalist_schemers }
 			}
-			remove_dynamic_modifier = { modifier = kemalist_schemers }
+			if = { limit = { has_dynamic_modifier = { modifier = kemalist_schemers } } remove_dynamic_modifier = { modifier = kemalist_schemers } }   # 1.19-migration: guard
 			add_dynamic_modifier = { modifier = kemalist_loyalties }
 		}
 		set_variable = { var = TUR_kemalist_officers_loyalty value = 2 }
@@ -1136,83 +1136,83 @@ TUR_remove_state_modifier_effect = {
 		limit = {
 			has_dynamic_modifier = { modifier = kurdish_agitation }
 		}
-		remove_dynamic_modifier = { modifier = kurdish_agitation }
+		if = { limit = { has_dynamic_modifier = { modifier = kurdish_agitation } } remove_dynamic_modifier = { modifier = kurdish_agitation } }   # 1.19-migration: guard
 		set_state_flag = TUR_kurdish_state_conquered
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = { modifier = kurdish_separatism }
 		}
-		remove_dynamic_modifier = { modifier = kurdish_separatism }
+		if = { limit = { has_dynamic_modifier = { modifier = kurdish_separatism } } remove_dynamic_modifier = { modifier = kurdish_separatism } }   # 1.19-migration: guard
 		set_state_flag = TUR_kurdish_state_conquered
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = { modifier = kurdish_rebellion }
 		}
-		remove_dynamic_modifier = { modifier = kurdish_rebellion }
+		if = { limit = { has_dynamic_modifier = { modifier = kurdish_rebellion } } remove_dynamic_modifier = { modifier = kurdish_rebellion } }   # 1.19-migration: guard
 		set_state_flag = TUR_kurdish_state_conquered
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = { modifier = separatist_fatigue }
 		}
-		remove_dynamic_modifier = { modifier = separatist_fatigue }
+		if = { limit = { has_dynamic_modifier = { modifier = separatist_fatigue } } remove_dynamic_modifier = { modifier = separatist_fatigue } }   # 1.19-migration: guard
 		set_state_flag = TUR_kurdish_state_conquered
 	}
 	if = {
 		limit = {
 			has_dynamic_modifier = { modifier = islamist_opposition }
 		}
-		remove_dynamic_modifier = { modifier = islamist_opposition }
+		if = { limit = { has_dynamic_modifier = { modifier = islamist_opposition } } remove_dynamic_modifier = { modifier = islamist_opposition } }   # 1.19-migration: guard
 		set_state_flag = TUR_traditionalist_state_conquered
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = { modifier = islamist_sedition }
 		}
-		remove_dynamic_modifier = { modifier = islamist_sedition }
+		if = { limit = { has_dynamic_modifier = { modifier = islamist_sedition } } remove_dynamic_modifier = { modifier = islamist_sedition } }   # 1.19-migration: guard
 		set_state_flag = TUR_traditionalist_state_conquered
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = { modifier = islamist_insurgency }
 		}
-		remove_dynamic_modifier = { modifier = islamist_insurgency }
+		if = { limit = { has_dynamic_modifier = { modifier = islamist_insurgency } } remove_dynamic_modifier = { modifier = islamist_insurgency } }   # 1.19-migration: guard
 		set_state_flag = TUR_traditionalist_state_conquered
 	}
 	else_if = {
 		limit = {
 			has_dynamic_modifier = { modifier = islamists_placated }
 		}
-		remove_dynamic_modifier = { modifier = islamists_placated }
+		if = { limit = { has_dynamic_modifier = { modifier = islamists_placated } } remove_dynamic_modifier = { modifier = islamists_placated } }   # 1.19-migration: guard
 		set_state_flag = TUR_traditionalist_state_conquered
 	}
 	if = {
 		limit = {
 			has_dynamic_modifier = { modifier = kemalist_loyalties }
 		}
-		remove_dynamic_modifier = { modifier = kemalist_loyalties }
+		if = { limit = { has_dynamic_modifier = { modifier = kemalist_loyalties } } remove_dynamic_modifier = { modifier = kemalist_loyalties } }   # 1.19-migration: guard
 		set_state_flag = TUR_loyal_kemalist_state_conquered
 	}
 	if = {
 		limit = {
 			has_dynamic_modifier = { modifier = turanist_assimilation }
 		}
-		remove_dynamic_modifier = { modifier = turanist_assimilation }
+		if = { limit = { has_dynamic_modifier = { modifier = turanist_assimilation } } remove_dynamic_modifier = { modifier = turanist_assimilation } }   # 1.19-migration: guard
 		set_state_flag = TUR_turanist_state_conquered
 	}
 	if = {
 		limit = {
 			has_dynamic_modifier = { modifier = kemalist_schemers }
 		}
-		remove_dynamic_modifier = { modifier = kemalist_schemers }
+		if = { limit = { has_dynamic_modifier = { modifier = kemalist_schemers } } remove_dynamic_modifier = { modifier = kemalist_schemers } }   # 1.19-migration: guard
 	}
 	if = {
 		limit = {
 			has_dynamic_modifier = { modifier = conscription_exemptions_granted }
 		}
-		remove_dynamic_modifier = { modifier = conscription_exemptions_granted }
+		if = { limit = { has_dynamic_modifier = { modifier = conscription_exemptions_granted } } remove_dynamic_modifier = { modifier = conscription_exemptions_granted } }   # 1.19-migration: guard
 	}
 }
 TUR_restore_dynamic_modifiers_effect = {

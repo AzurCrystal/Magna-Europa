@@ -35,18 +35,19 @@ peace_ai_desires = {
                             is_capital = yes
                             is_coastal = yes
                         }
-                        state = 738 #California
-                        state = 860 #Cote Nord
-                        state = 458 #Tunis
-                        state = 446 #Suez
+                        #state = 738 #California # 1.19-migration: California is off-map in this mod
+                        #state = 860 #Cote Nord # 1.19-migration: Cote-Nord is off-map in this mod
+                        state = 1109 #Tunis # 1.19-migration: was vanilla 458
+                        #state = 446 #Suez # 1.19-migration: Suez is off-map in this mod
                         state = 2475 #London
-                        state = 286 #Indochina
+                        #state = 286 #Indochina # 1.19-migration: Indochina is off-map in this mod
                         AND = {
                             ROOT.FROM = { capital_scope = { is_on_continent = europe } }
                             OR = {
                                 state = 2127 #Crimea
-                                state = 797 #Istanbul
-                                state = 118 #Gibraltar
+                                state = 932 #Istanbul (Bati) # 1.19-migration: was vanilla 797
+                                state = 945 #Istanbul (Dogu) # 1.19-migration: was vanilla 797
+                                state = 882 #Gibraltar # 1.19-migration: was vanilla 118
                             }
                         }
                     }
@@ -82,34 +83,36 @@ peace_ai_desires = {
                             is_capital = yes
                             is_coastal = yes
                         }
-                        state = 738 #California
-                        state = 860 #Cote Nord
-                        state = 458 #Tunis
-                        state = 446 #Suez
+                        #state = 738 #California # 1.19-migration: California is off-map in this mod
+                        #state = 860 #Cote Nord # 1.19-migration: Cote-Nord is off-map in this mod
+                        state = 1109 #Tunis # 1.19-migration: was vanilla 458
+                        #state = 446 #Suez # 1.19-migration: Suez is off-map in this mod
                         state = 2475 #London
-                        state = 286 #Indochina
+                        #state = 286 #Indochina # 1.19-migration: Indochina is off-map in this mod
                         AND = {
                             ROOT.FROM = { capital_scope = { is_on_continent = europe } }
                             OR = {
                                 state = 2127 #Crimea
-                                state = 797 #Istanbul
-                                state = 118 #Gibraltar
+                                state = 932 #Istanbul (Bati) # 1.19-migration: was vanilla 797
+                                state = 945 #Istanbul (Dogu) # 1.19-migration: was vanilla 797
+                                state = 882 #Gibraltar # 1.19-migration: was vanilla 118
                             }
                         }
                     }
                 }
             } #It is not claimed by us
             #Special Japan China Handling; this has logic elsewhere which we reluctantly have to special case.
-            NOT = {
-                AND = { #NOT is sneakily NOR
-                    ROOT = {
-                        original_tag = JAP
-                    }
-                    ROOT.FROM.FROM = {
-                        original_tag = CHI
-                    }
-                }
-            }
+            # 1.19-migration: JAP/CHI are dead tags in this mod; whole NOT block disabled
+            #NOT = {
+            #    AND = { #NOT is sneakily NOR
+            #        ROOT = {
+            #            original_tag = JAP
+            #        }
+            #        ROOT.FROM.FROM = {
+            #            original_tag = CHI
+            #        }
+            #    }
+            #}
         }
         ai_desire = -1000
     }
@@ -159,7 +162,7 @@ peace_ai_desires = {
         peace_action_type = take_states
         enable = {
             ROOT = { 
-                NOT = { tag = JAP }            #We aren't Japan (special handling)
+                #NOT = { tag = JAP }            # 1.19-migration: JAP is a dead tag in this mod
                 is_major = yes                #We are big
                 has_government = fascism    #We are the baddies
                 tag = ROOT.FROM                #We are acting for ourselves
@@ -173,7 +176,7 @@ peace_ai_desires = {
         peace_action_type = puppet
         enable = {
             ROOT = { 
-                NOT = { tag = JAP }            #We aren't Japan (special handling)
+                #NOT = { tag = JAP }            # 1.19-migration: JAP is a dead tag in this mod
                 is_major = yes                #We are big
                 has_government = fascism    #We are the baddies
             }
@@ -186,7 +189,7 @@ peace_ai_desires = {
         peace_action_type = liberate
         enable = {
             ROOT = { 
-                NOT = { tag = JAP }            #We aren't Japan (special handling)
+                #NOT = { tag = JAP }            # 1.19-migration: JAP is a dead tag in this mod
                 is_major = yes                #We are big
                 has_government = fascism    #We are the baddies
                 tag = ROOT.FROM                #We are acting for ourselves

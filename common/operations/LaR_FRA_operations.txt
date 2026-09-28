@@ -231,7 +231,7 @@ FRA_instigate_workers_revolution_italy = { ### 1/25
 					start_civil_war = {
 						ideology = communism
 						size = 0.3
-						states = { 158 159 161 160 39 }
+						states = { 718 709 742 805 876 } # 1.19-migration: was vanilla 158 159 161 160 39 (Piedmont/Lombardy/Emilia/Veneto/South Tyrol -> Torino/Milano/Firenze/Venezia/Roma Centro)
 					}
 					random_other_country = {
 						limit = {
@@ -356,7 +356,7 @@ FRA_instigate_workers_revolution_spain = { ### 1/25
 					start_civil_war = {
 						ideology = communism
 						size = 0.3
-						states = { 165 794 166 172 }
+						states = { 896 870 939 854 } # 1.19-migration: was vanilla 165 794 166 172 (Catalonia/Aragon/Navarre -> Barcelona/Huesca/Teruel/Navarra)
 					}
 					random_other_country = {
 						limit = {
@@ -480,7 +480,7 @@ FRA_instigate_workers_revolution_germany = { ### 1/25
 					start_civil_war = {
 						ideology = communism
 						size = 0.3
-						states = { 42 51 55 50 }
+						states = { 1751 1752 1745 568 } # 1.19-migration: was vanilla 42 51 55 50 (Rhineland/Moselland/Nassau/Baden -> Koeln/Wittlich/Wiesbaden/Baden)
 					}
 					random_other_country = {
 						limit = {
@@ -768,444 +768,452 @@ FRA_coup_in_syria = { ### 1/50
 	}
 }
 
-FRA_coup_in_indochina = { ### 1/50
-	icon = GFX_operations_coup_government
-	map_icon = GFX_operations_coup_government_map
-	name = FRA_coup_in_indochina
-	desc = FRA_coup_in_indochina_desc
-	days = 90
+# 1.19-migration: off-map Indochina states (671/670/286/741 reused by mod) — whole operation disabled
 
-	allowed = {
-		original_tag = FRA
-	}
+#FRA_coup_in_indochina = { ### 1/50
+#	icon = GFX_operations_coup_government
+#	map_icon = GFX_operations_coup_government_map
+#	name = FRA_coup_in_indochina
+#	desc = FRA_coup_in_indochina_desc
+#	days = 90
 
-	selection_target = {
-		targets = { FROM }
-	}
+#	allowed = {
+#		original_tag = FRA
+#	}
 
-	selection_target_state = {
-		OR = {
-			state = 671
-			state = 670
-			state = 286
-			state = 741
-		}
-	}
-	visible = { 
-		has_country_flag = FRA_coup_in_indochina_flag
-		FROM = {
-			controls_state = 671
-			controls_state = 670
-			controls_state = 286
-			controls_state = 741
-		}
-	}
-	available = {
+#	selection_target = {
+#		targets = { FROM }
+#	}
 
-	}
+#	selection_target_state = {
+#		OR = {
+#			state = 671
+#			state = 670
+#			state = 286
+#			state = 741
+#		}
+#	}
+#	visible = { 
+#		has_country_flag = FRA_coup_in_indochina_flag
+#		FROM = {
+#			controls_state = 671
+#			controls_state = 670
+#			controls_state = 286
+#			controls_state = 741
+#		}
+#	}
+#	available = {
 
-	outcome_modifiers = { operation_outcome }
-	cost_modifiers = { operation_cost }
-	risk_modifiers = { operation_risk }
+#	}
 
-	operatives = 1
+#	outcome_modifiers = { operation_outcome }
+#	cost_modifiers = { operation_cost }
+#	risk_modifiers = { operation_risk }
 
-	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
-	network_strength = 50
+#	operatives = 1
 
-	equipment = {
-		infantry_equipment = 5000
-		support_equipment = 500
-	}
+#	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
+#	network_strength = 50
 
-	on_start = {  # SCOPE_OPERATION
+#	equipment = {
+#		infantry_equipment = 5000
+#		support_equipment = 500
+#	}
+
+#	on_start = {  # SCOPE_OPERATION
 		
-	}
-	outcome_potential = {
-		every_state = {
-			limit = {
-				OR = {
-					state = 671
-					state = 670
-					state = 286
-					state = 741
-				}
-				CONTROLLER = {
-					not = { tag = ROOT }
-				}
-			}
-			ROOT = {
-				transfer_state = PREV
-			}
-		}
-	}
-	risk_chance = 0.35
-	# outcome is an effect that runs when the operation has completed
-	outcome_execute = { # SCOPE_OPERATION
-		VIC = { country_event = LaR_france_vichy_notification_events.8 }
-		every_state = {
-			limit = {
-				OR = {
-					state = 671
-					state = 670
-					state = 286
-					state = 741
-				}
-				CONTROLLER = {
-					not = { tag = ROOT }
-				}
-			}
-			ROOT = {
-				transfer_state = PREV
-			}
-		}
-	}
+#	}
+#	outcome_potential = {
+#		every_state = {
+#			limit = {
+#				OR = {
+#					state = 671
+#					state = 670
+#					state = 286
+#					state = 741
+#				}
+#				CONTROLLER = {
+#					not = { tag = ROOT }
+#				}
+#			}
+#			ROOT = {
+#				transfer_state = PREV
+#			}
+#		}
+#	}
+#	risk_chance = 0.35
+#	# outcome is an effect that runs when the operation has completed
+#	outcome_execute = { # SCOPE_OPERATION
+#		VIC = { country_event = LaR_france_vichy_notification_events.8 }
+#		every_state = {
+#			limit = {
+#				OR = {
+#					state = 671
+#					state = 670
+#					state = 286
+#					state = 741
+#				}
+#				CONTROLLER = {
+#					not = { tag = ROOT }
+#				}
+#			}
+#			ROOT = {
+#				transfer_state = PREV
+#			}
+#		}
+#	}
 	
-	# This is where all the separate phases are defined
-	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
-	phases = { #infiltration 
-		infiltration_submarine = { base = 33 } 
-		infiltration_paradrop = { 
-			base = 33 
-			modifier = {
-				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
-				factor = 0.1
-			}
-		} 
-		infiltration_border = { base = 33 }
-	}
-	phases = { 
-		lar_fra_coup_pre_position_units = { base = 25 }
-	}
-	phases = { 
-		lar_fra_launch_coup = { base = 25 }
-	}
-}
+#	# This is where all the separate phases are defined
+#	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+#	phases = { #infiltration 
+#		infiltration_submarine = { base = 33 } 
+#		infiltration_paradrop = { 
+#			base = 33 
+#			modifier = {
+#				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
+#				factor = 0.1
+#			}
+#		} 
+#		infiltration_border = { base = 33 }
+#	}
+#	phases = { 
+#		lar_fra_coup_pre_position_units = { base = 25 }
+#	}
+#	phases = { 
+#		lar_fra_launch_coup = { base = 25 }
+#	}
+#}
 
-FRA_coup_in_central_africa = { ### 1/50
-	icon = GFX_operations_coup_government
-	map_icon = GFX_operations_coup_government_map
-	name = FRA_coup_in_central_africa
-	desc = FRA_coup_in_central_africa_desc
-	days = 90
+# 1.19-migration: off-map central Africa states — whole operation disabled
 
-	allowed = {
-		original_tag = FRA
-	}
+#FRA_coup_in_central_africa = { ### 1/50
+#	icon = GFX_operations_coup_government
+#	map_icon = GFX_operations_coup_government_map
+#	name = FRA_coup_in_central_africa
+#	desc = FRA_coup_in_central_africa_desc
+#	days = 90
 
-	selection_target = {
-		targets = { FROM }
-	}
+#	allowed = {
+#		original_tag = FRA
+#	}
 
-	selection_target_state = {
-		OR = {
-			state = 772
-			state = 539
-			state = 773
-			state = 660
-			state = 774
-		}
-	}
-	visible = { 
-		has_country_flag = FRA_coup_in_central_africa_flag
-		FROM = {
-			controls_state = 772
-			controls_state = 539
-			controls_state = 773
-			controls_state = 660
-			controls_state = 774
-		}
-	}
-	available = {
+#	selection_target = {
+#		targets = { FROM }
+#	}
 
-	}
-	operatives = 1
+#	selection_target_state = {
+#		OR = {
+#			state = 772
+#			state = 539
+#			state = 773
+#			state = 660
+#			state = 774
+#		}
+#	}
+#	visible = { 
+#		has_country_flag = FRA_coup_in_central_africa_flag
+#		FROM = {
+#			controls_state = 772
+#			controls_state = 539
+#			controls_state = 773
+#			controls_state = 660
+#			controls_state = 774
+#		}
+#	}
+#	available = {
 
-	outcome_modifiers = { operation_outcome }
-	cost_modifiers = { operation_cost }
-	risk_modifiers = { operation_risk }
+#	}
+#	operatives = 1
 
-	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
-	network_strength = 50
+#	outcome_modifiers = { operation_outcome }
+#	cost_modifiers = { operation_cost }
+#	risk_modifiers = { operation_risk }
 
-	equipment = {
-		infantry_equipment = 5000
-		support_equipment = 500
-	}
+#	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
+#	network_strength = 50
 
-	on_start = {  # SCOPE_OPERATION
+#	equipment = {
+#		infantry_equipment = 5000
+#		support_equipment = 500
+#	}
+
+#	on_start = {  # SCOPE_OPERATION
 		
-	}
-	outcome_potential = {
-		every_state = {
-			limit = {
-				OR = {
-					state = 772
-					state = 539
-					state = 773
-					state = 660
-					state = 774
-				}
-				CONTROLLER = {
-					not = { tag = ROOT }
-				}
-			}
-			ROOT = {
-				transfer_state = PREV
-			}
-		}
-	}
-	risk_chance = 0.35
-	# outcome is an effect that runs when the operation has completed
-	outcome_execute = { # SCOPE_OPERATION
-		VIC = { country_event = LaR_france_vichy_notification_events.9 }
-		every_state = {
-			limit = {
-				OR = {
-					state = 772
-					state = 539
-					state = 773
-					state = 660
-					state = 774
-				}
-				CONTROLLER = {
-					not = { tag = ROOT }
-				}
-			}
-			ROOT = {
-				transfer_state = PREV
-			}
-		}
-	}
+#	}
+#	outcome_potential = {
+#		every_state = {
+#			limit = {
+#				OR = {
+#					state = 772
+#					state = 539
+#					state = 773
+#					state = 660
+#					state = 774
+#				}
+#				CONTROLLER = {
+#					not = { tag = ROOT }
+#				}
+#			}
+#			ROOT = {
+#				transfer_state = PREV
+#			}
+#		}
+#	}
+#	risk_chance = 0.35
+#	# outcome is an effect that runs when the operation has completed
+#	outcome_execute = { # SCOPE_OPERATION
+#		VIC = { country_event = LaR_france_vichy_notification_events.9 }
+#		every_state = {
+#			limit = {
+#				OR = {
+#					state = 772
+#					state = 539
+#					state = 773
+#					state = 660
+#					state = 774
+#				}
+#				CONTROLLER = {
+#					not = { tag = ROOT }
+#				}
+#			}
+#			ROOT = {
+#				transfer_state = PREV
+#			}
+#		}
+#	}
 	
-	# This is where all the separate phases are defined
-	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
-	phases = { #infiltration 
-		infiltration_submarine = { base = 33 } 
-		infiltration_paradrop = { 
-			base = 33 
-			modifier = {
-				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
-				factor = 0.1
-			}
-		} 
-		infiltration_border = { base = 33 }
-	}
-	phases = { 
-		lar_fra_coup_pre_position_units = { base = 25 }
-	}
-	phases = { 
-		lar_fra_launch_coup = { base = 25 }
-	}
-}
+#	# This is where all the separate phases are defined
+#	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+#	phases = { #infiltration 
+#		infiltration_submarine = { base = 33 } 
+#		infiltration_paradrop = { 
+#			base = 33 
+#			modifier = {
+#				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
+#				factor = 0.1
+#			}
+#		} 
+#		infiltration_border = { base = 33 }
+#	}
+#	phases = { 
+#		lar_fra_coup_pre_position_units = { base = 25 }
+#	}
+#	phases = { 
+#		lar_fra_launch_coup = { base = 25 }
+#	}
+#}
 
-FRA_coup_in_west_africa = { ### 1/50
-	icon = GFX_operations_coup_government
-	map_icon = GFX_operations_coup_government_map
-	name = FRA_coup_in_west_africa
-	desc = FRA_coup_in_west_africa_desc
-	days = 90
+# 1.19-migration: off-map west Africa states — whole operation disabled
 
-	allowed = {
-		original_tag = FRA
-	}
+#FRA_coup_in_west_africa = { ### 1/50
+#	icon = GFX_operations_coup_government
+#	map_icon = GFX_operations_coup_government_map
+#	name = FRA_coup_in_west_africa
+#	desc = FRA_coup_in_west_africa_desc
+#	days = 90
 
-	selection_target = {
-		targets = { FROM }
-	}
+#	allowed = {
+#		original_tag = FRA
+#	}
 
-	selection_target_state = {
-		OR = {
-			state = 557
-			state = 272
-			state = 556
-			state = 898
-			state = 899
-			state = 780
-			state = 779
-			state = 778
-			state = 781
-			state = 776
-		}
-	}
-	available = { 
-	}
-	visible = { 
-		has_country_flag = FRA_coup_in_west_africa_flag
-		FROM = {
-			controls_state = 557
-			controls_state = 272
-			controls_state = 556
-			controls_state = 898
-			controls_state = 899
-			controls_state = 780
-			controls_state = 779
-			controls_state = 778
-			controls_state = 781
-			controls_state = 776
-		}
-	}
-	operatives = 1
+#	selection_target = {
+#		targets = { FROM }
+#	}
 
-	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
-	network_strength = 50
+#	selection_target_state = {
+#		OR = {
+#			state = 557
+#			state = 272
+#			state = 556
+#			state = 898
+#			state = 899
+#			state = 780
+#			state = 779
+#			state = 778
+#			state = 781
+#			state = 776
+#		}
+#	}
+#	available = { 
+#	}
+#	visible = { 
+#		has_country_flag = FRA_coup_in_west_africa_flag
+#		FROM = {
+#			controls_state = 557
+#			controls_state = 272
+#			controls_state = 556
+#			controls_state = 898
+#			controls_state = 899
+#			controls_state = 780
+#			controls_state = 779
+#			controls_state = 778
+#			controls_state = 781
+#			controls_state = 776
+#		}
+#	}
+#	operatives = 1
 
-	equipment = {
-		infantry_equipment = 5000
-		support_equipment = 500
-	}
+#	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
+#	network_strength = 50
 
-	on_start = {  # SCOPE_OPERATION
+#	equipment = {
+#		infantry_equipment = 5000
+#		support_equipment = 500
+#	}
+
+#	on_start = {  # SCOPE_OPERATION
 		
-	}
-	outcome_potential = {
-		every_state = {
-			limit = {
-				OR = {
-					state = 557
-					state = 272
-					state = 556
-					state = 898
-					state = 899
-					state = 780
-					state = 779
-					state = 778
-					state = 781
-					state = 776
-				}
-				CONTROLLER = {
-					not = { tag = ROOT }
-				}
-			}
-			ROOT = {
-				transfer_state = PREV
-			}
-		}
-	}
-	outcome_modifiers = { operation_outcome }
-	cost_modifiers = { operation_cost }
-	risk_modifiers = { operation_risk }
+#	}
+#	outcome_potential = {
+#		every_state = {
+#			limit = {
+#				OR = {
+#					state = 557
+#					state = 272
+#					state = 556
+#					state = 898
+#					state = 899
+#					state = 780
+#					state = 779
+#					state = 778
+#					state = 781
+#					state = 776
+#				}
+#				CONTROLLER = {
+#					not = { tag = ROOT }
+#				}
+#			}
+#			ROOT = {
+#				transfer_state = PREV
+#			}
+#		}
+#	}
+#	outcome_modifiers = { operation_outcome }
+#	cost_modifiers = { operation_cost }
+#	risk_modifiers = { operation_risk }
 
-	risk_chance = 0.35
-	# outcome is an effect that runs when the operation has completed
-	outcome_execute = { # SCOPE_OPERATION
-		VIC = { country_event = LaR_france_vichy_notification_events.10 }
-		every_state = {
-			limit = {
-				OR = {
-					state = 557
-					state = 272
-					state = 556
-					state = 898
-					state = 899
-					state = 780
-					state = 779
-					state = 778
-					state = 781
-					state = 776
-				}
-				CONTROLLER = {
-					not = { tag = ROOT }
-				}
-			}
-			ROOT = {
-				transfer_state = PREV
-			}
-		}
-	}
+#	risk_chance = 0.35
+#	# outcome is an effect that runs when the operation has completed
+#	outcome_execute = { # SCOPE_OPERATION
+#		VIC = { country_event = LaR_france_vichy_notification_events.10 }
+#		every_state = {
+#			limit = {
+#				OR = {
+#					state = 557
+#					state = 272
+#					state = 556
+#					state = 898
+#					state = 899
+#					state = 780
+#					state = 779
+#					state = 778
+#					state = 781
+#					state = 776
+#				}
+#				CONTROLLER = {
+#					not = { tag = ROOT }
+#				}
+#			}
+#			ROOT = {
+#				transfer_state = PREV
+#			}
+#		}
+#	}
 	
-	# This is where all the separate phases are defined
-	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
-	phases = { #infiltration 
-		infiltration_submarine = { base = 33 } 
-		infiltration_paradrop = { 
-			base = 33 
-			modifier = {
-				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
-				factor = 0.1
-			}
-		} 
-		infiltration_border = { base = 33 }
-	}
-	phases = { 
-		lar_fra_coup_pre_position_units = { base = 25 }
-	}
-	phases = { 
-		lar_fra_launch_coup = { base = 25 }
-	}
-}
+#	# This is where all the separate phases are defined
+#	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+#	phases = { #infiltration 
+#		infiltration_submarine = { base = 33 } 
+#		infiltration_paradrop = { 
+#			base = 33 
+#			modifier = {
+#				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
+#				factor = 0.1
+#			}
+#		} 
+#		infiltration_border = { base = 33 }
+#	}
+#	phases = { 
+#		lar_fra_coup_pre_position_units = { base = 25 }
+#	}
+#	phases = { 
+#		lar_fra_launch_coup = { base = 25 }
+#	}
+#}
 
-FRA_coup_in_madagascar = { ### 1/50
-	icon = GFX_operations_coup_government
-	map_icon = GFX_operations_coup_government_map
-	name = FRA_coup_in_madagascar
-	desc = FRA_coup_in_madagascar_desc
-	days = 90
+# 1.19-migration: off-map Madagascar (state 543 reused by mod: Bar-le-Duc) — whole operation disabled
 
-	allowed = {
-		original_tag = FRA
-	}
+#FRA_coup_in_madagascar = { ### 1/50
+#	icon = GFX_operations_coup_government
+#	map_icon = GFX_operations_coup_government_map
+#	name = FRA_coup_in_madagascar
+#	desc = FRA_coup_in_madagascar_desc
+#	days = 90
 
-	selection_target = {
-		targets = { FROM }
-	}
+#	allowed = {
+#		original_tag = FRA
+#	}
 
-	selection_target_state = {
-		state = 543
-	}
+#	selection_target = {
+#		targets = { FROM }
+#	}
 
-	available = { 
-	}
-	visible = { 
-		has_country_flag = FRA_coup_in_madagascar_flag
-		FROM = { controls_state = 543 }
-	}
-	operatives = 1
+#	selection_target_state = {
+#		state = 543
+#	}
 
-	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
-	network_strength = 50
+#	available = { 
+#	}
+#	visible = { 
+#		has_country_flag = FRA_coup_in_madagascar_flag
+#		FROM = { controls_state = 543 }
+#	}
+#	operatives = 1
 
-	equipment = {
-		infantry_equipment = 5000
-		support_equipment = 500
-	}
+#	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
+#	network_strength = 50
 
-	on_start = {  # SCOPE_OPERATION
+#	equipment = {
+#		infantry_equipment = 5000
+#		support_equipment = 500
+#	}
+
+#	on_start = {  # SCOPE_OPERATION
 		
-	}
+#	}
 
-	outcome_potential = {
-		ROOT = { transfer_state = 543 }
-	}
+#	outcome_potential = {
+#		ROOT = { transfer_state = 543 }
+#	}
 
-	outcome_modifiers = { operation_outcome }
-	cost_modifiers = { operation_cost }
-	risk_modifiers = { operation_risk }
+#	outcome_modifiers = { operation_outcome }
+#	cost_modifiers = { operation_cost }
+#	risk_modifiers = { operation_risk }
 	
-	risk_chance = 0.25
-	# outcome is an effect that runs when the operation has completed
-	outcome_execute = { # SCOPE_OPERATION
-		VIC = { country_event = LaR_france_vichy_notification_events.12 }
-		ROOT = { transfer_state = 543 }
-	}
+#	risk_chance = 0.25
+#	# outcome is an effect that runs when the operation has completed
+#	outcome_execute = { # SCOPE_OPERATION
+#		VIC = { country_event = LaR_france_vichy_notification_events.12 }
+#		ROOT = { transfer_state = 543 }
+#	}
 	
-	# This is where all the separate phases are defined
-	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
-	phases = { #infiltration 
-		infiltration_submarine = { base = 33 } 
-		infiltration_paradrop = { 
-			base = 33 
-			modifier = {
-				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
-				factor = 0.1
-			}
-		} 
-		infiltration_border = { base = 33 }
-	}
-	phases = { 
-		lar_fra_coup_pre_position_units = { base = 25 }
-	}
-	phases = { 
-		lar_fra_launch_coup = { base = 25 }
-	}
-}
+#	# This is where all the separate phases are defined
+#	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+#	phases = { #infiltration 
+#		infiltration_submarine = { base = 33 } 
+#		infiltration_paradrop = { 
+#			base = 33 
+#			modifier = {
+#				ROOT = { has_equipment = { transport_plane_equipment < 1 } }
+#				factor = 0.1
+#			}
+#		} 
+#		infiltration_border = { base = 33 }
+#	}
+#	phases = { 
+#		lar_fra_coup_pre_position_units = { base = 25 }
+#	}
+#	phases = { 
+#		lar_fra_launch_coup = { base = 25 }
+#	}
+#}

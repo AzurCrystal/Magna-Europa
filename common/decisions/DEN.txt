@@ -5228,58 +5228,58 @@ DEN_development_category = {
 			
 		}
 	}
-	DEN_develop_state_gotland = {
-		priority = 1
-		icon = GFX_decision_generic_construction
-
-		ai_will_do = { 
-			base = 10
-			modifier = {
-				factor = 2
-				has_political_power > 100
-			}
-		}
-
-		allowed = { 
-			original_tag = DEN
-		}
-
-		on_map_mode = map_and_decisions_view
-
-		visible = {
-			has_civil_war = no
-			has_full_control_of_state = 226
-			has_completed_focus = DEN_expand_the_industries 
-			226 = {
-				NOT = {
-					check_variable = { DEN_times_state_was_developed > 2}
-				}
-			}
-		}
-
-		highlight_states = {
-			highlight_state_targets = {
-				state = 226
-			}
-		}
-
-		fire_only_once = no
-
-		days_remove = 30
-
-		cancel_trigger = { 226 = { NOT = { is_controlled_by = ROOT } } }
-
-		cost = 226.DEN_develop_state_cost
-		
-		remove_effect = {
-			226 = {
-				DEN_develop_state_effect = yes
-			}
-			
-			multiply_variable = { 226.DEN_develop_state_cost = DEN_double_cost_increase }
-			
-		}
-	}
+#	DEN_develop_state_gotland = {   # 1.19-migration: Gotland is Sweden's, not a Danish developable state; vanilla 226 no mod equivalent for DEN
+#		priority = 1
+#		icon = GFX_decision_generic_construction
+#
+#		ai_will_do = {
+#			base = 10
+#			modifier = {
+#				factor = 2
+#				has_political_power > 100
+#			}
+#		}
+#
+#		allowed = {
+#			original_tag = DEN
+#		}
+#
+#		on_map_mode = map_and_decisions_view
+#
+#		visible = {
+#			has_civil_war = no
+#			has_full_control_of_state = 226
+#			has_completed_focus = DEN_expand_the_industries
+#			226 = {
+#				NOT = {
+#					check_variable = { DEN_times_state_was_developed > 2}
+#				}
+#			}
+#		}
+#
+#		highlight_states = {
+#			highlight_state_targets = {
+#				state = 226
+#			}
+#		}
+#
+#		fire_only_once = no
+#
+#		days_remove = 30
+#
+#		cancel_trigger = { 226 = { NOT = { is_controlled_by = ROOT } } }
+#
+#		cost = 226.DEN_develop_state_cost
+#
+#		remove_effect = {
+#			226 = {
+#				DEN_develop_state_effect = yes
+#			}
+#
+#			multiply_variable = { 226.DEN_develop_state_cost = DEN_double_cost_increase }
+#
+#		}
+#	}   # 1.19-migration: end commented gotland
 	DEN_develop_state_iceland = {
 		priority = 1
 		icon = GFX_decision_generic_construction
