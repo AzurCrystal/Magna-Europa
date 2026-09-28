@@ -1,0 +1,84 @@
+    775|
+    776|			modifier = {
+    777|				add = 2
+    778|				has_stability > 60
+    779|			}
+    780|
+    781|			modifier = {
+    782|				add = 3
+    783|				has_war = no
+    784|			}
+    785|		}
+    786|
+    787|		FRA = {
+    788|			country_event = { days = 2 id = ww_BEL_event_diplomatic.8 }
+    789|
+    790|			effect_tooltip = {
+    791|				random_owned_state = {
+    792|					limit = {
+    793|						is_in_home_area = yes
+    794|						NOT = {
+>>  795|							state = 466
+    796|						}
+    797|						free_building_slots = {
+    798|							building = industrial_complex
+    799|							size > 2
+    800|							include_locked = yes
+    801|						}
+    802|					}
+    803|
+    804|					add_building_construction = {
+    805|						type = industrial_complex
+    806|						level = 2
+    807|						instant_build = yes
+    808|					}
+    809|				}
+    810|			}
+    811|		}
+    812|	}
+    813|}
+    814|
+    815|# To France : Belgium demand Calais
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1014|		FROM = {
+   1015|			country_event = { days = 2 id = ww_BEL_event_diplomatic.10 }
+   1016|
+   1017|			random_owned_state = {
+   1018|				limit = {
+   1019|					is_in_home_area = yes
+   1020|					industrial_complex > 2
+   1021|				}
+   1022|				
+   1023|				remove_building = {
+   1024|					type = industrial_complex
+   1025|					level = 2
+   1026|				}
+   1027|			}
+   1028|		}
+   1029|
+   1030|		random_owned_state = {
+   1031|			limit = {
+   1032|				is_in_home_area = yes
+   1033|				NOT = {
+>> 1034|					state = 466
+   1035|				}
+   1036|				free_building_slots = {
+   1037|					building = industrial_complex
+   1038|					size > 2
+   1039|					include_locked = yes
+   1040|				}
+   1041|			}
+   1042|
+   1043|			add_building_construction = {
+   1044|				type = industrial_complex
+   1045|				level = 2
+   1046|				instant_build = yes
+   1047|			}
+   1048|		}
+   1049|	}
+   1050|}
+   1051|
+   1052|# To Congo : Belgium just handed land over to France
+   1053|country_event = {
+   1054|	id = ww_BEL_event_diplomatic.9
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

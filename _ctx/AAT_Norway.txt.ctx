@@ -1,0 +1,42 @@
+   3154|		}		 
+   3155|	}
+   3156|}
+   3157|
+   3158|country_event = { # SOV accepted  
+   3159|	id = AAT_norway_communist.5
+   3160|	title = AAT_norway_communist.5.t
+   3161|	desc = AAT_norway_communist.5.desc
+   3162|
+   3163|	picture = GFX_report_event_por_salazar_military
+   3164|
+   3165|	is_triggered_only = yes
+   3166|
+   3167|	option = { # Noice
+   3168|		name = AAT_norway_communist.5.a
+   3169|		ai_chance = {
+   3170|			base = 10
+   3171|		}
+   3172|		every_owned_state = {
+   3173|			limit = {
+>> 3174|				NOT = { state = 914 } # Not Jan Mayen
+   3175|				free_building_slots = {
+   3176|				 	building = arms_factory 
+   3177|				 	size > 2 
+   3178|				 	include_locked = yes 	
+   3179|				 } 
+   3180|			}
+   3181|			random_select_amount = 3
+   3182|			add_extra_state_shared_building_slots = 3
+   3183|			add_building_construction = {
+   3184|			 	type = arms_factory
+   3185|			 	level = 3
+   3186|			 	instant_build = yes
+   3187|			} 
+   3188|		}
+   3189|		add_opinion_modifier = {
+   3190|			target = FROM 
+   3191|			modifier = NOR_industrial_collaboration
+   3192|		}
+   3193|		reverse_add_opinion_modifier = {
+   3194|			target = FROM 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

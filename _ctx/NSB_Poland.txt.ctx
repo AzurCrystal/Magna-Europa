@@ -1,0 +1,815 @@
+    351|		FROM = { country_event = NSB_poland_events.301 }
+    352|	}
+    353|	option = { #no
+    354|		name = NSB_poland_events.3.b
+    355|		ai_chance = {
+    356|			factor = 30
+    357|			modifier = {
+    358|				has_wargoal_against = POL
+    359|				factor = 0
+    360|			}
+    361|		}
+    362|		FROM = { country_event = NSB_poland_events.302 }
+    363|	}
+    364|	option = { #Germany agrees with the caviat that Poland cedes Danzig because I'm player Germany and if I don't get Danzig the game is literally unplayable, the devs should spend less time making a Polish focus tree and more time fixing the ai.
+    365|		name = NSB_poland_events.3.c
+    366|		ai_chance = {
+    367|			factor = 0
+    368|		}
+    369|		trigger = {
+    370|			OR = {
+>>  371|				POL = { owns_state = 280 }
+>>  372|				POL = { owns_state = 280 }
+    373|			}
+    374|		}
+    375|		FROM = { country_event = NSB_poland_events.303 }
+    376|	}
+    377|}
+    378|
+    379|#Germany accepts
+    380|country_event = {
+    381|	id = NSB_poland_events.301
+    382|	immediate = { log = "[GetDateText]: [Root.GetName]: event NSB_poland_events.301 FROM = [From.GetName]" }
+    383|	title = NSB_poland_events.301.t
+    384|	desc = NSB_poland_events.301.desc
+    385|	picture = GFX_report_event_generic_sign_treaty2
+    386|	
+    387|	is_triggered_only = yes
+    388|
+    389|	fire_only_once = yes
+    390|
+    391|	option = { #Accept, Poland forms a faction
+    392|		name = NSB_poland_events.301.a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    434|	option = { #Accept, Poland cedes Danzig and Germany joins the faction.
+    435|		name = NSB_poland_events.303.a
+    436|		ai_chance = {
+    437|			factor = 30
+    438|			modifier = {
+    439|				add = -25
+    440|				GER = { has_army_size = { size < 40 } }
+    441|			}
+    442|			modifier = {
+    443|				add = 100
+    444|				GER = { has_army_size = { size > 39 } }
+    445|			}
+    446|		}
+    447|		set_rule = {
+    448|			can_create_factions = yes
+    449|		}
+    450|		create_faction = POL_GER_ALLIANCE
+    451|		add_to_faction = GER
+    452|		if = {
+    453|			limit = {
+>>  454|				owns_state = 280
+    455|			}
+    456|			807 = { add_core_of = GER }
+>>  457|			GER = { transfer_state = 280 }
+    458|		}
+    459|		if = {
+    460|			limit = {
+>>  461|				owns_state = 280
+    462|			}
+    463|			85 = { add_core_of = GER }
+>>  464|			GER = { transfer_state = 280 }
+    465|		}
+    466|	}
+    467|
+    468|	option = { #Refuse, don't give Germany Danzig but they get a wargoal to stop players from ragequitting over Danzig. Again.
+    469|		name = germany.86.b
+    470|		ai_chance = {
+    471|			factor = 40
+    472|		}
+    473|		effect_tooltip = {
+    474|			GER = {
+    475|				create_wargoal = {
+    476|					type = take_state
+    477|					target = POL
+    478|					generator = { 85 807 }
+    479|				}
+    480|			}
+    481|		}
+    482|		hidden_effect = {
+    483|			GER = { country_event = { id = NSB_poland_events.304 days = 2 } }
+    484|		}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    515|	id = NSB_poland_events.4
+    516|	immediate = { log = "[GetDateText]: [Root.GetName]: event NSB_poland_events.4 FROM = [From.GetName]" }
+    517|	title = NSB_poland_events.4.t
+    518|	desc = NSB_poland_events.4.desc
+    519|	picture = GFX_report_event_generic_conference
+    520|	
+    521|	is_triggered_only = yes
+    522|
+    523|	fire_only_once = yes
+    524|
+    525|	option = { #Sell the island(s) to Poland
+    526|		name = NSB_poland_events.4.a
+    527|		ai_chance = {
+    528|			base = 10
+    529|			modifier = { #Shouldn't sell Madagascar if that is all they have left.
+    530|				factor = 0
+    531|				has_capitulated = yes
+    532|				NOT = {
+    533|					any_controlled_state = {
+    534|						NOT = {
+>>  535|							state = 543
+>>  536|							state = 708
+>>  537|							state = 706
+    538|						}
+    539|					}
+    540|				}
+    541|			}
+    542|		}
+    543|		POL = {
+>>  544|			transfer_state = 543
+    545|		}
+    546|		if = {
+    547|			limit = {
+>>  548|				owns_state = 708
+>>  549|				controls_state = 708
+    550|			}
+    551|			POL = {
+>>  552|				transfer_state = 708
+    553|			}
+    554|		}
+    555|		if = {
+    556|			limit = {
+>>  557|				owns_state = 706
+>>  558|				controls_state = 706
+    559|			}
+    560|			POL = {
+>>  561|				transfer_state = 706
+    562|			}
+    563|		}
+    564|		add_timed_idea = {
+    565|			idea = POL_sold_colony_expensive
+    566|			days = 720
+    567|		}
+    568|			POL = { country_event = { id = NSB_poland_events.401 } }
+    569|	}
+    570|	option = { #Refuse to sell the islands
+    571|		name = NSB_poland_events.4.b
+    572|		ai_chance = {
+    573|			base = 10
+    574|			modifier = { #Should generally be okay with selling Madagascar if they have other territory left.
+    575|				factor = 0.5
+    576|				any_controlled_state = {
+    577|					NOT = {
+    578|						OR = {
+>>  579|							state = 543
+>>  580|							state = 708
+>>  581|							state = 706
+    582|						}
+    583|					}
+    584|				}
+    585|			}
+    586|		}
+    587|		hidden_effect = {
+    588|			543 = { set_state_flag = rejected_purchase_flag }
+    589|		}
+    590|		POL = { country_event = { id = NSB_poland_events.402 } }
+    591|	}
+    592|}
+    593|#Madagascar sale goes through
+    594|country_event = {
+    595|	id = NSB_poland_events.401
+    596|	immediate = { log = "[GetDateText]: [Root.GetName]: event NSB_poland_events.401 FROM = [From.GetName]" }
+    597|	title = NSB_poland_events.401.t
+    598|	desc = {
+    599|		text = NSB_poland_events.401.desc.dem
+    600|		trigger = {
+    601|			POL = { NOT = { has_government = communism } }
+    602|		}
+    603|	}
+    604|	desc = {
+    605|		text = NSB_poland_events.401.desc.com
+    606|		trigger = {
+    607|			POL = { has_government = communism }
+    608|		}
+    609|	}
+    610|	picture = GFX_report_event_generic_sign_treaty2
+    611|	
+    612|	is_triggered_only = yes
+    613|
+    614|	fire_only_once = yes
+    615|
+    616|	option = { #Sell the island(s) to Poland
+    617|		name = NSB_poland_events.401.a
+    618|		ai_chance = {
+    619|			base = 10
+    620|		}
+>>  621|		transfer_state = 543
+    622|		if = {
+    623|			limit = {
+    624|				FROM = {
+>>  625|					owns_state = 708
+>>  626|					controls_state = 708
+    627|				}
+    628|			}
+>>  629|			transfer_state = 708
+    630|		}
+    631|		if = {
+    632|			limit = {
+    633|				FROM = {
+>>  634|					owns_state = 706
+>>  635|					controls_state = 706
+    636|				}
+    637|			}
+    638|			POL = {
+>>  639|				transfer_state = 706
+    640|			}
+    641|		}
+    642|	}
+    643|}
+    644|#France refuses to sell Madagascar
+    645|country_event = {
+    646|	id = NSB_poland_events.402
+    647|	immediate = { log = "[GetDateText]: [Root.GetName]: event NSB_poland_events.402 FROM = [From.GetName]" }
+    648|	title = NSB_poland_events.402.t
+    649|	desc = NSB_poland_events.402.desc
+    650|	picture = GFX_report_event_generic_parliament
+    651|	
+    652|	is_triggered_only = yes
+    653|
+    654|	option = { #Sell the island(s) to Poland
+    655|		name = NSB_poland_events.402.a
+    656|		ai_chance = {
+    657|			base = 10
+    658|		}
+    659|	}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    674|		ai_chance = {
+    675|			base = 10
+    676|			modifier = { #Shouldn't sell their colony if that is all they have left.
+    677|				factor = 0
+    678|				has_capitulated = yes
+    679|				NOT = {
+    680|					any_controlled_state = {
+    681|						NOT = {
+    682|							state = POL_colony_purchase
+    683|						}
+    684|					}
+    685|				}
+    686|			}
+    687|		}
+    688|		POL = {
+    689|			transfer_state = event_target:POL_colony_purchase
+    690|		}
+    691|		if = {
+    692|			limit = {
+    693|				event_target:POL_colony_purchase = {
+>>  694|					state = 546
+    695|				}
+    696|			}
+    697|			add_timed_idea = {
+    698|				idea = POL_sold_colony_expensive
+    699|				days = 720
+    700|			}
+    701|		}
+    702|		else = {
+    703|			add_timed_idea = {
+    704|				idea = POL_sold_colony_cheap
+    705|				days = 720
+    706|			}
+    707|		}
+    708|		POL = { country_event = { id = NSB_poland_events.501 } }
+    709|	}
+    710|	option = { #Refuse to sell the colony
+    711|		name = NSB_poland_events.4.b
+    712|		ai_chance = {
+    713|			base = 10
+    714|			modifier = { #Should generally be okay with selling their colonies if they have other territory left.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1812|	
+   1813|	immediate = {
+   1814|		hidden_effect = {
+   1815|			218 = { add_core_of = DON }
+   1816|			245 = { add_core_of = DON }
+   1817|			238 = { add_core_of = DON }
+   1818|			217 = { add_core_of = DON }
+   1819|			265 = { add_core_of = DON }
+   1820|			237 = { add_core_of = DON }
+   1821|			236 = { add_core_of = DON }
+   1822|		}
+   1823|	}
+   1824|
+   1825|	option = {
+   1826|		name = pavel_events.1.a
+   1827|		ai_chance = {
+   1828|			base = 10
+   1829|		}
+   1830|		
+   1831|		DON = {
+>> 1832|			transfer_state = 218
+>> 1833|			transfer_state = 245
+>> 1834|			transfer_state = 2410
+>> 1835|			transfer_state = 457
+>> 1836|			transfer_state = 265
+   1837|			if = {
+   1838|				limit = {
+>> 1839|					PREV = { controls_state = 2516 }
+   1840|				}
+>> 1841|				transfer_state = 2516
+   1842|			}
+   1843|			if = {
+   1844|				limit = {
+>> 1845|					PREV = { controls_state = 2513 }
+   1846|				}
+>> 1847|				transfer_state = 2513
+   1848|			}
+   1849|			custom_effect_tooltip = spawn_cossacks_tt
+   1850|			hidden_effect = {
+   1851|				load_oob = "DON_cossack_host"
+   1852|				set_politics = {
+   1853|					ruling_party = fascism
+   1854|				}
+   1855|				add_popularity = {
+   1856|					ideology = fascism
+   1857|					popularity = 0.5
+   1858|				}
+   1859|			}
+   1860|		}
+   1861|		add_to_faction = DON
+   1862|		# Make sure Don Republic is added to the Soviet war.
+   1863|		if = {
+   1864|			limit = {
+   1865|				has_war_with = SOV
+   1866|			}
+   1867|			DON = {
+   1868|				add_to_war = {
+   1869|					targeted_alliance = PREV 
+   1870|					enemy = SOV
+   1871|					hostility_reason = asked_to_join
+   1872|				}
+   1873|			}
+   1874|		}
+   1875|	}
+   1876|	
+   1877|	option = {
+   1878|		name = pavel_events.1.b
+   1879|		ai_chance = {
+   1880|			base = 10
+   1881|		}
+   1882|		
+   1883|		DON = {
+>> 1884|			transfer_state = 218
+>> 1885|			transfer_state = 245
+>> 1886|			transfer_state = 2410
+>> 1887|			transfer_state = 457
+>> 1888|			transfer_state = 265
+   1889|			if = {
+   1890|				limit = {
+>> 1891|					PREV = { controls_state = 2516 }
+   1892|				}
+>> 1893|				transfer_state = 2516
+   1894|			}
+   1895|			if = {
+   1896|				limit = {
+>> 1897|					PREV = { controls_state = 2513 }
+   1898|				}
+>> 1899|				transfer_state = 2513
+   1900|			}
+   1901|			custom_effect_tooltip = spawn_cossacks_tt
+   1902|			hidden_effect = {
+   1903|				load_oob = "DON_cossack_host"
+   1904|			}
+   1905|		}
+   1906|		add_to_faction = DON
+   1907|		puppet = DON
+   1908|		# Make sure Don Republic is added to the Soviet war.
+   1909|		if = {
+   1910|			limit = {
+   1911|				has_war_with = SOV
+   1912|			}
+   1913|			DON = {
+   1914|				add_to_war = {
+   1915|					targeted_alliance = PREV 
+   1916|					enemy = SOV
+   1917|					hostility_reason = asked_to_join
+   1918|				}
+   1919|			}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1932|	fire_only_once = yes
+   1933|	is_triggered_only = yes
+   1934|	
+   1935|	immediate = {
+   1936|		hidden_effect = {
+   1937|			234 = { add_core_of = KUB }
+   1938|			235 = { add_core_of = KUB }
+   1939|			233 = { add_core_of = KUB }
+   1940|			232 = { add_core_of = KUB }
+   1941|			137 = { add_core_of = KUB }
+   1942|		}
+   1943|	}
+   1944|
+   1945|	option = {
+   1946|		name = pavel_events.2.a
+   1947|		ai_chance = {
+   1948|			base = 10
+   1949|		}
+   1950|		
+   1951|		KUB = {
+>> 1952|			transfer_state = 696
+>> 1953|			transfer_state = 2867
+>> 1954|			transfer_state = 233
+>> 1955|			transfer_state = 232
+   1956|			if = {
+   1957|				limit = {
+>> 1958|					PREV = { controls_state = 2127 }
+   1959|				}
+>> 1960|				transfer_state = 2127
+   1961|			}
+   1962|			custom_effect_tooltip = spawn_cossacks_tt
+   1963|			hidden_effect = {
+   1964|				load_oob = "KUB_cossack_host"
+   1965|				set_politics = {
+   1966|					ruling_party = fascism
+   1967|				}
+   1968|				add_popularity = {
+   1969|					ideology = fascism
+   1970|					popularity = 0.5
+   1971|				}
+   1972|			}
+   1973|		}
+   1974|		add_to_faction = KUB
+   1975|		# Make sure Kuban Republic is added to the Soviet war.
+   1976|		if = {
+   1977|			limit = {
+   1978|				has_war_with = SOV
+   1979|			}
+   1980|			KUB = {
+   1981|				add_to_war = {
+   1982|					targeted_alliance = PREV 
+   1983|					enemy = SOV
+   1984|					hostility_reason = asked_to_join
+   1985|				}
+   1986|			}
+   1987|		}
+   1988|	}
+   1989|	
+   1990|	option = {
+   1991|		name = pavel_events.2.b
+   1992|		ai_chance = {
+   1993|			base = 10
+   1994|		}
+   1995|		
+   1996|		KUB = {
+>> 1997|			transfer_state = 696
+>> 1998|			transfer_state = 2867
+>> 1999|			transfer_state = 233
+>> 2000|			transfer_state = 232
+   2001|			if = {
+   2002|				limit = {
+>> 2003|					PREV = { controls_state = 2127 }
+   2004|				}
+>> 2005|				transfer_state = 2127
+   2006|			}
+   2007|			custom_effect_tooltip = spawn_cossacks_tt
+   2008|			hidden_effect = {
+   2009|				load_oob = "KUB_cossack_host"
+   2010|			}
+   2011|		}
+   2012|		add_to_faction = KUB
+   2013|		puppet = KUB
+   2014|		# Make sure Kuban Republic is added to the Soviet war.
+   2015|		if = {
+   2016|			limit = {
+   2017|				has_war_with = SOV
+   2018|			}
+   2019|			KUB = {
+   2020|				add_to_war = {
+   2021|					targeted_alliance = PREV 
+   2022|					enemy = SOV
+   2023|					hostility_reason = asked_to_join
+   2024|				}
+   2025|			}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2627|				}
+   2628|			}
+   2629|			modifier = { #I have already signed Molotov-Ribbentrop
+   2630|				factor = 0.2
+   2631|				has_global_flag = sov_yes_pact
+   2632|			}
+   2633|			modifier = { #I refused Molotov-Ribbentrop
+   2634|				factor = 2
+   2635|				has_global_flag = sov_no_pact
+   2636|			}
+   2637|		}
+   2638|		hidden_effect = { POL = { country_event = NSB_poland_communist_events.401 } }
+   2639|		96 = { add_core_of = SOV }
+   2640|		95 = { add_core_of = SOV }
+   2641|		94 = { add_core_of = SOV }
+   2642|		93 = { add_core_of = SOV }
+   2643|		91 = { add_core_of = SOV }
+   2644|		89 = { add_core_of = SOV }
+   2645|		97 = { add_core_of = SOV }
+   2646|		if = {
+>> 2647|			limit = { POL = { owns_state = 1000 controls_state = 96 } }
+>> 2648|			transfer_state = 1000
+   2649|		}
+   2650|		if = {
+>> 2651|			limit = { POL = { owns_state = 326 controls_state = 95 } }
+>> 2652|			transfer_state = 326
+   2653|		}
+   2654|		if = {
+>> 2655|			limit = { POL = { owns_state = 2316 controls_state = 94 } }
+>> 2656|			transfer_state = 2316
+   2657|		}
+   2658|		if = {
+>> 2659|			limit = { POL = { owns_state = 434 controls_state = 93 } }
+>> 2660|			transfer_state = 434
+   2661|		}
+   2662|		if = {
+>> 2663|			limit = { POL = { owns_state = 1292 controls_state = 91 } }
+>> 2664|			transfer_state = 1292
+   2665|		}
+   2666|		if = {
+>> 2667|			limit = { POL = { owns_state = 1164 controls_state = 89 } }
+>> 2668|			transfer_state = 1164
+   2669|		}
+   2670|		if = {
+>> 2671|			limit = { POL = { owns_state = 2485 controls_state = 97 } }
+>> 2672|			transfer_state = 2485
+   2673|		}
+   2674|		if = {
+>> 2675|			limit = { POL = { owns_state = 241 controls_state = 784 } }
+>> 2676|			transfer_state = 241
+   2677|			784 = { add_core_of = SOV }
+   2678|		}
+   2679|		set_autonomy = {
+   2680|			target = POL
+   2681|			autonomy_state = autonomy_puppet
+   2682|		}
+   2683|	}
+   2684|
+   2685|	option = {
+   2686|		name = NSB_poland_communist_events.4.b
+   2687|		ai_chance = {
+   2688|			base = 10
+   2689|			modifier = {
+   2690|				factor = 0
+   2691|				POL = {
+   2692|					is_ai = no
+   2693|				}
+   2694|			}
+   2695|		}
+   2696|		hidden_effect = { POL = { country_event = NSB_poland_communist_events.402 } }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2706|	picture = GFX_report_event_sanation_left_victory
+   2707|
+   2708|	fire_only_once = yes
+   2709|	is_triggered_only = yes
+   2710|	
+   2711|	option = { #Poland is told what the effects are again
+   2712|		name = NSB_poland_communist_events.401.a
+   2713|		ai_chance = {
+   2714|			base = 10
+   2715|		}
+   2716|		effect_tooltip = {
+   2717|			96 = { add_core_of = SOV }
+   2718|			95 = { add_core_of = SOV }
+   2719|			94 = { add_core_of = SOV }
+   2720|			93 = { add_core_of = SOV }
+   2721|			91 = { add_core_of = SOV }
+   2722|			89 = { add_core_of = SOV }
+   2723|			97 = { add_core_of = SOV }
+   2724|			SOV = {
+   2725|				if = {
+>> 2726|					limit = { POL = { owns_state = 1000 controls_state = 96 } }
+>> 2727|					transfer_state = 1000
+   2728|				}
+   2729|				if = {
+>> 2730|					limit = { POL = { owns_state = 326 controls_state = 95 } }
+>> 2731|					transfer_state = 326
+   2732|				}
+   2733|				if = {
+>> 2734|					limit = { POL = { owns_state = 2316 controls_state = 94 } }
+>> 2735|					transfer_state = 2316
+   2736|				}
+   2737|				if = {
+>> 2738|					limit = { POL = { owns_state = 434 controls_state = 93 } }
+>> 2739|					transfer_state = 434
+   2740|				}
+   2741|				if = {
+>> 2742|					limit = { POL = { owns_state = 1292 controls_state = 91 } }
+>> 2743|					transfer_state = 1292
+   2744|				}
+   2745|				if = {
+>> 2746|					limit = { POL = { owns_state = 1164 controls_state = 89 } }
+>> 2747|					transfer_state = 1164
+   2748|				}
+   2749|				if = {
+>> 2750|					limit = { POL = { owns_state = 2485 controls_state = 97 } }
+>> 2751|					transfer_state = 2485
+   2752|				}
+   2753|				if = {
+>> 2754|					limit = { POL = { owns_state = 241 controls_state = 784 } }
+>> 2755|					transfer_state = 241
+   2756|					784 = { add_core_of = SOV }
+   2757|				}
+   2758|				set_autonomy = {
+   2759|					target = POL
+   2760|					autonomy_state = autonomy_puppet
+   2761|				}
+   2762|			}
+   2763|		}
+   2764|	}
+   2765|}
+   2766|
+   2767|#Poland informed Soviets said no, move to Maria Koszutska's path
+   2768|country_event = {
+   2769|	id = NSB_poland_communist_events.402
+   2770|	immediate = { log = "[GetDateText]: [Root.GetName]: event NSB_poland_communist_events.402 FROM = [From.GetName]" }
+   2771|	title = NSB_poland_communist_events.402.t
+   2772|	desc = NSB_poland_communist_events.402.desc
+   2773|	picture = GFX_report_event_sanation_left_victory
+   2774|
+   2775|	fire_only_once = yes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2932|			modifier = {
+   2933|				factor = 0
+   2934|				POL = { is_ai = yes }
+   2935|			}
+   2936|		}
+   2937|		hidden_effect = {
+   2938|			FROM = {
+   2939|				country_event = NSB_poland_communist_events.601
+   2940|			}
+   2941|		}
+   2942|		effect_tooltip = {
+   2943|			96 = { add_core_of = POL }
+   2944|			95 = { add_core_of = POL }
+   2945|			94 = { add_core_of = POL }
+   2946|			93 = { add_core_of = POL }
+   2947|			91 = { add_core_of = POL }
+   2948|			89 = { add_core_of = POL }
+   2949|			97 = { add_core_of = POL }
+   2950|			POL = {
+   2951|				if = {
+>> 2952|					limit = { ROOT = { owns_state = 1000 controls_state = 96 } }
+>> 2953|					transfer_state = 1000
+   2954|				}
+   2955|				if = {
+>> 2956|					limit = { ROOT = { owns_state = 326 controls_state = 95 } }
+>> 2957|					transfer_state = 326
+   2958|				}
+   2959|				if = {
+>> 2960|					limit = { ROOT = { owns_state = 2316 controls_state = 94 } }
+>> 2961|					transfer_state = 2316
+   2962|				}
+   2963|				if = {
+>> 2964|					limit = { ROOT = { owns_state = 434 controls_state = 93 } }
+>> 2965|					transfer_state = 434
+   2966|				}
+   2967|				if = {
+>> 2968|					limit = { ROOT = { owns_state = 1292 controls_state = 91 } }
+>> 2969|					transfer_state = 1292
+   2970|				}
+   2971|				if = {
+>> 2972|					limit = { ROOT = { owns_state = 1164 controls_state = 89 } }
+>> 2973|					transfer_state = 1164
+   2974|				}
+   2975|				if = {
+>> 2976|					limit = { ROOT = { owns_state = 2485 controls_state = 97 } }
+>> 2977|					transfer_state = 2485
+   2978|				}
+   2979|				#Lithuanian states
+   2980|				if = {
+>> 2981|					limit = { ROOT = { owns_state = 241 controls_state = 784 } }
+>> 2982|					transfer_state = 241
+   2983|					784 = { add_core_of = POL }
+   2984|				}
+   2985|				if = {
+>> 2986|					limit = { ROOT = { owns_state = 274 controls_state = 11 } }
+>> 2987|					transfer_state = 274
+   2988|				}
+   2989|				if = {
+>> 2990|					limit = { ROOT = { owns_state = 227 controls_state = 188 } }
+>> 2991|					transfer_state = 227
+   2992|				}
+   2993|				if = {
+>> 2994|					limit = { ROOT = { owns_state = 208 controls_state = 189 } }
+>> 2995|					transfer_state = 208
+   2996|				}
+   2997|				if = {
+>> 2998|					limit = { ROOT = { owns_state = 146 controls_state = 814 } }
+>> 2999|					transfer_state = 146
+   3000|				}
+   3001|				if = {
+>> 3002|					limit = { ROOT = { owns_state = 1339 controls_state = 815 } }
+>> 3003|					transfer_state = 1339
+   3004|				}
+   3005|			}
+   3006|		}
+   3007|	}
+   3008|
+   3009|	option = {
+   3010|		name = NSB_poland_communist_events.6.b
+   3011|		ai_chance = {
+   3012|			base = 50
+   3013|			modifier = {
+   3014|				factor = 0
+   3015|				POL = { is_ai = no }
+   3016|			}
+   3017|		}
+   3018|		hidden_effect = { POL = { country_event = NSB_poland_communist_events.602 } }
+   3019|	}
+   3020|}
+   3021|
+   3022|#Soviets said yes, Poland gets East Poland
+   3023|country_event = {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3026|	title = NSB_poland_communist_events.601.t
+   3027|	desc = NSB_poland_communist_events.601.desc
+   3028|	picture = GFX_report_event_generic_peaceful_annexation
+   3029|
+   3030|	fire_only_once = yes
+   3031|	is_triggered_only = yes
+   3032|	
+   3033|	option = {
+   3034|		name = NSB_poland_communist_events.601.a
+   3035|		ai_chance = {
+   3036|			base = 10
+   3037|		}
+   3038|		96 = { add_core_of = POL }
+   3039|		95 = { add_core_of = POL }
+   3040|		94 = { add_core_of = POL }
+   3041|		93 = { add_core_of = POL }
+   3042|		91 = { add_core_of = POL }
+   3043|		89 = { add_core_of = POL }
+   3044|		97 = { add_core_of = POL }
+   3045|		if = {
+>> 3046|			limit = { FROM = { owns_state = 1000 controls_state = 96 } }
+>> 3047|			transfer_state = 1000
+   3048|		}
+   3049|		if = {
+>> 3050|			limit = { FROM = { owns_state = 326 controls_state = 95 } }
+>> 3051|			transfer_state = 326
+   3052|		}
+   3053|		if = {
+>> 3054|			limit = { FROM = { owns_state = 2316 controls_state = 94 } }
+>> 3055|			transfer_state = 2316
+   3056|		}
+   3057|		if = {
+>> 3058|			limit = { FROM = { owns_state = 434 controls_state = 93 } }
+>> 3059|			transfer_state = 434
+   3060|		}
+   3061|		if = {
+>> 3062|			limit = { FROM = { owns_state = 1292 controls_state = 91 } }
+>> 3063|			transfer_state = 1292
+   3064|		}
+   3065|		if = {
+>> 3066|			limit = { FROM = { owns_state = 1164 controls_state = 89 } }
+>> 3067|			transfer_state = 1164
+   3068|		}
+   3069|		if = {
+>> 3070|			limit = { FROM = { owns_state = 2485 controls_state = 97 } }
+>> 3071|			transfer_state = 2485
+   3072|		}
+   3073|		#Lithuanian states
+   3074|		if = {
+>> 3075|			limit = { FROM = { owns_state = 241 controls_state = 784 } }
+>> 3076|			transfer_state = 241
+   3077|			784 = { add_core_of = POL }
+   3078|		}
+   3079|		if = {
+>> 3080|			limit = { FROM = { owns_state = 274 controls_state = 11 } }
+>> 3081|			transfer_state = 274
+   3082|		}
+   3083|		if = {
+>> 3084|			limit = { FROM = { owns_state = 227 controls_state = 188 } }
+>> 3085|			transfer_state = 227
+   3086|		}
+   3087|		if = {
+>> 3088|			limit = { FROM = { owns_state = 208 controls_state = 189 } }
+>> 3089|			transfer_state = 208
+   3090|		}
+   3091|		if = {
+>> 3092|			limit = { FROM = { owns_state = 146 controls_state = 814 } }
+>> 3093|			transfer_state = 146
+   3094|		}
+   3095|		if = {
+>> 3096|			limit = { FROM = { owns_state = 1339 controls_state = 815 } }
+>> 3097|			transfer_state = 1339
+   3098|		}
+   3099|	}
+   3100|}
+   3101|
+   3102|#Soviets said no, Poland gets nothing
+   3103|country_event = {
+   3104|	id = NSB_poland_communist_events.602
+   3105|	immediate = { log = "[GetDateText]: [Root.GetName]: event NSB_poland_communist_events.602 FROM = [From.GetName]" }
+   3106|	title = NSB_poland_communist_events.602.t
+   3107|	desc = NSB_poland_communist_events.602.desc
+   3108|	picture = GFX_report_event_sanation_left_victory
+   3109|
+   3110|	fire_only_once = yes
+   3111|	is_triggered_only = yes
+   3112|	
+   3113|	option = {
+   3114|		name = NSB_poland_communist_events.602.a
+   3115|		ai_chance = {
+   3116|			base = 10
+   3117|		}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

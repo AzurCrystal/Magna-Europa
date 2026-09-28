@@ -1,0 +1,161 @@
+   2438|			factor = 10
+   2439|		}
+   2440|		GER = { country_event = { id = wtt_germany.40 days = 1 } }
+   2441|	}
+   2442|}
+   2443|
+   2444|# China demands continued support of Von Falkenhausen in return # simply remove event, irrelevant
+   2445|country_event = {
+   2446|	id = wtt_germany.39
+   2447|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_germany.39 FROM = [From.GetName]" }
+   2448|	title = wtt_germany.39.t
+   2449|	desc = wtt_germany.39.desc
+   2450|	picture = GFX_report_event_generic_read_write
+   2451|	
+   2452|	is_triggered_only = yes
+   2453|	
+   2454|	# Accept
+   2455|	option = {
+   2456|		name = wtt_germany.39.a
+   2457|		set_country_flag = GER_von_falkenhausen_promise_to_china
+>> 2458|		transfer_state = 743
+   2459|		743 = { set_state_name = "Tsingtao" }
+   2460|		set_province_name = { id = 10000 name = "Tsingtao" }
+   2461|		FROM = { country_event = { id = wtt_germany.41 } }
+   2462|	}
+   2463|
+   2464|	# No!
+   2465|	option = {
+   2466|		name = wtt_germany.39.b
+   2467|		FROM = { country_event = { id = wtt_germany.42 } }
+   2468|	}
+   2469|}
+   2470|
+   2471|# German notification event that China rejected request # simply remove event, irrelevant
+   2472|country_event = {
+   2473|	id = wtt_germany.40
+   2474|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_germany.40 FROM = [From.GetName]" }
+   2475|	title = wtt_germany.40.t
+   2476|	desc = wtt_germany.40.desc
+   2477|	picture = GFX_report_event_generic_read_write
+   2478|	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2540|				NOT = { has_war_with = CHI }
+   2541|			}
+   2542|		}
+   2543|		trigger = {
+   2544|			CHI = { has_idea = german_advisors }
+   2545|		}
+   2546|		GER = { country_event = { id = wtt_germany.44 days = 1 } }
+   2547|	}
+   2548|
+   2549|	# Accept
+   2550|	option = {
+   2551|		name = wtt_germany.38.b
+   2552|		ai_chance = {
+   2553|			factor = 10
+   2554|			modifier = {
+   2555|				factor = 0
+   2556|				has_war_with = CHI
+   2557|			}
+   2558|		}
+   2559|		effect_tooltip = {
+>> 2560|			GER = { transfer_state = 743 }
+   2561|			743 = { set_state_name = "Tsingtao" }
+   2562|			set_province_name = { id = 10000 name = "Tsingtao" }
+   2563|		}
+   2564|		GER = { country_event = { id = wtt_germany.48 days = 1 } }
+   2565|		hidden_effect = { news_event = { id = wtt_news.17 hours = 30 } }
+   2566|	}
+   2567|
+   2568|	# No!
+   2569|	option = {
+   2570|		name = wtt_germany.43.b
+   2571|		ai_chance = {
+   2572|			factor = 30
+   2573|			modifier = {
+   2574|				factor = 0
+   2575|				has_war_with = CHI
+   2576|			}
+   2577|		}
+   2578|		GER = { country_event = { id = wtt_germany.45 days = 1 } }
+   2579|	}
+   2580|}
+   2581|
+   2582|# Japan demands withdraw support of Von Falkenhausen in return # simply remove event, irrelevant
+   2583|country_event = {
+   2584|	id = wtt_germany.44
+   2585|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_germany.44 FROM = [From.GetName]" }
+   2586|	title = wtt_germany.44.t
+   2587|	desc = wtt_germany.44.desc
+   2588|	picture = GFX_report_event_generic_read_write
+   2589|	
+   2590|	is_triggered_only = yes
+   2591|	
+   2592|	# Accept
+   2593|	option = {
+   2594|		name = wtt_germany.39.a
+>> 2595|		transfer_state = 743
+   2596|		743 = { set_state_name = "Tsingtao" }
+   2597|		set_province_name = { id = 10000 name = "Tsingtao" }
+   2598|		JAP = { country_event = { id = wtt_germany.46 } }
+   2599|		CHI = {
+   2600|			country_event = { days = 1 id = china.2 }
+   2601|			effect_tooltip = {
+   2602|				remove_ideas = german_advisors
+   2603|				show_ideas_tooltip = german_advisors
+   2604|			}
+   2605|		}
+   2606|		hidden_effect = { 
+   2607|			every_other_country = {
+   2608|				limit = {
+   2609|					has_character = CHI_alexander_von_falkenhausen
+   2610|				}
+   2611|				retire_character = CHI_alexander_von_falkenhausen
+   2612|			}
+   2613|		}
+   2614|		set_global_flag = falkenhausen_recalled
+   2615|	}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2667|	
+   2668|	# Too bad
+   2669|	option = {
+   2670|		name = unfortunate
+   2671|	}
+   2672|}
+   2673|
+   2674|# German notification event that China/Japan acceded to demands # simply remove event, irrelevant
+   2675|country_event = {
+   2676|	id = wtt_germany.48
+   2677|	immediate = { log = "[GetDateText]: [Root.GetName]: event wtt_germany.48 FROM = [From.GetName]" }
+   2678|	title = wtt_germany.48.t
+   2679|	desc = wtt_germany.48.desc
+   2680|	picture = GFX_report_event_generic_read_write
+   2681|	
+   2682|	is_triggered_only = yes
+   2683|	
+   2684|	# Too bad
+   2685|	option = {
+   2686|		name = excellent
+>> 2687|		transfer_state = 743
+   2688|		743 = { set_state_name = "Tsingtao" }
+   2689|		set_province_name = { id = 10000 name = "Tsingtao" }
+   2690|	}
+   2691|}
+   2692|
+   2693|### Germany Civil War Events
+   2694|
+   2695|# Nazis fall back from state, heavy fighting/scorched earth destroys infrastructure and industry
+   2696|state_event = {
+   2697|	id = wtt_germany.49
+   2698|	title = wtt_germany.49.t
+   2699|	desc = wtt_germany.49.desc
+   2700|	picture = GFX_report_event_ger_civil_war
+   2701|	
+   2702|	is_triggered_only = yes
+   2703|
+   2704|	immediate = {
+   2705|		hidden_effect = {
+   2706|			random_state = {
+   2707|				limit = {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

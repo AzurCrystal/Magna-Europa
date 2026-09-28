@@ -1992,7 +1992,7 @@ SOV_propaganda_campaigns = {
 		available = {
 			SOV_propaganda_poster_slot_available = yes
 
-			controls_state = 219 #Moscow
+			controls_state = 229 #Moscow
 			219 = {
 				any_neighbor_state = {
 					controller = {
@@ -6350,12 +6350,12 @@ SOV_diplomacy_middle_east_decision_category = {
 					}
 					FROM = {
 						puppet = ROOT #SOV puppet Iran
-						transfer_state = 419 #Tibriz (AZB)
-						transfer_state = 420 #Gilan (AZB)
-						transfer_state = 416 #Khorasan
+						transfer_state = 1040 #Tibriz (AZB)
+						transfer_state = 1069 #Gilan (AZB)
+						transfer_state = 1087 #Khorasan
 					}
-					give_resource_rights = { receiver = SOV state = 411 }
-					give_resource_rights = { receiver = SOV state = 412 }
+					give_resource_rights = { receiver = SOV state = 1314 }
+					give_resource_rights = { receiver = SOV state = 1274 }
 					give_resource_rights = { receiver = SOV state = 413 }
 				}
 				else_if = {
@@ -6366,14 +6366,14 @@ SOV_diplomacy_middle_east_decision_category = {
 						puppet = ROOT #ENG gets to puppet Iran
 					}
 					SOV = {
-						transfer_state = 419 #Tibriz (AZB)
-						transfer_state = 420 #Gilan (AZB)
-						transfer_state = 416 #Khorasan
+						transfer_state = 1040 #Tibriz (AZB)
+						transfer_state = 1069 #Gilan (AZB)
+						transfer_state = 1087 #Khorasan
 					}
 					FROM = {
-						give_resource_rights = { receiver = SOV state = 411 }
-						give_resource_rights = { receiver = SOV state = 412 }
-						give_resource_rights = { receiver = ENG state = 413 }
+						give_resource_rights = { receiver = SOV state = 1314 }
+						give_resource_rights = { receiver = SOV state = 1274 }
+						give_resource_rights = { receiver = ENG state = 1238 }
 						give_military_access = ROOT
 					}
 				}
@@ -8912,7 +8912,7 @@ SOV_industry_relocation = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 195
+				state = 119
 			}
 		}
 
@@ -8928,9 +8928,9 @@ SOV_industry_relocation = {
 
 		visible = {
 			has_completed_focus = SOV_move_industry_to_the_urals
-			controls_state = 195
+			controls_state = 138
 			controls_state = 569
-			195 = { has_state_flag = leningrad_aluminium_developed }
+			119 = { has_state_flag = leningrad_aluminium_developed }
 			has_civil_war = no
 		}
 
@@ -8949,28 +8949,28 @@ SOV_industry_relocation = {
 				factor = 200 # oh shit they are getting close!
 				OR = {
 					AND = {
-						owns_state = 208
-						NOT = { controls_state = 208 }
+						owns_state = 151
+						NOT = { controls_state = 151 }
 					}
 					AND = {
-						owns_state = 209
-						NOT = { controls_state = 209 }
+						owns_state = 2189
+						NOT = { controls_state = 2189 }
 					}
 					AND = {
-						owns_state = 244
-						NOT = { controls_state = 244 }
+						owns_state = 2794
+						NOT = { controls_state = 2794 }
 					}
 					AND = {
-						owns_state = 263
-						NOT = { controls_state = 263 }
+						owns_state = 138
+						NOT = { controls_state = 138 }
 					}
 					AND = {
-						owns_state = 191
-						NOT = { controls_state = 191 }
+						owns_state = 152
+						NOT = { controls_state = 152 }
 					}
 					AND = {
-						owns_state = 146
-						NOT = { controls_state = 146 }
+						owns_state = 77
+						NOT = { controls_state = 77 }
 					}
 				}
 			}
@@ -8988,7 +8988,7 @@ SOV_industry_relocation = {
 					producer = SOV
 				}
 			}
-			195 = {
+			119 = {
 				add_resource = {
 					type = aluminium
 					amount = -12
@@ -10384,7 +10384,7 @@ SOV_great_patriotic_war = {
 		available = { #You succeed by having Leningrad being connected to the rest of the country at the end of the mission
 			custom_trigger_tooltip = {
 				tooltip = SOV_operation_iskra_ongoing_objective_tt
-				195 = { is_in_home_area = yes }
+				119 = { is_in_home_area = yes }
 			}
 		}
 
@@ -10402,7 +10402,7 @@ SOV_great_patriotic_war = {
 
 			if = {
 				limit = {
-					195 = { is_in_home_area = yes }
+					119 = { is_in_home_area = yes }
 				}
 				custom_effect_tooltip = SOV_operation_iskra_ongoing_success_tt
 				hidden_effect = {
@@ -10436,8 +10436,8 @@ SOV_great_patriotic_war = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 208 #LUGA
-				state = 244 #VOLKHOV
+				state = 2442 #LUGA
+				state = 102 #VOLKHOV
 			}
 		}
 
@@ -10451,21 +10451,21 @@ SOV_great_patriotic_war = {
 			NOT = { has_country_flag = SOV_military_offensive_in_progress_flag }
 			command_power > 49
 			OR = {
-				controls_state = 263 #NOVGOROD
-				controls_state = 264 #TIKHVIN
+				controls_state = 138 #NOVGOROD
+				controls_state = 102 #TIKHVIN
 			}
 		}
 
 		visible = {
 			has_war = yes
 			has_country_flag = SOV_order_227_flag
-			244 = {
+			102 = {
 				controller = { has_war_with = ROOT }
 			}
-			208 = {
+			2442 = {
 				controller = { has_war_with = ROOT }
 			}
-			195 = { is_controlled_by = ROOT }
+			119 = { is_controlled_by = ROOT }
 		}
 
 		ai_hint_pp_cost = 15
@@ -10494,13 +10494,13 @@ SOV_great_patriotic_war = {
 		remove_effect = {
 			custom_effect_tooltip = SOV_operation_iskra_tt
 			hidden_effect = {
-				195 = {
+				119 = {
 					ROOT = { add_to_array = { SOV_military_offensive_states = PREV } }
 				}
-				208 = {
+				2442 = {
 					ROOT = { add_to_array = { SOV_military_offensive_states = PREV } }
 				}
-				244 = {
+				102 = {
 					ROOT = { add_to_array = { SOV_military_offensive_states = PREV } }
 				}
 				SOV_set_military_offensive_effect = yes
@@ -10527,9 +10527,9 @@ SOV_great_patriotic_war = {
 		available = {
 			any_controlled_state = {
 				is_core_of = GER
-				NOT = { state = 763 }
-				NOT = { state = 5 }
-				NOT = { state = 85 }
+				NOT = { state = 252 }
+				NOT = { state = 1611 }
+				NOT = { state = 280 }
 			}
 			any_other_country = {
 				is_major = yes
@@ -10587,7 +10587,7 @@ SOV_great_patriotic_war = {
 
 		#Fail trigger
 		available = {
-			NOT = { controls_state = 217 }
+			NOT = { controls_state = 457 }
 		}
 
 		days_mission_timeout = 180
@@ -10599,7 +10599,7 @@ SOV_great_patriotic_war = {
 		activation = {
 			has_war = yes
 			has_civil_war = no
-			217 = {
+			457 = {
 				is_controlled_by = ROOT
 				OR = {
 					any_neighbor_state = {
@@ -10617,12 +10617,12 @@ SOV_great_patriotic_war = {
 		timeout_effect = {
 			add_stability = 0.05
 			add_war_support = 0.05
-			217 = { save_event_target_as = state }
+			457 = { save_event_target_as = state }
 			country_event = wtt_soviet_hold_city.1
 		}
 		#Fail
 		complete_effect = {
-			217 = { save_event_target_as = state }
+			457 = { save_event_target_as = state }
 			country_event = wtt_soviet_hold_city.2
 		}
 	}
@@ -10638,7 +10638,7 @@ SOV_great_patriotic_war = {
 
 		#Fail trigger
 		available = {
-			NOT = { controls_state = 195 }
+			NOT = { controls_state = 138 }
 		}
 
 		days_mission_timeout = 180
@@ -10653,7 +10653,7 @@ SOV_great_patriotic_war = {
 			any_enemy_country = {
 				is_major = yes
 			}
-			195 = {
+			119 = {
 				is_controlled_by = ROOT
 				OR = {
 					any_neighbor_state = {
@@ -10671,12 +10671,12 @@ SOV_great_patriotic_war = {
 		timeout_effect = {
 			add_stability = 0.05
 			add_war_support = 0.05
-			195 = { save_event_target_as = state }
+			119 = { save_event_target_as = state }
 			country_event = wtt_soviet_hold_city.3
 		}
 		#Fail
 		complete_effect = {
-			195 = { save_event_target_as = state }
+			119 = { save_event_target_as = state }
 			country_event = wtt_soviet_hold_city.4
 		}
 	}
@@ -10692,7 +10692,7 @@ SOV_great_patriotic_war = {
 
 		#Fail trigger
 		available = {
-			NOT = { controls_state = 219 }
+			NOT = { controls_state = 2292 }
 		}
 
 		days_mission_timeout = 180
@@ -10804,23 +10804,23 @@ SOV_great_patriotic_war = {
 			NOT = { has_country_flag = SOV_order_227_flag }
 			OR = {
 				#LIT
-				controls_state = 188
-				controls_state = 814
-				controls_state = 189
-				controls_state = 11
-				controls_state = 815
+				controls_state = 227
+				controls_state = 259
+				controls_state = 206
+				controls_state = 242
+				controls_state = 207
 				#LAT
-				controls_state = 190
-				controls_state = 12
-				controls_state = 809
-				controls_state = 810
-				controls_state = 808
+				controls_state = 174
+				controls_state = 95
+				controls_state = 196
+				controls_state = 185
+				controls_state = 172
 				#EST
-				controls_state = 191
-				controls_state = 13
-				controls_state = 811
-				controls_state = 812
-				controls_state = 813
+				controls_state = 152
+				controls_state = 155
+				controls_state = 146
+				controls_state = 133
+				controls_state = 134
 			}
 
 		}
@@ -10834,23 +10834,23 @@ SOV_great_patriotic_war = {
 				limit = {
 					OR = {
 						#LIT
-						state = 188
-						state = 814
-						state = 189
-						state = 11
-						state = 815
+						state = 227
+						state = 146
+						state = 208
+						state = 274
+						state = 1339
 						#LAT
-						state = 190
-						state = 12
-						state = 809
-						state = 810
-						state = 808
+						state = 67
+						state = 95
+						state = 1352
+						state = 170
+						state = 172
 						#EST
-						state = 191
-						state = 13
-						state = 811
-						state = 812
-						state = 813
+						state = 152
+						state = 155
+						state = 146
+						state = 133
+						state = 134
 					}
 				}
 				damage_building = {
@@ -10986,17 +10986,17 @@ SOV_great_patriotic_war = {
 			has_country_flag = SOV_scorched_earth
 			NOT = { has_country_flag = SOV_order_227_flag }
 			OR = {
-				controls_state = 229
-				controls_state = 230
-				controls_state = 231
-				controls_state = 232
-				controls_state = 233
-				controls_state = 234
-				controls_state = 235
+				controls_state = 2292
+				controls_state = 2265
+				controls_state = 2290
 				controls_state = 821
+				controls_state = 2282
+				controls_state = 696
+				controls_state = 732
+				controls_state = 843
+				controls_state = 841
 				controls_state = 826
-				controls_state = 827
-				controls_state = 828
+				controls_state = 832
 			}
 
 		}
@@ -11009,17 +11009,17 @@ SOV_great_patriotic_war = {
 			every_controlled_state = {
 				limit = {
 					OR ={
-						state = 229
-						state = 230
-						state = 231
-						state = 232
-						state = 233
-						state = 234
-						state = 235
+						state = 2292
+						state = 1005
+						state = 2271
 						state = 821
+						state = 2282
+						state = 696
+						state = 2867
+						state = 843
+						state = 841
 						state = 826
-						state = 827
-						state = 828
+						state = 832
 					}
 				}
 				damage_building = {
@@ -11057,14 +11057,14 @@ SOV_great_patriotic_war = {
 			has_country_flag = SOV_scorched_earth
 			NOT = { has_country_flag = SOV_order_227_flag }
 			OR = {
-				controls_state = 245
-				controls_state = 217
-				controls_state = 218
-				controls_state = 238
-				controls_state = 237
-				controls_state = 236
-				controls_state = 265
-				controls_state = 829
+				controls_state = 557
+				controls_state = 457
+				controls_state = 511
+				controls_state = 2410
+				controls_state = 630
+				controls_state = 632
+				controls_state = 2418
+				controls_state = 2589
 			}
 		}
 
@@ -11076,14 +11076,14 @@ SOV_great_patriotic_war = {
 			every_controlled_state = {
 				limit = {
 					OR ={
-						state = 245
-						state = 217
-						state = 218
-						state = 238
-						state = 237
-						state = 236
-						state = 265
-						state = 829
+						state = 557
+						state = 457
+						state = 511
+						state = 2410
+						state = 2513
+						state = 2516
+						state = 2418
+						state = 2589
 					}
 				}
 				damage_building = {
@@ -11121,14 +11121,14 @@ SOV_great_patriotic_war = {
 			has_country_flag = SOV_scorched_earth
 			NOT = { has_country_flag = SOV_order_227_flag }
 			OR = {
-				controls_state = 220
-				controls_state = 222
-				controls_state = 224
-				controls_state = 243
-				controls_state = 205
-				controls_state = 242
-				controls_state = 246
-				controls_state = 219
+				controls_state = 388
+				controls_state = 318
+				controls_state = 2183
+				controls_state = 2190
+				controls_state = 300
+				controls_state = 2189
+				controls_state = 2452
+				controls_state = 229
 			}
 		}
 
@@ -11140,14 +11140,14 @@ SOV_great_patriotic_war = {
 			every_state = {
 				limit = {
 					OR = {
-						state = 220
-						state = 222
-						state = 224
-						state = 243
-						state = 205
-						state = 242
-						state = 246
-						state = 219
+						state = 388
+						state = 318
+						state = 2183
+						state = 2190
+						state = 300
+						state = 2189
+						state = 2452
+						state = 229
 					}
 					is_controlled_by = SOV
 				}
@@ -11665,7 +11665,7 @@ SOV_soviet_civil_war_dec_cat = {
 
 		available = {
 			NOT = { has_decision = SOV_secure_moscow_opposition }
-			195 = { SOV_is_unaligned_state = yes  }
+			119 = { SOV_is_unaligned_state = yes  }
 		}
 		ai_will_do = {
 			base = 10
@@ -11698,7 +11698,7 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 		remove_effect = {
 			custom_effect_tooltip = SOV_secure_leningrad_opposition_tt
-			195 = { set_state_flag = SOV_opposition_partisans_flag }
+			119 = { set_state_flag = SOV_opposition_partisans_flag }
 			SOV_opposition_support_high_increase_effect = yes
 		}
 	}
@@ -12839,11 +12839,11 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		targets = {
-			state = 214 # Archangelsk
+			state = 41 # Archangelsk
 		}
 
 		target_trigger = {
-			FROM = { state = 214 }# Archangelsk
+			FROM = { state = 41 }# Archangelsk
 		}
 		available = {
 			NOT = { has_country_flag = SOV_align_state_in_process }
@@ -12885,10 +12885,10 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		targets = {
-			state = 192 # Odessa
+			state = 2045 # Odessa
 		}
 		target_trigger = {
-			FROM = { state = 192 }
+			FROM = { state = 2063 }
 		}
 		icon = {
 			key = SOV_place_hq
@@ -12958,10 +12958,10 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 
 		targets = {
-			state = 571  # Omsk
+			state = 2387  # Omsk
 		}
 		target_trigger = {
-			FROM = { state = 571 }
+			FROM = { state = 2387 }
 		}
 		icon = {
 			key = SOV_place_hq
@@ -14413,8 +14413,8 @@ SOV_soviet_civil_war_dec_cat = {
 					region = 150
 					region = 264
 					region = 265
-					state = 215
-					state = 216
+					state = 57
+					state = 24
 				}
 				SOV_is_unaligned_state = yes
 			}

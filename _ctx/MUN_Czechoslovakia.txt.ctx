@@ -1,0 +1,674 @@
+    498|			original_tag = HAN
+    499|			original_tag = SHL
+    500|			original_tag = RHI
+    501|			original_tag = WUR
+    502|			original_tag = KSH
+    503|			original_tag = MEK
+    504|			original_tag = HES
+    505|			original_tag = SAX
+    506|			original_tag = DNZ #if you trigger this as Danzig without cheating you deserve an award
+    507|			original_tag = SDL #the call is coming from inside the house
+    508|		}
+    509|		exists = yes
+    510|		NOT = {
+    511|			is_subject_of = CZE
+    512|		}
+    513|		any_country_with_original_tag = {
+    514|			original_tag_to_check = CZE
+    515|			has_idea = CZE_sudeten_german_quandary
+    516|			is_neighbor_of = ROOT
+    517|			OR = {
+>>  518|				controls_state = 1672 #North Sudetenland
+>>  519|				controls_state = 539 #South Sudetenland
+>>  520|				controls_state = 499 #Czeske Slezsko
+    521|			}
+    522|		}
+    523|		NOT = {
+    524|			any_country_with_original_tag = { #Can't already be at war
+    525|				original_tag_to_check = CZE
+    526|				PREV = { #PREV here is the ROOT
+    527|					has_war_with = PREV #PREV here is the 'any_country_with_original_tag'
+    528|				}
+    529|			}
+    530|		}
+    531|		OR = {
+    532|			any_country_with_original_tag = { 
+    533|				original_tag_to_check = CZE
+    534|				PREV = { #PREV here is the ROOT
+    535|					is_justifying_wargoal_against = PREV #PREV here is the 'any_country_with_original_tag'
+    536|				}
+    537|			}
+    538|			has_wargoal_against = {
+    539|				target = CZE
+    540|			}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    658|				has_war_with_major = no
+    659|			}
+    660|
+    661|			custom_effect_tooltip = generic_skip_one_line_tt
+    662|
+    663|			activate_mission = CZE_sudeten_promise_mission
+    664|			effect_tooltip = {
+    665|				activate_mission = CZE_sudeten_promise_mission
+    666|			}
+    667|
+    668|		}
+    669|
+    670|		custom_effect_tooltip = generic_skip_one_line_tt
+    671|
+    672|		hidden_effect = {
+    673|			every_country_with_original_tag = {
+    674|				original_tag_to_check = CZE
+    675|				limit = {
+    676|					has_idea = CZE_sudeten_german_quandary
+    677|					OR = {
+>>  678|						controls_state = 1672 #North Sudetenland
+>>  679|						controls_state = 539 #South Sudetenland
+>>  680|						controls_state = 499 #Czeske Slezsko
+    681|					}
+    682|				}
+    683|				country_event = { id = MUN_czech.3 }
+    684|				every_country = {
+    685|					if = {
+    686|						limit = {
+    687|							exists = yes 
+    688|							OR = {
+    689|								is_major = yes
+    690|								capital_scope = {
+    691|									is_on_continent = europe
+    692|								}
+    693|								is_subject_of = ENG
+    694|								is_subject_of = FRA
+    695|								is_subject_of = CZE
+    696|								is_subject_of = HOL
+    697|								is_subject_of = BEL
+    698|							}
+    699|						}
+    700|						news_event = {
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    731|				ideology = ROOT
+    732|				popularity = -0.05
+    733|			}
+    734|		}
+    735|
+    736|		custom_effect_tooltip = generic_skip_one_line_tt
+    737|
+    738|		add_timed_idea = {
+    739|			idea = CZE_sudeten_facde
+    740|			days = 365
+    741|		}
+    742|
+    743|		custom_effect_tooltip = generic_skip_one_line_tt
+    744|
+    745|		hidden_effect = {
+    746|			every_country_with_original_tag = {
+    747|				original_tag_to_check = CZE
+    748|				limit = {
+    749|					has_idea = CZE_sudeten_german_quandary
+    750|					OR = {
+>>  751|						controls_state = 1672 #North Sudetenland
+>>  752|						controls_state = 539 #South Sudetenland
+>>  753|						controls_state = 499 #Czeske Slezsko
+    754|					}
+    755|				}
+    756|				country_event = { id = MUN_czech.3 hours = 2 }
+    757|				every_country = {
+    758|					if = {
+    759|						limit = {
+    760|							exists = yes 
+    761|							OR = {
+    762|								is_major = yes
+    763|								capital_scope = {
+    764|									is_on_continent = europe
+    765|								}
+    766|								is_subject_of = ENG
+    767|								is_subject_of = HOL
+    768|								is_subject_of = BEL
+    769|							}
+    770|						}
+    771|						news_event = {
+    772|							id = MUN_czech.news.1
+    773|							hours = 6
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    873|				}
+    874|				ROOT = {
+    875|					add_timed_idea = {
+    876|						idea = CZE_sudeten_challenge 
+    877|						days = 120
+    878|					}
+    879|				}
+    880|			}
+    881|		}
+    882|	}
+    883|	
+    884|	option = {
+    885|		name = MUN_czech.3.a 
+    886|		ai_chance = {
+    887|			factor = 1
+    888|		}
+    889|		effect_tooltip = {
+    890|			every_controlled_state = {
+    891|				limit = {
+    892|					OR = {
+>>  893|						state = 499
+>>  894|						state = 539
+>>  895|						state = 1672
+    896|					}
+    897|				}
+    898|				add_dynamic_modifier = { modifier = CZE_sudetenland_paramilitaries_modifier }
+    899|			}	
+    900|		}
+    901|			
+    902|		if = {
+    903|			limit = {
+    904|				threat < 0.76
+    905|				ROOT = {
+    906|					is_in_faction = no
+    907|					has_war = no
+    908|					has_global_flag = CZE_ROOT_sudeten_german_quandary_backed_the_paramilitary
+    909|				}
+    910|				FROM = {
+    911|					exists = yes
+    912|					is_major = yes
+    913|					has_war = no
+    914|					OR = {
+    915|						original_tag = GER
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1145|
+   1146|	option = {
+   1147|		name = MUN_czech.6.a
+   1148|	}
+   1149|}
+   1150|
+   1151|#Czechoslovakia demands corridor to USSR from Poland
+   1152|country_event = {
+   1153|	id = MUN_czech.1001
+   1154|	title = MUN_czech.1001.t
+   1155|	desc = MUN_czech.1001.d
+   1156|	picture = GFX_report_event_german_polish_border
+   1157|
+   1158|	is_triggered_only = yes
+   1159|
+   1160|	fire_only_once = yes
+   1161|
+   1162|	option = {	#Accept
+   1163|		name = MUN_czech.1019.a
+   1164|		FROM = {
+>> 1165|			transfer_state = 1164
+>> 1166|			transfer_state = 1292
+   1167|		}
+   1168|	}
+   1169|
+   1170|	option = {	#Refuse
+   1171|		name = MUN_czech.1020.b
+   1172|		FROM = {
+   1173|			country_event = MUN_czech.1003
+   1174|		}
+   1175|	}
+   1176|}
+   1177|
+   1178|#Czechoslovakia demands Yugoslav puppets
+   1179|country_event = {
+   1180|	id = MUN_czech.1002
+   1181|	title = MUN_czech.1002.t
+   1182|	desc = MUN_czech.1002.d
+   1183|	picture = GFX_report_event_czech_soldiers_02
+   1184|
+   1185|	is_triggered_only = yes
+   1186|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1437|	title = MUN_czech.1009.t
+   1438|	desc = MUN_czech.1009.d
+   1439|	picture = GFX_report_event_czech_soldiers_01
+   1440|
+   1441|	is_triggered_only = yes
+   1442|
+   1443|	option = {		#sure
+   1444|		name = MUN_czech.1009.a
+   1445|		FROM = {
+   1446|			add_to_faction = ROOT
+   1447|		}
+   1448|	}
+   1449|
+   1450|	option = {		#we want that land - probably needs a trigger
+   1451|		name = MUN_czech.1009.b
+   1452|		trigger = {
+   1453|			OR = {
+   1454|				AND = {
+   1455|					original_tag = HUN
+   1456|					FROM = {
+>> 1457|						owns_state = 1439
+   1458|					}
+   1459|				}
+   1460|				AND = {
+   1461|					original_tag = POL
+   1462|					FROM = {
+>> 1463|						owns_state = 72
+   1464|					}
+   1465|				}
+   1466|			}
+   1467|		}
+   1468|		FROM = {
+   1469|			country_event = MUN_czech.1013
+   1470|		}
+   1471|	}
+   1472|
+   1473|	option = {		#no
+   1474|		name = MUN_czech.1009.c
+   1475|		set_variable = { global.CZE_origin_event = 1009 }	#used to decide loc
+   1476|		FROM = {
+   1477|			country_event = MUN_czech.1026
+   1478|		}
+   1479|	}
+   1480|}
+   1481|
+   1482|country_event = {	#Czechoslovakia invites France to lead the little entente
+   1483|	id = MUN_czech.1010
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1532|country_event = {	#Czechoslovakia pressures Romania with USSR
+   1533|	id = MUN_czech.1012
+   1534|	title = MUN_czech.1012.t
+   1535|	desc = MUN_czech.1012.d
+   1536|	picture = GFX_report_event_czech_soldiers_02
+   1537|
+   1538|	is_triggered_only = yes
+   1539|
+   1540|	option = {		#sure
+   1541|		name = MUN_czech.1012.a
+   1542|		FROM = {
+   1543|			add_named_threat = {
+   1544|				threat = 5
+   1545|				name = CZE_demanded_overlordship_ROM
+   1546|			}
+   1547|			puppet = ROOT
+   1548|		}
+   1549|		if = {
+   1550|			limit = {	#sanity check: do they border Romania?
+   1551|				SOV = {
+>> 1552|					owns_state = 834
+   1553|				}
+   1554|			}
+   1555|			every_state = {
+   1556|				limit = {
+   1557|					OR = {
+   1558|						state = 1601
+   1559|						state = 794
+   1560|						state = 1602
+   1561|						state = 2744
+   1562|						state = 2745
+   1563|						state = 1603
+   1564|						state = 1604
+   1565|						state = 1605
+   1566|						state = 600
+   1567|						state = 592
+   1568|						state = 1599
+   1569|						state = 1600
+   1570|						state = 590
+   1571|						state = 1606
+   1572|						state = 2980
+   1573|					}
+   1574|					is_owned_by = ROM
+   1575|					NOT = {
+   1576|						is_claimed_by = SOV
+   1577|						is_owned_by = SOV
+   1578|					}
+   1579|				}
+   1580|				transfer_state_to = SOV
+   1581|			}
+   1582|		}
+   1583|	}
+   1584|
+   1585|	option = {		#no
+   1586|		name = MUN_czech.1012.b
+   1587|		FROM = {
+   1588|			country_event = MUN_czech.1044
+   1589|		}
+   1590|		if = {
+   1591|			limit = {	#sanity check: do they border Romania?
+   1592|				SOV = {
+>> 1593|					owns_state = 834
+   1594|				}
+   1595|			}
+   1596|			every_state = {
+   1597|				limit = {
+   1598|					OR = {
+   1599|						state = 1601
+   1600|						state = 794
+   1601|						state = 1602
+   1602|						state = 2744
+   1603|						state = 2745
+   1604|						state = 1603
+   1605|						state = 1604
+   1606|						state = 1605
+   1607|						state = 600
+   1608|						state = 592
+   1609|						state = 1599
+   1610|						state = 1600
+   1611|						state = 590
+   1612|						state = 1606
+   1613|						state = 2980
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1903|}
+   1904|
+   1905|country_event = {	#conditional investment		#marijn211: Event completed
+   1906|	id = MUN_czech.1020
+   1907|	title = MUN_czech.1020.t
+   1908|	desc = MUN_czech.1020.d
+   1909|	picture = GFX_report_event_generic_construction_site
+   1910|
+   1911|	is_triggered_only = yes
+   1912|
+   1913|	option = {		#sure
+   1914|		name = MUN_czech.1020.a
+   1915|		custom_effect_tooltip = CZE_investment_effects_tt
+   1916|		if = {
+   1917|			limit = {
+   1918|				original_tag = HUN
+   1919|			}
+   1920|			custom_effect_tooltip = generic_skip_one_line_tt
+   1921|			give_resource_rights = {
+   1922|				receiver = FROM
+>> 1923|				state = 624
+   1924|			}
+   1925|		}
+   1926|		else_if = {
+   1927|			limit = {
+   1928|				original_tag = ROM
+   1929|			}
+   1930|			effect_tooltip = {
+   1931|				build_railway = {	#upgrades existing railway
+   1932|					level = 1
+   1933|					fallback = yes
+   1934|					path = { 3663 9651 11652 9701 6747 3741 }
+   1935|					start_province = 3663
+   1936|					target_province = 3741
+   1937|				}
+   1938|				build_railway = {	#upgrades existing railway
+   1939|					level = 1
+   1940|					fallback = yes
+   1941|					path = { 6747 723 3707 }
+   1942|					start_province = 6747
+   1943|					target_province = 3707
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1952|			}
+   1953|			effect_tooltip = {
+   1954|				build_railway = {	#upgrades existing railway
+   1955|					level = 1
+   1956|					fallback = yes
+   1957|					path = { 3601 6611 984 3974 3924 }
+   1958|					start_province = 3601	#Junction in between Split, Zagreb and Italian border
+   1959|					target_province = 3924	#Split
+   1960|				}
+   1961|				build_railway = {	#upgrades existing railway
+   1962|					level = 1
+   1963|					fallback = yes
+   1964|					path = { 11586 11583 6634 9602 }
+   1965|					start_province = 11586	#Belgrade
+   1966|					target_province = 3707	#Nis
+   1967|				}
+   1968|			}
+   1969|			custom_effect_tooltip = generic_skip_one_line_tt
+   1970|			give_resource_rights = {
+   1971|				receiver = FROM
+>> 1972|				state = 1530
+   1973|			}
+   1974|		}
+   1975|		custom_effect_tooltip = generic_skip_one_line_tt
+   1976|		add_opinion_modifier = {
+   1977|			target = FROM
+   1978|			modifier = CZE_investment_deal
+   1979|		}
+   1980|		reverse_add_opinion_modifier = {
+   1981|			target = FROM
+   1982|			modifier = CZE_investment_deal
+   1983|		}
+   1984|	}
+   1985|
+   1986|	option = {		#no
+   1987|		name = MUN_czech.1020.b
+   1988|		ai_chance = {
+   1989|			base = 1
+   1990|			modifier = {
+   1991|				factor = 0
+   1992|				is_in_faction_with = FROM
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2471|				check_variable = { global.CZE_origin_event = 1038 }
+   2472|				check_variable = { global.CZE_origin_event = 1051 }
+   2473|			}
+   2474|		}
+   2475|		name = MUN_czech.1044.a
+   2476|	}
+   2477|}
+   2478|
+   2479|country_event = {		#Limited cooperation with USSR
+   2480|	id = MUN_czech.1027
+   2481|	title = MUN_czech.1027.t
+   2482|	desc = MUN_czech.1027.d
+   2483|	picture = GFX_report_event_generic_handshake
+   2484|
+   2485|	is_triggered_only = yes
+   2486|
+   2487|	option = {
+   2488|		name = MUN_czech.1027.a
+   2489|		if = {
+   2490|		 	limit = {
+>> 2491|		 		controls_state = 2081
+>> 2492|		 		owns_state = 2081
+   2493|		 	}
+   2494|			give_resource_rights = {
+   2495|				receiver = FROM
+>> 2496|				state = 2081
+   2497|			}
+   2498|		}
+   2499|		add_timed_idea = {
+   2500|			idea = CZE_machine_tools
+   2501|			months = 3
+   2502|		}
+   2503|	}
+   2504|	option = {
+   2505|		name = MUN_czech.1027.b
+   2506|		set_variable = { global.CZE_origin_event = 1027 }	#used to decide loc
+   2507|		FROM = {
+   2508|			country_event = MUN_czech.1026
+   2509|		}
+   2510|	}
+   2511|}
+   2512|
+   2513|country_event = { #Fate of the Fortification Council
+   2514|	id = MUN_czech.1028
+   2515|	title = MUN_czech.1028.t
+   2516|	desc = MUN_czech.1028.d
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   3857|			check_variable = { global.CZE_origin_event = 1007 }
+   3858|		}
+   3859|	}
+   3860|	desc = {
+   3861|		text = MUN_czech.1048.d5	#weapon producting outsourcing
+   3862|		trigger = {
+   3863|			check_variable = { global.CZE_origin_event = 1035 }
+   3864|		}
+   3865|	}
+   3866|	picture = GFX_report_event_czech_soldiers_01
+   3867|
+   3868|	is_triggered_only = yes
+   3869|
+   3870|	option = {
+   3871|		name = MUN_czech.1046.a		#reused
+   3872|		trigger = {
+   3873|			check_variable = { global.CZE_origin_event = 1019 }
+   3874|		}
+   3875|		custom_effect_tooltip = generic_has_happen_tt
+   3876|		effect_tooltip = {
+>> 3877|			transfer_state = 762
+   3878|		}
+   3879|	}
+   3880|	option = {
+   3881|		name = MUN_czech.1046.a		#reused
+   3882|		trigger = {
+   3883|			check_variable = { global.CZE_origin_event = 1056 }
+   3884|		}
+   3885|		custom_effect_tooltip = generic_has_happen_tt
+   3886|		effect_tooltip = {
+>> 3887|			transfer_state = 621
+   3888|		}
+   3889|	}
+   3890|	option = {
+   3891|		name = MUN_czech.1046.a		#reused
+   3892|		trigger = {
+   3893|			check_variable = { global.CZE_origin_event = 1024 }
+   3894|		}
+   3895|		custom_effect_tooltip = generic_has_happen_tt
+   3896|		every_state = {
+   3897|			limit = {
+   3898|				has_state_flag = CZE_transferred_to_us
+   3899|			}
+   3900|			effect_tooltip = {
+   3901|				transfer_state_to = ROOT
+   3902|			}
+   3903|			clr_state_flag = CZE_transferred_to_us		#purely to clean saves/logs
+   3904|		}
+   3905|	}
+   3906|	option = {
+   3907|		name = MUN_czech.1046.a		#reused
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4751|			has_war = no
+   4752|			is_ai = no
+   4753|			73 = {
+   4754|				is_fully_controlled_by = ROOT
+   4755|			}
+   4756|		}
+   4757|		if = {
+   4758|			limit = {
+   4759|				RUT = {
+   4760|					exists = no
+   4761|				}
+   4762|				73 = {
+   4763|					is_fully_controlled_by = ROOT
+   4764|				}
+   4765|			}
+   4766|			hidden_effect = {
+   4767|				73 = {
+   4768|					add_core_of = RUT
+   4769|				}
+   4770|				RUT = {
+>> 4771|					transfer_state = 2246
+   4772|				}
+   4773|				89 = {
+   4774|					add_core_of = RUT
+   4775|				}
+   4776|				80 = {
+   4777|					add_core_of = RUT
+   4778|				}
+   4779|				every_state = {
+   4780|					limit = {
+   4781|						is_core_of = UKR
+   4782|						NOT = {
+   4783|							OR = {
+>> 4784|								state = 2246
+>> 4785|								state = 1164
+>> 4786|								state = 590
+   4787|							}
+   4788|						}
+   4789|					}
+   4790|					add_claim_by = RUT
+   4791|				}
+   4792|			}
+   4793|			hidden_effect = {
+   4794|				RUT = {
+   4795|					add_political_power = 150
+   4796|					add_command_power = 25
+   4797|					army_experience = 25
+   4798|					remove_ideas = CZE_back_against_the_mountains_RUT #Set in history file
+   4799|					add_ideas = low_economic_mobilisation
+   4800|					add_ideas = limited_conscription
+   4801|					add_ideas = CZE_back_against_the_mountains_RUT_player
+   4802|					set_popularities = {
+   4803|						democratic = 76
+   4804|						fascism = 9
+   4805|						communism = 14
+   4806|						neutrality = 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4829|	desc = MUN_the_fall_of_the_republic.4.d
+   4830|	picture = GFX_report_event_hungary_parliament
+   4831|	
+   4832|	is_triggered_only = yes
+   4833|
+   4834|	fire_only_once = yes
+   4835|
+   4836|	option = { #sure why not
+   4837|		name = MUN_the_fall_of_the_republic.4.a
+   4838|		ai_chance = {
+   4839|			base = 85
+   4840|			modifier = {
+   4841|				is_historical_focus_on = yes
+   4842|				factor = 10
+   4843|			}
+   4844|		}
+   4845|
+   4846|		set_global_flag = HUN_sent_rut_the_event_ultimatum_news_event_trigger_flag
+   4847|		random_country = {
+   4848|			limit = {
+>> 4849|				owns_state = 2246
+   4850|				original_tag = RUT
+   4851|			}
+   4852|			country_event = {
+   4853|				id = MUN_the_fall_of_the_republic.5
+   4854|				days = 1
+   4855|			}
+   4856|		}
+   4857|	}
+   4858|
+   4859|	option = { #We should wait
+   4860|		name = MUN_the_fall_of_the_republic.4.b
+   4861|		ai_chance = {
+   4862|			base = 1
+   4863|			modifier = {
+   4864|				is_historical_focus_on = no
+   4865|				factor = 2
+   4866|			}
+   4867|		}
+   4868|		add_political_power = -25
+   4869|	}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   4994|			}
+   4995|		}
+   4996|
+   4997|		add_war_support = -0.05
+   4998|	}
+   4999|}
+   5000|
+   5001|country_event = { #RUT gaves in
+   5002|	id = MUN_the_fall_of_the_republic.7
+   5003|	title = MUN_the_fall_of_the_republic.7.t
+   5004|	desc = MUN_the_fall_of_the_republic.7.d
+   5005|	picture = GFX_report_event_hungary_southern_slovakia
+   5006|	
+   5007|	is_triggered_only = yes
+   5008|
+   5009|	fire_only_once = yes
+   5010|
+   5011|	option = { #nice
+   5012|		name = MUN_the_fall_of_the_republic.7.a
+   5013|
+>> 5014|		transfer_state = 2246
+   5015|	}
+   5016|}
+   5017|
+   5018|#########################
+   5019|###    News Events    ###
+   5020|#########################
+   5021|news_event = { #Sudetenland Crisis
+   5022|	id = MUN_czech.news.1
+   5023|	title = MUN_czech.news.1.t
+   5024|	desc = MUN_czech.news.1.desc
+   5025|	picture = GFX_news_event_CZE_militia_soldiers_waiting_with_guns
+   5026|	
+   5027|	is_triggered_only = yes
+   5028|	
+   5029|	option = { #Default
+   5030|		name = MUN_czech.news.1.a
+   5031|		trigger = {
+   5032|			NOT = {
+   5033|				has_country_flag = CZE_i_caused_the_crisis_TAG
+   5034|				tag = CZE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
