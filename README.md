@@ -17,10 +17,10 @@
 </div>
 
 > [!NOTE]
-> **Reforged** is the community continuation of the original *Magna Europa* project, migrated to HoI4 **1.19.\*** and under active development.
+> **Reforged** is the community continuation of the [Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839) project by **Edouard_Saladier**, migrated to HoI4 **1.19.\*** and under active development.
 
 > [!CAUTION]
-> This mod is based on [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093), but heavily prunes and reworks the original Alpha's content. It should therefore be treated as **incompatible with any submod made for the original Magna Europa Alpha**, as well as any other mod that changes game content. For specific cases, please check the [compatibility list](COMPATIBILITY.md).
+> This mod is built on [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093) — itself a community rework of the original — but heavily prunes and reworks its content. It should therefore be treated as **incompatible with any submod made for Magna Europa Alpha or Reloaded**, as well as any other mod that changes game content. For specific cases, please check the [compatibility list](COMPATIBILITY.md).
 
 ---
 
@@ -99,6 +99,7 @@ Files and directories prefixed with `_` (e.g. `_dev/`, `_audit_*.tsv`, `_118_bas
 
 ## Credits
 
-- **Magna Europa** original team — map, scenario and content foundation
-- **Reforged** maintainers — 1.19 migration, map remapping and ongoing development
+- **[Magna Europa](https://steamcommunity.com/sharedfiles/filedetails/?id=2152140768)** — the original project (discontinued), where the lineage starts
+- **[Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839)** team — official successor carrying the map, scenario and content foundation: **Edouard_Saladier** (lead), LolloBlue96, FBKong and contributors
+- **Bacegun** — [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093), the community rework that Reforged is directly based on
 - Paradox Interactive — Hearts of Iron IV and all ported DLC content

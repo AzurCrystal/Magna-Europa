@@ -17,10 +17,10 @@
 </div>
 
 > [!NOTE]
-> **Reforged** 是原 *Magna Europa* 项目的社区续作，已迁移至 HoI4 **1.19.\***，目前处于活跃开发中。
+> **Reforged** 是 **Edouard_Saladier** 原作 [Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839) 项目的社区续作，已迁移至 HoI4 **1.19.\***，目前处于活跃开发中。
 
 > [!CAUTION]
-> 本模组基于 [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093) 开发，但对其内容做了大幅精简与修改，因此可视为**不兼容任何为原版模组制作的子模组**，以及任何其他修改游戏内容的模组。具体兼容情况请查阅[兼容性列表](COMPATIBILITY.md)。
+> 本模组基于 [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093)（Alpha 本身也是对原作的社区重制）开发，但对其内容做了大幅精简与修改，因此可视为**不兼容任何为 Magna Europa Alpha 或 Reloaded 制作的子模组**，以及任何其他修改游戏内容的模组。具体兼容情况请查阅[兼容性列表](COMPATIBILITY.md)。
 
 ---
 
@@ -99,6 +99,7 @@
 
 ## 致谢
 
-- **Magna Europa** 原团队 —— 地图、剧本与内容基础
-- **Reforged** 维护者 —— 1.19 迁移、地图重映射与持续开发
+- **[Magna Europa](https://steamcommunity.com/sharedfiles/filedetails/?id=2152140768)** —— 已停更的原版项目，谱系源头
+- **[Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839)** 团队 —— 官方续作，承载地图、剧本与内容基础：**Edouard_Saladier**（主导）、LolloBlue96、FBKong 及其他贡献者
+- **Bacegun** —— [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093) 作者，Reforged 直接基于该社区重制版开发
 - Paradox Interactive —— 《钢铁雄心4》及全部移植的 DLC 内容
