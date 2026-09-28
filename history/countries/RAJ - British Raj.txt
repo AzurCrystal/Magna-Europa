@@ -41,12 +41,13 @@ set_technology = {
 	tech_engineers = 1
 	tech_recon = 1
 	#trench_warfare = 1
-	fleet_in_being = 1
-	fuel_silos = 1
+fuel_silos = 1
 	fuel_refining = 1
 	basic_train = 1
 	gw_artillery = 1
-}
+	}
+
+set_grand_doctrine = new_fleet_in_being
 
 recruit_character = RAJ_lord_linlithgow
 recruit_character = RAJ_v_d_savarkar
@@ -134,6 +135,8 @@ if = {
 	recruit_character = RAJ_mughal_industrialist
 	recruit_character = RAJ_silent_mughal
 	recruit_character = RAJ_backroom_mughal
+	recruit_character = RAJ_abdul_ghaffar_khan
+	recruit_character = RAJ_GOE_muhammad_musa
 	
 	else = {
 		recruit_character = RAJ_karam_singh_mann
@@ -466,16 +469,6 @@ set_variable = { RAJ_fyp_production_factory_max_efficiency_factor = 0 }
 
 if = {
 	limit = {
-		is_historical_focus_on = yes
-	}
-	430 = {
-	 	set_variable = { global.famine_state = THIS }
-	}
-	
-}
-
-if = {
-	limit = {
 		has_dlc = "Graveyard of Empires"
 	}
 
@@ -516,8 +509,8 @@ if = {
 	limit = {
 		NOT = { has_dlc = "Arms Against Tyranny" }
 	}
-	set_variable = { khadi_level = 0 }
-	set_variable = { gun_and_shell_level = 0 }
+	set_variable = { global.khadi_level = 0 }
+	set_variable = { global.gun_and_shell_level = 0 }
 }
 
 set_variable = { RAJ_recruitment_offices_timeout_max = 12 } 

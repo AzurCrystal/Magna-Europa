@@ -1,4 +1,4 @@
-﻿capital = 1650 # Berlin/Brandeburg
+capital = 1650 # Berlin/Brandeburg
 
 every_owned_state = {
 	set_state_flag = GER_INITIAL_STATE
@@ -750,11 +750,8 @@ set_war_support = 0.3
 		dispersed_industry4 = 1
 		basic_fortification_tech = 1
 	}
-
-	set_grand_doctrine = new_mobile_warfare
-	set_grand_doctrine = new_convoy_raiding
-	set_grand_doctrine = new_battlefield_support
-	set_sub_doctrine = mobile_infantry
+set_grand_doctrine = new_convoy_raiding
+set_sub_doctrine = mobile_infantry
 	add_mastery = {
 		amount = 200
 		sub_doctrine = mobile_infantry
@@ -849,8 +846,11 @@ set_war_support = 0.3
 				heavy_fighter1 = 1
 			}
 		}
-	}
-}
+	}}
+
+set_grand_doctrine = new_mobile_warfare
+set_grand_doctrine = new_convoy_raiding
+set_grand_doctrine = new_battlefield_support
 
 
 # Setup German Politics
@@ -1192,6 +1192,24 @@ if = {
 			tank_nsb_armor_upgrade = 3
 		}
 		icon = "GFX_GER_improved_light_tank_medium"
+	}
+	create_equipment_variant = {
+		name = "StuG III"
+		type = medium_tank_destroyer_chassis_1
+		design_team = mio:GER_alkett_organization
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_medium_cannon
+			turret_type_slot = tank_medium_fixed_superstructure_turret
+			suspension_type_slot = tank_bogie_suspension
+			armor_type_slot = tank_welded_armor
+			engine_type_slot = tank_gasoline_engine
+			special_type_slot_1 = tank_radio_1
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 4
+			tank_nsb_armor_upgrade = 3
+		}
 	}
 }
 if = {
@@ -1827,5 +1845,5 @@ if = {
 	#		ship_gun_upgrade = 2
 	#	}
 	#	obsolete = yes
-	#}
-}
+	#
+	}
