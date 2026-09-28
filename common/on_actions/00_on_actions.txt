@@ -6,22 +6,24 @@ on_actions = {
 				limit = {
 					has_dlc = "Gotterdammerung" 
 				}
-				58 = {
-					add_building_construction = {
-						type = canal_kiel
-						level = 1
-						instant_build = yes
-						province =  6389
-					}
-				}
-				685 = {
-					add_building_construction = {
-						type = canal_panama
-						level = 1
-						instant_build = yes
-						province =  7617
-					}
-				}
+				# was vanilla 58 # mod has no vanilla Schleswig-Holstein id; Kiel canal icon building — spawn disabled (canal mechanic is flag-driven via KIEL_CANAL adjacency rule)
+				#58 = {
+				#	add_building_construction = {
+				#		type = canal_kiel
+				#		level = 1
+				#		instant_build = yes
+				#		province =  6389
+				#	}
+				#}
+				# was vanilla 685 # off-map: Panama is not on the mod map
+				#685 = {
+				#	add_building_construction = {
+				#		type = canal_panama
+				#		level = 1
+				#		instant_build = yes
+				#		province =  7617
+				#	}
+				#}
 			}
 		}
 		#Setup Colonial Powers
@@ -232,12 +234,12 @@ on_actions = {
 				goto_state = FROM
 				set_country_flag = achievement_has_dropped_nuke
 			}
-			if = {
-				limit = {
-					FROM = { state = 378 }
-				}
-				set_country_flag = achievement_has_nuked_california
-			}
+			#if = {
+			#	limit = {
+			#		FROM = { state = 378 } # was vanilla 378 # off-map: California is not on the mod map
+			#	}
+			#	set_country_flag = achievement_has_nuked_california
+			#}
 			if = {
 				limit = {
 					FROM = { is_core_of = AST }
@@ -288,17 +290,17 @@ on_actions = {
 				}
 				set_global_flag = JAP_nuke_1
 			}
-			if = {
-				limit = {
-					FROM = {
-						state = 953
-					}
-					NOT = {
-						has_global_flag = land_of_fire_flag
-					}
-				}
-				set_global_flag = land_of_fire_flag
-			}
+			#if = {
+			#	limit = {
+			#		FROM = {
+			#			state = 953 # was vanilla 953 # off-map: Tierra del Fuego is not on the mod map
+			#		}
+			#		NOT = {
+			#			has_global_flag = land_of_fire_flag
+			#		}
+			#	}
+			#	set_global_flag = land_of_fire_flag
+			#}
 
 			news_event = { id = nuke_dropped.2 days = 1 }
 			news_event = { id = nuke_dropped.3 days = 1 }
@@ -791,13 +793,13 @@ on_actions = {
 						remove_core_of = ROOT
 					}
 				}
-				807 = {
+				267 = { # was vanilla 807
 					if = {
 						limit = { is_core_of = ROOT }
 						remove_core_of = ROOT
 					}
 				}
-				85 = {
+				280 = { # was vanilla 85
 					if = {
 						limit = { is_core_of = ROOT }
 						remove_core_of = ROOT
@@ -805,13 +807,13 @@ on_actions = {
 				}
 				if = {
 					limit = { has_government = fascism }
-					69 = {
+					1672 = { # was vanilla 69
 						if = {
 							limit = { is_core_of = ROOT }
 							remove_core_of = ROOT
 						}
 					}
-					74 = {
+					499 = { # was vanilla 74
 						if = {
 							limit = { is_core_of = ROOT }
 							remove_core_of = ROOT
@@ -998,95 +1000,87 @@ on_actions = {
 				}
 				if = {
 					limit = {
-						295 = {
+						2974 = { # was vanilla 295
 							is_fully_controlled_by = ROOT
 						}
 					}
-					295 = { set_state_flag = prevent_auto_flip_after_capitulation }
+					2974 = { set_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 295
 				}
 
-				if = {
-					limit = {
-						538 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
+				#if = {
+				#	limit = {
+				#		538 = { # was vanilla 538 # off-map: Cameroun is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	538 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 
-					538 = { set_state_flag = prevent_auto_flip_after_capitulation }
-				}
+				#if = {
+				#	limit = {
+				#		888 = { # was vanilla 888 # off-map: Belgian Congo area is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	888 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 
-				if = {
-					limit = {
-						888 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
+				#if = {
+				#	limit = {
+				#		889 = { # was vanilla 889 # off-map: Belgian Congo area is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	889 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 
-					888 = { set_state_flag = prevent_auto_flip_after_capitulation }
-				}
+				#if = {
+				#	limit = {
+				#		890 = { # was vanilla 890 # off-map: Costermansville is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	890 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 
-				if = {
-					limit = {
-						889 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					889 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#if = {
+				#	limit = {
+				#		769 = { # was vanilla 769 # off-map: Burundi is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	769  = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 
-				}
+				#if = {
+				#	limit = {
+				#		768 = { # was vanilla 768 # off-map: Rwanda is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	768 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 
-				if = {
-					limit = {
-						890 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-
-					890 = { set_state_flag = prevent_auto_flip_after_capitulation }
-
-				}
-
-				if = {
-					limit = {
-						769 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-
-					769  = { set_state_flag = prevent_auto_flip_after_capitulation }
-				}
-
-				if = {
-					limit = {
-						768 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					768 = { set_state_flag = prevent_auto_flip_after_capitulation }
-				}
-
-				if = {
-					limit = {
-						718 = {
-							is_fully_controlled_by = ROOT
-						}
-					}
-					718 = { set_state_flag = prevent_auto_flip_after_capitulation }
-				}
+				#if = {
+				#	limit = {
+				#		718 = { # was vanilla 718 # off-map: Stanleyville is not on the mod map
+				#			is_fully_controlled_by = ROOT
+				#		}
+				#	}
+				#	718 = { set_state_flag = prevent_auto_flip_after_capitulation }
+				#}
 			}
 			
-			if = {
-				limit = {
-					ROOT = {
-						original_tag = FRA
-						is_in_faction = yes
-					}
-
-					635 = { is_fully_controlled_by = ROOT }
-				}
-
-				635 = { set_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = { # was vanilla 635 # off-map: New Caledonia is not on the mod map
+			#	limit = {
+			#		ROOT = {
+			#			original_tag = FRA
+			#			is_in_faction = yes
+			#		}
+			#		635 = { is_fully_controlled_by = ROOT }
+			#	}
+			#	635 = { set_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 		}
 	}
 
@@ -5165,67 +5159,67 @@ on_actions = {
 		effect = {
 			if = {
 				limit = {
-					295 = { has_state_flag = prevent_auto_flip_after_capitulation }
+					2974 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 295
 				}
-				295 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+				2974 = { clr_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 295
 			}
 
-			if = {
-				limit = {
-					538 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				538 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		538 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 538 # off-map: Cameroun is not on the mod map
+			#	}
+			#	538 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
-			if = {
-				limit = {
-					888 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				888 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		888 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 888 # off-map: Belgian Congo area is not on the mod map
+			#	}
+			#	888 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
-			if = {
-				limit = {
-					889 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				889 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		889 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 889 # off-map: Belgian Congo area is not on the mod map
+			#	}
+			#	889 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
-			if = {
-				limit = {
-					890 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				890 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		890 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 890 # off-map: Costermansville is not on the mod map
+			#	}
+			#	890 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
 
-			if = {
-				limit = {
-					769 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				769 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		769 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 769 # off-map: Burundi is not on the mod map
+			#	}
+			#	769 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
-			if = {
-				limit = {
-					768 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				768 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		768 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 768 # off-map: Rwanda is not on the mod map
+			#	}
+			#	768 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
-			if = {
-				limit = {
-					718 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				718 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		718 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 718 # off-map: Stanleyville is not on the mod map
+			#	}
+			#	718 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 
-			if = {
-				limit = {
-					635 = { has_state_flag = prevent_auto_flip_after_capitulation }
-				}
-				635 = { clr_state_flag = prevent_auto_flip_after_capitulation }
-			}
+			#if = {
+			#	limit = {
+			#		635 = { has_state_flag = prevent_auto_flip_after_capitulation } # was vanilla 635 # off-map: New Caledonia is not on the mod map
+			#	}
+			#	635 = { clr_state_flag = prevent_auto_flip_after_capitulation }
+			#}
 		}
 	}
 

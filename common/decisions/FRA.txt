@@ -1682,13 +1682,13 @@ FRA_intervention_in_overseas_territories = {
 						limit = {
 							is_controlled_by = ROOT
 							OR = {
-								state = 461
-								state = 462
+								is_core_of = MOR # was vanilla 461
+								is_core_of = MOR # was vanilla 462
 								state = 1188
 								state = 1186
 								state = 1122
-								state = 458
-								state = 665
+								is_core_of = TUN # was vanilla 458
+								is_core_of = TUN # was vanilla 665
 							}
 						}
 						add_compliance = 5
@@ -1702,13 +1702,13 @@ FRA_intervention_in_overseas_territories = {
 								limit = {
 									is_controlled_by = ROOT
 									OR = {
-										state = 461
-										state = 462
+										is_core_of = MOR # was vanilla 461
+										is_core_of = MOR # was vanilla 462
 										state = 1188
 										state = 1186
 										state = 1122
-										state = 458
-										state = 665
+										is_core_of = TUN # was vanilla 458
+										is_core_of = TUN # was vanilla 665
 									}
 								}
 								add_compliance = 5
@@ -1787,10 +1787,10 @@ FRA_intervention_in_overseas_territories = {
 						limit = {
 							is_controlled_by = ROOT
 							OR = {
-								state = 677
-								state = 680
-								state = 554
-								state = 553
+								is_core_of = SYR # was vanilla 677
+								is_core_of = SYR # was vanilla 680
+								is_core_of = SYR # was vanilla 554
+								is_core_of = LEB # was vanilla 553
 							}
 						}
 						add_compliance = 5
@@ -1804,10 +1804,10 @@ FRA_intervention_in_overseas_territories = {
 								limit = {
 									is_controlled_by = ROOT
 									OR = {
-										state = 677
-										state = 680
-										state = 554
-										state = 553
+										is_core_of = SYR # was vanilla 677
+										is_core_of = SYR # was vanilla 680
+										is_core_of = SYR # was vanilla 554
+										is_core_of = LEB # was vanilla 553
 									}
 								}
 								add_compliance = 5
@@ -1859,10 +1859,10 @@ FRA_intervention_in_overseas_territories = {
 			}
 			any_state = {
 				OR = {
-					state = 680
-					state = 677
-					state = 554
-					state = 553
+					is_core_of = SYR # was vanilla 680
+					is_core_of = SYR # was vanilla 677
+					is_core_of = SYR # was vanilla 554
+					is_core_of = LEB # was vanilla 553
 				}
 				CONTROLLER = {
 					NOT = {
@@ -1886,10 +1886,10 @@ FRA_intervention_in_overseas_territories = {
 			random_state = { #find a neighbouring state of Syria that is controlled by an ally or ourselves
 				limit = {
 					OR = {
-						state = 680
-						state = 677
-						state = 554
-						state = 553
+						is_core_of = SYR # was vanilla 680
+						is_core_of = SYR # was vanilla 677
+						is_core_of = SYR # was vanilla 554
+						is_core_of = LEB # was vanilla 553
 					}
 					not = { is_controlled_by = ROOT }
 					CONTROLLER = {
@@ -2067,13 +2067,9 @@ FRA_decolonization = {
 				country_exists = ALG
 				country_exists = TUN
 			}
-			461 = { is_controlled_by = ROOT }
-			462 = { is_controlled_by = ROOT }
-			459 = { is_controlled_by = ROOT }
-			513 = { is_controlled_by = ROOT }
-			460 = { is_controlled_by = ROOT }
-			458 = { is_controlled_by = ROOT }
-			665 = { is_controlled_by = ROOT }	
+			MOR = { all_core_state = { is_controlled_by = ROOT } } # was vanilla 461,462
+			ALG = { all_core_state = { is_controlled_by = ROOT } } # was vanilla 459,513,460
+			TUN = { all_core_state = { is_controlled_by = ROOT } } # was vanilla 458,665
 		}
 
 		days_mission_timeout = 180

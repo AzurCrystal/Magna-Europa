@@ -752,18 +752,18 @@ on_actions = {
 	# ROOT is the nation being puppeted, FROM is the overlord. 	OBS: Trigger the following commands whenever a country is puppeted in a peace conference only.
 	on_puppet = {
 
-		effect = { # Fixing a weird issue with control of Greenland
-			IF = {
-				limit = {
-					ROOT = {
-						original_tag = GRN
-					}
-				}
-				101 = {
-					set_state_controller_to = GRN 
-				}
-			}
-		}
+		#effect = { # Fixing a weird issue with control of Greenland # disabled: GRN tag not defined in this mod, vanilla 101 Greenland is not on the mod map
+		#	IF = {
+		#		limit = {
+		#			ROOT = {
+		#				original_tag = GRN
+		#			}
+		#		}
+		#		101 = {
+		#			set_state_controller_to = GRN 
+		#		}
+		#	}
+		#}
 
 		effect = {
 			IF = {
@@ -913,18 +913,18 @@ on_actions = {
 
 	on_liberate = { # ROOT is the nation being liberated, FROM is the leader of the liberators.
 
-		effect = { # Fixing a weird issue with control of Greenland
-			IF = {
-				limit = {
-					ROOT = {
-						original_tag = GRN
-					}
-				}
-				101 = {
-					set_state_controller_to = GRN 
-				}
-			}
-		}
+		#effect = { # Fixing a weird issue with control of Greenland # disabled: GRN tag not defined in this mod, vanilla 101 Greenland is not on the mod map
+		#	IF = {
+		#		limit = {
+		#			ROOT = {
+		#				original_tag = GRN
+		#			}
+		#		}
+		#		101 = {
+		#			set_state_controller_to = GRN 
+		#		}
+		#	}
+		#}
 		effect = {
 			# European States Array
 			if = {
@@ -977,18 +977,18 @@ on_actions = {
 			}
 		}
 
-		effect = { # Fixing a weird issue with control of Greenland
-			IF = {
-				limit = {
-					ROOT = {
-						original_tag = GRN
-					}
-				}
-				101 = {
-					set_state_controller_to = GRN 
-				}
-			}
-		}
+		#effect = { # Fixing a weird issue with control of Greenland # disabled: GRN tag not defined in this mod, vanilla 101 Greenland is not on the mod map
+		#	IF = {
+		#		limit = {
+		#			ROOT = {
+		#				original_tag = GRN
+		#			}
+		#		}
+		#		101 = {
+		#			set_state_controller_to = GRN 
+		#		}
+		#	}
+		#}
 
 		effect = { # Adding the correct stuff for puppets for the AH joint focus tree
 			IF = {
@@ -1164,18 +1164,18 @@ on_actions = {
 			}
 		}
 
-		effect = { # Fixing a weird issue with control of Greenland
-			IF = {
-				limit = {
-					ROOT = {
-						original_tag = GRN
-					}
-				}
-				101 = {
-					set_state_controller_to = GRN 
-				}
-			}
-		}
+		#effect = { # Fixing a weird issue with control of Greenland # disabled: GRN tag not defined in this mod, vanilla 101 Greenland is not on the mod map
+		#	IF = {
+		#		limit = {
+		#			ROOT = {
+		#				original_tag = GRN
+		#			}
+		#		}
+		#		101 = {
+		#			set_state_controller_to = GRN 
+		#		}
+		#	}
+		#}
 
 		effect = {
 			IF = {
@@ -1635,21 +1635,21 @@ on_actions = {
 							original_tag = SER
 						}
 					}
-					107 = {
+					1517 = { # was vanilla 107
 						NOT = {
 							is_claimed_by = GER
 						}
 					}
-					108 = {
+					796 = { # was vanilla 108
 						NOT = {
 							is_claimed_by = GER
 						}
 					}
 				}
-				107 = {
+				1517 = { # was vanilla 107
 					add_claim_by = GER
 				}
-				108 = {
+				796 = { # was vanilla 108
 					add_claim_by = GER
 				}
 			}
@@ -1667,21 +1667,21 @@ on_actions = {
 							original_tag = SER
 						}
 					}
-					107 = {
+					1517 = { # was vanilla 107
 						NOT = {
 							is_claimed_by = GER
 						}
 					}
-					108 = {
+					796 = { # was vanilla 108
 						NOT = {
 							is_claimed_by = GER
 						}
 					}
 				}
-				107 = {
+				1517 = { # was vanilla 107
 					add_claim_by = GER
 				}
-				108 = {
+				796 = { # was vanilla 108
 					add_claim_by = GER
 				}
 			}
@@ -1963,16 +1963,16 @@ on_actions = {
 				limit = {
 					has_dlc = "Gotterdammerung"
 				}
-				295 = {
+				2974 = { # was vanilla 295
 					create_unit = {
 					    division = "name = \"1. Groupes de Force Publique du Congo Belge\" division_template = \"Force Publique\" start_experience_factor = 0.1 start_equipment_factor = 0.6"
 					    owner = BEL
-					    prioritize_location = 5117 # Leopoldville
+					    prioritize_location = 5603 # was vanilla 5117 # Leopoldville
 					}
 					create_unit = {
 					    division = "name = \"2. Groupes de Force Publique du Congo Belge\" division_template = \"Force Publique\" start_experience_factor = 0.1 start_equipment_factor = 0.4"
 					    owner = BEL
-					    prioritize_location = 10968 # Fort de Shinakasa
+					    prioritize_location = 5603 # was vanilla 10968 # Fort de Shinakasa
 					}
 				}
 			}
@@ -2116,62 +2116,62 @@ on_actions = {
 	on_monthly_COG = {
 
 		# Checks to see if Rwanda should revolt against Congolese rule or not
-		effect = {
-			IF = {
-				limit = {
-					NOT = {
-						has_global_flag = rwandan_revolution_happened_flag
-					}
-					ROOT = {
-						is_subject = no
-						owns_state = 768
-						has_war = no
-					}
-					#RWA = {
-						#exists = no
-					#}
-					768 = {
-						NOT = {
-							is_core_of = COG
-						}
-					}
-				}
-				country_event = {
-					id = ww_congo.20
-					hours = 6
-					random_hours = 24
-				}
-			}
-		}
+		#effect = { # was vanilla 768 # off-map: Rwanda is not on the mod map
+		#	IF = {
+		#		limit = {
+		#			NOT = {
+		#				has_global_flag = rwandan_revolution_happened_flag
+		#			}
+		#			ROOT = {
+		#				is_subject = no
+		#				owns_state = 768
+		#				has_war = no
+		#			}
+		#			#RWA = {
+		#				#exists = no
+		#			#}
+		#			768 = {
+		#				NOT = {
+		#					is_core_of = COG
+		#				}
+		#			}
+		#		}
+		#		country_event = {
+		#			id = ww_congo.20
+		#			hours = 6
+		#			random_hours = 24
+		#		}
+		#	}
+		#}
 
 		# Checks to see if Burundi should revolt against Congolese rule or not
-		effect = {
-			IF = {
-				limit = {
-					NOT = {
-						has_global_flag = burundian_revolution_happened_flag
-					}
-					ROOT = {
-						is_subject = no
-						owns_state = 769
-						has_war = no
-					}
-					#BRD = {
-						#exists = no
-					#}
-					769 = {
-						NOT = {
-							is_core_of = COG
-						}
-					}
-				}
-				country_event = {
-					id = ww_congo.21
-					days = 1
-					random_days = 2
-				}
-			}
-		}
+		#effect = { # was vanilla 769 # off-map: Burundi is not on the mod map
+		#	IF = {
+		#		limit = {
+		#			NOT = {
+		#				has_global_flag = burundian_revolution_happened_flag
+		#			}
+		#			ROOT = {
+		#				is_subject = no
+		#				owns_state = 769
+		#				has_war = no
+		#			}
+		#			#BRD = {
+		#				#exists = no
+		#			#}
+		#			769 = {
+		#				NOT = {
+		#					is_core_of = COG
+		#				}
+		#			}
+		#		}
+		#		country_event = {
+		#			id = ww_congo.21
+		#			days = 1
+		#			random_days = 2
+		#		}
+		#	}
+		#}
 
 	}
 

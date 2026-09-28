@@ -30,9 +30,9 @@ country_event = {
 			}
 		}
 		name = mtg_netherlands.1.c
-		effect_tooltip = {
-			ENG = { transfer_state = 695 }
-		}
+#		effect_tooltip = { # 1.19-migration fix: off-map vanilla Curacao 695 (mod 695 = Prekmurje) — dead block
+#			ENG = { transfer_state = 695 }
+#		}
 		ENG = { country_event = { id = mtg_netherlands.4 days = 1 random_days = 3 } }
 	}
 
@@ -42,9 +42,9 @@ country_event = {
 			is_in_faction_with = USA
 		}
 		name = mtg_netherlands.1.e
-		effect_tooltip = {
-			USA = { transfer_state = 695 }
-		}
+#		effect_tooltip = { # 1.19-migration fix: off-map vanilla Curacao 695 (mod 695 = Prekmurje) — dead block
+#			USA = { transfer_state = 695 }
+#		}
 		USA = { country_event = { id = mtg_netherlands.4 days = 1 random_days = 3 } }
 	}
 }
@@ -94,9 +94,9 @@ country_event = {
 	# Great idea!
 	option = {
 		name = mtg_netherlands.4.a
-		effect_tooltip = {
-			transfer_state = 695
-		}
+#		effect_tooltip = { # 1.19-migration fix: off-map vanilla Curacao 695 (mod 695 = Prekmurje) — dead block
+#			transfer_state = 695
+#		}
 		HOL = { country_event = { id = mtg_netherlands.5 days = 1 random_days = 3 } }
 	}
 
@@ -120,7 +120,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_netherlands.5.a
-		FROM = { transfer_state = 695 }
+#		FROM = { transfer_state = 695 } # 1.19-migration fix: off-map vanilla Curacao 695 (mod 695 = Prekmurje) — dead line
 	}
 }
 
@@ -2360,9 +2360,9 @@ country_event = {
 		add_political_power = -25
 		if = {
 			limit = {
-				7 = { is_core_of = ROOT }
-				35 = { is_core_of = ROOT }
-				36 = { is_core_of = ROOT }
+				402 = { is_core_of = ROOT } # was vanilla 7
+				2713 = { is_core_of = ROOT } # was vanilla 35
+				336 = { is_core_of = ROOT } # was vanilla 36
 			}
 			add_war_support = HOL_inundation_lines_flooding_unhappiness_var
 		}
@@ -2370,13 +2370,13 @@ country_event = {
 			limit = {
 				NOT = {
 					AND = {
-						7 = { is_core_of = ROOT }
-						35 = { is_core_of = ROOT }
-						36 = { is_core_of = ROOT }
+						402 = { is_core_of = ROOT } # was vanilla 7
+						2713 = { is_core_of = ROOT } # was vanilla 35
+						336 = { is_core_of = ROOT } # was vanilla 36
 					}
 				}
 			}
-			7 = {
+			402 = { # was vanilla 7
 				damage_building = {
 				    type = infrastructure
 				    damage = 4
@@ -2390,7 +2390,7 @@ country_event = {
 				    damage = 2
 				}
 			}
-			35 = {
+			2713 = { # was vanilla 35
 				damage_building = {
 				    type = infrastructure
 				    damage = 3
@@ -2404,7 +2404,7 @@ country_event = {
 				    damage = 1.5
 				}
 			}
-			36 = {
+			336 = { # was vanilla 36
 				damage_building = {
 				    type = infrastructure
 				    damage = 3

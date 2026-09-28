@@ -30,7 +30,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 75
-				16 = { NOT = { is_controlled_by = FRA } } #Paris	
+				563 = { NOT = { is_controlled_by = FRA } } # was vanilla 16 (Paris)
 			}
 		} 
 		JAP = {
@@ -877,18 +877,18 @@ country_event = {
 			set_cosmetic_tag = FRA_FREE 
 			add_ideas = FRA_defeatism
 			load_focus_tree = free_french_focus
-			if = {
-				limit = {
-					capital_scope = {
-						NOT = {
-							state = 563
-							state = 635
-						}
-					}
-					controls_state = 635
-				}
-				set_capital = { state = 635 }
-			}
+#			if = { # 1.19-migration fix: off-map vanilla New Caledonia 635 (mod 635 = Murtal und Murau) — dead block
+#				limit = {
+#					capital_scope = {
+#						NOT = {
+#							state = 563
+#							state = 635
+#						}
+#					}
+#					controls_state = 635
+#				}
+#				set_capital = { state = 635 }
+#			}
 			country_event = france.20
 			every_owned_state = {
 				limit = { 
@@ -1525,11 +1525,11 @@ country_event = {
 		GER = {
 			country_event = { id = germany.97 hours = 6 } #Generate wargoal
 			effect_tooltip = {
-				create_wargoal = {
-					type = take_state_focus
-					target = YUG
-					generator = { 102 853 }
-				}
+#				create_wargoal = { # 1.19-migration fix: vanilla 102 Slovenia / 853 Sinjajevina have no canonical mod successor (map drops NE Slovenia) — dead block
+#					type = take_state_focus
+#					target = YUG
+#					generator = { 102 853 }
+#				}
 			}
 		}
 		if = {
@@ -1644,11 +1644,11 @@ country_event = {
 		GER = {
 			country_event = { id = germany.93 hours = 6 } #Generate wargoal
 			effect_tooltip = {
-				create_wargoal = {
-					type = take_state_focus
-					target = YUG
-					generator = { 102 853 }
-				}
+#				create_wargoal = { # 1.19-migration fix: vanilla 102 Slovenia / 853 Sinjajevina have no canonical mod successor (map drops NE Slovenia) — dead block
+#					type = take_state_focus
+#					target = YUG
+#					generator = { 102 853 }
+#				}
 			}
 		}		
 	}

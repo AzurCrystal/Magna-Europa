@@ -2693,18 +2693,18 @@ country_event = {
 
 		FROM = {
 			effect_tooltip = {
-				if = {
-					limit = {
-						ROOT = { controls_state = 463 }
-					}
-					transfer_state = 463 #ALASKA
-				}
-				if = {
-					limit = {
-						ROOT = { controls_state = 650 }
-					}
-					transfer_state = 650 #ATTU ISLAND
-				}
+#				if = { # 1.19-migration fix: off-map vanilla Alaska 463 (mod 463 = Eisenach) — dead block
+#					limit = {
+#						ROOT = { controls_state = 463 }
+#					}
+#					transfer_state = 463 #ALASKA
+#				}
+#				if = { # 1.19-migration fix: off-map vanilla Attu 650 (mod 650 = Bourges) — dead block
+#					limit = {
+#						ROOT = { controls_state = 650 }
+#					}
+#					transfer_state = 650 #ATTU ISLAND
+#				}
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = SOV_complied_with_our_demands
@@ -2763,18 +2763,18 @@ country_event = {
 	option = { #Ok
 		name = NSB_soviet_foreign_politics_events.31.a
 		
-		if = {
-			limit = {
-				FROM = { controls_state = 463 }
-			}
-			transfer_state = 463 #ALASKA
-		}
-		if = {
-			limit = {
-				FROM = { controls_state = 650 }
-			}
-			transfer_state = 650 #ATTU ISLAND
-		}
+#		if = { # 1.19-migration fix: off-map vanilla Alaska 463 (mod 463 = Eisenach) — dead block
+#			limit = {
+#				FROM = { controls_state = 463 }
+#			}
+#			transfer_state = 463 #ALASKA
+#		}
+#		if = { # 1.19-migration fix: off-map vanilla Attu 650 (mod 650 = Bourges) — dead block
+#			limit = {
+#				FROM = { controls_state = 650 }
+#			}
+#			transfer_state = 650 #ATTU ISLAND
+#		}
 		
 		effect_tooltip = {
 			FROM = {
@@ -4072,7 +4072,7 @@ country_event = {
 		}
 
 		add_opinion_modifier = { target = SOV modifier = border_conflict_reconciled }
-		transfer_state = 655
+#		transfer_state = 655 # 1.19-migration fix: off-map vanilla N. Sakhalin 655 (mod 655 = Vaslui) — dead effect
 		diplomatic_relation = {
 			country = SOV
 			relation = non_aggression_pact
@@ -4121,7 +4121,7 @@ country_event = {
 		effect_tooltip = {
 			FROM = {
 				add_opinion_modifier = { target = ROOT modifier = border_conflict_reconciled }
-				transfer_state = 655
+#				transfer_state = 655 # 1.19-migration fix: off-map vanilla N. Sakhalin 655 (mod 655 = Vaslui) — dead effect
 				diplomatic_relation = {
 					country = SOV
 					relation = non_aggression_pact
@@ -4202,15 +4202,15 @@ country_event = {
 			}
 
 			#Claims
-			463 = { add_claim_by = SOV } #Alaska
-			650 = { add_claim_by = SOV } #Atu Island
-			632 = { add_claim_by = JAP } #Wake Island
-			631 = { add_claim_by = JAP } #Midway Island
-			629 = { add_claim_by = JAP } #Hawaii
-			630 = { add_claim_by = JAP } #Johnston Atoll
-			727 = { add_claim_by = JAP } #Line Islands
-			642 = { add_claim_by = JAP } #Phoenix Island
-			638 = { add_claim_by = JAP } #Guam
+#			463 = { add_claim_by = SOV } #Alaska — 1.19-migration fix: off-map vanilla Pacific states alias European mod states — dead claims
+#			650 = { add_claim_by = SOV } #Atu Island
+#			632 = { add_claim_by = JAP } #Wake Island
+#			631 = { add_claim_by = JAP } #Midway Island
+#			629 = { add_claim_by = JAP } #Hawaii
+#			630 = { add_claim_by = JAP } #Johnston Atoll
+#			727 = { add_claim_by = JAP } #Line Islands
+#			642 = { add_claim_by = JAP } #Phoenix Island
+#			638 = { add_claim_by = JAP } #Guam
 
 			#War
 			if = {
@@ -4295,8 +4295,8 @@ country_event = {
 	option = { # Good
 		name = NSB_soviet_foreign_politics_events.268.a
 
-		463 = { add_claim_by = SOV } #Alaska
-		650 = { add_claim_by = SOV } #Atu Island
+#		463 = { add_claim_by = SOV } #Alaska — 1.19-migration fix: off-map vanilla state (mod 463 = Eisenach) — dead claim
+#		650 = { add_claim_by = SOV } #Atu Island — 1.19-migration fix: off-map vanilla state (mod 650 = Bourges) — dead claim
 		add_opinion_modifier = { target = FROM modifier = SOV_soviet_japanese_pact_against_usa }
 		FROM = {
 			#Diplo stuff
@@ -4307,13 +4307,13 @@ country_event = {
 				active = yes
 			}
 			#Claims
-			632 = { add_claim_by = JAP } #Wake Island
-			631 = { add_claim_by = JAP } #Midway Island
-			629 = { add_claim_by = JAP } #Hawaii
-			630 = { add_claim_by = JAP } #Johnston Atoll
-			727 = { add_claim_by = JAP } #Line Islands
-			642 = { add_claim_by = JAP } #Phoenix Island
-			638 = { add_claim_by = JAP } #Guam
+#			632 = { add_claim_by = JAP } #Wake Island — 1.19-migration fix: off-map vanilla Pacific states — dead claims
+#			631 = { add_claim_by = JAP } #Midway Island
+#			629 = { add_claim_by = JAP } #Hawaii
+#			630 = { add_claim_by = JAP } #Johnston Atoll
+#			727 = { add_claim_by = JAP } #Line Islands
+#			642 = { add_claim_by = JAP } #Phoenix Island
+#			638 = { add_claim_by = JAP } #Guam
 		}
 		#War
 		if = {
@@ -4588,12 +4588,12 @@ country_event = {
 			modifier = SOV_rejected_our_demands
 		}
 
-		create_wargoal = {
-			type = take_state_focus
-			target = SIK
-			expire = 0
-			generator = { 618 617 287 619 759 760 }
-		}
+#		create_wargoal = { # 1.19-migration fix: vanilla Sinkiang ids 618/617/287/619/759/760 are all off-map (mod aliases Ochakov/Transnistria/Brodnica/Heves/Valcea/Gironde) — dead wargoal
+#			type = take_state_focus
+#			target = SIK
+#			expire = 0
+#			generator = { 618 617 287 619 759 760 }
+#		}
 		add_named_threat = { threat = 2 name = SOV_claim_on_sinkiang_threat }
 	}
 }
@@ -4634,53 +4634,53 @@ country_event = {
 
 			effect_tooltip = {
 				custom_effect_tooltip = SOV_sinkiang_when_project_finishes_tt
-				619 = { #YARKAND - Minerals and Infra
-					add_resource = {
-						type = aluminium
-						amount = 3
-					}
-					add_resource = {
-						type = chromium
-						amount = 3
-					}
-					if = {
-						limit = {
-							infrastructure < 5
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes						
-						}
-					}
-				}
-
-				617 = { #URUMQI
-					if = {
-						limit = {
-							infrastructure < 5
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes						
-						}
-					}
-				}
-
-				# Urumqi - Kashgar
-				build_railway = {
-					path = { 4709 4770 7702 4682 7949 2015 }
-				}
-				#Supply Hub in Kashgar
-				619 = {
-					add_building_construction = {
-						type = supply_node
-						level = 1
-						province = 2015
-						instant_build = yes
-					}
-				}
+#				619 = { #YARKAND - Minerals and Infra — 1.19-migration fix: off-map vanilla Sinkiang 619 (mod 619 = Heves) — dead block
+#					add_resource = {
+#						type = aluminium
+#						amount = 3
+#					}
+#					add_resource = {
+#						type = chromium
+#						amount = 3
+#					}
+#					if = {
+#						limit = {
+#							infrastructure < 5
+#						}
+#						add_building_construction = {
+#							type = infrastructure
+#							level = 1
+#							instant_build = yes						
+#						}
+#					}
+#				}
+#
+#				617 = { #URUMQI — 1.19-migration fix: off-map vanilla Sinkiang 617 (mod 617 = Transnistria) — dead block
+#					if = {
+#						limit = {
+#							infrastructure < 5
+#						}
+#						add_building_construction = {
+#							type = infrastructure
+#							level = 1
+#							instant_build = yes						
+#						}
+#					}
+#				}
+#
+#				# Urumqi - Kashgar
+#				build_railway = {
+#					path = { 4709 4770 7702 4682 7949 2015 }
+#				}
+#				#Supply Hub in Kashgar
+#				619 = {
+#					add_building_construction = {
+#						type = supply_node
+#						level = 1
+#						province = 2015
+#						instant_build = yes
+#					}
+#				}
 			}
 		}
 
@@ -4817,12 +4817,12 @@ country_event = {
 			modifier = SOV_rejected_our_demands
 		}
 
-		create_wargoal = {
-			type = take_state_focus
-			target = SIK
-			expire = 0
-			generator = { 618 617 287 619 759 760 }
-		}
+#		create_wargoal = { # 1.19-migration fix: vanilla Sinkiang ids off-map — dead wargoal
+#			type = take_state_focus
+#			target = SIK
+#			expire = 0
+#			generator = { 618 617 287 619 759 760 }
+#		}
 		add_named_threat = { threat = 2 name = SOV_claim_on_sinkiang_threat }
 	}
 }
@@ -4863,56 +4863,56 @@ country_event = {
 
 			effect_tooltip = {
 				custom_effect_tooltip = SOV_sinkiang_when_project_finishes_tt
-				618 = { #DZUNGARIA - Minerals, oil and Infra
-					add_resource = {
-						type = aluminium
-						amount = 3
-					}
-					add_resource = {
-						type = tungsten
-						amount = 3
-					}
-					add_resource = {
-						type = oil
-						amount = 6
-					}
-					if = {
-						limit = {
-							infrastructure < 5
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				give_resource_rights = { receiver = SOV state = 618 } # Grant Resource rights to SOV
-				617 = { #URUMQI - Infra
-					if = {
-						limit = {
-							infrastructure < 5
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				# Urumqi - Altay
-				build_railway = {
-					path = { 4709 10674 1783 1844 12737 4823 }
-				}
-				#Supply Hub in Altay
-				618 = {
-					add_building_construction = {
-						type = supply_node
-						level = 1
-						province = 4823
-						instant_build = yes
-					}
-				}
+#				618 = { #DZUNGARIA - Minerals, oil and Infra — 1.19-migration fix: off-map vanilla Sinkiang 617/618 (mod 617 = Transnistria, 618 = Ochakov) — dead block
+#					add_resource = {
+#						type = aluminium
+#						amount = 3
+#					}
+#					add_resource = {
+#						type = tungsten
+#						amount = 3
+#					}
+#					add_resource = {
+#						type = oil
+#						amount = 6
+#					}
+#					if = {
+#						limit = {
+#							infrastructure < 5
+#						}
+#						add_building_construction = {
+#							type = infrastructure
+#							level = 1
+#							instant_build = yes
+#						}
+#					}
+#				}
+#				give_resource_rights = { receiver = SOV state = 618 } # Grant Resource rights to SOV
+#				617 = { #URUMQI - Infra
+#					if = {
+#						limit = {
+#							infrastructure < 5
+#						}
+#						add_building_construction = {
+#							type = infrastructure
+#							level = 1
+#							instant_build = yes
+#						}
+#					}
+#				}
+#				# Urumqi - Altay
+#				build_railway = {
+#					path = { 4709 10674 1783 1844 12737 4823 }
+#				}
+#				#Supply Hub in Altay
+#				618 = {
+#					add_building_construction = {
+#						type = supply_node
+#						level = 1
+#						province = 4823
+#						instant_build = yes
+#					}
+#				}
 
 				ROOT = { add_ideas = SOV_expanded_exploitation_of_gold_mines }
 			}
@@ -4994,56 +4994,56 @@ country_event = {
 			custom_effect_tooltip = SOV_sinikiang_influence_cg_tt_sov
 
 			custom_effect_tooltip = SOV_sinkiang_when_project_finishes_tt
-			618 = { #DZUNGARIA - Minerals, oil and Infra
-				add_resource = {
-					type = aluminium
-					amount = 3
-				}
-				add_resource = {
-					type = tungsten
-					amount = 3
-				}
-				add_resource = {
-					type = oil
-					amount = 6
-				}
-				if = {
-					limit = {
-						infrastructure < 5
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			give_resource_rights = { receiver = SOV state = 618 } # Grant Resource rights to SOV (Not scoping to make tooltip slightly shorter)
-			617 = { #URUMQI - Infra
-				if = {
-					limit = {
-						infrastructure < 5
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			# Urumqi - Altay
-			build_railway = {
-				path = { 4709 10674 1783 1844 12737 4823 }
-			}
-			#Supply Hub in Altay
-			618 = {
-				add_building_construction = {
-					type = supply_node
-					level = 1
-					province = 4823
-					instant_build = yes
-				}
-			}
+#			618 = { #DZUNGARIA - Minerals, oil and Infra — 1.19-migration fix: off-map vanilla Sinkiang 617/618 (mod 617 = Transnistria, 618 = Ochakov) — dead block
+#				add_resource = {
+#					type = aluminium
+#					amount = 3
+#				}
+#				add_resource = {
+#					type = tungsten
+#					amount = 3
+#				}
+#				add_resource = {
+#					type = oil
+#					amount = 6
+#				}
+#				if = {
+#					limit = {
+#						infrastructure < 5
+#					}
+#					add_building_construction = {
+#						type = infrastructure
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			give_resource_rights = { receiver = SOV state = 618 } # Grant Resource rights to SOV (Not scoping to make tooltip slightly shorter)
+#			617 = { #URUMQI - Infra
+#				if = {
+#					limit = {
+#						infrastructure < 5
+#					}
+#					add_building_construction = {
+#						type = infrastructure
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			# Urumqi - Altay
+#			build_railway = {
+#				path = { 4709 10674 1783 1844 12737 4823 }
+#			}
+#			#Supply Hub in Altay
+#			618 = {
+#				add_building_construction = {
+#					type = supply_node
+#					level = 1
+#					province = 4823
+#					instant_build = yes
+#				}
+#			}
 
 			SIK = { add_ideas = SOV_expanded_exploitation_of_gold_mines }
 		}
@@ -5100,82 +5100,82 @@ country_event = {
 			effect_tooltip = {
 				custom_effect_tooltip = SOV_sinkiang_when_project_finishes_tt
 				
-				617 = { #URUMQI - Mil
-					if = {
-						limit = {
-							free_building_slots = {
-								building = arms_factory
-								size > 0
-								include_locked = yes
-							}
-						}
-						add_extra_state_shared_building_slots = 1
-						add_building_construction = {
-							type = arms_factory
-							level = 1
-							instant_build = yes
-						}
-					}
-				}
-				759 = { #KUNLUN SHAN - Infra + Air base + Forts
-					if = {
-						limit = {
-							infrastructure < 5
-						}
-						add_building_construction = {
-							type = infrastructure
-							level = 1
-							instant_build = yes
-						}
-					}
-					if = {
-						limit = {
-							air_base < 9
-						}
-						add_building_construction = {
-							type = air_base
-							level = 2
-							instant_build = yes
-						}
-					}
-					else_if = {
-						limit = {
-							air_base < 10
-						}
-						add_building_construction = {
-							type = air_base
-							level = 1
-							instant_build = yes
-						}
-					}
-					add_building_construction = {
-						type = bunker
-						level = 1
-						province = {
-							id = 10315
-							id = 2074
-							id = 1698
-							id = 4947
-						}
-						instant_build = yes
-					}
-				}
-				if = {  #DABANCHENG - Forts
-					limit = {
-						has_full_control_of_state = 760
-					}
-					760 = {
-						add_building_construction = {
-							type = bunker
-							level = 1
-							province = {
-								id = 1838
-								id = 4843
-							}
-							instant_build = yes
-						}
-					}
-				}
+#				617 = { #URUMQI - Mil — 1.19-migration fix: off-map vanilla Sinkiang 617 (mod 617 = Transnistria) — dead block
+#					if = {
+#						limit = {
+#							free_building_slots = {
+#								building = arms_factory
+#								size > 0
+#								include_locked = yes
+#							}
+#						}
+#						add_extra_state_shared_building_slots = 1
+#						add_building_construction = {
+#							type = arms_factory
+#							level = 1
+#							instant_build = yes
+#						}
+#					}
+#				}
+#				759 = { #KUNLUN SHAN - Infra + Air base + Forts — 1.19-migration fix: off-map vanilla Sinkiang 759 (mod 759 = Valcea) — dead block
+#					if = {
+#						limit = {
+#							infrastructure < 5
+#						}
+#						add_building_construction = {
+#							type = infrastructure
+#							level = 1
+#							instant_build = yes
+#						}
+#					}
+#					if = {
+#						limit = {
+#							air_base < 9
+#						}
+#						add_building_construction = {
+#							type = air_base
+#							level = 2
+#							instant_build = yes
+#						}
+#					}
+#					else_if = {
+#						limit = {
+#							air_base < 10
+#						}
+#						add_building_construction = {
+#							type = air_base
+#							level = 1
+#							instant_build = yes
+#						}
+#					}
+#					add_building_construction = {
+#						type = bunker
+#						level = 1
+#						province = {
+#							id = 10315
+#							id = 2074
+#							id = 1698
+#							id = 4947
+#						}
+#						instant_build = yes
+#					}
+#				}
+#				if = {  #DABANCHENG - Forts — 1.19-migration fix: off-map vanilla Sinkiang 760 (mod 760 = Gironde) — dead block
+#					limit = {
+#						has_full_control_of_state = 760
+#					}
+#					760 = {
+#						add_building_construction = {
+#							type = bunker
+#							level = 1
+#							province = {
+#								id = 1838
+#								id = 4843
+#							}
+#							instant_build = yes
+#						}
+#					}
+#				}
 				add_tech_bonus = {
 					name = NSB_soviet_foreign_politics_events.278.t
 					bonus = 1
@@ -5274,82 +5274,82 @@ country_event = {
 			}
 
 			custom_effect_tooltip = SOV_sinkiang_when_project_finishes_tt
-			617 = { #URUMQI - Mil
-				if = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = arms_factory
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			759 = { #KUNLUN SHAN - Infra + Air base + Forts
-				if = {
-					limit = {
-						infrastructure < 5
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-				if = {
-					limit = {
-						air_base < 9
-					}
-					add_building_construction = {
-						type = air_base
-						level = 2
-						instant_build = yes
-					}
-				}
-				else_if = {
-					limit = {
-						air_base < 10
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-				add_building_construction = {
-					type = bunker
-					level = 1
-					province = {
-						id = 10315
-						id = 2074
-						id = 1698
-						id = 4947
-					}
-					instant_build = yes
-				}
-			}
-			if = {  #DABANCHENG - Forts
-				limit = {
-					SIK = { has_full_control_of_state = 760 }
-				}
-				760 = {
-					add_building_construction = {
-						type = bunker
-						level = 1
-						province = {
-							id = 1838
-							id = 4843
-						}
-						instant_build = yes
-					}
-				}
-			}
+#			617 = { #URUMQI - Mil — 1.19-migration fix: off-map vanilla Sinkiang 617 (mod 617 = Transnistria) — dead block
+#				if = {
+#					limit = {
+#						free_building_slots = {
+#							building = arms_factory
+#							size > 0
+#							include_locked = yes
+#						}
+#					}
+#					add_extra_state_shared_building_slots = 1
+#					add_building_construction = {
+#						type = arms_factory
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#			}
+#			759 = { #KUNLUN SHAN - Infra + Air base + Forts — 1.19-migration fix: off-map vanilla Sinkiang 759 (mod 759 = Valcea) — dead block
+#				if = {
+#					limit = {
+#						infrastructure < 5
+#					}
+#					add_building_construction = {
+#						type = infrastructure
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#				if = {
+#					limit = {
+#						air_base < 9
+#					}
+#					add_building_construction = {
+#						type = air_base
+#						level = 2
+#						instant_build = yes
+#					}
+#				}
+#				else_if = {
+#					limit = {
+#						air_base < 10
+#					}
+#					add_building_construction = {
+#						type = air_base
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#				add_building_construction = {
+#					type = bunker
+#					level = 1
+#					province = {
+#						id = 10315
+#						id = 2074
+#						id = 1698
+#						id = 4947
+#					}
+#					instant_build = yes
+#				}
+#			}
+#			if = {  #DABANCHENG - Forts — 1.19-migration fix: off-map vanilla Sinkiang 760 (mod 760 = Gironde) — dead block
+#				limit = {
+#					SIK = { has_full_control_of_state = 760 }
+#				}
+#				760 = {
+#					add_building_construction = {
+#						type = bunker
+#						level = 1
+#						province = {
+#							id = 1838
+#							id = 4843
+#						}
+#						instant_build = yes
+#					}
+#				}
+#			}
 			SIK = {
 				add_tech_bonus = {
 					name = NSB_soviet_foreign_politics_events.278.t
@@ -5834,12 +5834,12 @@ country_event = {
 		}
 
 		remove_from_faction = FROM
-		create_wargoal = {
-			type = take_state_focus
-			target = FROM
-			expire = 0
-			generator = { 618 617 287 619 759 760 }
-		}
+#		create_wargoal = { # 1.19-migration fix: vanilla Sinkiang ids off-map — dead wargoal
+#			type = take_state_focus
+#			target = FROM
+#			expire = 0
+#			generator = { 618 617 287 619 759 760 }
+#		}
 		add_named_threat = { threat = 2 name = SOV_claim_on_sinkiang_threat }
 	}
 }
@@ -5913,7 +5913,7 @@ country_event = {
 
 		effect_tooltip = {
 			FROM = { leave_faction = yes }
-			remove_resource_rights = 618
+#			remove_resource_rights = 618 # 1.19-migration fix: off-map vanilla Urumqi 618 (mod 618 = Ochakov) — dead effect
 		
 			add_opinion_modifier = {
 				target = FROM
@@ -5947,7 +5947,7 @@ country_event = {
 		
 		effect_tooltip = {
 			FROM = { leave_faction = yes }
-			remove_resource_rights = 618
+#			remove_resource_rights = 618 # 1.19-migration fix: off-map vanilla Urumqi 618 (mod 618 = Ochakov) — dead effect
 		
 			add_opinion_modifier = {
 				target = FROM
@@ -5955,12 +5955,12 @@ country_event = {
 			}
 		}
 
-		create_wargoal = {
-			type = take_state_focus
-			target = FROM
-			expire = 0
-			generator = { 618 617 287 619 759 760 }
-		}
+#		create_wargoal = { # 1.19-migration fix: vanilla Sinkiang ids off-map — dead wargoal
+#			type = take_state_focus
+#			target = FROM
+#			expire = 0
+#			generator = { 618 617 287 619 759 760 }
+#		}
 	}
 }
 
@@ -8800,15 +8800,15 @@ country_event = {
 		name = NSB_soviet_civil_war_common.001.a
 
 		# Vladivostok 
-		IF = {
-			limit = {
-				has_country_flag = SOV_CSW_transfer_vladivostok_flag 
-				owns_state = 408
-			}
-			JAP = {
-				transfer_state = 408
-			}
-		}
+#		IF = { # 1.19-migration fix: off-map vanilla Vladivostok 408 (mod 408 = Oxfordshire) — dead block
+#			limit = {
+#				has_country_flag = SOV_CSW_transfer_vladivostok_flag 
+#				owns_state = 408
+#			}
+#			JAP = {
+#				transfer_state = 408
+#			}
+#		}
 
 		# Send Japanese General home
 		every_army_leader = {
@@ -8819,15 +8819,15 @@ country_event = {
 		}
 
 		# North Sakhalin 
-		IF = {
-			limit = {
-				has_country_flag = SOV_CSW_transfer_sakhalin_flag 
-				owns_state = 655
-			}
-			JAP = {
-				transfer_state = 655
-			}
-		}
+#		IF = { # 1.19-migration fix: off-map vanilla N. Sakhalin 655 (mod 655 = Vaslui) — dead block
+#			limit = {
+#				has_country_flag = SOV_CSW_transfer_sakhalin_flag 
+#				owns_state = 655
+#			}
+#			JAP = {
+#				transfer_state = 655
+#			}
+#		}
 
 		# Baku Oil
 		IF = {
@@ -8909,7 +8909,7 @@ country_event = {
 			}
 		}
 		trigger = {
-			219 = { 
+			229 = { # was vanilla 219
 				is_owned_by = ROOT 
 				is_controlled_by = ROOT
 			}

@@ -453,14 +453,14 @@ country_event = {
 			limit = {
 				owns_state = 280
 			}
-			807 = { add_core_of = GER }
+			280 = { add_core_of = GER } # was vanilla 807
 			GER = { transfer_state = 280 }
 		}
 		if = {
 			limit = {
 				owns_state = 280
 			}
-			85 = { add_core_of = GER }
+			280 = { add_core_of = GER } # was vanilla 85
 			GER = { transfer_state = 280 }
 		}
 	}
@@ -475,7 +475,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state
 					target = POL
-					generator = { 85 807 }
+					generator = { 280 280 } # was vanilla 85 807
 				}
 			}
 		}
@@ -504,7 +504,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state
 			target = POL
-			generator = { 85 807 }
+			generator = { 280 280 } # was vanilla 85 807
 		}
 	}
 }
@@ -540,27 +540,27 @@ country_event = {
 				}
 			}
 		}
-		POL = {
-			transfer_state = 543
-		}
-		if = {
-			limit = {
-				owns_state = 708
-				controls_state = 708
-			}
-			POL = {
-				transfer_state = 708
-			}
-		}
-		if = {
-			limit = {
-				owns_state = 706
-				controls_state = 706
-			}
-			POL = {
-				transfer_state = 706
-			}
-		}
+#		POL = { # 1.19-migration fix: off-map vanilla Madagascar 543 (mod 543 = Bar-le-Duc) — dead block
+#			transfer_state = 543
+#		}
+#		if = { # 1.19-migration fix: off-map vanilla Comoros 708 — dead block
+#			limit = {
+#				owns_state = 708
+#				controls_state = 708
+#			}
+#			POL = {
+#				transfer_state = 708
+#			}
+#		}
+#		if = { # 1.19-migration fix: off-map vanilla Comoros 706 — dead block
+#			limit = {
+#				owns_state = 706
+#				controls_state = 706
+#			}
+#			POL = {
+#				transfer_state = 706
+#			}
+#		}
 		add_timed_idea = {
 			idea = POL_sold_colony_expensive
 			days = 720
@@ -576,17 +576,17 @@ country_event = {
 				any_controlled_state = {
 					NOT = {
 						OR = {
-							state = 543
-							state = 708
-							state = 706
+#							state = 543 # 1.19-migration fix: off-map vanilla Madagascar/Comoros 543/708/706
+#							state = 708
+#							state = 706
 						}
 					}
 				}
 			}
 		}
-		hidden_effect = {
-			543 = { set_state_flag = rejected_purchase_flag }
-		}
+#		hidden_effect = { # 1.19-migration fix: off-map vanilla Madagascar 543 (mod 543 = Bar-le-Duc) — dead block
+#			543 = { set_state_flag = rejected_purchase_flag }
+#		}
 		POL = { country_event = { id = NSB_poland_events.402 } }
 	}
 }
@@ -618,27 +618,27 @@ country_event = {
 		ai_chance = {
 			base = 10
 		}
-		transfer_state = 543
-		if = {
-			limit = {
-				FROM = {
-					owns_state = 708
-					controls_state = 708
-				}
-			}
-			transfer_state = 708
-		}
-		if = {
-			limit = {
-				FROM = {
-					owns_state = 706
-					controls_state = 706
-				}
-			}
-			POL = {
-				transfer_state = 706
-			}
-		}
+#		transfer_state = 543 # 1.19-migration fix: off-map vanilla Madagascar 543 — dead effect
+#		if = { # 1.19-migration fix: off-map vanilla Comoros 708 — dead block
+#			limit = {
+#				FROM = {
+#					owns_state = 708
+#					controls_state = 708
+#				}
+#			}
+#			transfer_state = 708
+#		}
+#		if = { # 1.19-migration fix: off-map vanilla Comoros 706 — dead block
+#			limit = {
+#				FROM = {
+#					owns_state = 706
+#					controls_state = 706
+#				}
+#			}
+#			POL = {
+#				transfer_state = 706
+#			}
+#		}
 	}
 }
 #France refuses to sell Madagascar
@@ -1007,7 +1007,7 @@ country_event = {
 		}
 		has_country_flag = POL_vojtek_commander
 		NOT = { is_in_faction_with = SOV }
-		219 = {
+		229 = { # was vanilla 219
 			controller = {
 				OR = {
 					tag = POL
@@ -1812,13 +1812,13 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			218 = { add_core_of = DON }
-			245 = { add_core_of = DON }
-			238 = { add_core_of = DON }
-			217 = { add_core_of = DON }
-			265 = { add_core_of = DON }
-			237 = { add_core_of = DON }
-			236 = { add_core_of = DON }
+			511 = { add_core_of = DON } # was vanilla 218
+			2725 = { add_core_of = DON } # was vanilla 245
+			2410 = { add_core_of = DON } # was vanilla 238
+			457 = { add_core_of = DON } # was vanilla 217
+			2418 = { add_core_of = DON } # was vanilla 265
+			2513 = { add_core_of = DON } # was vanilla 237
+			2516 = { add_core_of = DON } # was vanilla 236
 		}
 	}
 
@@ -1934,11 +1934,11 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			234 = { add_core_of = KUB }
-			235 = { add_core_of = KUB }
-			233 = { add_core_of = KUB }
-			232 = { add_core_of = KUB }
-			137 = { add_core_of = KUB }
+			696 = { add_core_of = KUB } # was vanilla 234
+			2867 = { add_core_of = KUB } # was vanilla 235
+			1028 = { add_core_of = KUB } # was vanilla 233
+			821 = { add_core_of = KUB } # was vanilla 232
+			2127 = { add_core_of = KUB } # was vanilla 137
 		}
 	}
 
@@ -2162,7 +2162,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = GER
-					generator = { 67 66 68 63 5 763 }
+					generator = { 1658 1666 } # was vanilla 67 66 68 63 5 763 — 68/63/5/763 have no canon successor (mod aliases Finnish/Kazan/Nogay)
 				}
 			}
 		}
@@ -2246,7 +2246,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = GER
-			generator = { 67 66 68 63 5 763 }
+			generator = { 1658 1666 } # was vanilla 67 66 68 63 5 763 — 68/63/5/763 have no canon successor
 		}
 	}
 }
@@ -2636,13 +2636,13 @@ country_event = {
 			}
 		}
 		hidden_effect = { POL = { country_event = NSB_poland_communist_events.401 } }
-		96 = { add_core_of = SOV }
-		95 = { add_core_of = SOV }
-		94 = { add_core_of = SOV }
-		93 = { add_core_of = SOV }
-		91 = { add_core_of = SOV }
-		89 = { add_core_of = SOV }
-		97 = { add_core_of = SOV }
+		1000 = { add_core_of = SOV } # was vanilla 96
+		326 = { add_core_of = SOV } # was vanilla 95
+		2316 = { add_core_of = SOV } # was vanilla 94
+		434 = { add_core_of = SOV } # was vanilla 93
+		1292 = { add_core_of = SOV } # was vanilla 91
+		1164 = { add_core_of = SOV } # was vanilla 89
+		2485 = { add_core_of = SOV } # was vanilla 97
 		if = {
 			limit = { POL = { owns_state = 1000 controls_state = 1000 } }
 			transfer_state = 1000
@@ -2674,7 +2674,7 @@ country_event = {
 		if = {
 			limit = { POL = { owns_state = 241 controls_state = 241 } }
 			transfer_state = 241
-			784 = { add_core_of = SOV }
+			241 = { add_core_of = SOV } # was vanilla 784
 		}
 		set_autonomy = {
 			target = POL
@@ -2714,13 +2714,13 @@ country_event = {
 			base = 10
 		}
 		effect_tooltip = {
-			96 = { add_core_of = SOV }
-			95 = { add_core_of = SOV }
-			94 = { add_core_of = SOV }
-			93 = { add_core_of = SOV }
-			91 = { add_core_of = SOV }
-			89 = { add_core_of = SOV }
-			97 = { add_core_of = SOV }
+			1000 = { add_core_of = SOV } # was vanilla 96
+			326 = { add_core_of = SOV } # was vanilla 95
+			2316 = { add_core_of = SOV } # was vanilla 94
+			434 = { add_core_of = SOV } # was vanilla 93
+			1292 = { add_core_of = SOV } # was vanilla 91
+			1164 = { add_core_of = SOV } # was vanilla 89
+			2485 = { add_core_of = SOV } # was vanilla 97
 			SOV = {
 				if = {
 					limit = { POL = { owns_state = 1000 controls_state = 1000 } }
@@ -2753,7 +2753,7 @@ country_event = {
 				if = {
 					limit = { POL = { owns_state = 241 controls_state = 241 } }
 					transfer_state = 241
-					784 = { add_core_of = SOV }
+					241 = { add_core_of = SOV } # was vanilla 784
 				}
 				set_autonomy = {
 					target = POL
@@ -2940,13 +2940,13 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			96 = { add_core_of = POL }
-			95 = { add_core_of = POL }
-			94 = { add_core_of = POL }
-			93 = { add_core_of = POL }
-			91 = { add_core_of = POL }
-			89 = { add_core_of = POL }
-			97 = { add_core_of = POL }
+			1000 = { add_core_of = POL } # was vanilla 96
+			326 = { add_core_of = POL } # was vanilla 95
+			2316 = { add_core_of = POL } # was vanilla 94
+			434 = { add_core_of = POL } # was vanilla 93
+			1292 = { add_core_of = POL } # was vanilla 91
+			1164 = { add_core_of = POL } # was vanilla 89
+			2485 = { add_core_of = POL } # was vanilla 97
 			POL = {
 				if = {
 					limit = { ROOT = { owns_state = 1000 controls_state = 1000 } }
@@ -2980,7 +2980,7 @@ country_event = {
 				if = {
 					limit = { ROOT = { owns_state = 241 controls_state = 241 } }
 					transfer_state = 241
-					784 = { add_core_of = POL }
+					241 = { add_core_of = POL } # was vanilla 784
 				}
 				if = {
 					limit = { ROOT = { owns_state = 274 controls_state = 274 } }
@@ -3035,13 +3035,13 @@ country_event = {
 		ai_chance = {
 			base = 10
 		}
-		96 = { add_core_of = POL }
-		95 = { add_core_of = POL }
-		94 = { add_core_of = POL }
-		93 = { add_core_of = POL }
-		91 = { add_core_of = POL }
-		89 = { add_core_of = POL }
-		97 = { add_core_of = POL }
+		1000 = { add_core_of = POL } # was vanilla 96
+		326 = { add_core_of = POL } # was vanilla 95
+		2316 = { add_core_of = POL } # was vanilla 94
+		434 = { add_core_of = POL } # was vanilla 93
+		1292 = { add_core_of = POL } # was vanilla 91
+		1164 = { add_core_of = POL } # was vanilla 89
+		2485 = { add_core_of = POL } # was vanilla 97
 		if = {
 			limit = { FROM = { owns_state = 1000 controls_state = 1000 } }
 			transfer_state = 1000
@@ -3074,7 +3074,7 @@ country_event = {
 		if = {
 			limit = { FROM = { owns_state = 241 controls_state = 241 } }
 			transfer_state = 241
-			784 = { add_core_of = POL }
+			241 = { add_core_of = POL } # was vanilla 784
 		}
 		if = {
 			limit = { FROM = { owns_state = 274 controls_state = 274 } }
@@ -3853,24 +3853,24 @@ country_event = {
 			custom_effect_tooltip = form_country_lithuania_coring_states_tt
 			hidden_effect = {
 				#Estonia
-				13 = { add_core_of = ROOT }
-				191 = { add_core_of = ROOT }
-				811 = { add_core_of = ROOT }
-				812 = { add_core_of = ROOT }
-				813 = { add_core_of = ROOT }
+				155 = { add_core_of = ROOT } # was vanilla 13
+				152 = { add_core_of = ROOT } # was vanilla 191
+				146 = { add_core_of = ROOT } # was vanilla 811
+				133 = { add_core_of = ROOT } # was vanilla 812
+				134 = { add_core_of = ROOT } # was vanilla 813
 				# Latvia
-				12 = { add_core_of = ROOT }
-				190 = { add_core_of = ROOT }
-				808 = { add_core_of = ROOT }
-				809 = { add_core_of = ROOT }
-				810 = { add_core_of = ROOT }
+				95 = { add_core_of = ROOT } # was vanilla 12
+				67 = { add_core_of = ROOT } # was vanilla 190
+				172 = { add_core_of = ROOT } # was vanilla 808
+				1352 = { add_core_of = ROOT } # was vanilla 809
+				170 = { add_core_of = ROOT } # was vanilla 810
 				# Lithuania
-				11 = { add_core_of = ROOT }
-				189 = { add_core_of = ROOT }
-				188 = { add_core_of = ROOT }
-				784 = { add_core_of = ROOT }
-				814 = { add_core_of = ROOT }
-				815 = { add_core_of = ROOT }
+				274 = { add_core_of = ROOT } # was vanilla 11
+				208 = { add_core_of = ROOT } # was vanilla 189
+				227 = { add_core_of = ROOT } # was vanilla 188
+				241 = { add_core_of = ROOT } # was vanilla 784
+				146 = { add_core_of = ROOT } # was vanilla 814
+				1339 = { add_core_of = ROOT } # was vanilla 815
 			}
 		}
 		else_if = {
@@ -3904,16 +3904,16 @@ country_event = {
 					}
 					add_core_of = POL
 				}
-				137 = { add_core_of = POL }
-				218 = { add_core_of = POL }
-				234 = { add_core_of = POL }
-				233 = { add_core_of = POL }
-				231 = { add_core_of = POL }
-				238 = { add_core_of = POL }
-				235 = { add_core_of = POL }
-				232 = { add_core_of = POL }
-				230 = { add_core_of = POL }
-				229 = { add_core_of = POL }
+				2127 = { add_core_of = POL } # was vanilla 137
+				511 = { add_core_of = POL } # was vanilla 218
+				696 = { add_core_of = POL } # was vanilla 234
+				1028 = { add_core_of = POL } # was vanilla 233
+				2271 = { add_core_of = POL } # was vanilla 231
+				2410 = { add_core_of = POL } # was vanilla 238
+				2867 = { add_core_of = POL } # was vanilla 235
+				821 = { add_core_of = POL } # was vanilla 232
+				1005 = { add_core_of = POL } # was vanilla 230
+#				229 = { add_core_of = POL } # 1.19-migration fix: no canon successor (mod 229 = Moscow) — dead line
 			}
 		}
 	}

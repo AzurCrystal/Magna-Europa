@@ -8603,17 +8603,17 @@ country_event = { #Liechtenstein seeks to purchase Alaska
 		custom_effect_tooltip = generic_skip_one_line_tt
 
 		custom_effect_tooltip = generic_this_might_cause_tt
-		effect_tooltip = {
-			FROM = {
-				add_state_claim = 463 #Alaska
-
-				create_wargoal = {
-					type = take_claimed_state
-					target = ROOT
-					generator = { 463 } 
-				}
-			}
-		}
+#		effect_tooltip = { # 1.19-migration fix: off-map vanilla Alaska 463 (mod 463 = Eisenach) — dead block
+#			FROM = {
+#				add_state_claim = 463 #Alaska
+#
+#				create_wargoal = {
+#					type = take_claimed_state
+#					target = ROOT
+#					generator = { 463 } 
+#				}
+#			}
+#		}
 	}
 
 	option = { #I mean why not?
@@ -8640,9 +8640,9 @@ country_event = { #Liechtenstein seeks to purchase Alaska
 		custom_effect_tooltip = generic_skip_one_line_tt
 
 		effect_tooltip = {
-			463 = {
-				transfer_state_to = FROM
-			}
+#			463 = { # 1.19-migration fix: off-map vanilla Alaska 463 (mod 463 = Eisenach) — dead scope
+#				transfer_state_to = FROM
+#			}
 
 			
 			add_ideas = AUS_payment_for_alaska
@@ -8668,9 +8668,9 @@ country_event = { #America Sells Alaska
 			
 		}
 
-		463 = {
-			transfer_state_to = ROOT
-		}
+#		463 = { # 1.19-migration fix: off-map vanilla Alaska 463 (mod 463 = Eisenach)
+#			transfer_state_to = ROOT
+#		}
 
 		FROM = {
 			add_ideas = AUS_payment_for_alaska
@@ -8701,13 +8701,13 @@ country_event = { #America refuses to sell Alaska
 			base = 10
 		}
 
-		add_state_claim = 463 #Alaska
-
-		create_wargoal = {
-			type = take_claimed_state
-			target =  FROM
-			generator = { 463 } 
-		}
+#		add_state_claim = 463 #Alaska — 1.19-migration fix: off-map vanilla state (mod 463 = Eisenach)
+#
+#		create_wargoal = {
+#			type = take_claimed_state
+#			target =  FROM
+#			generator = { 463 } 
+#		}
 	
 	}
 }
