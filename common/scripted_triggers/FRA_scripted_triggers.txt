@@ -22,7 +22,10 @@ FRA_controls_north_africa = {
 				OR = {
 					is_controlled_by = ROOT
 					CONTROLLER = {
-						is_subject_of = ROOT
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
 					}
 				}
 			}
@@ -39,7 +42,10 @@ FRA_controls_syria = {
 				OR = {
 					is_controlled_by = ROOT
 					CONTROLLER = {
-						is_subject_of = ROOT
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
 					}
 				}
 			}
@@ -57,7 +63,10 @@ FRA_controls_indochina = {
 				OR = {
 					is_controlled_by = ROOT
 					CONTROLLER = {
-						is_subject_of = ROOT
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
 					}
 				}
 			}
@@ -73,7 +82,10 @@ FRA_controls_west_africa = {
 				OR = {
 					is_controlled_by = ROOT
 					CONTROLLER = {
-						is_subject_of = ROOT
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
 					}
 				}
 			}
@@ -90,7 +102,10 @@ FRA_controls_central_africa = {
 				OR = {
 					is_controlled_by = ROOT
 					CONTROLLER = {
-						is_subject_of = ROOT
+						OR = {
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
 					}
 				}
 			}
@@ -103,7 +118,11 @@ FRA_controls_central_africa = {
 					}
 					is_controlled_by = TNG
 					CONTROLLER = {
-						original_tag = SPR
+						OR = {
+							original_tag = SPR
+							is_in_faction_with = ROOT
+							is_subject_of = ROOT
+						}
 					}
 				}
 			}
@@ -142,13 +161,18 @@ is_owned_or_subject_trigger = {
 }
 
 USA_can_sell_weapons_trigger = {
-	NOT = { 
-		USA = {
-			AND = {
-				has_completed_focus = USA_neutrality_act 
-				NOT = { has_completed_focus = USA_lend_lease_act } #Can't sell weapons if US has declared neutrality without passing Lend-Lease Act
+	OR = {
+		# 1.19-migration: dead tag PHI (Unused) - vanilla 1.19 adds `AND = { original_tag = PHI is_ally_with = USA }` here
+		NOT = { 
+			USA = {
+				OR = {
+					AND = {
+						has_completed_focus = USA_neutrality_act 
+						NOT = { has_completed_focus = USA_lend_lease_act } #Can't sell weapons if US has declared neutrality without passing Lend-Lease Act
+					}
+					has_war_with = FRA
+				}
 			}
-			has_war_with = FRA
 		}
 	}
 	USA = { has_civil_war = no }

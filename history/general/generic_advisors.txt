@@ -10,14 +10,52 @@ every_possible_country = {
 		NOT = {
 			has_allowed_idea_with_traits = { idea = communist_revolutionary characters = yes }
 		}
-		if = {
+		IF = {
 			limit = { has_dlc = "Battle for the Bosporus" }
 			NOT = { tag = TUR tag = GRE }
 		}
-		if = {
+		IF = {
 			limit = { has_dlc = "By Blood Alone" }
-			NOT = { OR = { tag = SWI } }
+			NOT = {
+				OR = {
+					tag = SWI
+#					tag = ETH   # 1.19-migration: dead tag
+				}
+			}
 		}
+		IF = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			NOT = { OR = { tag = ICE tag = DEN tag = SWE tag = NOR } }
+		}
+
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Trial of Allegiance" }
+#			NOT = { OR = { tag = CHL tag = ARG tag = BRA tag = PAR tag = URG } }
+#		}
+
+		IF = {
+			limit = { has_dlc = "Gotterdammerung" }
+			NOT = { tag = HUN tag = AUS tag = COG tag = BEL }
+		}
+		IF = {
+			limit = { has_dlc = "Graveyard of Empires" }
+			NOT = {
+				tag = IRQ
+				tag = PER
+				tag = RAJ
+#				tag = AFG   # 1.19-migration: dead tag
+			}
+		}
+		IF = {
+			limit = { has_dlc = "No Compromise, No Surrender" }
+			NOT = { tag = PRC }
+#			NOT = { tag = PHI }   # 1.19-migration: dead tag
+		}
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Thunder at Our Gates" }
+#			NOT = { tag = INS }
+#			NOT = { tag = SIA }
+#		}
 	}
 	generate_character = {
 		token_base = generic_communist_revolutionary # token will be TAG_token_base
@@ -52,14 +90,51 @@ every_possible_country = {
 		NOT = {
 			has_allowed_idea_with_traits = { idea = democratic_reformer characters = yes }
 		}
-		if = {
+		IF = {
 			limit = { has_dlc = "Battle for the Bosporus" }
 			NOT = { tag = TUR tag = GRE }
 		}
-		if = {
+		IF = {
 			limit = { has_dlc = "By Blood Alone" }
-			NOT = { OR = { tag = SWI } }
+			NOT = {
+				OR = {
+					tag = SWI
+#					tag = ETH   # 1.19-migration: dead tag
+				}
+			}
 		}
+		IF = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			NOT = { OR = { tag = ICE tag = DEN tag = SWE tag = NOR } }
+		}
+
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Trial of Allegiance" }
+#			NOT = { OR = { tag = CHL tag = ARG tag = BRA tag = PAR tag = URG } }
+#		}
+
+		IF = {
+			limit = { has_dlc = "Gotterdammerung"}
+			NOT = { OR = { tag = AUS tag = COG tag = BEL }}
+		}
+		IF = {
+			limit = { has_dlc = "Graveyard of Empires" }
+			NOT = {
+				tag = IRQ
+				tag = PER
+				tag = RAJ
+#				tag = AFG   # 1.19-migration: dead tag
+			}
+		}
+		IF = {
+			limit = { has_dlc = "No Compromise, No Surrender" }
+#			NOT = { tag = PHI }   # 1.19-migration: dead tag
+		}
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Thunder at Our Gates" }
+#			NOT = { tag = INS }
+#			NOT = { tag = SIA }
+#		}
 	}
 	generate_character = {
 		token_base = generic_democratic_reformer # token will be TAG_token_base
@@ -94,14 +169,50 @@ every_possible_country = {
 		NOT = {
 			has_allowed_idea_with_traits = { idea = fascist_demagogue characters = yes }
 		}
-		if = {
+		IF = {
 			limit = { has_dlc = "Battle for the Bosporus" }
 			NOT = { tag = TUR tag = GRE }
 		}
-		if = {
+		IF = {
 			limit = { has_dlc = "By Blood Alone" }
-			NOT = { OR = { tag = SWI } }
+			NOT = {
+				OR = {
+					tag = SWI
+#					tag = ETH   # 1.19-migration: dead tag
+				}
+			}
 		}
+		IF = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			NOT = { OR = { tag = ICE tag = DEN tag = SWE tag = NOR } }
+		}
+		# TODO CHANGE THIS TO THE CORRECT DLC LOCK
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Trial of Allegiance" }
+#			NOT = { OR = { tag = CHL tag = ARG tag = BRA tag = PAR tag = URG } }
+#		}
+		IF = {
+			limit = { has_dlc = "Gotterdammerung" }
+			NOT = { tag = HUN tag = AUS tag = COG }
+		}
+		IF = {
+			limit = { has_dlc = "Graveyard of Empires" }
+			NOT = {
+				tag = IRQ
+				tag = PER
+				tag = RAJ
+#				tag = AFG   # 1.19-migration: dead tag
+			}
+		}
+		IF = {
+			limit = { has_dlc = "No Compromise, No Surrender" }
+#			NOT = { tag = PHI }   # 1.19-migration: dead tag
+		}
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Thunder at Our Gates" }
+#			NOT = { tag = INS }
+#			NOT = { tag = SIA }
+#		}
 	}
 	generate_character = {
 		token_base = generic_fascist_demagogue # token will be TAG_token_base
@@ -132,15 +243,65 @@ every_possible_country = {
 every_possible_country = {
 	limit = {
 		has_dlc = "La Resistance"
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = GRE tag = TUR }
-		}
-		if = {
-			limit = { has_dlc = "By Blood Alone" }
-			NOT = { OR = { tag = SWI } }
-		}
+		# china gets a special one via focus
+		NOT = { original_tag = CHI }
+		# Germany as Wilhelm Canaris
 		NOT = { original_tag = GER }
+		if = {
+			limit = {
+				has_dlc = "Thunder at Our Gates"
+			}
+#			NOT = { original_tag = INS }   # 1.19-migration: dead tag
+			NOT = { original_tag = AST }
+		}
+
+		NOT = { is_chinese_warlord = yes }
+		IF = {
+			limit = {
+				has_dlc = "Battle for the Bosporus"
+			}
+			NOT = {
+				tag = GRE
+				tag = TUR
+			}
+		}
+		IF = {
+			limit = { has_dlc = "By Blood Alone" }
+			NOT = {
+				OR = {
+					tag = SWI
+#					tag = ETH   # 1.19-migration: dead tag
+				}
+			}
+		}
+
+		IF = {
+			limit = { has_dlc = "Arms Against Tyranny" }
+			NOT = { OR = { tag = SWE } }
+		}
+
+#		IF = {   # 1.19-migration: dead tag
+#			limit = { has_dlc = "Trial of Allegiance" }
+#			NOT = { OR = { tag = CHL tag = ARG tag = BRA } }
+#		}
+
+		IF = {
+			limit = { has_dlc = "Gotterdammerung" }
+			NOT = { OR = { tag = HUN tag = AUS tag = BEL } }
+		}
+		IF = {
+			limit = { has_dlc = "Graveyard of Empires" }
+			NOT = {
+				tag = IRQ
+				tag = PER
+				tag = RAJ
+#				tag = AFG   # 1.19-migration: dead tag
+			}
+		}
+		IF = {
+			limit = { has_dlc = "No Compromise, No Surrender" }
+			NOT = { tag = PRC }
+		}
 		NOT = {
 			has_allowed_idea_with_traits = { idea = head_of_intelligence characters = yes }
 		}
@@ -416,3 +577,143 @@ every_possible_country = {
 		}
 	}
 }
+
+#	every_possible_country = { #INS has no air / army theorists.   # 1.19-migration: dead tag
+#		limit = {
+#			original_tag = INS
+#		}
+#		generate_character = {
+#			token_base = generic_air_warfare_theorist # token will be TAG_token_base
+#			advisor = {
+#				slot = theorist
+#				traits = { air_warfare_theorist }
+#				ledger = air
+#				cost = 100
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_air_warfare_theorist }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_military_theorist # token will be TAG_token_base
+#			advisor = {
+#				slot = theorist
+#				traits = { military_theorist }
+#				ledger = army
+#				cost = 100
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_military_theorist }
+#			}
+#		}
+#	}
+
+#	every_possible_country = { #INS without DLC
+#		limit = {
+#			original_tag = INS
+#			NOT = {
+#				has_dlc = "Thunder at Our Gates"
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_naval_theorist # token will be TAG_token_base
+#			advisor = {
+#				slot = theorist
+#				traits = { naval_theorist }
+#				ledger = navy
+#				cost = 50
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_naval_theorist }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_army_art # token will be TAG_token_base
+#			advisor = {
+#				slot = high_command
+#				traits = { army_artillery_1 }
+#				ledger = army
+#				cost = 50
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_army_art }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_army_log # token will be TAG_token_base
+#			advisor = {
+#				slot = high_command
+#				traits = { army_logistics_2 }
+#				ledger = army
+#				cost = 100
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_army_log }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_navy_fleet_log # token will be TAG_token_base
+#			advisor = {
+#				slot = high_command
+#				traits = { navy_fleet_logistics_1 }
+#				ledger = navy
+#				cost = 50
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_navy_fleet_log }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_navy_anti_submarine # token will be TAG_token_base
+#			advisor = {
+#				slot = high_command
+#				traits = { navy_anti_submarine_2 }
+#				cost = 100
+#			}
+#			portraits = {
+#				army = { small = GFX_idea_generic_navy_anti_submarine }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_air_air_combat_trainer # token will be TAG_token_base
+#			advisor = {
+#				slot = high_command
+#				traits = { air_air_combat_training_2 }
+#				ledger = air
+#				cost = 100
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_air_air_combat_trainer }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_captain_of_industry # token will be TAG_token_base
+#			advisor = {
+#				slot = political_advisor
+#				traits = { captain_of_industry }
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_captain_of_industry }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_fortification_engineer # token will be TAG_token_base
+#			advisor = {
+#				slot = political_advisor
+#				traits = { fortification_engineer }
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_fortification_engineer }
+#			}
+#		}
+#		generate_character = {
+#			token_base = generic_war_industrialist # token will be TAG_token_base
+#			advisor = {
+#				slot = political_advisor
+#				traits = { war_industrialist }
+#			}
+#			portraits = { 
+#				army = { small = GFX_idea_generic_war_industrialist }
+#			}
+#		}
+#	}

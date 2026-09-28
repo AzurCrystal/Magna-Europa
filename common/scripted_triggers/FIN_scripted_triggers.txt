@@ -21,20 +21,77 @@ FIN_state_is_european_and_on_the_atlantic = {
 	BUL_state_is_in_the_black_sea = no
 	OR = {
 		state_is_in_the_baltic_sea = no
-		has_state_flag = DEN_INITIAL_STATE
-		is_core_of = SHL
-		is_core_of = SCA
+		#States in both Baltic and Atlantic (Danish area)
+		state = 70 # 1.19 state 37 Denmark (Zealand) -> Soro
+		state = 216 # 1.19 state 37 Denmark (Zealand) -> Frederiksborg
+		state = 178 # 1.19 state 37 Denmark (Zealand) -> Holbaek
+		state = 347 # 1.19 state 37 Denmark (Zealand) -> Roskilde
+		state = 315 # 1.19 state 37 Denmark (Zealand) -> Kobenhavn
+		state = 277 # 1.19 state 37 Denmark (Zealand) -> Praesto
+		state = 20 # 1.19 state 37 Denmark (Zealand) -> Maribo
+		state = 240 # 1.19 state 911 Fyn -> Odense
+		state = 247 # 1.19 state 911 Fyn -> Svendborg
+		state = 120 # 1.19 state 99 Jutland -> Alborg
+		state = 140 # 1.19 state 99 Jutland -> Hjorring
+		state = 144 # 1.19 state 99 Jutland -> Thisted
+		state = 15 # 1.19 state 99 Jutland -> Arhus
+		state = 34 # 1.19 state 99 Jutland -> Skanderborg
+		state = 76 # 1.19 state 99 Jutland -> Randers
+		state = 181 # 1.19 state 99 Jutland -> Viborg
+		state = 223 # 1.19 state 99 Jutland -> Vejle
+		state = 228 # 1.19 state 99 Jutland -> Ribe
+		state = 197 # 1.19 state 99 Jutland -> Ringkobing
+		state = 139 # 1.19 state 912 Sonderjylland -> Abenra-Sonderborg
+		state = 104 # 1.19 state 912 Sonderjylland -> Haderslev
+		state = 246 # 1.19 state 912 Sonderjylland -> Tonder
+		state = 1710 # 1.19 state 909 South Schleswig -> Flensburg
+		state = 260 # 1.19 state 909 South Schleswig -> Eiderstadt
+		state = 1709 # 1.19 state 909 South Schleswig -> Dithmarschen
+		state = 1703 # 1.19 state 58 Schleswig-Holstein -> Stormarn
+		state = 1705 # 1.19 state 58 Schleswig-Holstein -> Pinneberg
+		state = 1706 # 1.19 state 58 Schleswig-Holstein -> Kiel
+		state = 1708 # 1.19 state 58 Schleswig-Holstein -> Neumuenster
+		state = 1755 # 1.19 state 58 Schleswig-Holstein -> Eutin
+		state = 1722 # 1.19 state 58 Schleswig-Holstein -> Harburg
+		state = 1702 # 1.19 state 58 Schleswig-Holstein -> Hamburg
+		state = 2570 # 1.19 state 58 Schleswig-Holstein -> Wandsbek
+		state = 2946 # 1.19 state 37 Denmark straits isle -> Fehmarn
+		state = 212 # 1.19 state 138 Skane -> Malmohus
+		state = 202 # 1.19 state 138 Skane -> Kristianstad
+		state = 203 # 1.19 state 138 Skane -> Blekinge
+		state = 184 # 1.19 state 138 Skane -> Halland
 	}
 	#states in the Arctic
 	NOT = {
-		state = 17 #PETSAMO
-		state = 19 #MURMANSK
-		state = 39 #ONEGA
+		state = 17 #PETSAMO (1.19 state 722)
+		state = 2709 # 1.19 state 722 Petsamo -> Tuloma
+		state = 19 #MURMANSK (1.19 state 213)
+		state = 2785 # 1.19 state 213 Murmansk -> Kandalaksha
+		state = 39 #ONEGA (1.19 state 215 Eastern Karelia)
 	}
 } #I really don't understand this one lmfao
 
 FIN_state_is_valid_for_motti_tactics = {
-	has_state_flag = FIN_INITIAL_STATE 
+	OR = {
+		state = 65 # 1.19 state 150 KUOPIO -> Pohjois-Savo
+		state = 68 # 1.19 state 150 KUOPIO -> Pohjois-Karjala
+		state = 81 # 1.19 state 150 KUOPIO -> Etela-Savo
+		state = 42 # 1.19 state 929 OULU -> Pohjois-Pohjanmaa
+		state = 50 # 1.19 state 929 OULU -> Kainuu
+		state = 33 # 1.19 state 147 SALLA -> Vanha Salla
+		state = 2786 # 1.19 state 147 SALLA -> Kayraly
+		state = 14 # 1.19 state 148 LAPPI -> Lappi
+		state = 2698 # 1.19 state 148 LAPPI -> Inari
+		state = 17 # 1.19 state 722 PETSAMO -> Petsamo
+		state = 2709 # 1.19 state 722 PETSAMO -> Tuloma
+		state = 73 # 1.19 state 149 VAASA -> Etela-Pohjanmaa
+		state = 72 # 1.19 state 149 VAASA -> Keski-Suomi
+		state = 63 # 1.19 state 149 VAASA -> Keski-Pohjanmaa
+		state = 85 # 1.19 state 149 VAASA -> Pirkanmaa
+		state = 93 # 1.19 state 930 MIKKELI -> Etela-Karjala
+		state = 115 # 1.19 state 930 MIKKELI -> Kymenlaakso
+		state = 89 # 1.19 state 930 MIKKELI -> Paijat-Hame
+	}
 }
 
 FIN_is_lone_wolf_finland = {
@@ -49,11 +106,52 @@ FIN_country_can_be_invited_into_faction_socialist = {
 	is_in_faction = no
 }
 
+#Used to change name of States and VPs when appropriate. Expected to be used inside on_state_control_changed. FROM.FROM is state / ROOT is new controller / FROM is former controller
+FIN_state_or_vp_name_should_change = {
+	OR = {
+		AND = {
+			ROOT = { original_tag = FIN }
+			NOT = { FROM = { original_tag = FIN } } #Not civil wars
+			NOT = { FROM = { original_tag = KAR } } #Not if already Finnish
+		}
+		AND = {
+			ROOT = { original_tag = KAR }
+			NOT = { FROM = { original_tag = KAR } } #Not civil wars
+			NOT = { FROM = { original_tag = FIN } } #Not if already Finnish
+		}
+		AND = {
+			FROM = { original_tag = FIN }
+			NOT = { ROOT = { original_tag = FIN } } #Not civil wars
+			NOT = { ROOT = { original_tag = KAR } } #Not already Finnish
+		}
+		AND = {
+			FROM = { original_tag = KAR }
+			NOT = { ROOT = { original_tag = KAR } } #Not civil wars
+			NOT = { ROOT = { original_tag = FIN } } #Not already Finnish
+		}
+	}
+	OR = {
+		FROM.FROM = { state = 57 } # 1.19 state 216 OLONETS (Petrozavodsk / Äänislinna) -> Olonets
+		FROM.FROM = { state = 24 } # 1.19 state 216 OLONETS -> Petrozavodsk
+		FROM.FROM = { state = 59 } # 1.19 state 216 OLONETS -> Suoyarvi
+		FROM.FROM = { state = 2437 } # 1.19 state 216 OLONETS -> Podporozhye
+		FROM.FROM = { state = 19 } # 1.19 state 213 MURMANSK / KUOLAN NIEMIMAA // (Murmansk / Muurmanski) (Kandalaksha / Kantalahti)
+		FROM.FROM = { state = 119 } # 1.19 state 195 LENINGRAD / PIETARI // (Leningrad / Pietari)
+		FROM.FROM = { state = 2792 } # 1.19 state 195 LENINGRAD -> Admiralteysky
+		FROM.FROM = { state = 2793 } # 1.19 state 195 LENINGRAD -> Kommunar
+		FROM.FROM = { state = 2794 } # 1.19 state 195 LENINGRAD -> Gostilitsy
+	}
+}
+
 #Used inside a country TAG - FIN is assumed to be ROOT
 FIN_can_purchase_equipment_from_country = {
 	exists = yes
 	has_capitulated = no
 	NOT = { has_war_with = ROOT }
+	NOT = {
+		is_embargoing = ROOT
+		is_embargoed_by = ROOT
+	}
 	ROOT = {
 		OR = {
 			is_in_faction_with = PREV #Ally
