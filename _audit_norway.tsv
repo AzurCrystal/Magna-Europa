@@ -1,0 +1,19 @@
+file	line	old_id	new_id	reason
+# Norway file was already remapped to mod ids in the port (vanilla used 110 Oslo, 144 Nord-Noreg, 37 Kobenhavn, 915/916/917 Swedish claims, 337 Faroes, 120/933 Scotland, 914 JanMayen). Every suspect id below already points at the intended mod state (names verified via history/states filenames + state_names_l_english.yml), so old_id = new_id. Only suspicious flagged: mod 110 at line ~7316 `NOR_drobak_coastal_fort` available still reads `110 = { is_controlled_by ROOT }` where vanilla intended Oslofjord (vanilla 110) -> mod equivalent is 118-Akershus (same state the reward forts); NOT part of assigned suspects but a real leftover.
+common/national_focus/norway.txt	3426	124	124	NOR_restart_public_investment: NOT-list `state = 124` excludes Oslo from coastal-bunker spam (vanilla `state = 110` Oslo); mod 124 = Oslo -> already correct
+common/national_focus/norway.txt	3493	124	124	NOR_fortify_norway: NOT-list `state = 124` excludes Oslo from bunker spam (vanilla `state = 110` Oslo); mod 124 = Oslo -> already correct
+common/national_focus/norway.txt	6274	54	54	NOR_swedish_claims: available NOT `owns_state = 54` for Jamtland claim (vanilla `owns_state = 917` Jamtland); mod 54 = Jamtland -> already correct
+common/national_focus/norway.txt	6315	54	54	NOR_swedish_claims: effect_tooltip `owns_state = 54` gate for Jamtland transfer (vanilla 917); mod 54 = Jamtland -> already correct
+common/national_focus/norway.txt	6341	54	54	NOR_swedish_claims: reject-branch `owns_state = 54` gate for Jamtland wargoal (vanilla 917); mod 54 = Jamtland -> already correct
+common/national_focus/norway.txt	6379	90	90	NOR_claims_on_faroe_islands: available NOT `owns_state = 90` for Faroe claim (vanilla `owns_state = 337` Faroe Islands); mod 90 = Faero (owner DEN) -> already correct
+common/national_focus/norway.txt	6669	246	246	NOR_claims_on_denmark: every_state OR-list of Danish states to transfer_state_to NOR; mod 246 = Tonder, owner DEN -> already correct
+common/national_focus/norway.txt	6672	228	228	NOR_claims_on_denmark: same Danish-state OR-list; mod 228 = Ribe, owner DEN -> already correct
+common/national_focus/norway.txt	6677	181	181	NOR_claims_on_denmark: same Danish-state OR-list; mod 181 = Viborg, owner DEN -> already correct
+common/national_focus/norway.txt	6682	240	240	NOR_claims_on_denmark: same Danish-state OR-list; mod 240 = Odense, owner DEN -> already correct
+common/national_focus/norway.txt	6683	247	247	NOR_claims_on_denmark: same Danish-state OR-list; mod 247 = Svendborg, owner DEN -> already correct
+common/national_focus/norway.txt	6906	116	116	NOR_claims_on_scotland: `owns_state = 116` UK-ownership check for Shetland (vanilla `owns_state = 933` Shetland); mod 116 = Zetland, owner ENG -> already correct
+common/national_focus/norway.txt	6908	116	116	NOR_claims_on_scotland: `controls_state = 116` same check (vanilla `controls_state = 933`); mod 116 = Zetland -> already correct
+common/national_focus/norway.txt	7098	54	54	NOR_consolidate_kingdom: every_state OR-list `state = 54` -> add_core_of ROOT for Jamtland claim (vanilla 917); mod 54 = Jamtland -> already correct
+common/national_focus/norway.txt	7101	90	90	NOR_consolidate_kingdom: same OR-list `state = 90` -> core on Faero (vanilla 337); mod 90 = Faero -> already correct
+common/national_focus/norway.txt	7102	116	116	NOR_consolidate_kingdom: same OR-list `state = 116` -> core on Zetland/Shetland (vanilla 933); mod 116 = Zetland -> already correct
+common/national_focus/norway.txt	7901	124	124	NOR_revamp_hydroelectric_capacity: NOT `state = 124` excludes Oslo from aluminium reward (vanilla `state = 110`, comment "Also not Oslo"); mod 124 = Oslo -> already correct
