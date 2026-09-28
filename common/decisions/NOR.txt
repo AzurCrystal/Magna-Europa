@@ -198,7 +198,7 @@
 	NOR_test_mobile_gov = {
 		complete_effect = {
 			NOR_set_mobile_government_variables = yes 
-			124 = {
+			124 = {   # 1.19-migration: was vanilla 110 (Oslofjord)
 				NOR_set_as_government_hq = yes 		
 			}
 			complete_national_focus = NOR_continue_nygaardsvold_government
@@ -208,6 +208,11 @@
 			complete_national_focus = NOR_rearm_for_defense
 			complete_national_focus = NOR_patrol_our_coast			
 			every_owned_state = {
+				limit = {
+					NOT = {
+						OR = { state = 132 state = 147 }   # 1.19-migration: was vanilla 922 (Agder)
+					}
+				}
 				NOR_start_state_preparation = yes 
 				NOR_start_state_preparation = yes 
 				NOR_start_state_preparation = yes 
@@ -229,7 +234,7 @@
 			ENG = { add_to_faction = NOR }
 			every_controlled_state = {
 				limit = {
-					NOT = { state = 124 }
+					NOT = { OR = { state = 124 state = 118 state = 129 state = 131 } }   # 1.19-migration: was vanilla 110 (Oslofjord)
 				}
 				set_state_controller_to = GER
 			}
@@ -243,7 +248,22 @@
 	NOR_generate_militias = {
 		complete_effect = {
 			set_country_flag = NOR_going_dem_historical
-			124 = {
+			124 = {   # 1.19-migration: was vanilla 110 (Oslofjord)
+				NOR_spawn_militias_in_state = yes 
+				NOR_spawn_militias_in_state = yes 
+				NOR_spawn_militias_in_state = yes 
+			}
+			118 = {
+				NOR_spawn_militias_in_state = yes 
+				NOR_spawn_militias_in_state = yes 
+				NOR_spawn_militias_in_state = yes 
+			}
+			129 = {
+				NOR_spawn_militias_in_state = yes 
+				NOR_spawn_militias_in_state = yes 
+				NOR_spawn_militias_in_state = yes 
+			}
+			131 = {
 				NOR_spawn_militias_in_state = yes 
 				NOR_spawn_militias_in_state = yes 
 				NOR_spawn_militias_in_state = yes 
@@ -268,7 +288,25 @@ NOR_exile_decisions_category = { # Unique versions of normal in exile decisiosn 
 
 		available = {
 			has_capitulated = no 
-			124 = {
+			124 = {   # 1.19-migration: was vanilla 110 (Oslofjord)
+				OR = {
+					is_fully_controlled_by = ROOT 
+					is_fully_controlled_by = FROM 
+				}
+			}
+			118 = {
+				OR = {
+					is_fully_controlled_by = ROOT 
+					is_fully_controlled_by = FROM 
+				}
+			}
+			129 = {
+				OR = {
+					is_fully_controlled_by = ROOT 
+					is_fully_controlled_by = FROM 
+				}
+			}
+			131 = {
 				OR = {
 					is_fully_controlled_by = ROOT 
 					is_fully_controlled_by = FROM 
@@ -669,16 +707,26 @@ NOR_exile_decisions_category = { # Unique versions of normal in exile decisiosn 
 		state_target = yes
 		
 		targets = {
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		visible = {
@@ -746,15 +794,22 @@ NOR_exile_decisions_category = { # Unique versions of normal in exile decisiosn 
 		state_target = yes 
 
 		targets = {
-			state = 123 # Telemark
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_trigger = {
@@ -856,22 +911,32 @@ NOR_democratic_preparation_decisions_category = {
 
 
 		targets = {
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_trigger = {
 			FROM = {
 				is_core_of = NOR
-				NOT = {	state = 1822	} # Not Jan Mayen 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
 				OR = {
 					NOT = { has_variable = NOR_state_preparation }
 					check_variable = { NOR_state_preparation < 3 }
@@ -880,7 +945,7 @@ NOR_democratic_preparation_decisions_category = {
 			}
 		}
 
-		cost = 60
+		cost = 30
 		
 		days_remove = NOR_prep_his_remove_days
 	 
@@ -899,10 +964,6 @@ NOR_democratic_preparation_decisions_category = {
 		
 		visible = {
 			has_completed_focus = NOR_rearm_for_defense
-			OR = {
-				has_country_flag = NOR_going_dem_historical
-				has_country_flag = NOR_going_dem_allied
-			}		
 		}
 
 		available = {
@@ -944,11 +1005,7 @@ NOR_democratic_preparation_decisions_category = {
 	NOR_public_investment_drive = {
 		
 		visible = {
-			has_completed_focus = NOR_restart_public_investment
-			OR = {
-				has_country_flag = NOR_going_dem_historical
-				has_country_flag = NOR_going_dem_allied
-			}		
+			has_completed_focus = NOR_coastal_defense		
 		}
 
 		available = {
@@ -999,13 +1056,16 @@ NOR_democratic_preparation_decisions_category = {
 		}
 
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = NOR_country_prep_modernize_armed_forces_TT
-				check_variable = {
-					var = NOR_country_preparedness
-					value > 15 
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = NOR_country_prep_modernize_armed_forces_TT
+					check_variable = {
+						var = NOR_country_preparedness
+						value > 15 
+					}
 				}
-			}
+				longest_war_length > 3
+			} 
 			
 		}
 		custom_cost_text = decision_cost_modernize_armed_forces_convoy_cp
@@ -1096,6 +1156,68 @@ NOR_democratic_preparation_decisions_category = {
 }
 
 NOR_historical_deploy_prep_decisions_category = {
+
+	NOR_modernize_armed_forces_decision_wartime = {
+		name = NOR_modernize_armed_forces_decision
+		
+		visible = {
+			has_completed_focus = NOR_rearm_for_defense
+			OR = {
+				has_idea = NOR_obsolete_armed_forces_ns_1
+				has_idea = NOR_obsolete_armed_forces_ns_2
+			}
+		}
+
+		available = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = NOR_country_prep_modernize_armed_forces_TT
+					check_variable = {
+						var = NOR_country_preparedness
+						value > 15 
+					}
+				}
+				longest_war_length > 3
+			} 
+			
+		}
+		custom_cost_text = decision_cost_modernize_armed_forces_convoy_cp
+
+		custom_cost_trigger = {
+			command_power > 29
+			has_equipment = {
+				convoy > 99
+			}
+		}
+
+		days_remove = 60
+
+		complete_effect = {
+			add_command_power = -25
+			add_equipment_to_stockpile = { 
+				type = convoy_1
+				amount = -100
+			}
+		}
+
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = NOR_obsolete_armed_forces_ns_1
+				}
+				swap_ideas = {
+					remove_idea = NOR_obsolete_armed_forces_ns_1
+					add_idea = NOR_obsolete_armed_forces_ns_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = NOR_obsolete_armed_forces_ns_2
+				}
+				remove_ideas = { NOR_obsolete_armed_forces_ns_2	}
+			}
+		}
+	}
 	
 	NOR_deploy_state_preparation_historical = { # Decision to deploy the preparation of the state 
 		
@@ -1147,16 +1269,26 @@ NOR_historical_deploy_prep_decisions_category = {
 		state_target = yes 
 
 		targets = {
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_root_trigger = {
@@ -1297,7 +1429,7 @@ NOR_historical_deploy_prep_decisions_category = {
 		 
 		target_trigger = {
 			FROM = {
-				NOT = {	state = 1822	} # Not Jan Mayen 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
 				is_core_of = ROOT 
 				any_neighbor_state = { state = NOR.NOR_mobile_government_hq }
 				has_variable = NOR_state_preparation
@@ -1305,16 +1437,26 @@ NOR_historical_deploy_prep_decisions_category = {
 		}
 		
 		targets = {
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		cost = 10
@@ -1374,14 +1516,25 @@ NOR_historical_deploy_prep_decisions_category = {
 		}
 		custom_cost_trigger = {
 			has_equipment = {
-				convoy_1 > 49
+				convoy_1 > 50
 			}
-			has_army_experience > 79
+			has_army_experience > 80
 		}
 
 		custom_cost_text = decision_cost_convy_army_xp
 
 		days_remove = 30
+
+		complete_effect = {
+			hidden_effect = {
+				add_equipment_to_stockpile = { 
+					type = convoy_1
+					amount = -50
+					producer = NOR
+				}
+				army_experience = -80 
+			}
+		}
 
 		remove_effect = {
 			NOR_make_militias_into_regulars = yes 
@@ -1466,22 +1619,32 @@ NOR_allied_democratic_preparation_decisions_category = {
 		custom_cost_text = decision_cost_alt_dem_prepare_convoy_pp
 		
 		targets = {
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_trigger = {
 			FROM = {
 				is_core_of = NOR
-				NOT = {	state = 1822	} # Not Jan Mayen 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
 				OR = {
 					NOT = { has_variable = NOR_state_preparation }
 					check_variable = { NOR_state_preparation < 3 }
@@ -1666,12 +1829,15 @@ NOR_allied_democratic_preparation_decisions_category = {
 		}
 
 		available = {
-			custom_trigger_tooltip = {
-				tooltip = NOR_country_prep_modernize_armed_forces_TT
-				check_variable = {
-					var = NOR_country_preparedness
-					value > 15 
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = NOR_country_prep_modernize_armed_forces_TT
+					check_variable = {
+						var = NOR_country_preparedness
+						value > 15 
+					}
 				}
+				longest_war_length > 3
 			}
 			
 		}
@@ -1712,8 +1878,155 @@ NOR_allied_democratic_preparation_decisions_category = {
 			}
 		}
 	}
+
+	NOR_alt_dem_focus_on_training = {
+		
+		visible = {
+			has_completed_focus = NOR_rearm_for_defense
+		}
+
+		available = {
+			NOT = {
+				ROOT = {
+					has_country_flag = NOR_ongoing_countrywide_program
+				}
+			}
+			has_equipment = {
+				convoy > NOR_prep_his_program_min_convoy
+			}		
+		}
+
+		cost = 50
+		
+		days_remove = 45 
+
+		complete_effect = {
+			ROOT = { set_country_flag = NOR_ongoing_countrywide_program }
+		}
+
+		modifier = {
+			training_time_factor = -0.15
+			consumer_goods_factor = 0.05
+			production_factory_max_efficiency_factor = -0.1
+		}
+
+		remove_effect = {
+			ROOT = { clr_country_flag = NOR_ongoing_countrywide_program }
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = NOR_ongoing_countrywide_program
+			} 
+		}
+	}
+
+	NOR_alt_dem_public_investment_drive = {
+		
+		visible = {
+			has_completed_focus = NOR_coastal_defense		
+		}
+
+		available = {
+			NOT = {
+				ROOT = {
+					has_country_flag = NOR_ongoing_countrywide_program
+				}
+			}
+			has_equipment = {
+				convoy > NOR_prep_his_program_min_convoy
+			}		
+		}
+
+		cost = 50
+
+		days_remove = 45 
+
+		complete_effect = {
+			ROOT = { set_country_flag = NOR_ongoing_countrywide_program }
+		}
+
+		modifier = { 
+			production_speed_buildings_factor = 0.2
+			training_time_factor = 0.10
+			production_factory_max_efficiency_factor = -0.1
+			industrial_capacity_factory = -0.15
+		} 
+
+		remove_effect = {
+			ROOT = { clr_country_flag = NOR_ongoing_countrywide_program }
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = NOR_ongoing_countrywide_program
+			} 
+		}
+	}
 }
 NOR_allied_democratic_deploy_prep_decisions_category = {
+	NOR_alt_dem_modernize_armed_forces_decision_wartime = {
+		name = NOR_alt_dem_modernize_armed_forces_decision
+		
+		visible = {
+			has_completed_focus = NOR_reform_the_army 
+			OR = {
+				has_idea = NOR_obsolete_armed_forces_ns_1
+				has_idea = NOR_obsolete_armed_forces_ns_2
+			}
+		}
+
+		available = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = NOR_country_prep_modernize_armed_forces_TT
+					check_variable = {
+						var = NOR_country_preparedness
+						value > 15 
+					}
+				}
+				longest_war_length > 3
+			}
+			
+		}
+		custom_cost_text = decision_cost_modernize_armed_forces_convoy_cp
+
+		custom_cost_trigger = {
+			command_power > 29
+			has_equipment = {
+				convoy > 99
+			}
+		}
+
+		days_remove = 45
+
+		complete_effect = {
+			add_command_power = -25
+			add_equipment_to_stockpile = { 
+				type = convoy_1
+				amount = -100
+			}
+		}
+
+		remove_effect = {
+			if = {
+				limit = {
+					has_idea = NOR_obsolete_armed_forces_ns_1
+				}
+				swap_ideas = {
+					remove_idea = NOR_obsolete_armed_forces_ns_1
+					add_idea = NOR_obsolete_armed_forces_ns_2
+				}
+			}
+			else_if = {
+				limit = {
+					has_idea = NOR_obsolete_armed_forces_ns_2
+				}
+				remove_ideas = { NOR_obsolete_armed_forces_ns_2	}
+			}
+		}
+	}
+
 	NOR_alt_dem_expedite_training = {
 		
 		visible = {
@@ -1901,14 +2214,25 @@ NOR_allied_democratic_deploy_prep_decisions_category = {
 		}
 		custom_cost_trigger = {
 			has_equipment = {
-				convoy_1 > 49
+				convoy_1 > 50
 			}
-			has_army_experience > 79
+			has_army_experience > 80
 		}
 
 		custom_cost_text = decision_cost_convy_army_xp
 
 		days_remove = 3
+
+		complete_effect = {
+			hidden_effect = {
+				add_equipment_to_stockpile = { 
+					type = convoy_1
+					amount = -50
+					producer = NOR
+				}
+				army_experience = -80 
+			}
+		}
 
 		remove_effect = {
 			NOR_make_militias_into_regulars = yes 
@@ -1984,22 +2308,32 @@ NOR_fascist_preparation_decisions_category = {
 		state_target = yes
 
 		targets = {
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_trigger = {
 			FROM = {
 				is_core_of = NOR
-				NOT = {	state = 1822	} # Not Jan Mayen 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
 				OR = {
 					check_variable = { NOR_state_preparation < 3 }
 					has_state_flag = NOR_preparing_state
@@ -2059,29 +2393,19 @@ NOR_fascist_preparation_decisions_category = {
 	}
 
 	NOR_invite_fascist_to_invade = {
+
+		cost = 75 
 		
 		visible = {
-			if = {
-				limit = {
-					var:GLOBAL.platonic_fascist_bully = {
-						capital_scope = {
-							is_on_continent = europe 
-						}
-					}		
-				}
-				var:GLOBAL.platonic_fascist_bully = {
-					ROOT = {
-						NOT = { has_country_flag = NOR_already_asked_a_fascist@PREV } 
-					}
+		
+			any_country = {
+				original_tag = GER
+				has_government = fascism
+				ROOT = {
+					NOT = { has_country_flag = NOR_already_asked_a_fascist@PREV } 
 				}
 			}
-			else = {
-				var:platonic_local_dangerous_fascist = {
-					ROOT = {
-						NOT = { has_country_flag = NOR_already_asked_a_fascist@PREV } 
-					}
-				}
-			}
+			
 			has_country_flag = NOR_going_fascist
 			has_completed_focus = NOR_nasjonal_samling
 			has_war = no
@@ -2093,17 +2417,14 @@ NOR_fascist_preparation_decisions_category = {
 		}
 
 		complete_effect = {
-			find_global_platonic_countries = yes
+			#find_global_platonic_countries = yes
 			if = {
 				limit = {
-					has_variable = GLOBAL.platonic_fascist_bully
-					var:GLOBAL.platonic_fascist_bully = {
-						capital_scope = {
-							is_on_continent = europe 
-						}
+					GER = {
+						has_government = fascism	
 					}
 				}
-				var:GLOBAL.platonic_fascist_bully = {
+				GER = {
 					country_event = {
 						id = AAT_norway_fascist.1
 						hours = 3 
@@ -2139,36 +2460,7 @@ NOR_fascist_preparation_decisions_category = {
 					}				
 				}
 			}
-			else_if = {
-				limit = {
-					has_variable = platonic_local_dangerous_fascist
-				}
-				var:platonic_local_dangerous_fascist = {
-					country_event = {
-						id = AAT_norway_fascist.1
-						hours = 3 
-					}
-					hidden_effect = {
-						ROOT = {
-							set_country_flag = NOR_already_asked_a_fascist@PREV
-						}
-					}				
-				}
-			}
-			else = {
-				var:GLOBAL.platonic_fascist_bully = {
-					country_event = {
-						id = AAT_norway_fascist.1
-						hours = 3 
-					}
-					hidden_effect = {
-						ROOT = {
-							set_country_flag = NOR_already_asked_a_fascist@PREV
-
-						}
-					}					
-				}	
-			}
+			
 		}
 	}
 }
@@ -2234,15 +2526,22 @@ NOR_fascist_deploy_prep_decisions_category = {
 		state_target = yes 
 
 		targets = {
-			state = 123 # Telemark
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_root_trigger = {
@@ -2263,7 +2562,7 @@ NOR_fascist_deploy_prep_decisions_category = {
 		target_trigger = {
 			FROM = {
 				is_core_of = ROOT 
-				NOT = {	state = 1822	} # Not Jan Mayen 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
 				OR = {
 					has_variable = NOR_state_preparation
 					has_state_flag = NOR_deploying_prep_in_state 
@@ -2375,7 +2674,7 @@ NOR_communist_preparation_decisions_category = {
 		}
 
 		visible = {  
-			has_war = no 
+			has_civil_war = no 
 			has_completed_focus = NOR_the_seeds_of_the_revolution
 		}
 
@@ -2386,7 +2685,7 @@ NOR_communist_preparation_decisions_category = {
 			}
 			FROM = {
 				OR = {
-					infrastructure > 2
+					infrastructure > 1
 					non_damaged_building_level = {
 						building = arms_factory
 						level > 1
@@ -2430,22 +2729,29 @@ NOR_communist_preparation_decisions_category = {
 		state_target = yes
 
 		targets = {	
-			state = 123 # Telemark
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 
 		target_trigger = {
 			FROM = {
 				is_core_of = NOR
-				NOT = {	state = 1822	} # Not Jan Mayen 
-				NOT = { state = 124 } # Not Oslofjord 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
+				NOT = { OR = { state = 124 state = 118 state = 129 state = 131 } }   # 1.19-migration: was vanilla 110 (Oslofjord) # Not Oslofjord 
 				OR = {
 					check_variable = { NOR_state_preparation < 3 }
 					has_state_flag = NOR_preparing_state
@@ -2453,9 +2759,9 @@ NOR_communist_preparation_decisions_category = {
 			}
 		}
 
-		cost = 50   
+		cost = 25  
 		
-		days_remove = 30 
+		days_remove = 28 
 	 
 		complete_effect = {
 			FROM = { 
@@ -2475,7 +2781,22 @@ NOR_communist_preparation_decisions_category = {
 			has_completed_focus = NOR_the_voice_of_the_people
 		}
 
-		cost = 60 
+		cost = 50 
+		ai_will_do = {
+			base = 50
+			modifier = {
+				factor = 50
+	 			communism < 0.4
+			}	
+			modifier = {
+				factor = 0
+	 			communism > 0.5
+			}
+			modifier = {
+				factor = 0
+	 			has_completed_focus = NOR_workers_and_farmers_rise
+			}
+		}
 
 		days_remove = 45
 
@@ -2547,22 +2868,32 @@ NOR_monarchist_preparation_decisions_category = {
 		state_target = yes
 
 		targets = {	
-			state = 124 # Oslofjord
-			state = 123 # Telemark
+			state = 124   # 1.19-migration: was vanilla 110 (Oslofjord) # Oslofjord
+			state = 118 # Oslofjord
+			state = 129 # Oslofjord
+			state = 131 # Oslofjord
+			state = 123   # 1.19-migration: was vanilla 921 (Telemark) # Telemark
+			state = 132   # 1.19-migration: was vanilla 922 (Agder) # Agder
 			state = 147 # Agder
+			state = 75   # 1.19-migration: was vanilla 142 (Vestlandet) # Vestlandet
+			state = 92 # Vestlandet
 			state = 111 # Vestlandet
+			state = 128 # Vestlandet
+			state = 78   # 1.19-migration: was vanilla 920 (Opplandene) # Opplandene 
 			state = 83 # Opplandene 
+			state = 53   # 1.19-migration: was vanilla 143 (Trondelag) # Trondelag
 			state = 71 # Trondelag
-			state = 53 # Helgeland
-			state = 25 # Nordland 
-			state = 13 # Troms 
-			state = 4 # Finnmark
+			state = 25   # 1.19-migration: was vanilla 923 (Helgeland) # Helgeland
+			state = 25   # 1.19-migration: was vanilla 144 (Nordland) # Nordland 
+			state = 2702 # Nordland 
+			state = 13   # 1.19-migration: was vanilla 924 (Troms) # Troms 
+			state = 4   # 1.19-migration: was vanilla 925 (Finnmark) # Finnmark
 		}
 		
 		target_trigger = {
 			FROM = {
 				is_core_of = NOR
-				NOT = {	state = 1822	} # Not Jan Mayen 
+				NOT = {	state = 1822	}   # 1.19-migration: was vanilla 914 (Jan Mayen) # Not Jan Mayen 
 				OR = {
 					check_variable = { NOR_state_preparation < 3 }
 					has_state_flag = NOR_preparing_state
@@ -2729,27 +3060,25 @@ economy_decisions = {
 			NOT = { 
 				has_country_flag = nor_building_ship 
 			}
-			has_dlc = "Man the Guns"
-			has_tech = early_ship_hull_light
-	  		if = {
+			if = {
 	  			limit = {
+					has_dlc = "Man the Guns"
 	  			}
+	  			has_tech = early_ship_hull_light
 	  		}
 	  		if = {
 	  			limit = {
 					NOT = { has_dlc = "Man the Guns" }
-					has_tech = early_destroyer
 	  			}
+	  			has_tech = early_destroyer
 	  		}
 		}
 		days_remove = 14
 
 		complete_effect = {
-			hidden_effect = {
-				add_equipment_to_stockpile = { 
-					type = convoy_1
-					amount = -4
-				}
+			add_equipment_to_stockpile = { 
+				type = convoy_1
+				amount = -4
 			}
 			set_country_flag = {
 				flag = nor_building_ship
@@ -2783,7 +3112,7 @@ economy_decisions = {
 							mid_1_custom_slot = empty
 							rear_1_custom_slot = empty
 						}
-					obsolete = yes
+						obsolete = yes
 					}
 				}
 				create_ship = {
@@ -2828,7 +3157,7 @@ economy_decisions = {
 		}
 	}
 
-		refit_to_destroyer_mass_nor = {
+	refit_to_destroyer_mass_nor = {
 		icon = GFX_decision_generic_merge_plant_ship
 		fire_only_once = no
 
@@ -2849,14 +3178,14 @@ economy_decisions = {
 	  		if = {
 	  			limit = {
 					has_dlc = "Man the Guns"
-					has_tech = early_ship_hull_light
 	  			}
+	  			has_tech = early_ship_hull_light
 	  		}
 	  		if = {
 	  			limit = {
 					NOT = { has_dlc = "Man the Guns" }
-					has_tech = early_destroyer
 	  			}
+	  			has_tech = early_destroyer
 	  		}
 		}
 		days_remove = 105 #Less than the single conversions to encourage players to use it, and not have to min/max

@@ -43,7 +43,7 @@ POL_increase_danzig_control = {
 }
 
 POL_remove_danzig_effect = {
-	#remove_core_of = DNZ
+	remove_core_of = DNZ
 	set_demilitarized_zone = no
 	controller = { save_event_target_as = danzig_occupier }
 	if = {
@@ -477,19 +477,15 @@ POL_monarchist_civil_war_effect = {
 					owns_state = 241
 				}
 			}
-			transfer_state = 241
-			every_state = {
-				limit = {
-					is_owned_by = POL
-					is_core_of = CLT
-				}
-				transfer_state_to = LIT
-			}
+			transfer_state = 241 # 1.19 state 784 (Wilno-slot)
+			transfer_state = 294 # 1.19 state 784 -> Druskieniki
+			transfer_state = 1304 # 1.19 state 784 -> Orany
+			transfer_state = 1329 # 1.19 state 784 -> Ignalino
 			start_civil_war = {
 				ideology = neutrality
 				size = civil_war_size_var
 				keep_political_leader = yes
-				states = { 241 294 1304 1329 236 1000 1135 1106 }
+				states = { 241 294 1304 1329 } # 1.19 state 784 (Wilno-region mod states)
 				keep_unit_leaders_trigger = {
 					NOT = { has_unit_leader_flag = POL_monarchy_sympathies_flag }
 				}
@@ -511,7 +507,7 @@ POL_monarchist_civil_war_effect = {
 				has_civil_war = yes
 				original_tag = LIT
 			}
-			set_cosmetic_tag = GREATER_LIT
+			set_cosmetic_tag = LIT_KINGDOM
 			set_country_flag = POL_lithuanian_personal_union_flag
 		}
 		if = {
@@ -680,15 +676,47 @@ POL_peasant_division_effect = {
 }
 
 POL_become_german_puppet_effect = {
-	every_state = {
-		limit = {
-			is_polish_german_empire = yes
-			is_owned_and_controlled_by = POL
-		}
-		transfer_state_to = GER
-		add_core_of = GER
-	}
 	GER = {
+		if = {
+			limit = {
+				POL = {
+					controls_state = 280 # 1.19 state 85 Danzig
+					owns_state = 280
+				}
+			}
+			transfer_state = 280
+		}
+		if = {
+			limit = {
+				POL = {
+					controls_state = 267 # 1.19 state 807 Gdynia
+					owns_state = 267
+				}
+			}
+			transfer_state = 267
+		}
+		if = {
+			limit = {
+				POL = {
+					controls_state = 122 # 1.19 state 86 Poznan
+					owns_state = 122
+				}
+			}
+			transfer_state = 122
+		}
+		if = {
+			limit = {
+				POL = {
+					controls_state = 481 # 1.19 state 762 Katowice (Upper Silesia)
+					owns_state = 481
+				}
+			}
+			transfer_state = 481
+		}
+		280 = { add_core_of = GER } #Danzig (1.19 state 85)
+		122 = { add_core_of = GER } #Poznan (1.19 state 86)
+		267 = { add_core_of = GER } #Gdynia (1.19 state 807)
+		481 = { add_core_of = GER } #Upper Silesia (1.19 state 762)
 		if = {
 			limit = {
 				has_dlc = "Death or Dishonor"
@@ -754,7 +782,13 @@ POL_lithuania_wargoal_claims_effect = {
 		limit = {
 			has_state_flag = LIT_INITIAL_STATE
 			NOT = {
-				state = 227
+				OR = {
+					state = 227 # 1.19 state 188 Memel -> Klaipedos
+					state = 241 # 1.19 state 784 -> Wilno
+					state = 294 # 1.19 state 784 -> Druskieniki
+					state = 1304 # 1.19 state 784 -> Orany
+					state = 1329 # 1.19 state 784 -> Ignalino
+				}
 			}
 		}
 		add_claim_by = POL
@@ -798,29 +832,36 @@ POL_set_attempted_royal_takeover_flag = {
 }
 
 POL_basic_form_commonwealth = {
-	
+	# Lithuania
+	custom_effect_tooltip = form_country_lithuania_coring_states_tt
 	hidden_effect = {
 		every_state = {
 			limit = {
-				OR = {
-					has_state_flag = LIT_INITIAL_STATE
-					has_state_flag = LAT_INITIAL_STATE
-					has_state_flag = POL_INITIAL_STATE
-				}
+				is_core_of = LIT
 			}
 			add_core_of = ROOT
 		}
+	}
+	# Poland
+	custom_effect_tooltip = form_country_poland_coring_states_tt
+	hidden_effect = {
 		every_state = {
 			limit = {
-				is_core_of = WSP
+				is_core_of = POL
 			}
-			add_claim_by = ROOT
+			add_core_of = ROOT
 		}
 	}
-	custom_effect_tooltip = form_country_lithuania_coring_states_tt
-	custom_effect_tooltip = form_country_poland_coring_states_tt
 	custom_effect_tooltip = form_country_latvia_coring_states_tt
-	
+	hidden_effect = {
+		every_state = {
+			limit = {
+				is_core_of = LAT
+			}
+			add_core_of = ROOT
+		}
+	}
+
 
 	hidden_effect = {
 		news_event = { id = wtt_news.57 hours = 6 }

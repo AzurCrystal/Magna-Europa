@@ -13,9 +13,17 @@ fascism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
+				has_idea_with_trait = GER_revolutionary_nationalist_advisor
 			}
 			NOT = { has_government = fascism }
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
 		}
 		
 		fire_only_once = yes
@@ -43,9 +51,17 @@ fascism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
+				has_idea_with_trait = GER_revolutionary_nationalist_advisor
 			}
 			NOT = { has_government = fascism }
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
 		}
 
 		cancel_trigger = {
@@ -286,9 +302,17 @@ fascism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
+				has_idea_with_trait = GER_revolutionary_nationalist_advisor
 			}
 			NOT = { has_government = fascism }
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
 			check_variable = { num_owned_states = 1 }
 		}
 	
@@ -321,9 +345,17 @@ fascism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
+				has_idea_with_trait = GER_revolutionary_nationalist_advisor
 			}
 			NOT = { has_government = fascism }
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
 			check_variable = { num_owned_states > 1 }
 		}
 	
@@ -439,10 +471,18 @@ fascism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
+				has_idea_with_trait = GER_revolutionary_nationalist_advisor
 			}
 			NOT = { has_country_flag = open_up_political_discourse_fascism }
 			NOT = { has_government = fascism }
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
 		}
 		
 		remove_trigger = {
@@ -474,13 +514,21 @@ fascism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
+				has_idea_with_trait = GER_revolutionary_nationalist_advisor
 			}
 		}
 
 		visible = {
 			has_country_flag = open_up_political_discourse_fascism
 			NOT = { has_government = fascism }
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
 		}
 		
 		remove_trigger = {
@@ -541,7 +589,30 @@ fascism_on_the_rise = {
 				fascism > 0.6
 				has_country_flag = open_up_political_discourse_fascism
 			}
-			check_has_focus_tree_to_switch_to_fascism = yes
+			OR = {
+				AND = {
+					original_tag = GER
+					has_completed_focus = GER_expatriate_the_communists_ww
+					has_country_flag = GER_strasserism_relevant_in_germany_flag
+				}
+				check_has_focus_tree_to_switch_to_fascism = yes
+			}
+			IF = {
+				limit = {
+					has_dlc = "Trial of Allegiance"
+				}
+				NOT = {
+					original_tag = ARG
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				NOT = {
+					original_tag = NOR
+				}
+			}
 		}
 		
 		remove_trigger = {
@@ -561,6 +632,12 @@ fascism_on_the_rise = {
 			modifier = {
 				fascism > 0.6
 				factor = 10
+			}
+			modifier = {
+				factor = 0
+				original_tag = DEN
+				has_dlc = "Arms Against Tyranny"
+				is_subject = yes
 			}
 		}
 	}
@@ -1109,6 +1186,13 @@ democratic_on_the_rise = {
 				has_country_flag = open_up_political_discourse_democratic
 			}
 			check_has_focus_tree_to_switch_to_democratic = yes
+			if = {
+				limit = {
+					NOR_AAT = yes 
+				}
+				original_tag = NOR 
+				has_country_flag = NOR_included_in_generic_political
+			}
 		}
 		
 		remove_trigger = {
@@ -1129,6 +1213,12 @@ democratic_on_the_rise = {
 				democratic > 0.6
 				factor = 10
 			}
+			modifier = {
+				factor = 0
+				original_tag = DEN
+				has_dlc = "Arms Against Tyranny"
+				is_subject = yes
+			}
 		}
 	}
 }
@@ -1148,6 +1238,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1178,6 +1272,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1215,6 +1313,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1274,6 +1376,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			any_army_leader = {
@@ -1310,6 +1416,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			any_army_leader = {
@@ -1351,6 +1461,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1388,6 +1502,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1422,6 +1540,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1457,6 +1579,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1574,6 +1700,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 			NOT = { has_government = communism }
 			check_has_focus_tree_to_switch_to_communism = yes
@@ -1608,6 +1738,10 @@ communism_on_the_rise = {
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
+				AND = {
+					has_idea_with_trait = ARG_communist_insurrectionist
+					original_tag = IRQ
+				}
 			}
 		}
 
@@ -1696,6 +1830,12 @@ communism_on_the_rise = {
 				communism > 0.6
 				factor = 10
 			}
+			modifier = {
+				factor = 0
+				original_tag = DEN
+				has_dlc = "Arms Against Tyranny"
+				is_subject = yes
+			}
 		}
 	}
 }
@@ -1731,7 +1871,7 @@ political_actions = {
         }
 
         modifier = {
-			special_project_speed_factor = 0.02
+            special_project_speed_factor = 0.02
             research_speed_factor = 0.05
             stability_factor = -0.05
         }
@@ -1751,12 +1891,18 @@ political_actions = {
         }
 
         ai_will_do = {
-			factor = 1
+			base = 1
 			modifier = {
 				tag = ENG
-				has_War = no
+				has_war = no
 				date < 1937.3.1
 				factor = 0
+			}
+			modifier = {
+				tag = FRA
+				has_war = no
+				has_government = democratic
+				factor = 5
 			}
 		}
     }
@@ -1788,7 +1934,7 @@ political_actions = {
         }
 
         modifier = {
-			special_project_speed_factor = 0.02
+        	special_project_speed_factor = 0.02
             research_speed_factor = 0.05
             stability_factor = -0.05
         }
@@ -1797,10 +1943,10 @@ political_actions = {
             ITA = { has_government = ROOT }
         }
         ai_will_do = {
-			factor = 1
+			base = 1
 			modifier = {
 				tag = ENG
-				has_War = no
+				has_war = no
 				date < 1937.3.1
 				factor = 0
 			}
@@ -1812,17 +1958,54 @@ political_actions = {
     	icon = generic_civil_support
 
     	visible = {
-			NOT = { has_government = fascism }
+    		OR = {
+				NOT = { has_government = fascism }
+				AND = {
+					original_tag = RAJ
+					has_idea = idea_RAJ_kingmaker	
+				}
+
+    			AND = {
+    				original_tag = SIA
+    				has_dlc = "Thunder at Our Gates"
+    			}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+					original_tag = AUS
+				}
+				NOT = { has_completed_focus = AUS_reinstate_the_imperial_council }
+			}
 		}
 
 		available = {
-            fascism > 0.1
+			if = {
+				limit = {
+					NOT = {
+						AND = {
+							has_dlc = "Thunder at Our Gates"
+							original_tag = SIA
+						}
+					}
+				}
+            	fascism > 0.1
+			}
             if = {
 				limit = {
 					tag = SPR
 				}
 				NOT = {
 					has_idea = SPR_political_violence
+				}
+			}
+			if = {
+				limit = {
+					has_aat = yes 
+					original_tag = NOR 
+				}
+				NOT = { 
+					has_idea = NOR_anti_communist_sentiment_ns
 				}
 			}
         }
@@ -1835,11 +2018,49 @@ political_actions = {
 		days_remove = 120
 		cost = 50
 
+		cancel_trigger = {
+			if = {
+				limit = {
+					original_tag = AUS
+				}
+				OR = {
+					has_completed_focus = AUS_clamp_down_on_dnsap
+					has_completed_focus = AUS_ban_dnsap
+					has_completed_focus = AUS_rebuild_democratic_systems
+				}
+			}
+			else = {
+				always = no
+			}
+		}
+
 		complete_effect = {
 			add_stability = -0.1
+			if = {
+				limit = {
+					original_tag = SIA
+#					has_completed_focus = SIA_shuffle_pridi_to_the_minister_of_interior   # 1.19-migration: focus absent in mod
+					is_ai = yes 
+				}
+
+				SIA_increase_civilian_approval = yes
+				SIA_decrease_military_approval = yes
+				add_war_support = -0.02
+			}
 		}
 		
 		remove_effect = {
+			if = {
+				limit = {
+					original_tag = SIA
+#					has_completed_focus = SIA_shuffle_pridi_to_the_minister_of_interior   # 1.19-migration: focus absent in mod
+					is_ai = no
+				}
+
+				SIA_increase_civilian_approval = yes
+				SIA_decrease_military_approval = yes
+				add_war_support = -0.1
+			}
 		}
 		
 		ai_will_do = {
@@ -1863,6 +2084,18 @@ political_actions = {
 				has_completed_focus = liberty_ethos
 			}
 			modifier = {
+				add = 50
+				tag = AUS
+				has_dlc = "Gotterdammerung"
+				OR = {
+					has_country_flag = AUS_AI_RANDOM_ANTI_ANSCLUSS_STRESS
+					has_game_rule = {
+						rule = AUS_AI_BEHAVIOR
+						option = AUS_ANTI_ANSCLUSS_STRESS
+					}
+				}
+			}
+			modifier = {
 				factor = 0
 				original_tag = SPR
 				NOT = { has_global_flag = spanish_civil_war }
@@ -1881,6 +2114,20 @@ political_actions = {
 				original_tag = ITA
 				has_completed_focus = ITA_monarchia_d_italia
 			}
+
+			modifier = {
+				add = 500
+				original_tag = SIA
+				has_idea = idea_SIA_civilian_rebellious
+			}
+
+			modifier = {
+				add = 500
+				original_tag = SIA 
+#				NOT = { has_completed_focus = SIA_achieve_domestic_legitimacy }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+#				has_completed_focus = SIA_to_lay_the_bait   # 1.19-migration: focus absent in mod
+				NOT = { has_idea = idea_SIA_civilian_full_support }
+			}
 		}
     }
 
@@ -1889,11 +2136,32 @@ political_actions = {
     	icon = generic_civil_support
 
     	visible = {
-			NOT = { has_government = democratic }
+    		OR = {
+				NOT = { has_government = democratic }
+    			AND = {
+    				original_tag = RAJ
+    				has_idea = idea_RAJ_kingmaker	
+    			}
+
+    			AND = {
+    				original_tag = SIA
+    				has_dlc = "Thunder at Our Gates"
+    			}
+			}
 		}
 
 		available = {
-            democratic > 0.1
+			if = {
+				limit = {
+					NOT = {
+						AND = {
+							has_dlc = "Thunder at Our Gates"
+							original_tag = SIA
+						}
+					}
+				}
+            	democratic > 0.1
+			}
             if = {
 				limit = {
 					tag = SPR
@@ -1914,13 +2182,41 @@ political_actions = {
 
 		complete_effect = {
 			add_stability = -0.1
+			if = {
+				limit = {
+					original_tag = SIA
+#					has_completed_focus = SIA_for_the_preservation_of_siamese_independence   # 1.19-migration: focus absent in mod
+					is_ai = yes
+				}
+
+				SIA_increase_military_approval = yes
+				SIA_decrease_civilian_approval = yes
+				add_war_support = -0.02
+			}
 		}
 		
 		remove_effect = {
+			if = {
+				limit = {
+					original_tag = SIA
+#					has_completed_focus = SIA_for_the_preservation_of_siamese_independence   # 1.19-migration: focus absent in mod
+					is_ai = no
+				}
+
+				SIA_increase_military_approval = yes
+				SIA_decrease_civilian_approval = yes
+				add_war_support = -0.1
+			}
 		}
 		
 		ai_will_do = {
-			factor = 0
+			base = 0
+
+			modifier = {
+				add = 500
+				original_tag = SIA
+				has_idea = idea_SIA_military_rebellious
+			}
 		}
     }
 
@@ -1929,7 +2225,13 @@ political_actions = {
     	icon = generic_civil_support
 
     	visible = {
-			NOT = { has_government = communism }
+    		OR = {
+				NOT = { has_government = communism }
+    			AND = {
+    				original_tag = RAJ
+    				has_idea = idea_RAJ_kingmaker	
+    			}
+			}
 		}
 
 		available = {
@@ -1960,6 +2262,75 @@ political_actions = {
 		}
 		
 		ai_will_do = {
+			base = 0
+			modifier = { # If they have nothing else big to spend pp on, and this is avaiable, Monarchist Germany should start work on removing communist support. 
+				add = 10
+				original_tag = GER
+				OR = {
+					has_country_flag = GER_AI_RANDOM_KAISER
+					has_game_rule = {
+						rule = GER_ai_behavior
+						option = KAISER
+					}
+				}
+			}
+			modifier = { 
+				add = 5
+				has_dlc = "No Compromise, No Surrender"
+				original_tag = CHI
+				communism > 0.1
+			}
+
+		}
+    }
+
+    anti_neutrality_raids = {
+
+    	icon = generic_civil_support
+
+    	allowed = {
+    	}
+
+    	visible = {
+    		OR = { # has_focus_tree is not allwoed in the allowed trigger
+    			has_focus_tree = austro_hungarian_releasable_focus
+    			has_focus_tree = generic_focus
+    			has_idea = idea_RAJ_kingmaker
+    		}
+    		OR = {
+				NOT = { has_government = neutrality }
+    			original_tag = RAJ
+			}
+		}
+
+		available = {
+            neutrality > 0.1
+            if = {
+				limit = {
+					tag = SPR
+				}
+				NOT = {
+					has_idea = SPR_political_violence
+				}
+			}
+        }
+	
+		modifier = {
+			neutrality_drift = -0.05
+			stability_weekly = 0.007
+		}
+	
+		days_remove = 120
+		cost = 50
+
+		complete_effect = {
+			add_stability = -0.1
+		}
+		
+		remove_effect = {
+		}
+		
+		ai_will_do = {
 			factor = 0
 		}
     }
@@ -1969,8 +2340,18 @@ political_actions = {
 		icon = generic_civil_support
 
 		available = {
-			fascism < 0.2
 			if = {
+				limit = {
+					has_dlc = "Graveyard of Empires"
+					original_tag = RAJ
+					has_idea = ENG_dominion_fascist_propaganda
+					
+				}
+			}
+			else = {
+				fascism < 0.2
+			}
+			IF = {
 				limit = {
 					tag = SPR
 				}
@@ -1978,22 +2359,74 @@ political_actions = {
 					has_idea = SPR_political_violence
 				}
 			}
+			IF = {
+				limit = {
+					has_aat = yes 
+					original_tag = NOR 
+				}
+				NOT = {
+					has_idea = NOR_anti_communist_sentiment_ns
+				}
+			}
+			IF = {
+				limit = {
+					has_dlc = "Trial of Allegiance"
+					original_tag = CHL
+				}
+				custom_trigger_tooltip = {
+					tooltip = CHL_can_not_have_anarchy_tt
+					NOT = {
+						OR = {
+							has_idea = idea_CHL_near_anarchic_society
+							has_idea = idea_CHL_near_anarchic_society_2
+							has_idea = idea_CHL_near_anarchic_society_3
+							has_idea = idea_CHL_near_anarchic_society_4
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					original_tag = RAJ
+					has_dlc = "Graveyard of Empires"
+				}
+			}
 		}
 
 		visible = {
 			NOT = { has_government = fascism }
 			fascism > 0
-			if = { 
+			IF = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"	
 				}
 				NOT = { original_tag = GRE }
 			}
+
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+					original_tag = AUS
+				}
+				NOT = { has_completed_focus = AUS_reinstate_the_imperial_council }
+			}
+
+			IF = {
+				limit = {
+					has_dlc = "Thunder at Our Gates"
+					original_tag = AST
+				}
+#				NOT = { has_completed_focus = AST_australia_first }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+			}
 		}
 
 		remove_trigger = {
 			hidden_trigger = {
-				has_government = fascism
+				OR = {
+					has_government = fascism
+					has_country_flag = DEN_allow_fascism_flag
+				}
 			}
 		}
 	
@@ -2027,10 +2460,28 @@ political_actions = {
 			remove_fascist_spirits_effect = yes
 			custom_effect_tooltip = ban_fascist_party_tt
 			add_stability = ban_ideology_var
+			if = {
+				limit = {
+					has_idea = ENG_dominion_fascist_propaganda
+				}
+				remove_ideas = ENG_dominion_fascist_propaganda
+			}
 		}
 
 		ai_will_do = {
 			factor = 0
+			modifier = {
+				add = 50
+				tag = AUS
+				has_dlc = "Gotterdammerung"
+				OR = {
+					has_country_flag = AUS_AI_RANDOM_ANTI_ANSCLUSS_STRESS
+					has_game_rule = {
+						rule = AUS_AI_BEHAVIOR
+						option = AUS_ANTI_ANSCLUSS_STRESS
+					}
+				}
+			}
 		}
 	}
 
@@ -2040,7 +2491,7 @@ political_actions = {
 
 		available = {
 			democratic < 0.2
-			if = {
+			IF = {
 				limit = {
 					tag = SPR
 				}
@@ -2053,17 +2504,26 @@ political_actions = {
 		visible = {
 			NOT = { has_government = democratic }
 			democratic > 0
-			if = { 
+			IF = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"	
 				}
 				NOT = { original_tag = GRE }
 			}
+			IF = {
+				limit = {
+					has_dlc = "Trial of Allegiance"
+				}
+				NOT = { original_tag = CHL }
+			}
 		}
 
 		remove_trigger = {
 			hidden_trigger = {
-				has_government = democratic
+				OR = {
+					has_country_flag = DEN_allow_democratic_flag
+					has_government = democratic
+				}
 			}
 		}
 	
@@ -2100,7 +2560,7 @@ political_actions = {
 		}
 
 		ai_will_do = {
-			factor = 0
+			base = 0
 		}
 	}
 	
@@ -2110,7 +2570,7 @@ political_actions = {
 
 		available = {
 			communism < 0.2
-			if = {
+			IF = {
 				limit = {
 					tag = SPR
 				}
@@ -2118,22 +2578,50 @@ political_actions = {
 					has_idea = SPR_political_violence
 				}
 			}
+			IF = {
+				limit = {
+					has_dlc = "Trial of Allegiance"
+					original_tag = CHL
+				}
+				custom_trigger_tooltip = {
+					tooltip = CHL_can_not_have_anarchy_tt
+					NOT = {
+						OR = {
+							has_idea = idea_CHL_near_anarchic_society
+							has_idea = idea_CHL_near_anarchic_society_2
+							has_idea = idea_CHL_near_anarchic_society_3
+							has_idea = idea_CHL_near_anarchic_society_4
+						}
+					}
+				}
+			}
 		}
 
 		visible = {
 			NOT = { has_government = communism }
 			communism > 0
-			if = { 
+			IF = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"	
 				}
 				NOT = { original_tag = GRE }
 			}
+
+			IF = {
+				limit = {
+					has_dlc = "Thunder at Our Gates"
+					original_tag = AST
+				}
+#				NOT = { has_completed_focus = AST_against_war_and_fascism }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+			}
 		}
 
 		remove_trigger = {
 			hidden_trigger = {
-				has_government = communism
+				OR = {
+					has_government = communism
+					has_country_flag = DEN_allow_communism_flag
+				}
 			}
 		}
 	
@@ -2179,7 +2667,84 @@ political_actions = {
 		}
 		
 		ai_will_do = {
-			factor = 0
+			base = 0
+			modifier = {
+				add = 2000
+				original_tag = FIN
+				FIN_is_historical_ai = yes
+				OR = {
+					has_idea = communist_pressure
+					communism > 0.08
+				}
+				NOT = { has_completed_focus = FIN_the_lone_wolf }
+			}
+		}
+	}
+
+	ban_neutrality_party = {
+
+		icon = generic_civil_support
+
+		allowed = {	
+		}
+
+		visible = {
+			OR = { # has_focus_tree is not allwoed in the allowed trigger
+				has_focus_tree = austro_hungarian_releasable_focus
+				has_focus_tree = generic_focus
+			}
+			NOT = { has_government = neutrality }
+			neutrality > 0
+		}
+
+		available = {
+			neutrality < 0.2
+			IF = {
+				limit = {
+					tag = SPR
+				}
+				NOT = {
+					has_idea = SPR_political_violence
+				}
+			}
+		}
+
+		remove_trigger = {
+		}
+	
+		modifier = {
+			neutrality_drift = -0.05
+		}
+	
+		days_remove = -1
+		cost = 100
+		
+		complete_effect = {
+			hidden_effect = {
+				set_temp_variable = {
+					var = ban_ideology_var
+					value = party_popularity@neutrality
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = -1
+				}
+				add_popularity = {
+					ideology = neutrality
+					popularity = ban_ideology_var
+				}
+				multiply_temp_variable = {
+					var = ban_ideology_var
+					value = 0.66
+				}
+				set_country_flag = banned_neutrality_flag
+			}
+			custom_effect_tooltip = ban_neutrality_party_tt
+			add_stability = ban_ideology_var
+		}
+		
+		ai_will_do = {
+			base = 0
 		}
 	}
 	
@@ -2235,7 +2800,7 @@ political_actions = {
 		cost = 150
 	
 		ai_will_do = {
-			factor = 0
+			base = 0
 		}
 	}
 	
@@ -2300,7 +2865,7 @@ political_actions = {
 		cost = 150
 	
 		ai_will_do = {
-			factor = 0
+			base = 0
 		}
 	}
 	
@@ -2356,7 +2921,7 @@ political_actions = {
 		cost = 150
 		
 		ai_will_do = {
-			factor = 0
+			base = 0
 		}
 	}
 	
@@ -2421,41 +2986,37 @@ political_actions = {
 		cost = 150
 		
 		ai_will_do = {
-			factor = 0
-		}
-	}
-	drop_cosmetic_tag_im_not_a_subject_anymore = {
-
-		icon = GFX_decision_SOV_left_opposition_state
-		allowed = {
-			OR = {
-				original_tag = MOR
-				original_tag = TUN
-				original_tag = MRT
-				original_tag = PAL
-				original_tag = JOR
-				original_tag = KUW
-				original_tag = QAT
-				original_tag = UAE
+			base = 0
+			modifier = { #Help Historical AI Finland
+				add = 10
+				has_dlc = "Arms Against Tyranny"
+				original_tag = FIN
+				FIN_is_historical_ai = yes
+				has_government = neutrality
+				NOT = { has_completed_focus = FIN_the_lone_wolf }
+				neutrality < 0.85
 			}
-		}
-		available = {
-			is_subject = no
-		}
-
-		visible = {
-			
-		}
-		
-		fire_only_once = yes
-		
-		complete_effect = {
-			drop_cosmetic_tag = yes 
-		}
-		
-		ai_will_do = {
-			factor = 500
-			
+			modifier = {
+				add = 1
+				has_dlc = "No Compromise, No Surrender"
+				original_tag = CHI
+#				NOT = { has_completed_focus = CHI_end_military_primacy }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+				fascism > 0.1
+			}
+			modifier = {
+				add = 1.5
+				has_dlc = "No Compromise, No Surrender"
+				original_tag = CHI
+#				NOT = { has_completed_focus = CHI_end_military_primacy }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+				communism > 0.1
+			}
+			modifier = {
+				add = 2.5
+				has_dlc = "No Compromise, No Surrender"
+				original_tag = CHI
+#				NOT = { has_completed_focus = CHI_end_military_primacy }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+				communism > 0.25
+			}
 		}
 	}
 }

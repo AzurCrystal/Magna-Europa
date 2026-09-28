@@ -351,10 +351,18 @@ remove_perkonkrust_effect = {
 look_north_focus_effect = {
 	if = {
 		limit = { FIN = { is_in_faction = no } }
-		FIN = {
-			country_event = {
-				id = BALTIC_events.2
-				days = 1
+		if = {
+			limit = {
+				FIN = { has_idea = FIN_the_lone_wolf }
+			}
+			custom_effect_tooltip = FIN_the_lone_wolf_no_faction_tt
+		}
+		else = {
+			FIN = {
+				country_event = {
+					id = BALTIC_events.2
+					days = 1
+				}
 			}
 		}
 	}
@@ -507,6 +515,10 @@ claim_greater_LIT_effect = {
 		add_claim_by = ROOT
 		set_state_flag = greater_lithuania_flag
 	}
+	2038 = {
+		add_claim_by = ROOT
+		set_state_flag = greater_lithuania_flag
+	} # 1.19 state 834 Balta -> mod 2038-Balta
 }
 remove_all_temp_boosts_baltic = {
 	if = {
@@ -631,7 +643,8 @@ give_fascist_tank_licences = { #does not have to take non-dlc into account becau
 give_aircraft_and_licences = {	
 	if = {
 		limit = {
-			has_tech = jet_fighter2
+			#has_tech = jet_fighter2
+			is_special_project_completed = sp:sp_air_axial_jet_engine
 		}
 		create_production_license = {
 			target = ROOT
@@ -650,7 +663,8 @@ give_aircraft_and_licences = {
 	}
 	else_if = {
 		limit = {
-			has_tech = jet_fighter1
+			#has_tech = jet_fighter1
+			is_special_project_completed = sp:sp_air_jet_engine
 		}
 		create_production_license = {
 			target = ROOT

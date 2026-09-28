@@ -1,5 +1,108 @@
 POR_overseas_provinces = {
-	
+
+#	POR_angola_overseas_province = {   # 1.19-migration: gated focus absent in mod; overseas states off-map — decision disabled
+
+#		icon = infiltrate_state
+
+#		available = {
+			
+#			has_completed_focus = POR_luso_tropicalism
+#			AND = {
+#				POR = {
+##					controls_state = 540   # was vanilla 540 (Luanda, off-map)
+#					controls_state = 2974   # 1.19-migration: was vanilla 796 (Cabinda)
+##					controls_state = 891   # was vanilla 891 (Zambesi, off-map)
+##					controls_state = 892   # was vanilla 892 (South West Angola, off-map)
+#				}
+#				ANG = { exists = no }
+#			}
+#		}
+
+#		cost = 0
+#		fire_only_once = yes
+#		days_remove = 730
+#		ai_will_do = {
+#			factor = 2
+#		}
+#		modifier = {
+#			political_power_gain = -0.2
+#		}
+#		visible = {
+#			has_completed_focus = POR_luso_tropicalism
+#		}
+#		remove_effect = {
+#			country_event = lar_portugal_overseas_provinces.1
+#		}		
+#	}
+
+#	POR_mozambique_overseas_territory = {   # 1.19-migration: gated focus absent in mod; overseas states off-map — decision disabled
+
+#		icon = infiltrate_state
+
+#		available = {
+#			has_completed_focus = POR_luso_tropicalism
+#			AND = {
+#				POR = {
+##					controls_state = 544   # was vanilla 544 (Lourenco Marques, off-map)
+##					controls_state = 896   # was vanilla 896 (Manica e Sofala, off-map)
+##					controls_state = 897   # was vanilla 897 (Zambezia-Mocambique, off-map)
+#				}
+#				MZB = { exists = no }
+#			}
+#		}
+
+#		cost = 0
+#		fire_only_once = yes
+#		days_remove = 730
+#		ai_will_do = {
+#			factor = 2
+#		}
+
+#		modifier = {
+#			political_power_gain = -0.2
+#		}
+		
+#		visible = {
+#			has_completed_focus = POR_luso_tropicalism
+#		}
+#		remove_effect = {			
+#			country_event = lar_portugal_overseas_provinces.2
+#		}
+#	}	
+
+#	POR_timor_overseas_territory = {   # 1.19-migration: gated focus absent in mod; overseas states off-map — decision disabled
+
+#		icon = infiltrate_state
+
+#		available = {
+#			has_completed_focus = POR_revert_the_local_autonomy_policies
+#			AND = {
+#				POR = {
+#					controls_state = 2975   # 1.19-migration: was vanilla 721 (East Timor)
+#				}
+#				TML = { exists = no }
+#			}
+#		}
+
+#		cost = 0
+#		fire_only_once = yes
+#		days_remove = 420 
+#		ai_will_do = {
+#			factor = 2
+#		}
+
+#		modifier = {
+#			political_power_gain = -0.1
+#		}
+		
+#		visible = {
+#			has_completed_focus = POR_revert_the_local_autonomy_policies
+#		}
+#		remove_effect = {			
+#			country_event = lar_portugal_overseas_provinces.3
+#		}
+#	}	
+
 }
 
 POR_arms_purchases = {
@@ -73,6 +176,16 @@ POR_arms_purchases = {
 				type = artillery_equipment
 				amount = 100
 				producer = ENG
+			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_equipment_subsidy = {
+					cic = 250
+					equipment_type = artillery_equipment
+					seller_tags = { ENG } 
+				}
 			}
 			ENG = {
 				add_offsite_building = {
@@ -151,6 +264,17 @@ POR_arms_purchases = {
 				type = anti_air_equipment
 				amount = 100
 				producer = ENG
+			}
+
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_equipment_subsidy = {
+					cic = 250
+					equipment_type = anti_air_equipment
+					seller_tags = { ENG } 
+				}
 			}
 			ENG = {
 				add_offsite_building = {
@@ -231,6 +355,16 @@ POR_arms_purchases = {
 				amount = 100
 				producer = ENG
 			}
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_equipment_subsidy = {
+					cic = 250
+					equipment_type = anti_tank_equipment
+					seller_tags = { ENG } 
+				}
+			}
 			ENG = {
 				add_offsite_building = {
 					type = industrial_complex
@@ -285,14 +419,14 @@ POR_arms_purchases = {
 				NOT = { has_war_with = ROOT }
 				has_civil_war = no
 				has_capitulated = no
-				owns_state = 2475 #Owns London
+				owns_state = 2475   # 1.19-migration: was vanilla 126 (Greater London Area) #Owns London
 			}
 			NOT = {	has_country_flag = POR_ships_purchase_in_progress_flag }
 			NOT = { has_country_flag = POR_british_ships_purchase_rejected_flag }
 		}
 		complete_effect = {
 			ENG = {
-				country_event = { id = lar_portugal_purchase_ships.1 }
+				country_event = { id = lar_portugal_purchase_ships.1 hours = 3 }
 			}
 			set_country_flag = POR_ships_purchase_in_progress_flag
 			set_country_flag = {
@@ -338,14 +472,14 @@ POR_arms_purchases = {
 				NOT = { has_war_with = ROOT }
 				has_civil_war = no
 				has_capitulated = no
-				owns_state = 876 #Owns Rome
+				owns_state = 876   # 1.19-migration: was vanilla 2 (Lazio) #Owns Rome
 			}
 			NOT = { has_country_flag = POR_ships_purchase_in_progress_flag }
 			NOT = { has_country_flag = POR_british_ships_purchase_rejected_flag }
 		}
 		complete_effect = {
 			ITA = {
-				country_event = { id = lar_portugal_purchase_ships.1 }
+				country_event = { id = lar_portugal_purchase_ships.1 hours = 3}
 			}
 			set_country_flag = POR_ships_purchase_in_progress_flag
 			set_country_flag = {
@@ -384,7 +518,7 @@ POR_arms_purchases = {
 						has_war_with = ROOT
 						has_civil_war = yes
 						has_capitulated = yes
-						NOT = { owns_state = 2475 } #Owns London
+						NOT = { owns_state = 2475 }   # 1.19-migration: was vanilla 126 (Greater London Area) #Owns London
 					}
 				}
 			}
@@ -439,6 +573,7 @@ POR_arms_purchases = {
 							type = ship_hull_submarine_4
 							name_group = POR_SS_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_torpedo_slot = ship_torpedo_sub_1
 								fixed_ship_engine_slot = sub_ship_engine_1
@@ -461,6 +596,7 @@ POR_arms_purchases = {
 							type = ship_hull_submarine_3
 							name_group = POR_SS_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_torpedo_slot = ship_torpedo_sub_1
 								fixed_ship_engine_slot = sub_ship_engine_1
@@ -487,6 +623,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_4
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 3
 								sub_torpedo_upgrade = 3
@@ -507,6 +644,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_3
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								sub_torpedo_upgrade = 3
@@ -527,6 +665,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_2
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								sub_torpedo_upgrade = 2
@@ -543,6 +682,7 @@ POR_arms_purchases = {
 					create_equipment_variant = {
 						name = "Delfim Class"
 						type = submarine_2
+						allow_without_tech = yes
 						upgrades = {
 							ship_reliability_upgrade = 2
 							sub_torpedo_upgrade = 2
@@ -597,7 +737,7 @@ POR_arms_purchases = {
 						has_war_with = ROOT
 						has_civil_war = yes
 						has_capitulated = yes
-						NOT = { owns_state = 876 } #Owns Rome
+						NOT = { owns_state = 876 }   # 1.19-migration: was vanilla 2 (Lazio) #Owns Rome
 					}
 				}
 			}	
@@ -653,6 +793,7 @@ POR_arms_purchases = {
 							type = ship_hull_submarine_4
 							name_group = POR_SS_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_torpedo_slot = ship_torpedo_sub_1
 								fixed_ship_engine_slot = sub_ship_engine_1
@@ -675,6 +816,7 @@ POR_arms_purchases = {
 							type = ship_hull_submarine_3
 							name_group = POR_SS_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_torpedo_slot = ship_torpedo_sub_1
 								fixed_ship_engine_slot = sub_ship_engine_1
@@ -701,6 +843,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_4
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 3
 								sub_torpedo_upgrade = 3
@@ -721,6 +864,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_3
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								sub_torpedo_upgrade = 3
@@ -741,6 +885,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_2
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								sub_torpedo_upgrade = 2
@@ -758,6 +903,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Delfim Class"
 							type = submarine_1
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								sub_torpedo_upgrade = 2
@@ -813,7 +959,7 @@ POR_arms_purchases = {
 						has_war_with = ROOT
 						has_civil_war = yes
 						has_capitulated = yes
-						NOT = { owns_state = 2475 } #Owns London
+						NOT = { owns_state = 2475 }   # 1.19-migration: was vanilla 126 (Greater London Area) #Owns London
 					}
 				}
 			}
@@ -868,6 +1014,7 @@ POR_arms_purchases = {
 							type = ship_hull_light_4
 							name_group = POR_DD_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_battery_1
 								fixed_ship_anti_air_slot = ship_anti_air_1
@@ -894,6 +1041,7 @@ POR_arms_purchases = {
 							type = ship_hull_light_3
 							name_group = POR_DD_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_battery_1
 								fixed_ship_anti_air_slot = ship_anti_air_1
@@ -917,6 +1065,7 @@ POR_arms_purchases = {
 							type = ship_hull_light_2
 							name_group = POR_DD_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_battery_1
 								fixed_ship_anti_air_slot = ship_anti_air_1
@@ -943,6 +1092,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_4
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 4
 								destroyer_engine_upgrade = 2
@@ -963,6 +1113,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_3
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 3
 								destroyer_engine_upgrade = 2
@@ -980,6 +1131,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_2
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 2
 								destroyer_engine_upgrade = 1
@@ -1034,7 +1186,7 @@ POR_arms_purchases = {
 						has_war_with = ROOT
 						has_civil_war = yes
 						has_capitulated = yes
-						NOT = { owns_state = 876 } #Owns Rome
+						NOT = { owns_state = 876 }   # 1.19-migration: was vanilla 2 (Lazio) #Owns Rome
 					}
 				}
 			}
@@ -1090,6 +1242,7 @@ POR_arms_purchases = {
 							type = ship_hull_light_4
 							name_group = POR_DD_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_battery_1
 								fixed_ship_anti_air_slot = ship_anti_air_1
@@ -1116,6 +1269,7 @@ POR_arms_purchases = {
 							type = ship_hull_light_3
 							name_group = POR_DD_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_battery_1
 								fixed_ship_anti_air_slot = ship_anti_air_1
@@ -1139,6 +1293,7 @@ POR_arms_purchases = {
 							type = ship_hull_light_2
 							name_group = POR_DD_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_battery_1
 								fixed_ship_anti_air_slot = ship_anti_air_1
@@ -1165,6 +1320,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_4
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 4
 								destroyer_engine_upgrade = 2
@@ -1185,6 +1341,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_3
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 3
 								destroyer_engine_upgrade = 2
@@ -1205,6 +1362,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_2
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 2
 								destroyer_engine_upgrade = 1
@@ -1222,6 +1380,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Vouga Class"
 							type = destroyer_1
+							allow_without_tech = yes
 							upgrades = {
 								ship_torpedo_upgrade = 1
 								destroyer_engine_upgrade = 1
@@ -1276,7 +1435,7 @@ POR_arms_purchases = {
 						has_war_with = ROOT
 						has_civil_war = yes
 						has_capitulated = yes
-						NOT = { owns_state = 2475 } #Owns London
+						NOT = { owns_state = 2475 }   # 1.19-migration: was vanilla 126 (Greater London Area) #Owns London
 					}
 				}
 			}
@@ -1321,6 +1480,7 @@ POR_arms_purchases = {
 							type = ship_hull_cruiser_4
 							name_group = POR_CL_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_medium_battery_2
 								fixed_ship_anti_air_slot = ship_anti_air_2
@@ -1348,6 +1508,7 @@ POR_arms_purchases = {
 							type = ship_hull_cruiser_3
 							name_group = POR_CL_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_medium_battery_2
 								fixed_ship_anti_air_slot = ship_anti_air_2
@@ -1372,6 +1533,7 @@ POR_arms_purchases = {
 							type = ship_hull_cruiser_2
 							name_group = POR_CL_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_medium_battery_2
 								fixed_ship_anti_air_slot = ship_anti_air_2
@@ -1399,6 +1561,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_4
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 4
 								ship_engine_upgrade = 3
@@ -1418,6 +1581,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_3
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 4
 								ship_engine_upgrade = 2
@@ -1437,6 +1601,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_2
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 3
 								ship_engine_upgrade = 2
@@ -1453,6 +1618,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_1
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								ship_engine_upgrade = 1
@@ -1506,7 +1672,7 @@ POR_arms_purchases = {
 						has_war_with = ROOT
 						has_civil_war = yes
 						has_capitulated = yes
-						NOT = { owns_state = 876 } #Owns Rome
+						NOT = { owns_state = 876 }   # 1.19-migration: was vanilla 2 (Lazio) #Owns Rome
 					}
 				}
 			}
@@ -1561,6 +1727,7 @@ POR_arms_purchases = {
 							type = ship_hull_cruiser_4
 							name_group = POR_CL_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_medium_battery_2
 								fixed_ship_anti_air_slot = ship_anti_air_2
@@ -1588,6 +1755,7 @@ POR_arms_purchases = {
 							type = ship_hull_cruiser_3
 							name_group = POR_CL_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_medium_battery_2
 								fixed_ship_anti_air_slot = ship_anti_air_2
@@ -1612,6 +1780,7 @@ POR_arms_purchases = {
 							type = ship_hull_cruiser_2
 							name_group = POR_CL_HISTORICAL
 							parent_version = 0
+							allow_without_tech = yes
 							modules = {
 								fixed_ship_battery_slot = ship_light_medium_battery_2
 								fixed_ship_anti_air_slot = ship_anti_air_2
@@ -1639,6 +1808,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_4
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 4
 								ship_engine_upgrade = 3
@@ -1658,6 +1828,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_3
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 4
 								ship_engine_upgrade = 2
@@ -1677,6 +1848,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_2
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 3
 								ship_engine_upgrade = 2
@@ -1693,6 +1865,7 @@ POR_arms_purchases = {
 						create_equipment_variant = {
 							name = "Atlântico Class"
 							type = light_cruiser_1
+							allow_without_tech = yes
 							upgrades = {
 								ship_reliability_upgrade = 2
 								ship_engine_upgrade = 1
@@ -1979,6 +2152,123 @@ POR_iberian_summit = {
 		}	
 	}
 
+	POR_iberian_summit_pro_allies = {
+		icon = eng_trade_unions_support
+
+		allowed = {
+			OR = {
+				original_tag = POR
+				tag = SPA
+				tag = SPD
+			}
+		}
+
+		available = {		
+			POR = { has_war = no }
+			if = {
+				limit = {
+					country_exists = SPA #This is the prio
+				}
+				SPA = { has_war = no }
+			}
+			else_if = {
+				limit = {
+					country_exists = SPD
+				}
+				SPD = { has_war = no }
+			}
+			else = {
+				SPR = { has_war = no }
+			}
+			NOT = { has_global_flag = POR_iberian_summit_in_progress_flag }
+		}
+
+		visible = {
+			NOT = { has_global_flag = POR_iberian_summit_pro_allies_flag }
+			country_exists = POR
+			POR = {
+				is_in_faction = no
+				has_completed_focus = POR_iberian_summit
+				NOT = { has_government = fascism }
+				NOT = { has_government = communism }
+			}
+			if = {
+				limit = {
+					country_exists = SPA #This is the prio
+				}
+				SPA = {
+					is_in_faction = no
+					has_completed_focus = SPA_unify_the_nationalist_front
+					NOT = { has_completed_focus = SPA_the_iberian_pact }
+				}
+			}
+			else = {
+				country_exists = SPD
+				SPD = {
+					is_in_faction = no
+					has_completed_focus = SPR_maintain_the_second_republic
+					has_government = democratic
+				}
+			}
+			ENG = { 
+				is_faction_leader = yes 
+				has_government = democratic
+				has_capitulated = no
+			}
+		}
+
+		cost = 50
+		fire_only_once = yes
+		days_remove = 1
+		ai_will_do = { 
+			base = 0
+			modifier = {
+				add = 1
+				POR = {
+					has_completed_focus = POR_allow_free_elections
+				}					
+				OR = {
+					ENG = {
+						has_war = yes 
+						OR = {
+							alliance_strength_ratio > 0.75
+							any_war_score > 40
+						}
+					}
+					has_opinion = { target = ENG value > 0 }		
+				}
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+
+		complete_effect = {
+			set_global_flag = POR_iberian_summit_pro_allies_flag
+			set_global_flag = POR_iberian_summit_in_progress_flag
+			set_country_flag = POR_iberian_summit_initiator_flag
+			set_variable = { global.POR_iberian_summit_target = ENG }
+			if = {
+				limit = { country_exists = SPA }
+				set_variable = { global.POR_iberian_summit_spanish_tag = SPA }
+			} 
+			else = {
+				set_variable = { global.POR_iberian_summit_spanish_tag = SPD }
+			}
+			if = {
+				limit = { tag = POR }
+				951 = {   # 1.19-migration: was vanilla 41 (Madrid)
+					owner = { country_event = { id = lar_portugal_iberian_summit.5 hours = 18 random_hours = 6 } }
+				}
+			}
+			else = {
+				POR = { 
+					country_event = { id = lar_portugal_iberian_summit.5 hours = 18 random_hours = 6 }
+				}
+			}
+		}	
+	}
 	#Timed Decision for delaying proposal
 	POR_iberian_summit_proposal_delayed = {
 		icon = generic_political_discourse
@@ -2093,7 +2383,155 @@ POR_iberian_summit = {
 
 POR_monarchist_cause = {
 
+	POR_stir_monarchist_sentiment_in_brazil = {
+		icon = generic_political_discourse
 
+		allowed = {
+			has_dlc = "La Resistance"
+			original_tag = POR
+		}
+
+		available = {
+			BRA = { 
+				has_war = no 
+				IF = {
+					limit = {
+						has_dlc = "Trial of Allegiance"
+					}
+				
+					NOT = {
+						has_country_flag = BRA_rejected_monarchism
+#						has_completed_focus = BRA_romanticize_the_old_empire   # 1.19-migration: focus absent in mod
+					}
+				}
+			}
+		}
+
+		cost = 25
+		fire_only_once = no
+
+		ai_will_do = {
+			base = 5
+		}
+		visible = {
+			has_completed_focus = POR_a_royal_wedding
+#			NOT = { has_completed_focus = POR_the_empire_of_brazil }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+			country_exists = BRA
+		}
+
+		cancel_trigger = {
+			OR = {
+#				has_completed_focus = POR_the_empire_of_brazil   # 1.19-migration: focus absent in mod
+				has_war_with = BRA
+				BRA = { neutrality < -0.15 }
+			}
+		}
+
+		cancel_effect = {
+			BRA = {
+				clr_country_flag = POR_portugal_stirring_brazilian_monarchists_flag
+				set_country_flag = POR_brazilian_monarchists_stirred_flag
+			}
+		}
+
+		modifier = {
+			political_power_gain = -0.5
+		}
+		days_remove = 180
+
+		remove_effect = {
+			BRA = {
+				clr_country_flag = POR_portugal_stirring_brazilian_monarchists_flag
+				set_country_flag = POR_brazilian_monarchists_stirred_flag
+			}
+		}
+
+		complete_effect = {
+			custom_effect_tooltip = POR_stir_monarchist_sentiment_in_brazil_tt
+			BRA = { 
+				activate_decision = POR_portugal_promoting_monarchist_cause_in_brazil
+				set_country_flag = POR_portugal_stirring_brazilian_monarchists_flag 
+				country_event = { id = lar_portugal_promote_monarchist_cause.1 }
+			}
+		}
+	}
+
+	#Mission for BRA when POR starts promoting monarchist cause in BRA.
+	POR_portugal_promoting_monarchist_cause_in_brazil = {
+		icon = generic_civil_support
+
+		allowed = {
+			has_dlc = "La Resistance"
+			original_tag = BRA
+		}
+
+		visible = {
+			has_country_flag = POR_portugal_stirring_brazilian_monarchists_flag
+		}
+
+		cancel_trigger = {
+			OR = {
+				NOT = { has_country_flag = POR_portugal_stirring_brazilian_monarchists_flag }
+#				POR = { has_completed_focus = POR_the_empire_of_brazil }   # 1.19-migration: focus absent in mod
+				neutrality < -0.15
+				has_war_with = POR
+			}
+		}
+
+		fire_only_once = no
+
+		modifier = {
+			neutrality_drift = 0.1
+			stability_weekly = -0.01
+		}
+
+		days_remove = 180
+	}
+
+	#Decision for BRA to fight brazilian monarchists
+	POR_repress_brazilian_monarchists = {
+		icon = oppression
+
+		allowed = {
+			has_dlc = "La Resistance"
+			original_tag = BRA
+		}
+
+		available = {
+			neutrality < 1
+		}
+
+		cost = 25
+		fire_only_once = no
+
+		ai_will_do = {
+			factor = 0
+		}
+		visible = {
+			OR = {
+				has_country_flag = POR_portugal_stirring_brazilian_monarchists_flag
+				has_country_flag = POR_brazilian_monarchists_stirred_flag
+			}
+			country_exists = POR
+#			POR = { NOT = { has_completed_focus = POR_the_empire_of_brazil } }   # 1.19-migration: focus absent in mod (NOT would be vacuously true)
+		}
+
+		cancel_trigger = {
+#			POR = { has_completed_focus = POR_the_empire_of_brazil }   # 1.19-migration: focus absent in mod
+		}
+
+		modifier = {
+			stability_factor = -0.05
+			political_power_gain  = -0.5
+			neutrality_drift = -0.1
+		}
+
+		days_remove = 180
+
+		remove_effect = {
+			clr_country_flag = POR_brazilian_monarchists_stirred_flag
+		}
+	}
 
 	#Decision to boost unaligned popularity in Portugal 
 	POR_stir_monarchist_sentiment_in_portugal = {
@@ -2112,7 +2550,7 @@ POR_monarchist_cause = {
 		fire_only_once = no
 
 		ai_will_do = {
-			base = 1
+			base = 0 # This is self-saboutaging for the AI 
 		}
 		visible = {
 			has_completed_focus = POR_a_royal_wedding
@@ -2133,7 +2571,7 @@ POR_monarchist_cause = {
 }
 
 POR_prospect_for_resources = {
-	POR_develop_lisbon_tungsten_deposits = { #1042
+	POR_develop_lisbon_tungsten_deposits = { #112
 		
 		icon = tungsten
 
@@ -2143,21 +2581,21 @@ POR_prospect_for_resources = {
 
 		highlight_states = {
  highlight_state_targets = {
-			state = 1042
+			state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
 		} 
 }
 
 		available = {
 			has_completed_focus = POR_extraction_industries
 			num_of_civilian_factories_available_for_projects > 2
-			owns_state = 1042
-			controls_state = 1042
+			owns_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
+			controls_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
 		}
 
 		visible = {
-			owns_state = 1042
-			controls_state = 1042
-			1042 = {
+			owns_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
+			controls_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
+			1042 = {   # 1.19-migration: was vanilla 112 (Lisbon)
 				NOT = {	has_state_flag = POR_lisbon_tungsten_developed_flag }
 			}
 		}
@@ -2171,8 +2609,8 @@ POR_prospect_for_resources = {
 		}
 
 		remove_effect = {
-			1042 = {	set_state_flag = POR_lisbon_tungsten_developed_flag }
-			1042 = {
+			1042 = {	set_state_flag = POR_lisbon_tungsten_developed_flag }   # 1.19-migration: was vanilla 112 (Lisbon)
+			1042 = {   # 1.19-migration: was vanilla 112 (Lisbon)
 				add_resource = {
 					type = tungsten
 					amount = 10
@@ -2189,7 +2627,7 @@ POR_prospect_for_resources = {
 		}
 	}
 
-	POR_develop_santarem_chromium_deposits = { #1053
+	POR_develop_santarem_chromium_deposits = { #795
 		
 		icon = chromium
 
@@ -2199,21 +2637,21 @@ POR_prospect_for_resources = {
 
 		highlight_states = {
  highlight_state_targets = {
-			state = 1053
+			state = 1021   # 1.19-migration: was vanilla 795 (Santarem)
 		} 
 }
 
 		available = {
 			has_completed_focus = POR_extraction_industries
 			num_of_civilian_factories_available_for_projects > 1
-			owns_state = 1053
-			controls_state = 1053
+			owns_state = 1021   # 1.19-migration: was vanilla 795 (Santarem)
+			controls_state = 1021   # 1.19-migration: was vanilla 795 (Santarem)
 		}
 
 		visible = {
-			owns_state = 1053
-			controls_state = 1053
-			1053 = {
+			owns_state = 1021   # 1.19-migration: was vanilla 795 (Santarem)
+			controls_state = 1021   # 1.19-migration: was vanilla 795 (Santarem)
+			1021 = {   # 1.19-migration: was vanilla 795 (Santarem)
 				NOT = {
 					has_state_flag = { 
 						flag = POR_santarem_chromium_developed_flag
@@ -2232,7 +2670,7 @@ POR_prospect_for_resources = {
 
 		remove_effect = {
 			add_to_variable = { var = POR_santarem_chromium_duration value = 30 }
-			1053 = {
+			1021 = {   # 1.19-migration: was vanilla 795 (Santarem)
 				if = {
 					limit = {
 						NOT = {
@@ -2251,7 +2689,7 @@ POR_prospect_for_resources = {
 					}
 				}
 			}
-			1053 = {
+			1021 = {   # 1.19-migration: was vanilla 795 (Santarem)
 				add_resource = {
 					type = chromium
 					amount = 2
