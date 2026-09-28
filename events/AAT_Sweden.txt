@@ -3398,9 +3398,9 @@ country_event = {
 			}
 		}
 		
-		47 = {
-			transfer_state_to = SWE
-		}
+#		47 = {  # vanilla 47 (Greece) hardcoded transfer; off-map
+#			transfer_state_to = SWE
+#		}
 
 		hidden_effect = {
 			if = { 
@@ -3537,7 +3537,7 @@ country_event = { #BOrnhom is accepted
 	option = {
 		name = AAT_Sweden.32.a
 		effect_tooltip = {
-			164 = {
+			164 = {   # 1.19-migration: mod state Bornholm
 				set_state_owner_to = ROOT 
 			}
 		}
@@ -3602,7 +3602,7 @@ country_event = { #yes
 
 			modifier = {
 
-				164 = {
+				164 = {   # 1.19-migration: mod state Bornholm
 					is_owned_and_controlled_by = FROM
 				}
 
@@ -3619,7 +3619,7 @@ country_event = { #yes
 
 		if = {
 			limit = {
-				90 = {
+				90 = {   # 1.19-migration: mod state Faero
 					is_owned_and_controlled_by = ROOT  
 				}
 			}
@@ -3707,12 +3707,12 @@ country_event = { #overseas territories is accepted
 		effect_tooltip = {
 			if = {
 				limit = {
-					90 = {
+					90 = {   # 1.19-migration: mod state Faero
 						is_owned_and_controlled_by = ROOT
 					}
 				}
 
-				90 = {
+				90 = {   # 1.19-migration: mod state Faero
 					set_state_owner_to = ROOT 
 				}
 			}
@@ -3873,7 +3873,7 @@ country_event = {
 
 			modifier = {
 
-				164 = {
+				164 = {   # 1.19-migration: mod state Bornholm
 					is_owned_and_controlled_by = FROM
 				}
 
@@ -3939,7 +3939,7 @@ country_event = { #yes
 
 		if = {
 			limit = {
-				98 = {
+				98 = {   # 1.19-migration: mod state Aland
 					is_owned_and_controlled_by = ROOT  
 				}
 			}
@@ -4002,10 +4002,10 @@ country_event = {
 		transfer_state = 98
 		if = {
 			limit = { 98 = { is_demilitarized_zone = yes }}
-			98 = { set_demilitarized_zone = no }
+			98 = { set_demilitarized_zone = no }   # 1.19-migration: mod state Aland
 		}
 
-		98 = { 
+		98 = {   # 1.19-migration: mod state Aland
 			add_extra_state_shared_building_slots = 2 
 			add_core_of = ROOT
 		}
@@ -4072,7 +4072,7 @@ country_event = { #yes
 			}
 		}
 
-		14 = {
+		14 = {   # 1.19-migration: mod state Lappi
 			set_demilitarized_zone = yes
 		}
 		2699 = {
@@ -4291,7 +4291,7 @@ country_event = {
 
 			modifier = {
 
-				14 = {
+				14 = {   # 1.19-migration: mod state Lappi
 					is_demilitarized_zone = yes
 				}
 
@@ -4928,7 +4928,7 @@ country_event = {
 			state = 226
 		}
 
-		226 = {
+		226 = {   # 1.19-migration: mod state Gotland
 			add_extra_state_shared_building_slots = 4
 		}
 
@@ -5964,14 +5964,14 @@ country_event = { #Sweden requests control of the Aland islands
 		
 		if = {
 			limit = {
-				145 = {
+				98 = {   # was vanilla 145 (Aland)
 					is_claimed_by = FROM
 				}
 			}
 			FROM = { remove_state_claim = 145 }
 		}
 		FROM = { transfer_state = 98 }
-		145 = {
+		98 = {   # was vanilla 145 (Aland)
 			add_core_of = FROM
 			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
@@ -6040,14 +6040,14 @@ country_event = { #agreed for a price
 		
 		if = {
 			limit = {
-				98 = {
+				98 = {   # 1.19-migration: mod state Aland
 					is_claimed_by = FROM
 				}
 			}
 			FROM = { remove_state_claim = 98 }
 		}
 		transfer_state = 98
-		98 = {
+		98 = {   # 1.19-migration: mod state Aland
 			add_core_of = ROOT
 			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
