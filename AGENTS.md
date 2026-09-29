@@ -2,14 +2,6 @@
 
 Guidance for AI agents working on this HOI4 mod. Read before touching anything.
 
-## Environment
-
-- Repo root: `D:/Projects/Magna-Europa`, branch `develop` (main = release, ff-only)
-- Vanilla reference: `C:/Program Files (x86)/Steam/steamapps/common/Hearts of Iron IV` (1.19.x)
-- Mod's own 1.18 baseline snapshot: `_118_base/` (untracked, for diffing only)
-- Map geometry: 4096×3072 — province IDs share vanilla's number space but are NOT the same provinces
-- Launch debug session: `powershell -Command 'Start-Process "…/hoi4.exe" -ArgumentList "-debug -nolauncher"'` (requires Steam client running; `steam://rungameid` ignores args)
-- Logs: `%USERPROFILE%/Documents/Paradox Interactive/Hearts of Iron IV/logs/` — `error.log` is the primary health signal
 
 ## Non-negotiable rules learned the hard way
 
@@ -43,9 +35,8 @@ RSI in 1939, Soviet Poland, Yugoslavia splits etc. are legal non-historical outc
 ## Workflow conventions
 
 - Conventional commits, English messages, `--no-verify`, push `develop`.
-- Rebase hygiene: after any squash/drop, `git diff <pre-rebase-backup> develop` MUST be empty.
-- Workshop upload: steamcmd VDF against `Documents/.../mod/Magna-Europa-Release` (sync from repo first, `rm -rf`+`cp -r`, never rsync — not installed). Appid 394360, publishedfileid 3809580289. See `mod/magna_workshop.vdf` for the manifest format.
-- GitHub release notes: English, no PDX-bug laundry list.
+- Rebase hygiene: after any squash/drop, `git diff --quiet <pre-rebase-backup> develop` MUST exit 0 (tree-identical).
+- Releases: bump `version=` in `descriptor.mod` + `Magna Europa.mod`, tag `vX.Y.Z`, GitHub release notes in English.
 
 
 ## Deliberate balance choices (not bugs)
