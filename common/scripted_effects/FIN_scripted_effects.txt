@@ -177,8 +177,8 @@ FIN_pact_for_continuation_war_start = { #To be used on FIN's scope - Used immedi
 			relation = docking_rights 
 			active = yes
 		}
-		if = {  # 1.19-migration: guard - NAP already exists when pact fires
-			limit = { NOT = { has_non_aggression_pact = GER } }
+		if = {  # 1.19-migration: guard - NAP may already exist when pact fires
+			limit = { NOT = { GER = { has_non_aggression_pact_with = FIN } } }
 			diplomatic_relation = { 
 				country = GER
 				relation = non_aggression_pact 
