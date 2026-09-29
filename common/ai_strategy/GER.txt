@@ -1053,6 +1053,57 @@ GER_dont_join_gie_wars_early = {
 }
 
 
+#GER_japan_ally = {   # 1.19-migration: dead tag
+#	allowed = {
+#		original_tag = GER
+#	}
+#	enable = {
+#		has_completed_focus = GER_befriend_japan
+#		country_exists = JAP
+#	}
+#	abort = {
+#		NOT = { country_exists = JAP }
+#	}
+#
+#	ai_strategy = {
+#		type = befriend
+#		id = JAP
+#		value = 200
+#	}
+#	ai_strategy = {
+#		type = alliance
+#		id = JAP
+#		value = 200
+#	}
+#}
+
+#GER_china_ally = {   # 1.19-migration: dead tag
+#	allowed = {
+#		original_tag = GER
+#	}
+#	enable = {
+#		OR = {
+#			has_completed_focus = GER_befriend_china
+#			has_completed_focus = GER_closer_sino_germanic_relations
+#		}
+#		country_exists = CHI
+#	}
+#	abort = {
+#		NOT = { country_exists = CHI }
+#	}
+#
+#	ai_strategy = {
+#		type = befriend
+#		id = CHI
+#		value = 200
+#	}
+#	ai_strategy = {
+#		type = alliance
+#		id = CHI
+#		value = 200
+#	}
+#}
+
 GER_turkey_ally = {
 	allowed = {
 		original_tag = GER
@@ -1451,6 +1502,40 @@ GER_play_nice_with_ribbentrop_pact = {
 	}
 }
 
+
+#GER_tfv_protect_fascist_south_africa = {   # 1.19-migration: dead tag
+#	allowed = {
+#		original_tag = GER
+#	}
+#	enable = {
+#		has_country_flag = saf_fascist_uprising # Set from the national focus
+#	}
+#	abort = {
+#		surrender_progress > 0.8
+#		SAF = { has_civil_war = no }
+#	}
+#
+#	ai_strategy = {
+#		type = protect
+#		id = SAF
+#		value = 200
+#	}
+#	ai_strategy = {
+#		type = send_volunteers_desire
+#		id = SAF
+#		value = 200
+#	}
+#	ai_strategy = {
+#		type = support
+#		id = SAF
+#		value = 200
+#	}
+#	ai_strategy = {
+#		type = alliance
+#		id = SAF
+#		value = 200
+#	}
+#}
 
 GER_less_naval_focused_nation = {
 	allowed = {
@@ -2281,6 +2366,64 @@ AXIS_stay_away_from_the_royal_navy = {
 	ai_strategy = {
 		type = naval_avoid_region
 		id = 244 #around UK
+		value = 100
+	}
+}
+
+AXIS_raid_from_brest = {
+	enable = {
+		has_war_with = ENG
+		date < 1942.1.1
+		FRA = { has_capitulated = yes }
+
+		OR = {
+			GER = {
+				naval_strength_ratio = {
+					tag = ENG
+					  ratio < 0.5
+				  }
+			  }
+
+			# if we manage to get a foothold in UK we must do what we can to exploit it! (checks coastal states)  # 1.19-migration: remapped vanilla 120-136 GB states to mod coastal states (same set as AXIS_stay_away_from_the_royal_navy)
+			divisions_in_state = { state = 446 size < 1 }
+			divisions_in_state = { state = 413 size < 1 }
+			divisions_in_state = { state = 386 size < 1 }
+			divisions_in_state = { state = 356 size < 1 }
+			divisions_in_state = { state = 313 size < 1 }
+			divisions_in_state = { state = 290 size < 1 }
+			divisions_in_state = { state = 258 size < 1 }
+			divisions_in_state = { state = 234 size < 1 }
+			divisions_in_state = { state = 221 size < 1 }
+			divisions_in_state = { state = 193 size < 1 }
+			divisions_in_state = { state = 180 size < 1 }
+			divisions_in_state = { state = 183 size < 1 }
+			divisions_in_state = { state = 158 size < 1 }
+			divisions_in_state = { state = 213 size < 1 }
+			divisions_in_state = { state = 293 size < 1 }
+			divisions_in_state = { state = 426 size < 1 }
+			divisions_in_state = { state = 410 size < 1 }
+			divisions_in_state = { state = 2959 size < 1 }
+			divisions_in_state = { state = 1535 size < 1 }
+			divisions_in_state = { state = 468 size < 1 }
+			divisions_in_state = { state = 462 size < 1 }
+		}
+	}
+	
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 209 #english channel  # 1.19-migration: was vanilla 18
+		value = 600 # avoid doing missions as well
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 240 #North Sea - around UK  # 1.19-migration: was vanilla 16
+		value = 100
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 244 #Western Approaches - around UK  # 1.19-migration: was vanilla 43
 		value = 100
 	}
 }
@@ -3221,6 +3364,26 @@ GER_stock_up_on_trains_before_barbarossa = {
 	}
 }
 
+GER_more_trains_after_barbarossa = {
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		is_historical_focus_on = yes
+		date > 1941.7.1
+		has_war = yes
+	}
+	abort_when_not_enabled = yes
+
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = train
+		value = 1  # Slightly build more trains after barbarossa started
+	}
+}
+
 GER_xp_upgrade_spending_land = {
 	allowed = {
 		original_tag = GER
@@ -3667,8 +3830,8 @@ GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border d
 				controls_state = 172
 				controls_state = 174
 				controls_state = 185
-				controls_state = 227
-				controls_state = 196
+				controls_state = 557  # 1.19-migration: was vanilla 227 (Stalino)
+				controls_state = 2085  # 1.19-migration: was vanilla 196 (Kherson)
 				controls_state = 1344
 				controls_state = 1345
 				controls_state = 1346
@@ -3689,11 +3852,11 @@ GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border d
 				#Estonia
 				controls_state = 133
 				controls_state = 134
-				controls_state = 2127
+				#controls_state = 2127  # 1.19-migration: removed (Simferopol, cross-contamination)
 				controls_state = 143
 				controls_state = 145
 				controls_state = 146
-				controls_state = 1800
+				#controls_state = 1800  # 1.19-migration: removed (Steyz Austria, cross-contamination)
 				controls_state = 155
 				controls_state = 156
 				controls_state = 157
@@ -3812,6 +3975,241 @@ GER_blitzkrieg_russia_hard_air_center  = { #get GER to focus on breaking border 
 		id = 96
 	}
 
+}
+
+GER_blitzkrieg_russia_hard_air_south  = { #get GER to focus on breaking border defenses in the initial stages of Barb
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		date < 1942.1.1
+
+		OR = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.01
+			}
+			has_war_with = SOV
+		}
+		NOT = {
+			GER = {
+				#199 Khmelnytskyi  # 1.19-migration: remapped to mod states
+				controls_state = 493
+				controls_state = 2040
+				controls_state = 2041
+				controls_state = 2494
+				controls_state = 2102
+				controls_state = 2497
+				#201 Zhytomyr  # 1.19-migration: remapped to mod states
+				controls_state = 436
+				controls_state = 2042
+				controls_state = 2053
+				controls_state = 2495
+				controls_state = 2496
+				controls_state = 2100
+				#198 Vinnytsia  # 1.19-migration: remapped to mod states
+				controls_state = 527
+				controls_state = 2048
+				controls_state = 2049
+				controls_state = 2050
+				controls_state = 2052
+				controls_state = 2039
+				controls_state = 2688
+				controls_state = 565
+				#834 Balta  # 1.19-migration: remapped to mod states
+				controls_state = 2038
+				controls_state = 2046
+				controls_state = 2681
+				controls_state = 2682
+				controls_state = 2683
+				#192 Odessa  # 1.19-migration: remapped to mod states
+				controls_state = 2045
+				controls_state = 613
+				controls_state = 617
+				#202 Western Kiev  # 1.19-migration: remapped to mod states
+				controls_state = 2027
+				controls_state = 2054
+				controls_state = 2056
+				controls_state = 2058
+				controls_state = 2081
+				controls_state = 2055
+				controls_state = 2068
+				controls_state = 2059
+				controls_state = 443
+				controls_state = 2069
+				#203 Cherkasy  # 1.19-migration: remapped to mod states
+				controls_state = 2067
+				controls_state = 2065
+				controls_state = 2066
+				controls_state = 2073
+				controls_state = 2074
+				controls_state = 510
+				controls_state = 2684
+				controls_state = 2071
+				#197 Mykolaiv  # 1.19-migration: remapped to mod states
+				controls_state = 614
+				controls_state = 618
+				controls_state = 2062
+				controls_state = 2063
+				controls_state = 2060
+				controls_state = 2061
+				controls_state = 2064
+				controls_state = 2072
+				#196 Kherson  # 1.19-migration: remapped to mod states
+				controls_state = 2085
+				controls_state = 2086
+				controls_state = 2087
+				controls_state = 2088
+				controls_state = 2089
+				controls_state = 657
+				#137 Crimea  # 1.19-migration: remapped to mod states
+				controls_state = 2044
+				controls_state = 769
+				controls_state = 2125
+				controls_state = 2126
+				controls_state = 2127
+				controls_state = 2128
+				controls_state = 2129
+				controls_state = 2130
+				#200 Rivne  # 1.19-migration: remapped to mod states
+				controls_state = 623
+				controls_state = 2078
+				controls_state = 2090
+				controls_state = 2091
+				controls_state = 2092
+				controls_state = 2043
+				controls_state = 2732
+				#226 Nikopol  # 1.19-migration: remapped to mod states
+				controls_state = 2077
+				controls_state = 2075
+				controls_state = 2076
+				controls_state = 2079
+				controls_state = 2080
+				controls_state = 2111
+				controls_state = 560
+				controls_state = 579
+				#259 Liski  # 1.19-migration: remapped to mod states
+				controls_state = 2112
+				controls_state = 2113
+				controls_state = 2124
+				controls_state = 2104
+				controls_state = 2105
+				#193 Kiev  # 1.19-migration: remapped to mod states
+				controls_state = 397
+				controls_state = 2119
+				controls_state = 2120
+				controls_state = 2121
+				controls_state = 2133
+				controls_state = 398
+				controls_state = 2118
+				#225 Glukhov  # 1.19-migration: remapped to mod states
+				controls_state = 2115
+				controls_state = 2116
+				controls_state = 2109
+				controls_state = 2114
+				controls_state = 2034
+				controls_state = 2033
+				controls_state = 2728
+				#221 Kharkov  # 1.19-migration: remapped to mod states
+				controls_state = 497
+				controls_state = 2106
+				controls_state = 2107
+				controls_state = 2108
+				controls_state = 2032
+				#227 Stalino  # 1.19-migration: remapped to mod states
+				controls_state = 557
+				controls_state = 2028
+				controls_state = 2095
+				controls_state = 2096
+				controls_state = 2306
+				controls_state = 2307
+				controls_state = 2093
+				controls_state = 2094
+				#228 Taganrog  # 1.19-migration: remapped to mod states
+				controls_state = 518
+				controls_state = 2029
+				controls_state = 2030
+				controls_state = 2031
+				controls_state = 2097
+				controls_state = 2098
+				controls_state = 2099
+				controls_state = 2308
+				controls_state = 2309
+				controls_state = 2310
+				controls_state = 2082
+				controls_state = 2724
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 79 #Strategic Region ID - Crimea  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 97 #Strategic Region ID - Eastern Polesia  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 98 #Strategic Region ID - Siveria  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 99 #Strategic Region ID - Podolia  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 100 #Strategic Region ID - Odessa  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 101 #Strategic Region ID - Sloboda  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 104 #Strategic Region ID - Donbas  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 105 #Strategic Region ID - Pryazovia  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 106 #Strategic Region ID - Zaporizhia  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 107 #Strategic Region ID - Dnepr  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 78 #Strategic Region ID - Novorossiya  # 1.19-migration: covers vanilla SR 130 (Ukraine)
+		value = 20000 #value of stocked main front in active combat is usually around 35,000
+	}
 }
 
 GER_blitzkrieg_russia_soft  = { #Rolling incursions

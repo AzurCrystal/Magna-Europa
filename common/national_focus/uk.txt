@@ -2399,13 +2399,13 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 3
-					province = 4076
+					province = 21189  # was vanilla 4076
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = naval_base
 					level = 2
-					province = 4076
+					province = 21189  # was vanilla 4076
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -2609,7 +2609,7 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 2
-					province = 21182
+					province = 21183  # was vanilla 21182
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -4153,8 +4153,8 @@ focus_tree = {
 						is_core_of = ENG
 						is_core_of = CAN
 					}
-					NOT = { state = 320 }
-					NOT = { state = 321 }
+					#NOT = { state = 320 } # 1.19-migration: off-map French India
+					#NOT = { state = 321 } # 1.19-migration: off-map Goa
 					OWNER = {
 						NOT = { tag = ENG }
 					}
@@ -8382,7 +8382,7 @@ focus_tree = {
 				limit = {
 					owns_state = 345
 					owns_state = 288
-					owns_state = 135
+					owns_state = 394 # was vanilla 135 (Munster→Cork)
 				}
 				113 = { add_core_of = ENG }
 				134 = { add_core_of = ENG }
@@ -9276,7 +9276,8 @@ focus_tree = {
 		id = ENG_bermuda_invasion_launch_point
 		prerequisite = { focus = ENG_tackle_capitalism }
 		available = {
-			has_full_control_of_state = 696
+			#has_full_control_of_state = 696   # 1.19-migration: off-map Bermuda
+			always = no  # 1.19-migration: colonial focus unavailable without off-map states
 		}
 		icon = GFX_goal_generic_position_armies
 		x = 0
@@ -9287,31 +9288,30 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			# Bermuda
-			696 = {
-				if = {
-					limit = {
-						is_controlled_by = ROOT
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 2
-						instant_build = yes
-					}
-					add_building_construction = {
-						type = air_base
-						level = 5
-						instant_build = yes
-					}
-					# Bermuda
-					add_building_construction = {
-						type = naval_base
-						level = 5
-						province = 13010
-						instant_build = yes
-					}
-				}								
-			}
+			# 1.19-migration: Bermuda off-map; block disabled (state 696 = Krasnodar in mod space)
+			#696 = {
+			#	if = {
+			#		limit = {
+			#			is_controlled_by = ROOT
+			#		}
+			#		add_building_construction = {
+			#			type = infrastructure
+			#			level = 2
+			#			instant_build = yes
+			#		}
+			#		add_building_construction = {
+			#			type = air_base
+			#			level = 5
+			#			instant_build = yes
+			#		}
+			#		add_building_construction = {
+			#			type = naval_base
+			#			level = 5
+			#			province = 13010
+			#			instant_build = yes
+			#		}
+			#	}								
+			#}
 		}
 	}
 

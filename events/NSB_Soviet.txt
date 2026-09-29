@@ -3833,13 +3833,13 @@ country_event = {
 				any_owned_state = {
 					is_core_of = ROOT
 					is_in_home_area = yes
-					NOT = {	state = 536 } #HOKKAIDO
+					# 1.19-migration: off-map Hokkaido: NOT = {	state = 536 } #HOKKAIDO
 					is_controlled_by = FROM
 				}
 			}
 			modifier = {
 				factor = 10
-				NOT = { has_full_control_of_state = 282 } #KANTO (Tokyo)
+				# NOT = { has_full_control_of_state = 282 } #KANTO (Tokyo)   # 1.19-migration: off-map Japan (was vanilla 282; mod 282=Rastenburg)
 			}
 			modifier = { #Appropriate PC for Foreign Affairs
 				factor = 1.5
@@ -3870,8 +3870,8 @@ country_event = {
 #			555 = {
 #				add_core_of = FROM
 #			}
-			transfer_state = 537
-			transfer_state = 555
+			# 1.19-migration: off-map South Sakhalin+Kuril Islands: transfer_state = 537
+			# 1.19-migration: off-map South Sakhalin+Kuril Islands: transfer_state = 555
 		}
 	}
 
@@ -3923,15 +3923,15 @@ country_event = {
 					is_core_of = ROOT
 					is_in_home_area = yes
 					NOT = {
-						state = 536 #HOKKAIDO
-						state = 555 #KURIL ISLANDS
+						# 1.19-migration: off-map Hokkaido+Kuril Islands: state = 536 #HOKKAIDO
+						# 1.19-migration: off-map Hokkaido+Kuril Islands: state = 555 #KURIL ISLANDS
 					}
 					is_controlled_by = FROM
 				}
 			}
 			modifier = {
 				factor = 10
-				NOT = { has_full_control_of_state = 282 } #KANTO (Tokyo)
+				# NOT = { has_full_control_of_state = 282 } #KANTO (Tokyo)   # 1.19-migration: off-map Japan (was vanilla 282; mod 282=Rastenburg)
 			}
 			modifier = { #Appropriate PC for Foreign Affairs
 				factor = 1.5
@@ -3962,9 +3962,9 @@ country_event = {
 #			555 = {
 #				add_core_of = FROM
 #			}
-			transfer_state = 537
-			transfer_state = 536 #Hokkaido
-			transfer_state = 555
+			# 1.19-migration: off-map South Sakhalin+Hokkaido+Kuril Islands: transfer_state = 537
+			# 1.19-migration: off-map South Sakhalin+Hokkaido+Kuril Islands: transfer_state = 536 #Hokkaido
+			# 1.19-migration: off-map South Sakhalin+Hokkaido+Kuril Islands: transfer_state = 555
 		}
 		hidden_effect = {
 			FROM = {
@@ -4011,13 +4011,13 @@ country_event = {
 #			555 = {
 #				add_core_of = ROOT
 #			}
-			transfer_state = 537
-			transfer_state = 555
+			# 1.19-migration: off-map South Sakhalin+Kuril Islands+Hokkaido: transfer_state = 537
+			# 1.19-migration: off-map South Sakhalin+Kuril Islands+Hokkaido: transfer_state = 555
 			if = {
 				limit = {
 					has_country_flag = SOV_hokkaido_included_in_peace_deal_flag
 				}
-				transfer_state = 536 #Hokkaido
+				# 1.19-migration: off-map South Sakhalin+Kuril Islands+Hokkaido: transfer_state = 536 #Hokkaido
 				clr_country_flag = SOV_hokkaido_included_in_peace_deal_flag
 			}
 		}

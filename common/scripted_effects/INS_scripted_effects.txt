@@ -781,7 +781,7 @@ indonesia_form_other_indies_effect = {
 	create_dynamic_country = {
 		original_tag = INS
 		reserve_dynamic_country = yes
-		transfer_state = 1051
+		# transfer_state = 1051  # 1.19-migration: off-map East Java (was vanilla 1051)
 		set_cosmetic_tag = INS_HOL
 		save_global_event_target_as = INS_dutch_indonesia
 	}
@@ -1101,11 +1101,11 @@ indonesia_form_other_indies_effect = {
 	event_target:INS_dutch_indonesia = {
 		every_owned_state = {
 			limit = {
-				NOT = {
-					state = 1058
-					state = 1051
-					state = 335
-				}
+				# NOT = {  # 1.19-migration: block emptied (all states off-map)
+				#	# state = 1058  # 1.19-migration: off-map Batavia (was vanilla 1058)
+				#	# state = 1051  # 1.19-migration: off-map East Java (was vanilla 1051)
+				#	# state = 335  # 1.19-migration: off-map West Java (was vanilla 335)
+				# }
 				impassable = no
 			}
 			create_unit = {
@@ -1118,11 +1118,11 @@ indonesia_form_other_indies_effect = {
 		every_owned_state = {
 			limit = {
 				is_core_of = PREV
-				NOT = {
-					state = 1058
-					state = 1051
-					state = 335
-				}
+				# NOT = {  # 1.19-migration: block emptied (all states off-map)
+				#	# state = 1058  # 1.19-migration: off-map Batavia (was vanilla 1058)
+				#	# state = 1051  # 1.19-migration: off-map East Java (was vanilla 1051)
+				#	# state = 335  # 1.19-migration: off-map West Java (was vanilla 335)
+				# }
 				impassable = no
 			}
 			create_unit = {
@@ -1536,30 +1536,30 @@ indonesia_declare_war_is_over_effect = { #always use this instead of directly cl
 				event_target:INS_dutch_indonesia = {
 					random_owned_state = {
 						limit = {
-							NOT = { #dont give away the capital or a landlocked impassable wasteland
-								state = 1058 #Batavia
-								state = 1022 #Interior Borneo
-							}
+							# NOT = { #dont give away the capital or a landlocked impassable wasteland  # 1.19-migration: block emptied (all states off-map)
+							#	# state = 1058 #Batavia  # 1.19-migration: off-map Batavia (was vanilla 1058)
+							#	# state = 1022 #Interior Borneo  # 1.19-migration: off-map  Interior Borneo (was vanilla 1022)
+							# }
 						}
 						prioritize = { 1047 1050 1049 } #1047: Bangka-Belitung, 1049: Medan And Riouw, 1050: Atjeh
 						transfer_state_to = FRA
 					}
 					random_owned_state = {
 						limit = {
-							NOT = { #dont give away the capital or a landlocked impassable wasteland
-								state = 1058 #Batavia
-								state = 1022 #Interior Borneo
-							}
+							# NOT = { #dont give away the capital or a landlocked impassable wasteland  # 1.19-migration: block emptied (all states off-map)
+							#	# state = 1058 #Batavia  # 1.19-migration: off-map Batavia (was vanilla 1058)
+							#	# state = 1022 #Interior Borneo  # 1.19-migration: off-map  Interior Borneo (was vanilla 1022)
+							# }
 						}
 						prioritize = { 1047 1050 1049 } #1047: Bangka-Belitung, 1049: Medan And Riouw, 1050: Atjeh
 						transfer_state_to = FRA
 					}
 					random_owned_state = {
 						limit = {
-							NOT = { #dont give away the capital or a landlocked impassable wasteland
-								state = 1058 #Batavia
-								state = 1022 #Interior Borneo
-							}
+							# NOT = { #dont give away the capital or a landlocked impassable wasteland  # 1.19-migration: block emptied (all states off-map)
+							#	# state = 1058 #Batavia  # 1.19-migration: off-map Batavia (was vanilla 1058)
+							#	# state = 1022 #Interior Borneo  # 1.19-migration: off-map  Interior Borneo (was vanilla 1022)
+							# }
 						}
 						prioritize = { 1047 1050 1049 } #1047: Bangka-Belitung, 1049: Medan And Riouw, 1050: Atjeh
 						transfer_state_to = FRA
@@ -2084,11 +2084,11 @@ indonesia_give_jap_resource_rights_effect = {
 	INS = {
 		give_resource_rights = {
 			receiver = JAP 
-			state = 672 #South Sumatra
+			# state = 672  # 1.19-migration: off-map South Sumatra (was vanilla 672)
 		}
 		give_resource_rights = {
 			receiver = JAP 
-			state = 1049 #Medan and Riouw
+			# state = 1049 #Medan and Riouw  # 1.19-migration: off-map Medan and Riouw (was vanilla 1049)
 		}
 	}
 	JAP = {

@@ -47,4 +47,46 @@ peace_ai_desires = {
 
         ai_desire = 50  # 50 percent higher desire
     }
+
+    # If Italy defeats themselves in a civil war, they want to take the states for themselves 
+    ITA_wants_all_of_italy = {
+        peace_action_type = take_states
+        enable = {
+            original_tag = ITA  # Negotiatior is italy
+            FROM = { tag = ROOT }  # And the negotiator is also taking for themselves
+            FROM.FROM.FROM = { 
+                OR = {
+                    is_core_of = ITA # Italian Core Territory
+                    state = 1554 # Dodecanese # 1.19-migration: was vanilla 164
+                    state = 1476 # Zara # 1.19-migration: was vanilla 163
+                    is_core_of = LBA # Libyan Core Territory
+                    #is_core_of = ERI # Eritrean Core Territory # 1.19-migration: ERI is a dead tag; no Eritrean states on mod map
+                    #is_core_of = SOM # Somalian Core Territory # 1.19-migration: SOM is a dead tag; no Somali states on mod map
+                }
+            }  
+        }
+
+        ai_desire = 200  # 200 percent higher desire
+    }
+
+    # If Italy defeats themselves in a civil war, they don't want to puppet etc
+    ITA_wants_all_of_italy_2 = {
+        peace_action_type = { puppet liberate force_government }
+        enable = {
+            original_tag = ITA  # Negotiatior is italy
+            FROM.FROM.FROM = { 
+                OR = {
+                    is_core_of = ITA # Italian Core Territory
+                    state = 1554 # Dodecanese # 1.19-migration: was vanilla 164
+                    state = 1476 # Zara # 1.19-migration: was vanilla 163
+                    is_core_of = LBA # Libyan Core Territory
+                    #is_core_of = ERI # Eritrean Core Territory # 1.19-migration: ERI is a dead tag; no Eritrean states on mod map
+                    #is_core_of = SOM # Somalian Core Territory # 1.19-migration: SOM is a dead tag; no Somali states on mod map
+                }
+            }  
+        }
+
+        ai_desire = -200  # 200 percent lower desire
+    }
+
 }

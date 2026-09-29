@@ -161,7 +161,7 @@ focus_tree = {
 					add_building_construction = {
 						type = naval_base
 						level = 2
-						province = 11805					
+						province = 15297  # was vanilla 11805
 						instant_build = yes
 					}				
 				}
@@ -210,8 +210,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POR_ogme" 
 			if = {
-				limit = { has_full_control_of_state = 112 }
-				112 = {
+				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
+				1042 = {   # was vanilla 112 (Lisbon)
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
@@ -274,8 +274,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POR_ogma" 
 			if = {
-				limit = { has_full_control_of_state = 112 }
-				112 = {
+				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
+				1042 = {   # was vanilla 112 (Lisbon)
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
@@ -392,7 +392,7 @@ focus_tree = {
 					add_building_construction = {
 						type = naval_base
 						level = 2
-						province = 9817					
+						province = 19728  # was vanilla 9817
 						instant_build = yes
 					}
 				}
@@ -615,8 +615,8 @@ focus_tree = {
 			}
 
 			if = {
-				limit = { has_full_control_of_state = 179 }
-				179 = {
+				limit = { has_full_control_of_state = 1072 }   # was vanilla 179 (Beja)
+				1072 = {   # was vanilla 179 (Beja)
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
@@ -737,8 +737,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POR_armor_focus" 	
 			if = {
-				limit = { has_full_control_of_state = 112 }	
-				112 = {
+				limit = { has_full_control_of_state = 1042 }	   # was vanilla 112 (Lisbon)
+				1042 = {   # was vanilla 112 (Lisbon)
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory		
@@ -825,8 +825,8 @@ focus_tree = {
 			    category = light_air
 			}
 			if = {
-				limit = { has_full_control_of_state = 112 }
-				112 = {
+				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
+				1042 = {   # was vanilla 112 (Lisbon)
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory		
@@ -959,8 +959,8 @@ focus_tree = {
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POR_a_new_industry" 
 		   if = {
-				limit = { has_full_control_of_state = 112 }
-			    112 = {
+				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
+			    1042 = {   # was vanilla 112 (Lisbon)
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -970,8 +970,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 795 }
-				795 = {
+				limit = { has_full_control_of_state = 1021 }   # was vanilla 795 (Santarem)
+				1021 = {   # was vanilla 795 (Santarem)
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1449,7 +1449,7 @@ focus_tree = {
 					type = naval_base		
 					level = 2
 					instant_build = yes
-					province = 11805
+					province = 15297  # was vanilla 11805
 				}
 			}
 		}
@@ -1573,12 +1573,11 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus POR_atlantic_defense_strategy" 
 			if = {
 				limit = { has_full_control_of_state = 1823 }
-				# 1.19-migration: unmappable (was vanilla Azores)
-				1823 = { #Azores
+				1823 = { #Madeira  # was vanilla Azores (Azores off-map; Madeira successor)
 					add_building_construction = {
 						type = coastal_bunker		
 						level = 2
-						province = 1823
+						province = 21014  # was vanilla 1823
 						instant_build = yes
 					}
 
@@ -1865,7 +1864,7 @@ focus_tree = {
 				    type = coastal_bunker
 				    level = 2
 				    instant_build = yes	
-				    province = 11805			    
+				    province = 15297  # was vanilla 11805
 				}
 			}
 		}
@@ -3376,16 +3375,17 @@ focus_tree = {
 		id = POR_protect_chinese_civilians
 		allow_branch = { has_country_flag = NEVER }
 		select_effect = {
-			random_country = {
-				limit = { controls_state = 592 }
-				ROOT = {
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = PREV
-						value = 100
-					}
-				}
-			}
+			# 1.19-migration: off-map Guangzhou (was vanilla 592)
+			#random_country = {
+				#	limit = { controls_state = 592 }
+				#	ROOT = {
+					#		add_ai_strategy = {
+						#			type = prepare_for_war
+						#			id = PREV
+						#			value = 100
+					#		}
+				#	}
+			#}
 		}
 
 		available = {	
@@ -3423,16 +3423,17 @@ focus_tree = {
 #			}
 
 			hidden_effect = {
-				random_country = {
-					limit = { controls_state = 592 }
-					ROOT = {
-						add_ai_strategy = {
-							type = declare_war
-							id = PREV
-							value = 100
-						}
-					}
-				}
+				# 1.19-migration: off-map Guangzhou (was vanilla 592)
+				#random_country = {
+					#	limit = { controls_state = 592 }
+					#	ROOT = {
+						#		add_ai_strategy = {
+							#			type = declare_war
+							#			id = PREV
+							#			value = 100
+						#		}
+					#	}
+				#}
 			}
 		}
 	}

@@ -43,6 +43,7 @@ peace_action_modifiers = {
             POL = {
                 pc_is_puppeted = no
                 is_subject = no
+                pc_is_loser = no
             }
             GER = {
                 pc_is_loser = yes
@@ -302,5 +303,24 @@ peace_action_modifiers = {
             }
         }
         cost_multiplier = 0.5
+    }
+
+    FRA_yalta_puppet_mosel_germany = {
+        category = events_or_focuses
+        peace_action_type = { puppet }
+        enable = {
+            has_global_flag = yalta_agreed_flag
+            ROOT = {
+                original_tag = FRA
+                has_government = democratic
+            }
+            FROM.FROM = {
+                original_tag = GER
+            }
+            FROM.FROM.FROM = {
+                state = 547 #MOSELLAND  # 1.19-migration: was vanilla 42 (Moselland)
+            }
+        }
+        cost_multiplier = 0.3 # It costs 70% less to do here for them
     }
 }

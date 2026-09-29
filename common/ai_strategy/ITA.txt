@@ -983,10 +983,10 @@ ITA_hold_africa = {
 		type = put_unit_buffers
 		ratio = 0.04
 
-		states = {
-			451
-			663
-			450
+		states = {  # was vanilla 451 663 450
+			1239 # Derna (Jabal al Akhdar) (was vanilla 451)
+			1251 # Cyrenaica (Benghasi) (was vanilla 663)
+			1251 # Benghasi (Hizam al Akhdar) (was vanilla 450)
 		}
 		subtract_invasions_from_need = no
 		subtract_fronts_from_need = no
@@ -997,9 +997,9 @@ ITA_hold_africa = {
 		type = put_unit_buffers
 		ratio = 0.04
 
-		states = {
-			448 # Tripoli
-			458 # Tunisia
+		states = {  # was vanilla 448 458
+			1241 # Tripoli (was vanilla 448)
+			1109 # Tunisia (Tunis) (was vanilla 458)
 		}
 		subtract_invasions_from_need = no
 		subtract_fronts_from_need = no
@@ -1040,8 +1040,8 @@ ITA_hold_in_north_africa_early = {
 	ai_strategy = {
 		type = front_control
 		tag = ENG
-		strategic_region = 225 # Tripoli
-		strategic_region = 126 # East Maghreb
+		strategic_region = 38 # was vanilla SR 225 (Tripoli) -> mod Tripolitania
+		strategic_region = 37 # was vanilla SR 126 (East Maghreb) -> mod Algeria
 		ratio = 0.5
 		execute_order = no
 		manual_attack = no
@@ -1061,7 +1061,7 @@ ITA_dont_invade_north_africa_early = {
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		strategic_region = 126 # East Maghreb
+		strategic_region = 37 # was vanilla SR 126 (East Maghreb) -> mod Algeria
 		execute_order = no
 		manual_attack = no
 	}
@@ -1100,7 +1100,7 @@ ITA_push_towards_alexandria = {
 	# Push along the coast toward Alexandria
 	ai_strategy = {
 		type = front_control
-		state = 452 # Matrouh
+		state = 1277 # Matrouh  # 1.19-migration: was vanilla 452 (Marsa Matruh)
 		ratio = 0.3
 		priority = 100
 		ordertype = front
@@ -1110,7 +1110,7 @@ ITA_push_towards_alexandria = {
 
 	ai_strategy = {
 		type = front_control
-		state = 447 # Alexandria
+		state = 1895 # Alexandria  # 1.19-migration: was vanilla 447 (Alexandria)
 		ratio = 0.3
 		priority = 80
 		ordertype = front
@@ -1154,11 +1154,11 @@ ITA_abbandon_eth = {
 				}
 			}
 			OR = {
-				region = 17    
-				region = 274    
-				region = 273    
-				region = 216    
-				region = 217    
+				region = 37 # was vanilla SR 17 (Africa) -> mod Algeria
+				region = 38 # was vanilla SR 274 (Ogaden) -> mod Tripolitania
+				region = 39 # was vanilla SR 273 (Danakil) -> mod Cyrenaica
+				region = 50 # was vanilla SR 216 (Upper Nile) -> mod Upper Nile
+				region = 58 # was vanilla SR 217 (Lake Victoria) -> mod Lower Nile
 			}
 		}
 	}
@@ -1298,8 +1298,8 @@ ITA_prepare_ethiopian_theatre = {
 	# Guard Sidamo for feck's sake
 	ai_strategy = {
 		type = put_unit_buffers
-		states = {
-			844
+		states = {  # was vanilla 844
+			# 844 # 1.19-migration: off-map Jubaland
 		}
 		ratio = 0.2
 
@@ -1344,7 +1344,7 @@ ITA_attack_north = {
 	ai_strategy = {
 		type = front_control
 
-		state = 841 # assault Begemder
+		# state = 841 # assault Begemder  # 1.19-migration: off-map Begemder (was vanilla 841)
 
 		ratio = 0.2
 
@@ -1369,7 +1369,7 @@ ITA_attack_south = {
 	ai_strategy = {
 		type = front_control
 
-		state = 837 # assault Sidamo
+		# state = 837 # assault Sidamo  # 1.19-migration: off-map Sidamo (was vanilla 837)
 
 		ratio = 0.2
 
@@ -1394,7 +1394,7 @@ ITA_attack_addis = {
 	ai_strategy = {
 		type = front_control
 
-		state = 271 # assault Addis
+		# state = 271 # assault Addis  # 1.19-migration: off-map ethiopia (was vanilla 271)
 
 		ratio = 0.2
 
@@ -1419,7 +1419,7 @@ ITA_attack_harar = {
 	ai_strategy = {
 		type = front_control
 
-		state = 835 # assault Hararghe
+		# state = 835 # assault Hararghe  # 1.19-migration: off-map Haraghe (was vanilla 835)
 
 		ratio = 0.2
 
@@ -1570,15 +1570,20 @@ ITA_invasion_buffer_early = {
 
 	ai_strategy = {
 		type = put_unit_buffers
-		states = {
-			156
-			117
-			849
-			157
-			2
-			162
-			161
-			115 #We protect sicily!
+		states = {  # was vanilla 156 117 849 157 2 162 161 115
+			1410 # Calabria (Cosenza) (was vanilla 156)
+			1411 # Calabria (Reggio) (was vanilla 156)
+			934 # Napoli (was vanilla 117)
+			912 # Puglia (Bari) (was vanilla 849)
+			872 # Abruzzo (was vanilla 157)
+			876 # Italy (Roma Centro) (was vanilla 2)
+			2607 # Roma Nord (was vanilla 2)
+			805 # Tuscany (Firenze) (was vanilla 162)
+			779 # Emilia Romagna (Bologna) (was vanilla 161)
+			1075 # Sicily (Palermo) (was vanilla 115)
+			1414 # Sicily (Messina) (was vanilla 115)
+			1415 # Sicily (Catania) (was vanilla 115)
+			1418 # Sicily (Siracusa) (was vanilla 115)
 		}
 		ratio = 0.18
 		area = italy
@@ -1598,15 +1603,16 @@ ITA_invasion_buffer_late = {
 
 	ai_strategy = {
 		type = put_unit_buffers
-		states = {
-			156
-			117
-			849
-			157
-			2
-			162
-			161
-			### Oh no we forgot sicily! What could possibly go wrong.
+		states = {  # was vanilla 156 117 849 157 2 162 161
+			1410 # Calabria (Cosenza) (was vanilla 156)
+			1411 # Calabria (Reggio) (was vanilla 156)
+			934 # Napoli (was vanilla 117)
+			912 # Puglia (Bari) (was vanilla 849)
+			872 # Abruzzo (was vanilla 157)
+			876 # Italy (Roma Centro) (was vanilla 2)
+			2607 # Roma Nord (was vanilla 2)
+			805 # Tuscany (Firenze) (was vanilla 162)
+			779 # Emilia Romagna (Bologna) (was vanilla 161)
 		}
 		ratio = 0.20
 		area = italy

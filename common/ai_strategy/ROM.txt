@@ -41,9 +41,12 @@ ROM_highway_to_the_danger_zone_78 = { # bessarabia
 	enable = {
 		has_war = no
 		date > 1938.1.1
-		78 = {
-			is_controlled_by = ROM
-			infrastructure < 4
+		any_state = { # was vanilla 78 (Bessarabia) -> is_bessarabia set
+			limit = {
+				is_bessarabia = yes
+				is_controlled_by = ROM
+				infrastructure < 4
+			}
 		}
 	}
 
@@ -64,15 +67,21 @@ ROM_highway_to_the_danger_zone_766 = { # s. bessarabia
 	enable = {
 		has_war = no
 		date > 1938.1.1
-		78 = {
-			OR = {
-				NOT = { is_controlled_by = ROM }
-				infrastructure > 3
+		any_state = { # was vanilla 78 (Bessarabia) gate: build S.Bess once Bessarabia built
+			limit = {
+				is_bessarabia = yes
+				OR = {
+					NOT = { is_controlled_by = ROM }
+					infrastructure > 3
+				}
 			}
 		}
-		766 = {
-			is_controlled_by = ROM
-			infrastructure < 4
+		any_state = { # was vanilla 766 (Southern Bessarabia) -> Ismail/Cetatea Alba
+			limit = {
+				OR = { state = 794 state = 1601 }
+				is_controlled_by = ROM
+				infrastructure < 4
+			}
 		}
 	}
 
@@ -81,7 +90,7 @@ ROM_highway_to_the_danger_zone_766 = { # s. bessarabia
 	ai_strategy = {
 		type = build_building
 		id = infrastructure
-		target = 766
+		target = 1601 # was vanilla 766 (Southern Bessarabia) -> Cetatea Alba
 		value = 1
 	}	
 }
@@ -93,21 +102,30 @@ ROM_highway_to_the_danger_zone_79 = { # Moldova
 	enable = {
 		has_war = no
 		date > 1938.1.1
-		78 = {
-			OR = {
-				NOT = { is_controlled_by = ROM }
-				infrastructure > 3
+		any_state = { # was vanilla 78 (Bessarabia) gate
+			limit = {
+				is_bessarabia = yes
+				OR = {
+					NOT = { is_controlled_by = ROM }
+					infrastructure > 3
+				}
 			}
 		}
-		766 = {
-			OR = {
-				NOT = { is_controlled_by = ROM }
-				infrastructure > 3
+		any_state = { # was vanilla 766 (Southern Bessarabia) gate
+			limit = {
+				OR = { state = 794 state = 1601 }
+				OR = {
+					NOT = { is_controlled_by = ROM }
+					infrastructure > 3
+				}
 			}
 		}
-		79 = {
-			is_controlled_by = ROM
-			infrastructure < 4
+		any_state = { # was vanilla 79 (Moldova) -> mod Moldavia set
+			limit = {
+				OR = { state = 1594 state = 698 state = 1597 state = 609 state = 765 state = 793 state = 804 }
+				is_controlled_by = ROM
+				infrastructure < 4
+			}
 		}
 	}
 
@@ -116,7 +134,7 @@ ROM_highway_to_the_danger_zone_79 = { # Moldova
 	ai_strategy = {
 		type = build_building
 		id = infrastructure
-		target = 79
+		target = 1594 # was vanilla 79 (Moldova) -> Iasi
 		value = 1
 	}
 }

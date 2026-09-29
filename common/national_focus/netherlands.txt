@@ -41,12 +41,12 @@ focus_tree = {
 					original_tag = HOL
 					is_subject_of = HOL
 				}
-				has_full_control_of_state = 335
-				has_full_control_of_state = 672
-				has_full_control_of_state = 334
+				has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
+				#has_full_control_of_state = 672   # 1.19-migration: off-map South Sumatra (merged into 2975 Indonesia)
+				#has_full_control_of_state = 334   # 1.19-migration: off-map Kalimantan Barat (merged into 2975 Indonesia)
 			}
-			has_full_control_of_state = 695
-			has_full_control_of_state = 309
+			#has_full_control_of_state = 695   # 1.19-migration: off-map Curacao
+			#has_full_control_of_state = 309   # 1.19-migration: off-map Suriname
 		}
 		bypass = {
 		}
@@ -76,8 +76,9 @@ focus_tree = {
 		id = HOL_the_western_possessions
 		allow_branch = { has_country_flag = NEVER }
 		available = {
-			has_full_control_of_state = 695
-			has_full_control_of_state = 309
+			#has_full_control_of_state = 695   # 1.19-migration: off-map Curacao
+			always = no  # 1.19-migration: colonial focus unavailable without off-map states
+			#has_full_control_of_state = 309   # 1.19-migration: off-map Suriname
 		}
 		prerequisite = { focus = HOL_obtain_foreign_colonial_investments }
 		icon = GFX_goal_generic_construct_infrastructure
@@ -112,7 +113,8 @@ focus_tree = {
 	focus = {
 		id = HOL_expand_curacao_oil_refineries
 		available = {
-			has_full_control_of_state = 695
+			#has_full_control_of_state = 695   # 1.19-migration: off-map Curacao
+			always = no  # 1.19-migration: colonial focus unavailable without off-map states
 			OR = {
 				threat > 0.2
 				has_war = yes
@@ -188,7 +190,8 @@ focus_tree = {
 	focus = {
 		id = HOL_open_second_paranam_bauxite_mine
 		available = {
-			has_full_control_of_state = 309
+			#has_full_control_of_state = 309   # 1.19-migration: off-map Suriname
+			always = no  # 1.19-migration: colonial focus unavailable without off-map states
 			OR = {
 				has_war = yes
 				GER = {
@@ -251,7 +254,8 @@ focus_tree = {
 	focus = {
 		id = HOL_antilles_defenses
 		available = {
-			has_full_control_of_state = 695
+			#has_full_control_of_state = 695   # 1.19-migration: off-map Curacao
+			always = no  # 1.19-migration: colonial focus unavailable without off-map states
 		}
 		prerequisite = { focus = HOL_expand_curacao_oil_refineries }
 		icon = GFX_goal_generic_construct_military
@@ -303,13 +307,13 @@ focus_tree = {
 		available = {
 			OR = {
 				AND = {
-					has_full_control_of_state = 335
-					has_full_control_of_state = 672
+					has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
+					#has_full_control_of_state = 672   # 1.19-migration: off-map South Sumatra (merged into 2975 Indonesia)
 				}
 				any_other_country = {
 					is_subject_of = HOL
-					has_full_control_of_state = 335
-					has_full_control_of_state = 672
+					has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
+					#has_full_control_of_state = 672   # 1.19-migration: off-map South Sumatra (merged into 2975 Indonesia)
 				}
 			}
 		}
@@ -345,10 +349,10 @@ focus_tree = {
 		id = HOL_java
 		available = {
 			OR = {
-				has_full_control_of_state = 335
+				has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 				any_other_country = {
 					is_subject_of = HOL
-					has_full_control_of_state = 335
+					has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 				}
 			}
 		}
@@ -394,10 +398,10 @@ focus_tree = {
 		id = HOL_reinforce_java
 		available = {
 			OR = {
-				has_full_control_of_state = 335
+				has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 				any_other_country = {
 					is_subject_of = HOL
-					has_full_control_of_state = 335
+					has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 				}
 			}
 		}
@@ -416,27 +420,27 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 3
-					province = 7381
+					province = 18099  # was vanilla 7381
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 2
-					province = 7381
+					province = 18099  # was vanilla 7381
 					instant_build = yes
 				}
-				add_building_construction = {
-					type = coastal_bunker
-					level = 3
-					province = 4608
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 2
-					province = 4608
-					instant_build = yes
-				}
+#				add_building_construction = {   # 1.19-migration: dup province (already constructed above)
+#					type = coastal_bunker
+#					level = 3
+#					province = 18099  # was vanilla 4608
+#					instant_build = yes
+#				}
+#				add_building_construction = {   # 1.19-migration: dup province (already constructed above)
+#					type = bunker
+#					level = 2
+#					province = 18099  # was vanilla 4608
+#					instant_build = yes
+#				}
 				add_building_construction = {
 					type = anti_air_building
 					level = 2
@@ -450,13 +454,13 @@ focus_tree = {
 		id = HOL_the_foundations_of_defense
 		available = {
 			OR = {
-				has_full_control_of_state = 335
+				has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 				any_other_country = {
 					is_subject_of = HOL
-					has_full_control_of_state = 335
+					has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 				}
 			}
-			has_full_control_of_state = 695
+			#has_full_control_of_state = 695   # 1.19-migration: off-map Curacao
 			custom_trigger_tooltip = {
 				tooltip = HOL_pre_empt_venezuelan_aggression_tt
 				NOT = {
@@ -488,7 +492,7 @@ focus_tree = {
 					add_building_construction = {
 						type = naval_base
 						level = 10
-						province = 4608
+						province = 18099  # was vanilla 4608
 						instant_build = yes
 					}
 				}
@@ -509,10 +513,10 @@ focus_tree = {
 		id = HOL_sumatra
 		available = {
 			OR = {
-				has_full_control_of_state = 672
+				has_full_control_of_state = 2975   # was vanilla 672 (South Sumatra -> Indonesia)
 				any_other_country = {
 					is_subject_of = HOL
-					has_full_control_of_state = 672
+					has_full_control_of_state = 2975   # was vanilla 672 (South Sumatra -> Indonesia)
 				}
 			}
 		}
@@ -559,17 +563,17 @@ focus_tree = {
 		available = {
 			OR = {
 				AND = {
-					has_full_control_of_state = 667
-					has_full_control_of_state = 334
-					has_full_control_of_state = 668
-					has_full_control_of_state = 673
+					has_full_control_of_state = 2975   # was vanilla 667 (West Nusa Tenggara -> Indonesia)
+					#has_full_control_of_state = 334   # 1.19-migration: off-map Kalimantan Barat (merged into 2975 Indonesia)
+					#has_full_control_of_state = 668   # 1.19-migration: off-map The Moluccas (merged into 2975 Indonesia)
+					#has_full_control_of_state = 673   # 1.19-migration: off-map Sulawesi (merged into 2975 Indonesia)
 				}
 				any_other_country = {
 					is_subject_of = HOL
-					has_full_control_of_state = 667
-					has_full_control_of_state = 334
-					has_full_control_of_state = 668
-					has_full_control_of_state = 673
+					has_full_control_of_state = 2975   # was vanilla 667 (West Nusa Tenggara -> Indonesia)
+					#has_full_control_of_state = 334   # 1.19-migration: off-map Kalimantan Barat (merged into 2975 Indonesia)
+					#has_full_control_of_state = 668   # 1.19-migration: off-map The Moluccas (merged into 2975 Indonesia)
+					#has_full_control_of_state = 673   # 1.19-migration: off-map Sulawesi (merged into 2975 Indonesia)
 				}
 			}
 		}
@@ -647,7 +651,7 @@ focus_tree = {
 		}
 		bypass = {
 			#INS = { exists = no }
-			owns_state = 335
+			owns_state = 2975 # was vanilla 335 (Indonesia)
 		}
 		prerequisite = { focus = HOL_the_crown_jewel_colony }
 		mutually_exclusive = { focus = HOL_the_zuiderzee_works }
@@ -688,7 +692,7 @@ focus_tree = {
 				#	compare_autonomy_progress_ratio < 0.6
 				#	has_full_control_of_state = 335
 				#}
-				has_full_control_of_state = 335
+				has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 			}
 		}
 		icon = GFX_focus_hol_continue_the_war_in_batavia
@@ -727,7 +731,7 @@ focus_tree = {
 	focus = {
 		id = HOL_a_western_capital
 		available = {
-			has_full_control_of_state = 335
+			has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 		}
 		prerequisite = { focus = HOL_continue_the_war_in_batavia }
 		icon = GFX_focus_generic_industry_3
@@ -787,12 +791,8 @@ focus_tree = {
 	focus = {
 		id = HOL_colonial_shipbuilding
 		available = {
-			controls_state = 335
-			controls_state = 672
-			controls_state = 334
-			controls_state = 673
-			controls_state = 667
-			controls_state = 309
+			controls_state = 2975 # was vanilla 335,672,334,673,667 (Indonesia)
+			#controls_state = 309 # 1.19-migration: off-map Suriname
 		}
 		prerequisite = { focus = HOL_a_western_capital }
 		prerequisite = { focus = HOL_the_foundations_of_defense }
@@ -927,7 +927,7 @@ focus_tree = {
 	focus = {
 		id = HOL_the_east_indies_war_machine
 		available = {
-			has_full_control_of_state = 335
+			has_full_control_of_state = 2975   # was vanilla 335 (West Java -> Indonesia)
 		}
 		prerequisite = { focus = HOL_a_western_capital }
 		prerequisite = { focus = HOL_expand_the_colonial_army }
@@ -1967,25 +1967,25 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
-					province = 3314
+					province = 19874  # was vanilla 3314
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 3314
+					province = 19874  # was vanilla 3314
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
-					province = 9498
+					province = 1045  # was vanilla 9498
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 9498
+					province = 9217  # was vanilla 9498
 					instant_build = yes
 				}
 			}
@@ -1993,13 +1993,13 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
-					province = 6336
+					province = 19902  # was vanilla 6336
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 6336
+					province = 11351  # was vanilla 6336
 					instant_build = yes
 				}
 			}
@@ -2031,25 +2031,25 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
-					province = 3314
+					province = 19874  # was vanilla 3314
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 3314
+					province = 19874  # was vanilla 3314
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
-					province = 9498
+					province = 1045  # was vanilla 9498
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 9498
+					province = 9217  # was vanilla 9498
 					instant_build = yes
 				}
 			}
@@ -2057,13 +2057,13 @@ focus_tree = {
 				add_building_construction = {
 					type = coastal_bunker
 					level = 1
-					province = 6336
+					province = 19902  # was vanilla 6336
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 6336
+					province = 11351  # was vanilla 6336
 					instant_build = yes
 				}
 			}
@@ -2270,13 +2270,13 @@ focus_tree = {
 				add_building_construction = {
 					type = bunker
 					level = 2
-					province = 9498
+					province = 9217  # was vanilla 9498
 					instant_build = yes
 				}
 				add_building_construction = {
 					type = bunker
 					level = 1
-					province = 1809
+					province = 19894  # was vanilla 1809
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -2328,7 +2328,7 @@ focus_tree = {
 				add_building_construction = {
 					type = bunker
 					level = 2
-					province = 11866
+					province = 6955  # was vanilla 11866
 					instant_build = yes
 				}
 				add_building_construction = {
@@ -3972,21 +3972,13 @@ focus_tree = {
 			NOT = {
 				OR = {
 					AND = {
-						controls_state = 335
-						controls_state = 672
-						controls_state = 334
-						controls_state = 673
-						controls_state = 667
-						controls_state = 309
+						controls_state = 2975 # was vanilla 335,672,334,673,667 (Indonesia)
+						#controls_state = 309 # 1.19-migration: off-map Suriname
 					}
 					any_country = {
 						is_subject_of = HOL
-						controls_state = 335
-						controls_state = 672
-						controls_state = 334
-						controls_state = 673
-						controls_state = 667
-						controls_state = 309
+					controls_state = 2975 # was vanilla 335,672,334,673,667 (Indonesia)
+					#controls_state = 309 # 1.19-migration: off-map Suriname
 					}
 				}
 			}
