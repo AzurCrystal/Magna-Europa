@@ -7284,58 +7284,34 @@ CZE_skoda_focus_category = {
 		}
 	}
 
-	CZE_build_skoda_office_south_america = {
-		icon = GFX_decision_generic_construction
-		visible = {
-			has_completed_focus = CZE_expand_skoda_offices
-		}
-		remove_effect = {
-			set_global_flag = CZE_skoda_unlock_south_america
-			if = {
-				limit = {
-					NOT = {
-						has_dlc = "Arms Against Tyranny"
-					}
-				}
-				unlock_decision_tooltip = CZE_select_continent_south_america
-			}
-			else = {
-				custom_effect_tooltip = CZE_ai_nations_more_likely_to_buy_weapons_tt
-			}
-		}
-		days_remove = 120
-		modifier = {
-			civilian_factory_use = 2
-		}
-		fire_only_once = yes
-		custom_cost_trigger = {
-			num_of_civilian_factories_available_for_projects > 1
-		}
-		custom_cost_text = decision_cost_civ_factory_2
-	}
-
-	CZE_select_continent_south_america = {
-		priority = 2
-		allowed = {
-			NOT = {
-				has_dlc = "Arms Against Tyranny"
-			}
-		}
-		visible = {
-			has_global_flag = CZE_skoda_unlock_south_america
-		}
-		remove_effect = {
-			set_global_flag = CZE_skoda_selected_south_america
-
-			clr_global_flag = CZE_skoda_selected_asia
-			clr_country_flag = CZE_little_entente_group_selected
-			clr_global_flag = CZE_skoda_selected_middle_east
-			clr_global_flag = CZE_skoda_selected_north_america
-			#clr_global_flag = CZE_skoda_selected_south_america
-
-			clear_variable = global.CZE_selling_country
-		}
-	}
+	# 1.19-migration: south_america Skoda office + selector commented out (continent off mod map)
+	# CZE_build_skoda_office_south_america = {
+	# 	icon = GFX_decision_generic_construction
+	# 	visible = { has_completed_focus = CZE_expand_skoda_offices }
+	# 	remove_effect = {
+	# 		set_global_flag = CZE_skoda_unlock_south_america
+	# 		if = { limit = { NOT = { has_dlc = "Arms Against Tyranny" } } unlock_decision_tooltip = CZE_select_continent_south_america }
+	# 		else = { custom_effect_tooltip = CZE_ai_nations_more_likely_to_buy_weapons_tt }
+	# 	}
+	# 	days_remove = 120
+	# 	modifier = { civilian_factory_use = 2 }
+	# 	fire_only_once = yes
+	# 	custom_cost_trigger = { num_of_civilian_factories_available_for_projects > 1 }
+	# 	custom_cost_text = decision_cost_civ_factory_2
+	# }
+	# CZE_select_continent_south_america = {
+	# 	priority = 2
+	# 	allowed = { NOT = { has_dlc = "Arms Against Tyranny" } }
+	# 	visible = { has_global_flag = CZE_skoda_unlock_south_america }
+	# 	remove_effect = {
+	# 		set_global_flag = CZE_skoda_selected_south_america
+	# 		clr_global_flag = CZE_skoda_selected_asia
+	# 		clr_country_flag = CZE_little_entente_group_selected
+	# 		clr_global_flag = CZE_skoda_selected_middle_east
+	# 		clr_global_flag = CZE_skoda_selected_north_america
+	# 		clear_variable = global.CZE_selling_country
+	# 	}
+	# }
 
 	CZE_expand_shanghai_office = {
 		icon = GFX_decision_generic_construction
@@ -7420,10 +7396,7 @@ CZE_skoda_focus_category = {
 						#is_on_continent = europe
 						AND = {
 							has_global_flag = CZE_skoda_selected_asia
-							OR = {
-								is_on_continent = asia
-								is_on_continent = australia
-							}
+							is_on_continent = asia # 1.19-migration: australia dropped (off mod map)
 						}
 						AND = {
 							has_global_flag = CZE_skoda_selected_middle_east
@@ -7436,10 +7409,7 @@ CZE_skoda_focus_category = {
 							has_global_flag = CZE_skoda_selected_north_america
 							is_on_continent = north_america
 						}
-						AND = {
-							has_global_flag = CZE_skoda_selected_south_america
-							is_on_continent = south_america
-						}
+						# 1.19-migration: south_america branch removed (off mod map, flag unreachable)
 					}
 				}
 			}
