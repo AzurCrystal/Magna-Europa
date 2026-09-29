@@ -1,53 +1,55 @@
-SOV_build_intel_network_in_MEX_strat = {
-	allowed = {
-		tag = SOV
-	}
+# 1.19-migration: mission_target MEX dead — target-less network strat is dead weight
+#SOV_build_intel_network_in_MEX_strat = {
+#	allowed = {
+#		tag = SOV
+#	}
 	
-	enable = {
-		tag = SOV
-		OR = {
-			AND = {
-				date > 1940.1.1
-				has_completed_focus = SOV_the_military_conspiracy #Parent focus of Behead the Snake
-			}
-			has_completed_focus = SOV_behead_the_snake
-		}
-	}
+#	enable = {
+#		tag = SOV
+#		OR = {
+#			AND = {
+#				date > 1940.1.1
+#				has_completed_focus = SOV_the_military_conspiracy #Parent focus of Behead the Snake
+#			}
+#			has_completed_focus = SOV_behead_the_snake
+#		}
+#	}
 	
-	abort_when_not_enabled = yes
+#	abort_when_not_enabled = yes
 		
-	ai_strategy = {
-		type = operative_mission
-		mission = build_intel_network
-		value = 1000
-#		mission_target = MEX   # 1.19-migration: dead tag
-	}
-}
+#	ai_strategy = {
+#		type = operative_mission
+#		mission = build_intel_network
+#		value = 1000
+##		mission_target = MEX   # 1.19-migration: dead tag
+#	}
+#}
 
-SOV_raid_trotskys_villa_strat = {
-	allowed = {
-		tag = SOV
-	}
-	
-	enable = {
-		tag = SOV
-		has_completed_focus = SOV_behead_the_snake
-
-		OR = { #Do it once then go for murder, then you can try again
-			NOT = { has_country_flag = SOV_raided_trotskys_villa_flag }
-			has_country_flag = SOV_trotskys_assassination_attempt_flag
-		}
-	}
-	
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = operative_operation
-		operation = raid_trotskys_villa
-		value = 1200
-#		operation_target = MEX   # 1.19-migration: dead tag
-	}
-}
+# 1.19-migration: raid_trotskys_villa operation disabled (MEX dead tag) — strat is dead weight
+#SOV_raid_trotskys_villa_strat = {
+#	allowed = {
+#		tag = SOV
+#	}
+#
+#	enable = {
+#		tag = SOV
+#		has_completed_focus = SOV_behead_the_snake
+#
+#		OR = { #Do it once then go for murder, then you can try again
+#			NOT = { has_country_flag = SOV_raided_trotskys_villa_flag }
+#			has_country_flag = SOV_trotskys_assassination_attempt_flag
+#		}
+#	}
+#
+#	abort_when_not_enabled = yes
+#
+#	ai_strategy = {
+#		type = operative_operation
+#		operation = raid_trotskys_villa
+#		value = 1200
+#		operation_target = MEX
+#	}
+#}
 
 
 SOV_murder_trotsky_strat = {
