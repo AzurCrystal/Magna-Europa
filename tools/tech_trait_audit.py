@@ -28,10 +28,12 @@ REFS:
   mutually_exclusive = X, keys under trait_xp_factor        -> trait
 
 Dead tech refs silently no-op bonuses; dead trait refs log to error.log.
-Usage: python tools/tech_trait_audit.py [--vanilla "<hoi4 dir>"]
---vanilla merges vanilla technologies/unit_leader/country_leader/technology_tags —
-the meaningful check: the mod ships no common/country_leader, so country-leader
-trait refs only resolve against vanilla (like loc_audit).
+Usage: python tools/tech_trait_audit.py [--vanilla "<hoi4 dir>"] [--no-vanilla]
+Vanilla technologies/unit_leader/country_leader/technology_tags merge ON by
+default (auto-detects the standard install) — the meaningful check: the mod
+ships no common/country_leader/technology_tags, so mod-only runs over-report.
+Dead refs present verbatim in the vanilla counterpart file are tagged
+[inherited] and documented, not counted.
 """
 import re, glob, os, sys, bisect
 
@@ -52,12 +54,13 @@ TRAIT_SCALARS = re.compile(
     r'^(?:has_trait|trait|award_trait|add_\w*trait|remove_\w*trait)$')
 TRAIT_LIT_PARENTS = {'add_random_trait'}
 # ancestors that make `traits = { ... }` a leader-trait list (idea `traits`
-# under advisor/ideas are idea_tags, not leader traits — excluded)
+# under advisor/ideas are idea_tags, not leader traits — excluded).
+# parent/any_parent/all_parents only count INSIDE trait def files — MIO
+# org files use the same grammar for their own trait family (exempt below).
 LEADER_ANCESTORS = {'country_leader', 'corps_commander', 'navy_leader',
                     'field_marshal', 'unit_leader', 'operative', 'operatives',
-                    'create_operative_leader', 'add_country_leader_role',
-                    'leader_traits', 'country_leader_traits', 'parent',
-                    'any_parent', 'all_parents'}
+                    'create_operative_leader', 'add_country_leader_role'}
+PARENT_LIST_ANCESTORS = {'leader_traits', 'country_leader_traits'}
 TRAIT_KEY_PARENTS = {'trait_xp_factor'}
 TECH_KEY_PARENTS = {'set_technology'}
 TECH_SCALARS = {'has_tech', 'has_technology', 'leads_to_tech'}
@@ -65,6 +68,11 @@ TECH_UNDER_BONUS = {'add_tech_bonus'}
 CAT_KEYS = {'category'}
 CAT_KEY_PARENTS = {'research_bonus'}
 COUNTRY_TAGS = re.compile(r'^[A-Z][A-Z0-9]{2}$')
+# keys that appear inside ref-context blocks but are grammar, not ids:
+# `popup = no` is legal inside set_technology; control-flow keys can nest.
+GRAMMAR_KEYS = {'popup', 'if', 'limit', 'else', 'else_if', 'NOT', 'OR', 'AND',
+                'hidden_effect', 'custom_effect_tooltip', 'custom_trigger_tooltip',
+                'show_popup', 'text'}
 
 
 def walk(path):
@@ -141,13 +149,44 @@ def collect_defs(root):
     return techs, traits, cats
 
 
+DECISION_CONTAINERS = {'decisions', 'country_decisions', 'decision_categories'}
+def collect_exempt(root):
+    """Ids that satisfy has_trait/trait refs but are NOT leader traits:
+    decision ids (decision `traits` are a separate family) and MIO trait
+    tokens. Cheap one-directional safety net against cross-family FPs."""
+    ex = set()
+    for f in glob.glob(os.path.join(root, 'common/decisions/**/*.txt'), recursive=True):
+        for ev in walk(f):
+            if ev[0] == 'block' and not NUM.match(ev[1]) \
+                    and ev[2] in DECISION_CONTAINERS:
+                ex.add(ev[1])
+    for f in glob.glob(os.path.join(root, 'common/military_industrial_organization/**/*.txt'), recursive=True):
+        for ev in walk(f):
+            if ev[0] == 'scalar' and ev[1] == 'token':
+                ex.add(ev[2])
+    return ex
+
+_vcache = {}
+def _vanilla_contains(vroot, rel, vid):
+    """Dead ref present verbatim in the vanilla counterpart file → inherited
+    (parity rule: documented, not counted against the mod)."""
+    if rel not in _vcache:
+        vf = os.path.join(vroot, rel)
+        _vcache[rel] = open(vf, encoding='utf-8', errors='replace').read() \
+            if os.path.isfile(vf) else None
+    txt = _vcache[rel]
+    return txt is not None and re.search(r'\b' + re.escape(vid) + r'\b', txt) is not None
+
+
 def audit(vanilla=None):
     techs, traits, cats = collect_defs('.')
+    exempt = collect_exempt('.')
     if vanilla:
         vt, vr, vc = collect_defs(vanilla)
         for src, dst in ((vt, techs), (vr, traits), (vc, cats)):
             for k, v in src.items():
                 dst.setdefault(k, 'vanilla:' + v)
+        exempt |= collect_exempt(vanilla)
     dead = {'tech': [], 'trait': [], 'cat': []}
     files = (glob.glob('common/**/*.txt', recursive=True)
              + glob.glob('events/*.txt')
@@ -157,7 +196,7 @@ def audit(vanilla=None):
         for ev in walk(f):
             if ev[0] == 'block':
                 _, key, parent, anc, line = ev
-                if NUM.match(key):
+                if NUM.match(key) or key in GRAMMAR_KEYS:
                     continue
                 if parent in TECH_KEY_PARENTS and key not in techs:
                     dead['tech'].append((rel, line, key))
@@ -169,13 +208,29 @@ def audit(vanilla=None):
                 _, val, parent, anc, line = ev
                 if val in SKIP_VAL or NUM.match(val) or COUNTRY_TAGS.match(val):
                     continue
+                if val in exempt:
+                    continue
                 if parent in TRAIT_LIT_PARENTS and val not in traits:
                     dead['trait'].append((rel, line, val))
-                elif parent == 'traits' and LEADER_ANCESTORS & set(anc) \
-                        and val not in traits:
-                    dead['trait'].append((rel, line, val))
+                elif parent == 'traits':
+                    ancs = set(anc)
+                    if (ancs & LEADER_ANCESTORS or
+                            (ancs & {'parent', 'any_parent', 'all_parents'}
+                             and ancs & PARENT_LIST_ANCESTORS)) and val not in traits:
+                        dead['trait'].append((rel, line, val))
             else:
                 _, key, val, parent, anc, line = ev
+                if NUM.match(key) or key in GRAMMAR_KEYS:
+                    continue
+                # scalar keys: set_technology = { X = 1 }, research_bonus =
+                # { X = 0.5 }, trait_xp_factor = { X = 0.1 } — KEY is the ref
+                if not NUM.match(key):
+                    if parent in TECH_KEY_PARENTS and key not in techs:
+                        dead['tech'].append((rel, line, key)); continue
+                    if parent in CAT_KEY_PARENTS and cats and key not in cats:
+                        dead['cat'].append((rel, line, key)); continue
+                    if parent in TRAIT_KEY_PARENTS and key not in traits:
+                        dead['trait'].append((rel, line, key)); continue
                 if val in ('', '{') or val in SKIP_VAL or NUM.match(val):
                     continue
                 if key in TECH_SCALARS:
@@ -190,26 +245,44 @@ def audit(vanilla=None):
                 elif TRAIT_SCALARS.match(key) or key == 'mutually_exclusive':
                     if key == 'trait' and not (LEADER_ANCESTORS & set(anc)):
                         continue
+                    if val in exempt:
+                        continue
                     if val not in traits:
                         dead['trait'].append((rel, line, val))
-    total = sum(len(v) for v in dead.values())
+    mine, inherited = {'tech': [], 'trait': [], 'cat': []}, {'tech': [], 'trait': [], 'cat': []}
+    for cls, hits in dead.items():
+        for h in hits:
+            (inherited if vanilla and _vanilla_contains(vanilla, h[0], h[2]) else mine)[cls].append(h)
+    total = sum(len(v) for v in mine.values())
+    inh = sum(len(v) for v in inherited.values())
     cat_note = f'{len(cats)}' if cats else '0 (category refs unchecked — no technology_tags)'
     print(f'defined: techs {len(techs)} | traits {len(traits)} | categories {cat_note}'
           + (' + vanilla' if vanilla else '')
           + f' | dead refs: {total} '
-          f'(tech {len(dead["tech"])} | trait {len(dead["trait"])} | cat {len(dead["cat"])})')
+          f'(tech {len(mine["tech"])} | trait {len(mine["trait"])} | cat {len(mine["cat"])})'
+          + (f' | vanilla-inherited (documented, uncounted): {inh}' if vanilla else ''))
     for cls in ('tech', 'trait', 'cat'):
-        for rel, line, vid in dead[cls][:40]:
+        for rel, line, vid in mine[cls][:40]:
             print(f'  {cls:5} {rel}:{line} {vid}')
+        for rel, line, vid in inherited[cls][:20]:
+            print(f'  [{cls}-inherited] {rel}:{line} {vid}')
     return 1 if total else 0
 
 
+
+DEFAULT_VANILLA = 'C:/Program Files (x86)/Steam/steamapps/common/Hearts of Iron IV'
 if __name__ == '__main__':
-    van = None
+    # vanilla merge is ON by default when the standard install exists — mod
+    # files sit ON TOP of vanilla defs, so a mod-only def set over-reports.
+    van = DEFAULT_VANILLA if os.path.isdir(os.path.join(DEFAULT_VANILLA, 'common')) else None
+    if '--no-vanilla' in sys.argv:
+        van = None
     if '--vanilla' in sys.argv:
         i = sys.argv.index('--vanilla')
         van = sys.argv[i + 1] if i + 1 < len(sys.argv) else None
         if not van or not os.path.isdir(os.path.join(van or '', 'common')):
             print('--vanilla needs the HOI4 install dir')
             sys.exit(2)
+    elif not van:
+        print('note: vanilla dir not found — mod-only run (vanilla-resolvable ids will be flagged)')
     sys.exit(audit(van))

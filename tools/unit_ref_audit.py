@@ -24,9 +24,11 @@ REFS (all resolve against the union def set):
   - name_group/for_names/ship_names/division_names_group = X and
     link_numbering_with literals                                   -> name groups
 
-Usage: python tools/unit_ref_audit.py [--vanilla "<hoi4 dir>"]
---vanilla merges vanilla common/units defs — the meaningful check, since the
-mod only overrides the unit/name files it ships (like loc_audit).
+Usage: python tools/unit_ref_audit.py [--vanilla "<hoi4 dir>"] [--no-vanilla]
+Vanilla common/units defs merge ON by default (auto-detects the standard
+install) — the meaningful check, since mod files sit on top of vanilla defs.
+Dead refs present verbatim in the vanilla counterpart file are tagged
+[inherited] and documented, not counted.
 """
 import re, glob, os, sys, bisect
 
@@ -259,12 +261,20 @@ def audit(vanilla=None):
     return 1 if total else 0
 
 
+DEFAULT_VANILLA = 'C:/Program Files (x86)/Steam/steamapps/common/Hearts of Iron IV'
+
 if __name__ == '__main__':
-    van = None
+    # vanilla merge is ON by default when the standard install exists — mod
+    # files sit ON TOP of vanilla defs, so a mod-only def set over-reports.
+    van = DEFAULT_VANILLA if os.path.isdir(os.path.join(DEFAULT_VANILLA, 'common')) else None
+    if '--no-vanilla' in sys.argv:
+        van = None
     if '--vanilla' in sys.argv:
         i = sys.argv.index('--vanilla')
         van = sys.argv[i + 1] if i + 1 < len(sys.argv) else None
         if not van or not os.path.isdir(os.path.join(van or '', 'common')):
             print('--vanilla needs the HOI4 install dir')
             sys.exit(2)
+    elif not van:
+        print('note: vanilla dir not found — mod-only run (vanilla-resolvable ids will be flagged)')
     sys.exit(audit(van))

@@ -28,6 +28,8 @@ Mod development utilities — **not shipped** to the workshop (release packaging
 | `oob_audit.py` | `history/units/*.txt`: every `division_template = "X"` resolves to a `division_template = { name = "X" }` in the same file |
 | `gfx_music_audit.py` | `GFX_x` tokens resolve to `interface/*.gfx` names; `play_song` refs resolve to `music/` defs |
 | `modifier_audit.py` | `add_modifier`/`add_opinion_modifier`/`has_opinion_modifier` targets exist in `common/modifiers/`/`dynamic_modifiers/`/`opinion_modifiers/` |
+| `unit_ref_audit.py` | unit/equipment/name-group refs: `regiments`/`support`/`definition`/`type`/`equipment`/`modules`/`upgrades`/`air_wings`/`name_group`/`division_names_group`/`need_equipment`/`enable_*` resolve to common/units defs. Vanilla merge ON by default (auto-detects standard install; `--no-vanilla` opts out); dead refs present verbatim in vanilla = `[inherited]`, documented not counted. |
+| `tech_trait_audit.py` | tech ids: `set_technology`/`has_tech`/`technology`/`leads_to_tech`; traits: `has_trait`/`add_*_trait`/`remove_*_trait`/`traits = {}` under leader scopes; categories: `add_tech_bonus`/`research_bonus`. Same vanilla-merge + inherited convention — the mod ships no `common/country_leader`/`technology_tags`, so mod-only runs over-report. |
 
 ## Mapping / research
 
