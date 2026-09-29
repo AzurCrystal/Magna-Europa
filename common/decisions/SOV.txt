@@ -5840,16 +5840,22 @@ SOV_diplomacy_balkan_decision_category = {
 				FROM = { give_military_access = ROOT }
 			}
 			hidden_effect = {
-				diplomatic_relation = {
-					country = FROM
-					relation = military_access
-					active = yes
-				}
-				FROM = {
+				if = {  # 1.19-migration: guard - give_military_access in tooltip is render-only
+					limit = { NOT = { has_military_access = FROM } }
 					diplomatic_relation = {
-						country = ROOT
+						country = FROM
 						relation = military_access
 						active = yes
+					}
+				}
+				FROM = {
+					if = {
+						limit = { NOT = { has_military_access = ROOT } }
+						diplomatic_relation = {
+							country = ROOT
+							relation = military_access
+							active = yes
+						}
 					}
 				}
 			}
