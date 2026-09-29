@@ -16,6 +16,8 @@ Mod development utilities — **not shipped** to the workshop (release packaging
 |---|---|
 | `pdx_parse.py` | Clausewitz syntax — run on any `.txt` after editing |
 | `focus_ref_audit.py` | every `focus = <id>` in plans/decisions/events resolves in `national_focus/` |
+| `event_ref_audit.py` | every `country_event`/`news_event`/`calls_event`/`trigger_event` id resolves in `events/` |
+| `decision_audit.py` | decisions with `days_remove` but no effect/modifier (likely dead); visible-only selectors are legal, not flagged |
 | `vp_loc_audit.py` | every mod VP has a `VICTORY_POINTS_<id>` loc key; flags name collisions |
 | `loc_audit.py` | cross-language key coverage. Use `--vanilla <game dir>` to diff against vanilla english and count only **mod-added keys** (the meaningful metric: zh=100%, ru=45.9% — ru gap is mod-native, not a regression). |
 | `sr_audit.py` | every province in exactly one SR; every state's provinces ⊆ one SR |
