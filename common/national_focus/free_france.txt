@@ -112,21 +112,8 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			NOT = {
-				ALG = {
-					all_core_state = {
-						#is_owned_by = VIC   # 1.19-migration: VIC dead tag
-						#owner = { is_subject_of = VIC }   # 1.19-migration: VIC dead tag
-					}
-				}
-				TUN = {
-					all_core_state = {
-						#is_owned_by = VIC   # 1.19-migration: VIC dead tag
-						#owner = { is_subject_of = VIC }   # 1.19-migration: VIC dead tag
-					}
-				}
-				
-			}
+			# 1.19-migration: VIC tag is dead in this mod — old ALG/TUN all_core_state + is_owned_by=VIC checks were commented out leaving an always-true empty block which NOTed the whole gate. Vanilla uses the scripted trigger instead; restore it.
+			NOT = { FRA_controls_north_africa = yes }
 		}
 		
 		bypass = {
@@ -160,14 +147,8 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			NOT = {
-				SYR = {
-					all_core_state = {
-						#is_owned_by = VIC   # 1.19-migration: VIC dead tag
-						#owner = { is_subject_of = VIC }   # 1.19-migration: VIC dead tag
-					}
-				}
-			}
+			# 1.19-migration: VIC tag dead — replace the empty all_core_state + VIC checks with the vanilla scripted trigger.
+			NOT = { FRA_controls_syria = yes }
 		}
 		
 		bypass = {
