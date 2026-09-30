@@ -311,6 +311,13 @@ focus_tree = {
 		
 		search_filters = {   FOCUS_FILTER_RESEARCH }
 
+		available = {   # mod: tiny AI nations locked out of free airbase line
+			OR = {
+				is_ai = no
+				num_of_factories > 9
+			}
+		}
+
 		available_if_capitulated = yes
 
 
@@ -631,6 +638,10 @@ focus_tree = {
 		available = {
 			any_controlled_state = {
 				is_coastal = yes
+			}
+			OR = {   # mod: tiny AI nations locked out of navy line
+				is_ai = no
+				num_of_factories > 9
 			}
 		}
 
@@ -1010,6 +1021,15 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		
+		# mod: tiny AI nations on generic tree can't start free industry/air/navy lines —
+		# they lack the population/industry to sustain them; lock until ≥10 factories.
+		available = {
+			OR = {
+				is_ai = no
+				num_of_factories > 9
+			}
+		}
+
 		available_if_capitulated = yes
 
 		completion_reward = {
