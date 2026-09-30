@@ -112,7 +112,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			# 1.19-migration: VIC tag is dead in this mod — old ALG/TUN all_core_state + is_owned_by=VIC checks were commented out leaving an always-true empty block which NOTed the whole gate. Vanilla uses the scripted trigger instead; restore it.
+			# 1.19-migration: prior sweep commented out the VIC checks leaving an always-true empty all_core_state which NOTed this gate. Vanilla upstream uses the scripted trigger — restores it verbatim.
 			NOT = { FRA_controls_north_africa = yes }
 		}
 		
@@ -147,7 +147,7 @@ focus_tree = {
 			factor = 1
 		}
 		available = {
-			# 1.19-migration: VIC tag dead — replace the empty all_core_state + VIC checks with the vanilla scripted trigger.
+			# 1.19-migration: same emptied-gate fix — restore vanilla scripted trigger.
 			NOT = { FRA_controls_syria = yes }
 		}
 		
