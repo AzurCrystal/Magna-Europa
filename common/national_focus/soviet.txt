@@ -2862,12 +2862,14 @@ focus_tree = {
 
 		available = {
 			OR = {
-				408 = { #VLADIVOSTOK
-					is_owned_and_controlled_by = ROOT
-				}
-				409 = { #KHABAROVSK
-					is_owned_and_controlled_by = ROOT
-				}
+				# 1.19-migration: was vanilla 408 (Vladivostok) — off-map in mod, commented out
+#				408 = { #VLADIVOSTOK
+#					is_owned_and_controlled_by = ROOT
+#				}
+				# 1.19-migration: was vanilla 409 (Khabarovsk) — off-map in mod, commented out
+#				409 = { #KHABAROVSK
+#					is_owned_and_controlled_by = ROOT
+#				}
 			}
 		}
 		
@@ -10748,7 +10750,8 @@ focus_tree = {
 			custom_effect_tooltip = SOV_liberate_ryutin_tt 
 			if = {
 				limit = { SOV_is_left_opposition = yes }
-				566 = { set_state_flag = SOV_left_opposition_state }
+				# 1.19-migration: was vanilla 566 (Irkutsk) — off-map in mod, commented out
+#				566 = { set_state_flag = SOV_left_opposition_state }
 				hidden_effect = {
 					SOV_martemyan_ryutin = {
 						set_character_flag = SOV_aligned_left_opposition_flag
@@ -10764,7 +10767,8 @@ focus_tree = {
 			}
 			else_if = {
 				limit = { SOV_is_right_opposition = yes }
-				566 = { set_state_flag = SOV_right_opposition_state }
+				# 1.19-migration: was vanilla 566 (Irkutsk) — off-map in mod, commented out
+#				566 = { set_state_flag = SOV_right_opposition_state }
 				hidden_effect = {
 					SOV_martemyan_ryutin = {
 						set_character_flag = SOV_aligned_right_opposition_flag
@@ -16348,7 +16352,8 @@ ai_will_do = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_pacify_the_rim"
 			if = {
 				limit = {
-					408 = { is_owned_and_controlled_by = ROOT }
+					# 1.19-migration: was vanilla 408 (Vladivostok) — off-map in mod, commented out
+#					408 = { is_owned_and_controlled_by = ROOT }
 				}
 				# 1.19-migration: off-map region VLADIVOSTOK/KHABAROVSK
 #				408 = {
@@ -16374,46 +16379,48 @@ ai_will_do = {
 #					}
 #				}
 			}
-			409 = {
-				if = {
-					limit = {
-						air_base < 10
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}
-				}
-				if = {
-					limit = {
-						free_building_slots = {
-							building = arms_factory
-							size > 1
-							include_locked = yes
-						}
-						NOT = { 408 = { is_owned_and_controlled_by = ROOT } }
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = arms_factory
-						level = 2
-						instant_build = yes
-					}
-				}
-			}
-			657 = {
-				if = {
-					limit = {
-						air_base < 8
-					}
-					add_building_construction = {
-						type = air_base
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
+			# 1.19-migration: was vanilla 409 (Khabarovsk) — off-map in mod, commented out
+#			409 = {
+#				if = {
+#					limit = {
+#						air_base < 10
+#					}
+#					add_building_construction = {
+#						type = air_base
+#						level = 1
+#						instant_build = yes
+#					}
+#				}
+#				if = {
+#					limit = {
+#						free_building_slots = {
+#							building = arms_factory
+#							size > 1
+#							include_locked = yes
+#						}
+#						NOT = { 408 = { is_owned_and_controlled_by = ROOT } }
+#					}
+#					add_extra_state_shared_building_slots = 2
+#					add_building_construction = {
+#						type = arms_factory
+#						level = 2
+#						instant_build = yes
+#					}
+#				}
+#			}
+			# 1.19-migration: was vanilla 657 (Birobidzhan) — off-map in mod, commented out
+#			657 = {
+#				if = {
+#					limit = {
+#						air_base < 8
+#					}
+#					add_building_construction = {
+#						type = air_base
+#						level = 3
+#						instant_build = yes
+#					}
+#				}
+#			}
 			# Krasnoyarsk-Irkutsk
 			# railway removed 1.19-migration: off-map region (block deleted)
 			# Chita-Belogorsk

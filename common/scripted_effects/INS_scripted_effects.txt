@@ -1491,15 +1491,18 @@ indonesia_declare_war_is_over_effect = { #always use this instead of directly cl
 				}
 				if = {
 					limit = {
-						334 = { #Kalimantan Barat
-							OR = { is_owned_by = event_target:INS_dutch_indonesia is_owned_by = HOL }
-						}
-						1055 = { #East Kalimantan
-							OR = { is_owned_by = event_target:INS_dutch_indonesia is_owned_by = HOL }
-						}
-						1022 = { #Interior Borneo
-							OR = { is_owned_by = event_target:INS_dutch_indonesia is_owned_by = HOL }
-						}
+						# 1.19-migration: off-map region Kalimantan Barat (was vanilla 334) — Indonesia not on mod map
+#						334 = { #Kalimantan Barat
+#							OR = { is_owned_by = event_target:INS_dutch_indonesia is_owned_by = HOL }
+#						}
+						# 1.19-migration: off-map region East Kalimantan (was vanilla 1055) — Indonesia not on mod map
+#						1055 = { #East Kalimantan
+#							OR = { is_owned_by = event_target:INS_dutch_indonesia is_owned_by = HOL }
+#						}
+						# 1.19-migration: off-map region Interior Borneo (was vanilla 1022) — Indonesia not on mod map
+#						1022 = { #Interior Borneo
+#							OR = { is_owned_by = event_target:INS_dutch_indonesia is_owned_by = HOL }
+#						}
 					}
 					if = {
 						limit = { #give to malaya if it exists & is a british subject
@@ -1508,14 +1511,16 @@ indonesia_declare_war_is_over_effect = { #always use this instead of directly cl
 								is_subject_of = ENG
 							}
 						}
-						334 = { transfer_state_to = MAL }
-						1055 = { transfer_state_to = MAL }
-						1022 = { transfer_state_to = MAL }
+						# 1.19-migration: off-map region Borneo states (was vanilla 334/1055/1022) — Indonesia not on mod map
+#						334 = { transfer_state_to = MAL }
+#						1055 = { transfer_state_to = MAL }
+#						1022 = { transfer_state_to = MAL }
 					}
 					else = { #otherwise give to ENG directly
-						334 = { transfer_state_to = ENG }
-						1055 = { transfer_state_to = ENG }
-						1022 = { transfer_state_to = ENG }
+						# 1.19-migration: off-map region Borneo states (was vanilla 334/1055/1022) — Indonesia not on mod map
+#						334 = { transfer_state_to = ENG }
+#						1055 = { transfer_state_to = ENG }
+#						1022 = { transfer_state_to = ENG }
 					}
 				}
 				else = { #if HOL/dutch indonesia does not fully control south borneo, give two random states instead -- these ALWAYS go to ENG directly instead of MAL since that was just for borneo
@@ -1742,14 +1747,16 @@ indonesia_save_borders_effect = {
 				compare = greater_than_or_equals
 			}
 		}
-		335 = { set_state_flag = INS_state_is_indonesian }
-		1051 = { set_state_flag = INS_state_is_indonesian }
-		1058 = { set_state_flag = INS_state_is_indonesian }
+		# 1.19-migration: off-map region Java states (was vanilla 335/1051/1058) — Indonesia not on mod map
+#		335 = { set_state_flag = INS_state_is_indonesian }
+#		1051 = { set_state_flag = INS_state_is_indonesian }
+#		1058 = { set_state_flag = INS_state_is_indonesian }
 	}
 	else = { #If INS does NOT control 2+ javanese states, give netherlands all of them
-		335 = { clr_state_flag = INS_state_is_indonesian }
-		1051 = { clr_state_flag = INS_state_is_indonesian }
-		1058 = { clr_state_flag = INS_state_is_indonesian }
+		# 1.19-migration: off-map region Java states (was vanilla 335/1051/1058) — Indonesia not on mod map
+#		335 = { clr_state_flag = INS_state_is_indonesian }
+#		1051 = { clr_state_flag = INS_state_is_indonesian }
+#		1058 = { clr_state_flag = INS_state_is_indonesian }
 	}
 
 	## Determine controller of Sumatra (the side that controls 3, 4, or 5 of the 5 states gets all 5 states)
@@ -1798,18 +1805,20 @@ indonesia_save_borders_effect = {
 				compare = greater_than_or_equals
 			}
 		}
-		672 = { set_state_flag = INS_state_is_indonesian }
-		1047 = { set_state_flag = INS_state_is_indonesian }
-		1049 = { set_state_flag = INS_state_is_indonesian }
-		1048 = { set_state_flag = INS_state_is_indonesian }
-		1050 = { set_state_flag = INS_state_is_indonesian }
+		# 1.19-migration: off-map region Sumatra states (was vanilla 672/1047/1049/1048/1050) — Indonesia not on mod map
+#		672 = { set_state_flag = INS_state_is_indonesian }
+#		1047 = { set_state_flag = INS_state_is_indonesian }
+#		1049 = { set_state_flag = INS_state_is_indonesian }
+#		1048 = { set_state_flag = INS_state_is_indonesian }
+#		1050 = { set_state_flag = INS_state_is_indonesian }
 	}
 	else = { #If INS does NOT control 2+ javanese states, give netherlands all of them
-		672 = { clr_state_flag = INS_state_is_indonesian }
-		1047 = { clr_state_flag = INS_state_is_indonesian }
-		1049 = { clr_state_flag = INS_state_is_indonesian }
-		1048 = { clr_state_flag = INS_state_is_indonesian }
-		1050 = { clr_state_flag = INS_state_is_indonesian }
+		# 1.19-migration: off-map region Sumatra states (was vanilla 672/1047/1049/1048/1050) — Indonesia not on mod map
+#		672 = { clr_state_flag = INS_state_is_indonesian }
+#		1047 = { clr_state_flag = INS_state_is_indonesian }
+#		1049 = { clr_state_flag = INS_state_is_indonesian }
+#		1048 = { clr_state_flag = INS_state_is_indonesian }
+#		1050 = { clr_state_flag = INS_state_is_indonesian }
 	}
 
 	## Determine controller of Borneo (the side that controls 2 or 3 of the 3 states gets all 3 states)
@@ -1828,12 +1837,13 @@ indonesia_save_borders_effect = {
 #			add_to_temp_variable = { borneo_states_owned_by_INS = 1 }
 #		}
 #	}
-	1022 = { #Interior Borneo
-		if = {
-			limit = { has_state_flag = { flag = INS_state_is_indonesian } }
-			add_to_temp_variable = { borneo_states_owned_by_INS = 1 }
-		}
-	}
+	# 1.19-migration: off-map region Interior Borneo (was vanilla 1022) — Indonesia not on mod map
+#	1022 = { #Interior Borneo
+#		if = {
+#			limit = { has_state_flag = { flag = INS_state_is_indonesian } }
+#			add_to_temp_variable = { borneo_states_owned_by_INS = 1 }
+#		}
+#	}
 
 	if = { # If INS controls 2 or more of Borneos states, give them all of them
 		limit = {
@@ -1843,14 +1853,16 @@ indonesia_save_borders_effect = {
 				compare = greater_than_or_equals
 			}
 		}
-		334 = { set_state_flag = INS_state_is_indonesian }
-		1055 = { set_state_flag = INS_state_is_indonesian }
-		1022 = { set_state_flag = INS_state_is_indonesian }
+		# 1.19-migration: off-map region Borneo states (was vanilla 334/1055/1022) — Indonesia not on mod map
+#		334 = { set_state_flag = INS_state_is_indonesian }
+#		1055 = { set_state_flag = INS_state_is_indonesian }
+#		1022 = { set_state_flag = INS_state_is_indonesian }
 	}
 	else = { #If INS does NOT control 2+ javanese states, give netherlands all of them
-		334 = { clr_state_flag = INS_state_is_indonesian }
-		1055 = { clr_state_flag = INS_state_is_indonesian }
-		1022 = { clr_state_flag = INS_state_is_indonesian }
+		# 1.19-migration: off-map region Borneo states (was vanilla 334/1055/1022) — Indonesia not on mod map
+#		334 = { clr_state_flag = INS_state_is_indonesian }
+#		1055 = { clr_state_flag = INS_state_is_indonesian }
+#		1022 = { clr_state_flag = INS_state_is_indonesian }
 	}
 
 	## Set state owners according to variables
@@ -2315,52 +2327,57 @@ indonesia_direct_democracy_focus_effect = {
 
 indonesia_seize_oppurtunity_reconquest_effect = {
 
-	1058 = {
-		hidden_effect = {
-			add_dynamic_modifier = {
-				modifier = INS_state_revolution_hq
-			}
-			save_global_event_target_as = INS_revolution_hq
-			add_to_variable = { influence_point_count = 3 }
-		}
-		custom_effect_tooltip = INS_big_militia_presence_tt
-	}
-	335 = { #West Java
-		hidden_effect = {
-			add_to_variable = { influence_point_count = 3 }
-			add_dynamic_modifier = {
-				modifier = INS_state_militia_activity_3
-			}
-		}
-		custom_effect_tooltip = INS_big_militia_presence_tt
-	}
-	672 = { #South Sumatra
-		hidden_effect = {
-			add_to_variable = { influence_point_count = 3 }
-			add_dynamic_modifier = {
-				modifier = INS_state_militia_activity_3
-			}
-		}
-		custom_effect_tooltip = INS_big_militia_presence_tt
-	}
-	1047 = { #Bangka-Belitung
-		hidden_effect = {
-			add_to_variable = { influence_point_count = 3 }
-			add_dynamic_modifier = {
-				modifier = INS_state_militia_activity_3
-			}
-		}
-		custom_effect_tooltip = INS_big_militia_presence_tt
-	}
-	673 = { #Sulawesi
-		hidden_effect = {
-			add_to_variable = { influence_point_count = 3 }
-			add_dynamic_modifier = {
-				modifier = INS_state_militia_activity_3
-			}
-		}
-		custom_effect_tooltip = INS_big_militia_presence_tt
-	}
+	# 1.19-migration: off-map region Batavia (was vanilla 1058) — Indonesia not on mod map
+#	1058 = {
+#		hidden_effect = {
+#			add_dynamic_modifier = {
+#				modifier = INS_state_revolution_hq
+#			}
+#			save_global_event_target_as = INS_revolution_hq
+#			add_to_variable = { influence_point_count = 3 }
+#		}
+#		custom_effect_tooltip = INS_big_militia_presence_tt
+#	}
+	# 1.19-migration: off-map region West Java (was vanilla 335) — Indonesia not on mod map
+#	335 = { #West Java
+#		hidden_effect = {
+#			add_to_variable = { influence_point_count = 3 }
+#			add_dynamic_modifier = {
+#				modifier = INS_state_militia_activity_3
+#			}
+#		}
+#		custom_effect_tooltip = INS_big_militia_presence_tt
+#	}
+	# 1.19-migration: off-map region South Sumatra (was vanilla 672) — Indonesia not on mod map
+#	672 = { #South Sumatra
+#		hidden_effect = {
+#			add_to_variable = { influence_point_count = 3 }
+#			add_dynamic_modifier = {
+#				modifier = INS_state_militia_activity_3
+#			}
+#		}
+#		custom_effect_tooltip = INS_big_militia_presence_tt
+#	}
+	# 1.19-migration: off-map region Bangka-Belitung (was vanilla 1047) — Indonesia not on mod map
+#	1047 = { #Bangka-Belitung
+#		hidden_effect = {
+#			add_to_variable = { influence_point_count = 3 }
+#			add_dynamic_modifier = {
+#				modifier = INS_state_militia_activity_3
+#			}
+#		}
+#		custom_effect_tooltip = INS_big_militia_presence_tt
+#	}
+	# 1.19-migration: off-map region Sulawesi (was vanilla 673) — Indonesia not on mod map
+#	673 = { #Sulawesi
+#		hidden_effect = {
+#			add_to_variable = { influence_point_count = 3 }
+#			add_dynamic_modifier = {
+#				modifier = INS_state_militia_activity_3
+#			}
+#		}
+#		custom_effect_tooltip = INS_big_militia_presence_tt
+#	}
 	complete_national_focus = INS_the_declaration_of_independence
 	if = {
 		limit = {
@@ -2395,16 +2412,17 @@ indonesia_phillipines_unite_effect = {
 #		}
 		set_cosmetic_tag = INS_maphilindo
 	}
-	623 = { add_core_of = INS }
-	327 = { add_core_of = INS }
-	624 = { add_core_of = INS }
-	626 = { add_core_of = INS }
-	628 = { add_core_of = INS }
-	625 = { add_core_of = INS }
-	627 = { add_core_of = INS }
-	1025 = { add_core_of = INS }
-	1026 = { add_core_of = INS }
-	1027 = { add_core_of = INS }
+	# 1.19-migration: off-map region Philippine states (was vanilla 623/327/624/626/628/625/627/1025/1026/1027) — Indonesia not on mod map
+#	623 = { add_core_of = INS }
+#	327 = { add_core_of = INS }
+#	624 = { add_core_of = INS }
+#	626 = { add_core_of = INS }
+#	628 = { add_core_of = INS }
+#	625 = { add_core_of = INS }
+#	627 = { add_core_of = INS }
+#	1025 = { add_core_of = INS }
+#	1026 = { add_core_of = INS }
+#	1027 = { add_core_of = INS }
 }
 
 INS_refresh_malaya_controllers = {

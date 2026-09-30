@@ -760,27 +760,27 @@ defined_text = {
 
 defined_text = {
 	name = GetNavalCollegeName
+	# text = {  # 1.19-migration: was vanilla 268/269/559/883 (Horn of Africa) — off-map in mod, commented out
+	#	trigger = {
+	#		has_government = communism
+	#		OR = {
+	#			268 = {is_owned_by = ETH}
+	#			269 = {is_owned_by = ETH}
+	#			559 = {is_owned_by = ETH}
+	#			883 = {is_owned_by = ETH}
+	#		} 		
+	#	}
+	#	localization_key = ETH_naval_college_name_communist
+	# }
+	# text = {  # 1.19-migration: was vanilla 550 (Ethiopia) — off-map in mod, commented out
+	#	trigger = {
+	#		550 = {is_owned_by = ETH}	
+	#	}
+	#	localization_key = ETH_naval_college_name_historical
+	# }
 	text = {
 		trigger = {
-			has_government = communism
-			OR = {
-				268 = {is_owned_by = ETH}
-				269 = {is_owned_by = ETH}
-				559 = {is_owned_by = ETH}
-				883 = {is_owned_by = ETH}
-			} 		
-		}
-		localization_key = ETH_naval_college_name_communist
-	}
-	text = {
-		trigger = {
-			550 = {is_owned_by = ETH}	
-		}
-		localization_key = ETH_naval_college_name_historical
-	}
-	text = {
-		trigger = {
-			NOT = {550 = {is_owned_by = ETH}}
+			always = yes  # 1.19-migration: was NOT{ vanilla 550 (Ethiopia) owned by ETH } — off-map in mod, always-true
 		}
 		localization_key = ETH_naval_college_name_fallback
 	}
@@ -788,17 +788,15 @@ defined_text = {
 
 defined_text = {
 	name = ETHGetAirBaseName
+	# text = {  # 1.19-migration: was vanilla 271 (Ethiopia) — off-map in mod, commented out
+	#	trigger = {
+	#		271 = {is_owned_by = ETH} 
+	#	}
+	#	localization_key = ETH_airbase_name
+	# }
 	text = {
 		trigger = {
-			271 = {is_owned_by = ETH} 
-		}
-		localization_key = ETH_airbase_name
-	}
-	text = {
-		trigger = {
-			NOT = {
-				271 = {is_owned_by = ETH}
-			}
+			always = yes  # 1.19-migration: was NOT{ vanilla 271 (Ethiopia) owned by ETH } — off-map in mod, always-true
 		}
 		localization_key = ETH_airbase_name_fallback
 	}

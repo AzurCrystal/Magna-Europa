@@ -376,6 +376,14 @@ TUR_is_fundamentalist_state = {
 				}
 			}
 			AND = {
+				state = 952   # 1.19-migration: vanilla-347 split sibling
+				OR = {
+					has_dynamic_modifier = { modifier = islamist_opposition }
+					has_dynamic_modifier = { modifier = islamist_sedition }
+					has_dynamic_modifier = { modifier = islamist_insurgency }
+				}
+			}
+			AND = {
 				state = 1043
 				OR = {
 					has_dynamic_modifier = { modifier = islamist_opposition }
@@ -478,6 +486,13 @@ TUR_is_kemalist_state = {
 				}
 			}
 			AND = {
+				state = 952   # 1.19-migration: vanilla-347 split sibling
+				OR = {
+					has_dynamic_modifier = { modifier = kemalist_loyalties }
+					has_dynamic_modifier = { modifier = kemalist_schemers }
+				}
+			}
+			AND = {
 				state = 1043
 				OR = {
 					has_dynamic_modifier = { modifier = kemalist_loyalties }
@@ -547,6 +562,10 @@ TUR_is_unaligned_state = {
 			}
 			AND = {
 				state = 1939
+				has_state_flag = TUR_ideological_battleground_state
+			}
+			AND = {
+				state = 952   # 1.19-migration: vanilla-347 split sibling
 				has_state_flag = TUR_ideological_battleground_state
 			}
 			AND = {
