@@ -1,0 +1,78 @@
+# Map-border sentinel country (tag MAP, owns only state 2986 "Map Border").
+# Permanent AI strategy that hard-disables every diplomatic/intelligence/military
+# initiative the AI could take. PP is also zeroed by MAP_neutral so these
+# strategies are belt-and-suspenders — MAP should be a map anchor, not a nation.
+
+MAP_total_neutrality = {
+	allowed = {
+		original_tag = MAP
+	}
+	enable = {
+		always = yes
+	}
+	abort = {
+		always = no
+	}
+
+	# No diplomatic actions at all — kills improve_relations, guarantees,
+	# non-aggression offers, alliance/call-allies, docking/military access,
+	# market access, volunteers, attache, lend-lease, trade.
+	ai_strategy = { type = pp_spend_priority id = relation                 value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = guarantee                value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = idea                     value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = decision                 value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = become_faction_leader    value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = attache                  value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = agency                   value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = agency_upgrade           value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = conscription_law         value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = economy_law              value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = trade_law                value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = ideology                 value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = justify_war_goal         value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = political_advisor        value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = military_chief           value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = army_chief               value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = navy_chief               value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = air_chief                value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = political_power_actions  value = -9999 }
+
+	# No military ambition — no divisions wanted, no buildings, no front.
+	ai_strategy = { type = ai_wanted_divisions_factor                      value = -9999 }
+	ai_strategy = { type = build_army                                      value = -9999 }
+	ai_strategy = { type = build_building                                  value = -9999 }
+	ai_strategy = { type = build_airplane                                  value = -9999 }
+	ai_strategy = { type = build_ship                                      value = -9999 }
+	ai_strategy = { type = force_concentration_factor                      value = -9999 }
+	ai_strategy = { type = put_unit_buffers                                value = -9999 }
+	ai_strategy = { type = prepare_for_war                                 value = -9999 }
+	ai_strategy = { type = declare_war                                     value = -9999 }
+	ai_strategy = { type = avoid_starting_wars                             value = -9999 }
+	ai_strategy = { type = antagonize                                      value = -9999 }
+	ai_strategy = { type = befriend                                        value = -9999 }
+	ai_strategy = { type = conquer                                         value = -9999 }
+	ai_strategy = { type = invade                                          value = -9999 }
+	ai_strategy = { type = ignore                                          value = 9999 }
+	ai_strategy = { type = send_volunteers_desire                          value = -9999 }
+	ai_strategy = { type = send_lend_lease_desire                          value = -9999 }
+
+	# No intelligence agency / operatives / raids.
+	ai_strategy = { type = agency_ai_base_num_factories_factor             value = -9999 }
+	ai_strategy = { type = agency_ai_per_upgrade_factories_factor          value = -9999 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor        value = -9999 }
+	ai_strategy = { type = intelligence_agency_usable_factories            value = -9999 }
+	ai_strategy = { type = operative_operation                             value = -9999 }
+	ai_strategy = { type = operative_mission                               value = -9999 }
+	ai_strategy = { type = become_spymaster                                value = -9999 }
+	ai_strategy = { type = raid_target_country                             value = -9999 }
+	ai_strategy = { type = become_head_of_counter_intel                    value = -9999 }
+	ai_strategy = { type = become_head_of_crypto                           value = -9999 }
+	ai_strategy = { type = become_head_of_operations                       value = -9999 }
+	ai_strategy = { type = recruit_scientist                               value = -9999 }
+
+	# No trade / market engagement.
+	ai_strategy = { type = equipment_market_trade_desire                   value = -9999 }
+	ai_strategy = { type = equipment_market_buy                            value = -9999 }
+	ai_strategy = { type = equipment_market_spend_factories                value = -9999 }
+	ai_strategy = { type = equipment_market_for_sale_factor                value = -9999 }
+}

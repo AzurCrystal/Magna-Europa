@@ -6,11 +6,22 @@ ideas = {
 			}
 			allowed_civil_war = { always = yes }
 			rule = {
-                can_join_factions = no
+				can_join_factions = no
 				can_access_market = no
 				can_create_factions = no
 				can_not_declare_war = yes
-            }
+				can_send_volunteers = no
+				can_boost_other_ideologies = no
+				can_guarantee_other_ideologies = no
+				can_be_spymaster = no
+			}
+
+			modifier = {
+				# Starve PP so the AI can never afford any diplomatic action
+				# (improve_relations costs 10 PP to start + 0.2-0.4/day upkeep).
+				political_power_gain = -100
+				political_power_factor = -1.0
+			}
 		}
 	}
 }
