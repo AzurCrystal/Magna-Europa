@@ -1,0 +1,17 @@
+# Map-border sentinel country (tag MAP, owns only state 2986 "Map Border").
+# Gives MAP an empty focus tree that outranks `generic_focus` so it never shows
+# the generic industrial/naval/air lines — it's a map anchor, not a real country.
+
+focus_tree = {
+	id = map_border_dummy
+	default = no
+	reset_on_civilwar = yes
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 9999
+			original_tag = MAP
+		}
+	}
+}
