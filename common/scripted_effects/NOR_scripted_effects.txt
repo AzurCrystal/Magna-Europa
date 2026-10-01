@@ -1061,26 +1061,32 @@ NOR_spawn_hirden = {
 			override_model = NOR_militia_alt_1_entity			
 		} 
 	}
-	124 = {   # 1.19-migration: was vanilla 110 (Ostlandet); mod province id 19427 mistakenly used — Oslo state = 124
-		create_unit = { 
-			division = "name = \"1. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6" 
-			owner = ROOT
-		}
-		create_unit = { 
-			division = "name = \"2. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6" 
-			owner = ROOT
-		}
-		create_unit = { 
-			division = "name = \"3. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6" 
-			owner = ROOT
-		}
-		create_unit = { 
-			division = "name = \"4. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6" 
-			owner = ROOT
-		}
-		create_unit = { 
-			division = "name = \"5. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6" 
-			owner = ROOT
+	# MER: spawn on any rebel-owned state — hard-coding 124 fails with
+	# "Not allowed on enemy provinces" if government garrisons still hold
+	# the provinces at the civil-war tick (observed 1940.02.15).
+	ROOT = {
+		random_owned_controlled_state = {
+			limit = { is_controlled_by = PREV }
+			create_unit = {
+				division = "name = \"1. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+				owner = PREV
+			}
+			create_unit = {
+				division = "name = \"2. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+				owner = PREV
+			}
+			create_unit = {
+				division = "name = \"3. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+				owner = PREV
+			}
+			create_unit = {
+				division = "name = \"4. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+				owner = PREV
+			}
+			create_unit = {
+				division = "name = \"5. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+				owner = PREV
+			}
 		}
 	}
 }
