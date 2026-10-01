@@ -3340,27 +3340,34 @@ ENG_develop_mediterranean_supremacy = {
 	allowed = {
 		original_tag = ENG
 	}
-	
+
+	# MER: restored vanilla Phase-1 shape — while ITA still contests N. Africa
+	# the RN fights for the central Med (italy_med_control_zone = Tyrrhenian /
+	# Sicily strait / Adriatic), not just the empty eastern basin. Mod had this
+	# at western_med=30 + eastern_med=80 with no Italy-facing zone at all.
 	enable = {
-		OR = {
-			has_war_with = ITA
-			has_war_with = SOU
+		has_war_with = ITA
+		ITA = {
+			OR = {
+				controls_state = 1241 # Tripoli   # 1.19-migration: was vanilla 448
+				controls_state = 1251 # Benghazi  # 1.19-migration: was vanilla 450 (Benghasi)
+				controls_state = 1239 # Tobruk    # 1.19-migration: was vanilla 451 (Derna)
+			}
 		}
-		date > 1940.1.1
 	}
-	
+
 	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
 		type = naval_dominance
 		id = western_med_control_zone
-		value = 30
+		value = 80
 	}
-	
+
 	ai_strategy = {
 		type = naval_dominance
-		id = eastern_med_control_zone
-		value = 80
+		id = italy_med_control_zone
+		value = 150
 	}
 }
 
