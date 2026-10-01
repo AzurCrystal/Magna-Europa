@@ -133,3 +133,10 @@ NDefines.NAI.MAX_SUPPLY_DIVISOR = 2.0						-- VANILLA: 1.75. Higher = AI assumes
 NDefines.NAI.AI_THEATRE_SUPPLY_CRISIS_LIMIT = 0.15		-- VANILLA: 0.1. Bail out of starved areas earlier
 
 NDefines.NAITheatre.AI_THEATRE_DISTRIBUTION_MAX_PERCENT_UNMET_DEMAND_PER_FRONT = 0.35	-- VANILLA: 0.5. Less unit ping-pong between fronts
+-- Volunteer scale: battalions cost half manpower so a 1-div volunteer force is
+-- half the personnel of vanilla — double both caps and the source-side shares,
+-- halve the sender's minimum-army prerequisite to keep the same manpower gate.
+NDefines.NDiplomacy.VOLUNTEERS_PER_TARGET_PROVINCE = 0.1	-- VANILLA: 0.05
+NDefines.NDiplomacy.VOLUNTEERS_PER_COUNTRY_ARMY = 0.1		-- VANILLA: 0.05
+NDefines.NDiplomacy.MAX_VOLUNTEER_ARMY_FRACTION = 0.5		-- VANILLA: 0.25
+NDefines.NDiplomacy.VOLUNTEERS_DIVISIONS_REQUIRED = 30		-- VANILLA: 30 (unchanged — 2x-division armies make 30 the same proportional gate)
