@@ -6,7 +6,7 @@ GER_naval_invasion_support = {
     }
 
     min_priority = 5
-    max_priority = 17
+    max_priority = 30    # MER: 17 -> 30. invasion_defense(25) and training(20) were both outranking invasion support; correlates with observed failed Norway landings
 }
 
 GER_mine_sweeping = {
@@ -39,9 +39,10 @@ GER_coast_defense = {
     }
 
     min_priority = 5
-    max_priority = 10
+    max_priority = 10    # 1.19: new objective_type coast_defense
 }
 
+# 1.19-migration: vanilla convoy weights assume a global convoy map; mod convoy routes are coastal North Sea/Baltic/Mediterranean only. Values retained pending in-game observation.
 GER_convoy_protection = {
     objective_type = convoy_protection
 
@@ -53,6 +54,7 @@ GER_convoy_protection = {
     max_priority = 5
 }
 
+# 1.19-migration: same global-map caveat as convoy_protection; GER raiding lanes on-map are North Sea/Norwegian Sea only.
 GER_convoy_raiding = {
     objective_type = convoy_raiding
 
@@ -72,7 +74,7 @@ GER_naval_dominance = {
     }
 
     min_priority = 1
-    max_priority = 13
+    max_priority = 20    # MER: 13 -> 20, required for Weseruebung Norway landings to be feasible
 }
 
 GER_mine_laying = {
@@ -94,5 +96,5 @@ GER_training = {
     }
 
     min_priority = 10
-    max_priority = 20
+    max_priority = 10    # MER: 20 -> 10, training was outranking invasion support and starving Weseruebung of fleet cover
 }

@@ -1,3 +1,4 @@
+# 1.19-migration: JAP tokens inside blocked_for lists below are dead-tag no-ops (JAP -> countries/Unused.txt); kept verbatim from vanilla 1.19.
 generic_naval_invasion_support = {
     objective_type = naval_invasion_support
 
@@ -42,6 +43,7 @@ generic_coast_defense = {
     max_priority = 16
 }
 
+# 1.19-migration: vanilla convoy weights assume a global convoy map; mod convoy routes are coastal North Sea/Baltic/Mediterranean only.
 generic_convoy_protection = {
     objective_type = convoy_protection
 
@@ -50,9 +52,10 @@ generic_convoy_protection = {
     }
 
     min_priority = 1
-    max_priority = 5
+    max_priority = 8    # MER: 5 -> 8. Coastal European trade matters more relative to absent trans-oceanic routes; kept below raiding-parity inflation.
 }
 
+# 1.19-migration: same global-map caveat as convoy_protection; raiding lanes on-map are European coastal waters only.
 generic_convoy_raiding = {
     objective_type = convoy_raiding
 
@@ -97,6 +100,7 @@ generic_training = {
     max_priority = 20
 }
 
+# 1.19-migration: JAP is a dead tag in Magna Europa (countries/Unused.txt); the blocked_for = { JAP } below is an inert no-op, kept verbatim from vanilla.
 generic_naval_blockade = {
     objective_type = naval_blockade
 
@@ -105,6 +109,6 @@ generic_naval_blockade = {
     }
 
     min_priority = 10
-    max_priority = 20
+    max_priority = 20    # 1.19: new objective_type naval_blockade
 }
 
