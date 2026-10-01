@@ -7253,7 +7253,10 @@ focus_tree = {
 		available = {
 			has_government = communism
 			NOT = { has_global_flag = AAT_trotsky_sent_to_stalin }
-			has_global_flag = AAT_trotsky_in_mexico
+			# 1.19-migration: MEX is a dead tag — AAT_trotsky_in_mexico can never be
+			# set, so requiring it made the focus permanently unavailable. The real
+			# intent is "Trotsky is alive and not yet dealt with".
+			NOT = { has_global_flag = flag_trotsky_dead }
 		}
 		
 		ai_will_do = {
