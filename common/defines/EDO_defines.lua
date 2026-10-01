@@ -112,8 +112,8 @@ NDefines.NAI.DESIRE_USE_XP_TO_UPDATE_LAND_TEMPLATE = 4.0	-- VANILLA: 2.0
 
 -- Front allocation: fewer ally-front pileups, lower per-tile density
 NDefines.NAI.FRONT_EVAL_PERCENT_TO_ASSIST_ALLY_FRONT = 1.0	-- VANILLA: 0.5
-NDefines.NAI.FRONTLINE_EXPANSION_FACTOR = 0.4				-- VANILLA: 0.6
-NDefines.NAI.FRONT_UNITS_CAP_FACTOR = 10.0					-- VANILLA: 15.0
+NDefines.NAI.FRONTLINE_EXPANSION_FACTOR = 0.6				-- VANILLA: 0.6. 0.4 under-fed front demand → GER wanted_units sagged, fewer divisions built (obs 2026-10-01 run 2)
+NDefines.NAI.FRONT_UNITS_CAP_FACTOR = 20.0					-- VANILLA: 15.0. Halved battalion costs → ~2x divisions needed for same frontage; 10 capped GER below its real requirement
 NDefines.NAI.AIFC_UNIT_RATIO_BASE = 0.25					-- VANILLA: 0.15. Bigger spearhead reserve
 
 -- AIFC pathing: breakthroughs should follow railways and supply hubs
@@ -128,7 +128,7 @@ NDefines.NAI.CONSTRUCTION_PRIO_INFRASTRUCTURE = 1.0		-- VANILLA: 0.20. INFRA_TO_
 NDefines.NAI.CONSTRUCTION_PRIO_RAILWAY = 6.0				-- VANILLA: 4.00
 NDefines.NAI.LAND_DEFENSE_SUPPLY_HUB_IMPORTANCE = 30.0	-- VANILLA: 4.0
 NDefines.NAI.STR_BOMB_SUPPLY_HUB_IMPORTANCE = 4.0			-- VANILLA: 1.0
-NDefines.NAI.AI_FRONT_DIVISIONS_PER_SUPPLY_POINT = 0.5	-- VANILLA: 1.0. Supply per point is scarcer now
+NDefines.NAI.AI_FRONT_DIVISIONS_PER_SUPPLY_POINT = 1.0	-- VANILLA: 1.0. 0.5 halved per-point division appetite → propagated into wanted_units, GER fielded too few (obs run 2). Supply scarcity stays enforced by MAX_SUPPLY_DIVISOR/CRISIS_LIMIT
 NDefines.NAI.MAX_SUPPLY_DIVISOR = 2.0						-- VANILLA: 1.75. Higher = AI assumes less supply per unit, builds/conserves more carefully
 NDefines.NAI.AI_THEATRE_SUPPLY_CRISIS_LIMIT = 0.15		-- VANILLA: 0.1. Bail out of starved areas earlier
 
