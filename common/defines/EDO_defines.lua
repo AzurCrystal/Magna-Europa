@@ -124,8 +124,8 @@ NDefines.NAI.AIFC_TARGET_CAPITAL_SCORE_EXTRA = 25.0			-- VANILLA: 5.0. Capital h
 
 -- AI supply awareness: vanilla values assume the old organic-supply economy
 NDefines.NAI.CONSTRUCTION_PRIO_SUPPLY_BUILDING = 1.5		-- VANILLA: 1.10. Boosted for ME supply economy but kept below factories after x2 core factor (3.0 vs CIV 1.6/MIL 1.4 is enough)
-NDefines.NAI.CONSTRUCTION_PRIO_INFRASTRUCTURE = 1.0		-- VANILLA: 0.20. INFRA_TO_SUPPLY=0.5 makes infra the supply backbone — keep at factory tier
-NDefines.NAI.CONSTRUCTION_PRIO_RAILWAY = 6.0				-- VANILLA: 4.00
+NDefines.NAI.CONSTRUCTION_PRIO_INFRASTRUCTURE = 0.2		-- VANILLA: 0.20. 1.0 outranked CIV(0.8)/MIL(0.7) factories — AI built infra instead of arms, equipment starved, divisions never filled (obs run 3)
+NDefines.NAI.CONSTRUCTION_PRIO_RAILWAY = 4.0				-- VANILLA: 4.00. 6.0 dominated the queue identically
 NDefines.NAI.LAND_DEFENSE_SUPPLY_HUB_IMPORTANCE = 30.0	-- VANILLA: 4.0
 NDefines.NAI.STR_BOMB_SUPPLY_HUB_IMPORTANCE = 4.0			-- VANILLA: 1.0
 NDefines.NAI.AI_FRONT_DIVISIONS_PER_SUPPLY_POINT = 1.0	-- VANILLA: 1.0. 0.5 halved per-point division appetite → propagated into wanted_units, GER fielded too few (obs run 2). Supply scarcity stays enforced by MAX_SUPPLY_DIVISOR/CRISIS_LIMIT
