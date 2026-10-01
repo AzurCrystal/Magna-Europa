@@ -3381,10 +3381,28 @@ GER_dont_invade_until_FRA_falls = {
 	}
 
 	ai_strategy = {
-		# Even if we do invade Norway, we can play it cool there until France has fallen
+		# MER: only starve the NOR front while NOR is hostile. If Norway has gone
+		# fascist/Axis-aligned (civil-war puppet path) we actively reinforce it.
 		type = front_unit_request
 		tag = NOR
-		value = -30  
+		country_trigger = {
+			NOT = { has_government = fascism }
+			NOT = { is_in_faction_with = FROM }
+		}
+		value = -30
+	}
+
+	ai_strategy = {
+		# flip side: a friendly NOR fighting a civil war gets land help, not just ships
+		type = front_unit_request
+		tag = NOR
+		country_trigger = {
+			OR = {
+				has_government = fascism
+				is_in_faction_with = FROM
+			}
+		}
+		value = 60
 	}
 }
 
@@ -3710,6 +3728,54 @@ GER_blitz_france = {
 		state = 570 # Bourgogne
 
 		value = -60 # -60%
+	}
+}
+
+# MER: race for Paris — the vanilla blitz leaves the spearhead free to dawdle
+# on channel ports once Belgium falls. AIFC_TARGET_CAPITAL_SCORE_EXTRA=25 makes
+# capitals top AIFC targets; this block adds explicit Paris weight so GER drives
+# hard for 571 (Ile de France) immediately after the Benelux corridor opens.
+GER_race_to_paris = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		has_war_with = FRA
+		HOL = { has_capitulated = yes }
+		BEL = { has_capitulated = yes }
+	}
+
+	abort = {
+		FRA = { has_capitulated = yes }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 571 # Ile de France / Paris
+		value = 100
+	}
+	ai_strategy = {
+		type = front_unit_request
+		state = 517 # Picardy — the Somme approach
+		value = 40
+	}
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 571
+		state = 517
+		state = 551 # Normandy
+		value = 120
+	}
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.5
+		priority = 110
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
 	}
 }
 

@@ -120,6 +120,7 @@ NDefines.NAI.AIFC_UNIT_RATIO_BASE = 0.25					-- VANILLA: 0.15. Bigger spearhead 
 NDefines.NAI.AIFC_PATH_COST_RAILWAY_CONNECTION = 0.35		-- VANILLA: 0.75
 NDefines.NAI.AIFC_PATH_COST_HAS_SUPPLY_HUB = 0.3			-- VANILLA: 0.5
 NDefines.NAI.AIFC_TARGET_SUPPLY_HUB_BASE_SCORE = 40.0		-- VANILLA: 20.0
+NDefines.NAI.AIFC_TARGET_CAPITAL_SCORE_EXTRA = 25.0			-- VANILLA: 5.0. Capital hubs were drowning under supply-hub score 40; capitals should outrank ordinary hubs
 
 -- AI supply awareness: vanilla values assume the old organic-supply economy
 NDefines.NAI.CONSTRUCTION_PRIO_SUPPLY_BUILDING = 1.5		-- VANILLA: 1.10. Boosted for ME supply economy but kept below factories after x2 core factor (3.0 vs CIV 1.6/MIL 1.4 is enough)
