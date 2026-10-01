@@ -169,33 +169,7 @@ autonomous_occupation = {
 	}
 }
 
-# MER: RK-specific occupation law. Fascist occupiers have no positive-compliance
-# law (military_governor -0.045 / local_police -0.025 / civilian_oversight 0.000)
-# so RKs can never reach the 40% annexation threshold. This gives them the
-# "local police now, civilian administration later" ladder the release
-# decisions set up: start on local_police, switch here once stable.
-rk_civilian_administration = {
-	icon = 11
 
-	visible = {
-		has_autonomy_state = autonomy_reichskommissariat
-	}
-
-	state_modifier = {
-		resistance_target 				= -0.10
-		compliance_gain 				= 0.02
-		required_garrison_factor 		= -0.40
-		resistance_damage_to_garrison 	= -0.25
-	}
-
-	ai_will_do = {
-		base = 300
-		modifier = {
-			check_variable = { resistance_target_without_law < 0.15 }
-			add = 400
-		}
-	}
-}
 
 foreign_civilian_oversight = {
 	icon = 3
