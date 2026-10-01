@@ -3397,18 +3397,6 @@ GER_dont_invade_until_FRA_falls = {
 		value = -30
 	}
 
-	ai_strategy = {
-		# flip side: a friendly NOR fighting a civil war gets land help, not just ships
-		type = front_unit_request
-		tag = NOR
-		country_trigger = {
-			OR = {
-				has_government = fascism
-				is_in_faction_with = FROM
-			}
-		}
-		value = 60
-	}
 }
 
 GER_have_some_train_production = {
@@ -5860,3 +5848,44 @@ GER_build_tank_destroyers = {
 }
 #Pfot ends
 
+
+# MER: NOR fascist splinter (dynamic tag) joined the Axis after FRA attacked NOR.
+# The original democratic NOR (tag NOR) is the enemy front — vanilla's -30
+# "play it cool" still applies, so GER never reinforces the Axis splinter.
+# While a fascist civil-war splinter controls Oslo, treat the NOR front as a
+# real Axis front: positive unit request + invasion weight to land on Norway.
+GER_reinforce_nor_axis_splinter = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		has_war_with = NOR
+		any_other_country = {
+			has_government = fascism
+			has_civil_war = yes
+			controls_state = 124 # Oslofjord — the fascist splinter
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = NOR
+		value = 80
+	}
+	ai_strategy = {
+		type = invade
+		id = NOR
+		value = 80
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = NOR
+		value = 80
+	}
+	ai_strategy = {
+		type = area_priority
+		id = just_norway
+		value = 80
+	}
+}
