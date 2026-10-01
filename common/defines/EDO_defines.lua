@@ -104,7 +104,7 @@ NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.6 --Reduced from
 -- See _ctx/ai-enhancement-research.md §7 for evidence.
 
 -- Production discipline: don't keep queueing divisions while field units starve
-NDefines.NAI.MIN_FIELD_STRENGTH_TO_BUILD_UNITS = 0.75		-- VANILLA: 0.7. 0.85 hard-stopped GER at 335 divs pre-Barbarossa (obs 2026-10-01); halved battalion costs make 0.75 sufficient discipline
+NDefines.NAI.MIN_FIELD_STRENGTH_TO_BUILD_UNITS = 0.5		-- VANILLA: 0.7. Cancels queued unit production below this to reinforce field units. At 0.75 GER hovered on the threshold → training queue kept getting cancelled (obs run 4: template upgrades only, no new divisions). 0.5 keeps it as a genuine starvation guard only.
 NDefines.NAI.PRODUCTION_EQUIPMENT_SURPLUS_FACTOR = 1.2	-- VANILLA: 0.8
 NDefines.NAI.UPGRADE_DIVISION_RELUCTANCE = 7				-- VANILLA: 7. 3 = AI upgraded templates 2.3x more eagerly; obs showed GER expanding templates post-Anschluss instead of queueing new divisions (halved manpower per battalion makes upgrades useless for fielded-manpower goals)
 NDefines.NAI.UPGRADE_PERCENTAGE_OF_FORCES = 0.20			-- VANILLA: 0.20
