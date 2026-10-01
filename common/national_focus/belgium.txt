@@ -6874,6 +6874,21 @@ focus = {
 				}		 
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
+			# 1.19-migration: restore vanilla division_template block — create_unit below
+			# references "Division d'Infanterie" which never existed in the mod copy,
+			# producing "division string was not parsed correctly" on exile spawn.
+			division_template = {
+				name = "Division d'Infanterie"
+				is_locked = yes
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 1 y = 2 }
+				}
+			}
 
 			IF = {
 				limit = {
