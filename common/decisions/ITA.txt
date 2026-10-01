@@ -5227,37 +5227,31 @@ ITA_diplomacy_balkan_decision_category = {
 			original_tag = ITA
 		}
 
-		target_trigger = {
-			FROM = {
-				NOT = {
-					has_war_with = ROOT
-				}
-				NOT = {
-					has_country_flag = ITA_refused_dalmatian_demands
-					has_country_flag = ITA_sent_dalmatian_demands
-				}
-				OR = {
-					any_controlled_state = {
-						is_dalmatia = yes 
-					}
-					any_subject_country = {
-						is_ai = yes
-						any_controlled_state = {
-							is_dalmatia = yes 
-						}
-					}
-				}
-			}
-		}
-
+		# MER: converted from per-target to one-shot — vanilla fires one instance
+		# per Dalmatia-occupying country (ROM/SRB/GER each got their own row).
+		# Now a single decision that demands from every qualifying occupier.
 		available = {
-		}
-
-		target_root_trigger = {
+			is_subject = no
 			ITA = {
 				OR = {
 					has_government = neutrality
 					has_government = fascism
+				}
+			}
+			any_other_country = {
+				limit = {
+					NOT = { has_war_with = ITA }
+					NOT = {
+						has_country_flag = ITA_refused_dalmatian_demands
+						has_country_flag = ITA_sent_dalmatian_demands
+					}
+					OR = {
+						any_controlled_state = { is_dalmatia = yes }
+						any_subject_country = {
+							is_ai = yes
+							any_controlled_state = { is_dalmatia = yes }
+						}
+					}
 				}
 			}
 		}
@@ -5265,7 +5259,21 @@ ITA_diplomacy_balkan_decision_category = {
 		cost = 75
 
 		complete_effect = {
-			FROM = {
+			every_other_country = {
+				limit = {
+					NOT = { has_war_with = PREV }
+					NOT = {
+						has_country_flag = ITA_refused_dalmatian_demands
+						has_country_flag = ITA_sent_dalmatian_demands
+					}
+					OR = {
+						any_controlled_state = { is_dalmatia = yes }
+						any_subject_country = {
+							is_ai = yes
+							any_controlled_state = { is_dalmatia = yes }
+						}
+					}
+				}
 				country_event = {
 				    id = BBA_italy_interaction_events.8
 				    days = 2
