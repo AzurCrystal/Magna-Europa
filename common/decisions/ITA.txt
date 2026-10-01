@@ -5239,18 +5239,16 @@ ITA_diplomacy_balkan_decision_category = {
 				}
 			}
 			any_other_country = {
-				limit = {
-					NOT = { has_war_with = ITA }
-					NOT = {
-						has_country_flag = ITA_refused_dalmatian_demands
-						has_country_flag = ITA_sent_dalmatian_demands
-					}
-					OR = {
+				NOT = { has_war_with = ITA }
+				NOT = {
+					has_country_flag = ITA_refused_dalmatian_demands
+					has_country_flag = ITA_sent_dalmatian_demands
+				}
+				OR = {
+					any_controlled_state = { is_dalmatia = yes }
+					any_subject_country = {
+						is_ai = yes
 						any_controlled_state = { is_dalmatia = yes }
-						any_subject_country = {
-							is_ai = yes
-							any_controlled_state = { is_dalmatia = yes }
-						}
 					}
 				}
 			}
