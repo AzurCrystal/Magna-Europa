@@ -125,12 +125,45 @@ GER_unit_production = {
 	ai_strategy = { #Germany struggles with manual management of this in an endless loop
 		type = equipment_production_min_factories_archetype
 		id = motorized_equipment
-		value = 1
+		value = 2 # MER: raised from 1 — truck attrition x3.3 under ME supply rework
 	}
 
 	ai_strategy = { #added to railway gun define (set to 0 by default, increased in default strategies)
 		type = railway_gun_divisions_ratio
 		value = 1
+	}
+}
+
+# ME: ME supply rework makes trucks/trains critical — keep logistic equipment flowing
+GER_supply_logistics = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = wanted_supply_trucks
+		value = 3
+	}
+	ai_strategy = {
+		type = min_wanted_supply_trucks
+		value = 2
+	}
+	ai_strategy = {
+		type = wanted_supply_trains
+		value = 2
+	}
+	ai_strategy = {
+		type = min_wanted_supply_trains
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = train_equipment
+		value = 2
 	}
 }
 

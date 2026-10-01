@@ -681,6 +681,7 @@ ITA_template_design_2 = {
 }
 
 # extra scaryness around italy, this together with sufficient enemy superiority will make ai avoid transports around its coast
+# MER: threshold 1→2 so normal RN superiority doesn't seal the whole Med
 ITA_be_careful_transporting_through_the_med = {
 	allowed = {
 		original_tag = ITA
@@ -688,13 +689,13 @@ ITA_be_careful_transporting_through_the_med = {
 	enable = {
 		date < 1942.1.1
 		has_war = yes
-		enemies_naval_strength_ratio > 1
+		enemies_naval_strength_ratio > 2
 	}
 	abort = {
 		OR = {
 			date > 1942.1.1
 			has_war = no
-			enemies_naval_strength_ratio < 1
+			enemies_naval_strength_ratio < 2
 		}
 	}
 
@@ -710,17 +711,6 @@ ITA_be_careful_transporting_through_the_med = {
 		value = 50
 	}
 
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 200
-		value = 50
-	}
-
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 194
-		value = 50
-	}
 
 	ai_strategy = {
 		type = naval_avoid_region

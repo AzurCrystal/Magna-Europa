@@ -324,6 +324,38 @@ default_surplus_management = {
 		id = convoy
 		value = 5
 	}
+	ai_strategy = { # MER: supply rework — trucks attrit x3.3, trains needed x2
+		type = wanted_supply_trucks
+		value = 3
+	}
+
+	ai_strategy = {
+		type = min_wanted_supply_trucks
+		value = 2
+	}
+
+	ai_strategy = {
+		type = wanted_supply_trains
+		value = 2
+	}
+
+	ai_strategy = {
+		type = min_wanted_supply_trains
+		value = 1
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment # trucks (not armored cars)
+		value = 1
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = train_equipment
+		value = 1
+	}
+
 }
 
 bba_air_prod_1 = {
@@ -2002,5 +2034,47 @@ if_we_can_build_nuclear_missiles_we_want_nuclear_missiles = {
 		type = equipment_production_min_factories_archetype
 		id = nuclear_missile_equipment
 		value = 1
+	}
+}
+
+# MER: MAP is the map-border sentinel country (state 2986). The border it seals
+# is a fake frontier — nobody should garrison troops against it (SOV was parking
+# divisions there in the 2026-10-01 observer game).
+MAP_no_border_garrison = {
+	allowed = {
+		NOT = { original_tag = MAP }
+	}
+	enable = {
+		country_exists = MAP
+	}
+	abort_when_not_enabled = yes
+
+	# Request zero units on any front facing MAP territory
+	ai_strategy = {
+		type = front_unit_request
+		tag = MAP
+		value = -9999
+	}
+
+	# Suppress any war/invasion desire aimed at the border seam
+	ai_strategy = {
+		type = invade
+		id = MAP
+		value = -9999
+	}
+	ai_strategy = {
+		type = conquer
+		id = MAP
+		value = -9999
+	}
+	ai_strategy = {
+		type = antagonize
+		id = MAP
+		value = -9999
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = MAP
+		value = -9999
 	}
 }

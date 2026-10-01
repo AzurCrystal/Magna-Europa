@@ -2237,11 +2237,16 @@ SOV_defense_in_depth = {
 	}
 	enable = {
 		is_historical_focus_on = yes
-		date > 1940.1.1 
-		date < 1943.1.1 #Maybe this isn't such a good idea now?
+		date > 1940.1.1
+		# MER: vanilla had "date < 1943.1.1" AND "GER has_idea GER_barbarossa" — the 200-day
+		# timed idea expired ~mid-1942, pulling the Moscow buffer exactly when GER reached it.
 		OR = {
 			has_war = no
 			GER = { has_idea = GER_barbarossa }
+			AND = {
+				has_war_with = GER
+				surrender_progress < 0.6
+			}
 		}
 	}
 
@@ -2270,6 +2275,41 @@ SOV_defense_in_depth = {
 
 		# by default if you have orders in target areas, the buffer will request less units.
 		# you can override this to disable the feature
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+# MER: mirror of SOV_defense_in_depth for the Smolensk-Kiev rail corridor —
+# GER advanced exactly along this axis in the 2026-10-01 observer game.
+# No barbarossa-idea gate so it survives the 200-day timed buff expiry.
+SOV_defense_in_depth_south = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		has_war_with = GER
+		surrender_progress < 0.6
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+
+		ratio = 0.1
+		order_id = 6
+
+		states = {  # rail-hub states on the Moscow-Kiev axis (mod ids)
+			2189 # Smolensk
+			2183 # Bryansk
+			2171 # Pochep
+			436  # Zhytomyr
+			2027 # Kiev
+		}
+
+		area = defend_ukraine_corridor #Hold in reserve until the line encroaches
+
 		subtract_invasions_from_need = no
 		subtract_fronts_from_need = yes
 	}

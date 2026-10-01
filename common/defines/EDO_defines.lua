@@ -98,3 +98,37 @@ NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 48	-- How many divisions a co
 NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 72	-- How many divisions a field marshall is limited to. 0 = inf, < 0 = blocked
 
 NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.6 --Reduced from 0.75
+
+-- AI behavior tuning: aligned with ME supply rework (organic supply gutted,
+-- infra/rail/hubs carry the load) and doubled-division frontage design.
+-- See _ctx/ai-enhancement-research.md §7 for evidence.
+
+-- Production discipline: don't keep queueing divisions while field units starve
+NDefines.NAI.MIN_FIELD_STRENGTH_TO_BUILD_UNITS = 0.75		-- VANILLA: 0.7. 0.85 hard-stopped GER at 335 divs pre-Barbarossa (obs 2026-10-01); halved battalion costs make 0.75 sufficient discipline
+NDefines.NAI.PRODUCTION_EQUIPMENT_SURPLUS_FACTOR = 1.2	-- VANILLA: 0.8
+NDefines.NAI.UPGRADE_DIVISION_RELUCTANCE = 3				-- VANILLA: 7. Upgrade existing divisions more often
+NDefines.NAI.UPGRADE_PERCENTAGE_OF_FORCES = 0.35			-- VANILLA: 0.20
+NDefines.NAI.DESIRE_USE_XP_TO_UPDATE_LAND_TEMPLATE = 4.0	-- VANILLA: 2.0
+
+-- Front allocation: fewer ally-front pileups, lower per-tile density
+NDefines.NAI.FRONT_EVAL_PERCENT_TO_ASSIST_ALLY_FRONT = 1.0	-- VANILLA: 0.5
+NDefines.NAI.FRONTLINE_EXPANSION_FACTOR = 0.4				-- VANILLA: 0.6
+NDefines.NAI.FRONT_UNITS_CAP_FACTOR = 10.0					-- VANILLA: 15.0
+NDefines.NAI.AIFC_UNIT_RATIO_BASE = 0.25					-- VANILLA: 0.15. Bigger spearhead reserve
+
+-- AIFC pathing: breakthroughs should follow railways and supply hubs
+NDefines.NAI.AIFC_PATH_COST_RAILWAY_CONNECTION = 0.35		-- VANILLA: 0.75
+NDefines.NAI.AIFC_PATH_COST_HAS_SUPPLY_HUB = 0.3			-- VANILLA: 0.5
+NDefines.NAI.AIFC_TARGET_SUPPLY_HUB_BASE_SCORE = 40.0		-- VANILLA: 20.0
+
+-- AI supply awareness: vanilla values assume the old organic-supply economy
+NDefines.NAI.CONSTRUCTION_PRIO_SUPPLY_BUILDING = 1.5		-- VANILLA: 1.10. Boosted for ME supply economy but kept below factories after x2 core factor (3.0 vs CIV 1.6/MIL 1.4 is enough)
+NDefines.NAI.CONSTRUCTION_PRIO_INFRASTRUCTURE = 1.0		-- VANILLA: 0.20. INFRA_TO_SUPPLY=0.5 makes infra the supply backbone — keep at factory tier
+NDefines.NAI.CONSTRUCTION_PRIO_RAILWAY = 6.0				-- VANILLA: 4.00
+NDefines.NAI.LAND_DEFENSE_SUPPLY_HUB_IMPORTANCE = 30.0	-- VANILLA: 4.0
+NDefines.NAI.STR_BOMB_SUPPLY_HUB_IMPORTANCE = 4.0			-- VANILLA: 1.0
+NDefines.NAI.AI_FRONT_DIVISIONS_PER_SUPPLY_POINT = 0.5	-- VANILLA: 1.0. Supply per point is scarcer now
+NDefines.NAI.MAX_SUPPLY_DIVISOR = 2.0						-- VANILLA: 1.75. Higher = AI assumes less supply per unit, builds/conserves more carefully
+NDefines.NAI.AI_THEATRE_SUPPLY_CRISIS_LIMIT = 0.15		-- VANILLA: 0.1. Bail out of starved areas earlier
+
+NDefines.NAITheatre.AI_THEATRE_DISTRIBUTION_MAX_PERCENT_UNMET_DEMAND_PER_FRONT = 0.35	-- VANILLA: 0.5. Less unit ping-pong between fronts
