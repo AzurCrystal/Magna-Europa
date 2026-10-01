@@ -1064,9 +1064,12 @@ NOR_spawn_hirden = {
 	# MER: spawn on any rebel-owned state — hard-coding 124 fails with
 	# "Not allowed on enemy provinces" if government garrisons still hold
 	# the provinces at the civil-war tick (observed 1940.02.15).
+	# Use random_owned_state, not random_owned_controlled_state: at civil-war
+	# spawn tick the rebel owns the states but hasn't taken province control yet,
+	# so is_controlled_by fails and zero divisions spawn (obs 1940.02 GER DOW).
 	ROOT = {
-		random_owned_controlled_state = {
-			limit = { is_controlled_by = PREV }
+		random_owned_state = {
+			limit = { is_owned_by = PREV }
 			create_unit = {
 				division = "name = \"1. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
 				owner = PREV
