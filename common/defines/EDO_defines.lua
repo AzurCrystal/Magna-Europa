@@ -109,8 +109,8 @@ NDefines.NAI.PRODUCTION_EQUIPMENT_SURPLUS_FACTOR = 1.2	-- VANILLA: 0.8
 NDefines.NAI.UPGRADE_DIVISION_RELUCTANCE = 7				-- VANILLA: 7. 3 = AI upgraded templates 2.3x more eagerly; obs showed GER expanding templates post-Anschluss instead of queueing new divisions (halved manpower per battalion makes upgrades useless for fielded-manpower goals)
 NDefines.NAI.UPGRADE_PERCENTAGE_OF_FORCES = 0.20			-- VANILLA: 0.20
 NDefines.NAI.DESIRE_USE_XP_TO_UPDATE_LAND_TEMPLATE = 2.0	-- VANILLA: 2.0
-NDefines.NAI.DEPLOYED_UNIT_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.05	-- VANILLA: 0.10. Halved battalions need 2x deployment throughput — shrink the reinforcement buffer so the AI queues more new divisions instead
-NDefines.NAI.MAX_AVAILABLE_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.1	-- VANILLA: 0.2
+NDefines.NAI.DEPLOYED_UNIT_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.5	-- VANILLA: 0.10. Buffer = share of deployed manpower held back for reinforcements; at 0.1 GER kept ~37k of 750k reserved → only ~4-8 deployment lines open. 0.5 lets the training pipeline fill without removing the wartime stockguard entirely.
+NDefines.NAI.MAX_AVAILABLE_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.5	-- VANILLA: 0.2
 
 
 -- Front allocation: fewer ally-front pileups, lower per-tile density
