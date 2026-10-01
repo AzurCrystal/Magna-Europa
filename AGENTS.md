@@ -44,3 +44,4 @@ RSI in 1939, Soviet Poland, Yugoslavia splits etc. are legal non-historical outc
 - `EDO_defines.lua`: `CORPS_COMMANDER_DIVISIONS_CAP=48`, `FIELD_MARSHAL_DIVISIONS_CAP=72` (vanilla 24/24) — explains general-heavy screenshots.
 - ~50 spawnable tags lack `history/countries` files — intentional, they're spawn-only.
 - `map/unitstacks.txt` imperfections — visual-only, low priority.
+- Volunteer scale is 2x: `NDiplomacy.VOLUNTEERS_PER_*` 0.05→0.10, `MAX_VOLUNTEER_ARMY_FRACTION` 0.25→0.50, all positive `send_volunteer_size` in `common/ideas/` doubled — half-cost battalions make a 1-div volunteer force half the manpower of vanilla; SCW is the only pre-war volunteer venue left.
