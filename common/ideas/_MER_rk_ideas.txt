@@ -1,0 +1,45 @@
+# MER: replacements for GER_brutal_repression / GER_nazi_sympathisers / GER_german_immigration,
+# removed from vanilla 1.19 (NSB-era RK rework). Awarded by rk_tree focuses in
+# common/national_focus/reichskommissariat.txt. All modifier/picture tokens verified
+# against vanilla 1.19 ideas files.
+ideas = {
+	country = {
+
+		MER_rk_brutal_repression = {
+			picture = generic_secret_police
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				resistance_target = -0.15
+				compliance_growth = -0.05
+				master_ideology_drift = 0.05
+			}
+		}
+
+		MER_rk_local_recruitment = {
+			picture = generic_manpower_bonus
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				non_core_manpower = 0.2   # MER: was conscription=0.005 — +0.5% flat recruitable barely registers on a small RK pool; +20% on non-core manpower is the "drain the occupied population" effect
+				weekly_manpower = 100
+			}
+		}
+
+		MER_rk_german_immigration = {
+			picture = generic_immigration
+			allowed = {
+				always = no
+			}
+			removal_cost = -1
+			modifier = {
+				compliance_growth = 0.05
+				weekly_manpower = 50
+			}
+		}
+	}
+}

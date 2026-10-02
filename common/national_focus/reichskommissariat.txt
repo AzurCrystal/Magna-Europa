@@ -393,7 +393,13 @@ focus_tree = {
 		}
 
 		available = {
-			all_controlled_state = {
+			# MER: all_controlled_state counted contested/control-only states
+			# (GER_is_RKN_state lands get add_contested_owner + set_state_controller,
+			# not transfer_state_to) — compliance never ticks on control-only
+			# territory, so >40 was permanently false and the focus dead-locked.
+			# Scoped to owned states: COMPLIANCE_GROWTH_BASE 0.075/day plus
+			# the creation-time +25 makes 40 reachable under oversight/police.
+			all_owned_state = {
 				compliance > 40
 			}
 			capital_scope = {

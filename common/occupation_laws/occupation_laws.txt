@@ -166,6 +166,8 @@ autonomous_occupation = {
 			resistance < autonomous_occupation # if we are under base resistance try to build compliance instead
 			add = 500
 		}
+
+
 	}
 }
 
@@ -190,6 +192,14 @@ foreign_civilian_oversight = {
 			check_variable  = { resistance_target_without_law > 0.05}
 			add = 100
 		}
+
+		modifier = {
+			# MER: RKs run the police + civilian-oversight low-oppression line —
+			# this is the "文官监督" face for calm states. Heavy boost so the
+			# RK AI settles here instead of escalating to military governor.
+			has_autonomy_state = autonomy_reichskommissariat
+			add = 800
+		}
 	}
 }
 
@@ -213,6 +223,15 @@ local_police_force_garrison = {
 		modifier = {
 			check_variable  = { resistance_target_without_law > 0.09}
 			add = 200
+		}
+
+		modifier = {
+			# MER: RKs are created on local_police (set_occupation_law_where_available
+			# in each wuw_GER_reichskommissariats creation decision) but the generic
+			# AI kept bumping military_governor_occupation when resistance rose.
+			# Hard-pin RK autonomy subjects to police oversight.
+			has_autonomy_state = autonomy_reichskommissariat
+			add = 1000
 		}
 
 
@@ -300,6 +319,14 @@ military_governor_occupation = {
 		#	add = 150
 		#}
 		modifier = {
+			# MER: pin RK autonomy subjects to local_police (matches the
+			# set_occupation_law_where_available = local_police_force_garrison
+			# at creation) — military governor was overriding it whenever
+			# resistance_target_without_law crossed 0.24.
+			has_autonomy_state = autonomy_reichskommissariat
+			factor = 0
+		}
+		modifier = {
 			check_variable  = { resistance_target_without_law > 0.24}
 			add = 400
 		}
@@ -333,8 +360,16 @@ martial_law_occupation = {
 		local_resources 				= 0.1
 	}
 
+
 	ai_will_do = {
 		base = 0
+
+		modifier = {
+			# MER: RKs run the low-oppression police/autonomy line — never
+			# escalate to martial law.
+			has_autonomy_state = autonomy_reichskommissariat
+			factor = 0
+		}
 
 		modifier = {
 			check_variable = { resistance_target_without_law > 0.44}
@@ -375,6 +410,13 @@ forced_labor_occupation = {
 		# gets higher score if more are damaged
 		# even more prio at war
 		base = 0
+
+		modifier = {
+			# MER: RKs run the low-oppression police/autonomy line — forced labor
+			# off the table.
+			has_autonomy_state = autonomy_reichskommissariat
+			factor = 0
+		}
 
 		modifier = {
 			set_temp_variable = { requirement_limit = 1.5 }
@@ -466,6 +508,13 @@ harsh_quotas_occupation = {
 		base = 0
 
 		modifier = {
+			# MER: RKs run the low-oppression police/autonomy line — harsh quotas
+			# off the table even when factories are damaged.
+			has_autonomy_state = autonomy_reichskommissariat
+			factor = 0
+		}
+
+		modifier = {
 			set_temp_variable = { num_damaged = damaged_building_level@arms_factory }
 			add_to_temp_variable = { num_damaged = damaged_building_level@industrial_complex }
 
@@ -499,6 +548,13 @@ brutally_oppressive_occupation = {
 	ai_will_do = {
 		base = 0
 
+
+		modifier = {
+			# MER: RKs run the low-oppression police/autonomy line — the
+			# -0.75-target scorched-earth law is off the table.
+			has_autonomy_state = autonomy_reichskommissariat
+			factor = 0
+		}
 		modifier = {
 			check_variable  = { resistance_target_without_law > 0.84 }
 
