@@ -1,0 +1,209 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to build (e.g. 0.99.7). Tag v{version} must point at this commit or be created by "create_tag".'
+        required: true
+      create_tag:
+        description: 'Create and push tag v{version} on HEAD before building'
+        type: boolean
+        default: false
+      changelog:
+        description: 'Release notes markdown. Empty → use CHANGELOG_RELEASE.md from repo root if present, else minimal notes.'
+        required: false
+        default: ''
+      workshop:
+        description: 'Also upload to Steam Workshop (requires STEAM_ACCOUNT + STEAM_PASSWORD secrets; Steam Guard must be off or pre-authorized)'
+        type: boolean
+        default: false
+      workshop_changenote:
+        description: 'Steam changenote line. Empty → auto-generated short summary.'
+        required: false
+        default: ''
+      steam_guard_code:
+        description: 'Steam Guard code (email/mobile) — required when workshop=true on a fresh runner; expires ~30s after issue, keep the mobile app ready'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+env:
+  WORKSHOP_ITEM_ID: '3809580289'
+  APP_ID: '394360'
+
+jobs:
+  build:
+    name: Build mod package
+    runs-on: ubuntu-latest
+    outputs:
+      zip_name: ${{ steps.names.outputs.zip_name }}
+      staging_dir: ${{ steps.names.outputs.staging_dir }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Optionally create tag
+        if: inputs.create_tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git tag -a "v${{ inputs.version }}" -m "Magna Europa: Reforged v${{ inputs.version }}"
+          git push origin "v${{ inputs.version }}"
+
+      - name: Stage tracked files only
+        run: |
+          # Mirrors the local packaging convention: content = git ls-files (tracked set),
+          # Unicode-safe via raw bytes, no dev artifacts.
+          python3 <<'PY'
+          import os, shutil, subprocess
+          stage = 'staging'
+          shutil.rmtree(stage, ignore_errors=True)
+          os.makedirs(stage)
+          files = [f.decode('utf-8') for f in subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0') if f]
+          for rel in files:
+              dst = os.path.join(stage, rel)
+              os.makedirs(os.path.dirname(dst), exist_ok=True)
+              shutil.copy2(rel, dst)
+          banned = [f for f in files if f.endswith('hoi4_screen.png')]
+          assert not banned, f'banned files tracked: {banned}'
+          print(f'staged {len(files)} tracked files')
+          PY
+
+      - name: Package ZIP
+        id: names
+        run: |
+          echo "zip_name=Magna-Europa-Reforged-v${{ inputs.version }}.zip" >> "$GITHUB_OUTPUT"
+          echo "staging_dir=Magna-Europa-Reforged-v${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          mkdir -p dist
+          python3 <<'PY'
+          import os, subprocess, zipfile
+          out = os.path.join('dist', 'Magna-Europa-Reforged-v${{ inputs.version }}.zip')
+          prefix = 'Magna-Europa-Reforged-v${{ inputs.version }}/'
+          files = [f.decode('utf-8') for f in subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0') if f]
+          with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
+              for rel in sorted(files):
+                  z.write(os.path.join('staging', rel), prefix + rel)
+          with zipfile.ZipFile(out) as z:
+              names = set(z.namelist())
+          expected = {prefix + f for f in files}
+          missing = sorted(expected - names)
+          bad = [n for n in names if n.endswith('hoi4_screen.png')]
+          assert not missing and not bad, f'missing={missing} bad={bad}'
+          print(f'zip OK: {len(names)} entries, {os.path.getsize(out)} bytes')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mod-package
+          path: dist/*.zip
+          include-hidden-files: true
+
+      - name: Upload staging artifact separately
+        uses: actions/upload-artifact@v4
+        with:
+          name: mod-staging
+          path: staging/
+          compression-level: 0
+          include-hidden-files: true
+
+  github-release:
+    name: GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: always() && needs.build.result == 'success'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: mod-package
+          path: dist
+
+      - name: Compose notes
+        run: |
+          NOTES=dist/notes.md
+          if [ -n '${{ inputs.changelog }}' ]; then
+            printf '%s' '${{ inputs.changelog }}' > "$NOTES"
+          elif [ -f CHANGELOG_RELEASE.md ]; then
+            cp CHANGELOG_RELEASE.md "$NOTES"
+          else
+            printf '## Magna Europa: Reforged v%s\n\nAutomated release build.\n' '${{ inputs.version }}' > "$NOTES"
+          fi
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v${{ inputs.version }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --notes-file dist/notes.md
+            gh release upload "$TAG" dist/*.zip --clobber
+          else
+            gh release create "$TAG" dist/*.zip \
+              --title "$TAG" \
+          fi
+
+  workshop:
+    name: Steam Workshop upload
+    needs: build
+    # Steam Guard: a GH-hosted runner always triggers it on first login — supply steam_guard_code
+    # at dispatch (valid ~30s) or, preferably, run this job on the dev box as a self-hosted runner
+    # whose steamcmd already has a remembered login (`[self-hosted, windows]` + swap steamcmd.sh for steamcmd.exe).
+    runs-on: ubuntu-latest
+    if: inputs.workshop && needs.build.result == 'success'
+    env:
+      STEAM_ACCOUNT: ${{ secrets.STEAM_ACCOUNT }}
+      STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: mod-staging
+          path: workshop-content
+
+      - name: Install SteamCMD
+        run: |
+          mkdir -p "$RUNNER_TEMP/steamcmd"
+          curl -sL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" \
+            | tar -xz -C "$RUNNER_TEMP/steamcmd"
+
+      - name: Build item VDF
+        run: |
+          NOTE="${{ inputs.workshop_changenote }}"
+          if [ -z "$NOTE" ]; then
+            NOTE="${{ inputs.version }} - automated update. Full changelog: https://github.com/AzurCrystal/Magna-Europa/releases/tag/v${{ inputs.version }}"
+          fi
+          # Escape for VDF: backslash then double-quote
+          NOTE="${NOTE//\\/\\\\}"
+          NOTE="${NOTE//\"/\\\"}"
+          CONTENT_PATH="$PWD/workshop-content"
+          PREVIEW_PATH="$PWD/workshop-content/thumbnail.png"
+          cat > item.vdf <<EOF
+          "workshopitem"
+          {
+              "appid"              "${{ env.APP_ID }}"
+              "publishedfileid"    "${{ env.WORKSHOP_ITEM_ID }}"
+              "contentfolder"      "${CONTENT_PATH//\\/\\\\}"
+              "previewfile"        "${PREVIEW_PATH//\\/\\\\}"
+              "changenote"         "$NOTE"
+          }
+          EOF
+          cat item.vdf
+
+      - name: Upload to Workshop
+        run: |
+          if [ -z "$STEAM_ACCOUNT" ] || [ -z "$STEAM_PASSWORD" ]; then
+            echo '::error::STEAM_ACCOUNT / STEAM_PASSWORD secrets not set'
+            exit 1
+          fi
+          GUARD='${{ inputs.steam_guard_code }}'
+          if [ -n "$GUARD" ]; then
+            "$RUNNER_TEMP/steamcmd/steamcmd.sh" +login "$STEAM_ACCOUNT" "$STEAM_PASSWORD" "$GUARD" +quit
+          fi
+          "$RUNNER_TEMP/steamcmd/steamcmd.sh" \
+            +login "$STEAM_ACCOUNT" "$STEAM_PASSWORD" \
+            +workshop_build_item "$PWD/item.vdf" \
+            +quit
