@@ -3468,18 +3468,20 @@ focus_tree = {
 		id = SPA_consolidate_the_north
 		available = {
 			all_state = {
-				# MER: same all_state+if fix — implication as OR{ NOT{A}, B }.
-				# NOTE: the five group checks are ANDed, so no state satisfies the
-				# guard; A->B is vacuously true. Preserved verbatim from the
-				# previous behavior (if the intent was "any of these groups",
-				# switch the NOT's contents to OR).
+				# MER: all_state+if fix — implication as OR{ NOT{A}, B }.
+				# The five group checks are disjoint state sets; the original ANDed
+				# them, which no state can satisfy, so the gate was vacuous.
+				# "Consolidate the north" means controlling all five regions, so
+				# the guard uses OR — every group state must be ROOT-controlled.
 				OR = {
 					NOT = {
-						is_west_aragon_group = yes
-						is_navarra_group = yes
-						is_burgos_group = yes
-						is_pais_group = yes
-						is_asturias_group = yes
+						OR = {
+							is_west_aragon_group = yes
+							is_navarra_group = yes
+							is_burgos_group = yes
+							is_pais_group = yes
+							is_asturias_group = yes
+						}
 					}
 					is_controlled_by = ROOT
 				}
