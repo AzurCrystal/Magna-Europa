@@ -12937,78 +12937,82 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 	}
 
-	# Omsk - available for LO / RO
-	SOV_plan_start_of_uprising_omsk = {
-		state_target = yes
-		target_root_trigger = {
-			OR = {
-				SOV_is_left_opposition = yes
-				SOV_is_right_opposition = yes
-			}
-		}
+#	# Omsk - available for LO / RO
+#	# MEPORT: disabled — vanilla 571 Omsk is off-map (Siberia); migration stand-in 2387 Oktyabrsky
+#	# is Bashkiria/Urals (SR 216), ~1000km from Omsk and overlaps the live Ufa option (201).
+#	# Commented out for parity with the Chita/Irkutsk uprising blocks below (same off-map theatre).
+#	SOV_plan_start_of_uprising_omsk = {
+#		state_target = yes
+#		target_root_trigger = {
+#			OR = {
+#				SOV_is_left_opposition = yes
+#				SOV_is_right_opposition = yes
+#			}
+#		}
 
-		targets = {
-			state = 2387  # Omsk
-		}
-		target_trigger = {
-			FROM = { state = 2387 }
-		}
-		icon = {
-			key = SOV_place_hq
-			trigger = {
-				2387  = { NOT = { has_state_flag = SOV_hq_state_selected } }   # 1.19-migration: was vanilla 571
-			}
-		}
-		icon = {
-			key = SOV_place_hq_left_opposition
-			trigger = {
-				2387 = { has_state_flag = SOV_hq_state_selected }   # 1.19-migration: was vanilla 571
-				SOV_is_left_opposition = yes
-			}
-		}
-		icon = {
-			key = SOV_place_hq_right_opposition
-			trigger = {
-				2387 = { has_state_flag = SOV_hq_state_selected }   # 1.19-migration: was vanilla 571
-				SOV_is_right_opposition = yes
-			}
-		}
-		icon = {
-			key = SOV_place_hq_exiles
-			trigger = {
-				2387 = { has_state_flag = SOV_hq_state_selected }   # 1.19-migration: was vanilla 571
-				SOV_is_exiles = yes
-			}
-		}
-		available = {
-			NOT = { has_country_flag = SOV_align_state_in_process }
-			NOT = { has_variable = SOV_civil_war_start_state }
-		}
-		fire_only_once = no # want it to stay on map so...
+#		targets = {
+#			state = 2387  # Omsk
+#		}
+#		target_trigger = {
+#			FROM = { state = 2387 }
+#		}
+#		icon = {
+#			key = SOV_place_hq
+#			trigger = {
+#				2387  = { NOT = { has_state_flag = SOV_hq_state_selected } }   # 1.19-migration: was vanilla 571
+#			}
+#		}
+#		icon = {
+#			key = SOV_place_hq_left_opposition
+#			trigger = {
+#				2387 = { has_state_flag = SOV_hq_state_selected }   # 1.19-migration: was vanilla 571
+#				SOV_is_left_opposition = yes
+#			}
+#		}
+#		icon = {
+#			key = SOV_place_hq_right_opposition
+#			trigger = {
+#				2387 = { has_state_flag = SOV_hq_state_selected }   # 1.19-migration: was vanilla 571
+#				SOV_is_right_opposition = yes
+#			}
+#		}
+#		icon = {
+#			key = SOV_place_hq_exiles
+#			trigger = {
+#				2387 = { has_state_flag = SOV_hq_state_selected }   # 1.19-migration: was vanilla 571
+#				SOV_is_exiles = yes
+#			}
+#		}
+#		available = {
+#			NOT = { has_country_flag = SOV_align_state_in_process }
+#			NOT = { has_variable = SOV_civil_war_start_state }
+#		}
+#		fire_only_once = no # want it to stay on map so...
 
-		visible = {
-			SOV_display_civil_war_start_state = yes
-			2387 = { is_owned_by = ROOT }   # 1.19-migration: was vanilla 571
-		}
+#		visible = {
+#			SOV_display_civil_war_start_state = yes
+#			2387 = { is_owned_by = ROOT }   # 1.19-migration: was vanilla 571
+#		}
 
-		cost = 15
-		days_remove = 5
+#		cost = 15
+#		days_remove = 5
 
-		on_map_mode = map_and_decisions_view
+#		on_map_mode = map_and_decisions_view
 
-		complete_effect = {
-			SOV_start_setting_up_hq_state = yes
-		}
-		remove_effect = {
-			set_variable = {SOV_civil_war_start_state = FROM }
-			SOV_set_civil_war_state = yes
-			SOV_opposition_support_low_increase_effect = yes
-			SOV_add_armed_forces_support_state = yes
-		}
-		ai_will_do = {
-			base = 110
-		}
-	}
+#		complete_effect = {
+#			SOV_start_setting_up_hq_state = yes
+#		}
+#		remove_effect = {
+#			set_variable = {SOV_civil_war_start_state = FROM }
+#			SOV_set_civil_war_state = yes
+#			SOV_opposition_support_low_increase_effect = yes
+#			SOV_add_armed_forces_support_state = yes
+#		}
+#		ai_will_do = {
+#			base = 110
+#		}
+#	}
+
 
 	# Tashkent - available for LO / RO
 	SOV_plan_start_of_uprising_tashkent = {
