@@ -1275,11 +1275,13 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_reclaim_the_slovak_possessions
 			}
 			NOT = { has_country_flag = HUN_reintigrated_south_slovakia_flag }
-			610 = {NOT = {is_core_of = ROOT} }
-			580 = {NOT = {is_core_of = ROOT} }
-			1439 = {NOT = {is_core_of = ROOT} }
-			1438 = {NOT = {is_core_of = ROOT} }
-			1442 = {NOT = {is_core_of = ROOT} }
+			OR = {
+				610 = {NOT = {is_core_of = ROOT} }
+				580 = {NOT = {is_core_of = ROOT} }
+				1439 = {NOT = {is_core_of = ROOT} }
+				1438 = {NOT = {is_core_of = ROOT} }
+				1442 = {NOT = {is_core_of = ROOT} }
+			}
 		} 
 
 		available = {
@@ -1584,13 +1586,15 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_reclaim_the_slovak_possessions
 			}
 			NOT = { has_country_flag = HUN_reintigrated_carpathia_flag }
-			593 = {NOT = {is_core_of = ROOT}}
-			2930 = {NOT = {is_core_of = ROOT}}
-			1607 = {NOT = {is_core_of = ROOT}}
-			1608 = {NOT = {is_core_of = ROOT}}
-			2246 = {NOT = {is_core_of = ROOT}}
-			564 = {NOT = {is_core_of = ROOT}}
-			2247 = {NOT = {is_core_of = ROOT}}
+			OR = {
+				593 = {NOT = {is_core_of = ROOT}}
+				2930 = {NOT = {is_core_of = ROOT}}
+				1607 = {NOT = {is_core_of = ROOT}}
+				1608 = {NOT = {is_core_of = ROOT}}
+				2246 = {NOT = {is_core_of = ROOT}}
+				564 = {NOT = {is_core_of = ROOT}}
+				2247 = {NOT = {is_core_of = ROOT}}
+			}
 		} 
 
 		available = {
@@ -1686,17 +1690,23 @@ HUN_territorial_revision_category = {
 				limit = {
 					1608 = { NOT = { is_core_of = ROOT } }
 				}
-				2246 = { add_core_of = ROOT }
+				1608 = { add_core_of = ROOT }
 			}
 			if = {
 				limit = {
 					2246 = { NOT = { is_core_of = ROOT } }
 				}
-				564 = { add_core_of = ROOT }
+				2246 = { add_core_of = ROOT }
 			}
 			if = {
 				limit = {
 					564 = { NOT = { is_core_of = ROOT } }
+				}
+				564 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2247 = { NOT = { is_core_of = ROOT } }
 				}
 				2247 = { add_core_of = ROOT }
 			}
@@ -1721,7 +1731,7 @@ HUN_territorial_revision_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 1439
+				state = 664
 				state = 2671
 				state = 2859
 				state = 622
@@ -1754,25 +1764,27 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_revenge_for_1919
 			}
 			NOT = { has_country_flag = HUN_reintigrated_north_transylvania_flag }
-			664 = {NOT = {is_core_of = ROOT}}
-			2671 = {NOT = {is_core_of = ROOT}}
-			2859 = {NOT = {is_core_of = ROOT}}
-			622 = {NOT = {is_core_of = ROOT}}
-			2675 = {NOT = {is_core_of = ROOT}}
-			639 = {NOT = {is_core_of = ROOT}}
-			2676 = {NOT = {is_core_of = ROOT}}
-			2860 = {NOT = {is_core_of = ROOT}}
-			2672 = {NOT = {is_core_of = ROOT}}
-			628 = {NOT = {is_core_of = ROOT}}
-			1582 = {NOT = {is_core_of = ROOT}}
-			2680 = {NOT = {is_core_of = ROOT}}
-			649 = {NOT = {is_core_of = ROOT}}
-			2673 = {NOT = {is_core_of = ROOT}}
-			665 = {NOT = {is_core_of = ROOT}}
-			680 = {NOT = {is_core_of = ROOT}}
-			1587 = {NOT = {is_core_of = ROOT}}
-			674 = {NOT = {is_core_of = ROOT}}
-			1586 = {NOT = {is_core_of = ROOT}}
+			OR = {
+				664 = {NOT = {is_core_of = ROOT}}
+				2671 = {NOT = {is_core_of = ROOT}}
+				2859 = {NOT = {is_core_of = ROOT}}
+				622 = {NOT = {is_core_of = ROOT}}
+				2675 = {NOT = {is_core_of = ROOT}}
+				639 = {NOT = {is_core_of = ROOT}}
+				2676 = {NOT = {is_core_of = ROOT}}
+				2860 = {NOT = {is_core_of = ROOT}}
+				2672 = {NOT = {is_core_of = ROOT}}
+				628 = {NOT = {is_core_of = ROOT}}
+				1582 = {NOT = {is_core_of = ROOT}}
+				2680 = {NOT = {is_core_of = ROOT}}
+				649 = {NOT = {is_core_of = ROOT}}
+				2673 = {NOT = {is_core_of = ROOT}}
+				665 = {NOT = {is_core_of = ROOT}}
+				680 = {NOT = {is_core_of = ROOT}}
+				1587 = {NOT = {is_core_of = ROOT}}
+				674 = {NOT = {is_core_of = ROOT}}
+				1586 = {NOT = {is_core_of = ROOT}}
+			}
 		} 
 
 		available = {
@@ -1780,7 +1792,7 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_reaffirm_territorial_claims
 				has_completed_focus = wuw_HUN_revenge_for_1919
 			}
-			controls_state = 1439
+			controls_state = 664
 			controls_state = 2671
 			controls_state = 2859
 			controls_state = 622
@@ -1986,15 +1998,27 @@ HUN_territorial_revision_category = {
 			}
 			if = {
 				limit = {
-					649 = { NOT = { is_core_of = ROOT } }
+					628 = { NOT = { is_core_of = ROOT } }
 				}
-				649 = { add_core_of = ROOT }
+				628 = { add_core_of = ROOT }
 			}
 			if = {
 				limit = {
-					2673 = { NOT = { is_core_of = ROOT } }
+					1582 = { NOT = { is_core_of = ROOT } }
 				}
-				2673 = { add_core_of = ROOT }
+				1582 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					2680 = { NOT = { is_core_of = ROOT } }
+				}
+				2680 = { add_core_of = ROOT }
+			}
+			if = {
+				limit = {
+					649 = { NOT = { is_core_of = ROOT } }
+				}
+				649 = { add_core_of = ROOT }
 			}
 			if = {
 				limit = {
@@ -2084,22 +2108,24 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_revenge_for_1919
 			}
 			NOT = { has_country_flag = HUN_reintigrated_south_transylvania_flag }
-			705 = {NOT = {is_core_of = ROOT}}
-			2674 = {NOT = {is_core_of = ROOT}}
-			2669 = {NOT = {is_core_of = ROOT}}
-			2679 = {NOT = {is_core_of = ROOT}}
-			686 = {NOT = {is_core_of = ROOT}}
-			2678 = {NOT = {is_core_of = ROOT}}
-			692 = {NOT = {is_core_of = ROOT}}
-			2261 = {NOT = {is_core_of = ROOT}}
-			713 = {NOT = {is_core_of = ROOT}}
-			727 = {NOT = {is_core_of = ROOT}}
-			2024 = {NOT = {is_core_of = ROOT}}
-			1583 = {NOT = {is_core_of = ROOT}}
-			730 = {NOT = {is_core_of = ROOT}}
-			1584 = {NOT = {is_core_of = ROOT}}
-			1585 = {NOT = {is_core_of = ROOT}}
-			737 = {NOT = {is_core_of = ROOT}}
+			OR = {
+				705 = {NOT = {is_core_of = ROOT}}
+				2674 = {NOT = {is_core_of = ROOT}}
+				2669 = {NOT = {is_core_of = ROOT}}
+				2679 = {NOT = {is_core_of = ROOT}}
+				686 = {NOT = {is_core_of = ROOT}}
+				2678 = {NOT = {is_core_of = ROOT}}
+				692 = {NOT = {is_core_of = ROOT}}
+				2261 = {NOT = {is_core_of = ROOT}}
+				713 = {NOT = {is_core_of = ROOT}}
+				727 = {NOT = {is_core_of = ROOT}}
+				2024 = {NOT = {is_core_of = ROOT}}
+				1583 = {NOT = {is_core_of = ROOT}}
+				730 = {NOT = {is_core_of = ROOT}}
+				1584 = {NOT = {is_core_of = ROOT}}
+				1585 = {NOT = {is_core_of = ROOT}}
+				737 = {NOT = {is_core_of = ROOT}}
+			}
 		} 
 
 		available = {
@@ -2458,12 +2484,14 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_revenge_for_1919
 			}
 			NOT = { has_country_flag = HUN_reintigrated_banat_flag }
-			2668 = {NOT = {is_core_of = ROOT}}
-			736 = {NOT = {is_core_of = ROOT}}
-			2670 = {NOT = {is_core_of = ROOT}}
-			1581 = {NOT = {is_core_of = ROOT}}
-			756 = {NOT = {is_core_of = ROOT}}
-			2677  = {NOT = {is_core_of = ROOT}}
+			OR = {
+				2668 = {NOT = {is_core_of = ROOT}}
+				736 = {NOT = {is_core_of = ROOT}}
+				2670 = {NOT = {is_core_of = ROOT}}
+				1581 = {NOT = {is_core_of = ROOT}}
+				756 = {NOT = {is_core_of = ROOT}}
+				2677  = {NOT = {is_core_of = ROOT}}
+			}
 		} 
 
 		available = {
@@ -2472,7 +2500,7 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_revenge_for_1919
 			}
 			controls_state = 2668
-			controls_state = 744   # 1.19-migration: was vanilla 736 (Litorale/Trieste)
+			controls_state = 736   # 1.19-migration: mod Timis-Torontal (Banat)
 			controls_state = 2670
 			controls_state = 1581
 			controls_state = 756
@@ -2605,11 +2633,13 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_undoing_the_yugoslav_mistake
 			}
 			NOT = { has_country_flag = HUN_reintigrated_west_banat_flag }
-			1513 = {NOT = {is_core_of = ROOT}}
-			738 = {NOT = {is_core_of = ROOT}}
-			1512 = {NOT = {is_core_of = ROOT}}
-			2933 = {NOT = {is_core_of = ROOT}}
-			2554 = {NOT = {is_core_of = ROOT}}
+			OR = {
+				1513 = {NOT = {is_core_of = ROOT}}
+				738 = {NOT = {is_core_of = ROOT}}
+				1512 = {NOT = {is_core_of = ROOT}}
+				2933 = {NOT = {is_core_of = ROOT}}
+				2554 = {NOT = {is_core_of = ROOT}}
+			}
 		} 
 
 		available = {
@@ -2740,12 +2770,14 @@ HUN_territorial_revision_category = {
 			}
 			NOT = { has_country_flag = HUN_reintigrated_vojvodina_flag }
 			 
-			1472= {NOT = {is_core_of = ROOT}}
-			2856= {NOT = {is_core_of = ROOT}}
-			1515= {NOT = {is_core_of = ROOT}}
-			735= {NOT = {is_core_of = ROOT}}
-			1514= {NOT = {is_core_of = ROOT}}
-			1516= {NOT = {is_core_of = ROOT}}
+			OR = {
+				1472 = {NOT = {is_core_of = ROOT}}
+				2856 = {NOT = {is_core_of = ROOT}}
+				1515 = {NOT = {is_core_of = ROOT}}
+				735 = {NOT = {is_core_of = ROOT}}
+				1514 = {NOT = {is_core_of = ROOT}}
+				1516 = {NOT = {is_core_of = ROOT}}
+			}
 		} 
 
 		available = {
@@ -3057,7 +3089,7 @@ HUN_territorial_revision_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 109
+				state = 721
 			}
 		}
 
@@ -3072,7 +3104,7 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_undoing_the_yugoslav_mistake
 			}
 			NOT = { has_country_flag = HUN_reintigrated_croatia_flag }
-			721 = {   # 1.19-migration: was id 109 (Varsinais-Suomi); Eastern Croatia
+			721 = {   # 1.19-migration: was id 109; mod Eastern Croatia (Osijek)
 				NOT = {
 					is_core_of = ROOT
 				}
@@ -3144,7 +3176,7 @@ HUN_territorial_revision_category = {
 
 		highlight_states = {
 			highlight_state_targets = {
-				state = 103
+				state = 1462
 			}
 		}
 
@@ -3159,7 +3191,7 @@ HUN_territorial_revision_category = {
 				has_completed_focus = wuw_HUN_undoing_the_yugoslav_mistake
 			}
 			NOT = { has_country_flag = HUN_reintigrated_dalmatia_flag }
-			1462 = {   # 1.19-migration: was id 103 (Kanta-Hame); Croatia
+			1462 = {   # 1.19-migration: was id 103; mod Karlovac (Croatia)
 				NOT = {
 					is_core_of = ROOT
 				}
@@ -3646,7 +3678,7 @@ HUN_territorial_revision_category = {
 							controls_state = 622
 							controls_state = 2671
 							controls_state = 2859
-							controls_state = 1439
+							controls_state = 664
 							controls_state = 2673
 							controls_state = 2672
 							controls_state = 2680
@@ -3668,7 +3700,7 @@ HUN_territorial_revision_category = {
 									controls_state = 622
 									controls_state = 2671
 									controls_state = 2859
-									controls_state = 1439
+									controls_state = 664
 									controls_state = 2673
 									controls_state = 2672
 									controls_state = 2680
@@ -3695,7 +3727,7 @@ HUN_territorial_revision_category = {
 				state = 622
 				state = 2671
 				state = 2859
-				state = 1439
+				state = 664
 				state = 2673
 				state = 2672
 				state = 2680
@@ -3735,7 +3767,7 @@ HUN_territorial_revision_category = {
 								controls_state = 622
 								controls_state = 2671
 								controls_state = 2859
-								controls_state = 1439
+								controls_state = 664
 								controls_state = 2673
 								controls_state = 2672
 								controls_state = 2680
@@ -3757,7 +3789,7 @@ HUN_territorial_revision_category = {
 										controls_state = 622
 										controls_state = 2671
 										controls_state = 2859
-										controls_state = 1439
+										controls_state = 664
 										controls_state = 2673
 										controls_state = 2672
 										controls_state = 2680
