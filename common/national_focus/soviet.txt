@@ -1487,111 +1487,18 @@ focus_tree = {
 		relative_position_id = SOV_national_specialists
 		cost = 5
 
-		bypass = {
-			# 1.19-migration: off-map region VLADIVOSTOK
-#			35 = { #VLADIVOSTOK
-#				is_fully_controlled_by = ROOT
-#				NOT = {
-#					infrastructure < 5
-#					free_building_slots = {
-#						building = industrial_complex
-#						size > 0
-#						include_locked = yes
-#					}
-#				}
-#			}
-			# 1.19-migration: off-map region ULAN UDE
-#			201 = { #ULAN UDE
-#				is_fully_controlled_by = ROOT
-#				is_fully_controlled_by = ROOT
-#				NOT = {
-#					infrastructure < 5
-#					free_building_slots = {
-#						building = industrial_complex
-#						size > 0
-#						include_locked = yes
-#					}
-#				}
-#			}
-		}
-
-		available = {
-			OR = {
-				# 1.19-migration: off-map region VLADIVOSTOK
-#				35 = { #VLADIVOSTOK
-#					is_fully_controlled_by = ROOT
-#				}
-				# 1.19-migration: off-map region KHABAROVSK
-#				201 = { #KHABAROVSK
-#					is_fully_controlled_by = ROOT
-#				}
-			}
-		}
-		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_eastern_development"
 
-			set_temp_variable = { SOV_states_targeted_eastern_development = 0 } #Used this way to prioritize between desirable states
-			if = {
-				limit = {
-					# 1.19-migration: off-map region VLADIVOSTOK
-#					35 = { #VLADIVOSTOK
-#						is_fully_controlled_by = ROOT
-#						infrastructure < 5
-#						free_building_slots = {
-#							building = industrial_complex
-#							size > 0
-#							include_locked = yes
-#						}
-#					}
-				}
-				# 1.19-migration: off-map region VLADIVOSTOK
-#				35 = { #VLADIVOSTOK
-#					add_building_construction = {
-#						type = infrastructure
-#						level = 1
-#						instant_build = yes
-#					}
-#					add_extra_state_shared_building_slots = 1
-#					add_building_construction = {
-#						type = industrial_complex
-#						level = 1
-#						instant_build = yes
-#					}
-#				}
-				add_to_temp_variable = { SOV_states_targeted_eastern_development = 1 }
-			}
-
-			if = {
-				limit = {
-					# 1.19-migration: off-map region KHABAROVSK
-#					201 = { #KHABAROVSK
-#						is_fully_controlled_by = ROOT
-#						infrastructure < 5
-#						free_building_slots = {
-#							building = industrial_complex
-#							size > 0
-#							include_locked = yes
-#						}
-#					}
-				}
-				# 1.19-migration: off-map region KHABAROVSK
-#				201 = { #KHABAROVSK
-#					add_building_construction = {
-#						type = infrastructure
-#						level = 1
-#						instant_build = yes
-#					}
-#					add_extra_state_shared_building_slots = 1
-#					add_building_construction = {
-#						type = industrial_complex
-#						level = 1
-#						instant_build = yes
-#					}
-#				}
-				add_to_temp_variable = { SOV_states_targeted_eastern_development = 1 }
+			# MER: 1.19-migration killed every state target (35 Vladivostok / 201
+			# Khabarovsk are off-map) — the old available/reward collapsed. Kept the
+			# vanilla prerequisite pair (national/foreign experts, OR semantics) so
+			# 2 off-map civilian factories representing Urals/Far-East development.
+			add_offsite_building = {
+				type = industrial_complex
+				level = 2
 			}
 		}
 	}
@@ -7253,9 +7160,10 @@ focus_tree = {
 		available = {
 			has_government = communism
 			NOT = { has_global_flag = AAT_trotsky_sent_to_stalin }
-			# 1.19-migration: MEX is a dead tag — AAT_trotsky_in_mexico can never be
-			# set, so requiring it made the focus permanently unavailable. The real
-			# intent is "Trotsky is alive and not yet dealt with".
+			# MER: MEX is a dead tag — in this mod Trotsky's Norway exile sends him
+			# to Canada (AAT_norway.7 still sets the legacy-named
+			# AAT_trotsky_in_mexico flag; read it as "exiled abroad"). The
+			# murder_trotsky operation targets Ontario/Ottawa (state 9).
 			NOT = { has_global_flag = flag_trotsky_dead }
 		}
 		
