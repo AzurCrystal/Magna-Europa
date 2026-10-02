@@ -12643,7 +12643,7 @@ SOV_soviet_civil_war_dec_cat = {
 					}
 				}
 				is_owned_by = SOS
-				NOT = { region = 133 } # Not around Moscov
+				NOT = { region = 135 } # Not around Moscov (MEPORT: vanilla 133 Central Russia -> ME Moscow)
 				any_neighbor_state = { is_controlled_by = SOV }
 			}
 			has_global_flag = SOV_soviet_civil_war
@@ -12691,7 +12691,7 @@ SOV_soviet_civil_war_dec_cat = {
 		target_trigger = {
 			FROM = {
 				OR = {
-					region = 155 # Manchuria
+					always = no # MEPORT: off-map region set emptied (vanilla 155 Manchuria)
 				}
 			}
 			has_completed_focus = SOV_approach_semyonov
@@ -12744,17 +12744,7 @@ SOV_soviet_civil_war_dec_cat = {
 		target_trigger = {
 			FROM = {
 				OR = {
-					#region = 155 # Manchuria
-					region = 151
-					region = 261 
-					region = 262 
-					region = 149
-					region = 256
-					region = 257
-					region = 258
-					region = 259
-					region = 260
-					region = 152
+					always = no # MEPORT: off-map region set emptied (vanilla Siberia/Far-East/Steppe regions)
 				}
 			}
 
@@ -14108,8 +14098,8 @@ SOV_soviet_civil_war_dec_cat = {
 		target_trigger = {
 			FROM = {
 				OR = {
-					region = 14
-					region = 138
+					region = 216 # MEPORT: vanilla 14 TransUrals + 138 Ural Region -> Orenburg + Perm
+					region = 218
 				}
 				is_owned_by = ROOT
 				is_controlled_by = ROOT
@@ -14295,7 +14285,18 @@ SOV_soviet_civil_war_dec_cat = {
 
 		visible = {
 			any_owned_state = {
-				region = 130
+				OR = {
+					# MEPORT: vanilla 130 Ukraine -> canonical SOV_align_states_ukraine_csw region set
+					region = 97
+					region = 99
+					region = 101
+					region = 106
+					region = 78
+					region = 100
+					region = 105
+					region = 104
+					region = 79
+				}
 				SOV_is_unaligned_state = yes
 			}
 		}
@@ -14310,7 +14311,17 @@ SOV_soviet_civil_war_dec_cat = {
 						NOT = { has_state_flag = SOV_is_aligning_right }
 						NOT = { has_state_flag = SOV_is_aligning_exiles	}
 						SOV_is_unaligned_state = yes
-						region = 130
+						OR = {
+							region = 97
+							region = 99
+							region = 101
+							region = 106
+							region = 78
+							region = 100
+							region = 105
+							region = 104
+							region = 79
+						}
 					}
 					set_state_flag = SOV_stalinist_state
 				}
@@ -14346,11 +14357,20 @@ SOV_soviet_civil_war_dec_cat = {
 		visible = {
 			any_owned_state = {
 				OR = {
-					region = 136
-					region = 267
-					region = 268
-					region = 269
-					region = 270
+					# MEPORT: vanilla Great Steppe 136 + Transcaspia 267 + Ferghana 268 + Samarkand 269 + SyrDarya 270
+					# -> canonical SOV_align_states_steppe_csw set (excises off-map deep Central Asia)
+					region = 229
+					region = 228
+					region = 221
+					region = 216
+					region = 215
+					region = 152
+					region = 214
+					region = 217
+					region = 154
+					region = 155
+					region = 151
+					region = 139
 				}
 				SOV_is_unaligned_state = yes
 			}
@@ -14367,11 +14387,18 @@ SOV_soviet_civil_war_dec_cat = {
 						NOT = { has_state_flag = SOV_is_aligning_exiles	}
 						SOV_is_unaligned_state = yes
 						OR = {
-							region = 136
-							region = 267
-							region = 268
-							region = 269
-							region = 270
+							region = 229
+							region = 228
+							region = 221
+							region = 216
+							region = 215
+							region = 152
+							region = 214
+							region = 217
+							region = 154
+							region = 155
+							region = 151
+							region = 139
 						}
 					}
 					set_state_flag = SOV_stalinist_state
@@ -14409,10 +14436,19 @@ SOV_soviet_civil_war_dec_cat = {
 		visible = {
 			any_owned_state = {
 				OR = {
-					region = 12
-					region = 150
-					region = 264
-					region = 265
+					# MEPORT: vanilla N.Scandinavia 12 + Arctic Russia 150 + Komi-Nenetsia 264 + East Karelia 265
+					# -> canonical SOV_align_states_siberia_csw northern set
+					region = 143
+					region = 212
+					region = 145
+					region = 144
+					region = 114
+					region = 115
+					region = 113
+					region = 147
+					region = 146
+					region = 213
+					region = 218
 					state = 57
 					state = 24
 				}
@@ -14431,10 +14467,17 @@ SOV_soviet_civil_war_dec_cat = {
 						NOT = { has_state_flag = SOV_is_aligning_exiles	}
 						SOV_is_unaligned_state = yes
 						OR = {
-							region = 12
-							region = 150
-							region = 264
-							region = 265
+							region = 143
+							region = 212
+							region = 145
+							region = 144
+							region = 114
+							region = 115
+							region = 113
+							region = 147
+							region = 146
+							region = 213
+							region = 218
 						}
 					}
 					set_state_flag = SOV_stalinist_state
@@ -14472,17 +14515,20 @@ SOV_soviet_civil_war_dec_cat = {
 		visible = {
 			any_owned_state = {
 				OR = {
+					# MEPORT: vanilla Siberia set (147 Siberian, 263 E.Nenetsia, 151 W.Siberia, 261 Altai,
+					# 262 C.Siberia, 149 E.Siberia, 256-260 Far East) all off-map east of Urals;
+					# remapped to canonical SOV_align_states_siberia_csw northern set
+					region = 143
+					region = 212
+					region = 145
+					region = 144
+					region = 114
+					region = 115
+					region = 113
 					region = 147
-					region = 263
-					region = 151
-					region = 261 
-					region = 262 
-					region = 149
-					region = 256
-					region = 257
-					region = 258
-					region = 259
-					region = 260
+					region = 146
+					region = 213
+					region = 218
 				}
 				NOT = { SOV_is_unaligned_state = yes  }
 			}
@@ -14496,17 +14542,17 @@ SOV_soviet_civil_war_dec_cat = {
 					limit = {
 						SOV_is_unaligned_state = yes
 						OR = {
+							region = 143
+							region = 212
+							region = 145
+							region = 144
+							region = 114
+							region = 115
+							region = 113
 							region = 147
-							region = 263
-							region = 151
-							region = 261 
-							region = 262 
-							region = 149
-							region = 256
-							region = 257
-							region = 258
-							region = 259
-							region = 260
+							region = 146
+							region = 213
+							region = 218
 						}
 					}
 					set_state_flag = SOV_stalinist_state
@@ -14545,8 +14591,8 @@ SOV_soviet_civil_war_dec_cat = {
 		visible = {
 			any_owned_state = {
 				OR = {
-					region = 14
-					region = 138
+					region = 216 # MEPORT: vanilla 14 TransUrals + 138 Ural Region -> Orenburg + Perm
+					region = 218
 				}
 				SOV_is_unaligned_state = yes
 			}
@@ -14562,8 +14608,8 @@ SOV_soviet_civil_war_dec_cat = {
 						NOT = { has_state_flag = SOV_is_aligning_right }
 						SOV_is_unaligned_state = yes
 						OR = {
-							region = 14
-							region = 138
+							region = 216
+							region = 218
 						}
 					}
 					set_state_flag = SOV_stalinist_state
