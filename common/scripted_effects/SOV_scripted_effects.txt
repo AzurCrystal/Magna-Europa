@@ -7396,8 +7396,8 @@ SOV_set_up_civil_war_capital = {
 		random_owned_state = {
 			limit = { 
 				NOT = { state = 229 } 
-				NOT = { region = 132 }
-				NOT = { region = 133 }
+				NOT = { region = 111 } # MEPORT: vanilla 132 Northern Front (Leningrad area) -> ME Ingria
+				NOT = { region = 135 } # MEPORT: vanilla 133 Central Russia -> ME Moscow
 			}
 			set_variable = { ROOT.SOV_civil_war_start_state = THIS }
 			IF = {
@@ -8598,15 +8598,7 @@ SOV_the_eyes_fear_units = {
 					is_owned_by = SOV
 				}
 				OR  = {
-					region = 149 # Eastern Siberia
-					region = 256
-					region = 257
-					region = 258
-					region = 259
-					region = 260
-					region = 151 # Western Siberia
-					region = 261 
-					region = 262 
+					always = no # MEPORT: off-map region set emptied (vanilla Siberia/Far-East 149,151,256-262)
 				}
 				NOT = { has_state_flag = SOV_ruki_flag } # Only one per state
 			}
@@ -8632,8 +8624,17 @@ SOV_the_eyes_fear_units = {
 					is_owned_by = SOV
 				}
 				OR  = {
-					region = 130 # Ukraine
-					region = 135 # Kuban
+					region = 97 # MEPORT: vanilla 130 Ukraine -> canonical Ukraine set
+					region = 99
+					region = 101
+					region = 106
+					region = 78
+					region = 100
+					region = 105
+					region = 104
+					region = 79
+					region = 63 # MEPORT: vanilla 135 Taman Region/Kuban -> ME Kuban + Kuban Black Sea
+					region = 177
 				}
 				NOT = { has_state_flag = SOV_ruki_flag }  # Only one per state
 			}
@@ -8698,9 +8699,13 @@ SOV_popular_uprising_units = {
 		random_state = {
 			limit = {
 				is_owned_by = SOS
-				NOT = { region = 132 } # Leningrad
-				NOT  = { region = 133 } # Central Russia
-				NOT  = { region = 131 } # Western Russia
+				NOT = { region = 111 } # MEPORT: vanilla 132 Northern Front (Leningrad) -> ME Ingria
+				NOT  = { region = 135 } # MEPORT: vanilla 133 Central Russia -> ME Moscow
+				NOT  = { region = 29 } # MEPORT: vanilla 131 Belarus -> ME Belarus
+				NOT  = { region = 131 } # Rzhev (western Russia)
+				NOT  = { region = 132 } # Kaluga (western Russia)
+				NOT  = { region = 142 } # Tula (western Russia)
+				NOT  = { region = 109 } # Smolensk (western Russia)
 				NOT = { has_state_flag = SOV_opposition_partisans_flag } # Only one per state
 			}
 			create_unit = {

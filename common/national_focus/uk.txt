@@ -469,9 +469,11 @@ focus_tree = {
 								size > 1
 							}
 							OR = {
-								region = 1
-								region = 2
-								region = 3
+								region = 45 # Southern England
+								region = 46 # Northern England
+								region = 2 # Scotland
+								region = 3 # Wales
+								region = 1 # Ireland (Northern Ireland)
 							}
 						}
 					}
@@ -633,9 +635,11 @@ focus_tree = {
 							size > 1
 						}
 						OR = {
-							region = 1
-							region = 2
-							region = 3
+							region = 45 # Southern England
+							region = 46 # Northern England
+							region = 2 # Scotland
+							region = 3 # Wales
+							region = 1 # Ireland (Northern Ireland)
 						}
 					}
 					add_building_construction = {
@@ -652,9 +656,11 @@ focus_tree = {
 							size > 1
 						}
 						OR = {
-							region = 1
-							region = 2
-							region = 3
+							region = 45 # Southern England
+							region = 46 # Northern England
+							region = 2 # Scotland
+							region = 3 # Wales
+							region = 1 # Ireland (Northern Ireland)
 						}						
 					}
 					add_building_construction = {
@@ -671,9 +677,11 @@ focus_tree = {
 							size > 1
 						}
 						OR = {
-							region = 1
-							region = 2
-							region = 3
+							region = 45 # Southern England
+							region = 46 # Northern England
+							region = 2 # Scotland
+							region = 3 # Wales
+							region = 1 # Ireland (Northern Ireland)
 						}						
 					}
 					add_building_construction = {
@@ -1377,8 +1385,9 @@ focus_tree = {
 						size > 1
 					}
 					OR = {
-						region = 1
-						region = 2
+						region = 45 # Southern England
+						region = 46 # Northern England
+						region = 3 # Wales
 					}
 				}
 				add_building_construction = {
@@ -1395,27 +1404,9 @@ focus_tree = {
 						size > 1
 					}
 					OR = {
-						region = 1
-						region = 2
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 2
-					instant_build = yes
-				}			
-				set_state_flag = air_rearmament_focus_2AirBase
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-					OR = {
-						region = 1
-						region = 2
-						region = 3
+						region = 45 # Southern England
+						region = 46 # Northern England
+						region = 3 # Wales
 					}
 				}
 				add_building_construction = {
@@ -1432,9 +1423,11 @@ focus_tree = {
 						size > 1
 					}
 					OR = {
-						region = 1
-						region = 2
-						region = 3
+						region = 45 # Southern England
+						region = 46 # Northern England
+						region = 2 # Scotland
+						region = 3 # Wales
+						region = 1 # Ireland (Northern Ireland)
 					}
 				}
 				add_building_construction = {
@@ -1451,9 +1444,32 @@ focus_tree = {
 						size > 1
 					}
 					OR = {
-						region = 1
-						region = 2
-						region = 3
+						region = 45 # Southern England
+						region = 46 # Northern England
+						region = 2 # Scotland
+						region = 3 # Wales
+						region = 1 # Ireland (Northern Ireland)
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}			
+				set_state_flag = air_rearmament_focus_2AirBase
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 1
+					}
+					OR = {
+						region = 45 # Southern England
+						region = 46 # Northern England
+						region = 2 # Scotland
+						region = 3 # Wales
+						region = 1 # Ireland (Northern Ireland)
 					}
 				}
 				add_building_construction = {
@@ -1473,9 +1489,11 @@ focus_tree = {
 								size > 1
 							}
 							OR = {
-								region = 1
-								region = 2
-								region = 3
+								region = 45 # Southern England
+								region = 46 # Northern England
+								region = 2 # Scotland
+								region = 3 # Wales
+								region = 1 # Ireland (Northern Ireland)
 							}
 						}			
 					}
@@ -1552,7 +1570,7 @@ focus_tree = {
 
 		icon = GFX_focus_eng_chiefs_of_staff_committee
 		x = 2
-		y = 1
+		y = 2
 		relative_position_id = air_rearmament_focus
 		cost = 10
 		ai_will_do = {
@@ -6327,8 +6345,8 @@ focus_tree = {
 		prerequisite = { focus = ENG_steady_as_she_goes }
 		mutually_exclusive = { focus = ENG_global_defense }
 		icon = GFX_focus_generic_home_defense
-		x = 5
-		y = 1
+		x = -4
+		y = 0
 		offset = {
 			x = -5
 			y = 0
@@ -6461,7 +6479,7 @@ focus_tree = {
 		will_lead_to_war_with = IRQ
 		prerequisite = { focus = ENG_home_defence }
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		x = -6
+		x = -9
 		y = 1
 		offset = {
 			x = 1
@@ -6479,7 +6497,7 @@ focus_tree = {
 			create_wargoal = {
 				type = take_state_focus
 				target = IRQ
-				generator = { 291 }
+				generator = { 2210 } # MEPORT: was stale 291 (ME Cavan); vanilla 291 = Iraq -> ME Baghdad
 				expire = 0
 			}
 		}
@@ -6514,7 +6532,7 @@ focus_tree = {
 			create_wargoal = {
 				type = take_state_focus
 				target = PER
-				generator = { 266 }
+				generator = { 1155 } # MEPORT: was stale 266 (ME Krupki); vanilla 266 = Persia -> ME Tehran
 				expire = 0
 			}
 		}
@@ -6584,7 +6602,7 @@ focus_tree = {
 		}
 		will_lead_to_war_with = SOV
 		icon = GFX_focus_attack_soviet
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = ENG_embargo_ussr
 		cost = 10
@@ -6750,7 +6768,7 @@ focus_tree = {
 		}
 		prerequisite = { focus = ENG_home_defence }
 		icon = GFX_goal_generic_position_armies
-		x = -3
+		x = -2
 		y = 1
 		offset = {
 			x = 1
