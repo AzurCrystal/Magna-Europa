@@ -3434,9 +3434,9 @@ GER_cap_train_production_prewar = {
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = equipment_production_max_factories
+		type = equipment_production_factor  # MER: equipment_production_max_factories doesn't exist — parser rejected it. Nearest real mechanism: shrink perceived train need to 40% of demand pre-1939 (GER_have_some_train_production's min=1 floor still applies, so GER keeps 1-2 lines instead of emergent 4+)
 		id = train
-		value = 2  # MER: engine was emergent-assigning 4 mils to trains in early peacetime when GER's stockpile was already fine; cap at 2 until pre-war buildup kicks in (vanilla stock_up block takes over at 1940.7 with its own min=4)
+		value = -60
 	}
 }
 
