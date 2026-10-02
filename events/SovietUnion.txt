@@ -2330,12 +2330,10 @@ country_event = {
 		}
 		NOT = {
 			any_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						is_core_of = SOV
-					}
-				}
+				# MER: conjunction intent — "no SOV core is owned by anyone else".
+				# The pre-sweep if{limit} form was broken (empty if-body, limit ran in
+				# country scope); flattened the stranded sibling into A B form.
+				is_core_of = SOV
 				NOT = { is_owned_by = SOV }
 			}
 		}

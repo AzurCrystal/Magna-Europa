@@ -824,27 +824,21 @@ FIN_national_defense_category = {
 				has_completed_focus = FIN_defensive_preparations
 			}
 			any_owned_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						has_state_flag = FIN_INITIAL_STATE
-						is_coastal = yes 
-					}
-					is_controlled_by = ROOT
-				}
+				# MER: any_owned_state+if was conjunction intent (exists A-state with B);
+				# flattened to A B.
+				has_state_flag = FIN_INITIAL_STATE
+				is_coastal = yes
+				is_controlled_by = ROOT
 			}
 		}
 
 		available = {
 			any_owned_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						has_state_flag = FIN_INITIAL_STATE
-						is_coastal = yes 
-					}
-					is_controlled_by = ROOT
-				}
+				# MER: any_owned_state+if was conjunction intent (exists A-state with B);
+				# flattened to A B.
+				has_state_flag = FIN_INITIAL_STATE
+				is_coastal = yes
+				is_controlled_by = ROOT
 			}
 		}
 
