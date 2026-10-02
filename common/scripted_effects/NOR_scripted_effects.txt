@@ -1067,29 +1067,32 @@ NOR_spawn_hirden = {
 	# Use random_owned_state, not random_owned_controlled_state: at civil-war
 	# spawn tick the rebel owns the states but hasn't taken province control yet,
 	# so is_controlled_by fails and zero divisions spawn (obs 1940.02 GER DOW).
-	ROOT = {
-		random_owned_state = {
-			limit = { is_owned_by = PREV }
-			create_unit = {
-				division = "name = \"1. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
-				owner = PREV
-			}
-			create_unit = {
-				division = "name = \"2. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
-				owner = PREV
-			}
-			create_unit = {
-				division = "name = \"3. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
-				owner = PREV
-			}
-			create_unit = {
-				division = "name = \"4. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
-				owner = PREV
-			}
-			create_unit = {
-				division = "name = \"5. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
-				owner = PREV
-			}
+	# MER: units belong to the REBEL tag (caller scope = NOR_cw_fascist_norway);
+	# the earlier ROOT={} wrapper made owner resolve to NOR while the template was
+	# created under the rebel tag -> NOR had no "Hirden Milits" template and the
+	# divisions spawned headless. Keep template+spawn in caller scope, owner=PREV
+	# resolves to the rebel country.
+	random_owned_state = {
+		limit = { is_owned_by = PREV }
+		create_unit = {
+			division = "name = \"1. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+			owner = PREV
+		}
+		create_unit = {
+			division = "name = \"2. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+			owner = PREV
+		}
+		create_unit = {
+			division = "name = \"3. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+			owner = PREV
+		}
+		create_unit = {
+			division = "name = \"4. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+			owner = PREV
+		}
+		create_unit = {
+			division = "name = \"5. Hirden Milits\" division_template = \"Hirden Milits\" start_experience_factor = 0.6"
+			owner = PREV
 		}
 	}
 }
