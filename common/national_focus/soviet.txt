@@ -421,7 +421,7 @@ focus_tree = {
 			build_railway = {
 				level = 1
 				start_province = 19033  # 1.19-migration Ryazan
-				target_province = 18842  # Rostov
+				target_province = 13799  # MEPORT: Rostov VP (was stale 18842 = Yaroslavl)
 				fallback = yes
 			}
 			# Stalingrad-Rostov on Don
@@ -2882,7 +2882,7 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						state = 138 #LENINGRAD - Gets 2 dockyards instead of 1
+						state = 119 #LENINGRAD (was stale 138 = Novgorod) - Gets 2 dockyards instead of 1
 						free_building_slots = {
 							building = dockyard
 							size > 1
@@ -5308,7 +5308,7 @@ focus_tree = {
 
 		available = {
 			OR = {
-				has_full_control_of_state = 138 #LENINGRAD
+				has_full_control_of_state = 119 #LENINGRAD (was stale 138 = Novgorod)
 				has_full_control_of_state = 2442 #LUGA
 				has_full_control_of_state = 2127 #CRIMEA
 			}
@@ -5320,7 +5320,7 @@ focus_tree = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_impregnable_forts"
 			if = {
 				limit = {
-					has_full_control_of_state = 138 #LENINGRAD
+					has_full_control_of_state = 119 #LENINGRAD (was stale 138 = Novgorod)
 				}
 				119 = { #LENINGRAD
 					add_building_construction = {
@@ -13718,7 +13718,7 @@ ai_will_do = {
 					type = take_state_focus
 					target = PER
 					expire = 0
-					generator = { 419 420 266 416}
+					generator = { 1040 1069 1155 1087 } # MEPORT: was stale vanilla {419 420 266 416} (Iran) -> ME successors matching the PER owns_state check above
 				}
 			}
 			if = {
@@ -13734,7 +13734,7 @@ ai_will_do = {
 					type = take_state_focus
 					target = IRQ
 					expire = 0
-					generator = { 676 291 }
+					generator = { 1114 2210 } # MEPORT: was stale vanilla {676 291} (Mosul/Iraq) -> ME Mosul/Baghdad matching the IRQ owns_state check above
 				}
 			}
 			ENG = {
@@ -16519,16 +16519,7 @@ ai_will_do = {
 
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus SOV_restore_the_old_eastern_empire"
-			create_wargoal = { 
-				type = take_state_focus 
-				target = CAN 
-				generator = { 471 739 740 473 864 }
-			}
-			create_wargoal = { 
-				type = take_state_focus 
-				target = USA 
-				generator = { 463 386 385 }
-			}
+			# MEPORT: vanilla Canada/USA take_state wargoals excised — generator states (W.Canada/Alaska/Pacific) are off-map in ME
 		}
 	}
 
@@ -16608,7 +16599,7 @@ ai_will_do = {
 			create_wargoal = { 
 				type = take_state_focus 
 				target = FRA
-				generator = { 553 554 677 680 799 }
+				generator = { 1920 1204 1916 1900 1918 1925 1921 1218 1926 1927 1167 1158 1148 1190 1185 1105 1134 1141 1168 1159 2842 1149 1123 } # MEPORT: was stale vanilla {553 554 677 680 799} (Lebanon/Syria/Aleppo/Deir/Hatay) -> ME Levant successors
 			}
 		}
 	}
