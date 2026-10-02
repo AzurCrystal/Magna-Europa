@@ -5655,16 +5655,18 @@ country_event = {
 			if = { # If SPA owns both of the historical Carlist states
 				limit = {
 					all_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								is_navarra_group = yes
 							}
 							is_controlled_by = ROOT
 						}
 					}
 					all_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								is_burgos_group = yes
 							}
 							is_controlled_by = ROOT
@@ -5687,8 +5689,9 @@ country_event = {
 					limit = {
 						num_of_controlled_states > 16
 						all_state = {
-							if = {
-								limit = {
+							# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+							OR = {
+								NOT = {
 									is_valladolid_group = yes
 								}
 								is_controlled_by = ROOT
@@ -5706,8 +5709,9 @@ country_event = {
 					limit = {
 						num_of_controlled_states > 18
 						all_state = {
-							if = {
-								limit = {
+							# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+							OR = {
+								NOT = {
 									is_leon_group = yes
 								}
 								is_controlled_by = ROOT
@@ -5725,8 +5729,9 @@ country_event = {
 					limit = {
 						num_of_controlled_states > 20
 						all_state = {
-							if = {
-								limit = {
+							# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+							OR = {
+								NOT = {
 									is_galicia_group = yes
 								}
 								is_controlled_by = ROOT
@@ -5891,8 +5896,9 @@ country_event = {
 						}
 						RIF = {
 							all_core_state = {
-								if = {
-									limit = {
+								# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+								OR = {
+									NOT = {
 										NOT = {
 											state = 1851
 										}
@@ -5971,8 +5977,9 @@ country_event = {
 						}
 						RIF = {
 							all_core_state = {
-								if = {
-									limit = {
+								# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+								OR = {
+									NOT = {
 										NOT = {
 											state = 1851
 										}
@@ -7886,8 +7893,9 @@ country_event = {
 			if = {
 				limit = {
 					all_owned_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								is_anarchist_group = yes
 							}
 							is_controlled_by = ROOT

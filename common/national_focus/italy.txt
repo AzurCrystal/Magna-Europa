@@ -653,8 +653,9 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = ITA_LBA_coastal_states
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							is_core_of = LBA
 							is_coastal = yes
 						}
@@ -2505,8 +2506,9 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = ITA_italian_alps_controlled
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							has_state_flag = ITA_INITIAL_STATE
 							is_owned_by = ITA
 							any_neighbor_state = {
@@ -11595,8 +11597,9 @@ focus_tree = {
 				tooltip = CRO_coastal_controlled_or_subject
 				CRO = {
 					all_core_state = {
-						if = {
-							limit = { is_coastal = yes }
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = { is_coastal = yes }
 							state_is_fully_controlled_by_ROOT_or_subject = yes
 						}
 					}

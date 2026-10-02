@@ -2508,8 +2508,9 @@ focus_tree = {
 				custom_trigger_tooltip = {
 					tooltip = form_country_estonia_required_states_tt
 					all_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								has_state_flag = EST_INITIAL_STATE
 							}
 							is_controlled_by = ROOT
@@ -2524,8 +2525,9 @@ focus_tree = {
 				custom_trigger_tooltip = {
 					tooltip = form_country_lithuania_required_states_tt
 					all_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								has_state_flag = LIT_INITIAL_STATE
 							}
 							is_controlled_by = ROOT

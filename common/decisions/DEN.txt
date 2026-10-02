@@ -3796,8 +3796,9 @@ DEN_overlord_category = {
 			custom_trigger_tooltip = {
 				tooltip = mer_doesnt_control_jutland_tt
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							is_jutland = yes 
 						}
 						NOT = { is_fully_controlled_by = ROOT }
@@ -3812,8 +3813,9 @@ DEN_overlord_category = {
 			custom_trigger_tooltip = {
 				tooltip = mer_doesnt_control_jutland_tt
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							is_jutland = yes 
 						}
 						NOT = { is_controlled_by = ROOT }
@@ -7740,8 +7742,9 @@ DEN_return_occupied_territory_category = {
 			modifier = {
 				factor = 2
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							has_state_flag = DEN_INITIAL_STATE
 						}
 						is_controlled_by = DEN

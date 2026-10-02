@@ -5060,8 +5060,9 @@ focus_tree = {
 				tooltip = "Owns Eastern Poland"
 				POL = {
 					all_core_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								is_german_mr = no
 								is_yalta_polish_state = no
 							}
@@ -5074,8 +5075,9 @@ focus_tree = {
 				tooltip = "Owns Core Lithuanian States Except Memel"
 				LIT = {
 					all_core_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								NOT = {
 									state = 557 # was vanilla 227
 								}
@@ -5090,8 +5092,9 @@ focus_tree = {
 				tooltip = "Owns Bessarabia"
 				ROM = {
 					all_core_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								is_bessarabia = yes
 							}
 							is_owned_by = SOV
@@ -5192,8 +5195,9 @@ focus_tree = {
 				tooltip = "Owns States Bordering Nations in Europe"
 				SOV = {
 					all_core_state = {
-						if = {
-							limit = {
+						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+						OR = {
+							NOT = {
 								any_neighbor_state = {
 									OR = {
 										is_core_of = LIT

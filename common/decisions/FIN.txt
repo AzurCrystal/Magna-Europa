@@ -824,8 +824,9 @@ FIN_national_defense_category = {
 				has_completed_focus = FIN_defensive_preparations
 			}
 			any_owned_state = {
-				if = {
-					limit = {
+				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+				OR = {
+					NOT = {
 						has_state_flag = FIN_INITIAL_STATE
 						is_coastal = yes 
 					}
@@ -836,8 +837,9 @@ FIN_national_defense_category = {
 
 		available = {
 			any_owned_state = {
-				if = {
-					limit = {
+				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+				OR = {
+					NOT = {
 						has_state_flag = FIN_INITIAL_STATE
 						is_coastal = yes 
 					}

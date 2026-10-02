@@ -416,8 +416,9 @@ political_actions = {
 			custom_trigger_tooltip = {
 				tooltip = ROM_controls_transnistria
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							is_transnistria = yes
 						}
 						is_controlled_by = ROOT
@@ -430,8 +431,9 @@ political_actions = {
 		}
 		visible = {
 			all_state = {
-				if = {
-					limit = {
+				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+				OR = {
+					NOT = {
 						is_transnistria = yes
 					}
 					NOT = { is_owned_by = ROOT }
@@ -481,8 +483,9 @@ political_actions = {
 			custom_trigger_tooltip = {
 				tooltip = ROM_controls_bessarabia
 				all_state = {
-					if = {
-						limit = {
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
 							OR = {
 								is_bessarabia = yes
 								state = 1600
@@ -500,8 +503,9 @@ political_actions = {
 		}
 		visible = {
 			all_state = {
-				if = {
-					limit = {
+				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+				OR = {
+					NOT = {
 						OR = {
 							is_bessarabia = yes
 							state = 1600
