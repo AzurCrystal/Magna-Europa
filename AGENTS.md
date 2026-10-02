@@ -32,16 +32,20 @@ Mod state IDs ≠ vanilla. Province IDs share the number space but map different
 ### 5. Non-historical AI explains "anomalies"
 RSI in 1939, Soviet Poland, Yugoslavia splits etc. are legal non-historical outcomes — check game rules before diagnosing.
 
+### 6. No edits while the game is running
+While any `hoi4.exe` process is alive, do not modify any file under the test directory (`_ctx/`, snapshots, or anything the running game may re-read). Save games absorb mid-flight edits silently; diagnosing them later is impossible.
+
+
 ## Workflow conventions
 
 - Conventional commits, English messages, `--no-verify`, push `develop`.
 - Rebase hygiene: after any squash/drop, `git diff --quiet <pre-rebase-backup> develop` MUST exit 0 (tree-identical).
 - Releases: bump `version=` in `descriptor.mod` + `Magna Europa.mod`, tag `vX.Y.Z`, GitHub release notes in English.
 
-
 ## Deliberate balance choices (not bugs)
 
 - `EDO_defines.lua`: `CORPS_COMMANDER_DIVISIONS_CAP=48`, `FIELD_MARSHAL_DIVISIONS_CAP=72` (vanilla 24/24) — explains general-heavy screenshots.
+- `EDO_defines.lua`: `DEPLOYED_UNIT_MANPOWER_RATIO_TO_BUFFER_PEACETIME=0.5`, `MAX_AVAILABLE_MANPOWER_RATIO_TO_BUFFER_PEACETIME=0.5` (vanilla 0.1/0.2). Commit `22:05` fix: at vanilla values GER kept only ~37k of ~750k deployed manpower in-training ≈ 4-8 lines, starving the 2× wanted-divisions target — 0.5 lets the pipeline fill. Deliberate, keep.
 - ~50 spawnable tags lack `history/countries` files — intentional, they're spawn-only.
 - `map/unitstacks.txt` imperfections — visual-only, low priority.
 - Volunteer scale is 2x: `NDiplomacy.VOLUNTEERS_PER_*` 0.05→0.10, `MAX_VOLUNTEER_ARMY_FRACTION` 0.25→0.50, all positive `send_volunteer_size` in `common/ideas/` doubled — half-cost battalions make a 1-div volunteer force half the manpower of vanilla; SCW is the only pre-war volunteer venue left.

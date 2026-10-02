@@ -30,8 +30,9 @@ No DLC is required — all DLC-specific content is gated by `has_dlc` checks and
 
 ## Mods / 模组
 
-*Nothing listed yet — assume incompatible until verified.*
-*暂无任何记录——验证前一律视为不兼容。*
+*Expert AI 5.0 listed below; other mods: assume incompatible until verified.*
+*Expert AI 5.0 见下表；其余模组验证前一律视为不兼容。*
 
 | Mod | Status / 状态 | Notes / 备注 |
 |---|---|---|
+| Expert AI 5.0 | ✅ Via submod / 经子mod | Requires `Magna Europa: Expert AI` patch submod (D:/Projects/ME-ExpertAI), loaded after both parents. EAI's embedded vanilla map DB is regenerated for this map there; do NOT run EAI without it (its vanilla state IDs would fire on wrong states). / EAI 内嵌的原版地图数据库已在子mod中按本地图重建；不要脱离子mod裸跑。 |
