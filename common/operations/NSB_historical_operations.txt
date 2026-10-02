@@ -1,112 +1,112 @@
-# 1.19-migration: MEX is a dead tag (Unused.txt); trotsky_exile_mexico never set in mod — whole operation disabled
+# MER: 1.19-migration disabled the whole op — MEX is a dead tag and
+# trotsky_exile_mexico is never set in this mod. Restored with the mod's
+# exile chain: Trotsky settles in Canada (Ottawa, state 9) under flag
+# AAT_trotsky_in_mexico (kept name = "exiled abroad"). Structure mirrors
+# vanilla; MEX-only invite/return flags dropped (unsettable here).
+raid_trotskys_villa = { ### 1/50
+	icon = GFX_raid_trotskys_villa
+	map_icon = GFX_raid_trotskys_villa_map
+	name = raid_trotskys_villa
+	desc = raid_trotskys_villa_desc
+	days = 60
 
-#raid_trotskys_villa = { ### 1/50
-#	icon = GFX_raid_trotskys_villa
-#	map_icon = GFX_raid_trotskys_villa_map
-#	name = raid_trotskys_villa
-#	desc = raid_trotskys_villa_desc
-#	days = 60
+	priority = 11
 
-#	priority = 11
+	allowed = {
+		original_tag = SOV
+	}
+	available = {
+		network_strength = {
+			target = CAN
+			state = 9 #Ontario (Ottawa)
+			value > 50
+		}
+	}
+	visible = {
+		has_completed_focus = SOV_behead_the_snake
+		has_global_flag = AAT_trotsky_in_mexico
+		NOT = { has_global_flag = flag_trotsky_dead }
+		NOT = { has_global_flag = flag_trotsky_has_returned_to_ussr_from_mexico }
+		FROM = {
+			controls_state = 9 #Ontario (Ottawa)
+		}
+	}
 
-#	allowed = {
-#		original_tag = SOV
-#	}
-#	available = { 
-#		network_strength = {
-#			target = MEX
-#			state = 277
-#			value > 50
-#		}
-#	}
-#	visible = {
-#		has_completed_focus = SOV_behead_the_snake
-#		OR = {
-#			has_global_flag = trotsky_exile_mexico
-#			has_global_flag = flag_mexico_invited_trotsky_to_government
-#		}
-#		NOT = { has_global_flag = flag_trotsky_dead }
-#		NOT = { has_global_flag = flag_trotsky_has_returned_to_ussr_from_mexico }
-#		FROM = {
-#			controls_state = 277
-#		}
-#	}
+	operatives = 1
 
-#	operatives = 1
+	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
+	network_strength = 50
 
-#	# Integer [0-100] - Every operation has a hard requirement of network strength in the target country
-#	network_strength = 50
+	equipment = {
+		infantry_equipment = 50
+		support_equipment = 50
+	}
 
-#	equipment = {
-#		infantry_equipment = 50
-#		support_equipment = 50
-#	}
+	on_start = {  # SCOPE_OPERATION
 
-#	on_start = {  # SCOPE_OPERATION
-		
-#	}
+	}
 
-#	outcome_modifiers = { operation_outcome }
-#	cost_modifiers = { operation_cost }
-#	risk_modifiers = { operation_risk }
+	outcome_modifiers = { operation_outcome }
+	cost_modifiers = { operation_cost }
+	risk_modifiers = { operation_risk }
 
-#	outcome_potential = {
-#		custom_effect_tooltip = raid_trotskys_villa_outcome_tt
-#	}
-#	risk_chance = 0.35
-#	experience = 5
-#	# outcome is an effect that runs when the operation has completed
-#	outcome_execute = { # SCOPE_OPERATION
-#		hidden_effect = {
-#			ROOT = { set_country_flag = SOV_raided_trotskys_villa_flag } #For AI Strat
-#		}
-#		ROOT = { news_event = { id = nsb_news.100 } } #SUCCESS - Kill Trotsky and swap Trotskyite Plot NS
-#	}
+	outcome_potential = {
+		custom_effect_tooltip = raid_trotskys_villa_outcome_tt
+	}
+	risk_chance = 0.35
+	experience = 5
+	# outcome is an effect that runs when the operation has completed
+	outcome_execute = { # SCOPE_OPERATION
+		hidden_effect = {
+			ROOT = { set_country_flag = SOV_raided_trotskys_villa_flag } #For AI Strat
+		}
+		ROOT = { news_event = { id = nsb_news.100 } } #SUCCESS - Kill Trotsky and swap Trotskyite Plot NS
+	}
 
-#	outcome_extra_chance = 0.50
+	outcome_extra_chance = 0.50
 
-#	outcome_extra_execute = {
-#		hidden_effect = {
-#			ROOT = { set_country_flag = SOV_raided_trotskys_villa_flag } #For AI Strat
-#		}
-#		ROOT = { news_event = { id = nsb_news.101 } } #FAILURE - Trotsky still alive
-#	}
+	outcome_extra_execute = {
+		hidden_effect = {
+			ROOT = { set_country_flag = SOV_raided_trotskys_villa_flag } #For AI Strat
+		}
+		ROOT = { news_event = { id = nsb_news.101 } } #FAILURE - Trotsky still alive
+	}
 
-#	# This is where all the separate phases are defined
-#	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
-#	phases = { #infiltration 
-#		infiltration_border = { base = 60 }
-#		infiltration_submarine = { base = 20 }
-#		infiltration_diplomatic = {
-#			base = 20
-#			modifier = {
-#				FROM = {
-#					has_war_with = ROOT
-#				}
-#				factor = 0
-#			}
-#		}
-#	}
-#	phases = { 
-#		raid_trotskys_villa_attack = { base = 100 }
-#	}
-#	phases = { 
-#		exfiltration_border = { base = 40 }
-#		exfiltration_go_to_ground = { base = 30 }
-#		exfiltration_submarine_pickup = { base = 20 }
-#		exfiltration_air_pickup = { 
-#			base = 10
-#			modifier = {
-#				ROOT = { 
-#					has_equipment = {
-#						transport_plane_equipment < 1
-#					}
-#				}
-#				factor = 0 #less likely if we have no transports
-#			}
-#		}
-#	}
-#}
+	# This is where all the separate phases are defined
+	# Each phase for an operation may have a single actual phase assigned to it, which is determined here
+	phases = { #infiltration
+		infiltration_border = { base = 60 }
+		infiltration_submarine = { base = 20 }
+		infiltration_diplomatic = {
+			base = 20
+			modifier = {
+				FROM = {
+					has_war_with = ROOT
+				}
+				factor = 0
+			}
+		}
+	}
+	phases = {
+		raid_trotskys_villa_attack = { base = 100 }
+	}
+	phases = {
+		exfiltration_border = { base = 40 }
+		exfiltration_go_to_ground = { base = 30 }
+		exfiltration_submarine_pickup = { base = 20 }
+		exfiltration_air_pickup = {
+			base = 10
+			modifier = {
+				ROOT = {
+					has_equipment = {
+						transport_plane_equipment < 1
+					}
+				}
+				factor = 0 #less likely if we have no transports
+			}
+		}
+	}
+}
 
 murder_trotsky = { ### 1/50
 	icon = GFX_murder_trotsky
@@ -129,25 +129,19 @@ murder_trotsky = { ### 1/50
 		NOT = { has_global_flag = flag_trotsky_has_returned_to_ussr_from_mexico }
 		NOT = { ROOT = { has_country_flag = SOV_trotskys_assassination_attempt_flag } } # This operation can only be done once
 		OR = {
-			# 1.19-migration: dead Mexico exile branch — MEX dead tag, trotsky_exile_mexico unset, state 277 reused by mod (Praesto)
-
-#			AND = {
-#				FROM = {
-#					controls_state = 277 #MEXICO CITY
-#				}
-#				OR = {
-#					has_global_flag = trotsky_exile_mexico
-#					has_global_flag = flag_mexico_invited_trotsky_to_government
-#				}	
-#			}
-			AND = {
+			# 1.19-migration: MEX is a dead tag. Trotsky exiles to Canada in this mod;
+			# AAT_trotsky_in_mexico (kept name) is the "exiled abroad" flag.
+			AND = { # Trotsky in Canada — hit Ottawa
 				FROM = {
-					controls_state = 124 # 1.19-migration: was vanilla 110 (Ostlandet/Oslo)
+					controls_state = 9 # Ontario (Ottawa)
 				}
-				NOT = {
-					has_global_flag = trotsky_exile_mexico
-					has_global_flag = flag_mexico_invited_trotsky_to_government
+				has_global_flag = AAT_trotsky_in_mexico
+			}
+			AND = { # Trotsky never left Norway — hit Oslofjord
+				FROM = {
+					controls_state = 124 # Ostlandet/Oslo
 				}
+				has_global_flag = NOR_trotsky_in_norway
 			}
 		}	
 	}

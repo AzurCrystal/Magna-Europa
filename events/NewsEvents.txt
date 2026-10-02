@@ -1326,19 +1326,22 @@ news_event = {
 			NOT = { 
 				TAG = SOV 
 				is_in_faction_with = SOV
-				tag = MEX
+				tag = CAN
 			} 
 		}
 	}
 	option = {
 		name = news.37.a
 		trigger = {
-			tag = MEX
+			tag = CAN  # MER: was MEX — dead tag; Trotsky exiles to Canada in this mod
 			NOT = { is_in_faction_with = SOV }
 		}
 
-		effect_tooltip = {
-			retire_character = MEX_leon_trotsky
+		if = {
+			limit = {
+				has_global_flag = AAT_trotsky_in_mexico  # kept name = "exiled abroad" (Canada)
+			}
+			clr_global_flag = AAT_trotsky_in_mexico
 		}
 	}
 

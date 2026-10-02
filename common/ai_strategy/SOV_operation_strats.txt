@@ -1,55 +1,73 @@
-# 1.19-migration: mission_target MEX dead — target-less network strat is dead weight
-#SOV_build_intel_network_in_MEX_strat = {
-#	allowed = {
-#		tag = SOV
-#	}
-	
-#	enable = {
-#		tag = SOV
-#		OR = {
-#			AND = {
-#				date > 1940.1.1
-#				has_completed_focus = SOV_the_military_conspiracy #Parent focus of Behead the Snake
-#			}
-#			has_completed_focus = SOV_behead_the_snake
-#		}
-#	}
-	
-#	abort_when_not_enabled = yes
-		
-#	ai_strategy = {
-#		type = operative_mission
-#		mission = build_intel_network
-#		value = 1000
-##		mission_target = MEX   # 1.19-migration: dead tag
-#	}
-#}
+# MER: Canada replaces Mexico as Trotsky's exile host in this mod.
+# Network must be built where he actually is — otherwise murder_trotsky's
+# network_strength = 25 requirement can never be met and the op never launches.
+SOV_build_intel_network_trotsky_strat = {
+	allowed = {
+		tag = SOV
+	}
 
-# 1.19-migration: raid_trotskys_villa operation disabled (MEX dead tag) — strat is dead weight
-#SOV_raid_trotskys_villa_strat = {
-#	allowed = {
-#		tag = SOV
-#	}
-#
-#	enable = {
-#		tag = SOV
-#		has_completed_focus = SOV_behead_the_snake
-#
-#		OR = { #Do it once then go for murder, then you can try again
-#			NOT = { has_country_flag = SOV_raided_trotskys_villa_flag }
-#			has_country_flag = SOV_trotskys_assassination_attempt_flag
-#		}
-#	}
-#
-#	abort_when_not_enabled = yes
-#
-#	ai_strategy = {
-#		type = operative_operation
-#		operation = raid_trotskys_villa
-#		value = 1200
-#		operation_target = MEX
-#	}
-#}
+	enable = {
+		tag = SOV
+		NOT = { has_global_flag = flag_trotsky_dead }
+		OR = {
+			AND = {
+				date > 1940.1.1
+				has_completed_focus = SOV_the_military_conspiracy #Parent focus of Behead the Snake
+			}
+			has_completed_focus = SOV_behead_the_snake
+		}
+		OR = { # wherever Trotsky ended up
+			has_global_flag = AAT_trotsky_in_mexico   # exiled abroad = Canada
+			has_global_flag = NOR_trotsky_in_norway # still in Norway
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1000
+		mission_target = CAN
+	}
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1000
+		mission_target = NOR
+	}
+}
+
+
+# MER: restored from vanilla (was deleted with MEX). Canada replaces MEX as the
+# villa host; NOR is not a raid target — the still-in-Norway outcome goes
+# straight to murder_trotsky, which is why that strat no longer waits on the
+# raid flag.
+SOV_raid_trotskys_villa_strat = {
+	allowed = {
+		tag = SOV
+	}
+
+	enable = {
+		tag = SOV
+		has_completed_focus = SOV_behead_the_snake
+		has_global_flag = AAT_trotsky_in_mexico # only fires when he's abroad (Canada)
+
+		OR = { #Do it once then go for murder, then you can try again
+			NOT = { has_country_flag = SOV_raided_trotskys_villa_flag }
+			has_country_flag = SOV_trotskys_assassination_attempt_flag
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_operation
+		operation = raid_trotskys_villa
+		value = 1200
+		operation_target = CAN   # MER: was MEX — Trotsky exiles to Canada in this mod
+	}
+}
 
 
 SOV_murder_trotsky_strat = {
@@ -61,17 +79,20 @@ SOV_murder_trotsky_strat = {
 		tag = SOV
 		has_completed_focus = SOV_behead_the_snake
 
-		#Do it after raiding the villa
-		has_country_flag = SOV_raided_trotskys_villa_flag
+		# MER: vanilla gated murder on SOV_raided_trotskys_villa_flag, but the
+		# raid only exists for the Canada exile — if Trotsky stayed in Norway
+		# the flag never sets and murder would be unreachable. Behead-the-snake
+		# alone is sufficient; the op's own `visible` picks CAN vs NOR.
 	}
-	
+
 	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
 		type = operative_operation
 		operation = murder_trotsky
 		value = 1200
-#		operation_target = MEX   # 1.19-migration: dead tag
+		operation_target = CAN   # MER: was MEX — Trotsky exiles to Canada in this mod
+		operation_target = NOR   # cover the still-in-Norway outcome (jailed/embraced branches keep him at state 124)
 	}
 }
 
