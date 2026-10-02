@@ -304,7 +304,7 @@ ITA_shore_up_against_france = {
 
 		# savoy piedmont
 		state = 1423
-		state = 268
+		state = 2851 # Haute-Savoie — MEPORT: was 268 (Down, Ireland; stale vanilla residue), matches "savoy piedmont" intent
 
 		value = 10
 	}
@@ -1080,7 +1080,10 @@ ITA_push_towards_alexandria = {
 		date > 1940.8.26
 		# Only push once we have secured our position in Libya
 		any_owned_state = {
-			region = 126 # Libyan coast
+			OR = { # MEPORT: vanilla 126 "North Africa" -> ME Libyan SRs (126 = Hejaz in ME)
+				region = 38 # Tripolitania
+				region = 39 # Cyrenaica
+			}
 			is_controlled_by = ITA
 		}
 		date < 1942.9.1
