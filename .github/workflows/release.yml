@@ -38,9 +38,6 @@ jobs:
   build:
     name: Build mod package
     runs-on: ubuntu-latest
-    outputs:
-      zip_name: ${{ steps.names.outputs.zip_name }}
-      staging_dir: ${{ steps.names.outputs.staging_dir }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,11 +45,13 @@ jobs:
 
       - name: Optionally create tag
         if: inputs.create_tag
+        env:
+          VERSION: ${{ inputs.version }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git tag -a "v${{ inputs.version }}" -m "Magna Europa: Reforged v${{ inputs.version }}"
-          git push origin "v${{ inputs.version }}"
+          git tag -a "v$VERSION" -m "Magna Europa: Reforged v$VERSION"
+          git push origin "v$VERSION"
 
       - name: Stage tracked files only
         run: |
@@ -74,15 +73,15 @@ jobs:
           PY
 
       - name: Package ZIP
-        id: names
+        env:
+          VERSION: ${{ inputs.version }}
         run: |
-          echo "zip_name=Magna-Europa-Reforged-v${{ inputs.version }}.zip" >> "$GITHUB_OUTPUT"
-          echo "staging_dir=Magna-Europa-Reforged-v${{ inputs.version }}" >> "$GITHUB_OUTPUT"
           mkdir -p dist
           python3 <<'PY'
           import os, subprocess, zipfile
-          out = os.path.join('dist', 'Magna-Europa-Reforged-v${{ inputs.version }}.zip')
-          prefix = 'Magna-Europa-Reforged-v${{ inputs.version }}/'
+          v = os.environ['VERSION']
+          out = os.path.join('dist', f'Magna-Europa-Reforged-v{v}.zip')
+          prefix = f'Magna-Europa-Reforged-v{v}/'
           files = [f.decode('utf-8') for f in subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0') if f]
           with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
               for rel in sorted(files):
@@ -123,14 +122,17 @@ jobs:
           path: dist
 
       - name: Compose notes
+        env:
+          CHANGELOG: ${{ inputs.changelog }}
+          VERSION: ${{ inputs.version }}
         run: |
           NOTES=dist/notes.md
-          if [ -n '${{ inputs.changelog }}' ]; then
-            printf '%s' '${{ inputs.changelog }}' > "$NOTES"
+          if [ -n "$CHANGELOG" ]; then
+            printf '%s' "$CHANGELOG" > "$NOTES"
           elif [ -f CHANGELOG_RELEASE.md ]; then
             cp CHANGELOG_RELEASE.md "$NOTES"
           else
-            printf '## Magna Europa: Reforged v%s\n\nAutomated release build.\n' '${{ inputs.version }}' > "$NOTES"
+            printf '## Magna Europa: Reforged v%s\n\nAutomated release build.\n' "$VERSION" > "$NOTES"
           fi
 
       - name: Create or update release
@@ -142,8 +144,7 @@ jobs:
             gh release edit "$TAG" --notes-file dist/notes.md
             gh release upload "$TAG" dist/*.zip --clobber
           else
-            gh release create "$TAG" dist/*.zip \
-              --title "$TAG" \
+            gh release create "$TAG" dist/*.zip --title "$TAG" --notes-file dist/notes.md
           fi
 
   workshop:
@@ -171,10 +172,13 @@ jobs:
             | tar -xz -C "$RUNNER_TEMP/steamcmd"
 
       - name: Build item VDF
+        env:
+          CHANGENOTE: ${{ inputs.workshop_changenote }}
+          VERSION: ${{ inputs.version }}
         run: |
-          NOTE="${{ inputs.workshop_changenote }}"
+          NOTE="$CHANGENOTE"
           if [ -z "$NOTE" ]; then
-            NOTE="${{ inputs.version }} - automated update. Full changelog: https://github.com/AzurCrystal/Magna-Europa/releases/tag/v${{ inputs.version }}"
+            NOTE="$VERSION - automated update. Full changelog: https://github.com/AzurCrystal/Magna-Europa/releases/tag/v$VERSION"
           fi
           # Escape for VDF: backslash then double-quote
           NOTE="${NOTE//\\/\\\\}"
@@ -194,12 +198,13 @@ jobs:
           cat item.vdf
 
       - name: Upload to Workshop
+        env:
+          GUARD: ${{ inputs.steam_guard_code }}
         run: |
           if [ -z "$STEAM_ACCOUNT" ] || [ -z "$STEAM_PASSWORD" ]; then
             echo '::error::STEAM_ACCOUNT / STEAM_PASSWORD secrets not set'
             exit 1
           fi
-          GUARD='${{ inputs.steam_guard_code }}'
           if [ -n "$GUARD" ]; then
             "$RUNNER_TEMP/steamcmd/steamcmd.sh" +login "$STEAM_ACCOUNT" "$STEAM_PASSWORD" "$GUARD" +quit
           fi
