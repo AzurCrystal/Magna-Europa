@@ -905,8 +905,13 @@ country_event = {
 		trigger = {
 			ROM = {
 				all_state = {
-					region = 12 #transylvania strat region
-					is_controlled_by = ROM
+					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
+					OR = {
+						NOT = {
+							region = 12 #transylvania strat region
+						}
+						is_controlled_by = ROM
+					}
 				}
 			}
 		}

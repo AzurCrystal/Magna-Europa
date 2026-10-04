@@ -14927,6 +14927,20 @@ country_event = {
 					add_core_of = GER
 				}
 			}
+
+			DNZ =  {
+				every_controlled_state = {
+					limit = {
+						OR = {
+							state = 280
+							state = 2729
+						}
+					}
+					display_individual_scopes = yes
+					transfer_state_to = GER
+					add_core_of = GER
+				}
+			}
 		}
 	}
 
@@ -15030,7 +15044,10 @@ country_event = {
 							state = 481
 							state = 2262
 					}
-					is_fully_controlled_by = ROOT
+					OR = {
+						is_fully_controlled_by = ROOT
+						is_fully_controlled_by = DNZ
+					}
 				}
 				display_individual_scopes = yes
 				add_core_of = GER
@@ -15103,6 +15120,36 @@ country_event = {
 				ROOT = {
 					transfer_state = PREV
 					add_state_core = PREV
+				}
+			}
+
+			DNZ =  {
+				every_controlled_state = {
+					limit = {
+						OR = {
+							state = 280
+							state = 2729
+						}
+					}
+					display_individual_scopes = yes
+					if = {
+						limit = {
+							ROOT = {
+								OR = {
+									has_dynamic_modifier = { modifier = GER_mefo_bills_modifier }
+									has_dynamic_modifier = { modifier = GER_economy_of_conquest_modifier }
+								}
+							}
+						}
+						add_to_array = {
+							array = GER.GER_seize_gold_target_states_array
+							value = THIS
+						}
+					}
+					ROOT = {
+						transfer_state = PREV
+						add_state_core = PREV
+					}
 				}
 			}
 		}
@@ -15235,6 +15282,25 @@ country_event = {
 					add_state_core = PREV
 				}
 			}
+
+			DNZ = {
+				every_controlled_state = {
+					limit = {
+						OR = {
+							state = 280
+							state = 2729
+						}
+					}
+					display_individual_scopes = yes
+					add_to_array = {
+						array = FROM.GER_restore_eastern_imperial_possessions_array
+						value = THIS
+					}
+					ROOT = {
+						add_state_core = PREV
+					}
+				}
+			}
 			ROOT = {
 				create_wargoal = {
 					type = take_state_focus
@@ -15283,7 +15349,10 @@ country_event = {
 						state = 2262
 						state = 1979
 				}
-				is_fully_controlled_by = FROM
+				OR = {
+					is_fully_controlled_by = FROM
+					is_fully_controlled_by = DNZ
+				}
 			}
 			display_individual_scopes = yes
 			ROOT = {
