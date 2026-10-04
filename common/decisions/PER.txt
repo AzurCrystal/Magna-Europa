@@ -1,0 +1,1601 @@
+
+##############################
+#### INDUSTRIAL DECISIONS ####
+##############################
+
+PER_profit_from_war_category = {
+	PER_sell_oil = {
+
+		ai_will_do = {
+			base = 25
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value > 25
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = FROM
+					value > 50
+				}
+			}
+			modifier = {
+				factor = 0.5
+				has_opinion = {
+					target = FROM
+					value < 0
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = {
+					is_major = yes
+				}
+			}
+			modifier = {
+				factor = 5
+				strength_ratio = {
+					tag = FROM 
+					ratio < 1
+				}
+			}
+		}
+
+		available = {
+			1238 = {  # MEPORT: was vanilla 413 (PRIMARY Khuzestan; oil-rights set {1238,2394} used at give_resource_rights)
+				is_fully_controlled_by = ROOT
+			}
+
+			is_subject = no
+
+			NOT = {
+				has_country_flag = PER_offers_oil_flag
+			}
+		}
+
+		visible = {	
+			has_completed_focus = PER_profit_from_war
+			NOT = { has_country_flag = PER_sold_oil_flag }
+		}
+
+		targets = { GER ENG SOV FRA USA JAP }
+
+		target_trigger = {
+			FROM = {
+				NOT = {
+					has_war_with = ROOT
+					has_country_flag = PER_refused_oil_flag
+				}
+				is_subject = no
+				has_capitulated = no
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+
+		complete_effect = {
+			FROM = { country_event = { id = PER_industrial_events.1 days = 2 } }
+			custom_effect_tooltip = if_they_accept_tt
+			effect_tooltip = {
+				FROM = { give_guarantee = ROOT }
+				ROOT = {
+					give_resource_rights = {
+						receiver = FROM
+						state = 1238 # MEPORT: was vanilla 413 (oil-rights set {1238,2394})
+					}
+					give_resource_rights = { # MEPORT: was vanilla 413 (subdivided)
+						receiver = FROM
+						state = 2394
+					}
+				}
+				add_offsite_building = { type = industrial_complex  level = 3 }
+			}
+			custom_effect_tooltip = PER_resource_rights_on_war_tt
+			hidden_effect = {
+				set_country_flag = PER_offers_oil_flag
+			}
+		}
+	}
+}
+
+############################
+#### IMPERIAL DECISIONS ####
+############################
+
+PER_integrate_anatolia_decisions_category = {
+	
+	PER_core_conquered_state = {
+
+		icon = GFX_decision_generic_form_nation
+
+		ai_will_do = {
+			base = 50
+		}
+	
+		allowed = {
+			original_tag = PER
+		}
+
+		available = {
+			has_completed_focus = PER_reintegrate_anatolia
+			NOT = {
+				has_country_flag = PER_state_coring_flag
+			}
+		} 
+
+		visible = { 
+			 has_completed_focus = PER_reintegrate_anatolia
+		}
+		state_target = any_owned_state
+		target_trigger = {
+			FROM = {
+				impassable = no	
+				AND = {
+					is_core_of = TUR
+					NOT = { 
+						is_core_of = ROOT 
+					}
+
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+		}
+
+	    on_map_mode = map_and_decisions_view 
+		cost = 75
+		
+		fire_only_once = yes
+		days_remove = 35
+
+		modifier = {
+			political_power_factor = -0.15
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				set_country_flag = PER_state_coring_flag
+			}
+		}
+
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = PER_state_coring_flag
+			}
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+}
+
+PER_absorb_byzantines_category = {
+	
+	PER_core_byzantium_state = {
+
+		icon = GFX_decision_generic_form_nation
+
+		ai_will_do = {
+			base = 50
+		}
+	
+		allowed = {
+			original_tag = PER
+		}
+
+		available = {
+			has_completed_focus = PER_absorb_byzantines
+		} 
+
+		visible = { 
+			 has_completed_focus = PER_absorb_byzantines
+		}
+		state_target = any_owned_state
+		target_trigger = {
+			FROM = {
+				impassable = no	
+				AND = {
+					is_core_of = GRE
+					NOT = { 
+						is_core_of = ROOT 
+					}
+
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+		}
+
+	    on_map_mode = map_and_decisions_view 
+		cost = 75
+		
+		fire_only_once = yes
+		days_remove = 35
+
+		modifier = {
+			political_power_factor = -0.15
+		}
+
+		remove_effect = {
+
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+}
+
+PER_memphis_initiative_category = {
+	
+	PER_core_egypt_state = {
+
+		icon = GFX_decision_generic_form_nation
+
+		ai_will_do = {
+			base = 50
+		}
+	
+		allowed = {
+			original_tag = PER
+		}
+
+		available = {
+			has_completed_focus = PER_the_memphis_initiative
+		} 
+
+		visible = { 
+			 has_completed_focus = PER_the_memphis_initiative
+		}
+		state_target = any_controlled_state
+		target_trigger = {
+			FROM = {
+				impassable = no	
+				AND = {
+					OR = {
+						is_on_continent = middle_east
+						is_core_of = EGY
+						#state = 444 # 1.19-migration: off-map Baluchistan States — was vanilla 444 #This one is in Asia for some reason, likely cannot be addressed without breaking save games
+					}
+					NOT = { 
+						is_core_of = ROOT 
+						is_core_of = TUR
+					}
+
+					is_fully_controlled_by = ROOT
+				}
+			}
+		}
+
+	    on_map_mode = map_and_decisions_view 
+		cost = 75
+		
+		fire_only_once = yes
+		days_remove = 35
+
+		modifier = {
+			political_power_factor = -0.15
+		}
+
+		remove_effect = {
+
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+	}
+}
+
+###############################
+####  REVOLUTION DECISIONS ####
+###############################
+
+PER_civil_unrest_category = {
+	
+		PER_civil_war_imminent = {
+			icon = GFX_decision_revolt
+			allowed = { tag = PER }
+			priority = 100
+
+			available = {
+				OR = {
+					has_civil_war = yes
+
+					AND = {
+						has_country_flag = PER_parliament_dissolved
+						has_country_flag = PER_economy_proved
+						has_country_flag = PER_military_fielded
+					}
+				}
+			}
+
+			activation = {
+				original_tag = PER
+				has_completed_focus = PER_legacy_of_greatness
+				NOT = {
+					has_global_flag = PER_civil_war_happened
+				} 
+			}
+
+			cancel_if_not_visible = yes
+			is_good = no
+			fire_only_once = yes
+			selectable_mission = no
+			days_mission_timeout = 365
+
+			timeout_effect = {
+				country_event = PER_revolution_events.1
+			}
+		}
+
+		PER_dissolve_parliament = {
+
+			priority = 98
+
+			icon = GFX_decision_generic_political_discourse
+
+			ai_will_do = {
+				base = 100
+			}
+
+			allowed = {
+				original_tag = PER
+			}
+
+			visible = {
+				original_tag = PER
+				has_completed_focus = PER_assessing_the_opposition
+				NOT = {
+					has_global_flag = PER_civil_war_happened
+				} 
+			}
+
+			available = {
+				original_tag = PER
+				has_completed_focus = PER_assessing_the_opposition
+			}
+
+			days_remove = 30
+
+			cost = 100
+			fire_only_once = yes
+
+			modifier = {
+				political_power_factor = -0.2
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = PER_end_civil_war_tt
+				custom_effect_tooltip = CHL_skip_one_line_tt
+
+				add_stability = 0.02
+
+				custom_effect_tooltip = CHL_skip_one_line_tt
+
+				add_days_mission_timeout = {
+				mission = PER_civil_war_imminent
+				days = 75
+				}
+
+				hidden_effect = {
+					set_country_flag = PER_parliament_dissolved
+				}
+			}
+		}
+
+		PER_stabilize_economy = {
+
+			priority = 98
+
+			icon = GFX_decision_generic_industry
+
+			ai_will_do = {
+				base = 100
+			}
+
+			allowed = {
+				original_tag = PER
+			}
+
+			visible = {
+				original_tag = PER
+				has_completed_focus = PER_assessing_the_opposition
+				NOT = {
+					has_global_flag = PER_civil_war_happened
+				}  
+			}
+
+			available = {
+				original_tag = PER
+				has_completed_focus = PER_assessing_the_opposition
+				num_of_owned_factories > 12
+			}
+
+			days_remove = 30
+
+			cost = 80
+			fire_only_once = yes
+
+			modifier = {
+				political_power_factor = -0.2
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = PER_end_civil_war_tt
+				custom_effect_tooltip = CHL_skip_one_line_tt
+
+				add_stability = 0.02
+
+				custom_effect_tooltip = CHL_skip_one_line_tt
+
+				add_days_mission_timeout = {
+				mission = PER_civil_war_imminent
+				days = 75
+				}
+
+				hidden_effect = {
+					set_country_flag = PER_economy_proved
+				}
+			}
+		}
+
+		PER_prepare_military = {
+
+			priority = 98
+
+			icon = GFX_decision_generic_prepare_civil_war
+
+			ai_will_do = {
+				base = 100
+			}
+
+			allowed = {
+				original_tag = PER
+			}
+
+			visible = {
+				original_tag = PER
+				has_completed_focus = PER_assessing_the_opposition 
+				NOT = {
+					has_global_flag = PER_civil_war_happened
+				} 
+			}
+
+			available = {
+				original_tag = PER
+				has_completed_focus = PER_assessing_the_opposition
+				has_army_manpower = { size > 80000 }
+			}
+
+			days_remove = 30
+
+			cost = 40
+			fire_only_once = yes
+
+			modifier = {
+				political_power_factor = -0.2
+			}
+
+			remove_effect = {
+				custom_effect_tooltip = PER_end_civil_war_tt
+				custom_effect_tooltip = CHL_skip_one_line_tt
+
+				add_stability = 0.02
+
+				custom_effect_tooltip = CHL_skip_one_line_tt
+
+				add_days_mission_timeout = {
+				mission = PER_civil_war_imminent
+				days = 75
+				}
+
+				hidden_effect = {
+					set_country_flag = PER_military_fielded
+				}
+			}
+		}
+	}
+
+PER_mass_protests = {
+	PER_organize_protest_in_state = {
+		icon = GFX_decision_eng_blackshirt_march
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		#available = {
+		#
+		#}
+		
+		visible = {
+			has_completed_focus = PER_stage_mass_protests
+			NOT = {
+				OR = {
+					has_global_flag = PER_civil_war_happened
+					has_global_flag = PER_non_lethal_takeover
+				}
+			}
+		}
+		state_target = any_controlled_state
+	    target_trigger = {
+	        FROM = {
+	           	is_fully_controlled_by = ROOT
+	           	NOT = {
+	           		has_state_flag = PER_protest_here
+	           	}
+	           	OR = {
+	           		has_state_category = town
+	           		has_state_category = large_town
+	           		has_state_category = city
+	           		has_state_category = large_city
+	           		has_state_category = megalopolis
+	           		has_state_category = metropolis
+	           	} 
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		cost = 30
+		
+		fire_only_once = yes
+		days_remove = 30
+		#cancel_trigger = {
+		#	NOT = { is_fully_controlled_by = ROOT }
+		#}
+		remove_effect = {
+			FROM = {
+				set_state_flag = PER_protest_here
+			}
+			add_stability = -0.05
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.05 
+			}
+		}
+	}
+
+	PER_establish_cells = {
+		icon = GFX_decision_revolt
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		#available = {
+		#	has_completed_focus = BRA_financial_stimulation
+		#}
+		
+		visible = {
+			has_completed_focus = PER_propagate_political_literature
+			NOT = { 
+				OR = {
+					has_completed_focus = PER_march_on_saadabad
+					has_completed_focus = PER_force_abdication
+					has_completed_focus = PER_constitutional_monarchy
+					has_global_flag = PER_civil_war_happened
+					has_country_flag = PER_civil_war_was_bypassed
+				}
+			}	
+		}
+		state_target = any_controlled_state
+	    target_trigger = {
+	        FROM = {
+	           	is_fully_controlled_by = ROOT
+	           	is_core_of = ROOT
+	           	NOT = {
+	           		OR = {
+	           			has_state_flag = PER_established_cell_here
+	           			has_state_flag = PER_state_supports_communists
+	           			has_dynamic_modifier = { modifier = PER_opposition_cell }
+	           			is_capital = yes
+	           		}
+	           	}
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		cost = PER_opposition_decision_cost
+		
+		fire_only_once = yes
+		days_remove = 30
+		#cancel_trigger = {
+		#	NOT = { is_fully_controlled_by = ROOT }
+		#}
+
+		ai_will_do = {
+				base = 90
+			}
+
+		complete_effect = {
+			custom_effect_tooltip = PER_establish_cells_tt
+			add_to_variable = {
+				ROOT.PER_opposition_decision_cost = 20
+			}
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_flag = PER_established_cell_here
+				add_dynamic_modifier = {
+					modifier = PER_opposition_cell
+				}
+				OWNER = {
+					add_stability = -0.05
+				}
+			}
+		}
+	}
+
+	PER_establish_opposition_hq = {
+		icon = GFX_decision_revolt
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		available = {
+			NOT = {
+				has_country_flag = PER_opposition_has_already_selected_a_hq_1
+			}
+		}
+		
+		visible = {
+			has_completed_focus = PER_rally_the_reformers
+			NOT = {
+				has_country_flag = PER_opposition_hq_established
+				has_global_flag = PER_civil_war_happened
+			}
+		}
+		state_target = any_controlled_state
+	    target_trigger = {
+	        FROM = {
+	           	is_fully_controlled_by = ROOT
+	           	NOT = {
+	           		OR = {
+	           			is_capital = yes
+	           		}
+	           	}
+	           	OR = {
+	           		has_state_category = town
+	           		has_state_category = large_town
+	           		has_state_category = city
+	           		has_state_category = large_city
+	           		has_state_category = megalopolis
+	           		has_state_category = metropolis
+	           	} 	
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		cost = 10
+
+		ai_will_do = {
+			base = 100
+		}
+		
+		fire_only_once = yes
+		days_remove = 7
+
+		cancel_trigger = {
+			FROM = { NOT = { is_fully_controlled_by = ROOT } }
+		}
+
+		complete_effect = {
+			set_country_flag = PER_opposition_has_already_selected_a_hq_1
+		}
+
+		remove_effect = {
+			FROM = {
+				set_state_flag = PER_opposition_hq_here
+				hidden_effect = {
+					set_state_flag = PER_established_cell_here
+					add_dynamic_modifier = {
+						modifier = PER_opposition_cell
+					}
+				}
+				OWNER = {
+					set_country_flag = PER_opposition_hq_established
+				}
+				set_variable = {
+					ROOT.PER_opposition_hq_state = THIS
+				}
+			}
+			custom_effect_tooltip = PER_establish_opposition_hq_tt
+		}
+	}
+}
+
+PER_national_iranian_radio = {
+	PER_boost_war_support = {
+		icon = GFX_decision_generic_military
+	
+		allowed = {
+			OR = {
+				original_tag = PER
+				original_tag = AFG
+			}
+		}
+	
+		available = {
+			NOT = { has_country_flag = PER_radio_boost_active }
+		}
+		
+		visible = {
+			OR = {
+				#has_completed_focus = AFG_communist_propaganda # 1.19-migration: AFG focus tree not ported
+				has_completed_focus = PER_communist_propaganda
+			}
+			has_government = communism
+		}
+	    #on_map_mode = map_and_decisions_view 
+		cost = 30
+		
+		fire_only_once = no
+		days_remove = 30
+		complete_effect = {
+			set_country_flag = PER_radio_boost_active
+		}
+		remove_effect = {
+			clr_country_flag = PER_radio_boost_active
+			add_war_support = 0.05
+			add_manpower = 500
+		}
+	}
+
+	PER_promote_communism = {
+		icon = GFX_decision_SOV_secure_the_administration
+	
+		allowed = {
+			OR = {
+				original_tag = PER
+				original_tag = AFG
+			}
+		}
+	
+		available = {
+			NOT = { has_country_flag = PER_radio_boost_active  }
+		}
+		
+		visible = {
+			OR = {
+				#has_completed_focus = AFG_communist_propaganda # 1.19-migration: AFG focus tree not ported
+				has_completed_focus = PER_communist_propaganda
+			}
+			has_government = communism
+		}
+	    #on_map_mode = map_and_decisions_view 
+		cost = 30
+		
+		fire_only_once = no
+		days_remove = 30
+		complete_effect = {
+			set_country_flag = PER_radio_boost_active
+		}
+		remove_effect = {
+			clr_country_flag = PER_radio_boost_active
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05	
+			}
+		}
+	}
+
+	PER_boost_stability = {
+		icon = GFX_decision_generic_political_address
+	
+		allowed = {
+			OR = {
+				original_tag = PER
+				original_tag = AFG
+			}
+		}
+	
+		available = {
+			NOT = { has_country_flag = PER_radio_boost_active  }
+		}
+		
+		visible = {
+			OR = {
+				#has_completed_focus = AFG_communist_propaganda # 1.19-migration: AFG focus tree not ported
+				has_completed_focus = PER_communist_propaganda
+			}
+			has_government = communism
+		}
+	    #on_map_mode = map_and_decisions_view 
+		cost = 30
+		
+		fire_only_once = no
+		days_remove = 30
+		complete_effect = {
+			set_country_flag = PER_radio_boost_active
+		}
+		remove_effect = {
+			clr_country_flag = PER_radio_boost_active
+			add_stability = 0.03
+		}
+	}
+}
+
+PER_gulf_decisions_cat = {
+	PER_support_kurds_in_iraq = {
+		icon = GFX_decision_generic_civil_support
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		available = {
+		}
+		
+		visible = {
+			has_completed_focus = PER_communist_destabilize_iraq
+			FROM = { NOT = { has_dynamic_modifier = { modifier = KUR_resistance_modifier }}}
+		}
+		state_target = yes
+		targets = { 1114 1099 1102 1137 1150 2213 2214 2215 2216 2217 2218 2219 2220 2221 2222 2223 2224 2841 2210 1234 1212 1202 2227 2228 2236 1226 1174 } # MEPORT: was vanilla {676 291} (Kurdish set + Baghdad set)
+	    target_trigger = {
+	        FROM = {
+	        	OWNER = {
+	        		NOT = {
+        				tag = ROOT
+        				tag = TUR
+        				original_tag = KUR
+	        		}
+	        	}
+	        	is_core_of = KUR
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+		custom_cost_text = BRA_decision_cost_cangaceiro
+		
+		fire_only_once = no
+		days_remove = 30
+
+		complete_effect = {
+			hidden_effect = { add_command_power = -25 }
+			set_country_flag = PER_orchestrating_rebellions
+		}
+
+		remove_effect = {
+			FROM = {
+				add_dynamic_modifier = {
+					modifier = KUR_resistance_modifier
+				}
+				OWNER = { 
+					add_stability = -0.1 
+					country_event = {
+						id = PER_communist_events.1
+						hours = 1
+					}
+				}
+			}
+		}
+	}
+
+	PER_send_weapons_to_kurds = {
+		icon = GFX_decision_generic_prepare_civil_war
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		available = {
+			has_completed_focus = PER_communist_destabilize_iraq
+			FROM = {
+				has_dynamic_modifier = { modifier = KUR_resistance_modifier } 
+				#OWNER = { communism > 0.2 }
+			}
+			has_equipment = { infantry_equipment > 1999 }
+		}
+		
+		visible = {
+			has_completed_focus = PER_communist_destabilize_iraq
+			NOT = {
+				FROM = {
+					OWNER = { has_country_flag = PER_kurds_armed_and_ready }
+				}
+			}
+		}
+		state_target = yes
+		targets = { 1114 1099 1102 1137 1150 2213 2214 2215 2216 2217 2218 2219 2220 2221 2222 2223 2224 2841 2210 1234 1212 1202 2227 2228 2236 1226 1174 } # MEPORT: was vanilla {676 291} (Kurdish set + Baghdad set)
+	    target_trigger = {
+	        FROM = {
+	        	OWNER = {
+	        		NOT = {
+	        			tag = ROOT
+	        			tag = TUR
+	        			tag = KUR
+	        		}
+	        	}
+	        	is_core_of = KUR
+	        	has_dynamic_modifier = { modifier = KUR_resistance_modifier }
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+		custom_cost_text = BRA_decision_cost_cangaceiro
+		
+		fire_only_once = no
+		days_remove = 30
+		complete_effect = {
+			hidden_effect = { add_command_power = -25 }
+		}
+		remove_effect = {
+			FROM = {
+				OWNER = { 
+					set_country_flag = PER_kurds_armed_and_ready 
+					country_event = {
+						id = PER_communist_events.3
+						hours = 1
+					}
+				}
+			}
+			set_country_flag = PER_kurdish_rebellion_growing
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2000
+			}
+		}
+	}
+
+	PER_kurdish_revolt_mission = {
+	
+		priority = 100
+	
+		icon = generic_ignite_civil_war 
+	
+		available = {
+			hidden_trigger = { always = no }
+		}
+	
+		days_mission_timeout = 60
+	
+		fire_only_once = no
+	
+		activation = {
+			#original_tag = PER
+			has_country_flag = PER_kurdish_rebellion_growing
+		}
+	
+		visible = {
+			tag = PER
+			has_country_flag = PER_kurdish_rebellion_growing
+			1114 = { has_dynamic_modifier = { modifier = KUR_resistance_modifier } } # MEPORT: was vanilla 676 (PRIMARY Mosul; KUR_resistance_modifier may sit on any Kurdish-set state)
+		}
+	
+		cancel_if_not_visible = yes
+	
+		is_good = yes
+	
+		timeout_effect = {
+			#country_event = PER_islamic_revolution_events.3
+			clr_country_flag = PER_kurdish_rebellion_growing
+			every_state = { # MEPORT: was vanilla 676 scope — modifier may sit on any mapped Kurdish-set state
+				limit = { has_dynamic_modifier = { modifier = KUR_resistance_modifier } }
+				remove_dynamic_modifier = {
+					modifier = KUR_resistance_modifier
+				}
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			1114 = { # MEPORT: was vanilla 676 (PRIMARY Mosul — scopes the modifier-state owner)
+				OWNER = {
+					create_dynamic_country = {
+						original_tag = KUR
+						IF = { # MEPORT: was vanilla 676 — expanded to Kurdish set; IRQ-owner check per state
+							limit = { 1114 = { OWNER = { tag = IRQ } } }
+							1114 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 1099 = { OWNER = { tag = IRQ } } }
+							1099 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 1102 = { OWNER = { tag = IRQ } } }
+							1102 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 1137 = { OWNER = { tag = IRQ } } }
+							1137 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2213 = { OWNER = { tag = IRQ } } }
+							2213 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2214 = { OWNER = { tag = IRQ } } }
+							2214 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2215 = { OWNER = { tag = IRQ } } }
+							2215 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2217 = { OWNER = { tag = IRQ } } }
+							2217 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2218 = { OWNER = { tag = IRQ } } }
+							2218 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2219 = { OWNER = { tag = IRQ } } }
+							2219 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2220 = { OWNER = { tag = IRQ } } }
+							2220 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2221 = { OWNER = { tag = IRQ } } }
+							2221 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2222 = { OWNER = { tag = IRQ } } }
+							2222 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2223 = { OWNER = { tag = IRQ } } }
+							2223 = { transfer_state_to = PREV }
+						}
+						IF = {
+							limit = { 2224 = { OWNER = { tag = IRQ } } }
+							2224 = { transfer_state_to = PREV }
+						}
+						IRQ = { #this needs to be specified or the tooltip will look strange
+							declare_war_on = { 
+								target = KUR
+								type = take_core_state
+							}
+						}
+						add_opinion_modifier = {
+							target = ROOT
+							modifier = large_increase
+						}
+						add_ai_strategy = { 
+							type = alliance
+							id = SOU
+							value = -1000
+						}
+						add_ai_strategy = { 
+							type = alliance
+							id = ROOT
+							value = 1000
+						}
+						hidden_effect = {
+							add_equipment_to_stockpile = {
+								type = infantry_equipment
+								amount = 2000
+								producer = PER
+							}
+							division_template = {
+								name = "Kurdish Militia"		
+								is_locked = no
+								force_allow_recruiting = yes
+								# Note: Represents both regular infantry and militia units
+								regiments = {
+									militia = { x = 0 y = 0 }
+									militia = { x = 0 y = 1 }
+									militia = { x = 1 y = 0 }
+									militia = { x = 1 y = 1 }
+								}
+								#division_cap = 4
+							}
+							capital_scope = {
+								create_unit = {
+									division = "name = \"Kurdish Militia\" division_template = \"Kurdish Militia\" start_experience_factor = 0.02 start_equipment_factor = 0.75"
+									owner = PREV
+									count = 5
+								}
+							}
+							set_popularities = {
+								democratic = ROOT.party_popularity_100@democratic
+								neutrality = ROOT.party_popularity_100@neutrality
+								fascism = ROOT.party_popularity_100@fascism
+								communism = ROOT.party_popularity_100@communism
+							}
+							set_politics = {
+								ruling_party = var:ROOT.current_party_ideology_group
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	# 1.19-migration: PER_pashtuns_in_pakistan disabled — all target states (vanilla 442 Peshawar/445 Quetta/987/1012 Kalat/444 Baluchistan States/988 Baluchistan) are off-map
+	#PER_pashtuns_in_pakistan = {
+	#	icon = GFX_decision_generic_civil_support
+	#
+	#	allowed = {
+	#		original_tag = PER
+	#	}
+	#
+	#	available = {
+	#	}
+	#
+	#	visible = {
+	#		has_completed_focus = PER_communist_liberate_pashtuns
+	#		FROM = { NOT = { has_dynamic_modifier = { modifier = PER_promoting_resistance_here }}}
+	#	}
+	#	state_target = yes
+	#	targets = { 442 987 445 1012 444 988 }
+	#    target_trigger = {
+	#        FROM = {
+	#        	OWNER = {
+	#        		NOT = {
+	#        			tag = AFG
+	#        			tag = ROOT
+	#        			#tag = PAK
+	#        		}
+	#        	}
+	#        }
+	#    }
+	#    on_map_mode = map_and_decisions_view 
+	#	custom_cost_trigger = {
+	#		command_power > 24.9
+	#	}
+	#	custom_cost_text = BRA_decision_cost_cangaceiro
+	#
+	#	fire_only_once = no
+	#	days_remove = 30
+	#
+	#	complete_effect = {
+	#		hidden_effect = { add_command_power = -25 }
+	#		set_country_flag = PER_orchestrating_rebellions_psh
+	#	}
+	#
+	#	remove_effect = {
+	#		FROM = {
+	#			add_dynamic_modifier = {
+	#				modifier = PER_promoting_resistance_here
+	#			}
+	#			OWNER = { 
+	#				add_stability = -0.1 
+	#				country_event = {
+	#					id = PER_communist_events.1
+	#					hours = 1
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+	
+
+	PER_promote_resistance_in_gulf_states = {
+		icon = GFX_decision_generic_civil_support
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		available = {
+			has_completed_focus = PER_communist_destabilize_iraq
+			NOT = { has_country_flag = PER_promoting_resistance_in_progress }
+		}
+		
+		visible = {
+			has_completed_focus = PER_revolution_in_the_gulf
+			FROM = { 
+				NOT = { 
+					has_dynamic_modifier = { modifier = PER_promoting_resistance_here }
+				}
+			}
+		}
+		state_target = yes
+
+		targets = { 1337 2302 2303 1336 1338 1343 2299 2301 1302 2199 2202 2203 2205 2935 1341 2300 2934 2304 2305 2200 2201 2936 1263 2238 2239 2323 } # MEPORT: was vanilla {765 658 656 294 859 678} (Qatar/Trucial/Kuwait/Oman/Dammam/Rub al Khali sets)
+	    target_trigger = {
+	        FROM = {
+	        	OWNER = {
+	        		NOT = {
+	        			OR = { 
+	        				tag = ROOT
+	        				is_in_faction_with = ROOT
+	        				is_subject_of = ROOT
+	        			}
+	        			PREV = { is_core_of = PREV }
+	        		}
+	        	}
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+		custom_cost_text = BRA_decision_cost_cangaceiro
+		
+		fire_only_once = no
+		days_remove = 30
+
+		complete_effect = {
+			hidden_effect = { add_command_power = -25 }
+			set_country_flag = PER_promoting_resistance_in_progress
+		}
+
+		remove_effect = {
+			clr_country_flag = PER_promoting_resistance_in_progress
+			FROM = {
+				add_dynamic_modifier = { modifier = PER_promoting_resistance_here }
+				OWNER = {
+					country_event = {
+						id = PER_communist_events.4
+						hours = 1
+					}
+				}
+			}
+		}
+	}
+}
+
+PER_anti_gulf_decisions_cat = {
+	PER_clampdown_on_resistance = {
+		icon = GFX_decision_generic_civil_support
+	
+		allowed = {
+			NOT = { original_tag = PER }
+		}
+	
+		available = {
+			NOT = { FROM = { has_state_flag = clearing_kurdish_resistance_flag } }
+		}
+		
+		visible = {
+			FROM = { 
+				has_dynamic_modifier = { 
+					modifier = KUR_resistance_modifier 
+				} 
+			}
+		}
+		state_target = any_owned_state
+		#targets = { 676 291 } #These are the only states where KUR_resistance_modifier can be added by PER 
+	    target_trigger = {
+	        FROM = {
+
+	        	has_dynamic_modifier = { modifier = KUR_resistance_modifier }
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		custom_cost_trigger = {
+			command_power > 49.9
+		}
+		custom_cost_text = decision_cost_CP_50
+		
+		fire_only_once = yes
+		days_remove = 35
+
+		modifier = {
+			weekly_manpower = -100
+		}
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -50
+				FROM = { set_state_flag = clearing_kurdish_resistance_flag }
+			}
+		}
+
+		remove_effect = {
+			FROM = {
+				remove_dynamic_modifier = {
+					modifier = KUR_resistance_modifier
+				}
+				OWNER = { add_stability = 0.1 }
+				hidden_effect = {
+					clr_state_flag = clearing_kurdish_resistance_flag
+				}
+			}
+			clr_country_flag = PER_kurds_armed_and_ready
+			every_other_country = {
+				limit = {
+					OR = {
+						has_country_flag = PER_kurdish_rebellion_growing
+						has_country_flag = PER_orchestrating_rebellions
+					}
+				}
+				clr_country_flag = PER_kurdish_rebellion_growing
+				clr_country_flag = PER_orchestrating_rebellions
+				country_event = {
+					id = PER_communist_events.2
+					hours = 1
+				}
+			}
+		}
+
+		cancel_trigger = {
+			NOT = {
+				FROM = {
+					is_fully_controlled_by = ROOT
+				}
+			} 
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				FROM = {
+					clr_state_flag = clearing_kurdish_resistance_flag
+				}
+			}
+		}
+	}
+}
+
+PER_plant_resistance_cat = {
+	PER_organize_resistance = {
+		icon = GFX_decision_generic_civil_support
+	
+		allowed = {
+			original_tag = PER
+		}
+	
+		available = {
+		}
+		
+		visible = {
+			has_completed_focus = PER_plant_resistance_cells
+			FROM = { NOT = { has_dynamic_modifier = { modifier = PER_resistance_modifier }}}
+		}
+		state_target = yes
+		targets = { 1114 1099 1102 1137 1150 2213 2214 2215 2216 2217 2218 2219 2220 2221 2222 2223 2224 2841 2210 1234 1212 1202 2227 2228 2236 1226 1174 2206 2208 2209 2212 2233 2230 2231 1269 1243 1260 2211 2229 2265 2283 2292 } # MEPORT: was vanilla {676 291 1011 230 229}; 584 Turkmenistan off-map dropped
+	    target_trigger = {
+	        FROM = {
+	        	OWNER = {
+	        		NOT = {
+        				original_tag = ROOT
+        				original_tag = KUR
+	        		}
+	        	}
+	        }
+	    }
+	    cancel_trigger = {
+	        FROM = {
+	        	OWNER = {
+	        		OR = {
+        				original_tag = ROOT
+        				original_tag = KUR
+	        		}
+	        	}
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+		custom_cost_text = BRA_decision_cost_cangaceiro
+		
+		fire_only_once = no
+		days_remove = 180
+
+		complete_effect = {
+			hidden_effect = { add_command_power = -25 }
+		}
+
+		remove_effect = {
+			FROM = {
+				add_dynamic_modifier = {
+					modifier = PER_resistance_modifier
+				}
+				OWNER = { 
+					add_stability = -0.1 
+					country_event = {
+						id = PER_communist_events.4
+						hours = 1
+					}
+				}
+			}
+		}
+
+	}
+}
+
+PER_kur_azr_independence_cat = {
+	PER_kur_azr_revolt_mission = {
+	
+		priority = 100
+	
+		icon = generic_ignite_civil_war 
+	
+		available = {
+			hidden_trigger = { always = no }
+		}
+	
+		days_mission_timeout = 730
+	
+		fire_only_once = no
+	
+		activation = {
+			#original_tag = PER
+			has_completed_focus = PER_reach_to_seperatists
+			NOT = {
+				OR = { 
+					has_completed_focus = PER_appease_the_seperatists
+					has_country_flag = PER_kur_azr_indy_war_started
+				}
+			}
+			any_owned_state = {
+				OR = {
+					is_core_of = KUR
+					is_core_of = AZR
+				}
+			}
+		}
+	
+		visible = {
+			tag = PER
+			#has_country_flag = PER_kur_azr_indy_war_started
+			NOT = {
+				OR = { 
+					has_completed_focus = PER_appease_the_seperatists
+					has_country_flag = PER_kur_azr_indy_war_started
+				}
+			}
+			any_owned_state = {
+				OR = {
+					is_core_of = KUR
+					is_core_of = AZR
+				}
+			}
+		}
+	
+		cancel_if_not_visible = yes
+	
+		is_good = no
+	
+		timeout_effect = {
+			set_country_flag = PER_kur_azr_indy_war_started
+			IF = {
+				limit = {
+					any_owned_state = {
+						is_core_of = KUR
+					}
+				}
+				custom_effect_tooltip = PER_kur_indy_war_tt
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			IF = {
+				limit = {
+					any_owned_state = {
+						is_core_of = AZR
+					}
+				}
+				custom_effect_tooltip = PER_azr_indy_war_tt
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+			hidden_effect = {
+				remove_ideas = PER_azerbaijan_resistance_idea
+				remove_ideas = PER_kurdistan_resistance_idea
+				IF = {
+					limit = {
+						any_owned_state = {
+							is_core_of = KUR
+						}
+					}
+					create_dynamic_country = {
+						original_tag = KUR
+						IF = { # MEPORT: was vanilla 1001 Kurdistan → {1138 Iranian Kurdistan, 2355 Bukan}
+							limit = { 1138 = { OWNER = { tag = ROOT } } }
+							1138 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 1001 (subdivided)
+							limit = { 2355 = { OWNER = { tag = ROOT } } }
+							2355 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 421 Ilam → {1220 Ilam, 1191 Kermanshah}
+							limit = { 1220 = { OWNER = { tag = ROOT } } }
+							1220 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 421 (subdivided)
+							limit = { 1191 = { OWNER = { tag = ROOT } } }
+							1191 = { transfer_state_to = PREV }
+						}
+						set_popularities = {
+							democratic = ROOT.party_popularity_100@democratic
+							neutrality = ROOT.party_popularity_100@neutrality
+							fascism = ROOT.party_popularity_100@fascism
+							communism = ROOT.party_popularity_100@communism
+						}
+						set_politics = {
+							ruling_party = communism
+						}
+						declare_war_on = { 
+							target = ROOT
+							type = independence_wargoal
+						}
+						division_template = {
+							name = "Kurdish Militia"		
+							is_locked = no
+							force_allow_recruiting = yes
+							# Note: Represents both regular infantry and militia units
+							regiments = {
+								militia = { x = 0 y = 0 }
+								militia = { x = 0 y = 1 }
+								militia = { x = 1 y = 0 }
+								militia = { x = 1 y = 1 }
+							}
+							#division_cap = 4
+						}
+						capital_scope = {
+							create_unit = {
+								division = "name = \"Kurdish Militia\" division_template = \"Kurdish Militia\" start_experience_factor = 0.02 start_equipment_factor = 0.75"
+								owner = PREV
+								count = 4
+							}
+						}
+					}
+				}
+				IF = {
+					limit = {
+						any_owned_state = {
+							is_core_of = AZR
+						}
+					}
+					create_dynamic_country = {
+						original_tag = AZR
+						IF = { # MEPORT: was vanilla 419 Azerbaijan → {1040 East Azerbaijan, 1025 Ardabil, 2919 Parsabad}
+							limit = { 1040 = { OWNER = { tag = ROOT } } }
+							1040 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 419 (subdivided)
+							limit = { 1025 = { OWNER = { tag = ROOT } } }
+							1025 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 419 (subdivided)
+							limit = { 2919 = { OWNER = { tag = ROOT } } }
+							2919 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 1000 East Azerbaijan → {1024 West Azerbaijan, 2546 Khoy, 2547 Salmas}
+							limit = { 1024 = { OWNER = { tag = ROOT } } }
+							1024 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 1000 (subdivided)
+							limit = { 2546 = { OWNER = { tag = ROOT } } }
+							2546 = { transfer_state_to = PREV }
+						}
+						IF = { # MEPORT: was vanilla 1000 (subdivided)
+							limit = { 2547 = { OWNER = { tag = ROOT } } }
+							2547 = { transfer_state_to = PREV }
+						}
+						set_popularities = {
+							democratic = ROOT.party_popularity_100@democratic
+							neutrality = ROOT.party_popularity_100@neutrality
+							fascism = ROOT.party_popularity_100@fascism
+							communism = ROOT.party_popularity_100@communism
+						}
+						set_politics = {
+							ruling_party = communism
+						}
+						declare_war_on = { 
+							target = ROOT
+							type = independence_wargoal
+						}
+						division_template = {
+							name = "Azerbaijani Militia"		
+							is_locked = no
+							force_allow_recruiting = yes
+							# Note: Represents both regular infantry and militiunits
+							regiments = {
+								militia = { x = 0 y = 0 }
+								militia = { x = 0 y = 1 }
+								militia = { x = 1 y = 0 }
+								militia = { x = 1 y = 1 }
+							}
+							#division_cap = 4
+						}
+						capital_scope = {
+							create_unit = {
+								division = "name = \"Azerbaijani Militia\" division_template = \"Azerbaijani Militia\" start_experience_factor = 0.02 start_equipment_factor = 0.75"
+								owner = PREV
+								count = 4
+							}
+						}
+					}
+				}
+			}			
+		}
+	}
+}

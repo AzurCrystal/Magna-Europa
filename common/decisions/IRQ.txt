@@ -1,0 +1,1105 @@
+political_actions = {
+
+	IRQ_nationalise_the_oil = {
+
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			original_tag = IRQ
+			NOT = { has_dlc = "Graveyard of Empires" }
+		}
+
+		visible = {
+			
+		}
+
+		available = {
+			controls_state = 1114 # MEPORT: was vanilla 676 (PRIMARY Mosul)
+			controls_state = 2210 # MEPORT: was vanilla 291 (PRIMARY Baghdad)
+			controls_state = 2206 # MEPORT: was vanilla 1011 (PRIMARY Basra)
+		}
+		
+		cost = 50
+
+		fire_only_once = yes
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		complete_effect = {
+
+			add_war_support = 0.1
+
+			ENG = { 
+				# MEPORT: remove_resource_rights expanded to all mapped states — vanilla {676 Mosul, 291 Baghdad, 1010 Al Anbar}
+				remove_resource_rights = 1114 # was 676
+				remove_resource_rights = 1099 # was 676
+				remove_resource_rights = 1102 # was 676
+				remove_resource_rights = 1137 # was 676
+				remove_resource_rights = 1150 # was 676
+				remove_resource_rights = 2213 # was 676
+				remove_resource_rights = 2214 # was 676
+				remove_resource_rights = 2215 # was 676
+				remove_resource_rights = 2216 # was 676
+				remove_resource_rights = 2217 # was 676
+				remove_resource_rights = 2218 # was 676
+				remove_resource_rights = 2219 # was 676
+				remove_resource_rights = 2220 # was 676
+				remove_resource_rights = 2221 # was 676
+				remove_resource_rights = 2222 # was 676
+				remove_resource_rights = 2223 # was 676
+				remove_resource_rights = 2224 # was 676
+				remove_resource_rights = 2841 # was 676
+				remove_resource_rights = 2210 # was 291
+				remove_resource_rights = 1234 # was 291
+				remove_resource_rights = 1212 # was 291
+				remove_resource_rights = 1202 # was 291
+				remove_resource_rights = 2227 # was 291
+				remove_resource_rights = 2228 # was 291
+				remove_resource_rights = 2236 # was 291
+				remove_resource_rights = 1226 # was 291
+				remove_resource_rights = 1174 # was 291
+				remove_resource_rights = 2198 # was 1010
+				remove_resource_rights = 1209 # was 1010
+				remove_resource_rights = 1197 # was 1010
+				remove_resource_rights = 2232 # was 1010
+				remove_resource_rights = 2235 # was 1010
+				remove_resource_rights = 2234 # was 1010
+				remove_resource_rights = 2237 # was 1010
+			}
+
+		}
+	}
+
+}	
+
+IRQ_arab_free_legion_cat = {
+	IRQ_recruit_arab_free_legion = {
+		icon = GFX_decision_generic_prepare_civil_war
+	
+		allowed = {
+			original_tag = IRQ
+		}
+		
+		visible = {
+			hidden_trigger = { #Otherwise this will show up in the cancel trigger tooltip
+				has_completed_focus = IRQ_arab_free_legion
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+			}
+			NOT = { 
+				FROM = { has_state_flag = IRQ_recruited_arab_legion_here }
+				has_war_with = FROM.owner
+			}
+
+		}
+		available = {
+			FROM = {
+				NOT = {
+					has_state_flag = IRQ_recruited_arab_legion_here
+				}
+			}
+			NOT = { has_country_flag = IRQ_recruiting_arab_legion }
+			
+		}
+
+		target_root_trigger = {
+			original_tag = IRQ
+		}
+
+		state_target = yes
+		# MEPORT: was vanilla {292 455 454 677 553 907 448 458 459 461 293 294 658 765 656}; 293 Yemen off-map dropped; vanilla 292 mapped to interior Saudi set
+		targets = { 1326 1330 1315 2011 2012 2322 2324 2326 1273 1229 1232 1259 1266 1288 1909 1910 1911 1912 1913 1914 1915 2009 2010 2195 2196 2197 1253 1254 1271 1279 1301 1896 1897 1898 1899 1900 1901 1902 1903 1904 1905 1906 1907 1908 1124 1148 1926 2842 1924 1204 1916 1917 1918 1919 1920 1921 1922 1923 1889 1890 1892 1290 1291 1281 1284 1891 1298 1885 1886 1299 1236 1239 1240 1241 1242 1245 1247 1249 1251 1255 1257 1261 1264 1282 1289 1307 1308 1318 1321 1322 1328 1332 1333 1874 1875 1876 1877 1878 1879 1880 1881 1882 2396 2397 2777 2871 1101 1108 1109 1113 1116 1127 1140 1142 1152 1165 1166 1180 1187 1203 1208 1215 1217 1224 1231 1869 1870 1871 1872 1873 2537 1111 1112 1118 1120 1121 1122 1126 1128 1130 1133 1136 1139 1144 1145 1147 1154 1156 1161 1172 1175 1183 1186 1188 1194 1195 1199 1205 1207 1210 1211 1221 1237 1256 1276 1295 1305 1306 1859 1860 1861 1862 1863 1864 1865 1866 1867 1868 1883 1196 1200 1201 1214 1216 1222 1227 1244 1248 1268 1297 1825 1826 1827 1828 1829 1830 1831 1832 1833 1834 1835 1836 1837 1838 1839 1840 1841 1842 1843 1844 1845 1846 1847 1848 1849 1850 1853 1854 1855 1856 1341 2300 2934 1336 1338 1343 2299 2301 1337 2302 2303 1302 2199 2202 2203 2205 2935 }
+
+	    target_trigger = {   
+	    }
+
+	    on_map_mode = map_and_decisions_view 
+
+		custom_cost_trigger = {
+			command_power > 24.9
+			has_equipment = { infantry_equipment > 1999 }
+		}
+
+		custom_cost_text = decision_cost_cp_25_ie_2000
+		
+		fire_only_once = yes
+		days_remove = 30
+		cancel_if_not_visible = yes
+		complete_effect = {
+			add_command_power = -25
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2000
+			}
+			hidden_effect = {
+				set_country_flag = IRQ_recruiting_arab_legion
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_recruiting_arab_legion
+				FROM = {
+					set_state_flag = IRQ_recruited_arab_legion_here
+				}
+			}
+			capital_scope = {
+				IRQ_create_arab_free_legion_div = yes
+			}
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_recruiting_arab_legion
+			}
+		}
+	}
+}
+
+greater_iraq_decision_cat = {
+	IRQ_core_state = {
+		icon = GFX_decision_infiltrate_state
+	
+		allowed = {
+			original_tag = IRQ
+		}
+		
+		visible = {
+			has_completed_focus = IRQ_greater_iraq
+		}
+		available = {
+			NOT = { has_country_flag = IRQ_coring_state_in_progress }
+		}
+
+		target_root_trigger = { original_tag = IRQ }
+
+		state_target = any_controlled_state
+	    
+	    target_trigger = {
+	        FROM = {
+	        	NOT = { is_core_of = ROOT }
+	        	is_fully_controlled_by = ROOT
+	        	OR = {
+	        		is_core_of = KUW
+	        		is_core_of = SYR
+	        		is_core_of = LEB
+	        		is_core_of = PAL
+	        		is_core_of = JOR
+	        		state = 1238 # MEPORT: was vanilla 413 Khuzestan
+	        		state = 2548 # MEPORT: was vanilla 413 (subdivided)
+	        		state = 2351 # MEPORT: was vanilla 413 (subdivided)
+	        		state = 2394 # MEPORT: was vanilla 413 (subdivided)
+	        		state = 2395 # MEPORT: was vanilla 413 (subdivided)
+	        		state = 2350 # MEPORT: was vanilla 413 (subdivided)
+	        	}
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+	    cost = 50		
+		fire_only_once = yes
+		days_remove = 14 
+		complete_effect = {
+			hidden_effect = {
+				set_country_flag = { flag = IRQ_coring_state_in_progress value = 1 days = 31 }
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_coring_state_in_progress
+			}
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+
+		cancel_trigger = {
+			FROM = {
+				NOT = { is_fully_controlled_by = ROOT }
+			}
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_coring_state_in_progress
+			}
+		}
+	}
+}
+
+united_arab_republic_cat = {
+	united_arab_rep_core_state = {
+		icon = GFX_decision_infiltrate_state
+	
+		allowed = {
+			original_tag = IRQ
+		}
+		
+		visible = {
+			has_completed_focus = IRQ_proclaim_united_arab_republic
+		}
+		available = {
+			NOT = { has_country_flag = IRQ_coring_state_in_progress }
+		}
+		state_target = any_owned_state
+	    target_trigger = {
+	        FROM = {
+	        	NOT = { is_core_of = ROOT }
+	        	is_owned_and_controlled_by = ROOT
+	        	OR = {
+	        		#Middle East:
+	        		region = 54 # MEPORT: was vanilla 28 Middle East
+	        		region = 55 # MEPORT: was vanilla 28
+	        		region = 53 # MEPORT: was vanilla 28
+	        		region = 225 # MEPORT: was vanilla 28
+	        		region = 49 # MEPORT: was vanilla 232 Levant
+	        		# region 53 already above # MEPORT: was vanilla 196 Arabian Coast
+	        		region = 128 # MEPORT: was vanilla 236 S Arabia
+	        		region = 126 # MEPORT: was vanilla 237 Hejaz
+	        		# region 53 already above # MEPORT: was vanilla 238 E Arabia
+	        		#And North Africa:
+	        		region = 38 # MEPORT: was vanilla 225 Tripoli
+	        		region = 39 # MEPORT: was vanilla 225
+	        		region = 59 # MEPORT: was vanilla 126 North Africa
+	        		region = 30 # MEPORT: was vanilla 182 NW Africa
+	        		region = 31 # MEPORT: was vanilla 182
+	        		region = 58 # MEPORT: was vanilla 128 Egypt
+	        		region = 50 # MEPORT: was vanilla 128
+	        		region = 57 # MEPORT: was vanilla 128
+	        	}
+	        }
+	    }
+	    on_map_mode = map_and_decisions_view 
+	    cost = 50		
+		fire_only_once = yes
+		days_remove = 30
+		complete_effect = {
+			hidden_effect = {
+				set_country_flag = { flag = IRQ_coring_state_in_progress value = 1 days = 31 }
+			}
+		}
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_coring_state_in_progress
+			}
+			FROM = {
+				add_core_of = ROOT
+			}
+		}
+
+		cancel_trigger = {
+			NOT = {
+				FROM = {
+					is_fully_controlled_by = ROOT
+				}
+			} 
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_coring_state_in_progress
+			}
+		}
+	}
+}
+
+
+hashemite_federation_cat = {
+	IRQ_invite_to_federation = {
+		icon = GFX_decision_infiltrate_state
+	
+		allowed = {
+			original_tag = IRQ
+		}
+		
+		visible = {
+			has_completed_focus = IRQ_expand_membership
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+			FROM = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+				is_subject = no
+			}
+		}
+
+		available = {
+			NOT = { has_country_flag = IRQ_inviting_to_federation_in_progress }
+			FROM = {
+				NOT = {
+					has_country_flag = IRQ_has_permanently_rejected_fed
+				}
+			}
+		}
+
+		target_trigger = {
+			FROM = {
+				NOT = {
+					original_tag = ROOT
+				}
+				capital_scope = {
+					OR = {
+						region = 54 # MEPORT: was vanilla 28 Middle East
+						region = 55 # MEPORT: was vanilla 28
+						region = 53 # MEPORT: was vanilla 28
+						region = 225 # MEPORT: was vanilla 28
+						region = 49 # MEPORT: was vanilla 232 Levant
+						region = 126 # MEPORT: was vanilla 237 Hejaz
+						# region 53 already above # MEPORT: was vanilla 196 Arabian Coast
+						region = 128 # MEPORT: was vanilla 236 S Arabia
+						# region 53 already above # MEPORT: was vanilla 238 E Arabia
+						# region 225 already above # MEPORT: was vanilla 240 Zagros
+					}
+				}
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+			}
+		}
+
+	    cost = 25
+		fire_only_once = yes
+
+		days_remove = 30
+
+		complete_effect = {
+			set_country_flag = { flag = IRQ_inviting_to_federation_in_progress value = 1 days = 31 }
+			FROM = {
+				set_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+			}
+		}
+
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_inviting_to_federation_in_progress
+				every_country = {
+					limit = {
+						has_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+					}
+					clr_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+				}
+			}
+			
+			FROM = {
+				country_event = {
+					id = IRQ_political_events.26
+					hours = 1
+				}
+			}
+			custom_effect_tooltip = generic_higher_opinion_tt
+		}
+
+		cancel_trigger = {
+
+			any_country = {
+				has_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+				OR = {
+					exists = no
+					is_subject = yes
+					has_war_with = ROOT
+				}
+			}
+
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_inviting_to_federation_in_progress
+				every_country = {
+					limit = {
+						has_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+					}
+					clr_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+				}
+			}
+		}
+	}
+
+	IRQ_invite_to_federation_africa = {
+		icon = GFX_decision_infiltrate_state
+	
+		allowed = {
+			original_tag = IRQ
+		}
+		
+		visible = {
+			has_completed_focus = IRQ_expand_membership
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
+			FROM = {
+				exists = yes
+				NOT = {
+					has_war_with = ROOT
+				}
+				is_subject = no
+			}
+		}
+
+		available = {
+			NOT = { has_country_flag = IRQ_inviting_to_federation_in_progress }
+			FROM = {
+				NOT = {
+					has_country_flag = IRQ_has_permanently_rejected_fed
+				}
+			}
+		}
+
+		target_trigger = {
+			FROM = {
+				NOT = {
+					original_tag = ROOT
+				}
+				capital_scope = {
+					OR = {
+						region = 58 # MEPORT: was vanilla 128 Egypt
+						region = 50 # MEPORT: was vanilla 128
+						region = 57 # MEPORT: was vanilla 128
+						region = 38 # MEPORT: was vanilla 225 Tripoli
+						region = 39 # MEPORT: was vanilla 225
+						region = 59 # MEPORT: was vanilla 126 North Africa
+						region = 30 # MEPORT: was vanilla 182 NW Africa
+						region = 31 # MEPORT: was vanilla 182
+					}
+				}
+			}
+		}
+
+		on_map_mode = map_and_decisions_view
+
+		highlight_states = {
+			highlight_states_trigger = {
+				is_owned_and_controlled_by = FROM
+			}
+		}
+
+		cost = 25
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			set_country_flag = { flag = IRQ_inviting_to_federation_in_progress value = 1 days = 31 }
+			FROM = {
+				set_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+			}
+		}
+
+		remove_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_inviting_to_federation_in_progress
+				every_country = {
+					limit = {
+						has_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+					}
+					clr_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+				}
+			}
+			
+			FROM = {
+				country_event = {
+					id = IRQ_political_events.26
+					hours = 1
+				}
+			}
+			custom_effect_tooltip = generic_higher_opinion_tt
+		}
+
+		cancel_trigger = {
+
+			any_country = {
+				has_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+				OR = {
+					exists = no
+					is_subject = yes
+					has_war_with = ROOT
+				}
+			}
+
+		}
+
+		cancel_effect = {
+			hidden_effect = {
+				clr_country_flag = IRQ_inviting_to_federation_in_progress
+				every_country = {
+					limit = {
+						has_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+					}
+					clr_country_flag = is_the_current_invitation_target_of_IRQ_hashemite_flag
+				}
+			}
+		}
+	}
+}
+
+IRQ_flood_the_plains_cat = {
+	
+	IRQ_flood_the_plains = {
+
+		icon = hol_inundate_water_lines
+
+		allowed = {
+			original_tag = IRQ
+		}
+
+		available = {
+			has_war = yes
+			ROOT = {
+				controls_province = 18589 # MEPORT: was vanilla 2097 — Baghdad province of mod state 2210
+			}
+		}
+
+		cost = 50
+
+		fire_only_once = yes
+
+		days_remove = 120
+
+		highlight_states = {
+			highlight_state_targets = { state = 2210 state = 2206 state = 2208 state = 2209 state = 2212 state = 2233 state = 2230 state = 2231 state = 1269 state = 1243 state = 1260 state = 2211 state = 2229 } # MEPORT: was vanilla {291 1011} (Baghdad + Basrah set)
+			highlight_provinces = {
+				# MEPORT: was vanilla 6 Baghdad-area + 5 Basrah-area province ids; now all land provinces inside the 13 flood states
+				18589
+				18844
+				### Basra
+				7253
+				8753
+				18632
+				18724
+				19146
+				19149
+				19150
+				19155
+				### Najaf
+				418
+				7551
+				18563
+				18869
+				18873
+				18878
+				### Kerbala
+				231
+				519
+				18666
+				18868
+				### Al Bussayyah
+				3534
+				6014
+				8161
+				19135
+				19136
+				19139
+				### Amarah
+				964
+				18654
+				18670
+				18777
+				19131
+				19138
+				19145
+				### Suq Al-Shuyukh
+				5906
+				18761
+				19147
+				19148
+				### Rumaythah
+				8103
+				18568
+				18612
+				### Nasiriyah
+				4025
+				8670
+				18736
+				19120
+				19124
+				19126
+				19127
+				19130
+				19132
+				19133
+				### Abu Dhakar
+				1603
+				2325
+				15747
+				18715
+				18742
+				19123
+				19128
+				19137
+				### Al Qadisiyah
+				370
+				6622
+				7123
+				15754
+				15769
+				18560
+				18887
+				19112
+				### Safwan
+				2514
+				5642
+				18544
+				18547
+				18749
+				### Hartha
+				6503
+				18554
+				19143
+				19144
+			}
+			highlight_only_provinces = yes
+		}
+
+		modifier = {
+		}
+
+		visible = {
+			IRQ = { has_completed_focus = IRQ_construct_the_kut_barrage }
+		}
+		
+		complete_effect = {
+			2210 = { # MEPORT: was vanilla 291 (Baghdad)
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = {
+						id = 18589
+						id = 18844
+					}
+				}
+				damage_building = {
+					type = infrastructure
+					damage = 2
+				}
+				damage_building = {
+					type = industrial_complex
+					damage = 0.5
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 0.5
+				}
+			}
+			# MEPORT: was vanilla 1011 — subdivided into 12 Basrah-area states; flood + damage applied to each (was: single-state province flood)
+			2206 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = {
+						id = 7253
+						id = 8753
+						id = 18632
+						id = 18724
+						id = 19146
+						id = 19149
+						id = 19150
+						id = 19155
+					}
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2208 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 418 id = 7551 id = 18563 id = 18869 id = 18873 id = 18878 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2209 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 231 id = 519 id = 18666 id = 18868 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2212 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 3534 id = 6014 id = 8161 id = 19135 id = 19136 id = 19139 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2233 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 964 id = 18654 id = 18670 id = 18777 id = 19131 id = 19138 id = 19145 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2230 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 5906 id = 18761 id = 19147 id = 19148 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2231 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 8103 id = 18568 id = 18612 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			1269 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 4025 id = 8670 id = 18736 id = 19120 id = 19124 id = 19126 id = 19127 id = 19130 id = 19132 id = 19133 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			1243 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 1603 id = 2325 id = 15747 id = 18715 id = 18742 id = 19123 id = 19128 id = 19137 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			1260 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 370 id = 6622 id = 7123 id = 15754 id = 15769 id = 18560 id = 18887 id = 19112 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2211 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 2514 id = 5642 id = 18544 id = 18547 id = 18749 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+			2229 = {
+				add_province_modifier = {
+					static_modifiers = { flooded }
+					province = { id = 6503 id = 18554 id = 19143 id = 19144 }
+				}
+				damage_building = { type = infrastructure damage = 2 }
+				damage_building = { type = industrial_complex damage = 0.5 }
+				damage_building = { type = arms_factory damage = 0.5 }
+			}
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = remove_flooding_tt
+			hidden_effect = {
+				2210 = { # MEPORT: was vanilla 291
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = {
+							id = 18589
+							id = 18844
+						}
+					}
+				}
+				# MEPORT: was vanilla 1011 — subdivided Basrah set
+				2206 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 7253 id = 8753 id = 18632 id = 18724 id = 19146 id = 19149 id = 19150 id = 19155 }
+					}
+				}
+				2208 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 418 id = 7551 id = 18563 id = 18869 id = 18873 id = 18878 }
+					}
+				}
+				2209 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 231 id = 519 id = 18666 id = 18868 }
+					}
+				}
+				2212 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 3534 id = 6014 id = 8161 id = 19135 id = 19136 id = 19139 }
+					}
+				}
+				2233 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 964 id = 18654 id = 18670 id = 18777 id = 19131 id = 19138 id = 19145 }
+					}
+				}
+				2230 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 5906 id = 18761 id = 19147 id = 19148 }
+					}
+				}
+				2231 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 8103 id = 18568 id = 18612 }
+					}
+				}
+				1269 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 4025 id = 8670 id = 18736 id = 19120 id = 19124 id = 19126 id = 19127 id = 19130 id = 19132 id = 19133 }
+					}
+				}
+				1243 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 1603 id = 2325 id = 15747 id = 18715 id = 18742 id = 19123 id = 19128 id = 19137 }
+					}
+				}
+				1260 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 370 id = 6622 id = 7123 id = 15754 id = 15769 id = 18560 id = 18887 id = 19112 }
+					}
+				}
+				2211 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 2514 id = 5642 id = 18544 id = 18547 id = 18749 }
+					}
+				}
+				2229 = {
+					remove_province_modifier = {
+						static_modifiers = { flooded }
+						province = { id = 6503 id = 18554 id = 19143 id = 19144 }
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			modifier = {
+				add = 50
+				surrender_progress > 0.15 #Should kick in if Basrah/Najaf are occupied
+			}
+		}
+
+	}
+}
+
+KUR_syrian_border_skrimish_cat = {
+	
+	KUR_syrian_border_skrimish_decision = {
+		icon = border_war
+
+		allowed = {
+			original_tag = IRQ
+		}
+
+		visible = {
+			has_completed_focus = IRQ_kurdish_reject_ankara_treaty
+			1114 = { # MEPORT: was vanilla 676 (PRIMARY Mosul)
+				is_controlled_by = IRQ
+			}
+		}
+
+		available = {
+			1141 = { # MEPORT: was vanilla 680 (PRIMARY Deir ez-Zor)
+				owner = {
+					NOT = {
+						has_war_with = IRQ
+						is_in_faction_with = IRQ
+						has_non_aggression_pact_with = IRQ
+						is_puppet_of = IRQ
+					}
+				}
+			}
+		}
+
+		
+
+		highlight_states = {
+	 		highlight_state_targets = {
+				# MEPORT: was vanilla {676 680} — Kurdish set + E-Syria set
+				state = 1114
+				state = 1099
+				state = 1102
+				state = 1137
+				state = 1150
+				state = 2213
+				state = 2214
+				state = 2215
+				state = 2216
+				state = 2217
+				state = 2218
+				state = 2219
+				state = 2220
+				state = 2221
+				state = 2222
+				state = 2223
+				state = 2224
+				state = 2841
+				state = 1141
+				state = 1168
+				state = 1134
+				state = 1159
+				state = 1105
+				state = 1149
+				state = 1185
+				state = 2925
+				state = 2926
+			} 
+		}
+		
+		fire_only_once = yes
+
+		cost = 50 
+
+		complete_effect = {
+
+			activate_mission = IRQ_march_on_syrian_kurdistan_mission
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			start_border_war = {
+				change_state_after_war = no #overrides the transfer of state at the end of war
+				combat_width = 180 #combat width for border war
+				minimum_duration_in_days = 40 #minimum duration for combat
+				attacker = {
+					on_win = IRQ_political_events.77
+					on_lose = IRQ_political_events.78
+					on_cancel = IRQ_political_events.78
+					state = 1114 # MEPORT: was vanilla 676 # state to start border war
+					num_provinces = 2 #number of provinces we want border war to be
+					
+					leader_score = { # Optional score for selecting a leader 
+						base = 1
+						modifier = {
+						    skill > 2
+						    factor = 5
+						}
+						modifier = {
+						    skill > 3
+						    factor = 10
+						}
+					}
+					
+					dig_in_factor = 0 #dig in modifier factor (default value: 1.0)
+					terrain_factor = 0 #terrain modifier factor(default value: 1.0)
+				}
+				
+				defender = {
+					state = 1141 # MEPORT: was vanilla 680 # state to start border war
+					num_provinces = 2 #number of provinces we want border war to be
+					on_lose = IRQ_political_events.77
+					on_win = IRQ_political_events.78
+					on_cancel = IRQ_political_events.78
+				}
+			}
+	
+		}
+	}
+
+	IRQ_march_on_syrian_kurdistan_mission = {
+		icon = border_war
+		
+		allowed = { always = no }
+
+		available = {
+			hidden_trigger = { always = no }
+		}
+
+		highlight_states = {
+			highlight_state_targets = {
+				# MEPORT: was vanilla {676 680} — Kurdish set + E-Syria set
+				state = 1114
+				state = 1099
+				state = 1102
+				state = 1137
+				state = 1150
+				state = 2213
+				state = 2214
+				state = 2215
+				state = 2216
+				state = 2217
+				state = 2218
+				state = 2219
+				state = 2220
+				state = 2221
+				state = 2222
+				state = 2223
+				state = 2224
+				state = 2841
+				state = 1141
+				state = 1168
+				state = 1134
+				state = 1159
+				state = 1105
+				state = 1149
+				state = 1185
+				state = 2925
+				state = 2926
+			}
+		}
+
+		days_mission_timeout = 120
+
+		cancel_trigger = {
+			AND = { # MEPORT: was vanilla 680 — mission cancels only when whole E-Syria set held
+				1141 = { is_fully_controlled_by = ROOT }
+				1168 = { is_fully_controlled_by = ROOT }
+				1134 = { is_fully_controlled_by = ROOT }
+				1159 = { is_fully_controlled_by = ROOT }
+				1105 = { is_fully_controlled_by = ROOT }
+				1149 = { is_fully_controlled_by = ROOT }
+				1185 = { is_fully_controlled_by = ROOT }
+				2925 = { is_fully_controlled_by = ROOT }
+				2926 = { is_fully_controlled_by = ROOT }
+			}
+		}
+
+		cancel_effect = {
+			effect_tooltip = {
+				country_event = { id = IRQ_political_events.77 }
+				transfer_state = 1141 # MEPORT: was vanilla 680 — E-Syria set
+				transfer_state = 1168 # MEPORT: was vanilla 680
+				transfer_state = 1134 # MEPORT: was vanilla 680
+				transfer_state = 1159 # MEPORT: was vanilla 680
+				transfer_state = 1105 # MEPORT: was vanilla 680
+				transfer_state = 1149 # MEPORT: was vanilla 680
+				transfer_state = 1185 # MEPORT: was vanilla 680
+				transfer_state = 2925 # MEPORT: was vanilla 680
+				transfer_state = 2926 # MEPORT: was vanilla 680
+			}
+		}
+
+		timeout_effect = { #Fails
+			cancel_border_war = {
+				attacker = 1114 # MEPORT: was vanilla 676
+				defender = 1141 # MEPORT: was vanilla 680
+			}
+		}
+	}
+
+}

@@ -669,6 +669,26 @@ KUR_resistance_modifier = {
 	local_resources_factor = -0.5
 }
 
+IRQ_shia_resistance_modifier = {
+	enable = { always = yes }
+	icon = GFX_modifiers_tur_traditionalist_insurgency	
+
+	remove_trigger = {
+		ROOT = {
+			OWNER = {
+				NOT = {
+					original_tag = IRQ 
+				} 
+			}
+		}
+	}
+
+	local_manpower = -0.35 
+	state_production_speed_buildings_factor = -0.15
+	disable_strategic_redeployment = 1
+
+}
+
 PER_resistance_modifier = {
 	enable = { always = yes }
 	icon = GFX_modifiers_bul_macedonian_revolutionaries	
@@ -997,4 +1017,15 @@ idea_RAJ_large_scale_urbanization = {
 	local_supplies = 0.2
 	state_production_speed_buildings_factor = 0.25
 	local_building_slots_factor = 0.25
+}
+
+IRQ_river_navy = { #STATE MODIFIER
+	remove_trigger = { 
+		IRQ = { has_capitulated = yes } 
+	}
+	icon = GFX_MODIFIER_NAVAL_INVASION_DIVISION_CAP
+	army_core_defence_factor = 0.1
+	resistance_target = 0.1
+	resistance_growth_on_our_occupied_states = 0.15
+	resistance_damage_to_garrison_on_our_occupied_states = 0.1
 }
