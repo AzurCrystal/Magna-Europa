@@ -13087,13 +13087,14 @@ SOV_soviet_civil_war_dec_cat = {
 		}
 	}
 
-	# Ufa - available for LO / RO
+# Ufa - available for LO / RO / Exiles   # 1.19-migration: exiles HQ relocated here — vanilla's exiles gates (Chita/Irkutsk) are off-map
 	SOV_plan_start_of_uprising_ufa = {
 		state_target = yes
 		target_root_trigger = {
 			OR = {
 				SOV_is_left_opposition = yes
 				SOV_is_right_opposition = yes
+				SOV_is_exiles = yes   # 1.19-migration: vanilla gated exiles only via Chita/Irkutsk; without this the monarchist path has zero HQ sites
 			}
 		}
 
@@ -13161,7 +13162,7 @@ SOV_soviet_civil_war_dec_cat = {
 	}
 
 	# Chita - available for RO / Exiles
-#	SOV_plan_start_of_uprising_chita = {   # 1.19-migration: vanilla Chita/Zabaykalsky has no mod state; block copied Arkhangelsk(41)
+#	SOV_plan_start_of_uprising_chita = {   # 1.19-migration: vanilla Chita/Zabaykalsky has no mod state; exiles HQ moved to Ufa (201) — do NOT re-enable, it targets 41 which collides with the live Arkhangelsk decision
 #		state_target = yes
 #		target_root_trigger = {
 #			OR = {
