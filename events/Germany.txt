@@ -881,12 +881,76 @@ country_event = {
 # Second Vienna Award
 country_event = {
 	id = germany.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event germany.20 FROM = [From.GetName]" }
+
 	title = germany.20.t
 	desc = germany.20.d
 	picture = GFX_report_event_vienna_award_hungary
 
-	is_triggered_only = yes
+	fire_only_once = yes
+
+	#is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = GER_second_vienna_award_flag
+		log = "[GetDateText]: [Root.GetName]: event germany.20 FROM = [From.GetName]"
+	}
+
+	trigger = {
+		date > 1940.7.15
+		#date < 1941.7.15
+		original_tag = GER
+		GER = {
+			has_government = fascism
+			has_war_with_major = yes
+			is_subject = no
+			has_capitulated = no
+			#OR = {
+			#	AND = { #Either Germany is allied with both countries
+			#		is_in_faction_with = ROM
+			#		is_in_faction_with = HUN
+			#	}
+			#	AND = { #Or Germany is allied with Hungary and is more than willing to hand some Romainian territory to its ally
+			#		NOT = { is_in_faction_with = ROM }
+			#		is_in_faction_with = HUN
+			#	}
+			#}
+		}
+		HUN = {
+			exists = yes
+			is_subject = no
+			has_capitulated = no
+			is_friend_or_potential_friend_of_GER = yes
+			OR = {
+				has_government = neutrality
+				has_government = fascism
+			}
+		}
+		ROM = {
+			exists = yes
+			is_subject = no
+			has_capitulated = no
+			NOT = {
+				has_war_with = GER
+				has_war_with = HUN
+			}
+			controls_state = 1582
+			controls_state = 793
+			controls_state = 705
+			controls_state = 713
+		}
+		#BUL = { is_friend_or_potential_friend_of_GER = yes }
+	}
+
+	mean_time_to_happen = {
+		days = 30
+		modifier = {
+			factor = 0.1
+			GER = {
+				is_in_faction_with = ROM
+				is_in_faction_with = HUN
+			}
+		}
+	}
 
 	option = { # Give Hungary Northern Transylvania
 		name = germany.20.a
