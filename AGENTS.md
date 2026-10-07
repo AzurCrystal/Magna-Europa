@@ -20,6 +20,13 @@ Mod state IDs ≠ vanilla. Province IDs share the number space but map different
 
 `localisation/victory_points_l_english.yml` is rebuilt to only contain real mod VPs without regional coverage (state-name fallback). Regional VP files are authoritative; keep it that way — stale vanilla IDs must never re-enter.
 
+#### Canonical mapping tables (generated, dev-only)
+`_ctx/{v2m_states,m2v_states,regions,vps}.tsv` are the bidirectional truth tables —
+vanilla→ME descendants (primary + all members) and ME→vanilla ancestors (with `basis`
+provenance: comment/manual/name/vp-geo). Regenerate with `python tools/out/build_state_map.py`;
+see `_ctx/README_map_truth.md` for schema and status vocabulary. When a pair looks wrong,
+fix the generator's `MANUAL`/`MANUAL_ME2V` dicts, never the TSV by hand.
+
 ### 3. Map data invariants
 - `map/railways.txt` chains must be **consecutive land-adjacent** provinces. A sea/lake hop renders but **crashes supply mapmode** (renderer walks the chain onto water → CTD). Verify every hop against adjacency built from the *current* `provinces.bmp` — prebuilt `_ctx/prov_adj.json` can be stale after bmp edits.
 - Province adjacency: 4-neighbor pixel contacts in `provinces.bmp`, plus straits from `map/adjacencies.csv`. Diagonal-only contact = "invalid X crossing" engine error; repaint one border pixel to fix.
