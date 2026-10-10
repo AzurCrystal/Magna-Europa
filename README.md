@@ -57,6 +57,8 @@ This mod uses `replace_path` on `history/`, `events/`, `map/strategicregions` an
 | `localisation/` | `english/`, `russian/`, `simp_chinese/` |
 | `interface/`, `gfx/` | UI scripts, flags, portraits, fonts |
 | `music/` | Mod music tracks and playlists |
+| `docs/states/` | Vanilla↔ME state/region/VP truth tables (`v2m_states`, `m2v_states`, `regions`, `vps`) + `province_pairs.json`; schema and status vocabulary in [`docs/states/README.md`](docs/states/README.md) |
+| `tools/` | Dev utilities (audits, map-truth generator) — not shipped with the mod; see [`tools/README.md`](tools/README.md) |
 | `descriptor.mod` | In-mod descriptor (name, version, `replace_path` set) |
 | `Magna Europa.mod` | Launcher-facing descriptor — copied to `mod/` and given a `path=` |
 
