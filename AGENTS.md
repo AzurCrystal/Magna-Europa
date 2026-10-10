@@ -20,11 +20,12 @@ Mod state IDs ≠ vanilla. Province IDs share the number space but map different
 
 `localisation/victory_points_l_english.yml` is rebuilt to only contain real mod VPs without regional coverage (state-name fallback). Regional VP files are authoritative; keep it that way — stale vanilla IDs must never re-enter.
 
-#### Canonical mapping tables (generated, dev-only)
-`_ctx/{v2m_states,m2v_states,regions,vps}.tsv` are the bidirectional truth tables —
+#### Canonical mapping tables (generated, tracked in `docs/states/`)
+`docs/states/{v2m_states,m2v_states,regions,vps}.tsv` are the bidirectional truth tables —
 vanilla→ME descendants (primary + all members) and ME→vanilla ancestors (with `basis`
-provenance: comment/manual/name/vp-geo). Regenerate with `python tools/out/build_state_map.py`;
-see `_ctx/README_map_truth.md` for schema and status vocabulary. When a pair looks wrong,
+provenance: comment/manual/name/vp-geo). Regenerate with `python tools/build_state_map.py`
+(from any cwd; `HOI4_DIR=<game dir>` overrides vanilla detection, `ME_MOD` the repo root);
+see `docs/states/README.md` for schema and status vocabulary. When a pair looks wrong,
 fix the generator's `MANUAL`/`MANUAL_ME2V` dicts, never the TSV by hand.
 
 ### 3. Map data invariants

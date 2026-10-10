@@ -35,6 +35,7 @@ Mod development utilities — **not shipped** to the workshop (release packaging
 
 | Script | Output |
 |---|---|
+| `build_state_map.py` | Canonical vanilla↔ME identity tables for map content (AGENTS.md §2): `docs/states/{v2m_states,m2v_states,regions,vps}.tsv` + `province_pairs.json` (schema: `docs/states/README.md`). Repo root derived from the script path; `HOI4_DIR=<game dir>` overrides vanilla detection. |
 | `id_maps.py` | `tools/out/states_map.json` + `provinces_map.json` — mod↔vanilla id mapping (primary: same state id; secondary: name match). VP match is id-in-state then loc-name — coverage ceiling is real, not a bug: mod has ~2.5× vanilla's VP count. |
 
 ## Legacy
