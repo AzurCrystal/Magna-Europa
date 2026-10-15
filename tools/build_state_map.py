@@ -114,8 +114,10 @@ for pat in ["common/**/*.txt","events/*.txt","history/**/*.txt"]:
             for mm in (m1,m2,m3,m4):
                 if mm: new_id = int(mm.group(1)); break
             if new_id is None:
-                # e.g. `states = { 119 127 } # was vanilla 195` — multi-id sets; grab all ints on line
-                ns = [int(x) for x in re.findall(r"\d+", lhs)]
+                # e.g. `states = { 119 127 } # was vanilla 195` — multi-id sets; grab all ints
+                # left of the note (`# 1.19-migration:` would otherwise leak `1` and `19` as ids,
+                # and a fully commented-out line would leak every id on it)
+                ns = [int(x) for x in re.findall(r"\d+", lhs.split("#",1)[0])]
                 if len(ns) >= 1 and lhs.strip().startswith(("states","controls_state","add_state_claim","set_state_owner")):
                     for n in ns:
                         if n in me_states and old_id in v_states:
