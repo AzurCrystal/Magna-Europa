@@ -2314,6 +2314,22 @@ focus_tree = {
 		icon = GFX_goal_generic_national_unity
 		x = 22
 		y = 0
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				OR = {
+					NOT = { has_dlc = "Man the Guns" }
+					AND = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+						has_completed_focus = uk_empire_focus
+					}
+				}
+			}
+		}
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -5778,8 +5794,19 @@ focus_tree = {
 
 		allow_branch = {
 			has_dlc = "Man the Guns"
-			NOT = {
-				has_completed_focus = ENG_a_change_in_course
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = ENG_home_defence
+						has_completed_focus = ENG_a_change_in_course
+					}
+				}
 			}
 		}
 		
@@ -6363,6 +6390,7 @@ focus_tree = {
 					rule = obsolete_focus_branches_visibility
 					option = HIDE
 				}
+				has_dlc = "Man the Guns"
 				has_completed_focus = ENG_home_defence
 			}
 		}

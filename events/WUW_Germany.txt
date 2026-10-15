@@ -11716,6 +11716,7 @@ country_event = {
 						original_tag = GER
 						controls_state = 1666
 					}
+					SIL = { exists = yes }
 				}
 				1666 = {   # was vanilla 66 (Niederschlesien)
 					transfer_state_to = SIL
@@ -11727,6 +11728,7 @@ country_event = {
 						original_tag = GER
 						controls_state = 1658
 					}
+					SIL = { exists = yes }
 				}
 				1658 = {   # was vanilla 67 (Oberschlesien)
 					transfer_state_to = SIL
@@ -11738,6 +11740,7 @@ country_event = {
 						original_tag = GER
 						controls_state = 467
 					}
+					SIL = { exists = yes }
 				}
 				467 = {   # was vanilla 762 (Katowice)
 					transfer_state_to = SIL
@@ -11749,6 +11752,7 @@ country_event = {
 						original_tag = GER
 						controls_state = 499
 					}
+					SIL = { exists = yes }
 				}
 				499 = {   # was vanilla 74 (East Sudetenland)
 					transfer_state_to = SIL
@@ -11767,44 +11771,49 @@ country_event = {
 		}
 		
 		hidden_effect = {
-			SIL = {
-				delete_unit_template_and_units = {
-					division_template = "Polska Organizacja Wojskowa Górnego Śląska"
-					disband = yes #if yes, will refund equipment/manpower.
+			if = {
+				limit = {
+					SIL = { exists = yes }
 				}
+				SIL = {
+					delete_unit_template_and_units = {
+						division_template = "Polska Organizacja Wojskowa Górnego Śląska"
+						disband = yes #if yes, will refund equipment/manpower.
+					}
 
-				division_template = {
-				    name = "Polska Organizacja Wojskowa Górnego Śląska"
-				    is_locked = yes
-				    division_names_group = POL_INF_01
-				    priority = 0
-				    regiments = {
-				        infantry = { x = 0 y = 0 } 
-				        infantry = { x = 0 y = 1 } 
-				        infantry = { x = 0 y = 2 }
-				        infantry = { x = 1 y = 0 }
-				        infantry = { x = 1 y = 1 }
-				    }
-				} 
+					division_template = {
+					    name = "Polska Organizacja Wojskowa Górnego Śląska"
+					    is_locked = yes
+					    division_names_group = POL_INF_01
+					    priority = 0
+					    regiments = {
+					        infantry = { x = 0 y = 0 } 
+					        infantry = { x = 0 y = 1 } 
+					        infantry = { x = 0 y = 2 }
+					        infantry = { x = 1 y = 0 }
+					        infantry = { x = 1 y = 1 }
+					    }
+					} 
 
-				delete_unit_template_and_units = {
-					division_template = "Ferajn Gůrnoślůnzokůw Rebels"
-					disband = yes #if yes, will refund equipment/manpower.
-				}
+					delete_unit_template_and_units = {
+						division_template = "Ferajn Gůrnoślůnzokůw Rebels"
+						disband = yes #if yes, will refund equipment/manpower.
+					}
 
-				division_template = {
-				    name = "Ferajn Gůrnoślůnzokůw Rebels"
-				    is_locked = yes
-				    division_names_group = POL_INF_01
-				    priority = 0
-				    regiments = {
-				        infantry = { x = 0 y = 0 } 
-				        infantry = { x = 0 y = 1 } 
-				        infantry = { x = 0 y = 2 }
-				        infantry = { x = 1 y = 0 }
-				        infantry = { x = 1 y = 1 }
-				        infantry = { x = 1 y = 2 }
-				    }
+					division_template = {
+					    name = "Ferajn Gůrnoślůnzokůw Rebels"
+					    is_locked = yes
+					    division_names_group = POL_INF_01
+					    priority = 0
+					    regiments = {
+					        infantry = { x = 0 y = 0 } 
+					        infantry = { x = 0 y = 1 } 
+					        infantry = { x = 0 y = 2 }
+					        infantry = { x = 1 y = 0 }
+					        infantry = { x = 1 y = 1 }
+					        infantry = { x = 1 y = 2 }
+					    }
+					}
 				}
 			}
 		}
@@ -11870,6 +11879,7 @@ country_event = {
 		every_country = {
 			limit = {
 				original_tag = GER
+				SIL = { exists = yes }
 			}
 			declare_war_on = {
 				target = SIL
@@ -11920,7 +11930,7 @@ country_event = { #Communist civil war starts
 				}
 
 				set_capital =  {
-					state = 1681
+					state = 352
 				}
 			}
 			ELSE_IF = {
@@ -11933,7 +11943,7 @@ country_event = { #Communist civil war starts
 				}
 
 				set_capital =  {
-					state = 411
+					state = 1673
 				}
 			}
 			else = {
@@ -11945,11 +11955,13 @@ country_event = { #Communist civil war starts
 						}
 					}
 
-					prioritize = { 909 61 54 58 } #schleswig, Mecklenburg, Franken and holstein
+					prioritize = { 1706 1699 1773 1710 } #schleswig, Mecklenburg, Franken and holstein
 
-				}
-				set_capital =  {
-					state = PREV
+					ROOT = {
+						set_capital =  {
+							state = PREV
+						}
+					}
 				}
 			}
 		}

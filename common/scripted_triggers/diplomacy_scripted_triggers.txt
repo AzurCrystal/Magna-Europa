@@ -220,35 +220,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 					option = PEACE_ONLY
 				}
 			}
-			has_dlc = "By Blood Alone"
-			original_tag = ETH
-		}
-		custom_trigger_tooltip = {
-			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_ETHIOPIA_TOOLTIP
-			NOT = { FROM = { tag = SOM } }
-			NOT = { FROM = { tag = HAR } }
-			NOT = { FROM = { tag = TIG } }
-			NOT = { FROM = { tag = AFA } }
-			NOT = { FROM = { tag = BEG } }
-			NOT = { FROM = { tag = GBA } }
-			NOT = { FROM = { tag = SID } }
-			NOT = { FROM = { tag = ORO } }
-			NOT = { FROM = { tag = QEM } }
-			NOT = { FROM = { tag = ERI } }
-		}
-	}
-	if = {
-		limit = {
-			OR = {
-				has_game_rule = {
-					rule = allow_release_nations
-					option = FREE
-				}
-				has_game_rule = {
-					rule = allow_release_nations
-					option = PEACE_ONLY
-				}
-			}
 			has_dlc = "Trial of Allegiance"
 			original_tag = CHL
 			NOT = { 
@@ -320,7 +291,7 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 						tag = SHL
 						tag = THU
 						tag = HES
-						tag = RHI
+						tag = RHN # was RHI (dead vanilla Rhineland -> countries/Unused.txt); mod Rhineland = RHN (00_countries.txt:196)
 					}
 				} 
 			}
@@ -582,7 +553,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			}
 			original_tag = ITA
 			OR = {
-				FROM = { tag = ETH }
 				FROM = { tag = HAR }
 				FROM = { tag = TIG }
 				FROM = { tag = AFA }
@@ -595,7 +565,6 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 		}
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_NOT_ETHIOPIA_COMPLIANCE_TOOLTIP
-			NOT = { FROM = { tag = ETH } }
 			NOT = { FROM = { tag = HAR } }
 			NOT = { FROM = { tag = TIG } }
 			NOT = { FROM = { tag = AFA } }
@@ -626,12 +595,12 @@ DIPLOMACY_RELEASE_NATION_ENABLE_TRIGGER = {
 			}
 			has_dlc = "By Blood Alone"
 			original_tag = ITA
-			FROM = { tag = PAP }
+			FROM = { tag = LAZ } # was PAP — PAP is a dead tag (countries/Unused.txt); mod papal state = LAZ
 			has_completed_focus = ITA_seek_papal_support
 		}
 		custom_trigger_tooltip = {
 			tooltip = RULE_ALLOW_RELEASE_NATIONS_ITALY_PAP_TOOLTIP
-			NOT = { FROM = { tag = PAP } }
+			NOT = { FROM = { tag = LAZ } } # was PAP
 		}
 	}
 	if = {
@@ -1699,24 +1668,6 @@ game_weight_can_add_communist = {
 DIPLOMACY_JOIN_ALLY_ENABLE_TRIGGER = {
 	if = { 
 		limit = {
-			NOT = { has_global_flag = ethiopia_recognized_flag }
-			OR = {
-				ROOT = {
-					tag = ETH
-				}
-				FROM = {
-					tag = ETH
-				}
-			}
-			
-		}
-		custom_trigger_tooltip = {
-			tooltip = LON_NON_INTERFERENCE_RESOLUTION_JOIN
-			always = no
-		}
-	}
-	if = { 
-		limit = {
 			FROM = { NOT = { has_war_with_non_exiled_country = yes } }
 		}
 		custom_trigger_tooltip = {
@@ -1754,24 +1705,6 @@ DIPLOMACY_JOIN_ALLY_ENABLE_TRIGGER = {
 	}
 }
 DIPLOMACY_CALL_ALLY_ENABLE_TRIGGER = {
-	if = { 
-		limit = {
-			NOT = { has_global_flag = ethiopia_recognized_flag }
-			OR = {
-				ROOT = {
-					tag = ETH
-				}
-				FROM = {
-					tag = ETH
-				}
-			}
-			
-		}
-		custom_trigger_tooltip = {
-			tooltip = LON_NON_INTERFERENCE_RESOLUTION_CALL
-			always = no
-		}
-	}
 	if = { 
 		limit = {
 			NOT = { has_war_with_non_exiled_country = yes } 
