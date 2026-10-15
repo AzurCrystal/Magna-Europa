@@ -479,14 +479,6 @@ defined_text = { #Text for the UK
 
 defined_text = { 
 	name = NegotiatingItalianClaimsTitle
-	text = { #If Ethiopia refused to sign the peace deal
-		trigger = { 
-			FROM = {
-				has_country_flag = ETH_refused_forced_peace_flag
-			}	
-		}
-		localization_key = BBA_italy_interaction_events.31.t_refused_peace
-	}
 	text = { #If there is no war between Italy or Ethiopia, or England doesn't host Ethiopia's exiled government
 		localization_key = BBA_italy_interaction_events.31.t_negotiate_claims
 	}
@@ -501,14 +493,6 @@ defined_text = {
 			has_country_flag = ITA_italy_suing_for_peace_flag 	
 		}
 		localization_key = BBA_italy_interaction_events.31.desc_peace_signed
-	}
-	text = { #If Ethiopia refused to sign the peace deal
-		trigger = { 
-			FROM = {
-				has_country_flag = ETH_refused_forced_peace_flag
-			}	
-		}
-		localization_key = BBA_italy_interaction_events.31.desc_no_peace_deal
 	}
 	text = { #If there is no war between Italy or Ethiopia, or England doesn't host Ethiopia's exiled government
 		localization_key = BBA_italy_interaction_events.31.desc_no_war
@@ -1164,5 +1148,21 @@ defined_text = {
 	}
 	text = {
 		localization_key = ITA_vallo_alpino_del_littorio_default
+	}
+}
+
+# 1.19-migration: moved here from BBA_ethiopia_scripted_loc.txt — the SUEZ_SANCTIONS_FLAG
+# producer is Italian (common/scripted_effects/ITA_scripted_effects.txt) and
+# localisation/english/adjacency_rules_l_english.yml still calls [GetSuezBlockText].
+defined_text = {
+	name = GetSuezBlockText
+	text = {
+		trigger = {
+			has_country_flag = SUEZ_SANCTIONS_FLAG 
+		}
+		localization_key = blocked_as_part_of_sanctions_tt
+	}
+	text = {
+		localization_key = disable_canal_tt
 	}
 }

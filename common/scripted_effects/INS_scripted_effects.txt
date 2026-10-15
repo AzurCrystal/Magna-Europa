@@ -73,37 +73,6 @@ indonesia_transfer_POK = {
 	}
 }
 
-indonesia_transfer_TNE = {
-	if = {
-		limit = {
-			country_exists = TNE
-		}
-		TNE = {
-			INS_iskandar_sjah = {
-				set_nationality = INS
-				remove_country_leader_role = { #we just want the advisor. if we want them as a leader, we can do that manually after
-					ideology = despotism
-				}
-				save_global_event_target_as = INS_iskandar_sjah
-			}
-		}
-	}
-	else = {
-		every_possible_country = {
-			limit = {
-				has_character = INS_iskandar_sjah
-			}
-			random_character = {
-				limit = {
-					is_character = INS_iskandar_sjah
-				}
-				set_nationality = INS
-				save_global_event_target_as = INS_iskandar_sjah
-			}
-		}
-	}
-}
-
 indonesia_transfer_GOW = {
 	if = {
 		limit = {
@@ -230,7 +199,6 @@ indonesia_transfer_ATJ = {
 
 indonesia_princely_advisors_effect = { #WARNING: DO NOT USE THIS FOR TOOLTIPS!! Only ever use this effect when necessary, and do not just make an effect_tooltip to show its effects. This one can get quite laggy as it may need to search through every country many times
 	indonesia_transfer_POK = yes
-	indonesia_transfer_TNE = yes
 	indonesia_transfer_GOW = yes
 	indonesia_transfer_SSI = yes
 	indonesia_transfer_BLI = yes
@@ -239,7 +207,6 @@ indonesia_princely_advisors_effect = { #WARNING: DO NOT USE THIS FOR TOOLTIPS!! 
 
 indonesia_princely_advisors_effect_no_atjeh = { #WARNING: DO NOT USE THIS FOR TOOLTIPS!! Only ever use this effect when necessary, and do not just make an effect_tooltip to show its effects. This one can get quite laggy as it may need to search through every country many times
 	indonesia_transfer_POK = yes
-	indonesia_transfer_TNE = yes
 	indonesia_transfer_GOW = yes
 	indonesia_transfer_SSI = yes
 	indonesia_transfer_BLI = yes

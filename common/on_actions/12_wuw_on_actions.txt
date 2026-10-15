@@ -1429,24 +1429,6 @@ on_actions = {
 	
 	on_capitulation = { # ROOT is capitulated country, FROM is winner
 
-		effect = { #recall the volunteers for ITA from ETH as war can go on and troops are needed
-			IF = { 
-				limit = {
-					original_tag = ETH
-					FROM = { tag = ITA }
-					ITA = {
-						has_volunteers_amount_from = {
-							tag = AUS
-							count > 0
-						}
-					}
-				}
-				AUS = {
-					recall_volunteers_from = ITA 
-				}
-			}
-		}
-
 		effect = { #Set the new flag and fire event when HAI capitulates to AUS
 			IF = {
 				limit = {

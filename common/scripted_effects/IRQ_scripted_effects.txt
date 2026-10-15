@@ -107,3 +107,36 @@ IRQ_modify_air_force_modifier_version = {
 		custom_effect_tooltip = IRQ_royal_air_force_IRQ_intro_tt
 	}
 }
+
+
+# was defined in scripted_effects/ETH_scripted_effects.txt (deleted — dead ETH tag); kept as borrowed def
+ETH_add_random_mil_factory_effect = {
+	random_owned_controlled_state = {
+		limit = {
+			free_building_slots = {
+				building = arms_factory
+				size > 0
+			}
+			OR = {
+				is_in_home_area = yes
+				NOT = {
+					owner = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 0
+							}
+							is_in_home_area = yes
+						}
+					}
+				}
+			}
+		}
+		add_extra_state_shared_building_slots = 2
+		add_building_construction = {
+			type = arms_factory
+			level = 2
+			instant_build = yes
+		}
+	}
+}
