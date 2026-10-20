@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="thumbnail.png" alt="Magna Europa: Reforged">
+<img src="mods/Magna-Europa/thumbnail.png" alt="Magna Europa: Reforged">
 
 # Magna Europa: Reforged
 
