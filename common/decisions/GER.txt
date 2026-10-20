@@ -4412,6 +4412,7 @@ GER_reichskommissariats = {
 		priority = 98
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKG = { exists = no }
 		}
 
@@ -4423,6 +4424,9 @@ GER_reichskommissariats = {
 			OR = {
 				has_completed_focus = GER_heed_von_neuraths_concerns
 				has_completed_focus = GER_reorganize_the_wehrmacht
+			}
+			NOT = {
+				has_subject = NOR # No need to create a worse Norwegian subject if you already have one 
 			}
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
@@ -4515,8 +4519,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_norwegen_effect_tt
 
-			RKG = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKG autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKG autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -4557,7 +4560,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -4577,6 +4579,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKN = {
 				exists = no
 			}
@@ -4587,6 +4590,9 @@ GER_reichskommissariats = {
 			OR = {
 				has_completed_focus = GER_heed_von_neuraths_concerns
 				has_completed_focus = GER_reorganize_the_wehrmacht
+			}
+			NOT = {
+				has_subject = HOL # No need to create a worse Dutch subject if you already have one 
 			}
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
@@ -4686,10 +4692,9 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_niederlande_effect_tt
 
-			RKN = { set_politics = { ruling_party = fascism } }  # MER: set_autonomy evaluates allowed{} against the target tag; fresh tags created by transfer_state_to have no politics settled this tick, so fascism check fails and the RK lands on satellite. Pin ideology first.
 			set_autonomy = { 
 				target = RKN 
-				autonomy_state = autonomy_reichskommissariat 
+				autonomy_state = autonomy_integrated_puppet 
 			}
 
 			hidden_effect = {
@@ -4742,7 +4747,6 @@ GER_reichskommissariats = {
 					}	
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -4763,6 +4767,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKB = { exists = no }
 		}
 
@@ -4773,6 +4778,9 @@ GER_reichskommissariats = {
 			OR = {
 				has_completed_focus = GER_heed_von_neuraths_concerns
 				has_completed_focus = GER_reorganize_the_wehrmacht
+			}
+			NOT = {
+				has_subject = BEL # No need to create a worse Belgian subject if you already have one 
 			}
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
@@ -4856,8 +4864,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_belgien_effect_tt
 
-			RKB = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKB autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKB autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -4897,7 +4904,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -4916,6 +4922,7 @@ GER_reichskommissariats = {
 		priority = 97
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKO = { exists = no }
 		}
 
@@ -5168,8 +5175,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_ostland_effect_tt
 
-			RKO = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKO autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKO autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -5210,7 +5216,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -5229,6 +5234,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKU = { exists = no }
 		}
 
@@ -5238,12 +5244,15 @@ GER_reichskommissariats = {
 				has_completed_focus = GER_heed_von_neuraths_concerns
 				has_completed_focus = GER_reorganize_the_wehrmacht
 			}
+			NOT = {
+				has_subject = UKR # No need to create a worse Ukrainian subject if you already have one 
+			}
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
 				NOT = {
                     any_state = {
 						GER_is_RKU_state = yes
-                        NOT = {is_controlled_by = ROOT }
+                        NOT = { is_controlled_by_ROOT_or_subject = yes }
                     }
                 }
 			}
@@ -5287,8 +5296,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_ukraine_effect_tt
 
-			RKU = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKU autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKU autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -5331,7 +5339,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -5351,6 +5358,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKU = { exists = yes }
 			NOT = { has_country_flag = GER_handed_over_greater_romania_to_rku }
 		}
@@ -5467,10 +5475,12 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKK = { exists = no }
 		}
 
 		available = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			is_subject = no
 			OR = {
 				has_completed_focus = GER_heed_von_neuraths_concerns
@@ -5766,8 +5776,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_kaukasien_effect_tt
 
-			RKK = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKK autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKK autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -5808,7 +5817,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -5827,6 +5835,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKT = { exists = no }
 		}
 
@@ -5914,8 +5923,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_turkestan_effect_tt
 
-			RKT = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKT autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKT autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -5956,7 +5964,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 1000  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -5978,6 +5985,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RKM = { exists = no }
 		}
 
@@ -6098,8 +6106,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_muscovy_effect_tt
 
-			RKM = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKM autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKM autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -6140,7 +6147,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 1000  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -6637,8 +6643,7 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_generalgouvernement_effect_tt
 
-			GEN = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = GEN autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = GEN autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -6673,7 +6678,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 2 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -6695,6 +6699,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			GEN = {
 				exists = yes
 			}
@@ -6825,7 +6830,12 @@ GER_reichskommissariats = {
 		priority = 88
 		fire_only_once = yes
 
-		visible = { RKI = { exists = no } }
+		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
+			RKI = {
+				exists = no
+			}
+		}
 
 		available = {
 			is_subject = no
@@ -7016,8 +7026,7 @@ GER_reichskommissariats = {
 			}
 
 			custom_effect_tooltip = GER_reichskommissariat_iberia_effect_tt
-			RKI = { set_politics = { ruling_party = fascism } }  # MER: same fix — settle ideology before set_autonomy so the RK allowed-check passes
-			set_autonomy = { target = RKI autonomy_state = autonomy_reichskommissariat }
+			set_autonomy = { target = RKI autonomy_state = autonomy_integrated_puppet }
 
 			hidden_effect = {
 				every_state = {
@@ -7052,7 +7061,6 @@ GER_reichskommissariats = {
 					add_equipment_to_stockpile = { type = support_equipment  amount = 500  producer = GER }
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -7075,6 +7083,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RGB = {
 				exists = no
 			}
@@ -7085,6 +7094,9 @@ GER_reichskommissariats = {
 			OR = {
 				has_completed_focus = GER_heed_von_neuraths_concerns
 				has_completed_focus = GER_reorganize_the_wehrmacht
+			}
+			NOT = {
+				has_subject = ENG # No need to create a worse British subject if you already have one 
 			}
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
@@ -7335,10 +7347,9 @@ GER_reichskommissariats = {
 
 			custom_effect_tooltip = GER_reichskommissariat_grossbritannien_effect_tt
 				
-			RGB = { set_politics = { ruling_party = fascism } }  # MER: set_autonomy evaluates allowed{} against the target tag; fresh tags created by transfer_state_to have no politics settled this tick, so fascism check fails and the RK lands on satellite. Pin ideology first.
 			set_autonomy = { 
 				target = RGB 
-				autonomy_state = autonomy_reichskommissariat 
+				autonomy_state = autonomy_integrated_puppet 
 			}
 			
 			hidden_effect = {
@@ -7392,7 +7403,6 @@ GER_reichskommissariats = {
 					}	
 					inherit_technology = GER
 					add_offsite_building = { type = arms_factory level = 3 }
-					every_owned_state = { set_occupation_law = local_police_force_garrison }  # MER: start on police, not military governor (set_occupation_law_where_available checks ROOT-occupies-THIS; RK owns its states so the call no-ops)
 					load_oob = "RK_OOB"
 				}
 			}
@@ -7426,6 +7436,7 @@ GER_reichskommissariats = {
 		fire_only_once = yes
 
 		visible = {
+			has_completed_focus = GER_uplift_the_rosenberg_office
 			RGB = {
 				exists = yes
 			}
