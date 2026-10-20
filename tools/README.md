@@ -46,6 +46,8 @@ Mod development utilities — **not shipped** to the workshop (release packaging
 
 ## Usage
 
+All audits auto-resolve the mod payload under `mods/<Name>/` via `tools/_modroot.py` (`ME_MOD=<path>` overrides). Run them from anywhere — repo root is the convention:
+
 ```bash
 python tools/railway_audit.py     # after any map/ edit — expect 0/0/0
 python tools/vp_loc_audit.py      # after loc or state-file edits

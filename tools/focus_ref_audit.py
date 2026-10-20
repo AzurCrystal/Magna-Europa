@@ -9,6 +9,9 @@ Usage: python tools/focus_ref_audit.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 def audit():
     foci = set()
     for f in glob.glob('common/national_focus/*.txt'):

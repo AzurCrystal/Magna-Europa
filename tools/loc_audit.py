@@ -9,6 +9,9 @@ Per key in english/*.yml:
 Usage: python tools/loc_audit.py [--langs english,simp_chinese,russian]
 """
 import re, glob, os, sys, argparse
+
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
 from collections import Counter
 
 LANG_HEADERS = {'l_english','l_simp_chinese','l_russian','l_french','l_german',

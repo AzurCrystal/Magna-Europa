@@ -13,6 +13,9 @@ import sys, re, glob, os, csv
 import numpy as np
 from PIL import Image
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 def audit(mapdir='map', bmp_h=3072):
     im = np.array(Image.open(f'{mapdir}/provinces.bmp').convert('RGB'))
     rgb2id, ptype = {}, {}

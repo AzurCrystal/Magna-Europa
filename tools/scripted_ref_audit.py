@@ -13,6 +13,9 @@ Usage: python tools/scripted_ref_audit.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 DEF_DIRS = {
     'trigger': 'common/scripted_triggers',
     'effect': 'common/scripted_effects',

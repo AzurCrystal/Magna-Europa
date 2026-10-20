@@ -50,19 +50,21 @@ This mod uses `replace_path` on `history/`, `events/`, `map/strategicregions` an
 
 | Path | Contents |
 |---|---|
-| `map/` | Province/state bitmaps, `definition.csv`, adjacencies, railways, strategic regions |
-| `common/` | Game database: countries, focus trees, decisions, ideas, characters, scripted effects/triggers, technologies, units, AI |
-| `events/` | Event scripts (vanilla + DLC ported, plus MER additions) |
-| `history/` | Country, state, unit and general history — fully replaced |
-| `localisation/` | `english/`, `russian/`, `simp_chinese/` |
-| `interface/`, `gfx/` | UI scripts, flags, portraits, fonts |
-| `music/` | Mod music tracks and playlists |
+| `mods/Magna-Europa/` | **The shipped mod** — all game-facing paths below live inside it |
+| `mods/Magna-Europa/map/` | Province/state bitmaps, `definition.csv`, adjacencies, railways, strategic regions |
+| `mods/Magna-Europa/common/` | Game database: countries, focus trees, decisions, ideas, characters, scripted effects/triggers, technologies, units, AI |
+| `mods/Magna-Europa/events/` | Event scripts (vanilla + DLC ported, plus MER additions) |
+| `mods/Magna-Europa/history/` | Country, state, unit and general history — fully replaced |
+| `mods/Magna-Europa/localisation/` | `english/`, `russian/`, `simp_chinese/` |
+| `mods/Magna-Europa/interface/`, `gfx/` | UI scripts, flags, portraits, fonts |
+| `mods/Magna-Europa/music/` | Mod music tracks and playlists |
+| `mods/<Submod>/` | Sibling slots for submods (e.g. RK+) — each ships its own `descriptor.mod` + launcher `.mod`, same layout |
 | `docs/states/` | Vanilla↔ME state/region/VP truth tables (`v2m_states`, `m2v_states`, `regions`, `vps`) + `province_pairs.json`; schema and status vocabulary in [`docs/states/README.md`](docs/states/README.md) |
 | `tools/` | Dev utilities (audits, map-truth generator) — not shipped with the mod; see [`tools/README.md`](tools/README.md) |
-| `descriptor.mod` | In-mod descriptor (name, version, `replace_path` set) |
-| `Magna Europa.mod` | Launcher-facing descriptor — copied to `mod/` and given a `path=` |
+| `mods/Magna-Europa/descriptor.mod` | In-mod descriptor (name, version, `replace_path` set) |
+| `mods/Magna-Europa/Magna Europa.mod` | Launcher-facing descriptor — copied to `mod/` and given a `path=` |
 
-Files and directories prefixed with `_` (e.g. `_dev/`, `_audit_*.tsv`, `_118_base/`) are migration and audit artifacts used during the 1.19 port. They are `.gitignore`d and **not part of the shipped mod**.
+Files and directories prefixed with `_` (e.g. `_dev/`, `_audit_*.tsv`, `_118_base/`) live at the **repo root**, are migration and audit artifacts used during the 1.19 port, `.gitignore`d and **not part of the shipped mod**.
 
 
 ## Contributing
@@ -77,16 +79,16 @@ Files and directories prefixed with `_` (e.g. `_dev/`, `_audit_*.tsv`, `_118_bas
    git clone https://github.com/AzurCrystal/Magna-Europa.git
    ```
 
-3. Copy `Magna Europa.mod` from the repo into your launcher mod folder:
+3. Copy `mods/Magna-Europa/Magna Europa.mod` from the repo into your launcher mod folder:
 
    ```
    Documents/Paradox Interactive/Hearts of Iron IV/mod/
    ```
 
-4. Open **the copy** in `mod/` and set the `path=` line to your clone location, e.g.:
+4. Open **the copy** in `mod/` and set the `path=` line to your clone's mod directory, e.g.:
 
    ```
-   path="D:/Projects/Magna-Europa"
+   path="D:/Projects/Magna-Europa/mods/Magna-Europa"
    ```
 
    > **Note**: `descriptor.mod` inside the repo is the in-mod descriptor — do **not** edit it. Only the `Magna Europa.mod` copy placed in `mod/` carries a `path=` line.

@@ -13,6 +13,9 @@ Usage: python tools/modifier_audit.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 def defs(*dirs):
     out = set()
     for d in dirs:

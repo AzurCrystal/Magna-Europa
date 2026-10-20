@@ -8,10 +8,12 @@ Usage: python tools/prov_adjacency.py [mapdir] [out.json]
 Requires: numpy, Pillow.
 """
 import sys, json, csv
+from _modroot import cd_mod, repo_root
+cd_mod()
 import numpy as np
 from PIL import Image
 
-def build(mapdir='map', out='_ctx/prov_adj_fresh.json'):
+def build(mapdir='map', out=repo_root() + '/_ctx/prov_adj_fresh.json'):
     im = np.array(Image.open(f'{mapdir}/provinces.bmp').convert('RGB'))
     h, w = im.shape[:2]
     rgb2id, ptype = {}, {}

@@ -10,6 +10,9 @@ Usage: python tools/vp_loc_audit.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 def audit(locdir='localisation/english'):
     vp2state, mod_vps = {}, set()
     for f in glob.glob('history/states/*.txt'):

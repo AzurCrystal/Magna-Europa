@@ -10,6 +10,9 @@ Usage: python tools/sr_audit.py
 import re, glob, os, sys
 from collections import Counter
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 def audit():
     sr_prov = {}   # pid -> sr_id
     sr_multi = []  # provs in >1 SR

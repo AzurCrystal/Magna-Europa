@@ -15,6 +15,7 @@ Usage:
 Writes JSON only; prints a coverage summary.
 """
 import re, glob, os, sys, json, unicodedata, argparse
+from _modroot import mod_root, repo_root
 
 def norm(s):
     s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode()
@@ -47,8 +48,8 @@ def load_vp_names(locdir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--vanilla', default=r'C:/Program Files (x86)/Steam/steamapps/common/Hearts of Iron IV')
-    ap.add_argument('--mod', default='.')
-    ap.add_argument('--out', default='tools/out')
+    ap.add_argument('--mod', default=mod_root())
+    ap.add_argument('--out', default=os.path.join(repo_root(), 'tools/out'))
     a = ap.parse_args()
     m_states = load_states(a.mod)
     v_states = load_states(a.vanilla)

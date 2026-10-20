@@ -2,6 +2,8 @@
 
 Guidance for AI agents working on this HOI4 mod. Read before touching anything.
 
+**Layout**: monorepo. The shipped mod lives at `mods/Magna-Europa/` — every `common/`, `history/`, `events/`, `map/`… path below is relative to that root. Submods land as siblings under `mods/` (e.g. `mods/RK-Plus/`). Dev/test artifacts (`_ctx/`, `_dev/`, `tmp_diag2/`) stay at repo root and are untracked; `tools/` and `docs/` are repo-level infra.
+
 
 ## Non-negotiable rules learned the hard way
 

@@ -37,6 +37,9 @@ Dead refs present verbatim in the vanilla counterpart file are tagged
 """
 import re, glob, os, sys, bisect
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 IDCHAR = r'[A-Za-z0-9_.\-]+'
 NUM = re.compile(r'^\d+$')
 SKIP_VAL = {'yes', 'no', 'empty', 'none', 'any', 'all'}

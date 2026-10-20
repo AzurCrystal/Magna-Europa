@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 """Rebuild the vanilla<->Magna Europa state/region/VP truth tables into docs/states/.
 
-  python tools/build_state_map.py                 # repo root derived from this file
+  python tools/build_state_map.py                 # mod root via ME_MOD or auto-discovery under mods/*/
   ME_MOD=<repo> HOI4_DIR=<game dir> python tools/build_state_map.py
 """
 import re, glob, os, json, csv
 from collections import defaultdict
 
-MOD = os.environ.get("ME_MOD") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from _modroot import mod_root, repo_root
+
+MOD = os.environ.get("ME_MOD") or mod_root()
 V = os.environ.get("HOI4_DIR") or r"C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV"
-OUT = os.path.join(MOD, "docs", "states")
+OUT = os.path.join(repo_root(), "docs", "states")
 
 def strip_comments(s): return re.sub(r"#[^\n]*","",s)
 def grab(src, key):

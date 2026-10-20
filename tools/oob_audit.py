@@ -13,6 +13,9 @@ Usage: python tools/oob_audit.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 def audit():
     dead, dup = [], []
     for f in glob.glob('history/units/*.txt'):

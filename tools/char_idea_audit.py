@@ -17,6 +17,9 @@ Usage: python tools/char_idea_audit.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 IDCHAR = r'[A-Za-z0-9_.\-]+'
 SCOPES = {'ROOT','PREV','FROM','CAPITAL','OWNER','CONTROLLER','THIS','OVERLORD'}
 

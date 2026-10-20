@@ -16,6 +16,9 @@ Usage: python tools/tag_ref_audit.py [--vanilla <hoi4 dir>]
 """
 import re, glob, os, sys, argparse
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 REF_KEYS = ('tag','original_tag','country_exists','is_subject_of','is_neighbor_of',
             'is_in_faction_with','overlord','has_war_with','has_capitulated_to',
             'is_subject','is_puppet_of','is_ally_with','is_enemy_with','is_guaranteed_by')

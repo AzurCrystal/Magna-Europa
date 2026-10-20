@@ -13,6 +13,9 @@ Usage: python tools/offmap_refs.py
 """
 import re, glob, os, sys
 
+from _modroot import cd_mod
+cd_mod()  # run against mods/<name>/ payload root (ME_MOD to override)
+
 VALID_CONTINENTS = {'europe','asia','africa','north_america','middle_east'}  # mod map coverage
 
 def audit():

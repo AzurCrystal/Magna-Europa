@@ -62,11 +62,14 @@ jobs:
           stage = 'staging'
           shutil.rmtree(stage, ignore_errors=True)
           os.makedirs(stage)
+          MOD_PREFIX = 'mods/Magna-Europa/'
           files = [f.decode('utf-8') for f in subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0') if f]
+          files = [f[len(MOD_PREFIX):] for f in files if f.startswith(MOD_PREFIX)]
           for rel in files:
+              src = MOD_PREFIX + rel
               dst = os.path.join(stage, rel)
               os.makedirs(os.path.dirname(dst), exist_ok=True)
-              shutil.copy2(rel, dst)
+              shutil.copy2(src, dst)
           banned = [f for f in files if f.endswith('hoi4_screen.png')]
           assert not banned, f'banned files tracked: {banned}'
           print(f'staged {len(files)} tracked files')
@@ -82,7 +85,9 @@ jobs:
           v = os.environ['VERSION']
           out = os.path.join('dist', f'Magna-Europa-Reforged-v{v}.zip')
           prefix = f'Magna-Europa-Reforged-v{v}/'
+          MOD_PREFIX = 'mods/Magna-Europa/'
           files = [f.decode('utf-8') for f in subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0') if f]
+          files = [f[len(MOD_PREFIX):] for f in files if f.startswith(MOD_PREFIX)]
           with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
               for rel in sorted(files):
                   z.write(os.path.join('staging', rel), prefix + rel)
