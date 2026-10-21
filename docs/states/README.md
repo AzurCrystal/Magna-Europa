@@ -40,9 +40,9 @@ Columns:
 
 ### v2m_states / m2v_states
 - `1:1` — one ME descendant
-- `1:many` — vanilla state subdivided; see `me_members` (all children) + `me_primary` (vote winner)
+- `1:many` — vanilla state subdivided; see `me_members` (all descendants:
+  claimed + `pixel-geo`-attributed, i.e. coverage-complete) + `me_primary` (vote winner)
 - `unmapped` — vanilla state absent (mostly off-map: BRA/CHI/JAP/RAJ/etc.)
-- `mod-new` — ME state with no detectable vanilla ancestor (new subdivision or off-map-imported)
 - `mapped` — ME state claims a vanilla ancestor
 
 ### basis (provenance, strongest→weakest)
@@ -51,8 +51,10 @@ Columns:
 - `manual` — entry in `MANUAL`/`MANUAL_ME2V` inside the generator (domain knowledge)
 - `name` — exact normalized name match
 - `name~` — containment name match (unique candidate only)
-- `name-singleton` — ME mod-new whose name equals a vanilla state → subdivision heir
 - `vp-geo` — ME state's VP names modal-vote one vanilla state (Ajaccio→Corsica, Linz→Lower Austria)
+- `pixel-geo` — spatial majority vote: ME province centroids reverse-warped into
+  vanilla `provinces.bmp` land on this vanilla state (≥50% of member-province pixels)
+- `pixel-geo-low` — same, <50% share (border/bisected state — review before citing)
 - `same-id` — ME id == vanilla id AND names match (untouched state)
 
 ### regions.tsv

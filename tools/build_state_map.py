@@ -214,6 +214,100 @@ for vs,d in v_states.items():
         if mid not in me2v:
             me2v[mid] = vs; me_basis[mid] = "name-singleton"
 
+# ---------- pixel-geo attribution: spatial descendant census ----------
+# `# was vanilla N` comments only tag the STATE-level descendants the porter
+# remembered to mark. Heavily subdivided regions (Ukraine: 10 vanilla → ~80 ME
+# states) leave most shards unclaimed → v2m.me_members was ancestry-only and
+# under-covers. Fix: reverse-warp every ME province centroid into vanilla pixel
+# space, look up which vanilla state that pixel belongs to, majority-vote.
+#
+# Pipeline:
+#   1. province pixel centroids from both provinces.bmp + definition.csv
+#   2. control points = vps.tsv-style pairs (vanilla VP prov -> ME VP prov by name)
+#   3. Delaunay piecewise-affine warp  me_px -> v_px  (handles differing map
+#      size 5632x2048 vs 4096x3072 AND differing projection)
+#   4. ME prov centroid -> vanilla pixel -> province -> state; weight vote by
+#      province pixel area
+#   5. me2v claims ONLY where no higher basis exists; member lists union.
+# Confidence: me2v basis "pixel-geo" (>=50% vote) / "pixel-geo-low" (<50%).
+
+def _prov_centroids(bmp_path, def_path):
+    import numpy as np
+    from PIL import Image
+    im = np.asarray(Image.open(bmp_path), dtype=np.int32)
+    H, W, _ = im.shape
+    flat = ((im[...,0]<<16)|(im[...,1]<<8)|im[...,2]).ravel()
+    order = np.argsort(flat, kind='stable')
+    sf = flat[order]
+    uniq, start = np.unique(sf, return_index=True)
+    counts = np.diff(np.append(start, len(sf)))
+    xs = np.tile(np.arange(W, dtype=np.int64), H)
+    ys = np.repeat(np.arange(H, dtype=np.int64), W)
+    sx = np.add.reduceat(xs[order], start)/counts
+    sy = np.add.reduceat(ys[order], start)/counts
+    pid = {}
+    for line in open(def_path, encoding='utf-8', errors='replace'):
+        p = line.split(';')
+        if len(p) >= 4:
+            try: pid[(int(p[1])<<16)|(int(p[2])<<8)|int(p[3])] = int(p[0])
+            except ValueError: pass
+    out = {}
+    for i in range(len(uniq)):
+        c = int(uniq[i])
+        if c in pid: out[pid[c]] = (float(sx[i]), float(sy[i]), int(counts[i]))
+    return out, pid
+
+v_cent, v_c2p = _prov_centroids(os.path.join(V,"map/provinces.bmp"), os.path.join(V,"map/definition.csv"))
+m_cent, _ = _prov_centroids(os.path.join(MOD,"map/provinces.bmp"), os.path.join(MOD,"map/definition.csv"))
+
+# prov -> state maps (both sides) for the vote lookup
+v_p2s, m_p2s = {}, {}
+for sid, d in v_states.items():
+    for p in d["provinces"]: v_p2s[p] = sid
+for sid, d in me_states.items():
+    for p in d["provinces"]: m_p2s[p] = sid
+
+# control points: vanilla VP province -> same-named ME VP province
+_anchors = []
+me_vp_prov_by_name = {}
+for sid, d in me_states.items():
+    for pid, pts in d["vps"]:
+        nm = me_vp_loc.get(f"VICTORY_POINTS_{pid}")
+        if nm: me_vp_prov_by_name[norm(nm)] = pid
+for vs, d in v_states.items():
+    for pid, pts in d["vps"]:
+        nm = v_vp_loc.get(f"VICTORY_POINTS_{pid}")
+        mp = me_vp_prov_by_name.get(norm(nm)) if nm else None
+        if mp and pid in v_cent and mp in m_cent:
+            _anchors.append((pid, mp))
+
+import numpy as _np
+from scipy.spatial import Delaunay as _Delaunay
+from scipy.interpolate import LinearNDInterpolator as _LNI
+from PIL import Image as _Image
+_v_pts = _np.array([v_cent[v][:2] for v,_ in _anchors])
+_m_pts = _np.array([m_cent[m][:2] for _,m in _anchors])
+_warp = _LNI(_Delaunay(_m_pts), _v_pts)
+_vbmp = _np.asarray(_Image.open(os.path.join(V,"map/provinces.bmp")), dtype=_np.int32)
+_VH,_VW,_ = _vbmp.shape
+_px_votes = {}
+for mp,(x,y,n) in m_cent.items():
+    v_xy = _warp([[x,y]])[0]
+    if _np.isnan(v_xy[0]): continue
+    vx, vy = int(round(v_xy[0])), int(round(v_xy[1]))
+    if not (0<=vx<_VW and 0<=vy<_VH): continue
+    c = int((_vbmp[vy,vx,0]<<16)|(_vbmp[vy,vx,1]<<8)|_vbmp[vy,vx,2])
+    vs = v_p2s.get(v_c2p.get(c)); ms = m_p2s.get(mp)
+    if vs and ms:
+        _px_votes.setdefault(ms, {}).setdefault(vs, 0)
+        _px_votes[ms][vs] += n
+pixel_ancestor = {}          # me_id -> (v_id, share)
+for ms, votes in _px_votes.items():
+    tot = sum(votes.values())
+    vid, share = max(votes.items(), key=lambda kv: kv[1])
+    pixel_ancestor[ms] = (vid, share/tot)
+print("pixel anchors:", len(_anchors), "| me states attributed:", len(pixel_ancestor))
+
 # vp-geo ancestry: ME mod-new state whose named VPs match vanilla VP names →
 # modal vanilla state of those VPs. (Ajaccio→v1 Corsica, Linz→v4 Lower Austria)
 v_vp_to_state = {}
@@ -231,6 +325,11 @@ for ms,d in me_states.items():
     if votes:
         best = max(votes, key=votes.get)
         me2v[ms] = best; me_basis[ms] = "vp-geo"
+# pixel-geo claims: last-mile fallback — spatial majority ancestor for any ME
+# state still unclaimed after comment/manual/name/vp-geo chains.
+for ms,(vid,share) in pixel_ancestor.items():
+    if ms in me2v: continue
+    me2v[ms] = vid; me_basis[ms] = "pixel-geo" if share >= 0.5 else "pixel-geo-low"
 # ---------- status ----------
 # vanilla -> [me ids] all candidates (comment map can have many)
 comment_all = {k: set(v.keys()) for k,v in comment_votes.items()}
@@ -244,6 +343,13 @@ for vs in sorted(v_states):
     # (name-singleton/manual ME→V), so v2m member lists stay symmetric
     extra = [mid for mid,vid in me2v.items() if vid == vs and mid not in members]
     members_all = members + sorted(set(extra))
+    if not ms and members_all:
+        # pixel-geo fallback primary: majority-voted spatial descendant when no
+        # claimed candidate exists (status stays 1:many/1:1 by member count)
+        px = [(pixel_ancestor[mid][1], mid) for mid in members_all
+              if mid in pixel_ancestor and pixel_ancestor[mid][0] == vs]
+        if px: ms = max(px)[1]
+        elif vs not in src: src[vs] = "pixel-geo"
     status = "unmapped"
     if len(members_all) == 1: status = "1:1"
     elif members_all: status = "1:many"
