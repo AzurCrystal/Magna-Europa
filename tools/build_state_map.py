@@ -184,6 +184,18 @@ MANUAL = {
 # ME-side claim where v2m itself has no row for this me_id
 MANUAL_ME2V = {
     435:  44,   # Brent ⊂ London (v44 Middlesex members {1521,1523}; Brent is the remaining London shard)
+    51:  100,   # Vesturland (West Iceland shard; RBF extrapolation nearest=Labrador is wrong)
+    44:  100,   # Vestfirðir (Westfjords; same Iceland cluster)
+    187: 120,   # Orkney (Scottish cluster)
+    158: 120,   # Caithness (Scottish cluster)
+    211: 120,   # Kinross (Scottish cluster)
+    2781:120,   # Outer Hebrides (Scottish cluster)
+    2552:332,   # American Border (Labrador edge shard)
+    40:  100,   # Norðurland eystra (Iceland shard; warp outlier)
+    48:  101,   # Austurland (Iceland shard; nearest vanilla land is Greenland)
+    60:  464,   # Prince Edward Island (Nova Scotia shard; island off-hull)
+    901: 170,   # Soria (Extremadura; ME Iberia redraw, centroid outside hull)
+    2462:825,   # Novaya Zemlya (Nenets; arctic island off-hull)
 }
 for vid, mids in MANUAL.items():
     for mid in mids:
@@ -282,25 +294,50 @@ for vs, d in v_states.items():
             _anchors.append((pid, mp))
 
 import numpy as _np
-from scipy.spatial import Delaunay as _Delaunay
+from scipy.interpolate import Rbf as _Rbf
+from scipy.spatial import Delaunay as _Delaunay, cKDTree as _cKDTree
 from scipy.interpolate import LinearNDInterpolator as _LNI
 from PIL import Image as _Image
 _v_pts = _np.array([v_cent[v][:2] for v,_ in _anchors])
 _m_pts = _np.array([m_cent[m][:2] for _,m in _anchors])
-_warp = _LNI(_Delaunay(_m_pts), _v_pts)
+# Hybrid warp: Delaunay piecewise-affine inside the anchor hull (exact at anchors,
+# correct wherever VPs are dense), RBF thin-plate for extrapolation beyond it
+# (islands / map edges). Smoothed RBF is not trusted inside the hull — its
+# ill-conditioned solve gave zero-residual anchors but folded space elsewhere.
+_tri = _Delaunay(_m_pts)
+_warp = _LNI(_tri, _v_pts)
+_rbf_x = _Rbf(_m_pts[:,0], _m_pts[:,1], _v_pts[:,0], function='thin_plate', smooth=1.0)
+_rbf_y = _Rbf(_m_pts[:,0], _m_pts[:,1], _v_pts[:,1], function='thin_plate', smooth=1.0)
 _vbmp = _np.asarray(_Image.open(os.path.join(V,"map/provinces.bmp")), dtype=_np.int32)
 _VH,_VW,_ = _vbmp.shape
+_land_ids = _np.array([p for p in v_cent if p in v_p2s])
+_land_xy = _np.array([v_cent[p][:2] for p in _land_ids])
+_kdt = _cKDTree(_land_xy)
+_RINGS = [(dx,dy) for r in range(0,13) for dx in range(-r,r+1) for dy in ([-r,r] if abs(dx)<r else range(-r,r+1))]
 _px_votes = {}
 for mp,(x,y,n) in m_cent.items():
-    v_xy = _warp([[x,y]])[0]
-    if _np.isnan(v_xy[0]): continue
-    vx, vy = int(round(v_xy[0])), int(round(v_xy[1]))
-    if not (0<=vx<_VW and 0<=vy<_VH): continue
-    c = int((_vbmp[vy,vx,0]<<16)|(_vbmp[vy,vx,1]<<8)|_vbmp[vy,vx,2])
-    vs = v_p2s.get(v_c2p.get(c)); ms = m_p2s.get(mp)
-    if vs and ms:
-        _px_votes.setdefault(ms, {}).setdefault(vs, 0)
-        _px_votes[ms][vs] += n
+    ms = m_p2s.get(mp)
+    if not ms: continue
+    inside = _tri.find_simplex([(x,y)])[0] >= 0
+    if inside:
+        v_xy = _warp([(x,y)])[0]; vx, vy = float(v_xy[0]), float(v_xy[1])
+    else:
+        vx, vy = float(_rbf_x(x,y)), float(_rbf_y(x,y))
+    vid = None
+    for dx,dy in _RINGS:
+        x2,y2 = int(round(vx))+dx, int(round(vy))+dy
+        if 0<=x2<_VW and 0<=y2<_VH:
+            c = int((_vbmp[y2,x2,0]<<16)|(_vbmp[y2,x2,1]<<8)|_vbmp[y2,x2,2])
+            vid = v_p2s.get(v_c2p.get(c))
+            if vid: break
+    if not vid:
+        # nearest LAND province centroid, only if reasonably close — beyond
+        # ~50px the warp has sailed into ocean/edge and nearest-land is fiction
+        dist, idx = _kdt.query([vx,vy])
+        if dist <= 50: vid = v_p2s[_land_ids[idx]]
+        else: continue
+    _px_votes.setdefault(ms, {}).setdefault(vid, 0)
+    _px_votes[ms][vid] += n
 pixel_ancestor = {}          # me_id -> (v_id, share)
 for ms, votes in _px_votes.items():
     tot = sum(votes.values())
