@@ -15,4 +15,20 @@ peace_action_modifiers = {
         }
         cost_multiplier = 0.25
     }
+
+    # Indochina is not a French core, so France otherwise pays the full non-core democratic rate for her own colony
+    FRA_reclaim_indochina_cost = {
+        category = events_or_focuses
+        peace_action_type = take_states
+
+        enable = {
+            FROM = {
+                original_tag = FRA
+                NOT = { is_vichy_france = yes }
+            }
+            FROM.FROM = { NOT = { original_tag = FRA } }
+            FROM.FROM.FROM = { FRA_is_indochina_state = yes }
+        }
+        cost_multiplier = 0.4
+    }
 }

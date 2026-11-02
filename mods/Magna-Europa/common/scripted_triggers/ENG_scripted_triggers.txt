@@ -14,6 +14,25 @@
 # 
 #	THIS FILE IS FOR TRIGGERS SPECIFICALLY FOR THE GER TAG
 
+ENG_enemy_in_north_africa = {
+	OR = {
+		448 = { CONTROLLER = { has_war_with = ROOT } } # tripoli
+		450 = { CONTROLLER = { has_war_with = ROOT } } # benghazi
+		458 = { CONTROLLER = { has_war_with = ROOT } } # tunisia
+		461 = { CONTROLLER = { has_war_with = ROOT } } # casablanca
+		462 = { CONTROLLER = { has_war_with = ROOT } } # marrakech
+		459 = { CONTROLLER = { has_war_with = ROOT } } # algiers
+		460 = { CONTROLLER = { has_war_with = ROOT } } # constantine
+		665 = { CONTROLLER = { has_war_with = ROOT } } # gabès
+		449 = { CONTROLLER = { has_war_with = ROOT } } # el agheila
+		451 = { CONTROLLER = { has_war_with = ROOT } } # derna
+		452 = { CONTROLLER = { has_war_with = ROOT } } # matrouh
+		447 = { CONTROLLER = { has_war_with = ROOT } } # alexandria
+		446 = { CONTROLLER = { has_war_with = ROOT } } # cairo
+		290 = { CONTROLLER = { has_war_with = ROOT } } # spanish africa
+	}
+}
+
 ENG_focus_available_embargo_sanction = {
 	exists = yes
 	OR = {
@@ -33,4 +52,35 @@ ENG_focus_available_war = {
 	NOT = { has_government = ROOT }
 	NOT = { is_in_faction_with = ENG }
 	NOT = { has_war_with = ENG }
+}
+
+### Home island approaches, used to give the counter-raiding strategies a single active approach at a time.
+ENG_channel_approach_breached = {
+	OR = {
+		127 = { NOT = { is_fully_controlled_by = ENG } }
+		123 = { NOT = { is_fully_controlled_by = ENG } }
+		126 = { NOT = { is_fully_controlled_by = ENG } }
+		125 = { NOT = { is_fully_controlled_by = ENG } }
+	}
+}
+
+ENG_north_sea_approach_breached = {
+	OR = {
+		130 = { NOT = { is_fully_controlled_by = ENG } }
+		131 = { NOT = { is_fully_controlled_by = ENG } }
+		121 = { NOT = { is_fully_controlled_by = ENG } }
+		136 = { NOT = { is_fully_controlled_by = ENG } }
+		120 = { NOT = { is_fully_controlled_by = ENG } }
+	}
+}
+
+ENG_western_approach_breached = {
+	OR = {
+		120 = { NOT = { is_fully_controlled_by = ENG } }
+		133 = { NOT = { is_fully_controlled_by = ENG } }
+		131 = { NOT = { is_fully_controlled_by = ENG } }
+		132 = { NOT = { is_fully_controlled_by = ENG } }
+		122 = { NOT = { is_fully_controlled_by = ENG } }
+		338 = { NOT = { is_fully_controlled_by = ENG } }
+	}
 }
