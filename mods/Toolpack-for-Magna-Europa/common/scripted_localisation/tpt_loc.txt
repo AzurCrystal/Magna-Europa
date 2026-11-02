@@ -1,0 +1,62 @@
+defined_text = {
+	name = TPT_ACTIVITY
+
+	text = {
+		trigger = {
+			has_global_flag = TPT_enabled
+		}
+		localization_key = TPT_ACTIVITY_OFF
+	}
+	text = {
+		localization_key = TPT_ACTIVITY_ON
+	}
+}
+
+defined_text = {
+	name = tpt_major_text
+
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_major = yes
+					NOT = { has_country_flag = tpt_not_major }
+				}
+				AND = {
+					is_major = no
+					has_country_flag = tpt_major
+				}
+			}
+		}
+		localization_key = tpt_major_yes
+	}
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_major = yes
+					has_country_flag = tpt_not_major
+				}
+				AND = {
+					is_major = no
+					NOT = { has_country_flag = tpt_major }
+				}
+			}
+		}
+		localization_key = tpt_major_no
+	}
+}
+
+defined_text = {
+	name = tpt_op_or_trade
+
+	text = {
+		trigger = {
+			has_global_flag = tpt_trade_yes
+		}
+		localization_key = tpt_key_trade_yes
+	}
+	text = {
+		localization_key = tpt_key_trade_no
+	}
+}

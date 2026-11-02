@@ -1,0 +1,319 @@
+scripted_gui = {
+
+	crt_main_container = {
+	
+		context_type = selected_country_context
+		
+		window_name = "crt_main_container"
+		
+		visible = {
+			ROOT = {
+				is_ai = no
+				has_global_flag = crt_enabled
+				OR = {
+					has_country_flag = tp_is_host
+					NOT = {
+						has_global_flag = tp_is_multiplayer
+					}
+				}
+			}
+		}
+
+		effects = {
+			crt_unlock_templates_button_click = {
+				country_lock_all_division_template = no
+				tpt_remove_template_lock = yes	#can leave on old code
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_faction_creation_toggle_on_button_click = {
+				set_rule = {
+					can_create_factions = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_faction_creation_toggle_off_button_click = {
+				set_rule = {
+					can_create_factions = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_faction_joining_toggle_on_button_click = {
+				set_rule = { can_join_factions = yes }
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_faction_joining_toggle_off_button_click = {
+				set_rule = { can_join_factions = no }
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			#peace
+			crt_puppeting_toggle_on_button_click = {
+				set_rule = {
+					can_puppet = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_puppeting_toggle_off_button_click = {
+				set_rule = {
+					can_puppet = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_coup_toggle_on_button_click = {
+				set_rule = {
+					can_force_government = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_coup_toggle_off_button_click = {
+				set_rule = {
+					can_force_government = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			#Ideology
+			crt_kamikaze_toggle_on_button_click = {
+				set_rule = {
+					can_use_kamikaze_pilots = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_kamikaze_toggle_off_button_click = {
+				set_rule = {
+					can_use_kamikaze_pilots = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_female_ace_toggle_on_button_click = {
+				set_rule = {
+					can_generate_female_aces = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_female_ace_toggle_off_button_click = {
+				set_rule = {
+					can_generate_female_aces = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			#Influence
+			crt_democratic_justify_toggle_on_button_click = {
+				set_rule = {
+					can_only_justify_war_on_threat_country = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_democratic_justify_toggle_off_button_click = {
+				set_rule = {
+					can_only_justify_war_on_threat_country = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_boost_all_toggle_on_button_click = {
+				set_rule = {
+					can_boost_other_ideologies = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_boost_all_toggle_off_button_click = {
+				set_rule = {
+					can_boost_other_ideologies = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_guarantee_all_toggle_on_button_click = {
+				set_rule = {
+					can_guarantee_other_ideologies = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }			
+			}
+			crt_guarantee_all_toggle_off_button_click = {
+				set_rule = {
+					can_guarantee_other_ideologies = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_volunteer_toggle_on_button_click = {
+				set_rule = {
+					can_send_volunteers = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_volunteer_toggle_off_button_click = {
+				set_rule = {
+					can_send_volunteers = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_collab_gov_toggle_on_button_button_click = {
+				set_rule = {
+					can_create_collaboration_government = yes
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+			crt_collab_gov_toggle_off_button_click = {
+				set_rule = {
+					can_create_collaboration_government = no
+				}
+				toolpack_cycle_action_log_variables = yes
+				add_to_array = { global.toolpack_mp_action_array_targets = THIS }
+				add_to_array = { global.toolpack_mp_action_array = 18 }
+			}
+		}
+
+		triggers = {
+			crt_unlock_templates_button_visible = {
+				always = yes
+			}
+			crt_unlock_templates_button_enabled = {
+				always = yes
+			}
+			crt_faction_creation_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_create_factions
+				}
+			}
+			crt_faction_creation_toggle_on_button_enabled = {
+				always = yes
+			}
+			crt_faction_creation_toggle_off_button_visible = {
+				has_rule = can_create_factions
+			}
+			crt_faction_creation_toggle_off_button_enabled = {
+				always = yes
+			}
+			crt_faction_joining_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_join_factions
+				}
+			}
+			crt_faction_joining_toggle_on_button_enabled = {
+				always = yes
+			}
+			crt_faction_joining_toggle_off_button_visible = {
+				has_rule = can_join_factions
+			}
+			crt_faction_joining_toggle_off_button_enabled = {
+				always = yes
+			}
+			#Peacedeal
+			crt_puppeting_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_puppet
+				}
+			}
+			crt_puppeting_toggle_off_button_visible = {
+				has_rule = can_puppet
+			}
+			crt_coup_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_force_government
+				}
+			}
+			crt_coup_toggle_off_button_visible = {
+				has_rule = can_force_government
+			}
+			#Ideology
+			crt_kamikaze_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_use_kamikaze_pilots
+				}
+			}
+			crt_kamikaze_toggle_off_button_visible = {
+				has_rule = can_use_kamikaze_pilots
+			}
+			crt_female_ace_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_generate_female_aces
+				}
+			}
+			crt_female_ace_toggle_off_button_visible = {
+				has_rule = can_generate_female_aces
+			}
+			#Influence
+			crt_boost_all_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_boost_other_ideologies
+				}
+			}
+			crt_boost_all_toggle_off_button_visible = {
+				has_rule = can_boost_other_ideologies
+			}
+			crt_guarantee_all_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_guarantee_other_ideologies
+				}
+			}
+			crt_guarantee_all_toggle_off_button_visible = {
+				has_rule = can_guarantee_other_ideologies
+			}
+			crt_democratic_justify_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_only_justify_war_on_threat_country
+				}
+			}
+			crt_democratic_justify_toggle_off_button_visible = {
+				has_rule = can_only_justify_war_on_threat_country
+			}
+			crt_volunteer_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_send_volunteers
+				}
+			}
+			crt_volunteer_toggle_off_button_visible = {
+				has_rule = can_send_volunteers
+			}
+			crt_collab_gov_toggle_on_button_visible = {
+				NOT = {
+					has_rule = can_create_collaboration_government
+				}
+			}
+			crt_collab_gov_toggle_off_button_visible = {
+				has_rule = can_create_collaboration_government
+			}
+		}
+	}
+}
