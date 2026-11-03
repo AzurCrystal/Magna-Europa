@@ -12,7 +12,7 @@ peace_ai_desires = {
             FROM.FROM.FROM = { state = 2484 }  # Königsberg (Labiau) — was vanilla 763
         }
 
-        ai_desire = 50  # 50 percent higher desire
+        ai_desire = 75  # 75 percent higher desire
     }
 
     # If Lithuania is not a Soviet Puppet, the Soviets want Memel too
@@ -25,7 +25,7 @@ peace_ai_desires = {
             FROM.FROM.FROM = { state = 227 }  # Memel
         }
 
-        ai_desire = 50  # 50 percent higher desire
+        ai_desire = 250  # 250 percent higher desire, 75 wasn't enough
     }
      # If Lithuania is a Soviet Puppet, the Soviets want Memel for it
     SOV_wants_memel_puppet = {   # 1.19-migration: was duplicate key SOV_wants_memel
@@ -37,7 +37,7 @@ peace_ai_desires = {
             FROM.FROM.FROM = { state = 227 }  # Memel
         }
 
-        ai_desire = 50  # 50 percent higher desire
+        ai_desire = 75  # 75 percent higher desire
     }
 
 
@@ -47,6 +47,17 @@ peace_ai_desires = {
             is_historical_focus_on = yes
             ROOT.FROM = { tag = CZE }
             ROOT.FROM.FROM.FROM = { is_core_of = CZE }
+            tag = SOV
+        }
+        ai_desire = 150
+    }
+
+    SOV_hungarian_puppet_histo = {
+        peace_action_type = { puppet }
+        enable = {
+            is_historical_focus_on = yes
+            ROOT.FROM = { tag = HUN }
+            ROOT.FROM.FROM.FROM = { is_core_of = HUN }
             tag = SOV
         }
         ai_desire = 150

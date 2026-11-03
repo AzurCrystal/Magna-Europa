@@ -460,6 +460,25 @@ on_actions = {
 			#}	
 		}
 	}
+	# Self-heals the signatory list once a week, which also backfills saves made before the list existed.
+	on_weekly = {
+		effect = {
+			MTG_naval_treaty_sync_ui_membership_effect = yes
+		}
+	}
+
+	# Only signatories are checked, so this is a handful of countries a day rather than every tag in the game.
+	on_daily = {
+		effect = {
+			if = {
+				limit = {
+					has_naval_treaty_trigger = yes
+				}
+				MTG_naval_treaty_sync_ui_compliance_effect = yes
+			}
+		}
+	}
+
 
 	on_startup = {
 		effect = {

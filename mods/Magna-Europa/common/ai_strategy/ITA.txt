@@ -960,11 +960,14 @@ ITA_hold_africa = {
 		original_tag = ITA
 	}
 	enable = {
-		date > 1937.1.1
+		date > 1937.6.1
 	}
 	abort = {
-		any_owned_state = { is_core_of = ITA NOT = { is_controlled_by = ITA } }
-		date > 1942.6.1
+		OR = {
+			any_owned_state = { is_core_of = ITA is_on_continent = europe NOT = { is_controlled_by = ITA } }
+			NOT = { has_war_with = ENG }
+			date > 1942.9.1
+		}
 	}
 	
 	#### North Africa

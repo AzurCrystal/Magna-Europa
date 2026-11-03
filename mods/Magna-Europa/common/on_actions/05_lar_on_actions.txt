@@ -12,12 +12,16 @@ on_actions = {
 			# base values
             set_temp_variable = {
                 var = capture_chance
-                value = 90
+                value = 40
             }
             set_temp_variable = {
                 var = kill_chance
-                value = 10
-            }			
+                value = 5
+            }
+            set_temp_variable = {
+                var = hiding_chance
+                value = 55
+            }
 
             # nullify kill chance for some missions
             if = {
@@ -30,6 +34,11 @@ on_actions = {
                 set_temp_variable = {
                     var = kill_chance
                     value = 0
+                }
+                # redistribute to hiding
+                add_to_temp_variable = {
+                    var = hiding_chance
+                    value = 5
                 }
             }
 
@@ -57,7 +66,9 @@ on_actions = {
                         killed_by = ROOT
                     }
                 }
-
+                temp_var:hiding_chance = {
+                    force_operative_leader_into_hiding = 28
+                }
             }
 
         }
@@ -214,7 +225,6 @@ on_actions = {
 				if = {
 					limit = {
 						has_trait = operative_linguist
-						NOT = { operative_leader_mission = no_mission }
 						NOT = { has_nationality = FROM }
 					}
 					random_list = {

@@ -70,7 +70,8 @@ peace_ai_desires = {
                # has_government = democratic
                # is_in_faction_with = USA
                 USA = {
-                    has_war_with = GER 
+                    has_war_with = GER
+                    pc_total_score > 0
                 }
             }
             FROM.FROM = {
@@ -125,7 +126,10 @@ peace_ai_desires = {
                 NOT = { original_tag = ENG }
                 #has_government = democratic
                 #is_in_faction_with = ENG 
-                ENG = { has_war_with = GER }
+                ENG = {
+                    has_war_with = GER
+                    pc_total_score > 0
+                }
             }
             FROM.FROM = {
                 original_tag = GER
@@ -154,7 +158,11 @@ peace_ai_desires = {
                 NOT = { original_tag = FRA }
                #has_government = democratic
                #is_in_faction_with = FRA
-                FRA = { has_war_with = GER }
+                any_country_with_original_tag = {
+                    original_tag_to_check = FRA
+                    has_war_with = GER
+                    pc_total_score > 0
+                }
             }
             FROM.FROM = {
                 original_tag = GER
@@ -164,6 +172,59 @@ peace_ai_desires = {
                     state = 547 #MOSELLAND # 1.19-migration: was vanilla 42
                     #state = 50
                 }
+            }
+        }
+        ai_desire = -250
+    }
+
+    SOV_expand_poland = {
+        peace_action_type = puppet
+        enable = {
+            has_global_flag = yalta_agreed_flag
+            ROOT = {
+                original_tag = SOV
+                has_war_with = GER
+            }
+            POL = {
+                has_war_with = GER
+                NOT = {
+                    has_war_with = ROOT
+                }
+                OR = {
+                    exists = no
+                    is_subject_of = ROOT
+                    pc_is_loser = yes
+                }
+            }
+            FROM = {
+                original_tag = POL
+            }
+            FROM.FROM.FROM = {
+                is_core_of = GER
+            }
+        }
+        ai_desire = 250
+    }
+
+    SOV_dont_dismember_yugoslavia = {   #YUG can be a "loser" despite fighting Germany because its occupied
+        peace_action_type = { take_states puppet force_government liberate }
+        enable = {
+            has_global_flag = yalta_agreed_flag
+            ROOT = {
+                original_tag = SOV
+                has_war_with = GER
+            }
+            YUG = {
+                has_war_with = GER
+                NOT = {
+                    has_war_with = ROOT
+                }
+                any_allied_country = {
+                    pc_total_score > 1000
+                }
+            }
+            FROM.FROM.FROM = {
+                is_core_of = YUG
             }
         }
         ai_desire = -250
