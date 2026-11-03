@@ -150,12 +150,17 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+
 			hidden_effect = {
 				set_country_flag = NOR_going_dem_allied 
 				NOR_set_variables_alt_dem = yes 
 			}
+
 			custom_effect_tooltip = NOR_unlocking_prep_allied_dem_TT
 			remove_ideas = { NOR_complacent_cabinet_ns } 
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
 			country_event = { id = AAT_norway.12 }
 			custom_effect_tooltip = the_following_will_happen_TT
 			event_option_tooltip = AAT_norway.12.a
@@ -274,7 +279,7 @@ focus_tree = {
 						size > 0 
 						include_locked = yes
 					}
-					NOT = { state = 1822 } # F you Jan Mayen
+					NOT = { state = 1822 } # F you Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 				}
 				random_select_amount = 2
 				add_extra_state_shared_building_slots = 1 
@@ -426,6 +431,10 @@ focus_tree = {
 				character = NOR_lev_trotsky
 				slot = political_advisor 
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = NOR_kirsten_hansteen
 		}
 	}
 
@@ -535,7 +544,7 @@ focus_tree = {
 			add_political_power = 50
 			add_popularity = {
 				ideology = communism 
-				popularity = 0.05
+				popularity = 0.08
 			}
 			custom_effect_tooltip = NOR_prepare_communist_unlock_TT
 		}
@@ -551,7 +560,7 @@ focus_tree = {
 		relative_position_id = NOR_the_seeds_of_the_revolution
 		cost = 5
 		available = {
-			communism > 0.25
+			communism > 0.2
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -580,7 +589,7 @@ focus_tree = {
 		relative_position_id = NOR_the_seeds_of_the_revolution
 		cost = 5
 		available = {
-			communism > 0.25
+			communism > 0.2
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -638,6 +647,7 @@ focus_tree = {
 					popularity = -0.1
 					ideology = democratic  
 				}
+				#set_cosmetic_tag = NOR_alt_democratic
 			}
 			add_political_power = 100 
 		}
@@ -694,8 +704,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 
 		completion_reward = {
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = NOR_jonas_lie	
+			
+			add_stability = 0.1
 			if = {
 				limit = {
 					has_government = communism 
@@ -713,7 +723,10 @@ focus_tree = {
 					popularity = -0.05
 					ideology = democratic  
 				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = NOR_jonas_lie	
 			}
+
 		}
 	}
 
@@ -729,6 +742,8 @@ focus_tree = {
 		relative_position_id = NOR_consolidate_power
 		cost = 10
 		available = {
+			is_subject = no
+			has_civil_war = no
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
@@ -824,13 +839,22 @@ focus_tree = {
 		y = 1
 		relative_position_id = NOR_organize_partisan_militias
 		cost = 10
+
 		available = {
  			check_variable = {
  				var = NOR_country_preparedness
- 				value = 10
+ 				value = 8
  				compare = greater_than_or_equals 
  				tooltip = NOR_required_prep_communist_TT
  			}
+ 			NOT = {
+ 				has_government = communism
+ 			}
+ 			communism > 0.35
+		}
+
+		bypass = {
+			has_government = communism
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
@@ -1043,18 +1067,18 @@ focus_tree = {
 						NOT = { has_country_flag = DEN_depose_the_king }
 					}
 				}
+				DEN = {
+					country_event = {
+						id = AAT_norway_communist.8
+						days = 5
+					}
+				}
 				effect_tooltip = {
 					NOR_king_haakon_vii = {
 						set_nationality = DEN 
 					}
 					NOR_prince_olav = {
 						set_nationality = DEN
-					}
-				}
-				DEN = {
-					country_event = {
-						id = AAT_norway_communist.8
-						days = 5
 					}
 				}
 			}
@@ -1065,18 +1089,18 @@ focus_tree = {
 						NOT = { has_completed_focus = ENG_the_fate_of_the_royal_family }
 					}
 				}
+				ENG = {
+					country_event = {
+						id = AAT_norway_communist.8
+						days = 5
+					}
+				}
 				effect_tooltip = {
 					NOR_king_haakon_vii = {
 						set_nationality = ENG 
 					}
 					NOR_prince_olav = {
 						set_nationality = ENG
-					}
-				}
-				ENG = {
-					country_event = {
-						id = AAT_norway_communist.8
-						days = 5
 					}
 				}
 			}
@@ -1087,6 +1111,12 @@ focus_tree = {
 						NOT = { has_completed_focus = SWE_liquidate_the_monarchy }
 					}
 				}
+				SWE = {
+					country_event = {
+						id = AAT_norway_communist.8
+						days = 5
+					}
+				}
 				effect_tooltip = {
 					NOR_king_haakon_vii = {
 						set_nationality = SWE 
@@ -1095,18 +1125,53 @@ focus_tree = {
 						set_nationality = SWE
 					}
 				}
-				SWE = {
-					country_event = {
-						id = AAT_norway_communist.8
-						days = 5
-					}
-				}
 			}
 			else = { # Royal Family exiled
 				retire_character = NOR_king_haakon_vii
 				retire_character = NOR_prince_olav
 			}
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
+			if = {
+				limit = {
+					has_idea = NOR_the_hard_thirties_ns 
+				}
+				remove_ideas = { NOR_the_hard_thirties_ns }
+			}
+			else_if = {
+				limit = {
+					has_idea = NOR_the_hard_thirties_ns_2
+				}
+				remove_ideas = { NOR_the_hard_thirties_ns_2 }
+
+			}
+			else_if = {
+				limit = {
+					has_idea = NOR_the_hard_thirties_ns_3
+				}
+				remove_ideas = { NOR_the_hard_thirties_ns_3 }
+			}
+
+			if = {
+				limit = {
+					has_idea = NOR_birger_ljungberg
+				}
+				deactivate_advisor = NOR_birger_ljungberg
+				retire_character = NOR_kristian_laake 
+			}
+			if = {
+				limit = {
+					has_idea = NOR_kristian_laake
+				}
+				remove_ideas = {
+					NOR_kristian_laake
+				}
+				retire_character = NOR_kristian_laake 
+			}
+
 			country_event = { id = AAT_norway_communist.7 }
+
 			add_stability = 0.2
 			add_popularity = {
 				ideology = communism 
@@ -1318,6 +1383,7 @@ focus_tree = {
 		cost = 10
 		available = {
 			communism > 0.5
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION }
@@ -1333,11 +1399,15 @@ focus_tree = {
 						is_in_faction = no 
 					} 
 				}
-				create_faction = NORDIC_alliance_communist
+				create_faction_from_template = {
+					template = faction_template_world_revolution
+					name = NORDIC_alliance_communist
+				}
 				every_other_country = {
 					limit = {
 						NORDIC_is_nordic = yes 
 						has_government = communism
+						is_subject = no
 					}
 					country_event = {
 						id = generic.5
@@ -1348,14 +1418,16 @@ focus_tree = {
 			}
 			else_if = {
 				limit = {
-					any_other_country = {
-						original_tag = SOV
+					any_country_with_original_tag = {
+						exists = yes
+						original_tag_to_check = SOV
 						has_government = communism
 						has_country_leader = {
 							character = SOV_lev_trotsky
 							ruling_only = yes 
 						} 
 						is_faction_leader = yes
+						is_subject = no
 					}
 				}
 				random_other_country = {
@@ -1367,12 +1439,16 @@ focus_tree = {
 							ruling_only = yes 
 						}
 						is_faction_leader = yes
+						is_subject = no
 					}
 					country_event = { id = generic.2 }
 				}
 			}
 			else = {
-				create_faction = NOR_northern_international
+				create_faction_from_template = {
+					template = faction_template_world_revolution
+					name = NOR_northern_international
+				}
 				every_other_country = {
 					limit = {
 						has_government = communism 
@@ -1384,14 +1460,21 @@ focus_tree = {
 							}
 						}
 						is_in_faction = no 
+						is_subject = no
 					}
 					country_event = { id = generic.5 }
 				}
 			}
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
 			add_timed_idea = {
 				idea = NOR_permanent_revolution_ns
 				days = 1095
 			}
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
 			# I know There's a better way to do this but the tooltip looks wrong otherwise. 
 			if = {
 				limit ={
@@ -1496,6 +1579,8 @@ focus_tree = {
 		cost = 10
 		available = {
 			has_war_support > 0.75
+			is_subject = no
+			has_civil_war = no
 			if = {
 				limit = { # Stalin is SOMEWHERE and he will be crushed
 					NOR_stalin_exists = yes 
@@ -1512,8 +1597,9 @@ focus_tree = {
 			}
 			else_if = { # Some sort of Stalin Adjacent SOV exists 
 				limit = {
-					any_other_country = { 
-						original_tag = SOV
+					any_country_with_original_tag = {
+						exists = yes
+						original_tag_to_check = SOV
 						has_government = communism
 						NOT = { has_completed_focus = SOV_the_left_opposition }
 						has_capitulated = no
@@ -1528,8 +1614,9 @@ focus_tree = {
 			else_if = { # Some other fascist 
 				limit = {
 					NOT = {
-						any_other_country = {
-							original_tag = SOV
+						any_country_with_original_tag = {
+							exists = yes
+							original_tag_to_check = SOV
 							has_government = communism
 							has_capitulated = no 		
 						}
@@ -1562,22 +1649,16 @@ focus_tree = {
 				idea = NOR_crush_stalin_ns
 				days = 730
 			}
-			army_experience = 50
-			navy_experience = 50 
-			air_experience = 50 
-			add_political_power = 100
-			if = {
-				limit = {
-					NOT = {
-						has_wargoal_against = { target = SOV }
-						has_war_with = SOV
-					}
-				}
-				create_wargoal = {
-					type = topple_government
-					target = SOV
-				}
-			}
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
+			army_experience = 25
+			navy_experience = 25 
+			air_experience = 25 
+			add_political_power = 75
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
 			if = {
 				limit = { # Stalin is SOMEWHERE and he will be crushed
 					NOR_stalin_exists = yes 
@@ -1597,8 +1678,9 @@ focus_tree = {
 			}
 			else_if = { # Some sort of Stalin Adjacent SOV exists 
 				limit = {
-					any_other_country = { 
-						original_tag = SOV
+					any_country_with_original_tag = {
+						exists = yes
+						original_tag_to_check = SOV
 						has_government = communism
 						NOT = { has_completed_focus = SOV_the_left_opposition }
 						has_capitulated = no
@@ -1620,8 +1702,9 @@ focus_tree = {
 			else_if = { # Some other fascist 
 				limit = {
 					NOT = {
-						any_other_country = {
-							original_tag = SOV
+						any_country_with_original_tag = {
+							exists = yes
+							original_tag_to_check = SOV
 							has_government = communism
 							has_capitulated = no 		
 						}
@@ -1673,11 +1756,11 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } #Not you Jan Mayen
+					NOT = { state = 1822 } #Not you Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = arms_factory
 						size > 0
-						include_locked = yes
+						include_locked = yes 
 					}
 				}
 				random_select_amount = 3
@@ -1691,11 +1774,11 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } #Not you Jan Mayen
+					NOT = { state = 1822 } #Not you Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = dockyard
 						size > 0
-						include_locked = yes
+						include_locked = yes 
 					}
 				}
 				random_select_amount = 3
@@ -1710,7 +1793,7 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } #Not you Jan Mayen
+					NOT = { state = 1822 } #Not you Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					air_base > 0
 					air_base < 8
 				}
@@ -1746,6 +1829,7 @@ focus_tree = {
 		relative_position_id = NOR_denounce_the_german_reich
 		cost = 5
 		available = {
+			is_subject = no
 			ENG = {
 				exists = yes 
 				has_capitulated = no 
@@ -1821,7 +1905,20 @@ focus_tree = {
 					is_in_faction = no 
 					NORDIC_alliance_created_already = no 
 				}
-				create_faction = NORDIC_alliance_democratic
+				IF = {
+					limit = {
+						has_dlc = "No Compromise, No Surrender"
+					}
+					set_rule = { can_create_factions = yes }
+					create_faction_from_template = faction_template_NORDIC_alliance_democratic
+					add_faction_initiative = 1
+					add_to_faction = FROM
+				}
+				ELSE = {
+					set_rule = { can_create_factions = yes }
+					create_faction = NORDIC_alliance_democratic
+					add_to_faction = FROM
+				}
 				complete_national_focus = NORDIC_form_joint_alliance
 			}
 		}
@@ -1839,7 +1936,8 @@ focus_tree = {
 
 		cost = 10
 		
-		available = {
+		available = {	
+			is_subject = no
 			SWE = {
 				exists = yes
 				NOT = {
@@ -1852,8 +1950,8 @@ focus_tree = {
 		}
 
 		bypass = {
-			OR = {
-				SWE = {
+			SWE = {
+				OR = {		
 					exists = no
 					is_subject_of = ROOT
 				}
@@ -1888,6 +1986,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
+			is_subject = no
 			DEN = {
 				exists = yes
 				NOT = {
@@ -1900,8 +1999,8 @@ focus_tree = {
 		}
 
 		bypass = {
-			OR = {
-				DEN = {
+			DEN = {
+				OR = {
 					exists = no
 					is_subject_of = ROOT
 				}
@@ -1931,15 +2030,20 @@ focus_tree = {
 		relative_position_id = NOR_secure_the_swedish_iron_ore
 		cost = 10
 		available = {
+			is_subject = no
 			if = {
 				limit = {
-					any_other_country = { 
-						original_tag = GER 
+					any_other_country_with_original_tag_of = {
+						exists = yes
+						target = {GER}
+					
 						has_government = fascism
 					}
 				}
-				any_other_country = { 
-					original_tag = GER 
+				any_other_country_with_original_tag_of = {
+					exists = yes
+					target = {GER}
+					
 					has_government = fascism
 				}
 			}
@@ -1958,8 +2062,9 @@ focus_tree = {
 
 		bypass = {
 			NOT = {
-				any_other_country = {
-					is_major = yes 
+				any_collection_element = {
+					collection = game:all_majors
+					NOT = { tag = ROOT }
 					has_government = fascism 
 					has_capitulated = no 
 				}
@@ -1973,10 +2078,16 @@ focus_tree = {
 				idea = NOR_crush_hitler_ns
 				days = 730
 			}
-			army_experience = 50
-			navy_experience = 50 
-			air_experience = 50 
-			add_political_power = 100
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
+			army_experience = 25
+			navy_experience = 25 
+			air_experience = 25 
+			add_political_power = 75
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
 			if = {
 				limit = {
 					GER = {
@@ -2050,7 +2161,7 @@ focus_tree = {
 			random_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # Not Jan Mayen
+					NOT = { state = 1822 } # Not Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 				}
 				effect_tooltip = {
 					create_unit = {
@@ -2108,10 +2219,10 @@ focus_tree = {
 			NOT = {
 				SOV = { has_war_with = ROOT }
 			}
-			13 = {
+			13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
 				is_fully_controlled_by = ROOT
 			}
-			2701 = {
+			4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
 				is_fully_controlled_by = ROOT
 			}
 		}
@@ -2122,7 +2233,7 @@ focus_tree = {
 					exists = no 
 					NOT = { has_government = communism }
 					has_war_with = ROOT 
-					NOT = {	owns_state = 41 }
+					NOT = {	owns_state = 41 }   # 1.19-migration: was vanilla 214 (Arkhangelsk)
 				}
 			}
 		}
@@ -2164,18 +2275,33 @@ focus_tree = {
 		relative_position_id = NOR_invite_secret_army
 		cost = 10
 		available = {
-			any_other_country = {
+			is_subject = no
+			any_other_country_with_original_tag_of = {
+				exists = yes
+				target = { SOV }
 				has_government = communism 
 				is_faction_leader = yes 
 			}
 		}
 		bypass = {
-			NOT = {
-				any_other_country = {
+			OR = {
+				NOT = {
+					any_other_country_with_original_tag_of = {
+						exists = yes
+						target = { SOV }
+						has_government = communism
+						is_faction_leader = yes 
+					}
+				}
+				any_other_country_with_original_tag_of = {
+					exists = yes
+					target = { SOV }
 					has_government = communism
 					is_faction_leader = yes 
+					is_in_faction_with = ROOT
 				}
 			}
+			
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2188,16 +2314,7 @@ focus_tree = {
 						is_faction_leader = yes 
 					}
 				}
-				SOV = {
-					country_event = {
-						id = generic.2
-						hours = 3
-					}
-				}
-			}
-			else = {
-				find_biggest_communist = yes
-				var:GLOBAL.platonic_big_communist = {
+				SOU = {
 					country_event = {
 						id = generic.2
 						hours = 3
@@ -2276,7 +2393,7 @@ focus_tree = {
 			add_manpower = 1000
 			add_tech_bonus = {
 				name = NOR_field_hospitals
-				bonus = 1.5
+				bonus = 1
 				uses = 2
 				category = hospital_tech
 			}
@@ -2326,8 +2443,17 @@ focus_tree = {
 
 		completion_reward = {
 			unlock_military_industrial_organization_tooltip = mio:SOV_morozov_design_bureau_organization
+			mio:SOV_morozov_design_bureau_organization = {
+				add_mio_size = 3
+			}
 			unlock_military_industrial_organization_tooltip = mio:SOV_rubin_design_bureau_organization
+			mio:SOV_rubin_design_bureau_organization = {
+				add_mio_size = 3
+			}
 			unlock_military_industrial_organization_tooltip = mio:SOV_gaz_organization
+			mio:SOV_gaz_organization = {
+				add_mio_size = 3
+			}
 		}
 	}
 	
@@ -2599,45 +2725,45 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = NOR_arrest_quisling
-		
-		icon = GFX_focus_NOR_arrest_quisling
-		
-		prerequisite = { focus = NOR_replace_laake }
-
-		x = 0
-		y = 1
-		relative_position_id = NOR_replace_laake
-		
-		cost = 5
-		
-		available = {
-			has_character = NOR_vidkun_quisling	
-		}
-
-		bypass = {
-			has_completed_focus = NOR_fascist_invasion_of_norway 
-		}
-
-		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_POLITICAL }
-
-		available_if_capitulated = yes		
-
-		completion_reward = {
-			remove_ideas = { NOR_anti_communist_sentiment_ns }
-			add_popularity = {
-				ideology = fascism
-				popularity = -0.2
-			}
-			add_popularity = {
-				ideology = democratic 
-				popularity = 0.15 
-			}
-			retire_character = NOR_vidkun_quisling
-			mark_focus_tree_layout_dirty = yes
-		}
-	}
+#	focus = {
+#		id = NOR_arrest_quisling
+#		
+#		icon = GFX_focus_NOR_arrest_quisling
+#		
+#		prerequisite = { focus = NOR_replace_laake }
+#
+#		x = 0
+#		y = 1
+#		relative_position_id = NOR_replace_laake
+#		
+#		cost = 5
+#		
+#		available = {
+#			has_character = NOR_vidkun_quisling	
+#		}
+#
+#		bypass = {
+#			has_completed_focus = NOR_fascist_invasion_of_norway 
+#		}
+#
+#		search_filters = { FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_POLITICAL }
+#
+#		available_if_capitulated = yes		
+#
+#		completion_reward = {
+#			remove_ideas = { NOR_anti_communist_sentiment_ns }
+#			add_popularity = {
+#				ideology = fascism
+#				popularity = -0.2
+#			}
+#			add_popularity = {
+#				ideology = democratic 
+#				popularity = 0.15 
+#			}
+#			retire_character = NOR_vidkun_quisling
+#			mark_focus_tree_layout_dirty = yes
+#		}
+#	}
 
 	focus = {
 		id = NOR_protect_finnmark_from_the_bolsheviks
@@ -2650,47 +2776,14 @@ focus_tree = {
 		relative_position_id = NOR_uproot_secret_army
 		cost = 10
 		available = {
-			owns_state = 4
+			owns_state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
 			add_manpower = 3000
-			4 = {	
-				add_building_construction = { 
-					type = bunker	
-					level = 3 
-					instant_build = yes 
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-					}
-				}
-			}
-			2701 = {	
-				add_building_construction = { 
-					type = bunker	
-					level = 3 
-					instant_build = yes 
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-					}
-				}
-			}
-			2712 = {	
-				add_building_construction = { 
-					type = bunker	
-					level = 3 
-					instant_build = yes 
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-					}
-				}
-			}
-			13 = {	
+			4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
 				add_building_construction = { 
 					type = bunker	
 					level = 3 
@@ -2707,11 +2800,11 @@ focus_tree = {
 	focus = {
 		id = NOR_reform_the_army
 		icon = GFX_focus_chi_army_reform
-		prerequisite = { focus = NOR_arrest_quisling }
+		prerequisite = { focus = NOR_replace_laake }
 
 		x = 0
 		y = 1
-		relative_position_id = NOR_arrest_quisling
+		relative_position_id = NOR_replace_laake
 		cost = 10
 		available = {
 		}
@@ -2997,7 +3090,7 @@ focus_tree = {
 						size > 0
 						include_locked = yes
 					}
-					NOT = { state = 1822 } # >=( No Polar bear factories 
+					NOT = { state = 1822 } # >=( No Polar bear factories   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					is_controlled_by = ROOT 
 				}
 				random_select_amount = 3
@@ -3133,7 +3226,7 @@ focus_tree = {
 					category = military_police_tech
 				}	
 			}
-			124 = { # Oslofjord
+			124 = { # Oslofjord   # 1.19-migration: was vanilla 110 (Oslofjord); mod Akershus
 				create_unit = {
 					division = "division_template = \"Nøytralitetsvakt\" start_experience_factor = 0.15"
 					owner = NOR 
@@ -3223,11 +3316,11 @@ focus_tree = {
 		cost = 10
 		
 		allow_branch = {
+			has_dlc = "La Resistance"
 			NOR_kings_no_allow_trigger = yes 
 		}
-		# I know this trigger will never show negative but it's so the player knows why they have it. 
+		
 		available = {
-			has_lar = yes 
 			has_government = democratic
 		}
 
@@ -3342,6 +3435,11 @@ focus_tree = {
 				add_idea = NOR_broken_gun_ns_3
 			}
 			remove_ideas = { NOR_complacent_cabinet_ns }
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = NOR_kirsten_hansteen
 		}
 	}
 
@@ -3428,8 +3526,8 @@ focus_tree = {
 					is_coastal = yes
 					NOT = { 
 						OR = {
-							state = 124
-							state = 25
+							state = 124   # 1.19-migration: was vanilla 110 (Oslofjord)
+							state = 25   # 1.19-migration: was vanilla 144 (Nordland)
 						}
 					}
 				}
@@ -3444,7 +3542,7 @@ focus_tree = {
 					}
 				}
 			}
-			124 = {
+			124 = {   # 1.19-migration: was vanilla 110 (Oslofjord); mod Akershus
 				add_building_construction = {
 					type = coastal_bunker
 					level = 2
@@ -3455,7 +3553,7 @@ focus_tree = {
 					}
 				}
 			}
-			25 = {
+			25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
 				add_building_construction = {
 					type = coastal_bunker
 					level = 2
@@ -3495,8 +3593,8 @@ focus_tree = {
 					is_controlled_by = ROOT 
 					NOT = { 
 						OR = {
-							state = 124
-							state = 25
+							state = 124   # 1.19-migration: was vanilla 110 (Oslofjord)
+							state = 25   # 1.19-migration: was vanilla 144 (Nordland)
 						}
 					}
 				}
@@ -3510,7 +3608,7 @@ focus_tree = {
 					}
 				}
 			}
-			124 = {
+			124 = {   # 1.19-migration: was vanilla 110 (Oslofjord); mod Akershus
 				add_building_construction = {
 					type = bunker
 					level = 2
@@ -3521,7 +3619,7 @@ focus_tree = {
 					}
 				}
 			}
-			25 = {
+			25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
 				add_building_construction = {
 					type = coastal_bunker
 					level = 2
@@ -3591,7 +3689,7 @@ focus_tree = {
 		}
 
 		available = {
-			is_government_in_exile = yes
+			has_capitulated = yes
 			has_government = democratic
 		}
 
@@ -3632,7 +3730,7 @@ focus_tree = {
 		}
 		
 		available = {
-			is_government_in_exile = yes
+			has_capitulated = yes
 			has_government = democratic
 		}
 
@@ -3664,7 +3762,7 @@ focus_tree = {
 		}		
 		
 		available = {
-			is_government_in_exile = yes 
+			has_capitulated = yes 
 			has_government = democratic
 		}
 
@@ -3693,7 +3791,7 @@ focus_tree = {
 		}
 
 		available = {			
-			is_government_in_exile = yes 
+			has_capitulated = yes 
 		}
 
 		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_POLITICAL }
@@ -3716,7 +3814,7 @@ focus_tree = {
 		available_if_capitulated = yes 
 		
 		available = {
-			is_government_in_exile = yes
+			has_capitulated = yes
 			has_government = democratic
 		}
 		
@@ -3727,24 +3825,30 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
 
 		completion_reward = {
-			unlock_decision_tooltip = NOR_support_rebellion
-			create_operative_leader = {
-				name = "Kasper Skjeggenes"
-				GFX = GFX_portrait_europe_generic_operative_male_22
-				traits = { operative_escape_artist operative_commando }
-				bypass_recruitment = yes 
-				available_to_spy_master = yes
-				female = no
-				nationalities = { NOR }
+			if = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				create_operative_leader = {
+					name = "Kasper Skjeggenes"
+					GFX = GFX_portrait_europe_generic_operative_male_22
+					traits = { operative_escape_artist operative_commando }
+					available_to_spy_master = yes
+					female = no
+					nationalities = { NOR }
+				}
+				create_operative_leader = {
+					name = "Astrid Løken"
+					GFX = GFX_portrait_europe_generic_operative_female_22
+					traits = { operative_infiltrator }
+					available_to_spy_master = yes
+					female = yes
+					nationalities = { NOR }
+				}
+				unlock_decision_tooltip = NOR_foment_resistance_in_state
 			}
-			create_operative_leader = {
-				name = "Astrid Løken"
-				GFX = GFX_portrait_europe_generic_operative_female_22
-				traits = { operative_infiltrator }
-				bypass_recruitment = yes 
-				available_to_spy_master = yes
-				female = yes
-				nationalities = { NOR }
+			else = {
+				add_ideas = { NOR_XU_ns }
 			}
 		}
 	}
@@ -3766,7 +3870,7 @@ focus_tree = {
 		}
 
 		available = {
-			is_government_in_exile = yes
+			has_capitulated = yes
 			has_government = democratic
 		}
 
@@ -3797,7 +3901,7 @@ focus_tree = {
 		}
 
 		available = {
-			is_government_in_exile = yes
+			has_capitulated = yes
 			has_government = democratic
 		}
 
@@ -3838,7 +3942,7 @@ focus_tree = {
 		}
 
 		available = {
-			is_government_in_exile = yes
+			has_capitulated = yes
 			has_government = democratic
 		}
 
@@ -4073,70 +4177,70 @@ focus_tree = {
 		}
 	}
 
-	focus = {
-		id = NOR_fascist_invasion_of_norway
-		icon = GFX_focus_generic_attack_norway
-		prerequisite = { focus = NOR_continue_nygaardsvold_government }
-
-		x = 6
-		y = 4
-		relative_position_id = NOR_continue_nygaardsvold_government
-		
-		offset = {
-			x = -1
-			y = -3
-			trigger = {
-				has_hide_rule = yes
-				has_completed_focus = NOR_arrest_quisling
-				NOT = {
-					has_global_flag = NOR_quislings_coup_happened
-					has_country_flag = NOR_delayed_quislings_coup
-				}
-			}	
-		}
-
-		cost = 10
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = NOR_invasion_focus_TT
-				if = {
-					limit = {
-						any_other_country = {
-							original_tag = GER 
-							has_government = fascism 
-							exists = yes 
-							has_capitulated = no 
-						}
-					}
-					GER = {
-						has_offensive_war_with = ROOT 
-					}
-				}
-				else = {
-					any_other_country = {
-						has_government = fascism 
-						capital_scope = {
-							is_on_continent = europe
-						}
-						has_offensive_war_with = ROOT
-					}
-				}
-			}
-		}
-
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
-
-		completion_reward = {
-			add_stability = -0.25
-			add_war_support = 0.25
-			add_political_power = 100 	
-			add_popularity = {
-				ideology = fascism 
-				popularity = -0.1
-			}
-			mark_focus_tree_layout_dirty = yes
-		}
-	}
+#	focus = {
+#		id = NOR_fascist_invasion_of_norway
+#		icon = GFX_focus_generic_attack_norway
+#		prerequisite = { focus = NOR_continue_nygaardsvold_government }
+#
+#		x = 6
+#		y = 4
+#		relative_position_id = NOR_continue_nygaardsvold_government
+#		
+#		offset = {
+#			x = -1
+#			y = -3
+#			trigger = {
+#				has_hide_rule = yes
+#				has_completed_focus = NOR_arrest_quisling
+#				NOT = {
+#					has_global_flag = NOR_quislings_coup_happened
+#					has_country_flag = NOR_delayed_quislings_coup
+#				}
+#			}	
+#		}
+#
+#		cost = 10
+#		available = {
+#			custom_trigger_tooltip = {
+#				tooltip = NOR_invasion_focus_TT
+#				if = {
+#					limit = {
+#						any_other_country = {
+#							original_tag = GER 
+#							has_government = fascism 
+#							exists = yes 
+#							has_capitulated = no 
+#						}
+#					}
+#					GER = {
+#						has_offensive_war_with = ROOT 
+#					}
+#				}
+#				else = {
+#					any_other_country = {
+#						has_government = fascism 
+#						capital_scope = {
+#							is_on_continent = europe
+#						}
+#						has_offensive_war_with = ROOT
+#					}
+#				}
+#			}
+#		}
+#
+#		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+#
+#		completion_reward = {
+#			add_stability = -0.25
+#			add_war_support = 0.25
+#			add_political_power = 100 	
+#			add_popularity = {
+#				ideology = fascism 
+#				popularity = -0.1
+#			}
+#			mark_focus_tree_layout_dirty = yes
+#		}
+#	}
 
 	focus = {
 		id = NOR_ask_for_foreign_support
@@ -4149,6 +4253,7 @@ focus_tree = {
 		cost = 5
 		available = {
 			has_war = no
+			NOT = { has_government = fascism }
 
 		}
 
@@ -4158,11 +4263,17 @@ focus_tree = {
 			find_biggest_fascist_bully = yes 
 			if = {
 				limit = {
-					NOT = {
-						has_variable = GLOBAL.platonic_fascist_bully
+					any_other_country_with_original_tag_of = {
+						exists = yes
+						target = {GER}
+						has_government = fascism 
 					}
 				}
-				GER = {
+				random_other_country = {
+					limit = {
+						original_tag = GER
+						has_government = fascism
+					}
 					country_event = {
 						id = AAT_norway_fascist.4
 						hours = 3 
@@ -4170,7 +4281,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				var:GLOBAL.platonic_fascist_bully = {
+				var:platonic_local_dangerous_fascist = {
 					country_event = {
 						id = AAT_norway_fascist.4
 						hours = 3 
@@ -4200,8 +4311,12 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 50
 			add_popularity = {
-				ideology = fascism
-				popularity = -0.1
+				ideology = democratic
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = communism
+				popularity = -0.02
 			}
 			hidden_effect = { find_local_dangerous_fascist = yes }
 			custom_effect_tooltip = available_political_advisor
@@ -4225,7 +4340,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			add_political_power = 80
+			add_political_power = 50
 			hidden_effect = { find_local_dangerous_fascist = yes }			
 			add_popularity = {
 				ideology = democratic
@@ -4286,8 +4401,7 @@ focus_tree = {
 	focus = {
 		id = NOR_nasjonal_samling
 		icon = GFX_focus_NOR_nasjonal_samling
-		prerequisite = { focus = NOR_approach_the_fatherland_league }
-		prerequisite = { focus = NOR_cultivate_the_conservative_parties }
+		prerequisite = { focus = NOR_approach_the_fatherland_league focus = NOR_cultivate_the_conservative_parties }
 
 		x = 1
 		y = 1
@@ -4300,17 +4414,35 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL_CHARACTER FOCUS_FILTER_HISTORICAL }
 
 		completion_reward = {
-			hidden_effect = {
-				find_global_platonic_countries = yes 
-			}
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.025
+			}	
 			add_war_support = 0.1
 			add_stability = -0.05
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = NOR_birger_meidell
-			unlock_decision_tooltip = {
-			 	decision = NOR_invite_fascist_to_invade
-			 	show_effect_tooltip = yes # default is no
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
+			IF = {
+				limit = {
+					any_other_country_with_original_tag_of = {
+						target = {GER}
+						has_government = fascism
+						exists = yes 
+						has_civil_war = no
+					}
+				}
+				unlock_decision_tooltip = {
+				 	decision = NOR_invite_fascist_to_invade
+				 	show_effect_tooltip = yes # default is no
+				}
 			}
+			
 		}
 	}
 
@@ -4324,6 +4456,9 @@ focus_tree = {
 		relative_position_id = NOR_nasjonal_samling
 		cost = 10
 		available = {
+			NOT = {
+				has_government = fascism
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_HISTORICAL }
@@ -4351,6 +4486,9 @@ focus_tree = {
 			add_command_power = 50
 			add_war_support = 0.05
 			army_experience = 50
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			custom_effect_tooltip = NOR_when_the_coup_starts_TT
 			effect_tooltip = {
 				NOR_spawn_hirden = yes 
@@ -4361,7 +4499,8 @@ focus_tree = {
 	focus = {
 		id = NOR_quislings_coup
 		icon = GFX_focus_NOR_quislings_coup
-		prerequisite = { focus = NOR_nasjonal_samling focus = NOR_fascist_invasion_of_norway }
+		prerequisite = { focus = NOR_nasjonal_samling #focus = NOR_fascist_invasion_of_norway 
+		}
 
 		x = 0
 		y = 2
@@ -4396,10 +4535,11 @@ focus_tree = {
 				}
 				OR = { 
 					NOT = {
-						has_completed_focus = NOR_arrest_quisling
+						#has_completed_focus = NOR_arrest_quisling
 						has_completed_focus = NOR_vote_of_no_confidence
 						has_completed_focus = NOR_a_resurgent_labor_movement
 						has_completed_focus = NOR_the_chamberlains_overture
+						has_completed_focus = NOR_continue_nygaardsvold_government
 					}
 					has_global_flag = NOR_quislings_coup_happened
 					has_country_flag = NOR_delayed_quislings_coup 
@@ -4409,32 +4549,64 @@ focus_tree = {
 		available = {
 			NOT = { 
 				has_global_flag = NOR_quislings_coup_happened 
-				has_completed_focus = NOR_arrest_quisling
+				#has_completed_focus = NOR_arrest_quisling
 			}
-			OR = {
-				if = {
-					limit = {
-						any_other_country = {
-							tag = GER 
-							has_government = fascism 
-							exists = yes 
-							has_capitulated = no 
-						}
-					}
+			IF = { # If Germany = Fascist Germany 
+				limit = {
 					GER = {
-						has_offensive_war_with = ROOT 
+						has_government = fascism 
+						exists = yes 
+						has_civil_war = no 
+						has_capitulated = no 
+					}	
+				}
+				OR = {
+					check_variable = {
+						var = NOR_country_preparedness
+						value = 10
+						compare = greater_than_or_equals 
+						tooltip = NOR_required_prep_fascist_TT
+					}
+					has_country_flag = NOR_rejected_by_fascist_bully
+					GER = { has_offensive_war_with = ROOT }
+					GER = { has_capitulated = yes } # For tooltip purposes only
+					GER = { has_civil_war = yes  } # For tooltip purposes only
+					
+				}
+
+			}
+			ELSE_IF = {
+				limit = {
+					any_other_country_with_original_tag_of = {
+						target = {GER}
+						has_government = fascism
+						exists = yes 
+						has_civil_war = no 
 					}
 				}
-				else = {
-					any_other_country = {
-						has_government = fascism 
-						capital_scope = {
-							is_on_continent = europe
-						}
+				OR = { 
+					has_country_flag = NOR_rejected_by_fascist_bully
+					any_other_country_with_original_tag_of = {
+						target = {GER}
+
+						has_government = fascism
 						has_offensive_war_with = ROOT
 					}
-				}	
-				has_country_flag = NOR_rejected_by_fascist_bully
+					check_variable = {
+						var = NOR_country_preparedness
+						value = 10
+						compare = greater_than_or_equals 
+						tooltip = NOR_required_prep_fascist_TT
+					}
+				}
+			}
+			ELSE = { 
+				check_variable = {
+					var = NOR_country_preparedness
+					value = 10
+					compare = greater_than_or_equals 
+					tooltip = NOR_required_prep_fascist_TT
+				}
 			}
 		}
 
@@ -4480,11 +4652,19 @@ focus_tree = {
 		available = {
 			if = {
 				limit = {
-					has_variable = NOR_cw_democratic_norway
+					any_other_country_with_original_tag_of = {
+						target = {NOR}
+						exists = yes
+						NOT = { has_government = fascism }
+					}
+					has_variable = NOR_cw_democratic_norway	
 				}
 				var:NOR_cw_democratic_norway = {
 					has_capitulated = yes 
 				}
+			}
+			else = {
+				has_civil_war = no 
 			}
 			has_government = fascism
 			fascism > 0.5 
@@ -4500,6 +4680,9 @@ focus_tree = {
 			add_stability = -0.1
 			add_war_support = -0.06
 			remove_ideas = { NOR_contested_leadership_ns }
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			NOR_vidkun_quisling = {
 				remove_country_leader_trait = NOR_fascist_lackey
 				add_country_leader_trait = NOR_fascist_dilettante
@@ -4534,6 +4717,20 @@ focus_tree = {
 			}			
 			has_government = fascism 
 			fascism > 0.5 
+			IF = {
+				limit = {
+					GER = { has_government = fascism }
+				}
+				is_in_faction_with = GER
+			}
+			ELSE = {
+				any_country = {
+					is_faction_leader = yes
+					has_government = fascism
+					is_in_faction_with = ROOT
+				}
+			}
+
 		}
 
 		ai_will_do = {
@@ -4546,6 +4743,9 @@ focus_tree = {
 			add_stability = -0.2
 			add_war_support = -0.1
 			remove_ideas = { NOR_contested_leadership_ns }
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			promote_character = {
 				character = NOR_josef_terboven
 				ideology = nazism
@@ -4592,7 +4792,7 @@ focus_tree = {
 			random_owned_controlled_state = {
 				limit = {
 					NOT = {
-						state = 1822 # Don't want the unit spawning in Jan Mayen
+						state = 1822 # Don't want the unit spawning in Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					}
 				}
 				create_unit = { 
@@ -4620,7 +4820,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_elevate_hirden
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -4628,7 +4828,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				name = NOR_extensive_recruitment
+				name = NOR_military_police
 				bonus = 1
 				uses = 1
 				category = military_police_tech # optional 
@@ -4675,14 +4875,15 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
+
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # No Polar Bears 
+					NOT = { state = 1822 } # No Polar Bears   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = arms_factory
 						size > 2 
-						include_locked = yes
+						include_locked = yes 
 					}
 				}
 				random_select_amount = 2
@@ -4693,14 +4894,19 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.5
+			}
+
 			add_tech_bonus = {
 				name = NOR_the_weapons_of_conquest
-				bonus = 1
-				uses = 2
-				category = infantry_weapons
-				category = infantry_tech
+				bonus = 0.5
+				uses = 1 # was 2
 				category = nuclear
 			}
+
 		}
 	}
 
@@ -4722,11 +4928,11 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # No Polar Bears 
+					NOT = { state = 1822 } # No Polar Bears   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = industrial_complex
 						size > 1 
-						include_locked = yes
+						include_locked = yes 
 					}
 				}
 				random_select_amount = 2
@@ -4764,7 +4970,7 @@ focus_tree = {
 			add_ideas = { NOR_ulfhedhnar_ns }	
 			add_tech_bonus = {
 				name = NOR_ulfhedhnar_wolf_coats
-				bonus = 1.5
+				bonus = 0.75
 				uses = 2
 				category = cat_special_forces_generic  
 			}
@@ -4786,6 +4992,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
 
 		completion_reward = {
+
 			set_variable = { NOR.NOR_oppressed_civilians_dmod_recruitable_population_factor = 0 }
 			add_dynamic_modifier = {
 				modifier = NOR_oppressed_civilians_dmod 
@@ -4794,11 +5001,10 @@ focus_tree = {
 			random_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # Jan Mayen
+					NOT = { state = 1822 } # Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = arms_factory
 						size > 1
-						include_locked = yes
 					}
 				}
 				add_extra_state_shared_building_slots = 2 
@@ -4808,6 +5014,11 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = NOR_rolf_fuglesang
 		}
 	}
 
@@ -4872,16 +5083,28 @@ focus_tree = {
 		cost = 5
 		available = {
 			is_in_faction = no
+			is_subject = no
+			NOT = {
+				has_war_with = GER
+			}
 		}
 
 		bypass = {
 			OR = {
 				NORDIC_basic_joint_trigger = yes 
-				any_other_country = {
+				any_other_country_with_original_tag_of = {
+					exists = yes
+					target = { GER }
 					has_government = fascism 
-					capital_scope = { is_on_continent = europe}
 					is_in_faction_with = ROOT 
 				}
+				has_war_with = GER
+				GER = {
+					NOT = {
+						has_government = fascism
+					}
+				}
+				is_faction_leader = yes
 			}
 		}
 
@@ -5085,7 +5308,7 @@ focus_tree = {
 			random_owned_controlled_state = {
 				limit = {
 					NOT = {
-						state = 1822 # Don't want the unit spawning in Jan Mayen
+						state = 1822 # Don't want the unit spawning in Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					}
 				}
 				create_unit = { 
@@ -5136,7 +5359,7 @@ focus_tree = {
 						include_locked = yes
 					}
 					NOT = {
-						state = 1822 # Don't want the building spawning in Jan Mayen
+						state = 1822 # Don't want the building spawning in Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					}
 				}
 				add_extra_state_shared_building_slots = 2 
@@ -5155,7 +5378,7 @@ focus_tree = {
 						include_locked = yes
 					}
 					NOT = {
-						state = 1822 # Don't want the building spawning in Jan Mayen
+						state = 1822 # Don't want the building spawning in Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					}
 				}
 				add_extra_state_shared_building_slots = 2 
@@ -5181,12 +5404,15 @@ focus_tree = {
 			has_government = fascism 
 			is_in_faction = yes 
 			is_faction_leader = no 
-			if = {
+			IF = {
 				limit = {
 					has_variable = NOR.NOR_cw_democratic_norway
 				}
 				var:NOR.NOR_cw_democratic_norway = {
-					has_capitulated = yes 
+					OR = {
+						has_capitulated = yes 
+						exists = no 
+					}
 				}
 			}
 		}
@@ -5223,11 +5449,11 @@ focus_tree = {
 			every_core_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # No Jan Mayen pls
+					NOT = { state = 1822 } # No Jan Mayen pls   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = arms_factory 
 						size > 1
-						include_locked = yes
+						include_locked = yes 
 					}				
 				}
 				random_select_amount = 3 
@@ -5593,26 +5819,41 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
+
 			set_politics = {
 				ruling_party = neutrality
 				elections_allowed = no
 				name = NOR_Wedel-Jarlsberg_regency_name
 				long_name = NOR_Wedel-Jarlsberg_regency_long_name
 			}
+
 			NOR_set_kingdom_of_norway_variables = yes
-			set_cosmetic_tag = NOR_neutrality
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
+			country_event = {
+				id = AAT_norway_monarchist.5
+				hours = 0
+			}	
+
 			add_dynamic_modifier = { modifier = NOR_kingdom_of_norway_dmod }
+
+			#custom_effect_tooltip = CHL_skip_one_line_tt   # 1.19-migration: dead tag CHL
+
 			set_division_template_lock = {
 				division_template = "Kongens Menn"
 				is_locked = no
 			}
+
 			retire_character = NOR_kristian_laake
+
 			if = {
 				limit = {
 					has_idea = NOR_birger_ljungberg
 				}
 				deactivate_advisor = NOR_birger_ljungberg
 			}
+
 			effect_tooltip = {
 				add_naval_commander_role = {
 					Character = NOR_king_haakon_vii
@@ -5748,7 +5989,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = NOR_promote_civilian_donations
-		cost = 10
+		cost = 5
 		available = {
 		}
 
@@ -5756,6 +5997,9 @@ focus_tree = {
 
 		completion_reward = {
 			unlock_military_industrial_organization_tooltip = mio:NOR_cadillac_organization
+			mio:NOR_cadillac_organization = {
+				add_mio_size = 2
+			}
 		}
 	}
 
@@ -5833,7 +6077,7 @@ focus_tree = {
 					is_controlled_by = ROOT
 					is_coastal = yes
 					naval_base < 1
-					NOT = { state = 1822 } # Have some patience Jan Mayen 
+					NOT = { state = 1822 } # Have some patience Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 				}
 				add_building_construction = {
 					type = naval_base 
@@ -5846,7 +6090,7 @@ focus_tree = {
 					}
 				}
 			}
-			1822 = { # Jan Mayen can have a Naval Base, as a treat
+			1822 = { # Jan Mayen can have a Naval Base, as a treat   # 1.19-migration: was vanilla 914 (Jan Mayen); mod Jan Mayen
 				add_building_construction = {
 					type = naval_base 
 					level = 1
@@ -5895,7 +6139,7 @@ focus_tree = {
 						size > 1
 						include_locked = yes
 					}
-					NOT = { state = 1822 } #Not enough people for a Dockyard in Jan Mayen
+					NOT = { state = 1822 } #Not enough people for a Dockyard in Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 				}
 				random_select_amount = 3
 				add_extra_state_shared_building_slots = 2
@@ -5941,7 +6185,7 @@ focus_tree = {
 					}
 				}
 			}
-			1822 = {
+			1822 = {   # 1.19-migration: was vanilla 914 (Jan Mayen); mod Jan Mayen
 				add_building_construction = {
 					type = coastal_bunker 
 					level = 2
@@ -5996,7 +6240,7 @@ focus_tree = {
 			}
 
 			set_variable = {
-				var = NOR_kingdom_of_norway_dmod_modifier_army_sub_unit_marines_max_org_factor
+				var = NOR_kingdom_of_norway_dmod_modifier_army_sub_unit_marine_max_org_factor
 				value = 0.10
 				tooltip = special_forces_marines_organization_tt
 			}			
@@ -6072,6 +6316,7 @@ focus_tree = {
 		cost = 10
 		available = {
 			has_war_support > 0.55
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY }
@@ -6080,11 +6325,11 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # We don't serve your kind, Jan Mayen
+					NOT = { state = 1822 } # We don't serve your kind, Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 					 	building = arms_factory
 					 	size > 2
-					 	include_locked = yes
+					 	include_locked = yes 
 					 } 
 				}
 				random_select_amount = 2
@@ -6098,11 +6343,11 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
-					NOT = { state = 1822 } # We don't serve your kind, Jan Mayen
+					NOT = { state = 1822 } # We don't serve your kind, Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 					 	building = dockyard
 					 	size > 1
-					 	include_locked = yes
+					 	include_locked = yes 
 					 } 
 					 is_coastal = yes 
 				}
@@ -6120,7 +6365,10 @@ focus_tree = {
 					is_in_faction = no 
 					NORDIC_alliance_created_already = no 
 				}
-				create_faction = NORDIC_alliance_monarchist
+				create_faction_from_template = {
+					template = faction_template_DEN_nordic_cooperation_alliance
+					name = NORDIC_alliance_monarchist
+				}
 				complete_national_focus = NORDIC_form_joint_alliance
 			}
 			hidden_effect = { set_country_flag = NOR_included_in_generic_political }
@@ -6139,8 +6387,8 @@ focus_tree = {
 		relative_position_id = NOR_encourage_recruitment
 		cost = 10
 		available = {
-			any_state = {
-				is_owned_and_controlled_by = ROOT
+			any_owned_state = {
+				is_controlled_by = ROOT
 			}
 		}
 
@@ -6150,11 +6398,14 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					# Just celebrating the fact that I don't need to exclude Jan Mayen this time
-					is_controlled_by = ROOT 
-					free_building_slots = {
-						building = infrastructure
-						size < 2
-					}	
+					is_controlled_by = ROOT
+					# NOTE : This now triggers an error on load because bunker is a province building!
+					# Commented out for now, please fix -- RRK
+#					free_building_slots = {
+#						building = bunker
+#						size < 2
+#						include_locked = yes
+#					}	
 				}
 				add_building_construction = {
 					type = bunker 
@@ -6170,7 +6421,7 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = NOR_reviving_the_norgesveldet
+		id = NOR_reviving_the_norgesveldet 
 		icon = GFX_focus_ICE_the_viking_spirit
 		prerequisite = { focus = NOR_ulfhedhnar_wolf_coats focus = NOR_bring_back_quisling }
 
@@ -6214,10 +6465,17 @@ focus_tree = {
 				}
 			}			 
 			set_cosmetic_tag = NOR_norgesveldet_fascism
-			add_autonomy_score = { 
-				value = 650 
-				localization = NOR_reviving_the_norgesveldet
+			custom_effect_tooltip = generic_skip_one_line_tt
+			IF = {
+				limit = {
+					is_subject = yes
+				}
+				add_autonomy_score = { 
+					value = 650 
+					localization = NOR_reviving_the_norgesveldet
+				}
 			}
+			
 		}
 	}
 	focus = {
@@ -6251,10 +6509,7 @@ focus_tree = {
 						ruling_only = yes 
 					}
 				}
-				every_state = {
-					limit = {
-						is_core_of = WLS
-					}
+				419 = {   # 1.19-migration: was vanilla 122 (Wales); mod Caernarvonshire
 					add_claim_by = NOR
 				}
 			}
@@ -6284,22 +6539,23 @@ focus_tree = {
 
 		available = {
 			NOT = {
-				owns_state = 2885
-				owns_state = 2708
-				owns_state = 54
-				has_war_with = 2885.OWNER 
-				is_in_faction_with = 2885.OWNER
+				owns_state = 2885   # 1.19-migration: was vanilla 915 (Bohuslän)
+				owns_state = 2708   # 1.19-migration: was vanilla 916 (Dalarna)
+				owns_state = 54   # 1.19-migration: was vanilla 917 (Jämtland)
+				has_war_with = 915.OWNER 
+				is_in_faction_with = 915.OWNER
 			}
+			is_subject = no
 		}
 
 		bypass = {
-			2885 = {
+			2885 = {   # 1.19-migration: was vanilla 915 (Bohuslän); mod Bohuslän
 				is_owned_by = ROOT
 			}
-			2708 = {
+			2708 = {   # 1.19-migration: was vanilla 916 (Dalarna); mod Idre
 				is_owned_by = ROOT
 			}
-			54 = {
+			54 = {   # 1.19-migration: was vanilla 917 (Jämtland); mod Jämtland
 				is_owned_by = ROOT
 			}
 			
@@ -6308,7 +6564,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			2885 = { # Yes, I know that there's a chance three different countries own these states but it's not worth the hassle trying to untangle that, so at least you'll get Bohuslän
+			2885 = { # Yes, I know that there's a chance three different countries own these states but it's not worth the hassle trying to untangle that, so at least you'll get Bohuslän   # 1.19-migration: was vanilla 915 (Bohuslän); mod Bohuslän
 				OWNER = {
 					country_event = {
 						id = AAT_norway.17
@@ -6316,49 +6572,49 @@ focus_tree = {
 					}
 					effect_tooltip = {
 						custom_effect_tooltip = if_they_accept
-						2885 = { # Bohuslän 
+						2885 = { # Bohuslän   # 1.19-migration: was vanilla 915 (Bohuslän); mod Bohuslän
 							transfer_state_to = NOR
 						}
 						if = {  # Dalarna  
 							limit = {
-								owns_state = 2708
+								owns_state = 2708   # 1.19-migration: was vanilla 916 (Dalarna)
 							}
-							2708 = { transfer_State_to = NOR }
+							2708 = { transfer_State_to = NOR }   # 1.19-migration: was vanilla 916 (Dalarna); mod Idre
 						}
 						if = { # Jämtland  
 							limit = {
-								owns_state = 54 
+								owns_state = 54   # 1.19-migration: was vanilla 917 (Jämtland)
 							}
-							54 = { transfer_state_to = NOR }
+							54 = { transfer_state_to = NOR }   # 1.19-migration: was vanilla 917 (Jämtland); mod Jämtland
 						}
 						custom_effect_tooltip = if_they_reject
-						2885 = {  # Bohuslan
+						2885 = {  # Bohuslan   # 1.19-migration: was vanilla 915 (Bohuslän); mod Bohuslän
 							OWNER = {
 								ROOT = {
 									create_wargoal = {
 										type = take_state_focus
 										target = PREV 
-										generator = { 2885 } 
+										generator = { 915 } 
 									}
 								}
 								if = {  # Dalarna  
 									limit = {
-										owns_state = 2708
+										owns_state = 2708   # 1.19-migration: was vanilla 916 (Dalarna)
 									}
 									create_wargoal = {
 										type = take_state_focus
 										target = PREV
-										generator = { 2708 } 
+										generator = { 916 } 
 									}
 								}
 								if = { # Jämtland  
 									limit = {
-										owns_state = 54 
+										owns_state = 54   # 1.19-migration: was vanilla 917 (Jämtland)
 									}
 									create_wargoal = {
 										type = take_state_focus
 										target = PREV
-										generator = { 54 } 
+										generator = { 917 } 
 									}
 								}
 							}
@@ -6391,18 +6647,19 @@ focus_tree = {
 		cost = 5
 		available = {
 			NOT = {
-				owns_state = 90
-				has_war_with = 90.OWNER
-				is_in_faction_with = 90.OWNER
+				owns_state = 90   # 1.19-migration: was vanilla 337 (Faroe Islands)
+				has_war_with = 337.OWNER
+				is_in_faction_with = 337.OWNER
 			}
 			OR = {
-				90 = { is_controlled_by = 90.OWNER }
-				90 = { is_controlled_by = ROOT }
+				90 = { is_controlled_by = 337.OWNER }   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
+				90 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 			}
+			is_subject = no
 		}
 
 		bypass = {
-			90 = {
+			90 = {   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 				is_owned_by = ROOT
 			}
 		}
@@ -6410,7 +6667,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			90 = {
+			90 = {   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 				OWNER = {
 					country_event = {
 						id = AAT_norway.17
@@ -6421,17 +6678,17 @@ focus_tree = {
 			set_country_flag = NOR_claiming_faroes
 			effect_tooltip = {
 				custom_effect_tooltip = if_they_accept
-				90 = {
+				90 = {   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 					transfer_state_to = NOR
 				}
 				custom_effect_tooltip = if_they_reject
-				90 = {
+				90 = {   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 					OWNER = {
 						ROOT = {
 							create_wargoal = {
 								type = take_state_focus
 								target = PREV
-								generator = { 90 } 
+								generator = { 337 } 
 							}
 						}
 					}
@@ -6504,32 +6761,33 @@ focus_tree = {
 		icon = GFX_focus_generic_invade_iceland
 		prerequisite = { focus = NOR_our_royal_claims }
 
-		x = 0
-		y = 1
-		relative_position_id = NOR_our_royal_claims
+		x = 2
+		y = 0
+		relative_position_id = NOR_eirik_raudes_land
 		cost = 10
 		available = {
 			NOT = { 
-				owns_state = 159 
-				has_war_with = 159.OWNER
-				is_in_faction_with = 159.OWNER
+				owns_state = 51   # 1.19-migration: was vanilla 100 (Iceland)
+				has_war_with = 100.OWNER
+				is_in_faction_with = 100.OWNER
 			}
-			159 = {
+			51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
 				OR = {
-					is_controlled_by = 159.OWNER
+					is_controlled_by = 100.OWNER
 					is_controlled_by = ROOT 
 				}
 			}
 
 			NOT = {
-				159 = {
+				51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
 					is_owned_by = ROOT
 				}
 			}
+			is_subject = no
 		}
 
 		bypass = {
-			159 = {
+			51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
 				is_owned_by = ROOT
 			}
 		}
@@ -6537,7 +6795,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			159 = {
+			51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
 				controller = {
 					country_event = {
 						id = AAT_norway.17
@@ -6548,28 +6806,17 @@ focus_tree = {
 			set_country_flag = NOR_claiming_iceland
 			effect_tooltip = {
 				custom_effect_tooltip = if_they_accept
-				if = {
-					limit = {
-						ICE = { exists = yes owns_state = 159 }
-					}
-					ROOT = { annex_country = { target = ICE } }
-				}
-				else = {
-					every_state = {
-						limit = {
-							is_core_of = ICE
-						}
-						transfer_state_to = ROOT
-					}
+				51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
+					transfer_state_to = NOR
 				}
 				custom_effect_tooltip = if_they_reject
-				159 = {
+				51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
 					controller = {
 						ROOT = {
 							create_wargoal = {
 								type = take_state_focus
 								target = PREV
-								generator = { 159 } 
+								generator = { 100 } 
 							}
 						}
 					}
@@ -6597,7 +6844,7 @@ focus_tree = {
 
 		cost = 10
 		available = {
-			NOT = { owns_state = 315 }	
+			NOT = { owns_state = 315 }   # 1.19-migration: was vanilla 37 (Sjaelland)
 			if = {
 				limit = {
 					has_government = neutrality 
@@ -6609,28 +6856,30 @@ focus_tree = {
 						is_in_faction_with = ROOT 
 						has_war_with = ROOT 
 					}
-					controls_state = 315  
+					controls_state = 315   # 1.19-migration: was vanilla 37 (Sjaelland)
 				}
 			}
 			else = {
 				NOT = {
-					is_in_faction_with = 315.OWNER
-					has_war_with = 315.OWNER
+					is_in_faction_with = 37.OWNER
+					has_war_with = 37.OWNER
 				}
 			}
-			if = {
+			IF = {
 				limit = {
-					DEN = { is_subject = yes }
-					ROOT = { is_subject = yes }
+					315 = {   # 1.19-migration: was vanilla 37 (Sjaelland); mod Maribo
+						is_owned_by = DEN
+					}
 				}
-				NOT = {
-					OVERLORD = { tag = DEN.overlord	}
+				DEN = {
+					is_subject = no
 				}
 			}
+			is_subject = no
 		}
 
 		bypass = {
-			315 = {
+			315 = {   # 1.19-migration: was vanilla 37 (Sjaelland); mod Maribo
 				is_owned_by = ROOT
 			}
 		}
@@ -6665,7 +6914,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				315 = {
+				315 = {   # 1.19-migration: was vanilla 37 (Sjaelland); mod Maribo
 					OWNER = {
 						country_event = {
 							id = AAT_norway.17
@@ -6675,31 +6924,41 @@ focus_tree = {
 				}	
 				effect_tooltip = {
 					custom_effect_tooltip = if_they_accept
-					315 = {
+					315 = {   # 1.19-migration: was vanilla 37 (Sjaelland); mod Maribo
+						transfer_state_to = NOR
 						OWNER = {
-						every_state = {
-							limit = {
-								is_owned_and_controlled_by = PREV 
-								OR = {
-									state = 246
-									state = 139
-									state = 104
-									state = 228
-									state = 223
-									state = 34
-									state = 15
-									state = 76
-									state = 181
-									state = 120
-									state = 140
-									state = 144
-									state = 197
-									state = 240
-									state = 247
-									state = 164
+							246 = {   # 1.19-migration: was vanilla 912 (Southern Jutland); mod Haderslev
+								if = {
+									limit = {
+										is_owned_and_controlled_by = PREV 
+									}
+									transfer_state_to = NOR 
 								}
 							}
-							transfer_state_to = NOR 
+							15 = {   # 1.19-migration: was vanilla 99 (Jutland); mod Århus
+								if = {
+									limit = {
+										is_owned_and_controlled_by = PREV 
+									}
+									transfer_state_to = NOR 
+								}
+							}
+							240 = {   # 1.19-migration: was vanilla 911 (Fyn); mod Odense
+								if = {
+									limit = {
+										is_owned_and_controlled_by = PREV 
+									}
+									transfer_state_to = NOR 
+								}
+							}
+							164 = {   # 1.19-migration: was vanilla 910 (Bornholm); mod Bornholm
+								if = {
+									limit = {
+										is_owned_and_controlled_by = PREV 
+									}
+									transfer_state_to = NOR 
+								}
+							}
 						}
 						custom_effect_tooltip = if_they_reject	
 						OWNER = {
@@ -6707,7 +6966,7 @@ focus_tree = {
 								create_wargoal = {
 									type = take_state_focus
 									target = PREV
-									generator = { 315 } 
+									generator = { 37 } 
 								}
 							}
 						}
@@ -6715,7 +6974,6 @@ focus_tree = {
 				}
 			}
 			set_country_flag = NOR_claiming_denmark
-			}
 		}
 	}
 
@@ -6760,7 +7018,7 @@ focus_tree = {
 
 		completion_reward = {
 			set_country_flag = NOR_claiming_bjarmeland
-			19 = { # Using Murmansk because it's the closest one to Norway  
+			19 = { # Using Murmansk because it's the closest one to Norway   # 1.19-migration: was vanilla 213 (Murmansk); mod Murmansk
 				OWNER = {
 					country_event = {
 						id = AAT_norway.17
@@ -6769,46 +7027,50 @@ focus_tree = {
 					effect_tooltip = {
 						custom_effect_tooltip = if_they_accept
 		
-						19 = { # Murmansk 
+						19 = { # Murmansk   # 1.19-migration: was vanilla 213 (Murmansk); mod Murmansk
 							transfer_state_to = NOR
 						}
-						every_state = {
+						if = {  # Arkhangelsk  
 							limit = {
-								OR = {
-									is_fin_claim_on_sov_large = yes 
-									extra_states_for_this_one_dumbass_trigger = yes 
-								}
+								owns_state = 41   # 1.19-migration: was vanilla 214 (Arkhangelsk)
 							}
+							41 = { transfer_State_to = NOR }   # 1.19-migration: was vanilla 214 (Arkhangelsk); mod Arkhangelsk
+						}
+						if = { # Onega  
+							limit = {
+								owns_state = 2458   # 1.19-migration: was vanilla 215 (Onega)
+							}
+							2458 = { transfer_state_to = NOR }   # 1.19-migration: was vanilla 215 (Onega); mod Onega
 						}
 						custom_effect_tooltip = if_they_reject
 						ROOT = {
 							create_wargoal = {
 								type = take_state_focus
 								target = PREV
-								generator = { 19 } 
+								generator = { 213 } 
 							}
 						}
 						if = {  #  Arkhangelsk 
 							limit = {
-								owns_state = 41
+								owns_state = 41   # 1.19-migration: was vanilla 214 (Arkhangelsk)
 							}
 							ROOT = {
 								create_wargoal = {
 									type = take_state_focus
 									target = PREV
-									generator = { 41 } 
+									generator = { 214 } 
 								}
 							}
 						}
 						if = { # Onega  
 							limit = {
-								owns_state = 2458 
+								owns_state = 2458   # 1.19-migration: was vanilla 215 (Onega)
 							}
 							ROOT = {
 								create_wargoal = {
 									type = take_state_focus
 									target = PREV
-									generator = { 2458 } 
+									generator = { 215 } 
 								}
 							}
 						}
@@ -6830,22 +7092,23 @@ focus_tree = {
 		cost = 10
 		available = {
 			NOT = {
-				owns_state = 320
-				has_war_with = 320.OWNER
+				owns_state = 320   # 1.19-migration: was vanilla 113 (Leinster)
+				has_war_with = 113.OWNER
 			}
-			320 = { 
+			320 = {   # 1.19-migration: was vanilla 113 (Leinster); mod Dún na nGall
 				OR = {
-					is_controlled_by = 320.OWNER 
+					is_controlled_by = 113.OWNER 
 					is_controlled_by = ROOT 
 				}
 			}
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
 			set_country_flag = NOR_claiming_ireland
-			320 = {
+			320 = {   # 1.19-migration: was vanilla 113 (Leinster); mod Dún na nGall
 				OWNER = {
 					country_event = {
 						id = AAT_norway.17
@@ -6855,17 +7118,17 @@ focus_tree = {
 			}
 			effect_tooltip = {
 				custom_effect_tooltip = if_they_accept
-				320 = {
+				320 = {   # 1.19-migration: was vanilla 113 (Leinster); mod Dún na nGall
 					transfer_state_to = ROOT
 				}
 				custom_effect_tooltip = if_they_reject
-				320 = {
+				320 = {   # 1.19-migration: was vanilla 113 (Leinster); mod Dún na nGall
 					OWNER = {
 						ROOT = {
 							create_wargoal = {
 								type = take_state_focus
 								target = PREV
-								generator = { 320 } 
+								generator = { 113 } 
 							}
 						}
 					}
@@ -6885,30 +7148,34 @@ focus_tree = {
 		cost = 10
 		available = {
 			NOT = {
-				SCO = { all_core_state = { is_owned_by = ROOT } }
+				AND = {
+					owns_state = 158   # 1.19-migration: was vanilla 120 (Scottish Highlands)
+					owns_state = 116   # 1.19-migration: was vanilla 933 (Shetland Islands)
+				}
 			}
 			if = {
 				limit = {
-					221 = {
+					158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 						OWNER = {
-							tag = 116.OWNER 
+							tag = 933.OWNER 
 						}
 					}
 				}
-				NOT = {	has_war_with = 116.OWNER }
+				NOT = {	has_war_with = 933.OWNER }
 			}
 			else = {
 				OR = {
-					NOT = {	has_war_with = 221.OWNER }
-					NOT = {	has_war_with = 116.OWNER }
+					NOT = {	has_war_with = 120.OWNER }
+					NOT = {	has_war_with = 933.OWNER }
 				}
 			}
 			OR = {
-				221 = { is_controlled_by = 221.OWNER }
-				221 = { is_controlled_by = ROOT }
-				116 = { is_controlled_by = 116.OWNER }
-				116 = { is_controlled_by = ROOT }
+				158 = { is_controlled_by = 120.OWNER }   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
+				158 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
+				116 = { is_controlled_by = 933.OWNER }   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
+				116 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
 			}
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -6918,13 +7185,13 @@ focus_tree = {
 			if = {
 				limit = {
 					any_other_country = { # Checking if the UK still owns both 
-						owns_state = 221 
-						owns_state = 116
-						controls_state = 221  
-						controls_state = 116
+						owns_state = 158   # 1.19-migration: was vanilla 120 (Scottish Highlands)
+						owns_state = 116   # 1.19-migration: was vanilla 933 (Shetland Islands)
+						controls_state = 158   # 1.19-migration: was vanilla 120 (Scottish Highlands)
+						controls_state = 116   # 1.19-migration: was vanilla 933 (Shetland Islands)
 					}
 				}
-				221 = { 
+				158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 					OWNER = {
 						country_event = {
 							id = AAT_norway.17
@@ -6934,22 +7201,20 @@ focus_tree = {
 				}
 				effect_tooltip = {
 					custom_effect_tooltip = if_they_accept
-					SCO = {
-						every_core_state = {
-							limit = {
-								is_controlled_by = 221.OWNER
-							}
-							transfer_state_to = NOR
-						}
+					158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
+						transfer_state_to = NOR
+					}
+					116 = {   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
+						transfer_state_to = NOR
 					}
 					custom_effect_tooltip = if_they_reject
-					221 = {
+					158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 						OWNER = {
 							ROOT = {
 								create_wargoal = {
 									type = take_state_focus
 									target = PREV
-									generator = { 221 } 
+									generator = { 120 } 
 								}
 							}
 						}
@@ -6957,7 +7222,7 @@ focus_tree = {
 				}
 			}
 			else = {
-				221 = {
+				158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 					OWNER = {
 						country_event = {
 							id = AAT_norway.17
@@ -6965,34 +7230,7 @@ focus_tree = {
 						}
 						effect_tooltip = {
 							custom_effect_tooltip = if_they_accept
-							SCO = {
-								every_core_state = {
-									limit = {
-										is_controlled_by = PREV
-									}
-									transfer_state_to = NOR
-								}
-							}
-							custom_effect_tooltip = if_they_reject
-							ROOT = {
-								create_wargoal = {
-									type = take_state_focus
-									target = PREV
-									generator = { 221 } 
-								}
-							}
-						}		
-					}
-				}
-				116 = {
-					OWNER = {
-						country_event = {
-							id = AAT_norway.17
-							hours = 3 
-						}
-						effect_tooltip = {
-							custom_effect_tooltip = if_they_accept
-							116 = {
+							158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 								transfer_state_to = NOR
 							}
 							custom_effect_tooltip = if_they_reject
@@ -7000,7 +7238,29 @@ focus_tree = {
 								create_wargoal = {
 									type = take_state_focus
 									target = PREV
-									generator = { 116 } 
+									generator = { 120 } 
+								}
+							}
+						}		
+					}
+				}
+				116 = {   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
+					OWNER = {
+						country_event = {
+							id = AAT_norway.17
+							hours = 3 
+						}
+						effect_tooltip = {
+							custom_effect_tooltip = if_they_accept
+							116 = {   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
+								transfer_state_to = NOR
+							}
+							custom_effect_tooltip = if_they_reject
+							ROOT = {
+								create_wargoal = {
+									type = take_state_focus
+									target = PREV
+									generator = { 933 } 
 								}
 							}
 						}
@@ -7021,14 +7281,22 @@ focus_tree = {
 		cost = 10
 		available = {
 			NOT = {
-				owns_state = 64
+				AND = {
+					owns_state = 64   # 1.19-migration: was vanilla 331 (Newfoundland)
+					owns_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
+				}
 			}
-			NOT = {	has_war_with = 64.OWNER }
-			
 			OR = {
-				64 = { is_controlled_by = 64.OWNER }
-				64 = { is_controlled_by = ROOT }
+				NOT = {	has_war_with = 331.OWNER }
+				NOT = {	has_war_with = 332.OWNER }
 			}
+			OR = {
+				64 = { is_controlled_by = 331.OWNER }   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+				64 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+				2552 = { is_controlled_by = 332.OWNER }   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+				2552 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+			}
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -7038,12 +7306,14 @@ focus_tree = {
 			if = {
 				limit = {
 					any_other_country = { # Checking if the UK still owns both 
-						owns_state = 64 
-						controls_state = 64 
+						owns_state = 64   # 1.19-migration: was vanilla 331 (Newfoundland)
+						owns_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
+						controls_state = 64   # 1.19-migration: was vanilla 331 (Newfoundland)
+						controls_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
 						NOT = { has_war_with = ROOT }  
 					}
 				}
-				64 = { 
+				64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
 					OWNER = {
 						country_event = {
 							id = AAT_norway.17
@@ -7053,19 +7323,105 @@ focus_tree = {
 				}
 				effect_tooltip = {
 					custom_effect_tooltip = if_they_accept
-					64 = {
+					64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+						transfer_state_to = NOR
+					}
+					2552 = {   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
 						transfer_state_to = NOR
 					}
 					custom_effect_tooltip = if_they_reject
-					64 = {
+					64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
 						OWNER = {
 							ROOT = {
 								create_wargoal = {
 									type = take_state_focus
 									target = PREV
-									generator = { 64 } 
+									generator = { 331 } 
 								}
 							}
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						64 = { # Newfoundland   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+							OR = {
+								is_controlled_by = ROOT 
+								is_controlled_by = 331.OWNER
+							}
+							OWNER = {
+								NOT = {
+									original_tag = NOR
+									has_war_with = ROOT
+								}
+							}
+						}
+					}
+					64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+						OWNER = {
+							country_event = {
+								id = AAT_norway.17
+								hours = 3 
+							}
+							effect_tooltip = {
+								custom_effect_tooltip = if_they_accept
+								64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+									transfer_state_to = NOR
+								}
+								custom_effect_tooltip = if_they_reject
+								64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+									ROOT = {
+										create_wargoal = {
+											type = take_state_focus
+											target = PREV
+											generator = { 331 } 
+										}
+									}
+								}
+							}						
+						}
+					}
+				}
+				if = {
+					limit = {
+						2552 = { # Labrador   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+							OR = {
+								is_controlled_by = 332.OWNER
+								is_controlled_by = ROOT 
+							}
+							OWNER = {
+								controls_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
+								NOT = {
+									original_tag = NOR
+									has_war_with = ROOT
+								}
+							}
+						}
+					}
+					2552 = {   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+						OWNER = {
+							country_event = {
+								id = AAT_norway.17
+								hours = 3 
+							}
+							effect_tooltip = {
+								custom_effect_tooltip = if_they_accept
+								2552 = {   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+									transfer_state_to = NOR
+								}
+								custom_effect_tooltip = if_they_reject
+								2552 = {   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+									ROOT = {
+										create_wargoal = {
+											type = take_state_focus
+											target = PREV
+											generator = { 332 } 
+										}
+									}
+								}
+							}						
 						}
 					}
 				}
@@ -7277,7 +7633,7 @@ focus_tree = {
 				limit = {
 					is_fully_controlled_by = ROOT
 					is_core_of = ROOT 
-					NOT = { state = 1822 } # You thought you could get away with it this time huh? 
+					NOT = { state = 1822 } # You thought you could get away with it this time huh?   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					free_building_slots = {
 						building = arms_factory
 						size > 1 
@@ -7318,6 +7674,11 @@ focus_tree = {
 				value = 0.15
 				tooltip = state_production_speed_supply_node_factor_tt
 			}
+			add_to_variable = {
+				var = NOR_independent_norway_dmod_modifier_production_speed_naval_base_factor
+				value = 0.15
+				tooltip = production_speed_naval_base_factor_tt
+			}
 		}
 	}
 	focus = {
@@ -7349,18 +7710,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_HISTORICAL }
 
 		completion_reward = {
-			118 = { # Oslofjord
-				add_building_construction = {
-					type = coastal_bunker 
-					level = 3
-					instant_build = yes
-					province =  {
-						all_provinces = yes
-						limit_to_coastal = yes
-					}
-				}
-			}
-			124 = { # Oslo
+			124 = { # Oslofjord   # 1.19-migration: was vanilla 110 (Oslofjord); mod Akershus
 				add_building_construction = {
 					type = coastal_bunker 
 					level = 3
@@ -7412,7 +7762,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = NOR_artillery_development
-				bonus = 1.5
+				bonus = 0.75
 				uses = 2
 				category = artillery  
 			}
@@ -7554,7 +7904,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = NOR_norges_rikstanksfabrikk
-				bonus = 1
+				bonus = 0.75
 				uses = 2
 				category = armor
 			}
@@ -7710,8 +8060,8 @@ focus_tree = {
 					}
 				}
 				prioritize = { 
-					124 # Oslofjord
-					132 # Telemark
+					110 # Oslofjord
+					921 # Telemark
 				}
 				add_extra_state_shared_building_slots = 2 
 				add_building_construction = {
@@ -7730,9 +8080,9 @@ focus_tree = {
 					}
 				}
 				prioritize = { 
-					147 # Agder
-					128 # Vestlandet
-					83 # Opladene
+					922 # Agder
+					142 # Vestlandet
+					920 # Opladene
 				}
 				add_extra_state_shared_building_slots = 2 
 				add_building_construction = {
@@ -7758,7 +8108,9 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
 
-		bypass = { has_capitulated = yes }	
+		bypass = { has_capitulated = yes }
+
+		available_if_capitulated = yes 	
 
 		completion_reward = {
 			custom_effect_tooltip = NOR_modify_independent_norway_TT
@@ -7864,16 +8216,17 @@ focus_tree = {
 			random_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
+					is_core_of = ROOT
 					free_building_slots = {
 						building = industrial_complex
 						size > 2 
-						include_locked = yes
+						include_locked = yes 
 					}
 				} 
 				prioritize = {
-					147 # Vestlandet
-					124 # Oslofjord
-					132 # Agder 
+					142 # Vestlandet
+					110 # Oslofjord
+					922 # Agder 
 				}
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
@@ -7919,14 +8272,15 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT 
+					is_core_of = ROOT
 					NOT = { 
-						state = 1822 # Not this time Jan Mayen
-						state = 124 # Also not Oslo  
+						state = 1822 # Not this time Jan Mayen   # 1.19-migration: was vanilla 914 (Jan Mayen)
+						state = 124 # Also not Oslo   # 1.19-migration: was vanilla 110 (Oslofjord)
 					}
 					free_building_slots = {
 						building = industrial_complex 
 						size > 0
-						include_locked = yes
+						include_locked = yes 
 					}  
 				}
 				random_select_amount = 3 
@@ -7965,10 +8319,11 @@ focus_tree = {
 			every_owned_state= {
 				limit = {
 					is_controlled_by = ROOT 
+					is_core_of = ROOT
 					free_building_slots = {
 						building = industrial_complex 
 						size > 0
-						include_locked = yes
+						include_locked = yes 
 					}
 				}
 				random_select_amount = 2 
@@ -8000,6 +8355,9 @@ focus_tree = {
 		relative_position_id = NOR_empower_large_industrial_groups
 		cost = 10
 		available = {
+			128 = {   # 1.19-migration: was vanilla 142 (Vestlandet); mod Møre og Romsdal
+				is_fully_controlled_by = ROOT
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
@@ -8077,7 +8435,24 @@ focus_tree = {
 		relative_position_id = NOR_hurtigruten
 		cost = 10
 		available = {
-			
+			53 = {   # 1.19-migration: was vanilla 143 (Trøndelag); mod Nord-Trøndelag
+				is_owned_and_controlled_by = ROOT
+			}
+			83 = {   # 1.19-migration: was vanilla 920 (Opplandene); mod Hedmark
+				is_owned_and_controlled_by = ROOT
+			}
+			128 = {   # 1.19-migration: was vanilla 142 (Vestlandet); mod Møre og Romsdal
+				is_owned_and_controlled_by = ROOT
+			}
+			123 = {   # 1.19-migration: was vanilla 921 (Telemark); mod Telemark
+				is_owned_and_controlled_by = ROOT
+			}
+			132 = {   # 1.19-migration: was vanilla 922 (Agder); mod Aust-Agder
+				is_owned_and_controlled_by = ROOT
+			}
+			124 = {   # 1.19-migration: was vanilla 110 (Oslofjord); mod Akershus
+				is_owned_and_controlled_by = ROOT
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -8085,23 +8460,23 @@ focus_tree = {
 		completion_reward = {
 			build_railway = {
 				level = 2 
-				start_province = 10201
-				target_province = 19450
+				start_province = 6115
+				target_province = 9296
 			}
 			build_railway = {
 				level = 2 
-				start_province = 19450
-				target_province = 1043
+				start_province = 9296
+				target_province = 53
 			}
 			build_railway = {
 				level = 2 
-				start_province = 19427
-				target_province = 10201
+				start_province = 6115
+				target_province = 3022
 			}
 			build_railway = {
 				level = 2 
-				start_province = 19427
-				target_province = 9785
+				start_province = 9157
+				target_province = 122
 			}
 			custom_effect_tooltip = NOR_modify_independent_norway_TT
 			add_to_variable = {
@@ -8298,7 +8673,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = NOR_anti_air_artillery_research
-				bonus = 1.5
+				bonus = 0.75
 				uses = 2
 				category = cat_anti_air
 			}
@@ -8332,11 +8707,11 @@ focus_tree = {
 					}	
 				}
 				prioritize = { # Southern States
-					124 # Oslofjord
-					123 # Telemark
-					147 # Agder 
-					128 # Vestlandet
-					83 # Oppladene
+					110 # Oslofjord
+					921 # Telemark
+					922 # Agder 
+					142 # Vestlandet
+					920 # Oppladene
 				}
 				add_building_construction = {
 					type = anti_air_building
@@ -8428,7 +8803,7 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = {
-					128 = { # Vestlandet
+					128 = { # Vestlandet   # 1.19-migration: was vanilla 142 (Vestlandet); mod Møre og Romsdal
 						is_controlled_by = ROOT 
 						free_building_slots = {
 							building = air_base
@@ -8436,7 +8811,7 @@ focus_tree = {
 						}			
 					}
 				}
-				128 = { # Vestlandet
+				128 = { # Vestlandet   # 1.19-migration: was vanilla 142 (Vestlandet); mod Møre og Romsdal
 					add_building_construction = {
 						type = air_base 
 						level = 4
@@ -8452,6 +8827,13 @@ focus_tree = {
 								building = air_base
 								size > 3 
 						}	
+					}
+					prioritize = { # Southern States
+						110 # Oslofjord
+						921 # Telemark
+						922 # Agder 
+						142 # Vestlandet
+						920 # Oppladene
 					}
 					add_building_construction = {
 						type = air_base 
@@ -8639,7 +9021,7 @@ focus_tree = {
 		relative_position_id = NOR_radar_research
 		cost = 10
 		available = {
-			has_tech = radio_detection
+			is_special_project_completed = sp:sp_air_radar
 			NOR_broken_gun_trigger = yes 
 			any_state = {
 				is_owned_and_controlled_by = ROOT
@@ -8796,14 +9178,14 @@ focus_tree = {
 						is_controlled_by = ROOT 
 						is_coastal = yes 
 						NOT = { 
-							state = 1822 
+							state = 1822   # 1.19-migration: was vanilla 914 (Jan Mayen)
 						}
 						free_building_slots = {
 							building = dockyard 
 							size > 0
 							include_locked = yes
 						}
-						NOT = { state = 1822 } # Almost got away 
+						NOT = { state = 1822 } # Almost got away   # 1.19-migration: was vanilla 914 (Jan Mayen)
 					}
 					random_select_amount = 3
 					add_extra_state_shared_building_slots = 1 
@@ -8837,7 +9219,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = NOR_battleship_focus
-				bonus = 1
+				bonus = 0.5
 				uses = 2 
 				category = bb_tech
 			}
@@ -8898,7 +9280,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = NOR_battleship_focus
-				bonus = 1
+				bonus = 0.5
 				uses = 2 
 				category = dd_tech
 			}
@@ -8908,7 +9290,7 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = NOR_battleship_focus
-					bonus = 1
+					bonus = 0.5
 					uses = 2 
 					category = cat_ship_light_battery
 				}
@@ -8994,10 +9376,6 @@ focus_tree = {
 		
 		cost = 10
 		
-		bypass = {
-			has_capitulated = yes
-		}
-
 		available = {
 		}
 
@@ -9020,7 +9398,7 @@ focus_tree = {
 					limit = {
 						is_coastal = yes 
 						not = {
-							state = 1822 
+							state = 1822   # 1.19-migration: was vanilla 914 (Jan Mayen)
 						}
 						free_building_slots = {
 							building = dockyard
@@ -9099,7 +9477,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = NOR_norwegian_carriers
-				bonus = 1.5
+				bonus = 1
 				uses = 1
 				category = cv_tech
 			}
@@ -9123,7 +9501,7 @@ focus_tree = {
 			add_to_variable = {
 				var = NOR.NOR_royal_navy_dmod_sortie_efficiency
 				value = 0.2
-				tooltip = CARRIER_SORTIE_EFFICIENCY_FACTOR_TT
+				tooltip = sortie_efficiency_tt
 			}
 
 		}
@@ -9153,7 +9531,7 @@ focus_tree = {
 				limit = { has_dlc = "Man the Guns" }
 				add_tech_bonus = {
 					name = NOR_mine_laying_effort
-					bonus = 1
+					bonus = 0.5
 					uses = 3
 					category = naval_minelaying 
 				}
@@ -9199,7 +9577,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = NOR_submarine_fleet
-				bonus = 1.5
+				bonus = 0.75
 				uses = 2
 				category = ss_tech
 			}
@@ -9218,7 +9596,7 @@ focus_tree = {
 					limit = {
 						is_controlled_by = ROOT
 						is_coastal = yes 
-						NOT = { state = 1822 } # Jan Mayen shouldn't have a dockyard
+						NOT = { state = 1822 } # Jan Mayen shouldn't have a dockyard   # 1.19-migration: was vanilla 914 (Jan Mayen)
 						free_building_slots = {
 							building = dockyard
 							size > 0
@@ -9319,13 +9697,11 @@ focus_tree = {
 		relative_position_id = NOR_expand_merchant_marine
 		cost = 5
 		available = {
-			is_government_in_exile = yes 
+			has_capitulated = yes 
 			NOR_broken_gun_trigger = yes 
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_HISTORICAL }
-
-		available_if_capitulated = yes
 
 		completion_reward = {
 			add_offsite_building = {

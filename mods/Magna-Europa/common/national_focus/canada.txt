@@ -3,14 +3,62 @@ focus_tree = {
 	
 	country = {
 		factor = 0
+		
 		modifier = {
 			add = 10
 			tag = CAN
 			has_dlc = "Together for Victory"
 		}
+
+		#modifier = {
+		#	add = 10
+		#	original_tag = CAN
+		#	has_dlc = "Together for Victory"
+		#}
 	}
 	
 	default = no
+
+
+
+#	focus = {
+#		id = CAN_
+#		icon = GFX_
+#		prerequisite = { focus = }
+#		mutually_exclusive = { focus =  }
+#		x = -3
+#		y = 0
+#		relative_position_id = 
+#
+#		cost = 10
+#
+#		ai_will_do = {
+#			factor = 1
+#		}
+#
+#		available = {
+#
+#		}
+#		
+#		bypass = {
+#
+#		}
+#
+#		cancel_if_invalid = yes
+#		continue_if_invalid = no
+#		available_if_capitulated = no
+#
+#		complete_tooltip = {
+#
+#		}
+#
+#		completion_reward = {
+#
+#		}
+#	}
+
+
+
 
 	############################
 	##### INDUSTRY SECTION #####
@@ -46,7 +94,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_rowell_sirois_commission"
 			add_political_power = 120
 		}
 	}
@@ -58,7 +105,7 @@ focus_tree = {
 		y = 0
 		relative_position_id = CAN_rowell_sirois_commission
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 25
@@ -81,7 +128,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_crown_corporations"
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = CAN_c_d_howe
 		}
@@ -136,10 +182,24 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			IF = {
+				limit = {
+					has_country_leader = {
+						ruling_only = yes
+						character = CAN_mackenzie_king
+					}
+				}
+
+				add_trait = {
+					character = CAN_mackenzie_king
+					trait = CAN_father_of_the_canadian_welfare_state
+					ideology = liberalism 
+				}
+			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_national_housing_act"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -155,6 +215,22 @@ focus_tree = {
 					instant_build = yes
 				}
 				set_state_flag = CAN_national_housing_act_IC
+			}
+
+			IF = {
+				limit = {
+					has_country_leader = {
+						ruling_only = yes
+						character = CAN_mackenzie_king
+					}
+				}
+				
+				add_trait = {
+					character = CAN_mackenzie_king
+					trait = CAN_father_of_the_canadian_welfare_state
+					ideology = liberalism 
+				}
+				
 			}
 		}
 	}
@@ -188,7 +264,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_dollar_a_year_men"
 			add_ideas = CAN_dollar_a_year_men
 			add_tech_bonus = {
 				name = CAN_dollar_a_year_men
@@ -228,7 +303,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_canada_pacific_railway"
 			random_owned_state = {
 				limit = {
 					free_building_slots = {
@@ -258,15 +332,14 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			build_railway = { #Quebec - Kingston
-				path = { 19370 2648 19368 10 19366 3811 19365 }
+			build_railway = { #Vancouver - NW Canada
+				path = {
+					1408 1858 10273 4870 10548
+				}
 			}
-			build_railway = { #Montreal - Sherbrooke
-				path = { 10 19367 19372 19369 }
-			}
-			build_railway = { #Oshawa - West Canada
-				path = { 3811 9677 151 1578 }
-			}
+
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = canadian_pacific_railway
 		}
 	}
 
@@ -382,8 +455,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_retool_angus_shops"
 			random_owned_controlled_state = {
+				prioritize = { 285 517 }
 				limit = {
 					free_building_slots = {
 						building = arms_factory
@@ -470,7 +543,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_defence_of_canada_regulations"
 			if = {
 				limit = { has_government = democratic }
 				add_ideas = CAN_defence_of_canada_regulations_democratic
@@ -513,7 +585,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_war_bonds"
 			add_ideas = CAN_war_bonds_1
 		}
 	}
@@ -582,7 +653,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_department_of_munitions_and_supply"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -646,7 +716,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_national_resources_mobilization_act"
 			add_ideas = CAN_national_resources_mobilization_act
 		}
 	}
@@ -679,7 +748,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_wartime_prices_and_trade_board"
 			add_ideas = CAN_wartime_prices_and_trade_board
 		}
 	}
@@ -712,7 +780,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_bits_and_pieces_program"
 			add_ideas = CAN_bits_and_pieces_program
 		}
 	}
@@ -745,7 +812,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_fund_the_national_research_council"
 			add_research_slot = 1
 		}
 	}
@@ -786,9 +852,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_mine_the_shield"
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 471 472 683 }
 				limit = {
 					is_in_home_area = yes
 				}
@@ -798,7 +863,7 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 471 472 683 }
 				limit = {
 					is_in_home_area = yes
 				}
@@ -808,7 +873,7 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 471 472 683 }
 				limit = {
 					is_in_home_area = yes
 				}
@@ -852,7 +917,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_canada_wheat_board"
 			if = {
 				limit = { has_idea = CAN_great_depression_1 }
 				swap_ideas = {
@@ -871,7 +935,7 @@ focus_tree = {
 		id = CAN_victory_aircraft_limited
 		icon = GFX_goal_generic_production2
 		prerequisite = { focus = CAN_department_of_munitions_and_supply }
-		x = -2
+		x = -3
 		y = 3
 		relative_position_id = CAN_defence_of_canada_regulations
 
@@ -933,9 +997,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_victory_aircraft_limited"
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 276 682 }
 				limit = {
 					free_building_slots = {
 						building = arms_factory
@@ -952,7 +1015,7 @@ focus_tree = {
 				set_state_flag = CAN_victory_aircraft_limited_AF1
 			}
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 276 682 }
 				limit = {
 					free_building_slots = {
 						building = arms_factory
@@ -1019,13 +1082,16 @@ focus_tree = {
 					level = 3
 					instant_build = yes
 				}
+				add_resource = {
+					type = coal
+					amount = 8
+				}	
 			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_alberta_coal_towns"
 			random_owned_controlled_state = {
-				prioritize = { 1 }
+				prioritize = { 470 }
 				limit = {
 					free_building_slots = {
 						building = industrial_complex
@@ -1039,6 +1105,10 @@ focus_tree = {
 					level = 3
 					instant_build = yes
 				}
+				add_resource = {
+					type = coal
+					amount = 8
+				}	
 				set_state_flag = CAN_alberta_coal_towns_IC
 			}
 		}
@@ -1072,7 +1142,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_commit_to_the_war"
 			add_ideas = CAN_commit_to_the_war
 		}
 	}
@@ -1143,9 +1212,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_john_inglis_and_company"
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 276 682 }
 				limit = {
 					free_building_slots = {
 						building = arms_factory
@@ -1162,7 +1230,7 @@ focus_tree = {
 				set_state_flag = CAN_john_inglis_and_company_AF1
 			}
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 276 682 }
 				limit = {
 					free_building_slots = {
 						building = arms_factory
@@ -1256,7 +1324,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_polymer_corporation"
 			if = {
 				limit = {
 					NOT = { has_tech = synth_oil_experiments }
@@ -1265,7 +1332,7 @@ focus_tree = {
 				set_country_flag = CAN_polymer_corporation_unlock
 				effect_tooltip = {
 					random_owned_controlled_state = {
-						prioritize = { 1 }
+						prioritize = { 682 }
 						limit = {
 						}
 						add_extra_state_shared_building_slots = 1
@@ -1277,7 +1344,7 @@ focus_tree = {
 						set_state_flag = CAN_polymer_corporation_1
 					}
 					random_owned_controlled_state = {
-						prioritize = { 9 }
+						prioritize = { 276 }
 						limit = {
 						}
 						add_extra_state_shared_building_slots = 1
@@ -1300,7 +1367,7 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {
-				prioritize = { 1 }
+				prioritize = { 682 }
 				limit = {
 					free_building_slots = {
 						building = synthetic_refinery
@@ -1316,7 +1383,7 @@ focus_tree = {
 				set_state_flag = CAN_polymer_corporation_1
 			}
 			random_owned_controlled_state = {
-				prioritize = { 9 }
+				prioritize = { 276 }
 				limit = {
 					free_building_slots = {
 						building = synthetic_refinery
@@ -1400,7 +1467,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_national_steel_car"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -1464,7 +1530,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_send_in_the_zombies"
 			add_ideas = CAN_send_in_the_zombies
 		}
 	}
@@ -1474,7 +1539,7 @@ focus_tree = {
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = CAN_john_inglis_and_company }
 		prerequisite = { focus = CAN_victory_aircraft_limited }
-		x = -2
+		x = -3
 		y = 5
 		relative_position_id = CAN_defence_of_canada_regulations
 
@@ -1502,7 +1567,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_if_day"
 			swap_ideas = {
 				remove_idea = CAN_war_bonds_1
 				add_idea = CAN_war_bonds_2
@@ -1513,7 +1577,6 @@ focus_tree = {
 	focus = {
 		id = CAN_defense_research_grants
 		icon = GFX_focus_research
-		prerequisite = { focus = CAN_john_inglis_and_company }
 		prerequisite = { focus = CAN_if_day }
 		x = -3
 		y = 6
@@ -1540,7 +1603,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_defense_research_grants"
 			add_research_slot = 1
 		}
 	}
@@ -1573,13 +1635,29 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_uranium_mining"
-			add_tech_bonus = {
-				name = CAN_uranium_mining
-				bonus = 1.0
-				uses = 2
-				category = nuclear
-			}	
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = CAN_uranium_mining
+					bonus = 0.5
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.25
+				}
+			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.75
+				}
+			}
 		}
 	}
 
@@ -1611,7 +1689,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_long_branch_arsenal"
 			add_tech_bonus = {
 				name = CAN_long_branch_arsenal
 				bonus = 1.0
@@ -1651,7 +1728,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_independent_command"
 			army_experience = 50
 			add_doctrine_cost_reduction = {
 				name = CAN_independent_command
@@ -1678,8 +1754,7 @@ focus_tree = {
 		}
 
 		available = {
-			controls_state = 1
-			has_idea = CAN_conscription_crisis
+
 		}
 		
 		bypass = {
@@ -1692,7 +1767,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_forced_quebec_conscription"
 			remove_ideas = CAN_conscription_crisis
 			custom_effect_tooltip = "CAN_ANGERED_WORKERS"
 			
@@ -1716,8 +1790,7 @@ focus_tree = {
 		}
 
 		available = {
-			controls_state = 1
-			has_idea = CAN_conscription_crisis
+
 		}
 		
 		bypass = {
@@ -1730,7 +1803,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_compromise_with_quebec"
 			swap_ideas = {
 				remove_idea = CAN_conscription_crisis
 				add_idea = CAN_conscription_crisis_mended
@@ -1803,7 +1875,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_war_fueled_economy"
 			if = {
 				limit = { 
 					OR = {
@@ -1905,7 +1976,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_army_modernization"
 			army_experience = 50 
 			add_doctrine_cost_reduction = {
 				name = CAN_army_modernization
@@ -1944,7 +2014,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_canadian_infantry_corps"
 			add_tech_bonus = {
 				name = CAN_canadian_infantry_corps
 				bonus = 1.0
@@ -1983,11 +2052,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_cmp_truck"
 			add_tech_bonus = {
 				name = CAN_cmp_truck
 				ahead_reduction = 2
-				bonus = 3.0
+				bonus = 2.0
 				uses = 1
 				category = motorized_equipment
 			}
@@ -2022,7 +2090,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_the_walkie_talkie"
 			add_tech_bonus = {
 				name = CAN_the_walkie_talkie
 				bonus = 1.0
@@ -2069,7 +2136,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_royal_regiment_of_canadian_artillery"
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.15
+			}
 			add_tech_bonus = {
 				name = CAN_royal_regiment_of_canadian_artillery
 				bonus = 1.0
@@ -2107,7 +2177,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_a_motorized_army"
 			add_tech_bonus = {
 				name = CAN_a_motorized_army
 				bonus = 1.0
@@ -2157,8 +2226,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_red_deer_training_camp"
-			army_experience = 40
+			army_experience = 30
 			add_doctrine_cost_reduction = {
 				name = CAN_red_deer_training_camp
 				cost_reduction = 0.5
@@ -2196,12 +2264,19 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_1st_canadian_parachute_battalion"
 			add_tech_bonus = {
 				name = CAN_1st_canadian_parachute_battalion
-				bonus = 3.0
+				bonus = 1.0
 				uses = 1
 				category = para_tech
+			}
+			if = {
+				limit = { has_dlc = "Arms Against Tyranny" }
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.5
+					uses = 2
+					category = special_forces_doctrine
+				}
 			}
 		}
 	}
@@ -2234,7 +2309,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_the_black_devils"
 			add_tech_bonus = {
 				name = CAN_the_black_devils
 				bonus = 1.00
@@ -2273,7 +2347,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_the_rocky_mountain_rangers"
 			add_tech_bonus = {
 				name = CAN_the_rocky_mountain_rangers
 				bonus = 1.00
@@ -2311,7 +2384,12 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_the_valentine_tank"
+
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.5
+			}
+
 			add_tech_bonus = {
 				name = CAN_the_valentine_tank
 				bonus = 1.0
@@ -2323,8 +2401,9 @@ focus_tree = {
 				ahead_reduction = 2
 				bonus = 1.0
 				uses = 1
-				category = cat_light_armor
+				category = cat_medium_armor
 			}
+
 		}
 	}
 
@@ -2452,7 +2531,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_shadow_factories"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -2533,7 +2611,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_montreal_laboratory_collaboration"
 			CAN = {
    				 modify_tech_sharing_bonus = {
         			id = commonwealth_research
@@ -2574,7 +2651,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_the_plan"
 			add_ideas = CAN_the_plan
 		}
 	}
@@ -2611,7 +2687,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_camp_x"
 			if = {
 				limit = {
 					NOT = { has_dlc = "La Resistance" }
@@ -2662,7 +2737,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_supply_the_empire"
 			add_tech_bonus = {
 				name = CAN_supply_the_empire
 				bonus = 1.0
@@ -2798,8 +2872,7 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = { FOCUS_FILTER_TFV_AUTONOMY }
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_patriation"			
+		completion_reward = {			
 			add_ideas = CAN_patriation
 			ENG = {
 				add_opinion_modifier = { target = CAN modifier = CAN_patriation_mod }
@@ -2860,7 +2933,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_permanent_joint_defense_board"
 			ENG = { remove_from_faction = ROOT }
 			USA = {
 				add_opinion_modifier = {
@@ -2904,13 +2976,21 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_north_american_alliance"
 			set_rule = { can_create_factions = yes }
 			if = {
 				limit = {
 					USA = {
+						is_faction_leader = yes
+					}
+				}
+				USA = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					USA = {
 						has_government = ROOT
-						NOT = { is_faction_leader = yes }
 					}
 				}
 				USA = {
@@ -2948,12 +3028,51 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_habakkuk_carrier"
-			add_tech_bonus = {
-				name = CAN_habakkuk_carrier
-				bonus = 1.0
-				uses = 2
-				category = cv_tech
+
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.5
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			if = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
+				if = {
+					limit = {
+						has_dlc = "Man the Guns"
+					}
+					add_ideas = habakkuk_carriers_ns_mtg
+					custom_effect_tooltip = generic_skip_one_line_tt
+					
+					add_tech_bonus = {
+						name = CAN_habakkuk_carrier
+						bonus = 0.5
+						uses = 1 
+						category = pykrete_tech
+					}
+				}
+				else = {
+					add_ideas = habakkuk_carriers_ns
+					custom_effect_tooltip = generic_skip_one_line_tt
+				}
+
+				add_tech_bonus = {
+					name = CAN_habakkuk_carrier
+					bonus = 1.0
+					uses = 1
+					category = cv_tech
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = CAN_habakkuk_carrier
+					bonus = 1.0
+					uses = 2
+					category = cv_tech
+				}
 			}
 		}
 	}
@@ -2987,11 +3106,189 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_refuge_for_scientists"
-		USA = {
+			USA = {
+				add_to_tech_sharing_group = us_research
+			}
 			add_to_tech_sharing_group = us_research
+			custom_effect_tooltip = generic_skip_one_line_tt
+			add_ideas = generic_secret_weapons_ns
 		}
-		add_to_tech_sharing_group = us_research
+	}
+
+	focus = {
+		id = CAN_dominion_rifle_association
+		icon = GFX_focus_CAN_rifle_association
+		x = 2
+		y = 1
+		prerequisite = { focus = CAN_permanent_joint_defense_board focus = CAN_shadow_factories focus = CAN_swastika_clubs }
+		relative_position_id = CAN_permanent_joint_defense_board
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 20
+		}
+
+		available = {
+			OR = {
+				threat > 0.15
+				is_subject = no
+			}
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			
+			add_ideas = CAN_dominion_rifle_association_idea
+
+		}
+	}
+
+	focus = {
+		id = CAN_canadian_citizenship_act
+		icon = GFX_focus_eng_decolonization
+		x = 3
+		y = 1
+		prerequisite = { focus = CAN_north_american_alliance focus = CAN_supply_the_empire }
+		relative_position_id = CAN_supply_the_empire
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 5
+				is_subject = no 
+			}
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+
+		completion_reward = {
+			
+			add_ideas = CAN_canadian_citizenship
+
+		}
+	}
+
+	focus = {
+		id = CAN_newfoundland_act
+		icon = GFX_focus_chi_british_cooperation
+		x = 0
+		y = 1
+		prerequisite = { focus = CAN_canadian_citizenship_act }
+		relative_position_id = CAN_canadian_citizenship_act
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 5
+				is_subject = no 
+			}
+		}
+
+		available = {
+			64 = {   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+				owner = {
+					has_opinion = { target = ROOT value > 50 }
+					OR = {
+						has_subject = ROOT
+						original_tag = ENG
+						AND = {
+							original_tag = USA
+							is_in_faction_with = ROOT
+						}
+					}
+				}
+			}
+			2552 = {   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+				owner = {
+					has_opinion = { target = ROOT value > 50 }
+					OR = {
+						has_subject = ROOT
+						original_tag = ENG
+						AND = {
+							original_tag = USA
+							is_in_faction_with = ROOT
+						}
+					}
+				}
+			}
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			
+			IF = {
+				limit = {
+					any_country = {
+						AND = {
+							owns_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
+							owns_state = 64   # 1.19-migration: was vanilla 331 (Newfoundland)
+						}
+					}
+				}
+				random_country = {
+					limit = {
+						AND = {
+							owns_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
+							owns_state = 64   # 1.19-migration: was vanilla 331 (Newfoundland)
+						}
+						OR = {
+							has_subject = ROOT
+							original_tag = ENG
+						}
+					}
+					country_event = {
+						id = tfv_canada.70
+						days = 2
+						random_days = 3 
+					}	
+				}
+			}
+			ELSE = {
+				set_global_flag = not_all_newf_owned
+				random_country = {
+					limit = {
+						OR = {
+							has_subject = ROOT
+							original_tag = ENG
+						}
+					}
+					country_event = {
+						id = tfv_canada.70
+						days = 2
+						random_days = 3 
+					}
+				}
+			}
+
 		}
 	}
 
@@ -3038,7 +3335,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_TFV_AUTONOMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_swastika_clubs"
 			add_autonomy_ratio = {
 				value = 0.1
 				localization = CAN_swastika_clubs
@@ -3077,7 +3373,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_support_the_blue_shirts"
 			swap_ideas = {
 				remove_idea = CAN_swastika_clubs
 				add_idea = CAN_swastika_clubs_2
@@ -3128,7 +3423,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_join_germany"
 			GER = { 
 				country_event = { id = tfv_canada.20 }
 			}
@@ -3163,10 +3457,12 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_support_a_synarchist_baja"
 			swap_ideas = {
 				add_idea = CAN_swastika_clubs_skewer
 				remove_idea = CAN_swastika_clubs_2
+			}
+			#MEX = {   # 1.19-migration: dead tag MEX
+				add_timed_idea = { idea = synarchist_support_surge days = 720 }
 			}
 		}
 	}
@@ -3198,7 +3494,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_pinion_the_eagle"
 			every_owned_state = {
 				limit = {
 					is_controlled_by = ROOT
@@ -3251,8 +3546,9 @@ focus_tree = {
 
 		available = {
 			has_government = fascism
-			any_country = {
-				original_tag = MEX
+			any_country_with_original_tag = {
+				exists = yes
+				#original_tag_to_check = MEX   # 1.19-migration: dead tag MEX
 				has_government = fascism
 				NOT = { has_war_with = ROOT }
 			}
@@ -3268,11 +3564,10 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_skewer_the_eagle"
 			set_rule = { can_create_factions = yes }
 			random_country = {
 				limit = {
-					original_tag = MEX
+					#original_tag = MEX   # 1.19-migration: dead tag MEX
 					has_government = fascism
 				}
 				country_event = { id = tfv_canada.40 }
@@ -3284,7 +3579,7 @@ focus_tree = {
 		id = CAN_defence_scheme_no_1
 		icon = GFX_goal_generic_occupy_start_war
 		prerequisite = { focus = CAN_skewer_the_eagle focus = CAN_pinion_the_eagle focus = CAN_reject_authoritarianism }
-		x = 1
+		x = 3
 		y = 4
 		relative_position_id = CAN_swastika_clubs
 
@@ -3312,12 +3607,21 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_defence_scheme_no_1"
-			set_rule = { can_create_factions = yes }
-			create_wargoal = {
-				type = annex_everything
-				target = USA
-				expire = 0
+			if = {
+				limit = { has_government = fascism }
+				set_rule = { can_create_factions = yes }
+				create_wargoal = {
+					type = annex_everything
+					target = USA
+					expire = 0
+				}
+			}
+			else = {
+				create_wargoal = {
+					type = topple_government
+					target = USA
+					expire = 0
+				}
 			}
 		}
 	}
@@ -3325,12 +3629,12 @@ focus_tree = {
 	focus = {
 		id = CAN_demand_labrador_and_newfoundland
 		icon = GFX_goal_generic_territory_or_war
-		prerequisite = { focus = CAN_skewer_the_eagle focus = CAN_pinion_the_eagle }
+		prerequisite = { focus = CAN_skewer_the_eagle focus = CAN_pinion_the_eagle focus = CAN_reject_authoritarianism }
 		x = 0
 		y = 4
 		relative_position_id = CAN_swastika_clubs
 		mutually_exclusive = { focus = CAN_offer_concessions_for_labrador_and_newfoundland }
-
+		
 		cost = 10
 
 		ai_will_do = {
@@ -3339,9 +3643,9 @@ focus_tree = {
 
 		available = {
 			NOT = { has_country_flag = britain_enforced_our_loyalty }
-			NOT = { has_war_with = ENG }
 			ENG = {
-				owns_state = 64
+				owns_state = 64   # 1.19-migration: was vanilla 331 (Newfoundland)
+				owns_state = 2552   # 1.19-migration: was vanilla 332 (Labrador)
 			}
 		}
 		
@@ -3355,13 +3659,13 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_demand_labrador_and_newfoundland"
+			custom_effect_tooltip = CAN_demand_labrador_tooltip
 			ENG = {
 				country_event = { id = tfv_canada.60 }
 			}
 		}
 	}
-	
+
 	focus = {
 		id = CAN_offer_concessions_for_labrador_and_newfoundland
 		icon = GFX_goal_tfv_strengthen_commonwealth_ties
@@ -3407,7 +3711,6 @@ focus_tree = {
 		}
 	}
 
-
 	############################
 	### GO COMMUNIST SECTION ###
 	############################
@@ -3446,7 +3749,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_TFV_AUTONOMY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_burn_the_royal_portraits"
 			add_autonomy_ratio = {
 				value = 0.1
 				localization = CAN_burn_the_royal_portraits
@@ -3485,14 +3787,13 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_communist_labor_total_war_committee"
 			swap_ideas = {
 				remove_idea = CAN_communist_ideals
 				add_idea = CAN_communist_ideals_2
 			}
 		}
 	}
-
+	
 	focus = {
 		id = CAN_mend_relations_with_the_trotskyites
 		icon = GFX_goal_generic_major_alliance
@@ -3692,7 +3993,7 @@ focus_tree = {
 			}
 		}
 	}
-
+	
 	focus = {
 		id = CAN_defence_scheme_no_2
 		icon = GFX_goal_generic_fortify_city
@@ -3710,6 +4011,11 @@ focus_tree = {
 
 		available = {
 			OR = {
+				#USA = { has_war_with = JAP }   # 1.19-migration: dead tag JAP
+				#USA = { has_wargoal_against = JAP }   # 1.19-migration: dead tag JAP
+				#JAP = { has_wargoal_against = USA }   # 1.19-migration: dead tag JAP
+				#USA = { is_justifying_wargoal_against = JAP }   # 1.19-migration: dead tag JAP
+				#JAP = { is_justifying_wargoal_against = USA }   # 1.19-migration: dead tag JAP
 			}
 			NOT = { has_country_flag = britain_enforced_our_loyalty }
 		}
@@ -3821,7 +4127,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_supply_the_red_army"
 			SOV = {
 				add_opinion_modifier = {
 					target = ROOT
@@ -3876,10 +4181,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_canada_united"
 			set_rule = { can_create_factions = yes }
-			add_stability = 0.05
-			add_war_support = 0.05
 		}
 	}
 
@@ -3923,7 +4225,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_join_comintern"
 			if = {
 				limit = {
 					SOV = {
@@ -3972,7 +4273,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_support_the_world_revolution"
 			swap_ideas = {
 				remove_idea = CAN_communist_ideals_2
 				add_idea = CAN_communist_ideals_3
@@ -4011,7 +4311,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		complete_tooltip = {
-			air_experience = 50
+			air_experience = 25
 			random_state = {				
 				limit = {
 					has_state_flag = CAN_rcaf_station_borden_AB
@@ -4031,8 +4331,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_rcaf_station_borden"
-			air_experience = 50
+			air_experience = 25
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -4084,7 +4383,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_we_have_the_hurricane"
 			add_tech_bonus = {
 				name = CAN_we_have_the_hurricane
 				bonus = 1.0
@@ -4318,7 +4616,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		complete_tooltip = {
-			air_experience = 50
+			air_experience = 25
 			random_state = {
 				limit = {
 					has_state_flag = CAN_commonwealth_air_training_plan_AB
@@ -4338,8 +4636,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_commonwealth_air_training_plan"
-			air_experience = 50
+			air_experience = 25
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -4395,7 +4692,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_fund_fairchilds_development"
 			add_tech_bonus = {
 				name = CAN_fund_fairchilds_development
 				bonus = 1.0
@@ -4403,7 +4699,10 @@ focus_tree = {
 				category = tactical_bomber
 				category = cas_bomber
 			}
-			if = {
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -4453,14 +4752,16 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_cookie_carriers"
 			add_tech_bonus = {
 				name = CAN_cookie_carriers
 				bonus = 1.0
 				uses = 1
 				category = cat_strategic_bomber
 			}
-			if = {
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -4513,14 +4814,20 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_the_sabre_project"
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.5
+			}
+
 			add_tech_bonus = {
 				name = CAN_the_sabre_project
 				ahead_reduction = 2
-				uses = 2
+				uses = 1 # was 2
 				category = rocketry
 				category = jet_technology
 			}
+
 		}
 	}
 
@@ -4555,37 +4862,36 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		complete_tooltip = {
-			navy_experience = 50
+			navy_experience = 25
 			random_state = {
 				limit = {
 					has_state_flag = CAN_halifax_shipyards_DY
 				}
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = dockyard
-					level = 4
+					level = 3
 					instant_build = yes
 				}
 			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_halifax_shipyards"
-			navy_experience = 50
+			navy_experience = 25
 			random_owned_controlled_state = {
-				prioritize = { 8 }
+				prioritize = { 464 }
 				limit = {
 					is_coastal = yes
 					free_building_slots = {
 						building = dockyard
-						size > 3
+						size > 2
 						include_locked = yes
 					}
 				}
-				add_extra_state_shared_building_slots = 4
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = dockyard
-					level = 4
+					level = 3
 					instant_build = yes
 				}
 				set_state_flag = CAN_halifax_shipyards_DY
@@ -4621,7 +4927,9 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_destroyer_effort"
+
+			navy_experience = 25
+
 			add_tech_bonus = {
 				name = CAN_destroyer_effort
 				bonus = 1.0
@@ -4629,6 +4937,7 @@ focus_tree = {
 				uses = 1
 				category = dd_tech
 			}
+
 		}
 	}
 
@@ -4639,6 +4948,8 @@ focus_tree = {
 		x = -1
 		y = 2
 		relative_position_id = CAN_halifax_shipyards
+
+		mutually_exclusive = { focus = CAN_heavy_cruiser_effort }
 
 		cost = 10
 
@@ -4660,13 +4971,23 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_light_cruiser_effort"
 			add_tech_bonus = {
 				name = CAN_light_cruiser_effort
-				bonus = 1.0
+				bonus = 0.5
 				ahead_reduction = 2
 				uses = 1
-				category = industry
+				category = ca_tech
+			}
+			IF = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = CAN_light_cruiser_effort
+					bonus = 0.5
+					uses = 1
+					category = cat_ship_light_battery
+				}
 			}
 		}
 	}
@@ -4679,6 +5000,8 @@ focus_tree = {
 		y = 2
 		relative_position_id = CAN_halifax_shipyards
 
+		mutually_exclusive = { focus = CAN_light_cruiser_effort }
+
 		cost = 10
 
 		ai_will_do = {
@@ -4699,13 +5022,23 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_heavy_cruiser_effort"
 			add_tech_bonus = {
 				name = CAN_heavy_cruiser_effort
 				bonus = 1.0
-				ahead_reduction = 2
+				ahead_reduction = 1
 				uses = 1
 				category = ca_tech
+			}
+			IF = {
+				limit = {
+					has_dlc = "Man the Guns"
+				}
+				add_tech_bonus = {
+					name = CAN_heavy_cruiser_effort
+					bonus = 0.5
+					uses = 1
+					category = cat_ship_heavy_battery
+				}
 			}
 		}
 	}
@@ -4713,7 +5046,7 @@ focus_tree = {
 	focus = {	
 		id = CAN_escort_fleet
 		icon = GFX_goal_generic_navy_doctrines_tactics
-		prerequisite = { focus = CAN_light_cruiser_effort }
+		prerequisite = { focus = CAN_light_cruiser_effort focus = CAN_heavy_cruiser_effort }
 		mutually_exclusive = { focus = CAN_fleet_in_being }
 		x = -1
 		y = 3
@@ -4743,13 +5076,37 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_escort_fleet"
-			navy_experience = 50
+			navy_experience = 25
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.15
+			}
+			if = {
+				limit = {
+					has_doctrine = convoy_escort
+				}
+				add_mastery_bonus = {
+					name = CAN_escort_fleet
+					bonus = 0.2
+					days = 180
+					sub_doctrine = convoy_escort
+				}
+			}
+			else = {
+				add_mastery_bonus = {
+					name = CAN_escort_fleet
+					bonus = 0.1
+					days = 180
+					track = screens
+				}
+			}
+			
+			
 			add_doctrine_cost_reduction = {
 				name = CAN_escort_fleet
 				cost_reduction = 0.25
 				uses = 2
-				category = convoy_defense_tree
+				category = naval_doctrine
 			}
 		}
 	}
@@ -4757,7 +5114,7 @@ focus_tree = {
 	focus = {
 		id = CAN_fleet_in_being
 		icon = GFX_goal_generic_navy_battleship
-		prerequisite = { focus = CAN_light_cruiser_effort }
+		prerequisite = { focus = CAN_light_cruiser_effort focus = CAN_heavy_cruiser_effort }
 		mutually_exclusive = { focus = CAN_escort_fleet }
 		x = 1
 		y = 3
@@ -4783,13 +5140,22 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_fleet_in_being"
-			navy_experience = 50
+			navy_experience = 25
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.15
+			}
+			add_mastery_bonus = {
+				name = CAN_fleet_in_being
+				bonus = 0.1
+				days = 180
+				grand_doctrine = new_fleet_in_being
+			}
 			add_doctrine_cost_reduction = {
 				name = CAN_fleet_in_being
 				cost_reduction = 0.25
 				uses = 2
-				category = cat_fleet_in_being
+				category = naval_doctrine
 			}			
 		}
 	}
@@ -4822,8 +5188,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_degauss_ship_hulls"
-			add_ideas = CAN_degauss_ship_hulls
 			if = {
 				limit = {
 					has_dlc = "Man the Guns"
@@ -4843,9 +5207,18 @@ focus_tree = {
 						    degaussing = 1
 						}
 					}
+					}
 				}
+			
+			if = {
+				limit = {
+						NOT = {
+							has_dlc = "Man the Guns"
+						}
+					}
+				add_ideas = CAN_degauss_ship_hulls
 			}
-		}
+		}	
 	}
 
 	focus = {
@@ -4876,7 +5249,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_trade_fleet"
 			add_ideas = CAN_trade_fleet			
 		}
 	}
@@ -4909,7 +5281,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		complete_tooltip = {
-			navy_experience = 50
+			navy_experience = 25
 			random_state = {
 				limit = {
 					has_state_flag = CAN_united_shipyards_DY
@@ -4924,8 +5296,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CAN_united_shipyards"
-			navy_experience = 50
+			navy_experience = 25
 			random_owned_controlled_state = {
 				limit = {
 					is_coastal = yes

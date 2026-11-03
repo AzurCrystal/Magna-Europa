@@ -669,9 +669,11 @@ focus_tree = {
 			if = {
 				limit = {
 					OR = {
-						any_state = {
-							has_state_flag = SLO_INITIAL_CORE
-							is_controlled_by = ROOT
+						2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+							is_owned_and_controlled_by = ROOT
+						}
+						574 = {   # 1.19-migration: was vanilla 71 (Eastern Slovakia); mod Tatry
+							is_owned_and_controlled_by = ROOT
 						}
 					}
 					NOT = {
@@ -1262,8 +1264,8 @@ focus_tree = {
 		available = {
 			is_subject = no
 			NOT = {
-				has_war_with = 1663.owner
-				is_ally_with = 1663.owner
+				has_war_with = 66.owner
+				is_ally_with = 66.owner
 			}
 		}
 
@@ -1271,7 +1273,7 @@ focus_tree = {
 			base = 0
 			modifier = {
 				add = 10
-				1663 = {
+				1666 = {   # 1.19-migration: was vanilla 66 (Lower Silesia); mod Bunzlau
 					owner = {
 						OR = {
 							AND = {
@@ -1297,8 +1299,8 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				owns_state = 1663
-				has_war_with = 1663.owner
+				owns_state = 1666   # 1.19-migration: was vanilla 66 (Lower Silesia)
+				has_war_with = 66.owner
 			}
 		}
 
@@ -1306,21 +1308,13 @@ focus_tree = {
 			set_country_flag = CZE_unlock_white_peace
 			unlock_decision_tooltip = CZE_white_peace_silesia_owner
 			show_unit_leaders_tooltip = CZE_josef_shnejdarek
-
-			every_state = {
-				limit = {
-					is_core_of = SIL
-					is_owned_by = GER
-				}
-				add_claim_by = ROOT
-			}
 		}
 
 		completion_reward = {
 			# start_border_war = {
 			# 	change_state_after_war = no
 			# 	attacker = {
-			# 		state = 473
+			# 		state = 69
 			# 		num_provinces = 2
 			# 		on_win = MUN_czech.1022
 			# 	}	
@@ -1339,17 +1333,10 @@ focus_tree = {
 			# custom_effect_tooltip = generic_skip_one_line_tt
 			# unlock_decision_tooltip = CZE_escalate_border_war
 			# custom_effect_tooltip = generic_skip_one_line_tt
-			every_state = {
-				limit = {
-					is_core_of = SIL
-					is_owned_by = GER
-				}
-				add_claim_by = ROOT
-			}
 			create_wargoal = {
 				type = take_state_focus
-				target = 1663.owner
-				generator = { 1663 }
+				target = 66.owner
+				generator = { 66 }
 				expire = 720
 			}
 
@@ -1410,19 +1397,13 @@ focus_tree = {
 		}
 
 		bypass_effect = {
-			every_state = {
-				limit = {
-					is_core_of = SAX
-				}
+			1672 = {   # 1.19-migration: was vanilla 65 (Sachsen); mod Luckau
 				add_claim_by = ROOT
 			}
 		}
 
 		completion_reward = {
-			every_state = {
-				limit = {
-					is_core_of = SAX
-				}
+			1672 = {   # 1.19-migration: was vanilla 65 (Sachsen); mod Luckau
 				add_claim_by = ROOT
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -1573,7 +1554,7 @@ focus_tree = {
 
 		available = {
 			is_subject = no
-			481 = {
+			481 = {   # 1.19-migration: was vanilla 762 (Katowice); mod Katowice
 				owner = {
 					NOT = {
 						is_ally_with = ROOT
@@ -1584,13 +1565,13 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				owns_state = 481
-				has_war_with = 481.owner
+				owns_state = 481   # 1.19-migration: was vanilla 762 (Katowice)
+				has_war_with = 762.owner
 			}
 		}
 
 		completion_reward = {
-			481 = {
+			481 = {   # 1.19-migration: was vanilla 762 (Katowice); mod Katowice
 				owner = {
 					country_event = MUN_czech.1019
 				}
@@ -1630,30 +1611,14 @@ focus_tree = {
 		}
 
 		bypass_effect = {
-			280 = { add_claim_by = ROOT } # danzig
-
-			# 807 = { add_claim_by = ROOT } # danzig corridor
-			custom_effect_tooltip = mer_GER_claims_on_danzig_corridor_tt
-			hidden_effect = {
-				287 = { add_claim_by = ROOT }
-				310 = { add_claim_by = ROOT }
-				2567 = { add_claim_by = ROOT }
-				546 = { add_claim_by = ROOT }
-				2341 = { add_claim_by = ROOT }
-				264 = { add_claim_by = ROOT }
-				267 = { add_claim_by = ROOT }
+			122 = {   # 1.19-migration: was vanilla 86 (Poznań); mod Poznań
+				add_claim_by = ROOT
 			}
-			# 122 = { add_claim_by = ROOT } # poznan # 1.19-migration: was vanilla 86 (Poznan)
-			custom_effect_tooltip = mer_GER_claims_on_poznan_tt
-			hidden_effect = {
-				80 = { add_claim_by = ROOT }
-				335 = { add_claim_by = ROOT }
-				243 = { add_claim_by = ROOT }
-				79 = { add_claim_by = ROOT }
-				122 = { add_claim_by = ROOT }
-				99 = { add_claim_by = ROOT }
-				82 = { add_claim_by = ROOT }
-				549 = { add_claim_by = ROOT }
+			267 = {   # 1.19-migration: was vanilla 807 (Gdynia); mod Gdynia
+				add_claim_by = ROOT
+			}
+			280 = {   # 1.19-migration: was vanilla 85 (Danzig); mod Danzig
+				add_claim_by = ROOT
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
@@ -1668,49 +1633,32 @@ focus_tree = {
 						}
 					}
 				}
-				1292 = { # was vanilla 91
+				1292 = {   # 1.19-migration: was vanilla 91 (Lwów); mod Lwów
 					add_core_of = RUT
 				}
-				1164 = { # was vanilla 89
+				1164 = {   # 1.19-migration: was vanilla 89 (Stanisławów); mod Stanisławów
 					add_core_of = RUT
 				}
-				434 = { # was vanilla 93
+				992 = {   # 1.19-migration: was vanilla 93 (Wołyn); mod Sarny
 					add_core_of = RUT
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
 			}
+			1157 = {   # 1.19-migration: was vanilla 88 (Kraków); mod Kraków
+				add_core_of = GAL
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 		}
 
 		completion_reward = {
-			280 = { add_claim_by = ROOT } # danzig
-
-			# 807 = { add_claim_by = ROOT } # danzig corridor
-			custom_effect_tooltip = mer_GER_claims_on_danzig_corridor_tt
-			hidden_effect = {
-				287 = { add_claim_by = ROOT }
-				310 = { add_claim_by = ROOT }
-				2567 = { add_claim_by = ROOT }
-				546 = { add_claim_by = ROOT }
-				2341 = { add_claim_by = ROOT }
-				264 = { add_claim_by = ROOT }
-				267 = { add_claim_by = ROOT }
+			122 = {   # 1.19-migration: was vanilla 86 (Poznań); mod Poznań
+				add_claim_by = ROOT
 			}
-			# 122 = { add_claim_by = ROOT } # poznan # 1.19-migration: was vanilla 86 (Poznan)
-			custom_effect_tooltip = mer_GER_claims_on_poznan_tt
-			hidden_effect = {
-				80 = { add_claim_by = ROOT }
-				335 = { add_claim_by = ROOT }
-				243 = { add_claim_by = ROOT }
-				79 = { add_claim_by = ROOT }
-				122 = { add_claim_by = ROOT }
-				99 = { add_claim_by = ROOT }
-				82 = { add_claim_by = ROOT }
-				549 = { add_claim_by = ROOT }
+			267 = {   # 1.19-migration: was vanilla 807 (Gdynia); mod Gdynia
+				add_claim_by = ROOT
 			}
-			custom_effect_tooltip = mer_claims_on_polish_slovak_terrotory_tt
-			hidden_effect = {
-				1441 = { add_claim_by = ROOT }
-				1440 = { add_claim_by = ROOT }
+			280 = {   # 1.19-migration: was vanilla 85 (Danzig); mod Danzig
+				add_claim_by = ROOT
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
@@ -1725,15 +1673,20 @@ focus_tree = {
 						}
 					}
 				}
-				every_state = {
-					limit = {
-						is_core_of = GAL
+				1292 = {   # 1.19-migration: was vanilla 91 (Lwów); mod Lwów
+					add_core_of = RUT
 				}
+				1164 = {   # 1.19-migration: was vanilla 89 (Stanisławów); mod Stanisławów
+					add_core_of = RUT
+				}
+				992 = {   # 1.19-migration: was vanilla 93 (Wołyn); mod Sarny
 					add_core_of = RUT
 				}
 				custom_effect_tooltip = generic_skip_one_line_tt
 			}
-
+			1157 = {   # 1.19-migration: was vanilla 88 (Kraków); mod Kraków
+				add_core_of = GAL
+			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			create_wargoal = {
 				type = puppet_wargoal_focus
@@ -1762,18 +1715,9 @@ focus_tree = {
 		y = 1
 
 		available = {
-			1665 = {
-				is_controlled_by = ROOT
-			}
-			1663 = {
-				is_controlled_by = ROOT
-			}
-			481 = {
-				is_controlled_by = ROOT
-			}
-			1654 = {
-				is_controlled_by = ROOT
-			}
+			controls_state = 1666   # 1.19-migration: was vanilla 66 (Lower Silesia)
+			controls_state = 1658   # 1.19-migration: was vanilla 67 (Upper Silesia)
+			controls_state = 481   # 1.19-migration: was vanilla 762 (Katowice)
 		}
 
 		ai_will_do = {
@@ -1781,15 +1725,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			custom_effect_tooltip = mer_GER_cores_on_silesia_tt
-			hidden_effect = {
-				every_state = {
-					limit = {
-						is_core_of = SIL
-						NOT = { state = 441}
-					}
-					add_core_of = CZE
-				}
+			481 = {   # 1.19-migration: was vanilla 762 (Katowice); mod Katowice
+				add_core_of = ROOT
+			}
+			1666 = {   # 1.19-migration: was vanilla 66 (Lower Silesia); mod Bunzlau
+				add_core_of = ROOT
+			}
+			1658 = {   # 1.19-migration: was vanilla 67 (Upper Silesia); mod Rosenberg
+				add_core_of = ROOT
 			}
 			custom_effect_tooltip = generic_skip_one_line_tt
 			set_cosmetic_tag = CZE_SLO_bohemia_expansion
@@ -1893,44 +1836,17 @@ focus_tree = {
 					transfer_troops = yes
 				}
 			}
-			280 = { add_core_of = ROOT } # danzig
-
-			# 807 = { add_core_of = ROOT } # danzig corridor
-			custom_effect_tooltip = mer_GER_cores_on_danzig_corridor_tt
-			hidden_effect = {
-				287 = { add_core_of = ROOT }
-				310 = { add_core_of = ROOT }
-				2567 = { add_core_of = ROOT }
-				546 = { add_core_of = ROOT }
-				2341 = { add_core_of = ROOT }
-				264 = { add_core_of = ROOT }
-				267 = { add_core_of = ROOT }
-			}
-			# 122 = { add_core_of = ROOT } # poznan # 1.19-migration: was vanilla 86 (Poznan)
-			custom_effect_tooltip = mer_GER_cores_on_poznan_tt
-			hidden_effect = {
-				80 = { add_core_of = ROOT }
-				335 = { add_core_of = ROOT }
-				243 = { add_core_of = ROOT }
-				79 = { add_core_of = ROOT }
-				122 = { add_core_of = ROOT }
-				99 = { add_core_of = ROOT }
-				82 = { add_core_of = ROOT }
-				549 = { add_core_of = ROOT }
-			}
-			custom_effect_tooltip = mer_GER_cores_on_saxony_tt
-			hidden_effect = {
-				every_state = {
-					limit = {
-						is_core_of = SAX
-					}
+			1672 = {   # 1.19-migration: was vanilla 65 (Sachsen); mod Luckau
 				add_core_of = CZE
 			}
-		}
-			custom_effect_tooltip = mer_cores_on_polish_slovak_terrotory_tt
-			hidden_effect = {
-				1441 = { add_core_of = ROOT }
-				1440 = { add_core_of = ROOT }
+			122 = {   # 1.19-migration: was vanilla 86 (Poznań); mod Poznań
+				add_core_of = CZE
+			}
+			267 = {   # 1.19-migration: was vanilla 807 (Gdynia); mod Gdynia
+				add_core_of = CZE
+			}
+			280 = {   # 1.19-migration: was vanilla 85 (Danzig); mod Danzig
+				add_core_of = CZE
 			}
 		}
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -1955,8 +1871,7 @@ focus_tree = {
 		y = 0
 
 		available = {
-			any_other_country = {
-				is_subject_of = ROOT
+			any_subject_country = {
 				OR = {
 					has_autonomy_state = autonomy_dominion
 					has_autonomy_state = autonomy_puppet
@@ -2253,13 +2168,13 @@ focus_tree = {
 		y = 1
 
 		available = {
-			473 = {
+			1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
 				is_owned_and_controlled_by = ROOT
 			}
-			1433 = {
+			972 = {
 				is_owned_and_controlled_by = ROOT
 			}
-			507 = {
+			507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
 				is_owned_and_controlled_by = ROOT
 			}
 		}
@@ -2299,13 +2214,13 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			473 = {
+			1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
 				is_owned_and_controlled_by = ROOT
 			}
-			1433 = {
+			972 = {
 				is_owned_and_controlled_by = ROOT
 			}
-			507 = {
+			507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
 				is_owned_and_controlled_by = ROOT
 			}
 		}
@@ -2938,23 +2853,12 @@ focus_tree = {
 			if = {
 				limit = {
 					OR = {
-						2661 = { is_controlled_by = ROOT }
-						569 = { is_controlled_by = ROOT }
-						550 = { is_controlled_by = ROOT }
-						2313 = { is_controlled_by = ROOT }
-						562 = { is_controlled_by = ROOT }
-						2929 = { is_controlled_by = ROOT }
-						541 = { is_controlled_by = ROOT }
-						574 = { is_controlled_by = ROOT }
-						2660 = { is_controlled_by = ROOT }
-						577 = { is_controlled_by = ROOT }
-						586 = { is_controlled_by = ROOT }
-						2662 = { is_controlled_by = ROOT }
-						2978 = { is_controlled_by = ROOT }
-						1437 = { is_controlled_by = ROOT }
-						591 = { is_controlled_by = ROOT }
-						555 = { is_controlled_by = ROOT }
-						2663 = { is_controlled_by = ROOT }
+						2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+							is_owned_and_controlled_by = ROOT
+						}
+						574 = {   # 1.19-migration: was vanilla 71 (Eastern Slovakia); mod Tatry
+							is_owned_and_controlled_by = ROOT
+						}
 					}
 					NOT = {
 						has_global_flag = CZE_slovak_unrest_fired
@@ -3248,24 +3152,18 @@ focus_tree = {
 		available = {
 			OR = {
 				AND = {
-					has_war_with = 1157.owner
-					controls_state = 1157
+					has_war_with = 88.owner
+					controls_state = 1157   # 1.19-migration: was vanilla 88 (Kraków)
 				}
-				owns_state = 1157
+				owns_state = 1157   # 1.19-migration: was vanilla 88 (Kraków)
 			}
 		}
 
 		completion_reward = {
-			1157 = {
+			1157 = {   # 1.19-migration: was vanilla 88 (Kraków); mod Kraków
 				add_core_of = GAL
 			}
 			release_puppet_on_controlled = GAL
-			1441 = {
-				add_core_of = ROOT
-			}
-			1440 = {
-				add_core_of = ROOT
-			}
 		}
 	}
 
@@ -3416,9 +3314,29 @@ focus_tree = {
 		completion_reward = {
 			every_state = {
 				limit = {
-						has_state_flag = AUS_INITIAL_STATE
+					OR = {
+						state = 1811   # 1.19-migration: was vanilla 4 (Lower Austria)
+						state = 975
+						state = 976
+						state = 1795   # 1.19-migration: was vanilla 152 (Upper Austria)
+						state = 1793   # 1.19-migration: was vanilla 153 (Tyrol)
+						state = 654   # 1.19-migration: was vanilla 848 (Vorarlberg)
+					}
 				}
-			add_claim_by = ROOT
+				add_claim_by = ROOT
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			create_wargoal = {
+				type = annex_everything
+				target = AUS
+				expire = 730
+			}
+		custom_effect_tooltip = generic_skip_one_line_tt
+		create_wargoal = {
+			type = annex_everything
+			target = AUS
+			expire = 730
 		}
 		custom_effect_tooltip = generic_skip_one_line_tt
 		create_wargoal = {

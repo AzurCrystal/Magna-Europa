@@ -71,6 +71,35 @@ focus_tree = {
 		x = 34
 		y = 0
 
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = BALTIC_restore_workers_republic
+						has_completed_focus = EST_rally_the_nation
+					}
+				}
+			}
+		}
+
+		offset = {
+			x = -10
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = EST_era_of_silence
+			}
+		}
+
 		cost = 10
 
 		ai_will_do = {
@@ -90,11 +119,20 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_era_of_silence"
 			add_political_power = 100
 			add_stability = 0.1
 			activate_mission_tooltip = EST_vaps_uprising
 			activate_mission_tooltip = EST_vaps_crackdown
+
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				mark_focus_tree_layout_dirty = yes 
+			}
 		}
 	}
 
@@ -125,7 +163,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_ismaaliit"
 			add_ideas = EST_ismaaliit_idea
 			if = {
 				limit = { has_idea = democratic_opposition }
@@ -172,7 +209,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_establish_the_rahvuskogu"
 			add_popularity = {
 				ideology = democratic
 				popularity = 0.05
@@ -224,7 +260,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_chamber_of_deputies"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -292,7 +327,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_exploit_the_banks"
 			add_ideas = EST_exploit_the_banks_idea
 		}
 	}
@@ -324,7 +358,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_modernize_capital"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -390,7 +423,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_break_the_silence"
 			add_popularity = {
 				ideology = democratic
 				popularity = 0.2
@@ -445,7 +477,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_squash_the_opposition"
 			add_popularity = {
 				ideology = neutrality
 				popularity = 0.1
@@ -471,7 +502,6 @@ focus_tree = {
 				factor = 0
 				OR = {
 					LIT = { is_ai = no }
-					ESP = { is_ai = no }
 					LAT = { is_ai = no } #The AI shouldn't try to lead a Baltic faction if one of the Baltic nations is a player. Would lead to the player having to rush the focus.
 					AND = {
 						is_historical_focus_on = yes
@@ -494,27 +524,26 @@ focus_tree = {
 			modifier = {
 				factor = 10
 				is_in_faction = no
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					OR = {
-						has_war_with = ROOT
-						has_wargoal_against = ROOT
-					}
+							has_war_with = ROOT
+							has_wargoal_against = ROOT
+						}
 				} #AI should seek an alliance if they are in immediate danger
 			}
 		}
 
 		available = {
+			is_subject = no
 			is_in_faction = no
 			OR = {
 				LIT = { exists = yes }
 				LAT = { exists = yes }
-				ESP = { exists = yes }
 			}
 			OR = {
 				LAT = { is_in_faction = no }
 				LIT = { is_in_faction = no }
-				ESP = { is_in_faction = no }
 			}
 			LAT = {
 				NOT = { has_completed_focus = LAT_formalize_baltic_entente }
@@ -535,7 +564,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_formalize_baltic_entente"
 			set_country_flag = baltic_entente_leader_flag
 			if = {
 				limit = { 
@@ -558,17 +586,6 @@ focus_tree = {
 				LIT = {
 					country_event = { id = BALTIC_events.2 hours = 3 }
 				}
-			}
-			if = {
-				limit = { 
-					ESP = { 
-						exists = yes
-						is_in_faction = no 
-					} 
-				}
-				#ESP = {
-					#country_event = { id = BALTIC_events.2 hours = 3 }
-				#}
 			}
 			set_country_flag = baltic_entente_flag
 			unlock_decision_tooltip = formalize_the_entente
@@ -611,7 +628,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_look_north"
 			look_north_focus_effect = yes
 		}
 	}
@@ -650,16 +666,16 @@ focus_tree = {
 		}
 
 		available = {
-			any_other_country = {
-				NOT = { has_war_with = ROOT }
+			any_collection_element = {
+				collection = game:all_majors
+				NOT = { tag = ROOT }
 				is_faction_leader = yes
-				is_major = yes
-				has_government = democratic
+				has_government = democratic 
+				NOT = { has_war_with = ROOT }
 			}
 			NOT = {
-				any_other_country = {
+				any_enemy_country = {
 					is_in_faction_with = ENG
-					has_war_with = ROOT
 				}
 			}
 			is_in_faction = no
@@ -670,10 +686,12 @@ focus_tree = {
 				is_in_faction_with = ENG
 				AND = {
 					is_in_faction = yes
-					any_other_country = {
+					any_collection_element = {
+						collection = collection:democratic_faction_members
 						is_faction_leader = yes
-						is_in_faction_with = ROOT
-						has_government = democratic
+						NOT = {
+							tag = ROOT
+						}
 					}
 				}
 			}
@@ -685,7 +703,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_beyond_the_baltic"
 			if = {
 				limit = { 
 					ENG = {
@@ -720,11 +737,15 @@ focus_tree = {
 		}
 
 		available = {
-			any_other_country = {
-				NOT = { has_war_with = ROOT }
+			is_in_faction = no
+			is_subject = no
+          	any_collection_element = {
+				collection = game:all_majors
 				is_faction_leader = yes
-				is_major = yes
 				has_government = democratic
+				NOT = {
+					tag = ROOT
+				}
 			}
 			
 			NOT = {
@@ -733,7 +754,6 @@ focus_tree = {
 					has_war_with = ROOT
 				}
 			}
-			is_in_faction = no
 		}
 
 		bypass = {
@@ -741,10 +761,12 @@ focus_tree = {
 				is_in_faction_with = ENG
 				AND = {
 					is_in_faction = yes
-					any_other_country = {
+          			any_collection_element = {
+						collection = collection:democratic_faction_members
 						is_faction_leader = yes
-						is_in_faction_with = ROOT
-						has_government = democratic
+						NOT = {
+							tag = ROOT
+						}
 					}
 				}
 			}
@@ -756,7 +778,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_join_the_allies"
 			if = {
 				limit = { 
 					ENG = {
@@ -806,7 +827,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_national_council"
 			add_ideas = EST_national_council_idea
 			army_experience = 10
 		}
@@ -839,7 +859,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_support_independent_militaries"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -903,7 +922,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_new_economic_policy"
 			upgrade_economy_law = yes
 			random_owned_controlled_state = {
 				limit = {
@@ -967,7 +985,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_corporate_chambers"
 			add_ideas = EST_corporate_chambers_idea
 		}
 	}
@@ -1012,7 +1029,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_fight_the_vaps"
 			add_political_power = 150
 			EST_vaps_up_effect = yes
 			unlock_decision_category_tooltip = EST_fight_vaps_decisions
@@ -1051,7 +1067,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_republican_defence_league"
 			add_ideas = EST_republican_defence_league_idea
 		}
 	}
@@ -1083,7 +1098,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_womens_defence_league"
 			set_rule = {
 				can_generate_female_aces = yes
 			}
@@ -1140,7 +1154,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_cave_to_enemy_pressure"
 			custom_effect_tooltip = cave_to_enemies_tt
 			set_country_flag = cave_to_enemy_pressure_flag
 		}
@@ -1157,6 +1170,35 @@ focus_tree = {
 		y = 0
 
 		cost = 10
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					OR = {
+						has_completed_focus = BALTIC_restore_workers_republic
+						has_completed_focus = EST_era_of_silence
+					}
+				}
+			}
+		}
+
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = EST_rally_the_nation
+			}
+		}
 
 		ai_will_do = {
 			factor = 1
@@ -1175,7 +1217,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_rally_the_nation"
 			add_popularity = {
 				ideology = fascism
 				popularity = 0.1
@@ -1185,6 +1226,16 @@ focus_tree = {
 				activate_decision = EST_stomp_the_vaps
 			}
 			unlock_decision_category_tooltip = march_through_estonia
+
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				mark_focus_tree_layout_dirty = yes 
+			}
 		}
 	}
 
@@ -1224,13 +1275,12 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_march_on_talinn"
 			remove_decision = EST_stomp_the_vaps
 			hidden_effect = {
 				clr_country_flag = marching_in_state_flag
 			}
 			random_list = {
-				10 = {
+				508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 					modifier = {
 						factor = party_popularity@neutrality
 						always = yes
@@ -1245,7 +1295,7 @@ focus_tree = {
 						country_event = EST_events.7
 					}
 				}
-				10 = {
+				508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 					modifier = {
 						factor = party_popularity@fascism
 						always = yes
@@ -1294,7 +1344,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_glory_of_war"
 			add_ideas = EST_veteran_training
 		}
 	}
@@ -1327,7 +1376,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_mobilize_the_vets"
 			swap_ideas = {
 				add_idea = EST_veteran_training_1
 				remove_idea = EST_veteran_training
@@ -1363,7 +1411,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_vapsid_youth"
 			add_ideas = EST_vapsid_youth_idea
 		}
 	}
@@ -1396,13 +1443,11 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_veterans_government"
 			add_political_power = 150
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = EST_johan_pitka
-			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = EST_hjalmar_mae
-			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = EST_viktor_puskar
 		}
 	}
@@ -1436,7 +1481,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_anti_communist_militia"
 			division_template = { 
 				name = "Anti-Soviet Division"
 				division_names_group = EST_INF_01
@@ -1524,7 +1568,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_reach_out_to_germany"
 			if = {
 				limit = {
 					GER = {
@@ -1572,7 +1615,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_baltic_shield"
 			every_owned_state = {
 				limit = {
 					any_neighbor_state = { owner = { has_government = communism } }
@@ -1598,7 +1640,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = EST_reach_out_to_germany
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -1612,7 +1654,7 @@ focus_tree = {
 			NOT = {
 				any_other_country = {
 					is_in_faction_with = GER
-					has_war_with = HUN	
+					has_war_with = ROOT	
 				}
 			}
 			GER = {
@@ -1633,7 +1675,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_join_the_axis"
 			if = {
 				limit = {
 					GER = {
@@ -1700,7 +1741,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_the_brotherhood"
 			if = {
 				limit = {
 					LIT = { has_government = fascism }
@@ -1785,8 +1825,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_empower_finnish_militants"
 			FIN = {
+				country_event = { id = EST_events.11 hours = 1 }
 				add_timed_idea = {
 					idea = EST_vaps_organizing_in_FIN
 					days = 360
@@ -1829,7 +1869,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_national_pride_in_finland"
 			unlock_decision_category_tooltip = EST_convert_FIN_cat
 		}
 	}
@@ -1850,9 +1889,15 @@ focus_tree = {
 		}
 
 		available = {
+			is_subject = no
 			FIN = {
 				exists = yes
 				has_government = fascism
+				OR = {
+					is_subject_of = ROOT
+					is_subject = no
+				}
+				is_in_faction = no
 			}
 		}
 
@@ -1865,7 +1910,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_finno_estonian_supremacy_league"
 			if = {
 				limit = {
 					is_in_faction = no
@@ -1873,10 +1917,29 @@ focus_tree = {
 				set_rule = {
 					can_create_factions = yes
 				}
-				create_faction = FINNO_ESTONIAN_SUPREMACY_LEAGUE
+				if = {
+					limit = {
+						NOT = {
+							FIN = { has_idea = FIN_the_lone_wolf }
+						}
+					}
+					create_faction_from_template = {
+						template = faction_template_european_dominance
+						name = FINNO_ESTONIAN_SUPREMACY_LEAGUE
+						icon = GFX_faction_logo_generic_8
+					}
+				}
 			}
 			effect_tooltip = {
-				FIN = { custom_effect_tooltip = invite_to_faction_tt }
+				if = {
+					limit = {
+						FIN = { has_idea = FIN_the_lone_wolf }
+					}
+					custom_effect_tooltip = FIN_the_lone_wolf_no_faction_tt
+				}
+				else = {
+					FIN = { custom_effect_tooltip = invite_to_faction_tt }
+				}
 			}
 			hidden_effect = {
 				if = {
@@ -1892,7 +1955,12 @@ focus_tree = {
 						country_event = EST_events.6
 					}
 				}
-				else = {
+				else_if = {
+					limit = {
+						NOT = {
+							FIN = { has_idea = FIN_the_lone_wolf }
+						}
+					}
 					FIN = { country_event = generic.5 }
 				}
 			}
@@ -1917,7 +1985,16 @@ focus_tree = {
 		available = {
 			FIN = {
 				has_government = fascism
+				has_civil_war = no
 				exists = yes
+				OR = {
+					is_subject_of = ROOT
+					is_subject = no
+				}
+				OR = {
+					is_in_faction_with = ROOT
+					is_in_faction = no
+				}
 			}
 		}
 
@@ -1930,8 +2007,13 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_unite_our_nations"
-			FIN = { country_event = EST_events.2}	
+			FIN = { 
+				country_event = {
+					id = EST_events.2
+					days = 1
+					random_days = 3
+				}
+			}	
 			effect_tooltip = {
 				custom_effect_tooltip = if_they_accept_tt
 				annex_country = {
@@ -1981,7 +2063,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_sieze_swedish_assets"
 			create_wargoal = {
 				type = annex_everything
 				target = SWE
@@ -2024,7 +2105,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_secure_the_straits"
 			create_wargoal = {
 				type = annex_everything
 				target = DEN
@@ -2067,7 +2147,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_occupy_norway"
 			create_wargoal = {
 				type = annex_everything
 				target = NOR
@@ -2093,18 +2172,35 @@ focus_tree = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = control_all_nordic_states_tt
-				all_state = {
-					OR = {
-						controls_or_subject_of = yes
-						controller = {
-							original_tag = FIN
-							is_in_faction_with = ROOT
+				NOR = {
+					all_core_state = {
+						OR = {
+							controls_or_subject_of = yes
+							controller = {
+								original_tag = FIN
+								is_in_faction_with = ROOT
+							}
 						}
-						NOT = {
-							OR = {
-								is_core_of = NOR
-								is_core_of = DEN
-								is_core_of = SWE
+					}
+				}
+				DEN = {
+					all_core_state = {
+						OR = {
+							controls_or_subject_of = yes
+							controller = {
+								original_tag = FIN
+								is_in_faction_with = ROOT
+							}
+						}
+					}
+				}
+				SWE = {
+					all_core_state = {
+						OR = {
+							controls_or_subject_of = yes
+							controller = {
+								original_tag = FIN
+								is_in_faction_with = ROOT
 							}
 						}
 					}
@@ -2122,7 +2218,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_form_scandinavia"
 			set_cosmetic_tag = NDC_UNIFIED
 			unlock_decision_tooltip = form_nordic_league
 			if = {
@@ -2199,9 +2294,8 @@ focus_tree = {
 		available = {
 			has_government = fascism
 			is_subject = no
-			any_state = {
-				is_core_of = FIN
-				is_owned_by = ROOT 
+			any_owned_state = {
+				is_core_of = FIN 
 			}
 		}
 
@@ -2214,7 +2308,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_proclaim_finno_ugra"
 			set_cosmetic_tag = EST_FIN
 			every_state = {
 				limit = {
@@ -2255,15 +2348,14 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_unite_the_sami"
 			create_wargoal = {
 				type = take_state_focus
-				generator = { 53 71 2703 25 2702 } # MEPORT: was stale vanilla {143 144} (Midt-/Nord-Noreg) -> ME successors
+				generator = { 143 144 923 924 925 }
 				target = NOR
 			}
 			create_wargoal = {
 				type = take_state_focus
-				generator = { 2711 2704 2710 2705 23 2706 66 84 88 45 2707 } # MEPORT: was stale vanilla {666 38} (Norrnorrland/Sweden) -> ME successors
+				generator = { 666 917 918 }
 				target = SWE
 			}
 		}
@@ -2388,6 +2480,18 @@ focus_tree = {
 			factor = 1
 		}
 
+		offset = {
+			x = -10
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = EST_era_of_silence
+			}
+		}
+
 		available = {
 			OR = {
 				NOT = {
@@ -2409,7 +2513,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_threat_on_our_border"
 			country_event = { id = LAT_events.1 } #select who is the greatest threat and gain forts on their border
 		}
 	}
@@ -2430,7 +2533,7 @@ focus_tree = {
 		}
 
 		available = {
-			owns_state = 133
+			owns_state = 155   # 1.19-migration: was vanilla 13 (Pärnu)
 		}
 
 		bypass = {
@@ -2519,14 +2622,7 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_fortify_the_border"
-			every_state = {
-				limit = {
-					has_state_flag = EST_INITIAL_STATE
-					any_neighbor_state = {
-						is_controlled_by = SOV 
-					}
-				}
+			152 = {   # 1.19-migration: was vanilla 191 (Tartu); mod Tarto
 				add_building_construction = {
 					type = bunker
 					level = 2
@@ -2567,7 +2663,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_fight_against_communism"
 			if = {
 				limit = { has_country_flag = germans_true_enemy_flag }
 				add_ideas = anti_german_army_idea
@@ -2616,7 +2711,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_long_push_east"
 			add_ideas = EST_motors_idea
 		}
 	}
@@ -2634,6 +2728,30 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 1
+		}
+
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = EST_era_of_silence
+			}
+		}
+
+		offset = {
+			x = -19
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = EST_rally_the_nation
+			}
 		}
 
 		available = {
@@ -2661,7 +2779,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_prepare_for_the_inevitable"
 			add_offsite_building = { type = arms_factory level = 2 }
 			add_offsite_building = { type = industrial_complex level = 2 }
 		}
@@ -2694,7 +2811,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_forest_brothers"
 			add_ideas = BALTIC_forest_brothers_idea
 		}
 	}
@@ -2738,7 +2854,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_prepare_underground_resistance"
 			add_ideas = { POL_influx_of_exiles }
 			add_offsite_building = { type = arms_factory level = 4 }
 		}
@@ -2781,7 +2896,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_prepare_covert_resistance"
 			if = {
 				limit = {
 					has_DLC = "La Resistance"
@@ -2829,12 +2943,11 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_baltic_economic_union"
 			add_offsite_building = { type = industrial_complex level = 1 }
 			add_ideas = { BALTIC_economic_union_1 }
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					is_in_faction_with = ROOT
 				}
 				hidden_effect = { country_event = BALTIC_entente_events.1 }
@@ -2868,12 +2981,11 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_baltic_defence_army"
 			add_offsite_building = { type = arms_factory level = 1 }
 			add_ideas = { LIT_baltic_defence_army }
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					is_in_faction_with = ROOT
 				}
 				hidden_effect = { country_event = BALTIC_entente_events.2 }
@@ -2907,14 +3019,13 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_pan_baltic_bank"
 			swap_ideas = {
 				add_idea = BALTIC_economic_union_2
 				remove_idea = BALTIC_economic_union_1
 			}
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					is_in_faction_with = ROOT
 				}
 				hidden_effect = { country_event = BALTIC_entente_events.3 }
@@ -2952,7 +3063,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_propose_baltic_union"
 			remove_ideas = { 
 				LIT_baltic_defence_army
 				BALTIC_economic_union_2
@@ -2960,7 +3070,7 @@ focus_tree = {
 			add_ideas = { BALTIC_union_idea }
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					is_in_faction_with = ROOT
 				}
 				hidden_effect = { country_event = BALTIC_entente_events.4 }
@@ -2999,7 +3109,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_baltic_stronger_together"
 			swap_ideas = {
 				add_idea = BALTIC_union_idea_1
 				remove_idea = BALTIC_union_idea
@@ -3046,7 +3155,7 @@ focus_tree = {
 			}
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					is_in_faction_with = ROOT
 				}
 				swap_ideas = {
@@ -3100,7 +3209,7 @@ focus_tree = {
 			}
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					NOT = {
 						is_in_faction_with = ROOT
 					}
@@ -3142,10 +3251,9 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus EST_baltic_unification"
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					is_in_faction_with = ROOT
 				}
 				country_event = {
@@ -3157,14 +3265,14 @@ focus_tree = {
 				if = {
 					limit = {
 						any_other_country = {
-							is_baltic_state = yes
+							is_baltic_country = yes
 							is_in_faction_with = ROOT
 						}
 					}
 					custom_effect_tooltip = if_they_accept_tt
 					every_other_country = {
 						limit = {
-							is_baltic_state = yes
+							is_baltic_country = yes
 							is_in_faction_with = ROOT
 						}
 					}
@@ -3173,7 +3281,7 @@ focus_tree = {
 			}
 			every_other_country = {
 				limit = {
-					is_baltic_state = yes
+					is_baltic_country = yes
 					NOT = {
 						is_in_faction_with = ROOT
 					}

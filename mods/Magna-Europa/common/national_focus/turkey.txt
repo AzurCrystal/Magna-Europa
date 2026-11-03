@@ -36,16 +36,13 @@ focus_tree = {
 		}
 
 		bypass = {
-			932 = { is_demilitarized_zone = no } 
-			945 = { is_demilitarized_zone = no } 
-			1934 = { is_demilitarized_zone = no }
-			2768 = { is_demilitarized_zone = no }
-			991 = { is_demilitarized_zone = no }
+			928 = { is_demilitarized_zone = no }   # 1.19-migration: was vanilla 341 (Edirne); mod Edirne
+			932 = { is_demilitarized_zone = no }   # 1.19-migration: was vanilla 797 (Istanbul); mod Batı İstanbul
+			1932 = { is_demilitarized_zone = no }   # 1.19-migration: was vanilla 340 (Bursa); mod Bursa
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_montreux_convention"
 			ENG = { country_event = { id = bftb_turkey.1 } }
 			custom_effect_tooltip = TUR_the_montreux_convention_tt
 		}
@@ -58,7 +55,6 @@ focus_tree = {
 		prerequisite = { focus = TUR_the_montreux_convention }
 		available = {
 			TUR = { has_government = neutrality }
-			
 		}
 		x = 3
 		y = 1
@@ -69,8 +65,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_continue_the_policy_of_etatism"
 			add_ideas = TUR_etatism
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = TUR_ismet_inonu
 			custom_effect_tooltip = TUR_sanayiciler_etatism_tt
 			hidden_effect = {
@@ -97,11 +93,253 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_fully_integrate_the_is_bank"
 			add_political_power = 120
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = TUR_celal_bayar
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = free_trade
 			custom_effect_tooltip = TUR_sanayiciler_liberals_tt
+		}
+	}
+
+	focus = {
+		id = TUR_continue_the_sumerbank_industrialization_scheme
+		icon = GFX_focus_CHL_enlarge_the_textile_industries
+		#mutually_exclusive = { focus = TUR_fully_integrate_the_is_bank }
+		prerequisite = { focus = TUR_continue_the_policy_of_etatism focus = TUR_fully_integrate_the_is_bank }
+		available = {
+			
+		}
+		x = -1
+		y = 1
+		relative_position_id = TUR_continue_the_policy_of_etatism
+
+		cost = 10
+
+		ai_will_do = {
+			base = 10
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TUR_KEMALISM }
+
+		completion_reward = {
+			
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = sumerbank
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
+				limit = {
+					has_idea = TUR_first_five_year_plan
+				}
+				custom_effect_tooltip = TUR_continue_the_sumerbank_industrialization_scheme_tt
+				IF = {
+					limit = {
+						909 = {   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+							is_controlled_by = ROOT
+							free_building_slots = {
+								building = industrial_complex
+								size > 0
+								include_locked = yes
+							}	
+						}
+					}
+					909 = {   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}	
+					}
+				}
+				IF = {
+					limit = {
+						1032 = {   # 1.19-migration: was vanilla 339 (Izmir); mod İzmir
+							is_controlled_by = ROOT
+							free_building_slots = {
+								building = industrial_complex
+								size > 0
+								include_locked = yes
+							}	
+						}
+					}
+					1032 = {   # 1.19-migration: was vanilla 339 (Izmir); mod İzmir
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}	
+					}
+				}
+				IF = {
+					limit = {
+						1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+							is_controlled_by = ROOT
+						}
+					}
+					1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+						add_resource = {
+							type = steel
+							amount = 6
+						}		
+					}
+				}
+				IF = {
+					limit = {
+						1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+							is_controlled_by = ROOT
+						}
+					}
+					1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+						add_resource = {
+							type = steel
+							amount = 4
+						}		
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				custom_effect_tooltip = TUR_continue_the_sumerbank_industrialization_scheme_2_tt
+				effect_tooltip = {
+					IF = {
+						limit = {
+							909 = {   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+								is_controlled_by = ROOT
+								free_building_slots = {
+									building = industrial_complex
+									size > 0
+									include_locked = yes
+								}	
+							}
+						}
+						909 = {   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+							add_extra_state_shared_building_slots = 1
+							add_building_construction = {
+								type = industrial_complex
+								level = 1
+								instant_build = yes
+							}	
+						}
+					}
+					IF = {
+						limit = {
+							1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+								is_controlled_by = ROOT
+							}
+						}
+						1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+							add_resource = {
+								type = steel
+								amount = 4
+							}		
+						}
+					}
+					IF = {
+						limit = {
+							1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+								is_controlled_by = ROOT
+							}
+						}
+						1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+							add_resource = {
+								type = steel
+								amount = 2
+							}		
+						}
+					}
+				}
+			}
+			ELSE_IF = {
+				limit = {
+					NOT = {
+						has_idea = TUR_first_five_year_plan
+					}
+				}
+				IF = {
+					limit = {
+						909 = {   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+							is_controlled_by = ROOT
+							free_building_slots = {
+								building = industrial_complex
+								size > 0
+								include_locked = yes
+							}	
+						}
+					}
+					909 = {   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}	
+					}
+				}
+				IF = {
+					limit = {
+						1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+							is_controlled_by = ROOT
+						}
+					}
+					1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+						add_resource = {
+							type = steel
+							amount = 4
+						}		
+					}
+				}
+				IF = {
+					limit = {
+						1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+							is_controlled_by = ROOT
+						}
+					}
+					1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+						add_resource = {
+							type = steel
+							amount = 2
+						}		
+					}
+				}
+			}
+
+		}
+	}
+
+	focus = {
+		id = TUR_millet_mektebi_focus 
+		icon = GFX_focus_AFG_education_reform
+		#mutually_exclusive = { focus = TUR_fully_integrate_the_is_bank }
+		prerequisite = { focus = TUR_continue_the_policy_of_etatism focus = TUR_fully_integrate_the_is_bank }
+		available = {
+			
+		}
+		x = -5
+		y = 1
+		relative_position_id = TUR_continue_the_policy_of_etatism
+
+		cost = 10
+
+		ai_will_do = {
+			base = 10
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_TUR_KEMALISM }
+
+		completion_reward = {
+
+			add_political_power = 50
+			
+			IF = {
+				limit = {
+					has_idea = TUR_widespread_illiteracy_idea
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				remove_ideas = TUR_widespread_illiteracy_idea
+			}
+
 		}
 	}
 
@@ -112,13 +350,12 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = TUR_the_montreux_convention
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			base = 10
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_ratify_the_six_arrows"
 			unlock_decision_category_tooltip = TUR_the_constitutional_arrows_category
 		}
 	}
@@ -138,7 +375,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_privatize_the_anadolu_agency"
 			add_popularity = { 
 				ideology = democratic
 				popularity = 0.07
@@ -162,7 +398,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_lift_the_ban_on_other_political_parties"
 			add_popularity = { 
 				ideology = democratic
 				popularity = 0.1
@@ -189,7 +424,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_holding_our_first_multi_party_election"
 			country_event = { id = bftb_turkey.21 }
 		}
 	}
@@ -209,7 +443,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_democratic_transition_focus"
 			if = {
 				limit = {
 					has_country_leader = {
@@ -280,7 +513,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_expanding_our_armaments"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -334,7 +566,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM FOCUS_FILTER_TUR_TRADITIONALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_permit_regional_elections"
 			custom_effect_tooltip = TUR_unlock_reconciliation_occupation_law_tt
 			custom_effect_tooltip = TUR_unlock_kurdish_integration_decisions_tt
 			effect_tooltip = { TUR_placate_fundamentalist_state_all_targets_effect = yes }
@@ -406,7 +637,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_privatize_our_infrastructure"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -471,12 +701,10 @@ focus_tree = {
 		cost = 10
 		ai_will_do = {
 			base = 10
-			
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_democratic_capstone_focus"
 			if = {
 				limit = {
 					has_country_leader = {
@@ -511,7 +739,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_sanayiciler"
 			custom_effect_tooltip = TUR_sanayiciler_tt
 			unlock_decision_tooltip = TUR_sponsor_petrol_olfisis_formation
 		}
@@ -533,7 +760,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_cooperate_with_the_debt_council"
 			add_political_power = 120
 			if = {
 				limit = { 
@@ -594,7 +820,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_utilize_foreign_capital"
 			add_research_slot = 1
 			unlock_decision_tooltip = TUR_discuss_investment_possibilities_with_FROM
 			custom_effect_tooltip = TUR_foreign_capital_tt
@@ -605,7 +830,7 @@ focus_tree = {
 		id = TUR_treaty_of_saadabad
 		icon = GFX_focus_TUR_treaty_of_saadabad
 		prerequisite = { focus = TUR_ratify_the_six_arrows }
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = TUR_ratify_the_six_arrows
 		cost = 5
@@ -614,16 +839,31 @@ focus_tree = {
 		}
 
 		bypass = {
-			AND = {
-				PER = { exists = no }
-				IRQ = { exists = no }
+			OR = {
+				AND = {
+					#AFG = { exists = no }   # 1.19-migration: dead tag AFG
+					PER = { exists = no }
+					IRQ = { exists = no }
+				}
+				is_subject = yes
 			}
-			is_subject = yes
+		}
+
+		allow_branch = {
+			NOT = { has_dlc = "Graveyard of Empires" }
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_treaty_of_saadabad"
+			if = {
+				limit = {
+					#AFG = {   # 1.19-migration: dead tag AFG
+						exists = yes
+						is_subject = no 
+					}
+				}
+				#AFG = { country_event = { id = bftb_turkey.23 } }   # 1.19-migration: dead tag AFG
+			}
 			if = {
 				limit = {
 					EGY = { 
@@ -667,7 +907,7 @@ focus_tree = {
 	focus = {
 		id = TUR_assess_our_future
 		icon = GFX_focus_eng_concessions_to_the_trade_unions
-		prerequisite = { focus = TUR_treaty_of_saadabad }
+		prerequisite = { focus = TUR_ratify_the_six_arrows }
 		available = {
 			OR = {
 				has_completed_focus = TUR_democratic_transition_focus
@@ -683,8 +923,8 @@ focus_tree = {
 			}
 		}
 		x = 0
-		y = 2
-		relative_position_id = TUR_treaty_of_saadabad
+		y = 3
+		relative_position_id = TUR_ratify_the_six_arrows
 		cost = 5
 		ai_will_do = {
 			base = 10
@@ -692,7 +932,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_assess_our_future"
 			if = {
 				limit = {
 					has_completed_focus = TUR_revive_turkish_revolutionism
@@ -759,17 +998,25 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_hatay_issue"
 			if = {
 				limit = {
-					FRA = { owns_state = 1123 }
+					FRA = { owns_state = 1123 }   # 1.19-migration: was vanilla 799 (Hatay)
+				}
+				FRA = { country_event = { id = bftb_turkey.25 hours = 6 } }
+			}
+			else_if = {
+				limit = {
+					SYR = { 
+						owns_state = 1123   # 1.19-migration: was vanilla 799 (Hatay)
+						is_subject_of = FRA
+					}
 				}
 				FRA = { country_event = { id = bftb_turkey.25 hours = 6 } }
 			}
 			else = {
 				random_neighbor_country = { 
 					limit = {
-						owns_state = 1123
+						owns_state = 1123   # 1.19-migration: was vanilla 799 (Hatay)
 					}
 					country_event = { id = bftb_turkey.60 hours = 6 } 
 				}
@@ -796,7 +1043,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_peace_in_the_world"
 			add_ideas = kemalist_neutrality_idea
 			add_stability = 0.05
 		}
@@ -829,7 +1075,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_TUR_TRADITIONALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_peace_at_home"
 			add_stability = 0.1
 			unlock_decision_tooltip = TUR_counter_influence_of_fundamentalists_in_state
 			unlock_decision_tooltip = TUR_offer_conscription_exceptions_to_kurdish_groups
@@ -866,7 +1111,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_revive_turkish_revolutionism"
 			add_war_support = 0.05
 			add_stability = -0.05
 			unlock_decision_tooltip = TUR_revolutionism_decision
@@ -887,8 +1131,12 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_TUR_KEMALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_turkish_state_railways"
+
+			custom_effect_tooltip = available_industrial_concern
 			show_ideas_tooltip = tcdd
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			every_owned_state = {
 				limit = { 
 					has_dynamic_modifier = { modifier = kemalist_loyalties }
@@ -935,7 +1183,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_TUR_KURDISTAN FOCUS_FILTER_TUR_TRADITIONALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reinvigorate_turkish_nationalism"
 			if = {
 				limit = {
 					has_idea = TUR_ismet_inonu
@@ -1021,9 +1268,21 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+
+		}
+
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_second_five_year_plan"
+
+			IF = {
+				limit = {
+					has_idea = TUR_first_five_year_plan
+				}
+				remove_ideas = TUR_first_five_year_plan
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+
 			if = {
 				limit = {
 					NOT = {
@@ -1125,7 +1384,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_guardians_of_kemalism"
 			add_war_support = 0.05
 			unlock_decision_tooltip = TUR_entrench_kemalism_in_state
 			custom_effect_tooltip = TUR_kemalist_state_targets_tt
@@ -1176,7 +1434,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_sun_language_theory"
 			add_war_support = 0.05
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = TUR_halide_edib_adivar
@@ -1197,7 +1454,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_TRADITIONALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_variant_turkish_tax_focus"
 			if = {
 				limit = { 
 					NOT = { 
@@ -1244,7 +1500,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_turk_ulusu"
 			add_war_support = 0.1
 			every_owned_state = {
 				limit = {
@@ -1274,7 +1529,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_TRADITIONALISM FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_loosen_the_laws_on_secularism"
 			add_stability = -0.05
 			set_temp_variable = { placate_state_1 = -1 }
 			set_temp_variable = { placate_state_2 = -1 }
@@ -1352,7 +1606,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_TRADITIONALISM FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_purify_the_diyanet"
 			effect_tooltip = { TUR_placate_fundamentalist_state_all_targets_effect = yes }
 			custom_effect_tooltip = TUR_kemalist_officers_made_hostile_tt
 			hidden_effect = { 
@@ -1404,7 +1657,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_rehabilitate_the_kadro_movement"
 			set_party_name = { 
 				ideology = communism
 				long_name = TUR_neutrality_party_long
@@ -1442,7 +1694,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_kemalism_and_the_modern_movement"
 			add_war_support = 0.05
 			add_popularity = { 
 				ideology = fascism
@@ -1482,7 +1733,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_integrate_the_fascist_council"
 			
 			set_party_name = { 
 				ideology = fascism
@@ -1531,7 +1781,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_restack_the_officer_corps"
 			custom_effect_tooltip = TUR_restack_the_officer_corps_tt
 			hidden_effect = { 
 				if = {
@@ -1552,11 +1801,8 @@ focus_tree = {
 						ruling_party = neutrality
 						ideology = democratic
 						size = 0.45
-						capital = 932
-						states = all
-						states_filter = {
-							region = 60
-						}
+						capital = 797
+						states = { 797 341 354 339 340 }
 					}
 				}
 				if = { 
@@ -1569,11 +1815,8 @@ focus_tree = {
 						ruling_party = fascism
 						ideology = neutrality
 						size = 0.5
-						capital = 932
-						states = all
-						states_filter = {
-							region = 60
-						}
+						capital = 797
+						states = { 797 341 354 339 340 }
 					}
 				}
 			}
@@ -1594,7 +1837,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_form_the_redshirts"
 			add_ideas = TUR_the_redshirts
 		}
 	}
@@ -1616,7 +1858,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_TRADITIONALISM FOCUS_FILTER_TUR_KEMALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_fatherland_first"
 			hidden_effect = {
 				if = {
 					limit = {	
@@ -1816,7 +2057,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_deal_for_the_oniki_islands"
 			country_event = { id = bftb_turkey.30 }
 		}
 	}
@@ -1836,7 +2076,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_kemalist_socialist_theory"
 			add_popularity = { 
 				ideology = communism
 				popularity = 0.05
@@ -1859,7 +2098,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_intervene_in_the_spanish_civil_war"
 			set_rule = { can_send_volunteers = yes }
 			add_ideas = TUR_turkish_interventionism
 		}
@@ -1879,7 +2117,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM FOCUS_FILTER_TUR_KURDISTAN }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_a_common_destiny_for_all_of_turkey"
 			custom_effect_tooltip = TUR_unlock_kurdish_integration_decisions_tt
 			custom_effect_tooltip = TUR_unlock_reconciliation_occupation_law_tt
 		}
@@ -1899,7 +2136,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_TRADITIONALISM FOCUS_FILTER_TUR_KEMALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_hunt_down_fifth_columnist_islamists"
 			unlock_decision_tooltip = TUR_entrench_kemalism_in_state
 			unlock_decision_tooltip = TUR_hold_a_march_in_state
 		}
@@ -1919,7 +2155,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_patriotism_over_internationalism"
 			add_war_support = 0.05
 			add_political_power = 120
 		}
@@ -1939,7 +2174,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_create_the_turkish_workers_militia"
 			add_ideas = TUR_turkish_workers_militia
 		}
 	}
@@ -1949,6 +2183,7 @@ focus_tree = {
 		icon = GFX_goal_support_communism
 		prerequisite = { focus = TUR_create_the_turkish_workers_militia }
 		available = {
+			is_subject = no
 			communism > 0.3
 		}
 
@@ -1965,7 +2200,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KURDISTAN FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_halk_ve_devlet"
 			add_stability = 0.1
 			set_politics = {
 				ruling_party = communism
@@ -2009,7 +2243,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_nationalise_all_private_industry"
 			random_owned_controlled_state = {
 				limit = {
 					is_core_of = TUR
@@ -2096,7 +2329,12 @@ focus_tree = {
 
 	focus = {
 		id = TUR_georgian_manganese_extraction
-		icon = GFX_focus_chi_mission_to_the_soviet_union
+		icon = {
+			GFX_focus_generic_steel = {
+				SOV = { NOT = { controls_state = 2272 } } #APPROPRIATE CONDITIONS FOR GENERIC ICON   # 1.19-migration: was vanilla 231 (Georgia)
+			}
+			GFX_focus_chi_mission_to_the_soviet_union = yes
+		}
 		prerequisite = { focus = TUR_halk_ve_devlet }
 		x = -2
 		y = 1
@@ -2108,16 +2346,15 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_georgian_manganese_extraction"
-			if = {
-				limit = {
-					GEO = { exists = yes }
+			every_country = {
+				limit = {	
+					controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+					owns_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
 				}
-				GEO = { country_event = { id = bftb_turkey.38 } }
+				country_event = { id = bftb_turkey.38 }
 			}
-			else = { 
-				SOV = { country_event = { id = bftb_turkey.38 } }
-			}
+				
+			
 		}
 	}
 
@@ -2136,7 +2373,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_salt_the_scars_of_the_great_war"
 			add_war_support = 0.1
 			if = {
 				limit = {
@@ -2224,7 +2460,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_pivot_to_the_past"
 			add_war_support = 0.15
 			add_stability = 0.05
 			add_popularity = {
@@ -2265,7 +2500,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KEMALISM FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_purge_the_kemalists"
 			add_stability = 0.05
 			custom_effect_tooltip = TUR_kemalists_purged_tt
 			hidden_effect = {
@@ -2299,7 +2533,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_restore_the_divan"
 			add_stability = 0.05
 			add_political_power = 120
 			if = {
@@ -2443,7 +2676,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_rebuilding_our_nation"
 			add_timed_idea = {
 				idea = TUR_rebuilding_our_home
 				days = 180
@@ -2466,8 +2698,38 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_return_of_the_sultan"
 			news_event = { id = bftb_news.205 }
+			effect_tooltip = {
+				add_stability = 0.15
+				add_war_support = 0.15
+				set_country_flag = TUR_ott_sultanate_flag
+				TUR_set_appropriate_cosmetic_tag = yes
+				set_capital = { state = 932 }   # 1.19-migration: was vanilla 797 (Istanbul)
+				add_country_leader_role = {
+					character = TUR_abdulmejid_ii
+					country_leader = {
+						expire = "1965.1.1"
+						ideology = despotism
+						traits = {
+							gentle_scholar
+						}
+					}
+					promote_leader = yes
+				}
+				
+				set_party_name = { 
+					ideology = neutrality
+					long_name = TUR_sultanate_party_long
+					name = TUR_sultanate_party_long
+				}
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.25
+				}
+				set_province_name = { id = 9833 name = "Konstantiniyye" }
+				932 = { set_state_name = "Konstantiniyye" }   # 1.19-migration: was vanilla 797 (Istanbul); mod Batı İstanbul
+				
+			}
 		}
 	}
 
@@ -2495,38 +2757,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reclaim_macedonia"
-			every_state = {
-				limit = {
-					OR = {
-						state = 2006
-						state = 1969
-						state = 2005
-						state = 910
-						state = 937
-						state = 2564
-						state = 2949
-						state = 2756
-						state = 2751
-						state = 2840
-						state = 2016
-						state = 1548
-						state = 929
-						state = 1549
-						state = 1547
-						state = 2000
-						state = 1557
-						state = 941
-						state = 1546
-						state = 2940
-						state = 2748
-						state = 1545
-						state = 2020
-						state = 2923
-					}
-				}
-				add_claim_by = TUR
-			}
+			add_state_claim = 910   # 1.19-migration: was vanilla 184 (Thrace)
+			add_state_claim = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
 			create_wargoal = {
 				type = take_state_focus
 				target = GRE
@@ -2538,9 +2770,26 @@ focus_tree = {
 		id = TUR_join_the_central_powers
 		icon = GFX_focus_ger_revive_kaiserreich
 		available = {
+			is_subject = no
 			OR = {
-				GER = { has_completed_focus = GER_the_central_powers }
-				HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary }
+				GER = { 
+					AND = {
+						has_completed_focus = GER_the_central_powers 
+						has_government = neutrality
+					}
+				}
+				GER = {
+					AND = {
+						has_government = neutrality
+						has_completed_focus = GER_mitteleuropa
+					}
+				}
+				HUN = { 
+					OR = {
+						has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen
+						has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+					}
+				}
 			}
 		}
 		mutually_exclusive = { focus = TUR_press_the_austro_hungarian_claim }
@@ -2548,7 +2797,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = TUR_reclaim_macedonia
-		cost = 10
+		cost = 5 
 		ai_will_do = {
 			base = 10
 		}
@@ -2559,7 +2808,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_join_the_central_powers"
 			if = {
 				limit = {
 					GER = { 
@@ -2580,16 +2828,29 @@ focus_tree = {
 				}
 				GER = {
 					set_rule = { can_create_factions = yes }
-					create_faction = "GER_central_powers_faction"
+					create_faction_from_template = {
+						template = faction_template_GER_mitteleuropa_alliance
+						name = GER_central_powers_faction
+						icon = GFX_faction_logo_generic_13
+					}
 					country_event = { id = generic.2 }
 				}
 			}
 			else_if = {
 				limit = {
-					HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary }
+					HUN = { 
+						OR = {
+							has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen
+							has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+						}
+					}
 				}
 				set_rule = { can_create_factions = yes }
-				create_faction = "GER_central_powers_faction"
+				create_faction_from_template = {
+					template = faction_template_GER_mitteleuropa_alliance
+					name = GER_central_powers_faction
+					icon = GFX_faction_logo_generic_13
+				}
 				HUN = {
 					if = {
 						limit = { ROOT = { is_in_faction = yes } }
@@ -2608,6 +2869,7 @@ focus_tree = {
 		id = TUR_press_the_austro_hungarian_claim
 		icon = GFX_focus_proclaim_the_restauration_of_Austria_Hungary
 		available = {
+			is_subject = no
 			NOT = {
 				HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary }
 			}
@@ -2617,47 +2879,27 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = TUR_reclaim_macedonia
-		cost = 10
+		cost = 5 
 		ai_will_do = {
 			base = 10
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_press_the_austro_hungarian_claim"
+			add_state_claim = 1530   # 1.19-migration: was vanilla 106 (Macedonia)
+			add_state_claim = 970
+			add_state_claim = 881   # 1.19-migration: was vanilla 105 (Montenegro)
+			add_state_claim = 796   # 1.19-migration: was vanilla 108 (Morava)
+			add_state_claim = 1504   # 1.19-migration: was vanilla 107 (Serbia)
+			add_state_core = 2821   # 1.19-migration: was vanilla 104 (Bosnia)
 			create_wargoal = {
 				type = take_state_focus
 				target = YUG
 			}
-			every_state = {
-				limit = {
-					OR = {
-						AND = {
-							is_core_of = SER
-							NOT = {
-								OR = {
-									is_core_of = VJV
-									is_core_of = KOS
-									is_core_of = SDZ
-								}
-							}
-						}
-						is_core_of = WLC
-						is_core_of = MAC
-					}
-				}
-				add_claim_by = TUR
-			}
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = SDZ
-						is_core_of = KOS
-						is_core_of = BOS
-					}
-				}
-				add_core_of = TUR
-			}
+			add_state_claim = 768   # 1.19-migration: was vanilla 46 (Muntenia)
+			add_state_claim = 971
+			add_state_claim = 1596   # 1.19-migration: was vanilla 79 (Moldova)
+			add_state_claim = 1579   # 1.19-migration: was vanilla 77 (Dobrudja)
 			create_wargoal = {
 				type = take_state_focus
 				target = ROM
@@ -2703,6 +2945,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			BUL = { 
 				OR = {
@@ -2717,7 +2963,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_aligning_bulgaria"
 			BUL = { country_event = { id = bftb_turkey.97 } }
 		}
 	}
@@ -2735,7 +2980,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reclaiming_our_lost_empire"
 			if = {
 				limit = {
 					has_country_leader = {
@@ -2779,77 +3023,137 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
-			custom_trigger_tooltip = { 
-				tooltip = TUR_no_faction_members_tt
-				NOT = {
-					has_global_flag = TUR_saadabad_pact
+		available = {
+			is_subject = no
+			if = {
+				limit = {
+					has_dlc = "Graveyard of Empires"
+				}
+				has_completed_focus = SSB_the_saadabad_pact
+				OR = {
+					is_in_faction = no
+					is_faction_leader = yes
 				}
 			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_expanding_the_saadabad_pact"
 			if = {
 				limit = {
-					is_in_faction = no
+					NOT = { has_dlc = "Graveyard of Empires" }
 				}
-				create_faction = the_saadabad_concordat
-				every_country = {
+				if = {
 					limit = {
-						has_country_flag = TUR_saadabad_pact_member
+						is_in_faction = no
 					}
-					custom_effect_tooltip = invite_to_faction_tt
-					hidden_effect = { country_event = { id = generic.5 } }
-				}
-			}
-			else_if = {
-				limit = {
-					is_in_faction = yes
-					is_faction_leader = yes
-				}
-				every_country = {
-					limit = {
-						has_country_flag = TUR_saadabad_pact_member
+					create_faction_from_template = {
+						template = faction_template_AFG_united_islamic_world_faction
+						name = the_saadabad_concordat
 					}
-					country_event = { id = generic.5 }
-				}
-			}
-			else_if = {
-				limit = {
-					is_in_faction = yes
-					is_faction_leader = no
-				}
-				effect_tooltip = { 
 					every_country = {
 						limit = {
 							has_country_flag = TUR_saadabad_pact_member
 						}
+						custom_effect_tooltip = invite_to_faction_tt
+						hidden_effect = { country_event = { id = generic.5 } }
+					}
+				}
+				else_if = {
+					limit = {
+						is_in_faction = yes
+						is_faction_leader = yes
+					}
+					every_country = {
+						limit = {
+							has_country_flag = TUR_saadabad_pact_member
+						}
+						country_event = { id = generic.5 }
+					}
+				}
+				else_if = {
+					limit = {
+						is_in_faction = yes
+						is_faction_leader = no
+					}
+					effect_tooltip = { 
+						every_country = {
+							limit = {
+								has_country_flag = TUR_saadabad_pact_member
+							}
+							random_country = {
+								limit = {
+									is_in_faction_with = TUR
+									is_faction_leader = yes
+								}
+								PREV = { country_event = { id = generic.5 } }
+							}
+						}
+					}
+					hidden_effect = { 
 						random_country = {
 							limit = {
 								is_in_faction_with = TUR
 								is_faction_leader = yes
 							}
-							PREV = { country_event = { id = generic.5 } }
+							country_event = bftb_turkey.142
 						}
 					}
 				}
-				hidden_effect = { 
-					random_country = {
-						limit = {
-							is_in_faction_with = TUR
-							is_faction_leader = yes
-						}
-						country_event = bftb_turkey.142
+				if = {
+					limit = {
+						NOT = { has_completed_focus = TUR_treaty_of_saadabad }
 					}
+					custom_effect_tooltip = TUR_saadabad_pact_faction_tt
 				}
 			}
-			if = {
-				limit = {
-					NOT = { has_completed_focus = TUR_treaty_of_saadabad }
+			else = {
+				if = {
+					limit = {
+						is_in_faction = no
+					}
+					create_faction_from_template = {
+						template = faction_template_AFG_united_islamic_world_faction
+						name = the_saadabad_concordat
+					}
 				}
-				custom_effect_tooltip = TUR_saadabad_pact_faction_tt
+				custom_effect_tooltip = SSB_faction_invite_tt
+				if = {
+					limit = {
+						IRQ = {
+							has_dynamic_modifier = { modifier = SSB_saadabad_pact }
+							has_government = neutrality
+						}
+					}
+					IRQ = {
+						custom_effect_tooltip = invite_to_faction_tt
+						hidden_effect = { country_event = { id = generic.5 } }
+					}
+				}
+				if = {
+					limit = {
+						#AFG = {   # 1.19-migration: dead tag AFG
+							has_dynamic_modifier = { modifier = SSB_saadabad_pact }
+							has_government = neutrality
+						}
+					}
+					#AFG = {   # 1.19-migration: dead tag AFG
+						custom_effect_tooltip = invite_to_faction_tt
+						hidden_effect = { country_event = { id = generic.5 } }
+					}
+				}
+				if = {
+					limit = {
+						PER = {
+							has_dynamic_modifier = { modifier = SSB_saadabad_pact }
+							has_government = neutrality
+						}
+					}
+					PER = {
+						custom_effect_tooltip = invite_to_faction_tt
+						hidden_effect = { country_event = { id = generic.5 } }
+					}
+				}
 			}
 		}
 	}
@@ -2866,20 +3170,49 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			ROOT = {
-				controls_state = 1930
+				controls_state = 1124   # 1.19-migration: was vanilla 677 (Aleppo)
 			}
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_damascus_diktat"
-			1930 = {
-				controller = {
-					country_event = { id = bftb_turkey.102 }
+
+			IF = {
+				limit = {
+					1124 = {   # 1.19-migration: was vanilla 677 (Aleppo); mod Aleppo
+						controller = {
+							is_subject = no
+						}
+					}
+				}
+				1124 = {   # 1.19-migration: was vanilla 677 (Aleppo); mod Aleppo
+					controller = {
+						country_event = { 
+							id = bftb_turkey.102 
+							hours = 2
+						}
+					}
 				}
 			}
+			ELSE = {
+				every_country = {
+					limit = {
+						has_subject = 677.controller
+					}
+					country_event = { 
+						id = bftb_turkey.102 
+						hours = 2
+					}
+				}
+			}
+			
 		}
 	}
 
@@ -2897,14 +3230,45 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_supporting_the_east"
-			every_state = {
-				limit = {
-					is_core_of = WAM 
-				}
+			958 = {   # 1.19-migration: was vanilla 354 (Trabzon); mod Trabzon
 				add_building_construction = {
 					type = infrastructure
-					level = 1
+					level = 2
+					instant_build = yes
+				}
+			}
+			1039 = {   # 1.19-migration: was vanilla 800 (Van); mod Van
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			1092 = {   # 1.19-migration: was vanilla 352 (Hakkari); mod Hakkâri
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			1012 = {   # 1.19-migration: was vanilla 353 (Tunceli); mod Tunceli
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			1059 = {   # 1.19-migration: was vanilla 350 (Diyarbakır); mod Diyarbakır
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+				add_building_construction = {
+					type = infrastructure
+					level = 2
 					instant_build = yes
 				}
 			}
@@ -2924,9 +3288,37 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_desert_camel_corps"
 			custom_effect_tooltip = TUR_unlock_camelry_effect_tt
-			hidden_effect = { set_technology = { camelry = 1 } } 
+			hidden_effect = { 
+				set_technology = { 
+					camelry = 1 
+					popup = no 
+				} 
+			} 
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			division_template = {
+				name = "Camel Corps" 	
+
+				division_names_group = TUR_CAV_01
+
+				regiments = {
+					camelry = { x = 0 y = 0 } 
+					camelry = { x = 0 y = 1 } 
+					camelry = { x = 0 y = 2 } 
+					camelry = { x = 1 y = 0 } 
+					camelry = { x = 1 y = 1 }
+					camelry = { x = 1 y = 2 }
+				}
+			}
+			random_owned_controlled_state = {
+				create_unit = {
+					division = "division_template = \"Camel Corps\" start_experience_factor = 0.05 start_equipment_factor = 1"
+					owner = TUR 
+					count = 3 
+				}
+			}
 		}
 	}
 
@@ -2943,18 +3335,64 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
-			custom_trigger_tooltip = { 
-				tooltip = TUR_no_faction_alliance_members_tt
-				AND = {
-					PER = {
-						NOT = { is_in_faction_with = TUR }
+		#bypass = {
+		#	custom_trigger_tooltip = { 
+		#		tooltip = TUR_no_faction_alliance_members_tt
+		#		AND = {
+		#			AFG = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#			PER = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#			IRQ = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#			SYR = {
+		#				NOT = { is_in_faction_with = TUR }
+		#			}
+		#		}
+		#	}
+		#}
+
+		available = {
+			is_subject = no
+			if = {
+				limit = {
+					has_dlc = "Graveyard of Empires"
+				}
+				is_faction_leader = yes
+				has_completed_focus = SSB_the_saadabad_pact
+				if = {
+					limit = { tag = PER }
+					OR = {
+						#is_in_faction_with = AFG   # 1.19-migration: dead tag AFG
+						is_in_faction_with = IRQ
+						is_in_faction_with = TUR
 					}
-					IRQ = {
-						NOT = { is_in_faction_with = TUR }
+				}
+				if = {
+					limit = { tag = IRQ }
+					OR = {
+						#is_in_faction_with = AFG   # 1.19-migration: dead tag AFG
+						is_in_faction_with = PER
+						is_in_faction_with = TUR
 					}
-					SYR = {
-						NOT = { is_in_faction_with = TUR }
+				}
+				if = {
+					#limit = { tag = AFG }   # 1.19-migration: dead tag AFG
+					OR = {
+						is_in_faction_with = PER
+						is_in_faction_with = IRQ
+						is_in_faction_with = TUR
+					}
+				}
+				if = {
+					limit = { tag = TUR }
+					OR = {
+						#is_in_faction_with = AFG   # 1.19-migration: dead tag AFG
+						is_in_faction_with = IRQ
+						is_in_faction_with = PER
 					}
 				}
 			}
@@ -2962,87 +3400,125 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_pan_national_association_of_ulemas"
-			if = { 
+			if = {
 				limit = {
-					NOT = { has_completed_focus = TUR_treaty_of_saadabad }
+					NOT = { has_dlc = "Graveyard of Empires" }
 				}
-				effect_tooltip = {
-					puppet = PER
-					puppet = IRQ
-				}
-			}
-			if = { 
-				limit = {
-					has_completed_focus = TUR_treaty_of_saadabad
-					PER = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
-						}
+				if = { 
+					limit = {
+						NOT = { has_completed_focus = TUR_treaty_of_saadabad }
+					}
+					effect_tooltip = {
+						#puppet = AFG   # 1.19-migration: dead tag AFG
+						puppet = PER
+						puppet = IRQ
 					}
 				}
-				effect_tooltip = { TUR = { puppet = PER } }
-			}
-			if = { 
-				limit = {
-					has_completed_focus = TUR_treaty_of_saadabad
-					IRQ = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						#AFG = {   # 1.19-migration: dead tag AFG
+							AND = {
+								NOT = { is_in_faction_with = TUR }
+								has_country_flag = TUR_saadabad_pact_member
+							}
 						}
 					}
+					#effect_tooltip = { TUR = { puppet = AFG } }   # 1.19-migration: dead tag AFG
 				}
-				effect_tooltip = { TUR = { puppet = IRQ } }
-			}
-			if = { 
-				limit = {
-					has_completed_focus = TUR_treaty_of_saadabad
-					SYR = {
-						AND = {
-							NOT = { is_in_faction_with = TUR }
-							has_country_flag = TUR_saadabad_pact_member
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						PER = {
+							AND = {
+								NOT = { is_in_faction_with = TUR }
+								has_country_flag = TUR_saadabad_pact_member
+							}
 						}
 					}
+					effect_tooltip = { TUR = { puppet = PER } }
 				}
-				effect_tooltip = { TUR = { puppet = SYR } }
-			}
-			if = { 
-				limit = {
-					has_completed_focus = TUR_treaty_of_saadabad
-					PER = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						IRQ = {
+							AND = {
+								NOT = { is_in_faction_with = TUR }
+								has_country_flag = TUR_saadabad_pact_member
+							}
 						}
 					}
+					effect_tooltip = { TUR = { puppet = IRQ } }
 				}
-				TUR = { puppet = PER }
-			}
-			if = { 
-				limit = {
-					has_completed_focus = TUR_treaty_of_saadabad
-					IRQ = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						SYR = {
+							AND = {
+								NOT = { is_in_faction_with = TUR }
+								has_country_flag = TUR_saadabad_pact_member
+							}
 						}
 					}
+					effect_tooltip = { TUR = { puppet = SYR } }
 				}
-				TUR = { puppet = IRQ }
-			}
-			if = { 
-				limit = {
-					has_completed_focus = TUR_treaty_of_saadabad
-					SYR = {
-						AND = {
-							is_in_faction_with = TUR
-							has_country_flag = TUR_saadabad_pact_member
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						#AFG = {   # 1.19-migration: dead tag AFG
+							AND = {
+								is_in_faction_with = TUR
+								has_country_flag = TUR_saadabad_pact_member
+							}
 						}
 					}
+					#TUR = { puppet = AFG }   # 1.19-migration: dead tag AFG
 				}
-				TUR = { puppet = SYR }
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						PER = {
+							AND = {
+								is_in_faction_with = TUR
+								has_country_flag = TUR_saadabad_pact_member
+							}
+						}
+					}
+					TUR = { puppet = PER }
+				}
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						IRQ = {
+							AND = {
+								is_in_faction_with = TUR
+								has_country_flag = TUR_saadabad_pact_member
+							}
+						}
+					}
+					TUR = { puppet = IRQ }
+				}
+				if = { 
+					limit = {
+						has_completed_focus = TUR_treaty_of_saadabad
+						SYR = {
+							AND = {
+								is_in_faction_with = TUR
+								has_country_flag = TUR_saadabad_pact_member
+							}
+						}
+					}
+					TUR = { puppet = SYR }
+				}
+			}
+			else = {
+				every_country = {
+					limit = {
+						has_dynamic_modifier = { modifier = SSB_saadabad_pact }
+						NOT = { tag = TUR }
+					}
+					country_event = { id = PER_ssb_events.4 hours = 5 }
+				}
 			}
 		}
 	}
@@ -3050,7 +3526,7 @@ focus_tree = {
 	focus = {
 		id = TUR_reinstate_the_darulfununu_sahane
 		icon = GFX_goal_generic_scientific_exchange
-		prerequisite = { focus = TUR_the_pan_national_association_of_ulemas }
+		prerequisite = { focus = TUR_expanding_the_saadabad_pact focus = TUR_reclaiming_our_lost_empire }
 		x = -1
 		y = 1
 		relative_position_id = TUR_the_pan_national_association_of_ulemas
@@ -3059,13 +3535,8 @@ focus_tree = {
 			base = 10
 		}
 
-		bypass = {
-			is_in_faction = no
-		}
-
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reinstate_the_darulfununu_sahane"
 			add_research_slot = 1
 		}
 	}
@@ -3073,7 +3544,7 @@ focus_tree = {
 	focus = {
 		id = TUR_imperial_factories
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = TUR_the_pan_national_association_of_ulemas }
+		prerequisite = { focus = TUR_expanding_the_saadabad_pact focus = TUR_the_damascus_diktat }
 		x = 1
 		y = 1
 		relative_position_id = TUR_the_pan_national_association_of_ulemas
@@ -3084,7 +3555,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_imperial_factories"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -3122,7 +3592,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_refining_our_strategies"
 			add_doctrine_cost_reduction = {
 				name = TUR_refining_our_strategies
 				cost_reduction = 0.5
@@ -3159,6 +3628,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			ENG = {
 				OR = {
@@ -3188,7 +3661,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_red_apples_of_sevres"
 			add_war_support = 0.15
 			create_wargoal = {
 				type = topple_government
@@ -3212,18 +3684,28 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = TUR_the_red_apples_of_sevres
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			base = 10
 		}
 
-		bypass = {
+		available = {
+			is_subject = no
+		}
 
+		bypass = {
+			#JAP = {   # 1.19-migration: dead tag JAP
+				OR = {
+					is_in_faction_with = TUR
+					is_subject_of = TUR
+					exists = no
+					has_capitulated = yes
+				}
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_realize_the_nightmare_of_meiji"
 			add_tech_bonus = {
 				name = TUR_realize_the_nightmare_of_meiji
 				bonus = 1.0
@@ -3237,6 +3719,10 @@ focus_tree = {
 				bonus = 1.0
 				uses = 1
 				category = tp_tech 
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				#target = JAP   # 1.19-migration: dead tag JAP
 			}
 		}
 	}
@@ -3277,7 +3763,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_continue_to_prioritise_balkan_integrity"
 			add_war_support = 0.1
 			add_stability = 0.05
 			every_country = {
@@ -3362,9 +3847,18 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reaffirm_the_balkan_pact"
-			set_rule = { can_create_factions = yes }
-			create_faction = TUR_balkan_pact
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_TUR_balkan_pact
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction = TUR_balkan_pact
+			}
 			every_country = {
 				limit = {
 					AND = {
@@ -3412,7 +3906,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_balkan_defense_council"
 			add_ideas = TUR_balkan_defense_council_spirit
 			for_each_scope_loop = {
 				array = faction_members
@@ -3462,7 +3955,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_three_year_industrial_plan"
 			add_timed_idea = {
 				idea = TUR_three_year_plan_balkans
 				days = 1095
@@ -3518,7 +4010,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_united_against_imperialism"
 			add_stability = 0.05
 			hidden_effect = {
 				if = {
@@ -3610,7 +4101,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_create_the_balkan_central_bank"
 			if = {
 				limit = {
 					GRE = { 
@@ -3684,7 +4174,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_treaty_for_prosperity_and_trade"
 			if = { 
 				limit = {
 					NOT = { has_idea = free_trade }
@@ -3776,7 +4265,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_joint_budgets_on_fortifications"
 			add_ideas = TUR_joint_fortification_budget
 			for_each_scope_loop = {
 				array = faction_members
@@ -3827,41 +4315,40 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_connecting_our_capitals"
 			#Turkey
 			if = {
 				limit = {
 					TUR = {
 						AND = {
-							controls_state = 979
-							controls_state = 1939
-							controls_state = 932
-							controls_state = 928
+							controls_state = 979   # 1.19-migration: was vanilla 49 (Ankara)
+							controls_state = 952   # 1.19-migration: was vanilla 347 (Izmit)
+							controls_state = 932   # 1.19-migration: was vanilla 797 (Istanbul)
+							controls_state = 928   # 1.19-migration: was vanilla 341 (Edirne)
 						}
 					}
 				}
-				979 = {
+				979 = {   # 1.19-migration: was vanilla 49 (Ankara); mod Ankara
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}	
 				}
-				1939 = {
+				952 = {   # 1.19-migration: was vanilla 347 (Izmit); mod Zonguldak
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
 				}
-				932 = {
+				932 = {   # 1.19-migration: was vanilla 797 (Istanbul); mod Batı İstanbul
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
 				}
-				928 = {
+				928 = {   # 1.19-migration: was vanilla 341 (Edirne); mod Edirne
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -3875,27 +4362,27 @@ focus_tree = {
 					GRE = {
 						is_in_faction_with = TUR
 						AND = {
-							controls_state = 2003
-							controls_state = 941
-							controls_state = 910
+							controls_state = 1073   # 1.19-migration: was vanilla 47 (Attica)
+							controls_state = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
+							controls_state = 910   # 1.19-migration: was vanilla 184 (Thrace)
 						}
 					}
 				}
-				2003 = {
+				1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}	
 				}
-				941 = {
+				941 = {   # 1.19-migration: was vanilla 731 (Central Macedonia); mod Thessaloniki
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
 				}
-				910 = {
+				910 = {   # 1.19-migration: was vanilla 184 (Thrace); mod Alexandroupoli
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -3909,27 +4396,35 @@ focus_tree = {
 					YUG = {
 						is_in_faction_with = TUR
 						AND = {
-							controls_state = 790
-							controls_state = 858
-							controls_state = 1529
+							controls_state = 1530   # 1.19-migration: was vanilla 106 (Macedonia)
+							controls_state = 970
+							controls_state = 796   # 1.19-migration: was vanilla 108 (Morava)
+							controls_state = 1504   # 1.19-migration: was vanilla 107 (Serbia)
 						}
 					}
 				}
-				790 = {
+				1530 = {   # 1.19-migration: was vanilla 106 (Macedonia); mod Bitola
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}	
 				}
-				858 = {
+				796 = {   # 1.19-migration: was vanilla 108 (Morava); mod Niš
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
 				}
-				1529 = {
+				1504 = {   # 1.19-migration: was vanilla 107 (Serbia); mod Kraljevo
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+				970 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -3943,35 +4438,35 @@ focus_tree = {
 					ROM = {
 						is_in_faction_with = TUR
 						AND = {
-							controls_state = 801
-							controls_state = 793
-							controls_state = 932 # was vanilla 797 (Istanbul→Bati Istanbul)
-							controls_state = 945 # was vanilla 797 (Istanbul→Dogu Istanbul)
+							controls_state = 2668   # 1.19-migration: was vanilla 82 (Banat)
+							controls_state = 800   # 1.19-migration: was vanilla 81 (Oltenia)
+							controls_state = 768   # 1.19-migration: was vanilla 46 (Muntenia)
+							controls_state = 971
 						}
 					}
 				}
-				801 = {
+				2668 = {   # 1.19-migration: was vanilla 82 (Banat); mod Timișoara
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}	
 				}
-				793 = {
+				800 = {   # 1.19-migration: was vanilla 81 (Oltenia); mod Vâlcea
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
 				}
-				932 = { # was vanilla 797 (Istanbul)
+				768 = {   # 1.19-migration: was vanilla 46 (Muntenia); mod Buzău
 					add_building_construction = {
 						type = infrastructure
 						level = 1
 						instant_build = yes
 					}
 				}
-				945 = { # was vanilla 797 (Istanbul)
+				971 = {
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -3989,29 +4484,29 @@ focus_tree = {
 							has_completed_focus = GRE_clear_the_slums
 						}
 						AND = {
-							controls_state = 2003
-							controls_state = 941
-							controls_state = 910
+							controls_state = 1073   # 1.19-migration: was vanilla 47 (Attica)
+							controls_state = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
+							controls_state = 910   # 1.19-migration: was vanilla 184 (Thrace)
 						}
 					}
 				}
 				custom_effect_tooltip = TUR_connect_capitals_greece_tt
 				hidden_effect = {
-					2003 = {
+					1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}	
 					}
-					941 = {
+					941 = {   # 1.19-migration: was vanilla 731 (Central Macedonia); mod Thessaloniki
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}
 					}
-					910 = {
+					910 = {   # 1.19-migration: was vanilla 184 (Thrace); mod Alexandroupoli
 						add_building_construction = {
 							type = infrastructure
 							level = 1
@@ -4027,37 +4522,37 @@ focus_tree = {
 						is_in_faction_with = TUR
 						has_completed_focus = ROM_danubian_transport_network
 						AND = {
-							controls_state = 801
-							controls_state = 793
-							controls_state = 932 # was vanilla 797 (Istanbul→Bati Istanbul)
-							controls_state = 945 # was vanilla 797 (Istanbul→Dogu Istanbul)
+							controls_state = 2668   # 1.19-migration: was vanilla 82 (Banat)
+							controls_state = 800   # 1.19-migration: was vanilla 81 (Oltenia)
+							controls_state = 768   # 1.19-migration: was vanilla 46 (Muntenia)
+							controls_state = 971
 						}
 					}
 				}
 				custom_effect_tooltip = TUR_connect_capitals_romania_tt
 				hidden_effect = { 
-					801 = {
+					2668 = {   # 1.19-migration: was vanilla 82 (Banat); mod Timișoara
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}	
 					}
-					793 = {
+					800 = {   # 1.19-migration: was vanilla 81 (Oltenia); mod Vâlcea
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}
 					}
-					932 = { # was vanilla 797 (Istanbul)
+					768 = {   # 1.19-migration: was vanilla 46 (Muntenia); mod Buzău
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}
 					}
-					945 = { # was vanilla 797 (Istanbul)
+					971 = {
 						add_building_construction = {
 							type = infrastructure
 							level = 1
@@ -4076,29 +4571,37 @@ focus_tree = {
 							has_completed_focus = YUG_improve_serbian_rail_network
 						}
 						AND = {
-							controls_state = 790
-							controls_state = 858
-							controls_state = 1529
+							controls_state = 1530   # 1.19-migration: was vanilla 106 (Macedonia)
+							controls_state = 970
+							controls_state = 796   # 1.19-migration: was vanilla 108 (Morava)
+							controls_state = 1504   # 1.19-migration: was vanilla 107 (Serbia)
 						}
 					}
 				}
 				custom_effect_tooltip = TUR_connect_capitals_greece_tt
 				hidden_effect = { 
-					1529 = {
+					1530 = {   # 1.19-migration: was vanilla 106 (Macedonia); mod Bitola
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}	
 					}
-					858 = {
+					796 = {   # 1.19-migration: was vanilla 108 (Morava); mod Niš
 						add_building_construction = {
 							type = infrastructure
 							level = 1
 							instant_build = yes
 						}
 					}
-					790 = {
+					1504 = {   # 1.19-migration: was vanilla 107 (Serbia); mod Kraljevo
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+					970 = {
 						add_building_construction = {
 							type = infrastructure
 							level = 1
@@ -4307,7 +4810,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_integrated_armed_forces"
 			swap_ideas = {
 				remove_idea = TUR_balkan_defense_council_spirit
 				add_idea = TUR_united_balkan_security_forces
@@ -4363,7 +4865,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_balkan_academy_of_science"
 			if = {
 				limit = {
 					GRE = { 
@@ -4444,7 +4945,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_extend_an_olive_branch_to_bulgaria"
 			BUL = { 
 				if = {
 					limit = { ROOT = { is_in_faction = yes } }
@@ -4480,6 +4980,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			BUL = {
 				OR = {
@@ -4493,7 +4997,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_preempt_bulgarian_alignment"
 			create_wargoal = {
 				type = topple_government
 				target = BUL
@@ -4543,7 +5046,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_peninsular_network_of_factories"
 			every_country = {
 				limit = {
 					NOT = { original_tag = TUR }
@@ -4757,7 +5259,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_combined_operational_strategies"
 			swap_ideas = {
 				remove_idea = TUR_united_balkan_security_forces
 				add_idea = TUR_the_coordinated_armed_forces_of_the_balkan_pact
@@ -4798,7 +5299,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_edirne_research_exchange"
 			add_research_slot = 1
 		}
 	}
@@ -4818,8 +5318,12 @@ focus_tree = {
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
+
+		available = {
+			is_subject = no
+		}
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_crush_the_warmongers_in_rome"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = ITA
@@ -4843,8 +5347,12 @@ focus_tree = {
 		}
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
+
+		available = {
+			is_subject = no
+		}
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_brace_against_the_red_menace"
 			create_wargoal = {
 				type = topple_government
 				target = SOV
@@ -4867,7 +5375,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reconfigure_our_foreign_policy"
 			add_political_power = 120
 			ROM = {
 				diplomatic_relation = {
@@ -4932,8 +5439,15 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_anglo_turkish_agreement"
 			ENG = {
+				if = {
+					limit = {
+						NOT = {
+							has_guaranteed = ROOT
+						}
+					}
+					country_event = bftb_turkey.144
+				}
 				add_opinion_modifier = {
 					target = TUR
 					modifier = TUR_regional_force_of_stability
@@ -4943,13 +5457,6 @@ focus_tree = {
 				add_opinion_modifier = {
 					target = TUR
 					modifier = TUR_regional_force_of_stability
-				}
-			}
-			ENG = {
-				diplomatic_relation = {
-					country = TUR
-					relation = guarantee
-					active = yes
 				}
 			}
 			if = {
@@ -5012,7 +5519,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_applying_british_oil_embargoes_on_iraq"
 			ENG = {
 				add_opinion_modifier = {
 					target = TUR
@@ -5071,7 +5577,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_host_exiled_scientists"
 			add_ideas = TUR_sheltered_foreign_outcasts
 		}
 	}
@@ -5094,7 +5599,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_chester_concession"
 			USA = { country_event = { id = bftb_turkey.55 } }
 			custom_effect_tooltip = TUR_raise_opinion_of_america_tt
 		}
@@ -5117,7 +5621,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_american_motor_factories"
 			add_tech_bonus = {
 				name = TUR_american_motor_factories
 				bonus = 3.0
@@ -5126,9 +5629,9 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 932
+					has_full_control_of_state = 932   # 1.19-migration: was vanilla 797 (Istanbul)
 				}
-				932 = {
+				932 = {   # 1.19-migration: was vanilla 797 (Istanbul); mod Batı İstanbul
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
@@ -5170,7 +5673,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_bomber_schematics"
 			add_tech_bonus = {
 				name = TUR_bomber_schematics
 				bonus = 1.0
@@ -5194,6 +5696,7 @@ focus_tree = {
 		prerequisite = { focus = TUR_bomber_schematics }
 		available = {
 			ENG = {
+				is_faction_leader = yes
 				NOT = {
 					OR = {
 						has_completed_focus = ENG_the_kings_party
@@ -5202,6 +5705,7 @@ focus_tree = {
 				}
 			}
 			is_subject = no
+			is_in_faction = no
 		}
 		x = 0
 		y = 2
@@ -5209,20 +5713,14 @@ focus_tree = {
 		cost = 10
 		ai_will_do = {
 			base = 10
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-				date < 1944.1.1
-			}
 		}
 
 		bypass = {
-			is_in_faction = yes
+			is_in_faction_with = ENG
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_join_the_allies"
 			ENG = {
 				country_event = { id = generic.2 }
 			}
@@ -5242,7 +5740,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_controlling_the_skies_of_europe"
 			add_tech_bonus = {
 				name = TUR_controlling_the_skies_of_europe
 				bonus = 1.0
@@ -5271,17 +5768,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_expanding_our_navy"
-			add_tech_bonus = {
-				name = TUR_expanding_our_navy
-				bonus = 1.5
-				uses = 1
-				category = industry
-			}
 			add_tech_bonus = {
 				name = TUR_expanding_our_navy
 				bonus = 1.0
-				uses = 1
+				uses = 2
 				category = ca_tech
 			}
 			add_doctrine_cost_reduction = {
@@ -5321,7 +5811,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_petra_proposal"
 			ENG = {
 				country_event = { id = bftb_turkey.44 }
 			}
@@ -5343,7 +5832,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_expanded_credit_on_our_debts"
 			if = {
 				limit = {
 					has_idea = TUR_debt_council
@@ -5391,7 +5879,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_partnership_pact_with_bulgaria"
 			effect_tooltip = { 
 				BUL = {
 					country_event = { id = generic.5 }
@@ -5414,6 +5901,7 @@ focus_tree = {
 		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
 		available = {
 			ROM = {
+				is_subject = no 
 				OR = {
 					has_government = fascism
 					has_government = communism
@@ -5429,6 +5917,18 @@ focus_tree = {
 		ai_will_do = {
 			base = 10
 		}
+		historical_ai = {
+			GER = {
+				has_government = fascism
+				exists = yes
+				has_war = yes 
+				is_in_faction_with = ROM
+			}
+		}
+
+		available = {
+			is_subject = no
+		}
 
 		bypass = {
 			ROM = {
@@ -5443,7 +5943,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_seizing_the_romanian_oil_fields"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = ROM
@@ -5453,7 +5952,7 @@ focus_tree = {
 
 	focus = {
 		id = TUR_securing_iran
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_focus_generic_attack_iran
 		prerequisite = { focus = TUR_partnership_pact_with_bulgaria }
 		x = 0
 		y = 1
@@ -5461,6 +5960,10 @@ focus_tree = {
 		cost = 10
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		bypass = {
@@ -5477,7 +5980,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_securing_iran"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = PER
@@ -5524,7 +6026,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_british_dockyards_in_turkey"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -5617,7 +6118,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_TUR_KURDISTAN FOCUS_FILTER_TUR_TRADITIONALISM }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_we_must_not_fall"
 			add_ideas = TUR_victory_at_all_costs
 		}
 	}
@@ -5639,16 +6139,18 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_german_turkish_friendship_treaty"
 			GER = {
+				if = {
+					limit = {
+						NOT = {
+							has_guaranteed = ROOT
+						}
+					}
+					country_event = bftb_turkey.144
+				}
 				add_opinion_modifier = {
 					target = TUR
 					modifier = TUR_valued_strategic_partners
-				}
-				diplomatic_relation = {
-					country = TUR
-					relation = guarantee
-					active = yes
 				}
 			}
 			hidden_effect = {
@@ -5679,7 +6181,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_clodius_agreement"
 			GER = {
 				add_opinion_modifier = {
 					target = TUR
@@ -5733,7 +6234,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_purchase_italian_light_tanks"
 			ITA = {
 				country_event = { id = bftb_turkey.50 }
 			}
@@ -5757,7 +6257,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_approve_the_funkplan"
 			add_ideas = TUR_funkplan
 			GER = { add_stability = 0.1 }
 		}
@@ -5779,7 +6278,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_italo_turkish_naval_academy"
 			show_unit_leaders_tooltip = ITA_ferdinando_umberto_filippo_adalberto
 
 			add_ideas = TUR_the_antalya_naval_academy
@@ -5802,7 +6300,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_invite_german_officers_to_izmir"
 			show_unit_leaders_tooltip = GER_hans_von_luck
 			
 			if = {
@@ -5827,6 +6324,7 @@ focus_tree = {
 		prerequisite = { focus = TUR_the_italo_turkish_naval_academy }
 		available = { 
 			NOT = { has_war_with = ITA }
+			is_in_faction = no
 			is_subject = no
 		}
 		x = -1
@@ -5838,30 +6336,17 @@ focus_tree = {
 		}
 
 		bypass = {
-			is_in_faction = yes
+			is_in_faction_with = ITA
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_mediterranean_entente"
-			if = {
-				limit = {
-					ITA = { 
-						is_faction_leader = no
-					}
-				}
-				set_rule = { can_create_factions = yes }
-				create_faction = TUR_covenant_of_the_mediterranean
-				ITA = { country_event = { id = bftb_turkey.41 } }
+			set_rule = { can_create_factions = yes }
+			create_faction_from_template = {
+				template = faction_template_ITA_italian_league
+				name = TUR_covenant_of_the_mediterranean
 			}
-			if = {
-				limit = {
-					ITA = { is_faction_leader = yes }
-				}
-				ITA = {
-					country_event = { id = generic.2 }
-				}
-			}
+			ITA = { country_event = { id = bftb_turkey.41 } }
 		}
 	}
 
@@ -5874,6 +6359,12 @@ focus_tree = {
 		available = { 
 			NOT = { has_war_with = GER }
 			is_subject = no
+			is_in_faction = no
+			GER = {
+				has_capitulated = no
+				exists = yes
+				is_faction_leader = yes
+			}
 		}
 		x = -1
 		y = 1
@@ -5884,14 +6375,17 @@ focus_tree = {
 		}
 
 		bypass = {
-			is_in_faction = yes
+			is_in_faction_with = GER
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_join_the_axis"
 			GER = {
-				country_event = { id = generic.2 }
+				country_event = { 
+					id = generic.2 
+					days = 2
+					random_days = 4
+				}
 			}
 		}
 	}
@@ -5921,7 +6415,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_invite_bulgaria"
 			BUL = {
 				country_event = { id = generic.5 }
 			}
@@ -5947,7 +6440,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_entice_the_greeks"
 			GRE = { 
 				if = {
 					limit = { ROOT = { is_in_faction = yes } }
@@ -5973,6 +6465,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			GRE = {
 				OR = {
@@ -5987,7 +6483,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_carve_up_greece"
 			if = { 
 				limit = { 
 					is_in_faction_with = ITA
@@ -6028,7 +6523,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_pressure_portugal_to_join"
 			POR = { 
 				if = {
 					limit = { ROOT = { is_in_faction = yes } }
@@ -6064,7 +6558,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_collaborative_civil_works_programme"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -6217,7 +6710,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_mediterranean_merchant_fleet"
 			add_timed_idea = {
 				days = 360
 				idea = TUR_italo_turkish_merchant_fleet
@@ -6264,7 +6756,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_court_the_spanish"
 			SPA = { 
 				if = {
 					limit = { ROOT = { is_in_faction = yes } }
@@ -6291,6 +6782,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			SPR = { 
 				OR = {
@@ -6304,7 +6799,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_cleanse_iberia_of_bolshevism"
 			if = {
 				limit = {
 					SPR = { 
@@ -6332,6 +6826,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			ENG = {
 				OR = { 
@@ -6345,7 +6843,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_end_the_british_hegemony"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = ENG
@@ -6366,6 +6863,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			FRA = {
 				OR = { 
@@ -6379,7 +6880,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_punish_french_weakness"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = FRA
@@ -6396,8 +6896,13 @@ focus_tree = {
 		relative_position_id = TUR_end_the_british_hegemony
 		cost = 10
 		ai_will_do = {
-			base = 10
+			base = 0
 		}
+
+		available = {
+			is_subject = no
+		}
+		historical_ai = { always = no  }
 
 		bypass = {
 			SOV = {
@@ -6412,7 +6917,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_victory_or_death_against_communism"
 			create_wargoal = {
 				type = topple_government
 				target = SOV
@@ -6435,7 +6939,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_increase_german_military_aid"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -6500,7 +7003,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_cooperative_research_centers"
 			add_research_slot = 1	
 		}
 	}
@@ -6519,10 +7021,14 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_tuz_golu_training_facility"
 			add_ideas = TUR_tuz_golu_training_facility
 			custom_effect_tooltip = TUR_unlock_camelry_effect_tt
-			hidden_effect = { set_technology = { camelry = 1 } } 
+			hidden_effect = { 
+				set_technology = { 
+					camelry = 1 
+					popup = no
+				} 	
+			} 
 		}
 	}
 
@@ -6540,7 +7046,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_pack_for_a_long_winter"
 			add_ideas = TUR_sub_zero_survival_training
 		}
 	}
@@ -6549,12 +7054,15 @@ focus_tree = {
 		id = TUR_support_the_golden_square
 		icon = GFX_focus_TUR_support_the_golden_square
 		mutually_exclusive = { focus = TUR_secure_the_iraqi_oil }
+
 		available = {
 			OR = {
 				has_government = neutrality
 				has_government = fascism
 			}
+			is_subject = no
 		}
+
 		prerequisite = { focus = TUR_the_tuz_golu_training_facility }
 		x = -1
 		y = 1
@@ -6566,14 +7074,28 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_support_the_golden_square"
-			IRQ = { country_event = { id = bftb_turkey.67 hours = 8 } }
+			IF = {
+				limit = {
+					NOT = {
+						has_dlc = "Graveyard of Empires"
+					}
+				}
+				IRQ = { country_event = { id = bftb_turkey.67 hours = 8 } }
+			}
+			ELSE = {
+				IRQ = {
+					add_timed_idea = {
+						#idea = AFG_fascism_influence   # 1.19-migration: dead tag AFG
+						days = 365
+					}
+				}
+			}			
 		}
 	}
 
 	focus = {
 		id = TUR_secure_the_iraqi_oil
-		icon = GFX_goal_generic_major_war
+		icon = GFX_focus_generic_attack_iraq
 		mutually_exclusive = { focus = TUR_support_the_golden_square }
 		prerequisite = { focus = TUR_the_tuz_golu_training_facility }
 		x = 1
@@ -6582,6 +7104,10 @@ focus_tree = {
 		cost = 10
 		ai_will_do = {
 			base = 10
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		bypass = {
@@ -6598,7 +7124,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_secure_the_iraqi_oil"
 			create_wargoal = {
 				type = annex_everything
 				target = IRQ
@@ -6618,6 +7143,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			GRE = {
 				OR = {
@@ -6631,31 +7160,9 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_rebuke_the_treaty_of_lausanne"
-			
-			every_state = {
-				limit = {
-					OR = {
-						state = 1556
-						state = 1552
-						state = 1553
-						state = 2839
-						state = 2757
-						state = 2564
-						state = 2949
-						state = 2950
-						state = 1555
-						state = 2004
-						state = 2751
-						state = 937
-						state = 910
-						state = 2005
-						state = 1969
-						state = 2006
-					}
-				}
-				add_claim_by = ROOT 
-			}
+			add_state_claim = 910   # 1.19-migration: was vanilla 184 (Thrace)
+			add_state_claim = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
+			add_state_claim = 1552   # 1.19-migration: was vanilla 187 (Aegean Islands)
 			create_wargoal = {
 				type = annex_everything
 				target = GRE
@@ -6665,6 +7172,10 @@ focus_tree = {
 					ITA = { is_in_faction_with = TUR }
 				}
 				ITA = {
+					add_state_claim = 995   # 1.19-migration: was vanilla 185 (Epirus)
+					add_state_claim = 1073   # 1.19-migration: was vanilla 47 (Attica)
+					add_state_claim = 1089   # 1.19-migration: was vanilla 186 (Peloponnese)
+					add_state_claim = 1560   # 1.19-migration: was vanilla 182 (Crete)
 					create_wargoal = {
 						type = annex_everything
 						target = GRE
@@ -6686,8 +7197,7 @@ focus_tree = {
 			base = 10
 		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_turkish_panzers" 
+		completion_reward = { 
 			if = {
 				limit = {
 					NOT = {
@@ -6869,7 +7379,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_establish_the_committee_of_pan_turkism"
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = TUR_zeki_velidi_togan
 			add_timed_idea = {
@@ -6898,7 +7407,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_integrate_german_officers_into_the_army"
 			swap_ideas = {
 				remove_idea = TUR_german_advisors
 				add_idea = TUR_integrated_german_officers
@@ -6919,7 +7427,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_restoring_our_nations_pride"
 			add_ideas = TUR_golden_age_of_the_wolf
 		}
 	}
@@ -6941,6 +7448,7 @@ focus_tree = {
 				has_government = communism
 				has_civil_war = no
 			}
+			NOT = { has_war_with = SOV }
 		}
 
 		bypass = {
@@ -6952,7 +7460,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_renew_the_turkish_soviet_non_aggression_pact"
 			SOV = { country_event = { id = bftb_turkey.79 } }
 		}
 	}
@@ -6974,8 +7481,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_batumi_accord"
-			938 = {
+			958 = {   # 1.19-migration: was vanilla 354 (Trabzon); mod Trabzon
 				if = {
 					limit = {
 						free_building_slots = {
@@ -6998,7 +7504,7 @@ focus_tree = {
 				}
 			}
 			SOV = {
-				916 = {
+				2272 = {   # 1.19-migration: was vanilla 231 (Georgia); mod Racha-Lechkhumi
 					if = {
 						limit = {
 							free_building_slots = {
@@ -7038,7 +7544,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_provide_refuge_to_the_victims_of_fascism"
 			add_timed_idea = {
 				idea = TUR_refugees_from_the_fascist_menace
 				days = 180
@@ -7068,7 +7573,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_soviet_tank_factories"
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -7122,7 +7626,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_dissolve_the_ODPA"
 			if = {
 				limit = {
 					has_idea = TUR_debt_council
@@ -7195,9 +7698,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_adana_to_baku_highway"
 			SOV = {
-				2292 = {
+				2292 = {   # 1.19-migration: was vanilla 229 (Azerbaijan); mod Zaqatala
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -7205,7 +7707,7 @@ focus_tree = {
 					}
 					set_state_flag = TUR_baku_adana_highway
 				}
-				2265 = {
+				2265 = {   # 1.19-migration: was vanilla 230 (Armenia); mod Lori
 					add_building_construction = {
 						type = infrastructure
 						level = 1
@@ -7214,7 +7716,7 @@ focus_tree = {
 					set_state_flag = TUR_baku_adana_highway
 				}
 			}
-			973 = {
+			1039 = {   # 1.19-migration: was vanilla 800 (Van); mod Van
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -7222,7 +7724,7 @@ focus_tree = {
 				}
 				set_state_flag = TUR_baku_adana_highway
 			}
-			1011 = {
+			1092 = {   # 1.19-migration: was vanilla 352 (Hakkari); mod Hakkâri
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -7230,7 +7732,7 @@ focus_tree = {
 				}
 				set_state_flag = TUR_baku_adana_highway
 			}
-			1036 = {
+			1012 = {   # 1.19-migration: was vanilla 353 (Tunceli); mod Tunceli
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -7238,7 +7740,7 @@ focus_tree = {
 				}
 				set_state_flag = TUR_baku_adana_highway
 			}
-			1098 = {
+			1059 = {   # 1.19-migration: was vanilla 350 (Diyarbakır); mod Diyarbakır
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -7246,7 +7748,7 @@ focus_tree = {
 				}
 				set_state_flag = TUR_baku_adana_highway
 			}
-			1066 = {
+			1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
 				add_building_construction = {
 					type = infrastructure
 					level = 1
@@ -7265,6 +7767,7 @@ focus_tree = {
 		available = {
 			NOT = { is_in_faction_with = SOV }
 			is_subject = no
+			is_in_faction = no
 		}
 		x = 0
 		y = 1
@@ -7274,12 +7777,14 @@ focus_tree = {
 			base = 10
 		}
 		bypass = {
-			is_in_faction = yes
+			OR = {
+				is_in_faction_with = SPR
+				is_faction_leader = yes
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_anti_bolshevik_mediterranean_bloc"
 			SOV = {
 				add_opinion_modifier = {
 					target = TUR
@@ -7299,7 +7804,10 @@ focus_tree = {
 				SPR = { country_event = { id = generic.5 } }
 			}
 			set_rule = { can_create_factions = yes }
-			create_faction = TUR_anti_bolshevik_accord
+			create_faction_from_template = {
+				template = faction_template_regional_anti_communist
+				name = TUR_anti_bolshevik_accord
+			}
 		}
 	}
 
@@ -7317,14 +7825,14 @@ focus_tree = {
 		}
 		available = {
 			is_subject = no
+			is_in_faction = no
 		}
 		bypass = {
-			is_in_faction = yes
+			is_in_faction_with = SOV
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_readdress_the_montreux_convention"
 			SOV = {
 				country_event = { id = generic.2 }
 			}
@@ -7345,7 +7853,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_international_of_proletarian_freethinkers"
 			add_research_slot = 1
 		}
 	}
@@ -7364,7 +7871,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_strengthening_our_navies"
 			add_timed_idea = { idea = TUR_construct_a_red_navy days = 480 }
 			every_country = {
 				limit = {
@@ -7392,6 +7898,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			FRA = {
 				OR = {
@@ -7406,7 +7916,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_avenge_the_treaty_of_sevres"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = FRA
@@ -7427,6 +7936,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			ITA = {
 				OR = {
@@ -7442,7 +7955,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_strike_at_the_fascist_menace"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = ITA
@@ -7463,7 +7975,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_learning_from_the_tripolitanian_war"
 			add_tech_bonus = {
 				name = TUR_learning_from_tripolitania
 				bonus = 1.0
@@ -7491,6 +8002,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			SOV = {
 				OR = {
@@ -7505,7 +8020,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_stop_the_stalinist_charade"
 			create_wargoal = {
 				type = annex_everything
 				target = SOV
@@ -7525,6 +8039,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			ENG = {
 				OR = {
@@ -7539,7 +8057,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_strike_the_british_imperialists"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = ENG
@@ -7561,7 +8078,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_foreign_brigades_for_the_revolution"
 			add_ideas = TUR_revolutionary_brigades_from_abroad
 		}
 	}
@@ -7581,7 +8097,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_joint_caucasian_turkish_officer_school"
 			add_corps_commander_role = {
 				character = TUR_hazi_aslanov
 				traits = { war_hero inflexible_strategist armor_officer winter_specialist }
@@ -7609,7 +8124,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_arctic_wolves_training_program"
 			add_ideas = TUR_arctic_wolves_training
 		}
 	}
@@ -7628,18 +8142,14 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_seize_religious_property"
-			every_state = {
-				limit = {
-					is_core_of = ROOT 
-					free_building_slots = {
-						building = arms_factory
-						size > 2
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-			}
+			963 = { add_extra_state_shared_building_slots = 1 }   # 1.19-migration: was vanilla 798 (Amasya); mod Amasya
+			1098 = { add_extra_state_shared_building_slots = 1 }   # 1.19-migration: was vanilla 345 (Mersin); mod Mersin
+			1049 = { add_extra_state_shared_building_slots = 1 }   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+			1097 = { add_extra_state_shared_building_slots = 1 }   # 1.19-migration: was vanilla 342 (Antalya); mod Antalya
+			909 = { add_extra_state_shared_building_slots = 1 }   # 1.19-migration: was vanilla 356 (Kastamonu); mod Kastamonu
+			1011 = { add_extra_state_shared_building_slots = 2 }   # 1.19-migration: was vanilla 349 (Sivas); mod Sivas
+			1036 = { add_extra_state_shared_building_slots = 2 }   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
+			924 = { add_extra_state_shared_building_slots = 2 }   # 1.19-migration: was vanilla 355 (Samsun); mod Samsun
 			add_popularity = { 
 				ideology = communism
 				popularity = 0.07
@@ -7707,7 +8217,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_lift_the_turkiye_komunist_partisis_exile"
 			if = {
 				limit = {
 					has_completed_focus = TUR_readdress_the_montreux_convention
@@ -7744,7 +8253,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reconciling_kemalism_with_bolshevism"
 			if = {
 				limit = {
 					has_country_leader = {
@@ -7785,8 +8293,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_turkish_tank_project"
-			932 = {
+			1036 = {   # 1.19-migration: was vanilla 348 (Kayseri); mod Kayseri
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -7825,7 +8332,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_taking_responsibility_for_the_air_war"
 			add_doctrine_cost_reduction = {
 				name = TUR_taking_responsibility_for_the_air_war
 				cost_reduction = 0.35
@@ -7849,7 +8355,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_officers_of_the_revolution"
 			add_ideas = TUR_red_officers
 		}
 	}
@@ -7868,7 +8373,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_scrapping_our_debts"
 			add_timed_idea = {
 				idea = TUR_reappropriated_exploitative_finance
 				days = 180
@@ -7884,18 +8388,17 @@ focus_tree = {
 		x = 1
 		y = 2
 		relative_position_id = TUR_scrapping_our_debts
-		cost = 5
+		cost = 10
 		ai_will_do = {
 			base = 10
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_collectivising_our_agriculture"
-			random_owned_controlled_state = { add_extra_state_shared_building_slots = 2 }
-			random_owned_controlled_state = { add_extra_state_shared_building_slots = 2 }
-			random_owned_controlled_state = { add_extra_state_shared_building_slots = 2 }
-			random_owned_controlled_state = { add_extra_state_shared_building_slots = 2 }
+			random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
+			random_owned_controlled_state = { add_extra_state_shared_building_slots = 1 }
 		}
 	}
 
@@ -7912,16 +8415,17 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_capitalise_on_rising_kurdish_nationalism"
-			every_state = {
-				limit = {
-					NOT = { has_state_flag = TUR_INITIAL_STATE }
-					is_core_of = KUR
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+			add_state_claim = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+			add_state_claim = 2210   # 1.19-migration: was vanilla 291 (Baghdad)
+			add_state_claim = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+			add_state_claim = 1220   # 1.19-migration: was vanilla 421 (Ilam)
 			create_wargoal = {
 				type = take_claimed_state
 				target = PER
@@ -7941,6 +8445,10 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			BUL = {
 				OR = {
@@ -7955,7 +8463,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_issue_an_ultimatium_to_the_bulgarians"
 			BUL = { country_event = { id = bftb_turkey.84 } }
 		}
 	}
@@ -7972,9 +8479,12 @@ focus_tree = {
 			base = 0
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_misak_i_milli"
 			add_stability = -0.15
 			add_war_support = 0.1
 			news_event = { id = bftb_news.208 hours = 6 }
@@ -8005,22 +8515,17 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_recover_the_kardzhali_vilayet"
-			every_state = {
-				limit = {
-					is_core_of = BUL
-				}
-				add_claim_by = TUR
-			}
-			every_state = {
-				limit = {
-					is_core_of = BUL
-					is_core_of = WTH
-				}
-				add_core_of = TUR
-			}
+			add_state_claim = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			add_state_claim = 1575   # 1.19-migration: was vanilla 801 (Moesia)
+			add_state_claim = 894   # 1.19-migration: was vanilla 803 (Southern Serbia)
+			add_state_claim = 878   # 1.19-migration: was vanilla 212 (Plovdiv)
+			add_state_claim = 1579   # 1.19-migration: was vanilla 77 (Dobrudja)
 			if = {
 				limit = {
 					BUL = {
@@ -8131,16 +8636,8 @@ focus_tree = {
 	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_cypriot_and_oniki_ilhak"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = CYP
-						state = 1554
-					}
-				}
-				add_core_of = TUR
-			}
+			1554 = { add_core_of = TUR }   # 1.19-migration: was vanilla 164 (Dodecanese); mod Dodecaneso
+			1964 = { add_core_of = TUR }   # 1.19-migration: was vanilla 183 (Cyprus); mod Morphou
 			GRE = {
 				add_opinion_modifier = {
 					target = TUR
@@ -8157,12 +8654,19 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							OR = {
-								any_owned_state = {
-								is_core_of = CYP
+								AND = {
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+									NOT = { controls_state = 1964 }   # 1.19-migration: was vanilla 183 (Cyprus)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									NOT = { controls_state = 1554 }   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
 							}
-							controls_state = 1554
-							}
-							
 						}
 					}
 				}
@@ -8178,10 +8682,18 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							OR = {
-								any_owned_state = {
-								is_core_of = CYP
-							}
-							controls_state = 1554
+								AND = {
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+									NOT = { controls_state = 1964 }   # 1.19-migration: was vanilla 183 (Cyprus)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									NOT = { controls_state = 1554 }   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
 							}
 						}
 					}
@@ -8199,10 +8711,18 @@ focus_tree = {
 						is_faction_leader = no
 						any_allied_country = {
 							OR = {
-								any_owned_state = {
-								is_core_of = CYP
-							}
-							controls_state = 1554
+								AND = {
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+									NOT = { controls_state = 1964 }   # 1.19-migration: was vanilla 183 (Cyprus)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									NOT = { controls_state = 1554 }   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
 							}
 						}
 					}
@@ -8216,7 +8736,7 @@ focus_tree = {
 					has_global_flag = TUR_fascist_faction_leader_warned_turkey
 					var:faction_leader = {
 						has_government = fascism
-						NOT = { controls_state = 1554 }
+						NOT = { controls_state = 1554 }   # 1.19-migration: was vanilla 164 (Dodecanese)
 	
 					}
 					TUR = { 
@@ -8224,10 +8744,18 @@ focus_tree = {
 						is_faction_leader = no
 						any_allied_country = {
 							OR = {
-								any_owned_state = {
-								is_core_of = CYP
-							}
-							controls_state = 1554
+								AND = {
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+									NOT = { controls_state = 1964 }   # 1.19-migration: was vanilla 183 (Cyprus)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									NOT = { controls_state = 1554 }   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
+								AND = {
+									controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+									controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+								}
 							}
 						}
 					}
@@ -8253,36 +8781,10 @@ focus_tree = {
 	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_reuniting_thrace_through_force"
-			every_state = {
-				limit = {
-					OR = {
-						AND = {
-							is_core_of = THR
-							is_core_of = GRE
-						}
-					}
-				}
-				add_core_of = ROOT
-			}
-			every_state = {
-				limit = {
-					OR = {
-						is_agean_islands = yes
-						state = 1557
-						state = 1547
-						state = 1549
-						state = 1548
-						state = 929
-						state = 2940
-						state = 941
-						state = 2748
-						state = 1546
-						state = 1545
-					}
-				}
-				add_claim_by = ROOT
-			}
+			add_state_core = 910   # 1.19-migration: was vanilla 184 (Thrace)
+			add_state_claim = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+			add_state_claim = 1552   # 1.19-migration: was vanilla 187 (Aegean Islands)
+			add_state_claim = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
 			if = {
 				limit = {
 					has_global_flag = TUR_soviets_keeping_eye_on_turkey
@@ -8294,10 +8796,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 910
-								controls_state = 1005
-								controls_state = 1554 # was vanilla 187
-								controls_state = 941
+								controls_state = 910   # 1.19-migration: was vanilla 184 (Thrace)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 1552   # 1.19-migration: was vanilla 187 (Aegean Islands)
+								controls_state = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
 							}
 						}
 					}
@@ -8315,10 +8817,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 910
-								controls_state = 1005
-								controls_state = 1554 # was vanilla 187
-								controls_state = 941
+								controls_state = 910   # 1.19-migration: was vanilla 184 (Thrace)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 1552   # 1.19-migration: was vanilla 187 (Aegean Islands)
+								controls_state = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
 							}
 						}
 					}
@@ -8337,10 +8839,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 910
-								controls_state = 1005
-								controls_state = 1554 # was vanilla 187
-								controls_state = 941
+								controls_state = 910   # 1.19-migration: was vanilla 184 (Thrace)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 1552   # 1.19-migration: was vanilla 187 (Aegean Islands)
+								controls_state = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
 							}
 						}
 					}
@@ -8361,10 +8863,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 910
-								controls_state = 1005
-								controls_state = 1554 # was vanilla 187
-								controls_state = 941
+								controls_state = 910   # 1.19-migration: was vanilla 184 (Thrace)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 1552   # 1.19-migration: was vanilla 187 (Aegean Islands)
+								controls_state = 941   # 1.19-migration: was vanilla 731 (Central Macedonia)
 							}
 						}
 					}
@@ -8390,23 +8892,10 @@ focus_tree = {
 	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_rebuke_the_treaty_of_kars"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = TCC
-						is_core_of = SOC
-					}
-					NOT = { is_core_of = SWC }
-				}
-				add_claim_by = TUR
-			}
-			every_state = {
-				limit = {
-					is_core_of = SWC
-				}
-				add_core_of = ROOT
-			}
+			add_state_claim = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+			add_state_claim = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+			add_state_claim = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+			add_state_claim = 2282   # 1.19-migration: was vanilla 233 (Sochi)
 			if = {
 				limit = {
 					has_global_flag = TUR_soviets_keeping_eye_on_turkey
@@ -8417,12 +8906,14 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = TCC
-								}
+							OR = {
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2282   # 1.19-migration: was vanilla 233 (Sochi)
+							}
 						}
 					}
-					
 				}
 				SOV = { country_event = { id = bftb_turkey.138 } } #Turkey violates fellow faction member's sovereignty
 			}
@@ -8436,9 +8927,12 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = TCC
-								}
+							OR = {
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2282   # 1.19-migration: was vanilla 233 (Sochi)
+							}
 						}
 					}
 				}
@@ -8455,9 +8949,12 @@ focus_tree = {
 						is_faction_leader = no
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = TCC
-								}
+							OR = {
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2282   # 1.19-migration: was vanilla 233 (Sochi)
+							}
 						}
 					}
 				}
@@ -8476,9 +8973,12 @@ focus_tree = {
 						is_faction_leader = no
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = TCC
-								}
+							OR = {
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 2265   # 1.19-migration: was vanilla 230 (Armenia)
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2282   # 1.19-migration: was vanilla 233 (Sochi)
+							}
 						}
 					}
 				}
@@ -8504,29 +9004,14 @@ focus_tree = {
 	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_unite_the_azeri_diaspora"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = AZR
-						is_core_of = TBZ
-						is_core_of = MHB
-						state = 1019
-					}
-					
-				}
-				add_core_of = TUR
-			}
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = KHZ
-						is_core_of = DAG
-					}
-					
-				}
-				add_claim_by = TUR
-			}
+			add_state_core = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+			add_state_core = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+			add_state_core = 1069   # 1.19-migration: was vanilla 420 (Gilan)
+			add_state_core = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+			add_state_core = 1040 #East Azerbaijan   # 1.19-migration: was vanilla 1000 (East Azerbaijan)
+			add_state_core = 1170   # 1.19-migration: was vanilla 417 (Hamadan)
+			add_state_claim = 1238   # 1.19-migration: was vanilla 413 (Khuzestan)
+			add_state_claim = 1028   # 1.19-migration: was vanilla 232 (Dagestan)
 			if = {
 				limit = {
 					has_global_flag = TUR_soviets_keeping_eye_on_turkey
@@ -8537,9 +9022,15 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = AZR
-								}
+							OR = {
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 1069   # 1.19-migration: was vanilla 420 (Gilan)
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1170   # 1.19-migration: was vanilla 417 (Hamadan)
+								controls_state = 1238   # 1.19-migration: was vanilla 413 (Khuzestan)
+								controls_state = 1028   # 1.19-migration: was vanilla 232 (Dagestan)
+							}
 						}
 					}
 				}
@@ -8555,9 +9046,15 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = AZR
-								}
+							OR = {
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 1069   # 1.19-migration: was vanilla 420 (Gilan)
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1170   # 1.19-migration: was vanilla 417 (Hamadan)
+								controls_state = 1238   # 1.19-migration: was vanilla 413 (Khuzestan)
+								controls_state = 1028   # 1.19-migration: was vanilla 232 (Dagestan)
+							}
 						}
 					}
 				}
@@ -8574,9 +9071,15 @@ focus_tree = {
 						is_faction_leader = no
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = AZR
-								}
+							OR = {
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 1069   # 1.19-migration: was vanilla 420 (Gilan)
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1170   # 1.19-migration: was vanilla 417 (Hamadan)
+								controls_state = 1238   # 1.19-migration: was vanilla 413 (Khuzestan)
+								controls_state = 1028   # 1.19-migration: was vanilla 232 (Dagestan)
+							}
 						}
 					}
 				}
@@ -8595,9 +9098,15 @@ focus_tree = {
 						is_faction_leader = no
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = AZR
-								}
+							OR = {
+								controls_state = 2292   # 1.19-migration: was vanilla 229 (Azerbaijan)
+								controls_state = 2272   # 1.19-migration: was vanilla 231 (Georgia)
+								controls_state = 1069   # 1.19-migration: was vanilla 420 (Gilan)
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1170   # 1.19-migration: was vanilla 417 (Hamadan)
+								controls_state = 1238   # 1.19-migration: was vanilla 413 (Khuzestan)
+								controls_state = 1028   # 1.19-migration: was vanilla 232 (Dagestan)
+							}
 						}
 					}
 				}
@@ -8623,14 +9132,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_konfederasyon"
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = AZR
-						state = 1019
-					}
-				}
+			2292 = {   # 1.19-migration: was vanilla 229 (Azerbaijan); mod Zaqatala
 				add_core_of = TUR
 				add_extra_state_shared_building_slots = 3
 			}
@@ -8654,33 +9156,10 @@ focus_tree = {
 	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_annul_the_ankara_anlasmasi"
-			every_state = {
-				limit = {
-					OR = {
-						AND = {
-							is_core_of = SYR
-							NOT = {
-								is_core_of = JBS
-							}
-						}
-						AND = {
-							is_core_of = IRQ
-							NOT = {
-								is_core_of = JBS
-								is_core_of = KRG
-							}
-						}
-					}
-				}
-				add_claim_by = ROOT
-			}
-			every_state = {
-				limit = {
-					is_core_of = KRG
-				}
-				add_core_of = ROOT
-			}
+			add_state_claim = 1124   # 1.19-migration: was vanilla 677 (Aleppo)
+			add_state_claim = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+			add_state_claim = 2210   # 1.19-migration: was vanilla 291 (Baghdad)
+			add_state_core = 1114   # 1.19-migration: was vanilla 676 (Mosul)
 			if = {
 				limit = {
 					has_global_flag = TUR_soviets_keeping_eye_on_turkey
@@ -8692,12 +9171,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								any_controlled_state = {
-									is_core_of = IRQ
-								}
-								any_controlled_state = {
-									is_core_of = SYR
-								}
+								controls_state = 1124   # 1.19-migration: was vanilla 677 (Aleppo)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 2210   # 1.19-migration: was vanilla 291 (Baghdad)
 							}
 						}
 					}
@@ -8715,12 +9192,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								any_controlled_state = {
-									is_core_of = IRQ
-								}
-								any_controlled_state = {
-									is_core_of = SYR
-								}
+								controls_state = 1124   # 1.19-migration: was vanilla 677 (Aleppo)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 2210   # 1.19-migration: was vanilla 291 (Baghdad)
 							}
 						}
 					}
@@ -8739,12 +9214,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								any_controlled_state = {
-									is_core_of = IRQ
-								}
-								any_controlled_state = {
-									is_core_of = SYR
-								}
+								controls_state = 1124   # 1.19-migration: was vanilla 677 (Aleppo)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 2210   # 1.19-migration: was vanilla 291 (Baghdad)
 							}
 						}
 					}
@@ -8765,12 +9238,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								any_controlled_state = {
-									is_core_of = IRQ
-								}
-								any_controlled_state = {
-									is_core_of = SYR
-								}
+								controls_state = 1124   # 1.19-migration: was vanilla 677 (Aleppo)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 2210   # 1.19-migration: was vanilla 291 (Baghdad)
 							}
 						}
 					}
@@ -8794,22 +9265,12 @@ focus_tree = {
 		ai_will_do = {
 			base = 10
 		}
-		available = {
-			SOV = {
-						any_allied_country = {
-							NOT = { tag = TUR }
-							any_controlled_state = {
-								is_core_of = KUR
-							}
-						}
-					}
-		}
+	
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_liberate_the_kurdish_diaspora"
 			effect_tooltip = {
 				every_state = {
-					limit = { OR = { is_core_of = KUR is_core_of = RJV} }
+					limit = { is_core_of = KUR }
 					add_core_of = TUR
 				}
 			}
@@ -8830,9 +9291,12 @@ focus_tree = {
 					SOV = {
 						any_allied_country = {
 							NOT = { tag = TUR }
-							any_controlled_state = {
-									is_core_of = KUR
-								}
+							OR = {
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 1220   # 1.19-migration: was vanilla 421 (Ilam)
+							}
 						}
 					}
 				}
@@ -8849,10 +9313,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 1040
-								controls_state = 1141
-								controls_state = 1114
-								controls_state = 1138
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 1220   # 1.19-migration: was vanilla 421 (Ilam)
 							}
 						}
 					}
@@ -8871,10 +9335,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 1040
-								controls_state = 1141
-								controls_state = 1114
-								controls_state = 1138
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 1220   # 1.19-migration: was vanilla 421 (Ilam)
 							}
 						}
 					}
@@ -8895,10 +9359,10 @@ focus_tree = {
 						any_allied_country = {
 							NOT = { tag = TUR }
 							OR = {
-								controls_state = 1040
-								controls_state = 1141
-								controls_state = 1114
-								controls_state = 1138
+								controls_state = 2355   # 1.19-migration: was vanilla 419 (West Azerbaijan)
+								controls_state = 1141   # 1.19-migration: was vanilla 680 (Deir-az-Zur)
+								controls_state = 1114   # 1.19-migration: was vanilla 676 (Mosul)
+								controls_state = 1220   # 1.19-migration: was vanilla 421 (Ilam)
 							}
 						}
 					}
@@ -8924,7 +9388,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_turanist_ambition"
 			add_war_support = 0.1
 			add_stability = -0.15
 			if = {
@@ -8951,10 +9414,16 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_subdue_the_magyars"
-			
+			if = {
+				limit = {
+					NOT = { HUN = { has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary } }
+				}
 				every_state = { 
 					limit = { 
 						OR = {
@@ -8964,6 +9433,21 @@ focus_tree = {
 					}
 					add_claim_by = TUR
 				}
+			}
+			else = {
+				633 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 43 (Northern Hungary); mod Borsod
+				973 = { add_claim_by = TUR }
+				974 = { add_claim_by = TUR }
+				608 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 154 (Transtisza); mod Szabolcs
+				624 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 155 (North Transdanubia); mod Győr és Pozsony
+				2680 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 76 (North Transylvania); mod Satu Mare
+				730 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 84 (Transylvania); mod Alba Iulia
+				705 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 83 (Crisana); mod Beiuș
+				2668 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 82 (Banat); mod Timișoara
+				1512 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 764 (West Banat); mod Južni Banat
+				1514 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 45 (Vojvodina); mod Subotica
+				1439 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 664 (Southern Slovakia); mod Nové Zámky
+			}
 			create_wargoal = {
 				type = annex_everything
 				target = HUN
@@ -8992,20 +9476,24 @@ focus_tree = {
 			base = 10
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_crowning_ourselves_with_the_fin_ugor"
 			every_state = {
 				limit = {
 					OR = {
 						is_core_of = FIN
-						has_state_flag = EST_INITIAL_STATE
-						is_core_of = KAR
+						is_core_of = EST
 					}
 				}
 				add_claim_by = TUR
 			}
-			
+			57 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 216 (Olonets); mod Olonets
+			2458 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 215 (Onega); mod Onega
+			19 = { add_claim_by = TUR }   # 1.19-migration: was vanilla 213 (Murmansk); mod Murmansk
 			if = { 
 				limit = {
 					FIN = { exists = yes }
@@ -9048,12 +9536,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_learning_from_the_great_war"
 			army_experience = 10
 			if = {
 				limit = {
 					NOT = { has_completed_focus = TUR_hava_okulu }
 				}
+				custom_effect_tooltip = generic_skip_one_line_tt
 				unlock_decision_category_tooltip = TUR_reforming_our_armed_forces_category
 			}
 		}
@@ -9072,14 +9560,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_modernising_the_army"
 			add_doctrine_cost_reduction = {
 				name = TUR_modernising_the_army
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			unlock_decision_tooltip = TUR_modernize_our_tactics
+			custom_effect_tooltip = generic_skip_one_line_tt
 			unlock_decision_tooltip = TUR_commence_an_overhaul_of_our_training_methods
 		}
 	}
@@ -9095,14 +9584,15 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_hava_okulu"
 			air_experience = 5
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_military_high_command
 			show_ideas_tooltip = TUR_sabiha_gokcen
 			if = {
 				limit = {
 					NOT = { has_completed_focus = TUR_learning_from_the_great_war }
 				}
+				custom_effect_tooltip = generic_skip_one_line_tt
 				unlock_decision_category_tooltip = TUR_reforming_our_armed_forces_category
 			}
 		}
@@ -9121,8 +9611,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_expand_the_air_bases"
-			2770 = {
+			958 = {   # 1.19-migration: was vanilla 354 (Trabzon); mod Trabzon
 				if = {
 					limit = {
 						free_building_slots = {
@@ -9137,7 +9626,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			979 = {
+			979 = {   # 1.19-migration: was vanilla 49 (Ankara); mod Ankara
 				if = {
 					limit = {
 						free_building_slots = {
@@ -9152,7 +9641,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			1059 = {
+			1049 = {   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
 				if = {
 					limit = {
 						free_building_slots = {
@@ -9167,7 +9656,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			1032 = {
+			979 = {   # 1.19-migration: was vanilla 49 (Ankara); mod Ankara
 				if = {
 					limit = {
 						free_building_slots = {
@@ -9182,7 +9671,13 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			unlock_decision_tooltip = TUR_teach_the_proper_use_of_modern_infrastructure
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			unlock_decision_tooltip = TUR_put_new_safety_regulations_regarding_the_operation_of_aircraft_into_effect
 		}
 	}
@@ -9201,7 +9696,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_mechanising_our_army"
 			add_tech_bonus = {
 				name = TUR_mechanising_our_army
 				bonus = 2.0
@@ -9231,7 +9725,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_embrace_military_tradition"
 			add_tech_bonus = {
 				name = TUR_embrace_military_tradition
 				bonus = 2.0
@@ -9261,8 +9754,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_kirikkale_tank"
-			1948 = {
+			979 = {   # 1.19-migration: was vanilla 49 (Ankara); mod Ankara
 				if = {
 					limit = {
 						free_building_slots = {
@@ -9301,7 +9793,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_superiority_of_arms"
 			add_tech_bonus = {
 				name = TUR_superiority_of_arms
 				bonus = 1.5
@@ -9324,19 +9815,25 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_utilising_our_terrain"
 			add_tech_bonus = {
 				name = TUR_utilising_our_terrain
 				bonus = 1.0
-				uses = 2
-				technology = tech_mountaineers
-				technology = tech_mountaineers2
+				uses = 1
+				category = mountaineers_tech
 			}
 			add_tech_bonus = {
 				name = TUR_utilising_our_terrain
 				bonus = 1.0
 				uses = 1
 				category = engineers_tech
+			}
+			random_army_leader = {
+				limit = {
+					NOT = {
+						has_trait = trait_mountaineer
+					}
+				}	
+				add_trait = { trait = trait_mountaineer }
 			}
 		}
 	}
@@ -9394,7 +9891,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_accelerate_native_fighter_designs"
 			add_tech_bonus = {
 				name = TUR_accelerate_native_fighter_designs
 				bonus = 1.5
@@ -9418,7 +9914,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_patrol_the_seas"
 			add_tech_bonus = {
 				name = TUR_patrol_the_seas
 				bonus = 1.5
@@ -9448,7 +9943,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_invoke_the_methods_of_mehmed_ii"
 			add_tech_bonus = {
 				name = TUR_invoke_the_methods_of_mehmed_ii
 				bonus = 1.5
@@ -9477,28 +9971,30 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_turkish_air_defense_platforms"
-			932 = {
+			932 = {   # 1.19-migration: was vanilla 797 (Istanbul); mod Batı İstanbul
 				add_building_construction = {
 					type = air_base
 					level = 3
 					instant_build = yes
 				}
 			}
-			928 = {
+			958 = {   # 1.19-migration: was vanilla 354 (Trabzon); mod Trabzon
 				add_building_construction = {
 					type = air_base
 					level = 2
 					instant_build = yes
 				}
 			}
-			1032 = {
+			1932 = {   # 1.19-migration: was vanilla 340 (Bursa); mod Bursa
 				add_building_construction = {
 					type = air_base
 					level = 2
 					instant_build = yes
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_doctrine_cost_reduction = {
 				name = TUR_turkish_air_defense_platforms
 				cost_reduction = 0.25
@@ -9616,12 +10112,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_legacy_of_osmanli_donanmasi"
 			add_tech_bonus = {
 				name = TUR_the_legacy_of_osmanli_donanmasi
 				bonus = 1.50
 				uses = 1
-				category = industry
+				category = ca_tech
 			}
 			add_tech_bonus = {
 				name = TUR_the_legacy_of_osmanli_donanmasi
@@ -9646,18 +10141,18 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_the_path_of_the_wolf"
 			add_tech_bonus = {
 				name = TUR_the_path_of_the_wolf
 				bonus = 1.00
 				uses = 1
 				category = ss_tech
 			}
-			add_doctrine_cost_reduction = {
+			add_mastery_bonus = {
 				name = TUR_the_path_of_the_wolf
-				cost_reduction = 0.35
-				uses = 2
-				category = trade_interdiction_tree
+				bonus = 0.2
+				days = 180
+				track = submarines
+
 			}
 		}
 	}
@@ -9677,17 +10172,28 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_fortified_defensive_bases"
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.75
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_tech_bonus = {
 				name = TUR_fortified_defensive_bases
-				bonus = 1.00
-				uses = 2
+				bonus = 1
+				uses = 1 # was 2
 				category = radar_tech
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_timed_idea = {
 				idea = TUR_emergency_deployment_of_defensive_bases
 				days = 720
 			}
+
 		}
 	}
 
@@ -9705,8 +10211,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus TUR_turk_silahli_kuvvetleri"
 			add_war_support = 0.15
+			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
 				limit = {
 					OR = {

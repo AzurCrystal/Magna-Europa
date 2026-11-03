@@ -18,6 +18,7 @@ focus_tree = {
 		}
 	}
 	default = no
+	shared_focus = ABDA_abdacom
 	continuous_focus_position = { x = 50 y = 1120 }
 
 	focus = {
@@ -114,7 +115,41 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}	
 		completion_reward = {
 			USA = {
-				country_event = britain.1
+				country_event = {
+					id = britain.1
+					hours = 12
+				}	
+			}
+			custom_effect_tooltip = if_they_accept
+			effect_tooltip = {
+				add_breakthrough_progress = {
+					specialization = specialization_air
+					value = 0.75
+				}
+				add_tech_bonus = {
+					name = tizard_mission_focus
+					bonus = 0.5 # was 1
+					category = light_fighter
+				}
+				add_tech_bonus = {
+					name = tizard_mission_focus
+					bonus = 0.5 # was 1
+					uses = 1 # was 2
+					category = radar_tech
+				}
+				custom_effect_tooltip =  generic_skip_one_line_tt
+				USA = {
+					add_breakthrough_progress = {
+						specialization = specialization_air
+						value = 0.75
+					}
+					add_tech_bonus = {
+						name = tizard_mission_focus
+						uses = 1
+						bonus = 1
+						category = light_fighter
+					}
+				}
 			}
 		}
 	}
@@ -134,12 +169,19 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
+
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.75
+			}
+
 			add_tech_bonus = {
 				name = maud_focus
-				bonus = 1.0
+				bonus = 0.75 # was 1
 				uses = 1
 				category = nuclear
 			}
+
 		}
 	}
 	
@@ -220,6 +262,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = ENG_motorized_focus
 		prerequisite = { focus = limited_rearmament_focus }
@@ -245,6 +288,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = ENG_tank_focus
 		prerequisite = { focus = ENG_motorized_focus }
@@ -266,6 +310,45 @@ focus_tree = {
 				uses = 1
 				category = armor
 			}
+		}
+	}
+
+	focus = {
+		id = ENG_expand_the_secret_intelligence_service_focus 
+
+		prerequisite = { focus = limited_rearmament_focus }
+
+		dynamic = yes
+
+		available = {
+		} 
+
+		allow_branch = {
+			has_dlc = "La Resistance"
+		}
+
+		icon = GFX_focus_generic_secret_service_agency
+
+		x = 2
+		y = 1
+		relative_position_id = limited_rearmament_focus
+
+		cost = 10
+
+		available_if_capitulated = no
+
+		completion_reward = {
+
+			IF = {
+				limit = {
+					has_intelligence_agency = no
+				}
+				create_intelligence_agency = yes
+				custom_effect_tooltip = generic_skip_one_line_tt
+			}
+
+			add_ideas = ENG_mi6_ns
+
 		}
 	}
 	
@@ -962,10 +1045,14 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
 			air_experience = 25
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.75
+			}
 			add_tech_bonus = {
 				name = radar_focus
-				bonus = 1.0
-				uses = 3
+				bonus = 1
+				uses = 1 # was 3
 				category = radar_tech
 			}
 		}
@@ -973,7 +1060,9 @@ focus_tree = {
 	
 	focus = {
 		id = shadow_scheme_focus
+
 		prerequisite = { focus = limited_rearmament_focus }
+
 		available = {
 			if = {
 				limit = {
@@ -1002,17 +1091,37 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		icon = GFX_goal_generic_construct_mil_factory
+
 		x = -2
 		y = 1
 		relative_position_id = limited_rearmament_focus
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}	
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }	
+
 		completion_reward = {
 			custom_effect_tooltip = shadow_scheme_focus_tt
-			add_ideas = wartime_industry_focus	
+			IF = {
+				limit = {
+					NOT = {
+						has_idea = ENG_prepare_for_the_inevitable_idea
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				add_ideas = wartime_industry_focus
+			}
+			ELSE = {
+				custom_effect_tooltip = generic_skip_one_line_tt
+				swap_ideas = {
+					remove_idea = ENG_prepare_for_the_inevitable_idea
+					add_idea = ENG_prepare_for_the_inevitable_and_wartime_industry_idea
+				}	
+			}
 		}
 	}
 
@@ -1120,6 +1229,7 @@ focus_tree = {
 		}	
 		completion_reward = {
 			add_ideas = ENG_special_air_service_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = ENG_david_stirling
 		}
@@ -1151,7 +1261,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	
 	focus = {
 		id = royal_ordinance_focus
@@ -1304,6 +1413,7 @@ focus_tree = {
 			add_ideas = british_arms_discount
 		}
 	}
+
 	focus = {
 		id = UK_secret_focus
 		prerequisite = { focus = royal_ordinance_focus }
@@ -1320,26 +1430,23 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
+
+			add_ideas = generic_secret_weapons_ns
 			add_tech_bonus = {
 				name = UK_secret_focus
-				bonus = 1.0
-				uses = 2
-				category = electronics
-			}
-			add_tech_bonus = {
-				name = UK_secret_focus
-				bonus = 1.0
-				uses = 2
+				bonus = 0.5 # was 1
+				uses = 1 # was 2
 				category = rocketry
 			}
 			add_tech_bonus = {
 				name = UK_secret_focus
-				bonus = 1.0
+				bonus = 0.5 # was 1
 				uses = 1
 				category = nuclear
 			}
 		}
 	}
+
 	focus = {
 		id = air_rearmament_focus
 		prerequisite = { focus = general_rearmament_focus }
@@ -1581,6 +1688,7 @@ focus_tree = {
 			army_experience = 10
 			navy_experience = 10
 			air_experience = 10
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_chiefs_of_staff_committee_idea
 		}
 	}
@@ -1626,7 +1734,7 @@ focus_tree = {
 					category = cat_heavy_fighter
 				}
 				add_doctrine_cost_reduction = {
-					name = ENG_fighter_command_focus #land_doc_bonus
+					name = fighter_command_focus #land_doc_bonus
 					cost_reduction = 0.5
 					uses = 1
 					category = air_doctrine
@@ -1675,7 +1783,7 @@ focus_tree = {
 					category = tactical_bomber
 				}
 				add_doctrine_cost_reduction = {
-					name = ENG_bomber_command_focus #land_doc_bonus
+					name = bomber_command_focus #land_doc_bonus
 					cost_reduction = 0.5
 					uses = 1
 					category = air_doctrine
@@ -1724,7 +1832,7 @@ focus_tree = {
 					category = cas_bomber
 				}
 				add_doctrine_cost_reduction = {
-					name = ENG_coastal_command_focus #land_doc_bonus
+					name = coastal_command_focus #land_doc_bonus
 					cost_reduction = 0.5
 					uses = 1
 					category = air_doctrine
@@ -1763,16 +1871,24 @@ focus_tree = {
 		}
 
 		available_if_capitulated = yes
-		search_filters = {FOCUS_FILTER_RESEARCH}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 1
+			}
+
 			add_tech_bonus = {
 				name = uk_jet_focus
 				bonus = 1.0
-				uses = 4
+				uses = 2 # was 4 
 				category = jet_technology
 			}
+
 		}
 	}
+
 	focus = {
 		id = naval_rearmament_focus
 		prerequisite = { focus = general_rearmament_focus }
@@ -1936,6 +2052,7 @@ focus_tree = {
 				uses = 2
 				category = industry
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_secure_the_imperial_shipping_routes
 		}
 	}
@@ -2034,12 +2151,13 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			add_doctrine_cost_reduction = {
+			add_mastery_bonus = {
 				name = ENG_anti_submarine_training_school
-				cost_reduction = 0.35
-				uses = 2
-				category = convoy_defense_tree
+				bonus = 0.25
+				days = 180
+				track = screens
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_anti_submarine_training_school
 		}
 	}
@@ -2197,6 +2315,7 @@ focus_tree = {
 				}
 				set_state_flag = ENG_expand_the_repair_yards_2dockyard
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_expand_the_repair_yards
 		}
 	}
@@ -2220,7 +2339,7 @@ focus_tree = {
 		available = {
 			date > 1944.1.1
 			has_tech = advanced_ship_hull_heavy
-			has_full_control_of_state = 193
+			has_full_control_of_state = 126   # 1.19-migration: was vanilla 133 (Lanark)
 			#has_tech = improved_heavy_battery
 			#has_tech = dp_light_battery_3
 			#has_tech = antiair5
@@ -2297,7 +2416,8 @@ focus_tree = {
 		available = {
 			NOT = { has_government = communism }
 			num_subjects > 0
-		}
+		} 
+
 		allow_branch = {
 			if = {
 				limit = {
@@ -2311,8 +2431,9 @@ focus_tree = {
 				}
 			}
 		}
+
 		icon = GFX_goal_generic_national_unity
-		x = 22
+		x = 29
 		y = 0
 		offset = {
 			x = -2
@@ -2358,6 +2479,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = uk_service_focus 
 		prerequisite = { focus = uk_empire_focus }
@@ -2392,9 +2514,11 @@ focus_tree = {
 			army_experience = 5
 			navy_experience = 25
 			air_experience = 25
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_service_overseas_idea
 		}
 	}
+
 	focus = {
 		id = uk_mediterranean_focus 
 		prerequisite = { focus = uk_service_focus }
@@ -2409,7 +2533,7 @@ focus_tree = {
 			}
 		} 
 		icon = GFX_goal_generic_construct_military
-		x = 4
+		x = 5
 		y = 1
 		relative_position_id = uk_service_focus
 		cost = 10
@@ -2429,6 +2553,7 @@ focus_tree = {
 					NOT = { has_idea = ENG_fortify_the_empire_2 }
 				}
 				add_ideas = ENG_fortify_the_empire_1
+				custom_effect_tooltip = generic_skip_one_line_tt
 			}
 			1895 = { # was vanilla 447 (Alexandria)
 				add_building_construction = {
@@ -2490,14 +2615,17 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = uk_spain_focus
+
 		prerequisite = { focus = uk_mediterranean_focus }
+
 		mutually_exclusive = { focus = uk_rock_focus }
 
 		available = {
-			any_other_country = {
-				original_tag = SPR
+			any_country_with_original_tag = {
+				original_tag_to_check = SPR
 				exists = yes
 				has_war = no
 				NOT = { is_in_faction_with = ENG }
@@ -2505,16 +2633,21 @@ focus_tree = {
 			}
 			NOT = { has_government = communism }
 		} #SPA/SPR not in a faction
-		#prerequisite = { focus = uk_carrier_focus }
-		icon = GFX_goal_generic_demand_territory
+		
+		icon = GFX_focus_generic_befriend_republican_spain_focus
+
 		x = -1
 		y = 1
 		relative_position_id = uk_mediterranean_focus
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}
-		search_filters = {FOCUS_FILTER_POLITICAL}	
+
+		search_filters = { FOCUS_FILTER_POLITICAL }	
+
 		completion_reward = {
 			# + relations with SPA/SPR - they become more democratic and like fascist/commies less
 			if = {
@@ -2599,7 +2732,7 @@ focus_tree = {
 		}
 
 		available = {
-			1285 = {
+			1895 = {   # 1.19-migration: was vanilla 447 (Alexandria); mod Kafr ash Shaykh
 				CONTROLLER = {
 					OR = {
 						tag = ENG
@@ -2611,7 +2744,7 @@ focus_tree = {
 
 		available_if_capitulated = yes
 
-		# Needs province based trigger to work properly
+		 
 		#bypass = {
 		#	447 = {
 		#		free_building_slots = {
@@ -2732,6 +2865,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_dlc = "Death or Dishonor"
+					country_exists = YUG
 				}
 				country_event = {
 					id = DOD_yugoslavia.40
@@ -2764,9 +2898,18 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			ITA = {
-				add_opinion_modifier = { target = ENG modifier = embargo }
-				add_opinion_modifier = { target = ENG modifier = sanctions_relations } 
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				send_embargo = ITA
+				custom_effect_tooltip = embargo_relation_tt
+			}
+			else = {
+				add_opinion_modifier = { target = ITA modifier = embargo }
+				ITA = {
+					add_opinion_modifier = { target = ENG modifier = sanctions_relations }
+				}
 			}
 		}
 	}
@@ -2802,8 +2945,11 @@ focus_tree = {
 
 	focus = {
 		id = uk_turkey_focus
+
 		prerequisite = { focus = uk_protect_suez }
+
 		mutually_exclusive = { focus = uk_greece_focus }
+
 		available = {
 			TUR = {
 				exists = yes
@@ -2813,16 +2959,21 @@ focus_tree = {
 			}
 			NOT = { has_government = communism }
 		} #TUR not in a faction
-		#prerequisite = { focus = uk_battleship_focus }
-		icon = GFX_goal_generic_political_pressure
+		
+		icon = GFX_focus_generic_befriend_turkey
+
 		x = -3
 		y = 1
 		relative_position_id = uk_protect_suez
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}	
-		search_filters = {FOCUS_FILTER_POLITICAL}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
 		completion_reward = {
 			# + relations with TUR - they become more democratic and like fascist/commies less
 			if = {
@@ -2875,10 +3026,14 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = uk_greece_focus 
+
 		prerequisite = { focus = uk_protect_suez } 
+
 		mutually_exclusive = { focus = uk_turkey_focus }
+
 		available = {
 			GRE = {
 				exists = yes
@@ -2888,12 +3043,17 @@ focus_tree = {
 			}
 			NOT = { has_government = communism }
 		} 
-		icon = GFX_goal_generic_political_pressure
+
+		icon = GFX_focus_generic_befriend_greece
+
 		x = -1
 		y = 1
 		relative_position_id = uk_protect_suez
+
 		cost = 10
-		search_filters = {FOCUS_FILTER_POLITICAL}
+
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
 		completion_reward = {
 			if = {
 				limit = { has_government = democratic }
@@ -2945,119 +3105,7 @@ focus_tree = {
 			}
 		}
 	}
-	
-	focus = {
-		id = uk_cyprus_focus 
-		prerequisite = { focus = uk_mediterranean_focus }
-		available = {
-			1964 = {
-				CONTROLLER = {
-					OR = {
-						tag = ENG
-						is_subject_of = ENG
-					}
-				}
-			}
-			1965 = {
-				CONTROLLER = {
-					OR = {
-						tag = ENG
-						is_subject_of = ENG
-					}
-				}
-			}
-			1968 = {
-				CONTROLLER = {
-					OR = {
-						tag = ENG
-						is_subject_of = ENG
-					}
-				}
-			}
-		}		
-		icon = GFX_goal_generic_construct_military
-		x = 1
-		y = 1
-		relative_position_id = uk_mediterranean_focus
-		cost = 10
 
-		available_if_capitulated = yes
-
-		# Needs province based trigger to work properly
-		#bypass = {
-		#	116 = {
-		#		free_building_slots = {
-		#			building = coastal_bunker
-		#			size < 2
-		#		}
-		#		free_building_slots = {
-		#			building = air_base
-		#			size < 1
-		#		}
-		#	}
-		#}
-
-		completion_reward = {
-			1964 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = coastal_bunker
-					level = 2
-					province = 2824
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = air_base
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = anti_air_building
-					level = 2
-					instant_build = yes
-				}
-			}
-			1965 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = coastal_bunker
-					level = 2
-					province = 20745
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = air_base
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = anti_air_building
-					level = 2
-					instant_build = yes
-				}
-			}
-			1968 = {
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = coastal_bunker
-					level = 2
-					province = 10616
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = air_base
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = anti_air_building
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-	
 	focus = {
 		id = uk_malta_focus 
 		prerequisite = { focus = uk_mediterranean_focus }
@@ -3148,8 +3196,21 @@ focus_tree = {
 		continue_if_invalid = yes
 
 		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
-		x = 30
+		x = 34
 		y = 0
+
+		offset = {
+			x = -16
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = ENG_revisit_colonial_policy
+			}
+		}
+
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -3199,10 +3260,10 @@ focus_tree = {
 		continue_if_invalid = yes
 
 		icon = GFX_focus_chi_british_cooperation
-		x = 0
+		x = 3
 		y = 1
 		relative_position_id = ENG_revisit_colonial_policy
-		
+
 		offset = {
 			x = -3
 			y = 0
@@ -3214,7 +3275,7 @@ focus_tree = {
 				has_completed_focus = ENG_revisit_colonial_policy
 			}
 		}
-		
+
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -3233,7 +3294,7 @@ focus_tree = {
 					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
 				}
 			}
-			EGY = {
+			#SAF = {   # 1.19-migration: dead tag SAF
 				if = {
 					limit = {
 						is_subject_of = ENG
@@ -3244,7 +3305,7 @@ focus_tree = {
 					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
 				}
 			}
-			PAL = {
+			#AST = {   # 1.19-migration: dead tag AST
 				if = {
 					limit = {
 						is_subject_of = ENG
@@ -3255,7 +3316,7 @@ focus_tree = {
 					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
 				}
 			}
-			JOR = {
+			#NZL = {   # 1.19-migration: dead tag NZL
 				if = {
 					limit = {
 						is_subject_of = ENG
@@ -3263,6 +3324,28 @@ focus_tree = {
 					add_stability = 0.05
 					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
 					add_ideas = ENG_guided_by_britain_1
+					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				}
+			}
+			#MAL = {   # 1.19-migration: dead tag MAL
+				if = {
+					limit = {
+						is_subject_of = ENG
+					}
+					add_stability = 0.05
+					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					add_ideas = ENG_guided_by_britain_2
+					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				}
+			}
+			#BRM = {   # 1.19-migration: dead tag BRM
+				if = {
+					limit = {
+						is_subject_of = ENG
+					}
+					add_stability = 0.05
+					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					add_ideas = ENG_guided_by_britain_2
 					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
 				}
 			}
@@ -3276,14 +3359,18 @@ focus_tree = {
 			is_subject = no
 			OR = {
 				CAN = { is_subject_of = ENG }
-				EGY = { is_subject_of = ENG }
+				#SAF = { is_subject_of = ENG }   # 1.19-migration: dead tag SAF
+				#AST = { is_subject_of = ENG }   # 1.19-migration: dead tag AST
+				#NZL = { is_subject_of = ENG }   # 1.19-migration: dead tag NZL
 			}
 		}
 		bypass = {
 			OR = {
 				AND = {
 					CAN = { is_subject = no }
-					EGY = { is_subject = no }
+					#SAF = { is_subject = no }   # 1.19-migration: dead tag SAF
+					#AST = { is_subject = no }   # 1.19-migration: dead tag AST
+					#NZL = { is_subject = no }   # 1.19-migration: dead tag NZL
 				}
 				has_completed_focus = ENG_bring_the_dominions_back_into_the_fold
 			}
@@ -3292,7 +3379,7 @@ focus_tree = {
 		continue_if_invalid = yes
 
 		icon = GFX_goal_tfv_sever_ties_with_uk
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = ENG_guide_the_colonies
 		cost = 10
@@ -3316,7 +3403,7 @@ focus_tree = {
 					hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
 				}
 			}
-			EGY = {
+			#SAF = {   # 1.19-migration: dead tag SAF
 				if = {
 					limit = {
 						is_subject_of = ENG
@@ -3329,7 +3416,7 @@ focus_tree = {
 					hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
 				}
 			}
-			PAL = {
+			#AST = {   # 1.19-migration: dead tag AST
 				if = {
 					limit = {
 						is_subject_of = ENG
@@ -3342,7 +3429,7 @@ focus_tree = {
 					hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
 				}
 			}
-			JOR = {
+			#NZL = {   # 1.19-migration: dead tag NZL
 				if = {
 					limit = {
 						is_subject_of = ENG
@@ -3487,30 +3574,16 @@ focus_tree = {
 		available = { 
 			is_subject = no
 			OR = {
-			has_full_control_of_state = 1622
-			has_full_control_of_state = 1962
+			has_full_control_of_state = 1622   # 1.19-migration: was vanilla 116 (Malta)
+			has_full_control_of_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
 		}
 		}
 		bypass = {
 			NOT = {
-				OR = {
-					owns_state = 1622
-					AND = {
-						MLT = {
-							exists = yes
-							is_subject_of = ENG
-						}
-					}
-				}
-				OR = {
-					owns_state = 1962
-					AND = {
-						CYP = {
-							exists = yes
-							is_subject_of = ENG
-						}
-					}
-				}
+				AND = {
+					owns_state = 1622   # 1.19-migration: was vanilla 116 (Malta)
+					owns_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+		}
 			}
 		}
 
@@ -3530,56 +3603,60 @@ focus_tree = {
 			add_manpower = 10000
 			if = {
 				limit = {
-					has_full_control_of_state = 1622
+					has_full_control_of_state = 1622   # 1.19-migration: was vanilla 116 (Malta)
 				}
 				release = MLT
-				else_if = {
+				if = {
 					limit = {
+						has_dlc = "Together for Victory"
+					}
+					set_autonomy = { target = MLT autonomy_state = autonomy_dominion }
+				}
+				if = {
+					limit = {
+						NOT = { has_dlc = "Together for Victory" }
+					}
+					puppet = MLT
+				}
+				hidden_effect = {
+					every_other_country = {
+						limit = {
+							has_war_with = ENG
+						}
 						MLT = {
-							is_subject_of = ROOT
+							add_to_war = { targeted_alliance = ENG enemy = PREV hostility_reason = asked_to_join }
 						}
 					}
-					set_autonomy = {
-					target = MLT
-						autonomy_state = autonomy_dominion
-					}
 				}
-				
 			}
 			if = {
 				limit = {
-					has_full_control_of_state = 1962
+					has_full_control_of_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
 				}
-				every_state = {
+				release = CYP
+				if = {
 					limit = {
-						is_core_of = CYP
-						is_owned_by = ENG
-						NOT = {
-							state = 1965
-							state = 1968
-						}
+						has_dlc = "Together for Victory"
 					}
-					transfer_state_to = CYP
+					set_autonomy = { target = CYP autonomy_state = autonomy_dominion }
 				}
-				
-				set_autonomy = {
-					target = CYP
-					autonomy_state = autonomy_dominion
-				}
-				else_if = {
+				if = {
 					limit = {
+						NOT = { has_dlc = "Together for Victory" }
+					}
+					puppet = CYP
+				}
+				hidden_effect = {
+					every_other_country = {
+						limit = {
+							has_war_with = ENG
+						}
 						CYP = {
-							is_subject_of = ROOT
+							add_to_war = { targeted_alliance = ENG enemy = PREV hostility_reason = asked_to_join }
 						}
 					}
-					set_autonomy = {
-					target = CYP
-						autonomy_state = autonomy_dominion
-					}
 				}
-				
 			}
-			
 		}
 	}
 
@@ -3945,6 +4022,8 @@ focus_tree = {
 	focus = {
 		id = ENG_decolonization
 		prerequisite = { focus = ENG_self_government_for_africa }
+		prerequisite = { focus = ENG_self_government_for_asia }
+		prerequisite = { focus = ENG_towards_indian_independence }
 		available = { 
 			is_subject = no
 		}
@@ -3979,16 +4058,37 @@ focus_tree = {
 					limit = {
 						NOT = { has_country_flag = ENG_remain_as_puppet }
 					}
-					ROOT = { set_autonomy = { target = PREV autonomy_state = autonomy_free } }
+					ROOT = { 
+
+						if = {
+							limit = {
+								has_dlc = "Graveyard of Empires"
+								PREV = {
+									#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+								}
+							}
+							PREV = {
+								country_event = { id = GOE_RAJ.30 hours = 2 }
+							}
+						}
+						else = {
+							set_autonomy = { target = PREV autonomy_state = autonomy_free }
+						}
+
+					}
 					if = {
 						limit = {
 							NOT = { surrender_progress > 0.1 }
 						}
 						random = {
-							chance = 100
+							chance = 75
 							every_enemy_country = {
 								limit = {
 									has_war_with = PREV
+									NOT = {
+										#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+										#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+									}
 								}
 								white_peace = PREV
 							}
@@ -3997,7 +4097,7 @@ focus_tree = {
 							set_country_flag = ENG_decolonization_left_faction
 							add_ai_strategy = {
 								type = alliance
-								id = "ENG"
+								id = ENG
 								value = -200
 							}
 							if = {
@@ -4013,10 +4113,84 @@ focus_tree = {
 			every_other_country = {
 				limit = {
 					is_subject_of = ENG
+					has_idea = ENG_guided_by_britain_raj_2
+				}
+				remove_ideas = ENG_guided_by_britain_raj_2
+				if = {
+					limit = {
+						NOT = { has_country_flag = ENG_remain_as_puppet }
+					}
+						ROOT = { 
+							if = {
+							limit = {
+								has_dlc = "Graveyard of Empires"
+								PREV = {
+									#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+								}
+							}
+							PREV = {
+								country_event = { id = GOE_RAJ.30 hours = 2 }
+							}
+						}
+						else = {
+							set_autonomy = { target = PREV autonomy_state = autonomy_free }
+						}
+
+					}
+					if = {
+						limit = {
+							NOT = { surrender_progress > 0.1 }
+						}
+						random = {
+							chance = 75
+							every_enemy_country = {
+								limit = {
+									has_war_with = PREV
+									NOT = {
+										#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+										#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+									}
+								}
+								white_peace = PREV
+							}
+							leave_faction = yes
+							remove_from_tech_sharing_group = commonwealth_research
+							set_country_flag = ENG_decolonization_left_faction
+							add_ai_strategy = {
+								type = alliance
+								id = ENG
+								value = -200
+							}
+						}
+					}
+				}
+				hidden_effect = {
+					if = {
+						limit = {
+							has_dlc = "Together for Victory"
+							ENG = { has_completed_focus = ENG_the_three_nation_solution }
+							OR = {
+								#has_idea = RAJ_marginalized_muslim_community   # 1.19-migration: dead tag RAJ
+								#has_idea = RAJ_marginalized_muslim_community_angry   # 1.19-migration: dead tag RAJ
+							}
+						}
+						#remove_ideas = RAJ_marginalized_muslim_community   # 1.19-migration: dead tag RAJ
+						#remove_ideas = RAJ_marginalized_muslim_community_angry   # 1.19-migration: dead tag RAJ
+						#add_ideas = RAJ_marginalized_muslim_community_happy   # 1.19-migration: dead tag RAJ
+					}
+				}
+			}
+			every_other_country = {
+				limit = {
+					is_subject_of = ENG
 					NOT = {
 						OR = {
 							tag = CAN
-							tag = MLT
+							#tag = SAF   # 1.19-migration: dead tag SAF
+							#tag = RAJ   # 1.19-migration: dead tag RAJ
+							#tag = AST   # 1.19-migration: dead tag AST
+							#tag = NZL   # 1.19-migration: dead tag NZL
+							#tag = MAL   # 1.19-migration: dead tag MAL
 						}
 					}
 					OR = {
@@ -4025,7 +4199,20 @@ focus_tree = {
 					}
 				}
 				ROOT = {
-					set_autonomy = { target = PREV autonomy_state = autonomy_free }
+					if = {
+						limit = {
+							has_dlc = "Graveyard of Empires"
+							PREV = {
+								#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+							}
+						}
+						PREV = {
+							country_event = { id = GOE_RAJ.30 hours = 2 }
+						}
+					}
+					else = {
+						set_autonomy = { target = PREV autonomy_state = autonomy_free }
+					}
 				}
 				if = {
 					limit = {
@@ -4036,6 +4223,10 @@ focus_tree = {
 						every_enemy_country = {
 							limit = {
 								has_war_with = PREV
+								NOT = {
+									#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+									#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+								}
 							}
 							white_peace = PREV
 						}
@@ -4043,7 +4234,7 @@ focus_tree = {
 						set_country_flag = ENG_decolonization_left_faction
 						add_ai_strategy = {
 							type = alliance
-							id = "ENG"
+							id = ENG
 							value = -200
 						}
 					}
@@ -4055,7 +4246,11 @@ focus_tree = {
 					NOT = {
 						OR = {
 							tag = CAN
-							tag = MLT
+							#tag = SAF   # 1.19-migration: dead tag SAF
+							#tag = RAJ   # 1.19-migration: dead tag RAJ
+							#tag = AST   # 1.19-migration: dead tag AST
+							#tag = NZL   # 1.19-migration: dead tag NZL
+							#tag = MAL   # 1.19-migration: dead tag MAL
 						}
 					}
 					NOT = {
@@ -4066,7 +4261,20 @@ focus_tree = {
 					}
 				}
 				ROOT = {
-					set_autonomy = { target = PREV autonomy_state = autonomy_free }
+					if = {
+						limit = {
+							has_dlc = "Graveyard of Empires"
+							PREV = {
+								#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+							}
+						}
+						PREV = {
+							country_event = { id = GOE_RAJ.30 hours = 2 }
+						}
+					}
+					else = {
+						set_autonomy = { target = PREV autonomy_state = autonomy_free }
+					}
 				}
 				if = {
 					limit = {
@@ -4077,6 +4285,10 @@ focus_tree = {
 						every_enemy_country = {
 							limit = {
 								has_war_with = PREV
+								NOT = {
+									#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+									#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+								}
 							}
 							white_peace = PREV
 						}
@@ -4084,7 +4296,7 @@ focus_tree = {
 						set_country_flag = ENG_decolonization_left_faction
 						add_ai_strategy = {
 							type = alliance
-							id = "ENG"
+							id = ENG
 							value = -200
 						}
 					}
@@ -4093,6 +4305,10 @@ focus_tree = {
 			if = {
 				limit = {
 					NOT = { is_in_faction_with = CAN }
+					#NOT = { is_in_faction_with = SAF }   # 1.19-migration: dead tag SAF
+					#NOT = { is_in_faction_with = RAJ }   # 1.19-migration: dead tag RAJ
+					#NOT = { is_in_faction_with = AST }   # 1.19-migration: dead tag AST
+					#NOT = { is_in_faction_with = NZL }   # 1.19-migration: dead tag NZL
 				}
 				remove_from_tech_sharing_group = commonwealth_research
 			}
@@ -4107,12 +4323,102 @@ focus_tree = {
 							has_country_flag = ENG_decolonization_left_faction
 						}
 					}
-					CAN = { create_faction = ENG_coalition_of_free_commonwealth_states }
+					CAN = { 
+						create_faction_from_template = {
+							template = faction_template_allies
+							name = ENG_coalition_of_free_commonwealth_states
+							icon = GFX_faction_logo_generic_2
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						#AST = {   # 1.19-migration: dead tag AST
+							has_war_together_with = ENG
+							has_country_flag = ENG_decolonization_left_faction
+						}
+					}
+					#AST = {   # 1.19-migration: dead tag AST
+						create_faction_from_template = {
+							template = faction_template_allies
+							name = ENG_coalition_of_free_commonwealth_states
+							icon = GFX_faction_logo_generic_2
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						#RAJ = {   # 1.19-migration: dead tag RAJ
+							has_war_together_with = ENG
+							has_country_flag = ENG_decolonization_left_faction
+						}
+					}
+					#RAJ = {   # 1.19-migration: dead tag RAJ
+						create_faction_from_template = {
+							template = faction_template_allies
+							name = ENG_coalition_of_free_commonwealth_states
+							icon = GFX_faction_logo_generic_2
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						#SAF = {   # 1.19-migration: dead tag SAF
+							has_war_together_with = ENG
+							has_country_flag = ENG_decolonization_left_faction
+						}
+					}
+					#SAF = {   # 1.19-migration: dead tag SAF
+						create_faction_from_template = {
+							template = faction_template_allies
+							name = ENG_coalition_of_free_commonwealth_states
+							icon = GFX_faction_logo_generic_2
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						#NZL = {   # 1.19-migration: dead tag NZL
+							has_war_together_with = ENG
+							has_country_flag = ENG_decolonization_left_faction
+						}
+					}
+					#NZL = {   # 1.19-migration: dead tag NZL
+						create_faction_from_template = {
+							template = faction_template_allies
+							name = ENG_coalition_of_free_commonwealth_states
+							icon = GFX_faction_logo_generic_2
+						}
+					}
 				}
 				else_if = {
 					limit = {
 						NOT = {
 							CAN = {
+								has_war_together_with = ENG
+								has_country_flag = ENG_decolonization_left_faction
+							}
+						}
+						NOT = {
+							#AST = {   # 1.19-migration: dead tag AST
+								has_war_together_with = ENG
+								has_country_flag = ENG_decolonization_left_faction
+							}
+						}
+						NOT = {
+							#RAJ = {   # 1.19-migration: dead tag RAJ
+								has_war_together_with = ENG
+								has_country_flag = ENG_decolonization_left_faction
+							}
+						}
+						NOT = {
+							#SAF = {   # 1.19-migration: dead tag SAF
+								has_war_together_with = ENG
+								has_country_flag = ENG_decolonization_left_faction
+							}
+						}
+						NOT = {
+							#NZL = {   # 1.19-migration: dead tag NZL
 								has_war_together_with = ENG
 								has_country_flag = ENG_decolonization_left_faction
 							}
@@ -4123,11 +4429,19 @@ focus_tree = {
 							NOT = {
 								OR = {
 									tag = CAN
+									#tag = SAF   # 1.19-migration: dead tag SAF
+									#tag = RAJ   # 1.19-migration: dead tag RAJ
+									#tag = AST   # 1.19-migration: dead tag AST
+									#tag = NZL   # 1.19-migration: dead tag NZL
 								}
 							}
 							has_country_flag = ENG_decolonization_left_faction
 						}
-						create_faction = ENG_coalition_of_free_commonwealth_states
+						create_faction_from_template = {
+							template = faction_template_allies
+							name = ENG_coalition_of_free_commonwealth_states
+							icon = GFX_faction_logo_generic_2
+						}
 					}
 				}
 				every_other_country = {
@@ -4143,10 +4457,78 @@ focus_tree = {
 					}
 				}
 			}
+			IF = {
+				limit = {
+					IRQ = {
+						has_idea = IRQ_anglo_iraqi_treaty
+					}
+				}
+				IRQ = {
+					remove_ideas = IRQ_anglo_iraqi_treaty
+				}
+			}
 			clr_country_flag = ENG_switched_to_communism_civil_war_flag
 			custom_effect_tooltip = ENG_concessions_to_the_trade_unions_tt_2
 			hidden_effect = { news_event = { id = mtg_news.15 days = 1 } }
 		}
+	}
+
+	focus = {
+		id = ENG_the_winds_of_change
+		prerequisite = { focus = ENG_decolonization }
+
+		available = { 
+			is_subject = no
+		}
+
+		continue_if_invalid = yes
+
+		icon = GFX_focus_generic_devaluation
+		x = 0
+		y = 1
+		relative_position_id = ENG_decolonization
+
+		cost = 5
+
+		ai_will_do = {
+			factor = 1
+		}	
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.15 
+			}	
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
+			random_owned_state = {
+				limit = {
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 3
+						include_locked = yes
+					}	
+				}
+				prioritize = { 126 338 128 132 130 }
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = industrial_complex
+					level = 4
+					instant_build = yes
+				}	
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_ideas = ENG_evacuated_colonial_assets
+
+		}
+
 	}
 
 	### END OF DECOLONIZATION ###
@@ -4155,7 +4537,7 @@ focus_tree = {
 		id = uk_colonial_focus 
 		prerequisite = { focus = uk_service_focus }
 		icon = GFX_focus_research2
-		x = -2
+		x = -5
 		y = 1
 		relative_position_id = uk_service_focus
 		cost = 10
@@ -4166,20 +4548,48 @@ focus_tree = {
 			add_ideas = { ENG_colonial_elite }
 		}
 	}
-	
+
 	focus = {
 		id = uk_commonwealth_focus 
 		prerequisite = { focus = uk_colonial_focus }
+
 		available = {
-			OR = {
-				any_country = {
-					original_tag = CAN
-					is_in_faction_with = ROOT
-				}
+			any_country_with_original_tag_of = {
+				exists = yes
+				#target = {NZL SAF RAJ AST CAN MAL PAL JOR KUW BRM}   # 1.19-migration: dead tag AST/BRM/MAL/NZL/RAJ/SAF
+				is_in_faction_with = ROOT
 			}
 		}
+
 		bypass = {
 			CAN = {
+				exists = no
+			}
+			#SAF = {   # 1.19-migration: dead tag SAF
+				exists = no
+			}
+			#RAJ = {   # 1.19-migration: dead tag RAJ
+				exists = no
+			}
+			#AST = {   # 1.19-migration: dead tag AST
+				exists = no
+			}
+			#NZL = {   # 1.19-migration: dead tag NZL
+				exists = no
+			}
+			#MAL = {   # 1.19-migration: dead tag MAL
+				exists = no
+			}
+			PAL = {
+				exists = no
+			}
+			JOR = {
+				exists = no
+			}
+			KUW = {
+				exists = no
+			}
+			#BRM = {   # 1.19-migration: dead tag BRM
 				exists = no
 			}
 			NOT = {
@@ -4187,6 +4597,12 @@ focus_tree = {
 					OR = {
 						is_core_of = ENG
 						is_core_of = CAN
+						#is_core_of = SAF   # 1.19-migration: dead tag SAF
+						#is_core_of = AST   # 1.19-migration: dead tag AST
+						#is_core_of = NZL   # 1.19-migration: dead tag NZL
+						#is_core_of = RAJ   # 1.19-migration: dead tag RAJ
+						#is_core_of = MAL   # 1.19-migration: dead tag MAL
+						#is_core_of = BRM   # 1.19-migration: dead tag BRM
 					}
 					#NOT = { state = 320 } # 1.19-migration: off-map French India
 					#NOT = { state = 321 } # 1.19-migration: off-map Goa
@@ -4196,11 +4612,14 @@ focus_tree = {
 				}
 			}
 		}
+
 		icon = GFX_goal_tfv_strengthen_commonwealth_ties
-		x = 0
+
+		x = 4
 		y = 1
 		relative_position_id = uk_colonial_focus
-		cost = 10
+
+		cost = 5
 
 		available_if_capitulated = yes
 
@@ -4208,444 +4627,92 @@ focus_tree = {
 			random_country = {
 				limit = {
 					original_tag = CAN
+					exists = yes
 					is_in_faction_with = ROOT
 				}
+				add_political_power = 50
 				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
-		}
-	}
-	
-	focus = {
-		id = uk_jordan_focus 
-		prerequisite = { focus = uk_commonwealth_focus }
-		available = {
-			any_country = {
-				original_tag = JOR
-				is_in_faction_with = ROOT
-			}
-		}
-		bypass = {
-			OR = {
-				JOR = { exists = no }
-				JOR = {
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		icon = GFX_goal_generic_construct_civ_factory
-		x = -3
-		y = 1
-		relative_position_id = uk_commonwealth_focus
-		cost = 10
-
-		available_if_capitulated = yes
-
-		complete_tooltip = {
 			random_country = {
 				limit = {
-					original_tag = JOR
+					#original_tag = AST   # 1.19-migration: dead tag AST
+					exists = yes
 					is_in_faction_with = ROOT
 				}
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				every_state = { limit = { has_state_flag = ENG_uk_jordan_focus_2IC }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_jordan_focus_1IC }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_jordan_focus
-				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
-		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			JOR = {
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_jordan_focus_2IC
+			random_country = {
+				limit = {
+					#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+					exists = yes
+					is_in_faction_with = ROOT
 				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_jordan_focus_1IC
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_jordan_focus
-				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
-		}
-	}
-	
-	focus = {
-		id = uk_palestine_focus 
-		prerequisite = { focus = uk_jordan_focus }
-		available = {
-			any_country = {
-				original_tag = PAL
-				is_in_faction_with = ROOT
-			}
-		}
-		bypass = {
-			OR = {
-				PAL = { exists = no }
-				PAL = {
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
+			random_country = {
+				limit = {
+					#original_tag = NZL   # 1.19-migration: dead tag NZL
+					exists = yes
+					is_in_faction_with = ROOT
 				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
-		}
-		icon = GFX_goal_generic_construct_civ_factory
-		x = 0
-		y = 1
-		relative_position_id = uk_jordan_focus
-		cost = 10
-
-		available_if_capitulated = yes
-
-		complete_tooltip = {
+			random_country = {
+				limit = {
+					#original_tag = SAF   # 1.19-migration: dead tag SAF
+					exists = yes
+					is_in_faction_with = ROOT
+				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
+			}
+			random_country = {
+				limit = {
+					#original_tag = MAL   # 1.19-migration: dead tag MAL
+					exists = yes
+					is_in_faction_with = ROOT
+				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
+			}
 			random_country = {
 				limit = {
 					original_tag = PAL
+					exists = yes
 					is_in_faction_with = ROOT
 				}
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				every_state = { limit = { has_state_flag = ENG_uk_palestine_focus_2IC }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_palestine_focus_1IC }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_palestine_focus_1dockyard }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_palestine_focus
-				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
-		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			PAL = {
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_palestine_focus_2IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_palestine_focus_1IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_palestine_focus_1dockyard
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_palestine_focus_1dockyard
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_palestine_focus
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = uk_trucial_states_focus 
-		prerequisite = { focus = uk_palestine_focus }
-		available = {
-			any_country = {
-				original_tag = UAE
-				is_in_faction_with = ROOT
-			}
-		}
-		bypass = {
-			OR = {
-				UAE = { exists = no }
-				UAE = {
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		icon = GFX_goal_generic_construct_civ_factory
-		x = 0
-		y = 1
-		relative_position_id = uk_palestine_focus
-		cost = 10
-
-		available_if_capitulated = yes
-
-		complete_tooltip = {
 			random_country = {
 				limit = {
-					original_tag = UAE
+					original_tag = JOR
+					exists = yes
 					is_in_faction_with = ROOT
 				}
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				every_state = { limit = { has_state_flag = ENG_uk_trucial_states_focus_2IC }
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_trucial_states_focus_1IC }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_trucial_states_focus_1dockyard }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_trucial_states_focus
-				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
-		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			UAE = {
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_trucial_states_focus_2IC
+			random_country = {
+				limit = {
+					original_tag = KUW
+					exists = yes
+					is_in_faction_with = ROOT
 				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_trucial_states_focus_1IC
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
+			}
+			random_country = {
+				limit = {
+					#original_tag = BRM   # 1.19-migration: dead tag BRM
+					exists = yes
+					is_in_faction_with = ROOT
 				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_trucial_states_focus_1dockyard
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_trucial_states_focus_1dockyard
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_trucial_states_focus
-				}
+				add_political_power = 50
+				add_opinion_modifier = { target = ENG modifier = ENG_commonwealth_ties }
 			}
 		}
 	}
@@ -4665,11 +4732,10 @@ focus_tree = {
 		available = {
 			OR = {
 				CAN = { is_in_faction_with = ENG }
-				EGY = { is_in_faction_with = ENG }
-				QAT = { is_in_faction_with = ENG }
-				KUW = { is_in_faction_with = ENG }
-				JOR = { is_in_faction_with = ENG }
-				PAL = { is_in_faction_with = ENG }
+				#SAF = { is_in_faction_with = ENG }   # 1.19-migration: dead tag SAF
+				#RAJ = { is_in_faction_with = ENG }   # 1.19-migration: dead tag RAJ
+				#AST = { is_in_faction_with = ENG }   # 1.19-migration: dead tag AST
+				#NZL = { is_in_faction_with = ENG }   # 1.19-migration: dead tag NZL
 			}
 		}
 
@@ -4678,21 +4744,539 @@ focus_tree = {
 
 		completion_reward = {
 			add_ideas = ENG_british_commonwealth_air_training_plan
+			custom_effect_tooltip = generic_skip_one_line_tt
 			every_country = {
 				limit = {
 					is_subject_of = ROOT
+					#NOT = { original_tag = SAF }   # 1.19-migration: dead tag SAF
 				}
 				add_ideas = ENG_british_commonwealth_air_training_plan
+			}
+			#SAF = {   # 1.19-migration: dead tag SAF
+				if = {
+					limit = {
+						is_subject_of = ROOT
+					}
+					add_ideas = ENG_joint_air_training_scheme
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = uk_india_focus 
+		prerequisite = { focus = uk_commonwealth_focus }
+		available = {
+			any_country_with_original_tag = {
+				exists = yes
+				#original_tag_to_check = RAJ   # 1.19-migration: dead tag RAJ
+				is_in_faction_with = ROOT
+			}
+		} 
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -3
+		y = 1
+		relative_position_id = uk_commonwealth_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		bypass = {
+			#RAJ = {   # 1.19-migration: dead tag RAJ
+				custom_trigger_tooltip = {
+					tooltip = construction_effort_tt
+					all_owned_state = {
+						free_building_slots = {
+							building = industrial_complex
+							size < 1
+							include_locked = yes
+						}
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			random_country = {
+				limit = {
+					#original_tag = RAJ   # 1.19-migration: dead tag RAJ
+					is_in_faction_with = ROOT
+				}
+				add_opinion_modifier = { target = ENG modifier = aided_industry }
+				every_state = { limit = { has_state_flag = ENG_uk_india_focus_2IC }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				every_state = { limit = { has_state_flag = ENG_uk_india_focus_1IC }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				ENG_viceroy_reduce_autonomy_effect = yes
+			}
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			#RAJ = {   # 1.19-migration: dead tag RAJ
+				add_opinion_modifier = { target = ENG modifier = aided_industry }
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_india_focus_2IC
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_india_focus_2IC
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_india_focus_1IC
+				}
+				ENG_viceroy_reduce_autonomy_effect = yes
 			}
 		}
 	}
 	
 	focus = {
+		id = uk_free_india_focus 
+		prerequisite = { focus = uk_india_focus }
+		mutually_exclusive = { focus = ENG_indian_autonomy }
+		available = {
+			if = {
+				limit = { has_dlc = "Together for Victory" }
+				OR = {
+					AND = {
+						date > 1943.10.01
+						#RAJ = {   # 1.19-migration: dead tag RAJ
+							is_subject_of = ENG
+							has_war = no
+						}
+					}
+					AND = {
+						NOT = { has_government = democratic }
+						#RAJ = {   # 1.19-migration: dead tag RAJ
+							is_subject_of = ENG
+							has_war = no
+						}
+					}
+				}
+				else = {				
+					has_global_flag = indian_national_army_setup
+					has_government = democratic
+					#RAJ = {   # 1.19-migration: dead tag RAJ
+						is_puppet_of = ENG
+					}
+				}
+			}
+		} #counters JAP's indian army focus
+		icon = GFX_goal_generic_improve_relations
+		x = -1
+		y = 1
+		offset = {
+			x = 1
+			y = 0
+			trigger = {
+				NOT = { has_dlc = "Man the Guns" }
+			}
+		}
+		relative_position_id = uk_india_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			if = {
+				limit = { has_dlc = "Together for Victory" }
+				ROOT = {
+					set_autonomy = {
+						#target = RAJ   # 1.19-migration: dead tag RAJ
+						autonomy_state = autonomy_free
+					}
+				}
+				else = {					
+					set_global_flag = indian_independence_promised
+					add_timed_idea = { idea = indian_independence_promised_idea days = 1460 }
+					#RAJ = {   # 1.19-migration: dead tag RAJ
+						#remove_ideas = RAJ_azad_hind   # 1.19-migration: dead tag RAJ
+					}				
+				}
+			}
+		}
+	}
+	
+	
+	focus = {
+		id = uk_australia_focus 
+		prerequisite = { focus = uk_commonwealth_focus }
+		available = {
+			any_country_with_original_tag = {
+				exists = yes
+				#original_tag_to_check = AST   # 1.19-migration: dead tag AST
+				is_in_faction_with = ROOT
+			}
+		}
+
+		bypass = {
+			OR = {
+				#AST = { exists = no }   # 1.19-migration: dead tag AST
+				#AST = {   # 1.19-migration: dead tag AST
+					custom_trigger_tooltip = {
+						tooltip = construction_effort_tt
+						all_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size < 1
+								include_locked = yes
+							}
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = naval_effort_tt
+						all_owned_state = {
+							free_building_slots = {
+								building = dockyard
+								size < 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		icon = GFX_goal_generic_construct_civilian
+		x = 1
+		y = 1
+		relative_position_id = uk_commonwealth_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		complete_tooltip = {
+			random_country = {
+				limit = {
+					#original_tag = AST   # 1.19-migration: dead tag AST
+					is_in_faction_with = ROOT
+				}
+				add_opinion_modifier = { target = ENG modifier = aided_industry }
+				every_state = { limit = { has_state_flag = ENG_uk_australia_focus_1IC }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				every_state = { limit = { has_state_flag = ENG_uk_australia_focus_2dockyards }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+				every_state = { limit = { has_state_flag = ENG_uk_australia_focus_1dockyard }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_autonomy_ratio = {
+					value = -0.05
+					localization = uk_australia_focus
+				}
+			}
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			#AST = {   # 1.19-migration: dead tag AST
+				add_opinion_modifier = { target = ENG modifier = aided_industry }
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_australia_focus_1IC
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_australia_focus_1IC
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_australia_focus_2dockyards
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_australia_focus_1dockyard
+				}
+				add_autonomy_ratio = {
+					value = -0.05
+					localization = uk_australia_focus
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = uk_new_zealand_focus 
+		prerequisite = { focus = uk_australia_focus }
+		available = {
+			any_country_with_original_tag = {
+				exists = yes
+				#original_tag_to_check = NZL   # 1.19-migration: dead tag NZL
+				is_in_faction_with = ROOT
+			}
+		}
+		bypass = {
+			OR = {
+				#NZL = { exists = no }   # 1.19-migration: dead tag NZL
+				#NZL = {   # 1.19-migration: dead tag NZL
+					custom_trigger_tooltip = {
+						tooltip = construction_effort_tt
+						all_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size < 1
+								include_locked = yes
+							}
+						}
+					}
+					custom_trigger_tooltip = {
+						tooltip = naval_effort_tt
+						all_owned_state = {
+							free_building_slots = {
+								building = dockyard
+								size < 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		icon = GFX_goal_generic_construction
+		x = 0
+		y = 1
+		relative_position_id = uk_australia_focus
+		cost = 10
+
+		available_if_capitulated = yes
+
+		complete_tooltip = {
+			random_country = {
+				limit = {
+					#original_tag = NZL   # 1.19-migration: dead tag NZL
+					is_in_faction_with = ROOT
+				}
+				add_opinion_modifier = { target = ENG modifier = aided_industry }
+				every_state = { limit = { has_state_flag = ENG_uk_new_zealand_focus_1IC }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+				}
+				every_state = { limit = { has_state_flag = ENG_uk_new_zealand_focus_2dockyards }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+				every_state = { limit = { has_state_flag = ENG_uk_new_zealand_focus_1dockyard }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+				add_autonomy_ratio = {
+					value = -0.05
+					localization = uk_new_zealand_focus
+				}
+			}
+		}
+		search_filters = {FOCUS_FILTER_INDUSTRY}
+		completion_reward = {
+			#NZL = {   # 1.19-migration: dead tag NZL
+				add_opinion_modifier = { target = ENG modifier = aided_industry }
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_new_zealand_focus_1IC
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_new_zealand_focus_1IC
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_new_zealand_focus_2dockyards
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_new_zealand_focus_1dockyard
+				}
+				add_autonomy_ratio = {
+					value = -0.05
+					localization = uk_new_zealand_focus
+				}
+			}
+		}
+	}
+
+
+	focus = {
 		id = uk_canada_focus 
 		prerequisite = { focus = uk_commonwealth_focus }
 		available = {
-			any_country = {
-				original_tag = CAN
+			any_country_with_original_tag = {
+				exists = yes
+				original_tag_to_check = CAN
 				is_in_faction_with = ROOT
 			}
 		}
@@ -4845,27 +5429,28 @@ focus_tree = {
 			}
 		}
 	}
-	
+
 	focus = {
-		id = uk_kuwait_focus 
+		id = uk_south_africa_focus
 		prerequisite = { focus = uk_commonwealth_focus }
 		available = {
-			any_country = {
-				original_tag = KUW
+			any_country_with_original_tag = {
+				exists = yes
+				#original_tag_to_check = SAF   # 1.19-migration: dead tag SAF
 				is_in_faction_with = ROOT
 			}
 		}
 		bypass = {
 			OR = {
-				KUW = { exists = no }
-				KUW = {
+				#SAF = { exists = no }   # 1.19-migration: dead tag SAF
+				#SAF = {   # 1.19-migration: dead tag SAF
 					custom_trigger_tooltip = {
 						tooltip = construction_effort_tt
 						all_owned_state = {
 							free_building_slots = {
 								building = industrial_complex
 								size < 1
-						include_locked = yes
+								include_locked = yes
 							}
 						}
 					}
@@ -4875,245 +5460,7 @@ focus_tree = {
 							free_building_slots = {
 								building = dockyard
 								size < 1
-						include_locked = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		icon = GFX_goal_generic_construct_civ_factory
-		x = 1
-		y = 1
-		relative_position_id = uk_commonwealth_focus
-		cost = 10
-
-		available_if_capitulated = yes
-
-		complete_tooltip = {
-			random_country = {
-				limit = {
-					original_tag = KUW
-					is_in_faction_with = ROOT
-				}
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				give_resource_rights = { receiver = ENG state = 1302 }
-				1302 = {
-					add_extra_state_shared_building_slots = 1
-					add_resource = {
-						type = oil
-						amount = 24
-					}
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_kuwait_focus_1IC }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_kuwait_focus
-				}
-			}
-		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			KUW = {
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				1302 = {
-					add_extra_state_shared_building_slots = 1
-					add_resource = {
-						type = oil
-						amount = 24
-					}
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				give_resource_rights = { receiver = ENG state = 1302 }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_kuwait_focus_1IC
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_kuwait_focus
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = uk_qatar_focus 
-		prerequisite = { focus = uk_kuwait_focus }
-		available = {
-			any_country = {
-				original_tag = QAT
-				is_in_faction_with = ROOT
-			}
-		}
-		bypass = {
-			OR = {
-				QAT = { exists = no }
-				QAT = {
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-				}
-			}
-		}
-		icon = GFX_goal_generic_construct_civ_factory
-		x = 0
-		y = 1
-		relative_position_id = uk_kuwait_focus
-		cost = 10
-
-		available_if_capitulated = yes
-
-		complete_tooltip = {
-			random_country = {
-				limit = {
-					original_tag = QAT
-					is_in_faction_with = ROOT
-				}
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				give_resource_rights = { receiver = ENG state = 1337 }
-				1337 = {
-					add_extra_state_shared_building_slots = 1
-					add_resource = {
-						type = oil
-						amount = 36
-					}
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				every_state = { limit = { has_state_flag = ENG_uk_qatar_focus_1IC }
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_qatar_focus
-				}
-			}
-		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			QAT = {
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				1337 = {
-					add_extra_state_shared_building_slots = 1
-					add_resource = {
-						type = oil
-						amount = 48
-					}
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-				}
-				give_resource_rights = { receiver = ENG state = 1337 }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_qatar_focus_1IC
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_qatar_focus
-				}
-			}
-		}
-	}
-	
-	focus = {
-		id = uk_egypt_focus 
-		prerequisite = { focus = uk_commonwealth_focus }
-		available = {
-			any_country = {
-				original_tag = EGY
-				is_in_faction_with = ROOT
-			}
-		}
-		bypass = {
-			OR = {
-				EGY = { exists = no }
-				EGY = {
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-						include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-						include_locked = yes
+								include_locked = yes
 							}
 						}
 					}
@@ -5131,11 +5478,11 @@ focus_tree = {
 		complete_tooltip = {
 			random_country = {
 				limit = {
-					original_tag = EGY
+					#original_tag = SAF   # 1.19-migration: dead tag SAF
 					is_in_faction_with = ROOT
 				}
 				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				every_state = { limit = { has_state_flag = ENG_uk_egypt_focus_2IC }
+				every_state = { limit = { has_state_flag = ENG_uk_south_africa_focus_2IC }
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
@@ -5143,7 +5490,7 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-				every_state = { limit = { has_state_flag = ENG_uk_egypt_focus_1IC }
+				every_state = { limit = { has_state_flag = ENG_uk_south_africa_focus_1IC }
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
@@ -5151,7 +5498,7 @@ focus_tree = {
 						instant_build = yes
 					}
 				}
-				every_state = { limit = { has_state_flag = ENG_uk_egypt_focus_1dockyard }
+				every_state = { limit = { has_state_flag = ENG_uk_south_africa_focus_1dockyard }
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = dockyard
@@ -5161,13 +5508,13 @@ focus_tree = {
 				}
 				add_autonomy_ratio = {
 					value = -0.05
-					localization = uk_egypt_focus
+					localization = uk_south_africa_focus
 				}
 			}
 		}
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
-			EGY = {
+			#SAF = {   # 1.19-migration: dead tag SAF
 				add_opinion_modifier = { target = ENG modifier = aided_industry }
 				random_owned_controlled_state = {
 					limit = {
@@ -5183,7 +5530,7 @@ focus_tree = {
 						level = 2
 						instant_build = yes
 					}
-					set_state_flag = ENG_uk_egypt_focus_2IC
+					set_state_flag = ENG_uk_south_africa_focus_2IC
 				}
 				random_owned_controlled_state = {
 					limit = {
@@ -5199,7 +5546,7 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 					}
-					set_state_flag = ENG_uk_egypt_focus_1IC
+					set_state_flag = ENG_uk_south_africa_focus_1IC
 				}
 				random_owned_controlled_state = {
 					limit = {
@@ -5216,22 +5563,91 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 					}
-					set_state_flag = ENG_uk_egypt_focus_1dockyard
+					set_state_flag = ENG_uk_south_africa_focus_1dockyard
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 0
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+					set_state_flag = ENG_uk_south_africa_focus_1dockyard
 				}
 				add_autonomy_ratio = {
 					value = -0.05
-					localization = uk_egypt_focus
+					localization = uk_south_africa_focus
 				}
 			}
 		}
 	}
 
 	focus = {
+		id = ENG_indian_autonomy
+		prerequisite = { focus = uk_india_focus }
+		mutually_exclusive = { focus = uk_free_india_focus }
+
+		allow_branch = {
+			has_dlc = "Man the Guns"
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = ENG_revisit_colonial_policy
+				}
+			}
+		}
+
+		available = { 	
+			#RAJ = {   # 1.19-migration: dead tag RAJ
+				is_subject_of = ENG
+			}
+		}
+
+		continue_if_invalid = no
+
+		icon = GFX_focus_RAJ_british_investors
+
+		x = 1
+		y = 1
+		relative_position_id = uk_india_focus
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			#modifier = {
+			#	factor = 0
+			#}
+		}	
+		completion_reward = {
+			set_autonomy = {
+				#target = RAJ   # 1.19-migration: dead tag RAJ
+				autonomy_state = autonomy_dominion
+				end_wars = no 
+				end_civil_wars = no
+			}
+			#RAJ = { add_timed_idea = { idea = ENG_indian_autonomy_RAJ_idea days = 730 } }   # 1.19-migration: dead tag RAJ
+			custom_effect_tooltip = ENG_indian_autonomy_tt
+		}
+	}
+
+	focus = {
 		id = ENG_imperial_conference
 		prerequisite = { focus = uk_canada_focus }
-		prerequisite = { focus = uk_egypt_focus }
-		prerequisite = { focus = uk_qatar_focus }
-		#allow_branch = { has_global_flag = NEVER }
+		prerequisite = { focus = uk_new_zealand_focus }
+		prerequisite = { focus = uk_south_africa_focus }
+
 		allow_branch = {
 			has_dlc = "Man the Guns"
 			if = {
@@ -5257,38 +5673,29 @@ focus_tree = {
 					exists = no
 				}
 			}
-			EGY = {
+			#SAF = {   # 1.19-migration: dead tag SAF
 				OR = {
 					AND = {
 						is_subject_of = ENG
-						OR = {
-							has_government = ROOT
-							has_government = neutrality
-						}
+						has_government = ROOT
 					}
 					exists = no
 				}
 			}
-			KUW = {
+			#AST = {   # 1.19-migration: dead tag AST
 				OR = {
 					AND = {
 						is_subject_of = ENG
-						OR = {
-							has_government = ROOT
-							has_government = neutrality
-						}
+						has_government = ROOT
 					}
 					exists = no
 				}
 			}
-			QAT = {
+			#NZL = {   # 1.19-migration: dead tag NZL
 				OR = {
 					AND = {
 						is_subject_of = ENG
-						OR = {
-							has_government = ROOT
-							has_government = neutrality
-						}
+						has_government = ROOT
 					}
 					exists = no
 				}
@@ -5298,20 +5705,19 @@ focus_tree = {
 					OR = {
 						is_core_of = ENG
 						is_core_of = CAN
-						is_core_of = EGY
-						is_core_of = KUW
-						is_core_of = QAT
+						#is_core_of = SAF   # 1.19-migration: dead tag SAF
+						#is_core_of = AST   # 1.19-migration: dead tag AST
+						#is_core_of = NZL   # 1.19-migration: dead tag NZL
 					}
-					NOT = { state = 64 }
-					NOT = { state = 1285 }
+					NOT = { state = 64 }   # 1.19-migration: was vanilla 331 (Newfoundland)
 					OWNER = {
 						NOT = {
 							OR = {
 								tag = ENG
 								tag = CAN
-								tag = EGY
-								tag = QAT
-								tag = KUW
+								#tag = SAF   # 1.19-migration: dead tag SAF
+								#tag = AST   # 1.19-migration: dead tag AST
+								#tag = NZL   # 1.19-migration: dead tag NZL
 							}
 						}
 					}
@@ -5324,13 +5730,19 @@ focus_tree = {
 			CAN = {
 				exists = no
 			}
-			EGY = {
+			#SAF = {   # 1.19-migration: dead tag SAF
 				exists = no
 			}
-			KUW = {
+			#RAJ = {   # 1.19-migration: dead tag RAJ
+				OR = {
+					exists = no
+					NOT = { is_subject_of = ENG }
+				}
+			}
+			#AST = {   # 1.19-migration: dead tag AST
 				exists = no
 			}
-			QAT = {
+			#NZL = {   # 1.19-migration: dead tag NZL
 				exists = no
 			}
 			NOT = {
@@ -5338,9 +5750,9 @@ focus_tree = {
 					OR = {
 						is_core_of = ENG
 						is_core_of = CAN
-						is_core_of = EGY
-						is_core_of = QAT
-						is_core_of = KUW
+						#is_core_of = SAF   # 1.19-migration: dead tag SAF
+						#is_core_of = AST   # 1.19-migration: dead tag AST
+						#is_core_of = NZL   # 1.19-migration: dead tag NZL
 					}
 					OWNER = {
 						NOT = { tag = ENG }
@@ -5353,19 +5765,20 @@ focus_tree = {
 
 		icon = GFX_goal_generic_national_unity
 
-		x = 1
-		y = 1
-		relative_position_id = uk_canada_focus
+		x = 0
+		y = 2
+		relative_position_id = uk_new_zealand_focus
 		cost = 10
 		ai_will_do = {
-			factor = 0 #Unstable - AI will never do this
-			modifier = {
-				factor = 0
-			}
+			factor = 1
+			#modifier = {
+			#	factor = 0
+			#}
 		}
 		search_filters = {FOCUS_FILTER_POLITICAL}	
 		completion_reward = {
 			add_political_power = 120
+			custom_effect_tooltip = generic_skip_one_line_tt
 			every_country = {
 				limit = {
 					OR = {
@@ -5376,15 +5789,19 @@ focus_tree = {
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = EGY
+							#tag = SAF   # 1.19-migration: dead tag SAF
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = KUW
+							#tag = RAJ   # 1.19-migration: dead tag RAJ
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = QAT
+							#tag = AST   # 1.19-migration: dead tag AST
+						}
+						AND = {
+							is_subject_of = ENG
+							#tag = NZL   # 1.19-migration: dead tag NZL
 						}
 					}
 				}
@@ -5686,7 +6103,9 @@ focus_tree = {
 	focus = {
 		id = ENG_steady_as_she_goes
 		mutually_exclusive = { focus = ENG_a_change_in_course }
-		allow_branch = { 
+		icon = GFX_goal_support_democracy
+
+		allow_branch = {
 			if = {
 				limit = {
 					has_game_rule = {
@@ -5700,22 +6119,12 @@ focus_tree = {
 			}
 		}
 
-		available = { 
-			if = {
-				limit = {
-					NOT = { has_country_flag = ENG_abdication_crisis_changed_mind }
-				}
-				NOT = { has_country_flag = edward_viii_refused_to_abdicate_flag }
-			}
-		}
-		cancel_if_invalid = yes
-
-		icon = GFX_goal_support_democracy
-
-		x = 10
+		x = 14
 		y = 0
+		relative_position_id = ENG_revisit_colonial_policy
+
 		offset = {
-			x = -4
+			x = -7
 			y = 0
 			trigger = {
 				NOT = { has_dlc = "Man the Guns" }
@@ -5742,7 +6151,6 @@ focus_tree = {
 					option = HIDE
 				}
 				has_completed_focus = ENG_revisit_colonial_policy
-				
 			}
 		}
 		offset = {
@@ -5767,7 +6175,7 @@ focus_tree = {
 				has_completed_focus = ENG_home_defence
 			}
 		}
-		relative_position_id = ENG_revisit_colonial_policy
+
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -5779,9 +6187,32 @@ focus_tree = {
 				}
 			}
 		}
+
+		available = { 
+			if = {
+				limit = {
+					NOT = { has_country_flag = ENG_abdication_crisis_changed_mind }
+				}
+				NOT = { has_country_flag = edward_viii_refused_to_abdicate_flag }
+			}
+		}
+		cancel_if_invalid = yes
+
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}	
 		completion_reward = {
 			add_timed_idea = { idea = ENG_steady_as_she_goes_idea days = 365 }
+			hidden_effect = {
+				if = {
+					limit = {
+						has_dlc = "Man the Guns"
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+					}
+					mark_focus_tree_layout_dirty = yes
+				}
+			}
 		}
 	}
 
@@ -5995,6 +6426,7 @@ focus_tree = {
 					name = "Lord Edward Halifax"
 					ruling_only = yes
 				}
+				NOT = {	has_character = ENG_winston_churchill } #MM: GoE content if he is transferred to India via event chain triggered by focus RAJ_the_jewel_becomes_the_crown
 			}
 		}
 
@@ -6041,6 +6473,7 @@ focus_tree = {
 				set_rule = { can_puppet = yes }
 			}
 			set_rule = { can_send_volunteers = yes }
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_no_further_appeasement_idea
 			hidden_effect = { news_event = { id = mtg_news.16 days = 1 } }
 		}
@@ -6168,11 +6601,8 @@ focus_tree = {
 			is_subject = no
 		}
 		bypass = {
-			NOT = {
-				any_country = {
-					is_subject_of = ENG
-				}
-			}
+			num_subjects < 1
+			
 			NOT = {
 				focus_progress = {
 					focus = ENG_maintaining_the_balance_of_power
@@ -6203,11 +6633,35 @@ focus_tree = {
 				limit = {
 					has_dlc = "Together for Victory"
 				}
-				every_country = {
-					limit = {
-						is_subject_of = ENG
+				CAN = {
+					if = {
+						limit = { is_in_faction_with = ENG }
+						add_ideas = ENG_maintaining_imperial_integrity_idea
 					}
-					add_ideas = ENG_maintaining_imperial_integrity_idea
+				}
+				#AST = {   # 1.19-migration: dead tag AST
+					if = {
+						limit = { is_in_faction_with = ENG }
+						add_ideas = ENG_maintaining_imperial_integrity_idea
+					}
+				}
+				#NZL = {   # 1.19-migration: dead tag NZL
+					if = {
+						limit = { is_in_faction_with = ENG }
+						add_ideas = ENG_maintaining_imperial_integrity_idea
+					}
+				}
+				#SAF = {   # 1.19-migration: dead tag SAF
+					if = {
+						limit = { is_in_faction_with = ENG }
+						add_ideas = ENG_maintaining_imperial_integrity_idea
+					}
+				}
+				#RAJ = {   # 1.19-migration: dead tag RAJ
+					if = {
+						limit = { is_in_faction_with = ENG }
+						add_ideas = ENG_maintaining_imperial_integrity_idea
+					}
 				}
 			}
 			FRA = {
@@ -6373,6 +6827,7 @@ focus_tree = {
 		prerequisite = { focus = ENG_steady_as_she_goes }
 		mutually_exclusive = { focus = ENG_global_defense }
 		icon = GFX_focus_generic_home_defense
+
 		x = 5
 		y = 1
 		offset = {
@@ -6395,11 +6850,13 @@ focus_tree = {
 			}
 		}
 		relative_position_id = ENG_steady_as_she_goes
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}
-		
+
 		allow_branch = {
 			if = {
 				limit = {
@@ -6416,7 +6873,7 @@ focus_tree = {
 				}
 			}
 		}
-		
+
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}	
 		completion_reward = {
 			add_war_support = 0.05
@@ -6502,12 +6959,18 @@ focus_tree = {
 		} #UK at war with fascist/commie. iraq is fascist/commie
 
 		bypass = {
-			IRQ = { exists = no }
+			IRQ = { 
+				OR = {
+					exists = no 
+					has_war_with = ROOT
+					is_subject_of = ROOT 
+				}
+			}
 		}
 
 		will_lead_to_war_with = IRQ
 		prerequisite = { focus = ENG_home_defence }
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_focus_generic_attack_iraq
 		x = -6
 		y = 1
 		offset = {
@@ -6533,36 +6996,77 @@ focus_tree = {
 	}
 	focus = {
 		id = uk_iran_focus
-		available = {
-			PER = {
-				exists = yes
-				OR = { 
-					communism > 0.2
-			 		fascism > 0.2
-			 	} 
-			}
-		} #UK at war with fascist/commie. iran is fascist/commie
-
-		bypass = {
-			PER = { exists = no }
-		}
-
-		will_lead_to_war_with = PER
 		prerequisite = { focus = uk_iraq_focus }
-		icon = GFX_goal_generic_forceful_treaty
+		icon = GFX_focus_generic_attack_iran
 		x = 0
 		y = 1
 		relative_position_id = uk_iraq_focus
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
-		}	
+			modifier = {
+				factor = 0
+				has_civil_war = yes
+			}
+			modifier = {
+				factor = 0
+				PER = {
+					has_government = ROOT
+				}
+			}	
+		}
+		will_lead_to_war_with = PER
+		available = {
+			country_exists = PER
+			NOT = { has_war_with = PER }
+			is_subject = no
+			any_enemy_country = { is_major = yes }
+		}
+
+		bypass = {
+			PER = { 
+				OR = {
+					exists = no 
+					has_war_with = ROOT
+					is_subject_of = ROOT 
+				}
+			}
+		}
+		
+		search_filters = {}
+
 		completion_reward = {
-			create_wargoal = {
-				type = take_state_focus
-				target = PER
-				generator = { 1155 } # MEPORT: was stale 266 (ME Krupki); vanilla 266 = Persia -> ME Tehran
-				expire = 0
+			IF = {
+				limit = {
+					has_dlc = "Graveyard of Empires"
+				}
+				PER = {
+					set_country_flag = SOV_ultimatum_sent_flag
+					country_event = { id = 	PER_foreign_policy_events.1 hours = 16 	random_hours = 8 }
+				}
+	
+				effect_tooltip = {
+					custom_effect_tooltip = if_they_accept_tt
+					ROOT = {
+						puppet = PER
+					}
+	
+					custom_effect_tooltip = if_they_refuse_tt
+					effect_tooltip = {
+						activate_mission = 	SOV_preparations_for_operation_countenance
+						custom_effect_tooltip = 	SOV_preparations_for_operation_countenance_tt
+					}
+					custom_effect_tooltip = PER_preemptive_invasion_of_iran_tt
+				}
+			}
+			ELSE = {
+				create_wargoal = {
+					type = take_state_focus
+					target = PER
+					generator = { 266 }
+					expire = 0
+				}
 			}
 		}
 	}
@@ -6583,7 +7087,7 @@ focus_tree = {
 				}
 			}
 		}
-		
+
 		offset = {
 			x = 4
 			y = 0
@@ -6601,9 +7105,11 @@ focus_tree = {
 				ENG_focus_available_embargo_sanction = yes
 			}			
 		} 
+
 		bypass = {
 			has_war_with = SOV
 		}
+
 		icon = GFX_goal_generic_trade
 		x = 0
 		y = 1
@@ -6613,8 +7119,19 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			send_embargo = SOV
-			custom_effect_tooltip = embargo_relation_tt
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				send_embargo = SOV
+				custom_effect_tooltip = embargo_relation_tt
+			}
+			else = {
+				add_opinion_modifier = { target = SOV modifier = embargo }
+				SOV = {
+					add_opinion_modifier = { target = ENG modifier = sanctions_relations }
+				}
+			}
 		}
 	}
 	focus = {
@@ -6655,6 +7172,8 @@ focus_tree = {
 			}
 		}
 
+		cancel_if_invalid = no
+		continue_if_invalid = yes
 		available_if_capitulated = yes
 
 		prerequisite = { focus = ENG_home_defence }
@@ -6689,6 +7208,8 @@ focus_tree = {
 			}
 		}
 
+		cancel_if_invalid = no
+		continue_if_invalid = yes
 		available_if_capitulated = yes
 
 		prerequisite = { focus = ENG_issue_gasmasks }
@@ -6729,8 +7250,19 @@ focus_tree = {
 			factor = 1
 		}	
 		completion_reward = {
-			send_embargo = GER
-			custom_effect_tooltip = embargo_relation_tt
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+				}
+				send_embargo = GER
+				custom_effect_tooltip = embargo_relation_tt
+			}
+			else = {
+				add_opinion_modifier = { target = GER modifier = embargo }
+				GER = {
+					add_opinion_modifier = { target = ENG modifier = sanctions_relations }
+				}
+			}
 		}
 	}
 
@@ -6796,7 +7328,7 @@ focus_tree = {
 			}			
 		}
 		prerequisite = { focus = ENG_home_defence }
-		icon = GFX_goal_generic_position_armies
+		icon = GFX_focus_generic_attack_nordic_territory
 		x = -3
 		y = 1
 		offset = {
@@ -6859,17 +7391,24 @@ focus_tree = {
 				}
 			}		
 		}
+
 		will_lead_to_war_with = SWE
+
 		prerequisite = { focus = uk_scandinavian_focus }
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_focus_generic_attack_sweden
+
 		x = -1
 		y = 1
 		relative_position_id = uk_scandinavian_focus
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}	
+
 		completion_reward = {
+
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = SWE
@@ -6880,9 +7419,12 @@ focus_tree = {
 				add_ideas = ENG_continuation_of_politics
 			}
 		}
+
 	}
+
 	focus = {
 		id = ENG_norwegian_intervention
+
 		available = {
 			NOR = {
 				exists = yes
@@ -6892,17 +7434,25 @@ focus_tree = {
 				}
 			}
 		}	
+
 		will_lead_to_war_with = NOR
+
 		prerequisite = { focus = uk_scandinavian_focus }
-		icon = GFX_goal_generic_more_territorial_claims
+
+		icon = GFX_focus_generic_attack_norway
+
 		x = 0
 		y = 2
 		relative_position_id = uk_scandinavian_focus
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}	
+
 		completion_reward = {
+
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = NOR
@@ -6912,30 +7462,42 @@ focus_tree = {
 				limit = { NOT = { has_idea = ENG_continuation_of_politics } }
 				add_ideas = ENG_continuation_of_politics
 			}
+
 		}
+
 	}
+
 	focus = {
 		id = ENG_danish_intervention
 		available = {
 			DEN = {
+
 				exists = yes
 				OR = {
 					communism > 0.2
 					fascism > 0.2
 				}
 			}
-		}		
+		}	
+
 		will_lead_to_war_with = DEN
+
 		prerequisite = { focus = uk_scandinavian_focus }
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+
+		icon = GFX_focus_generic_attack_denmark
+
 		x = 1
 		y = 1
 		relative_position_id = uk_scandinavian_focus
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}	
+
 		completion_reward = {
+
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = DEN
@@ -6945,7 +7507,9 @@ focus_tree = {
 				limit = { NOT = { has_idea = ENG_continuation_of_politics } }
 				add_ideas = ENG_continuation_of_politics
 			}
+
 		}
+
 	}
 
 	### END SCANDINAVIAN BRANCH ###
@@ -6969,13 +7533,30 @@ focus_tree = {
 			}
 		}
 		relative_position_id = ENG_home_defence
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}	
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }	
+
 		completion_reward = {
-			add_ideas = ENG_prepare_for_the_inevitable_idea
+			IF = {
+				limit = {
+					NOT = {
+						has_idea = wartime_industry_focus
+					}
+				}
+				add_ideas = ENG_prepare_for_the_inevitable_idea
+			}
+			ELSE = {
+				swap_ideas = {
+					remove_idea = wartime_industry_focus
+					add_idea = ENG_prepare_for_the_inevitable_and_wartime_industry_idea
+				}	
+			}
 		}
 	}
 
@@ -7131,7 +7712,7 @@ focus_tree = {
 		x = 18
 		y = 0
 		relative_position_id = ENG_steady_as_she_goes
-		
+
 		offset = {
 			x = -18
 			y = 0
@@ -7153,18 +7734,6 @@ focus_tree = {
 					option = HIDE
 				}
 				has_completed_focus = ENG_the_kings_party
-			}
-		}
-
-		offset = {
-			x = -3
-			y = 0
-			trigger = {
-				has_game_rule = {
-					rule = obsolete_focus_branches_visibility
-					option = HIDE
-				}
-				has_completed_focus = ENG_organize_the_blackshirts
 			}
 		}
 
@@ -7192,7 +7761,7 @@ focus_tree = {
 				has_completed_focus = ENG_concessions_to_the_trade_unions
 			}
 		}
-		
+
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -7356,7 +7925,7 @@ focus_tree = {
 		id = ENG_the_kings_party
 		prerequisite = { focus = ENG_a_change_in_course }
 		mutually_exclusive = { focus = ENG_organize_the_blackshirts focus = ENG_concessions_to_the_trade_unions }
-		
+
 		allow_branch = {
 			has_dlc = "Man the Guns"
 			if = {
@@ -7387,30 +7956,38 @@ focus_tree = {
 				has_completed_focus = ENG_the_kings_party
 			}
 		}
-		
+
 		available = {
 			has_country_flag = edward_viii_married_wallis_simpson
 			is_subject = no
 			has_war = no
 		}
+
 		icon = GFX_focus_eng_the_kings_party
+
 		x = -5
 		y = 1
 		relative_position_id = ENG_a_change_in_course
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}
+
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}	
+
 		completion_reward = {
 			set_rule = { can_send_volunteers = yes }
 			add_ideas = ENG_the_kings_party_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
 			set_party_name = { ideology = neutrality long_name = ENG_neutrality_party_kings_party_long name = ENG_neutrality_party_kings_party }
 			hidden_effect = {
 				kill_country_leader = yes
 			}
 			set_politics = { ruling_party = neutrality elections_allowed = no }
 			add_popularity = { ideology = neutrality popularity = 0.15 }
+			custom_effect_tooltip = generic_skip_one_line_tt
 			remove_ideas = ENG_king_edward
 			create_country_leader = {
 				name = "Edward VIII"
@@ -7422,6 +7999,7 @@ focus_tree = {
 					inexperienced_imperialist
 				}
 			}
+
 			hidden_effect = { news_event = { id = mtg_news.19 days = 1 } }
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = ENG_winston_churchill
@@ -7648,7 +8226,7 @@ focus_tree = {
 		id = ENG_organize_the_blackshirts
 		prerequisite = { focus = ENG_a_change_in_course }
 		mutually_exclusive = { focus = ENG_the_kings_party focus = ENG_concessions_to_the_trade_unions }
-		
+
 		allow_branch = {
 			has_dlc = "Man the Guns"
 			if = {
@@ -7679,7 +8257,7 @@ focus_tree = {
 				has_completed_focus = ENG_organize_the_blackshirts
 			}
 		}
-		
+
 		available = {
 			is_subject = no
 			has_war = no
@@ -7828,6 +8406,7 @@ focus_tree = {
 	focus = {
 		id = ENG_secure_the_italian_alliance
 		prerequisite = { focus = ENG_the_british_path_to_fascism }
+
 		available = {
 			is_subject = no
 			country_exists = ITA
@@ -7835,6 +8414,7 @@ focus_tree = {
 			NOT = { has_war_with = ITA }
 			ITA = { is_in_faction = no }
 		}
+
 		bypass = {
 			OR = {
 				ITA = {	exists = no }
@@ -7856,15 +8436,20 @@ focus_tree = {
 				}
 			}
 		}
+
 		icon = GFX_goal_generic_major_alliance
 		x = 0
 		y = 1
 		relative_position_id = ENG_the_british_path_to_fascism
+
 		cost = 10
+
 		ai_will_do = {
 			factor = 1
 		}	
+
 		completion_reward = {
+
 			add_ai_strategy = {
 				type = antagonize
 				id = GER
@@ -7885,6 +8470,7 @@ focus_tree = {
 				id = GER
 				value = -200
 			}
+
 			GER = {
 				add_ai_strategy = {
 					type = antagonize
@@ -7907,22 +8493,26 @@ focus_tree = {
 					value = -200
 				}
 			}
-			if = {
+
+			IF = {
 				limit = {
 					is_in_faction_with = FRA
 					has_war = no
 				}
 				remove_from_faction = FRA
 			}
+
 			ITA = {
-				if = {
+				IF = {
 					limit = {
 						has_government = fascism
 					}
 					add_opinion_modifier = { target = ENG modifier = ENG_broke_french_relations }
 				}
 			}
+
 			ITA = { country_event = { id = mtg_britain.36 hours = 6 } }
+
 		}
 	}
 
@@ -7936,8 +8526,8 @@ focus_tree = {
 				limit = {
 					NOT = { has_dlc = "La Resistance" }
 				}
-				any_country = {
-					original_tag = SPR
+				any_country_with_original_tag = {
+					original_tag_to_check = SPR
 					has_government = fascism
 					exists = yes
 					NOT = { is_in_faction_with = ENG }
@@ -7975,10 +8565,7 @@ focus_tree = {
 					country_event = { id = mtg_britain.40 hours = 6 }
 				}
 			}
-			if = {
-				limit = {
-					NOT = { has_dlc = "La Resistance" }
-				}
+			ELSE = {
 				SPA = {
 					country_event = { id = mtg_britain.40 hours = 6 }
 				}
@@ -7996,8 +8583,8 @@ focus_tree = {
 				limit = {
 					NOT = { has_dlc = "La Resistance" }
 				}
-				any_country = {
-					original_tag = SPR
+				any_country_with_original_tag = {
+					original_tag_to_check = SPR
 					has_government = fascism
 					exists = yes
 					NOT = { is_in_faction_with = ENG }
@@ -8022,8 +8609,8 @@ focus_tree = {
 					NOT = { has_dlc = "La Resistance" }
 				}
 				NOT = {
-					any_country = {
-						original_tag = SPR
+					any_country_with_original_tag = {
+						original_tag_to_check = SPR
 						has_government = fascism
 						exists = yes
 					}
@@ -8056,8 +8643,8 @@ focus_tree = {
 					limit = {
 						NOT = { has_dlc = "La Resistance" }
 					}
-					any_country = {
-						original_tag = SPR
+					any_country_with_original_tag = {
+						original_tag_to_check = SPR
 						has_government = fascism
 						exists = yes
 						is_in_faction_with = GER
@@ -8184,6 +8771,7 @@ focus_tree = {
 				add_ideas = limited_exports
 			}
 			add_ideas = ENG_the_mosley_memorandum_idea
+			custom_effect_tooltip = generic_skip_one_line_tt
 			random_owned_controlled_state = {
 				limit = {
 					free_building_slots = {
@@ -8263,7 +8851,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_pre_empt_the_ideological_threat
-		prerequisite = { focus = ENG_noninterference_treaty_with_germany focus = ENG_alliance_with_germany focus = ENG_consolidate_the_british_isles	}	
+		prerequisite = { focus = ENG_imperial_conscription focus = ENG_take_out_the_regia_marina }	
 		available = {
 			is_subject = no
 			country_exists = SOV
@@ -8272,9 +8860,9 @@ focus_tree = {
 		}
 		will_lead_to_war_with = SOU
 		icon = GFX_focus_attack_soviet
-		x = 0
-		y = 2
-		relative_position_id = ENG_noninterference_treaty_with_germany
+		x = -2
+		y = 1
+		relative_position_id = ENG_imperial_conscription
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -8298,12 +8886,19 @@ focus_tree = {
 		prerequisite = { focus = ENG_pre_empt_the_ideological_threat }	
 		available = {
 			is_subject = no
-			country_exists = PER
-			NOT = { is_in_faction_with = PER }
-			
-			
+			OR = {
+				AND = {
+					country_exists = PER
+					NOT = { is_in_faction_with = PER }
+				}
+				AND = {
+					#country_exists = AFG   # 1.19-migration: dead tag AFG
+					#NOT = { is_in_faction_with = AFG }   # 1.19-migration: dead tag AFG
+				}
+			}
 		}
 		will_lead_to_war_with = PER
+		#will_lead_to_war_with = AFG   # 1.19-migration: dead tag AFG
 		icon = GFX_focus_eng_expose_the_belly_of_the_bear
 		x = -1
 		y = 1
@@ -8322,6 +8917,15 @@ focus_tree = {
 					}
 					country_event = { id = mtg_britain.79 hours = 6 }
 				} 	
+			}
+			#AFG = {   # 1.19-migration: dead tag AFG
+				if = {
+					limit = {
+						exists = yes
+						NOT = { is_in_faction_with = ENG }
+					}
+					country_event = { id = mtg_britain.79 hours = 6 }
+				} 
 			}
 		}
 	}
@@ -8361,11 +8965,15 @@ focus_tree = {
 			NOT = { is_in_faction_with = IRE }
 		}
 		bypass = {
-			IRE = {
-				all_core_state = {
-					is_owned_and_controlled_by = ENG
-				}
-			}
+			owns_state = 320   # 1.19-migration: was vanilla 113 (Leinster)
+			owns_state = 288   # 1.19-migration: was vanilla 134 (Connaught)
+			owns_state = 394   # 1.19-migration: was vanilla 135 (Munster)
+			owns_state = 253   # 1.19-migration: was vanilla 119 (Northern Ireland)
+			owns_state = 419   # 1.19-migration: was vanilla 122 (Wales)
+			owns_state = 126   # 1.19-migration: was vanilla 133 (Lanark)
+			owns_state = 214   # 1.19-migration: was vanilla 121 (Lothian)
+			owns_state = 193   # 1.19-migration: was vanilla 136 (Aberdeenshire)
+			owns_state = 158   # 1.19-migration: was vanilla 120 (Scottish Highlands)
 		}
 		will_lead_to_war_with = IRE
 		icon = GFX_goal_generic_occupy_states_ongoing_war
@@ -8380,11 +8988,22 @@ focus_tree = {
 			ENG_mosley_pacifism_level_down = yes
 			every_other_country = {
 				limit = {
-					any_core_state = {
-						is_core_of = IRE
-					}	
+					OR = {
+						owns_state = 320   # 1.19-migration: was vanilla 113 (Leinster)
+						owns_state = 288   # 1.19-migration: was vanilla 134 (Connaught)
+						owns_state = 394   # 1.19-migration: was vanilla 135 (Munster)
+						owns_state = 253   # 1.19-migration: was vanilla 119 (Northern Ireland)
+						owns_state = 419   # 1.19-migration: was vanilla 122 (Wales)
+						owns_state = 126   # 1.19-migration: was vanilla 133 (Lanark)
+						owns_state = 214   # 1.19-migration: was vanilla 121 (Lothian)
+						owns_state = 193   # 1.19-migration: was vanilla 136 (Aberdeenshire)
+						owns_state = 158   # 1.19-migration: was vanilla 120 (Scottish Highlands)
+					}
 				}
 				ENG = {
+					add_state_claim = 320   # 1.19-migration: was vanilla 113 (Leinster)
+					add_state_claim = 288   # 1.19-migration: was vanilla 134 (Connaught)
+					add_state_claim = 394   # 1.19-migration: was vanilla 135 (Munster)
 					create_wargoal = {
 						type = annex_everything
 						target = PREV
@@ -8392,18 +9011,13 @@ focus_tree = {
 					}
 				}
 			}
-			every_state = {
-				limit = {
-					is_core_of = IRE
-				}
-				add_claim_by = ENG
-			}
 		}
 	}
 
 	focus = {
 		id = ENG_unite_the_anglosphere
-		prerequisite = { focus = ENG_consolidate_the_british_isles }
+		#prerequisite = { focus = ENG_consolidate_the_british_isles }
+		prerequisite = { focus = ENG_imperial_conscription }
 		prerequisite = { focus = ENG_bring_the_dominions_back_into_the_fold }
 		available = {
 			is_subject = no
@@ -8412,7 +9026,7 @@ focus_tree = {
 		}
 		will_lead_to_war_with = USA
 		icon = GFX_focus_eng_unite_the_anglosphere
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = ENG_consolidate_the_british_isles
 		cost = 10
@@ -8450,6 +9064,9 @@ focus_tree = {
 			is_subject = no
 			OR = {
 				country_exists = CAN
+				#country_exists = SAF   # 1.19-migration: dead tag SAF
+				#country_exists = AST   # 1.19-migration: dead tag AST
+				#country_exists = NZL   # 1.19-migration: dead tag NZL
 			}
 		}
 		bypass = {
@@ -8462,9 +9079,33 @@ focus_tree = {
 							has_country_flag = britain_enforced_our_loyalty
 						}
 					}
+					#is_in_faction_with = SAF   # 1.19-migration: dead tag SAF
+					#SAF = {   # 1.19-migration: dead tag SAF
+						OR = {
+							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							has_country_flag = britain_enforced_our_loyalty
+						}
+					}
+					#is_in_faction_with = AST   # 1.19-migration: dead tag AST
+					#AST = {   # 1.19-migration: dead tag AST
+						OR = {
+							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							has_country_flag = britain_enforced_our_loyalty
+						}
+					}
+					#is_in_faction_with = NZL   # 1.19-migration: dead tag NZL
+					#NZL = {   # 1.19-migration: dead tag NZL
+						OR = {
+							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							has_country_flag = britain_enforced_our_loyalty
+						}
+					}
 				}
 				NOT = {
 					country_exists = CAN
+					#country_exists = SAF   # 1.19-migration: dead tag SAF
+					#country_exists = AST   # 1.19-migration: dead tag AST
+					#country_exists = NZL   # 1.19-migration: dead tag NZL
 				}
 				has_completed_focus = ENG_towards_dominion_independence
 			}
@@ -8493,7 +9134,9 @@ focus_tree = {
 			OR = {
 				AND = {
 					NOT = { country_exists = CAN }
-					NOT = { country_exists = EGY }
+					#NOT = { country_exists = SAF }   # 1.19-migration: dead tag SAF
+					#NOT = { country_exists = AST }   # 1.19-migration: dead tag AST
+					#NOT = { country_exists = NZL }   # 1.19-migration: dead tag NZL
 				}
 				AND = {
 					is_in_faction_with = CAN
@@ -8503,8 +9146,22 @@ focus_tree = {
 							has_country_flag = britain_enforced_our_loyalty
 						}
 					}
-					is_in_faction_with = EGY
-					EGY = {
+					#is_in_faction_with = SAF   # 1.19-migration: dead tag SAF
+					#SAF = {   # 1.19-migration: dead tag SAF
+						OR = {
+							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							has_country_flag = britain_enforced_our_loyalty
+						}
+					}
+					#is_in_faction_with = AST   # 1.19-migration: dead tag AST
+					#AST = {   # 1.19-migration: dead tag AST
+						OR = {
+							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							has_country_flag = britain_enforced_our_loyalty
+						}
+					}
+					#is_in_faction_with = NZL   # 1.19-migration: dead tag NZL
+					#NZL = {   # 1.19-migration: dead tag NZL
 						OR = {
 							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
 							has_country_flag = britain_enforced_our_loyalty
@@ -8515,7 +9172,9 @@ focus_tree = {
 			}
 		}
 		will_lead_to_war_with = CAN
-		will_lead_to_war_with = EGY
+		#will_lead_to_war_with = SAF   # 1.19-migration: dead tag SAF
+		#will_lead_to_war_with = AST   # 1.19-migration: dead tag AST
+		#will_lead_to_war_with = NZL   # 1.19-migration: dead tag NZL
 		icon = GFX_focus_eng_bring_the_dominions_back_into_the_fold
 		x = 0
 		y = 2
@@ -8545,18 +9204,52 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					NOT = { is_in_faction_with = EGY }
+					#NOT = { is_in_faction_with = SAF }   # 1.19-migration: dead tag SAF
 					is_ai = no
 				}
 				every_state = {
 					limit = {
-						is_core_of = EGY
+						#is_core_of = SAF   # 1.19-migration: dead tag SAF
 					}
 					add_claim_by = ENG
 				}
 				create_wargoal = {
 					type = annex_everything
-					target = EGY
+					#target = SAF   # 1.19-migration: dead tag SAF
+					expire = 0
+				}
+			}
+			if = {
+				limit = {
+					#NOT = { is_in_faction_with = AST }   # 1.19-migration: dead tag AST
+					is_ai = no
+				}
+				every_state = {
+					limit = {
+						#is_core_of = AST   # 1.19-migration: dead tag AST
+					}
+					add_claim_by = ENG
+				}
+				create_wargoal = {
+					type = annex_everything
+					#target = AST   # 1.19-migration: dead tag AST
+					expire = 0
+				}
+			}
+			if = {
+				limit = {
+					#NOT = { is_in_faction_with = NZL }   # 1.19-migration: dead tag NZL
+					is_ai = no
+				}
+				every_state = {
+					limit = {
+						#is_core_of = NZL   # 1.19-migration: dead tag NZL
+					}
+					add_claim_by = ENG
+				}
+				create_wargoal = {
+					type = annex_everything
+					#target = NZL   # 1.19-migration: dead tag NZL
 					expire = 0
 				}
 			}
@@ -8571,7 +9264,7 @@ focus_tree = {
 
 		}
 		icon = GFX_focus_eng_the_sun_never_sets
-		x = 0
+		x = 1
 		y = 2
 		relative_position_id = ENG_bring_the_dominions_back_into_the_fold
 		cost = 10
@@ -8591,8 +9284,47 @@ focus_tree = {
 				category = cv_tech
 				category = ss_tech
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = ENG_the_sun_never_sets_idea
 			custom_effect_tooltip = ENG_the_sun_never_sets_tt
+		}
+	}
+
+	focus = {
+		id = ENG_pre_empt_the_strategic_threat
+		prerequisite = { focus = ENG_bring_the_dominions_back_into_the_fold }	
+		available = {
+			is_subject = no
+			#country_exists = JAP   # 1.19-migration: dead tag JAP
+			#NOT = { is_in_faction_with = JAP }   # 1.19-migration: dead tag JAP
+			OR = {
+				#JAP = { has_government = fascism }   # 1.19-migration: dead tag JAP
+				#JAP = { has_government = communism }   # 1.19-migration: dead tag JAP
+			}
+		}
+		bypass = {
+			#has_war_with = JAP   # 1.19-migration: dead tag JAP
+		}
+		#will_lead_to_war_with = JAP   # 1.19-migration: dead tag JAP
+		icon = GFX_focus_attack_japan
+		x = 2
+		y = 1
+		relative_position_id = ENG_bring_the_dominions_back_into_the_fold
+		cost = 10
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_war = yes
+			}
+		}	
+		completion_reward = {
+			ENG_mosley_pacifism_level_down = yes
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				#target = JAP   # 1.19-migration: dead tag JAP
+				expire = 0
+			}
 		}
 	}
 
@@ -8602,7 +9334,7 @@ focus_tree = {
 		id = ENG_concessions_to_the_trade_unions
 		prerequisite = { focus = ENG_a_change_in_course }
 		mutually_exclusive = { focus = ENG_the_kings_party focus = ENG_organize_the_blackshirts }
-		
+
 		allow_branch = {
 			has_dlc = "Man the Guns"
 			if = {
@@ -8633,14 +9365,14 @@ focus_tree = {
 				has_completed_focus = ENG_concessions_to_the_trade_unions
 			}
 		}
-		
+
 		available = {
 			is_subject = no
 			has_war = no
 			if = {
 				limit = {
 					NOT = { has_country_flag = ENG_abdication_crisis_changed_mind }
-		}
+				}
 				NOT = { has_country_flag = edward_viii_refused_to_abdicate_flag }
 			}
 		}
@@ -8672,51 +9404,51 @@ focus_tree = {
 			custom_effect_tooltip = ENG_concessions_to_the_trade_unions_tt_2
 			hidden_effect = {
 				random_list = {
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						random_list = {
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_1 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_2 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_3 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_4 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_5 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_6 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_7 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_8 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_9 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_10 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_11 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_12 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_13 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_14 }
-							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_15 }
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_1 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_2 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_3 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_4 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_5 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_6 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_7 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_8 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_9 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_10 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_11 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_12 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_13 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_14 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_15 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
 						}
 						activate_mission = ENG_trade_unions_demand_minister_appointment_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_legislation_amendment
 						activate_mission = ENG_trade_unions_demand_legislation_amendment_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_conscription_limitations
 						activate_mission = ENG_trade_unions_demand_conscription_limitations_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_workplace_safety_legislation
 						activate_mission = ENG_trade_unions_demand_workplace_safety_legislation_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_increase_in_paid_leave
 						activate_mission = ENG_trade_unions_demand_increase_in_paid_leave_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_minimum_pay_increase
 						activate_mission = ENG_trade_unions_demand_minimum_pay_increase_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_construction_safety_legislation
 						activate_mission = ENG_trade_unions_demand_construction_safety_legislation_mission
 					}
-					10 = {
+					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
 						set_country_flag = ENG_trade_unions_demand_mandatory_union_days
 						activate_mission = ENG_trade_unions_demand_mandatory_union_days_mission
 					}
@@ -8740,7 +9472,7 @@ focus_tree = {
 	focus = {
 		id = ENG_move_to_secure_the_dominions
 		prerequisite = { focus = ENG_organize_the_blackshirts focus = ENG_concessions_to_the_trade_unions }
-		
+
 		offset = {
 			x = -5
 			y = 0
@@ -8752,7 +9484,7 @@ focus_tree = {
 				has_completed_focus = ENG_concessions_to_the_trade_unions
 			}
 		}
-		
+
 		available = {
 			is_subject = no
 			has_war = no
@@ -8760,9 +9492,13 @@ focus_tree = {
 				has_government = fascism
 				has_government = communism
 			}
-			EGY = { is_subject_of = ENG }
-			CAN = { is_subject_of = ENG }
-			
+			OR = {
+				#RAJ = { is_subject_of = ENG }   # 1.19-migration: dead tag RAJ
+				CAN = { is_subject_of = ENG }
+				#SAF = { is_subject_of = ENG }   # 1.19-migration: dead tag SAF
+				#AST = { is_subject_of = ENG }   # 1.19-migration: dead tag AST
+				#NZL = { is_subject_of = ENG }   # 1.19-migration: dead tag NZL
+			}
 		}
 		icon = GFX_focus_eng_move_to_secure_the_dominions
 		x = 3
@@ -8775,6 +9511,7 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_POLITICAL}	
 		completion_reward = {
 			add_political_power = 120
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = ENG_move_to_secure_the_dominions_tt
 			if = {
 				limit = {
@@ -8786,11 +9523,35 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					EGY = {
+					#SAF = {   # 1.19-migration: dead tag SAF
 						is_subject_of = ENG
 					}
 				}
-				EGY = { country_event = { id = mtg_britain.62 hours = 6 } }
+				#SAF = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag SAF
+			}
+			if = {
+				limit = {
+					#RAJ = {   # 1.19-migration: dead tag RAJ
+						is_subject_of = ENG
+					}
+				}
+				#RAJ = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag RAJ
+			}
+			if = {
+				limit = {
+					#AST = {   # 1.19-migration: dead tag AST
+						is_subject_of = ENG
+					}
+				}
+				#AST = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag AST
+			}
+			if = {
+				limit = {
+					#NZL = {   # 1.19-migration: dead tag NZL
+						is_subject_of = ENG
+					}
+				}
+				#NZL = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag NZL
 			}
 			hidden_effect = { news_event = { id = mtg_news.30 days = 1 } }
 		}
@@ -8866,24 +9627,33 @@ focus_tree = {
 		id = ENG_the_british_communist_alternative
 		prerequisite = { focus = ENG_for_the_good_of_the_revolution }
 		mutually_exclusive = { focus = ENG_follow_moscow }
+
 		available = {
 			is_subject = no
 			NOT = { is_in_faction_with = SOU }
 		}
+
 		icon = GFX_focus_generic_join_comintern
 		x = -2
 		y = 1
 		relative_position_id = ENG_for_the_good_of_the_revolution
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
 		search_filters = {FOCUS_FILTER_STABILITY}	
 		completion_reward = {
+
 			add_stability = 0.05
+
 			dismantle_faction = yes
-			create_faction = ENG_british_communist_alternative
+			create_faction_from_template = {
+				template = faction_template_POR_popular_front_bloc
+				name = ENG_british_communist_alternative
+				icon = GFX_faction_logo_generic_9
+			}
 			hidden_effect = { news_event = { id = mtg_news.36 days = 1 } }
+
 			if = {
 				limit = {
 					has_country_leader = { character = ENG_harry_pollitt ruling_only = yes }
@@ -8896,10 +9666,11 @@ focus_tree = {
 					expire = "1965.1.1"
 					ideology = leninism
 					traits = {
-						
+						anti_stalinist_marxist
 					}
 				}
 			}
+
 			add_ai_strategy = {
 				type = alliance
 				id = SOU
@@ -8915,6 +9686,7 @@ focus_tree = {
 				id = SOU
 				value = -200
 			}
+
 			SOU = {
 				add_ai_strategy = {
 					type = alliance
@@ -8932,7 +9704,9 @@ focus_tree = {
 					value = -200
 				}
 			}
+
 		}
+
 	}
 
 	focus = {
@@ -9180,10 +9954,11 @@ focus_tree = {
 			country_exists = SOu
 			NOT = { is_in_faction_with = SOU }
 			NOT = { has_war_with = SOU }
-			SOU = { 
-				has_government = communism
+			SOU = {
 				has_civil_war = no
-				}
+				is_faction_leader = yes
+				has_government = communism
+			}
 		}
 		bypass = {
 			is_in_faction_with = SOU
@@ -9198,7 +9973,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		relative_position_id = ENG_for_the_good_of_the_revolution
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
@@ -9462,3 +10237,4 @@ focus_tree = {
 	}
 
 }
+

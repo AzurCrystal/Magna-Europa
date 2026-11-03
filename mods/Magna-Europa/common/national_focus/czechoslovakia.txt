@@ -59,21 +59,23 @@ focus_tree = {
 
 	focus = {
 		id = CZE_fortification_studies
-		icon = GFX_goal_generic_construct_military
+		icon = GFX_focus_hol_the_foundations_of_defense
 		x = 3
 		y = 0
 
 		cost = 10
 
 		ai_will_do = {
-			factor = 200			
+			factor = 200
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}			
 		}
 
 		available = {
-			
+
 		}
-		
-							
 
 		bypass = {
 
@@ -82,12 +84,24 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = { FOCUS_FILTER_MANPOWER }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_fortification_studies"
+
 			army_experience = 10
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = CZE_fortification_focus
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
+			add_tech_bonus = {
+				name = CZE_fortification_studies
+				bonus = 0.25
+				uses = 1
+				category = cat_fortification
+			}
 		}
 	}
 
@@ -157,17 +171,77 @@ focus_tree = {
 				factor = 1.5
 				is_in_faction = no
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			SDL = {
-				all_core_state = {
-					is_owned_by = CZE
-				}
+			CZE = { 
+				controls_state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				controls_state = 972 
 			}
 		}
 
 		bypass = {
+			NOT = {			
+				1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				972 = {
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
+					any_province_building_level = {
+						province = {
+							id = 445
+							id = 494
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+					any_province_building_level = {
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+				2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+					any_province_building_level = {
+						province = {
+							id = 9539
+							id = 9692
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 3
+					}
+				}
+			}
 		}
 
 		cancel_if_invalid = yes
@@ -176,27 +250,96 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_sudeten_1"
+
 			army_experience = 20
-			every_state = {
-				limit = {
-					is_core_of = SDL
-					is_owned_by = CZE
-				}
-				set_building_level = {
-					type = bunker
-					level = 3
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-						level < 3
-					}
-				}
-			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			swap_ideas = {
 				add_idea = CZE_fortification_focus2
 				remove_idea = CZE_fortification_focus
-			}	
+			}
+
+			if = {
+				limit = { controls_state = 1434 }   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 972 }
+				972 = {
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+				513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 445
+							id = 494
+							limit_to_border = yes
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 507 }   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
+				507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							limit_to_border = yes
+							level < 3
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 2662 }   # 1.19-migration: was vanilla 70 (Western Slovakia)
+				2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+					set_building_level = {
+						type = bunker
+						level = 3
+						province = {
+							id = 9539
+							id = 9692
+							limit_to_border = yes
+							level < 3
+						}
+					}
+				}
+			}
+
 		}
 	}
 
@@ -220,17 +363,67 @@ focus_tree = {
 				factor = 1.5
 				is_in_faction = no
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			SDL = {
-				all_core_state = {
-					is_owned_by = CZE
-				}
+			CZE = { 
+				controls_state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				controls_state = 972 
 			}
 		}
 
 		bypass = {
+			NOT = {			
+				1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 5
+					}
+				}
+				513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
+					any_province_building_level = {
+						province = {
+							id = 445
+							id = 494
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 5
+					}
+				}
+				507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+					any_province_building_level = {
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 5
+					}
+				}
+				2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+					any_province_building_level = {
+						province = {
+							id = 9539
+							id = 9692
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 5
+					}
+				}
+			}
 		}
 
 		cancel_if_invalid = yes
@@ -239,27 +432,96 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_sudeten_2"
+
 			army_experience = 20
-			every_state = {
-				limit = {
-					is_core_of = SDL
-					is_owned_by = CZE
-				}
-				set_building_level = {
-					type = bunker
-					level = 5
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-						level < 5
-					}
-				}
-			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			swap_ideas = {
 				add_idea = CZE_fortification_focus3
 				remove_idea = CZE_fortification_focus2
 			}	
+
+			if = {
+				limit = { controls_state = 1434 }   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 972 }
+				972 = {
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+				513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 445
+							id = 494
+							limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 507 }   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
+				507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 2662 }   # 1.19-migration: was vanilla 70 (Western Slovakia)
+				2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+					set_building_level = {
+						type = bunker
+						level = 5
+						province = {
+							id = 9539
+							id = 9692
+							limit_to_border = yes
+							level < 5
+						}
+					}
+				}
+			}
+
 		}
 	}
 
@@ -283,20 +545,75 @@ focus_tree = {
 				factor = 1.5
 				is_in_faction = no
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			SDL = {
-				all_core_state = {
-					is_owned_by = CZE
-				}
+			CZE = { 
+				controls_state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				controls_state = 972
 			}
 		}
 
 		bypass = {
-			SDL = {
-				any_core_state = {
-					NOT = { is_owned_by = CZE }
+			NOT = {			
+				1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 7
+					}
+				}
+				972 = {
+					any_province_building_level = {
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 7
+					}
+				}
+				513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
+					any_province_building_level = {
+						province = {
+							id = 445
+							id = 494
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 7
+					}
+				}
+				507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+					any_province_building_level = {
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 7
+					}
+				}
+				2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+					any_province_building_level = {
+						province = {
+							id = 9539
+							id = 9692
+							limit_to_border = yes
+						}
+						building = bunker
+						level < 7
+					}
 				}
 			}
 		}
@@ -307,27 +624,96 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_sudeten_3"
+
 			army_experience = 30
-			every_state = {
-				limit = {
-					is_core_of = SDL
-					is_owned_by = CZE
-				}
-				set_building_level = {
-					type = bunker
-					level = 7
-					province = {
-						all_provinces = yes
-						limit_to_border = yes
-						level < 7
-					}
-				}
-			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			swap_ideas = {
 				add_idea = CZE_fortification_focus4
 				remove_idea = CZE_fortification_focus3
+			}
+
+			if = {
+				limit = { controls_state = 1434 }   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 972 }
+				972 = {
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							all_provinces = yes
+							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+				513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 445
+							id = 494
+							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 507 }   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
+				507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 421
+							id = 6485
+							id = 3414
+							id = 3583
+							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { controls_state = 2662 }   # 1.19-migration: was vanilla 70 (Western Slovakia)
+				2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
+					set_building_level = {
+						type = bunker
+						level = 7
+						province = {
+							id = 9539
+							id = 9692
+							limit_to_border = yes
+							level < 7
+						}
+					}
+				}
 			}	
+
 		}
 	}
 
@@ -554,6 +940,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -567,17 +957,30 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_industrial_legacy"
 			add_ideas = CZE_industrial_legacy_idea
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_tech_bonus = {
+				name = CZE_industrial_legacy
+				bonus = 1
+				uses = 1
+				category = industry
+			}	
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = CZE_csd
 		}
 	}
 
 	focus = {
 		id = CZE_favor_czechs_1
-		icon = GFX_goal_generic_construct_mil_factory
+		icon = GFX_focus_generic_industry_1
 		prerequisite = { focus = CZE_industrial_legacy }
 		mutually_exclusive = { focus = CZE_balanced_1 }
 		x = -2
@@ -596,11 +999,15 @@ focus_tree = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			CZE = { controls_state = 513 }
-			CZE = { controls_state = 536 }
+			CZE = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+			CZE = { controls_state = 536 }   # 1.19-migration: was vanilla 75 (Moravia)
 		}
 
 		bypass = {
@@ -613,8 +1020,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_favor_czechs_1"
-			513 = {
+			513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -622,7 +1028,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			536 = {
+			536 = {   # 1.19-migration: was vanilla 75 (Moravia); mod Olomouc
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -630,12 +1036,17 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = CZE_emil_kolben_dod
 		}
 	}
 
 	focus = {
 		id = CZE_favor_czechs_2
-		icon = GFX_goal_generic_construct_mil_factory
+		icon = GFX_focus_generic_industry_2
 		prerequisite = { focus = CZE_favor_czechs_1 }
 		x = 0
 		y = 1
@@ -645,11 +1056,15 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			CZE = { controls_state = 513 }
-			CZE = { controls_state = 536 }
+			CZE = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+			CZE = { controls_state = 536 }   # 1.19-migration: was vanilla 75 (Moravia)
 		}
 
 		bypass = {
@@ -662,8 +1077,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_favor_czechs_2"
-			513 = {
+			513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -671,7 +1085,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			536 = {
+			536 = {   # 1.19-migration: was vanilla 75 (Moravia); mod Olomouc
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -684,7 +1098,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_favor_czechs_3
-		icon = GFX_goal_generic_construct_mil_factory
+		icon = GFX_focus_generic_industry_3
 		prerequisite = { focus = CZE_favor_czechs_2 }
 		x = 0
 		y = 2
@@ -694,11 +1108,15 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			CZE = { controls_state = 513 }
-			CZE = { controls_state = 536 }
+			CZE = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+			CZE = { controls_state = 536 }   # 1.19-migration: was vanilla 75 (Moravia)
 		}
 
 		bypass = {
@@ -708,11 +1126,10 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_favor_czechs_3"
-			513 = {
+			513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -720,13 +1137,22 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			536 = {
+			536 = {   # 1.19-migration: was vanilla 75 (Moravia); mod Olomouc
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
 					level = 1
 					instant_build = yes
 				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_tech_bonus = {
+				name = CZE_favor_czechs_3
+				bonus = 0.50
+				uses = 1
+				category = cat_production
 			}
 		}
 	}
@@ -752,11 +1178,15 @@ focus_tree = {
 				factor = 0.5
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			CZE = { controls_state = 513 }
-			CZE = { controls_state = 1437 }
+			CZE = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+			CZE = { controls_state = 2662 }   # 1.19-migration: was vanilla 70 (Western Slovakia)
 		}
 
 		bypass = {
@@ -769,8 +1199,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_balanced_1"
-			513 = {
+			513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -778,7 +1207,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			1437 = {
+			2662 = {   # 1.19-migration: was vanilla 70 (Western Slovakia); mod Trenčín
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -796,7 +1225,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_balanced_2
-		icon = GFX_goal_generic_construction
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
 		prerequisite = { focus = CZE_balanced_1 }
 		x = 0
 		y = 1
@@ -806,11 +1235,15 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			CZE = { controls_state = 513 }
-			CZE = { controls_state = 550 }
+			CZE = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+			CZE = { controls_state = 574 }   # 1.19-migration: was vanilla 71 (Eastern Slovakia)
 		}
 
 		bypass = {
@@ -823,8 +1256,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_balanced_2"
-			513 = {
+			513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -832,7 +1264,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			550 = {
+			574 = {   # 1.19-migration: was vanilla 71 (Eastern Slovakia); mod Tatry
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -850,7 +1282,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_balanced_3
-		icon = GFX_goal_generic_construction
+		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = CZE_balanced_2 }
 		x = 0
 		y = 2
@@ -860,11 +1292,15 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			CZE = { controls_state = 513 }
-			CZE = { controls_state = 574 }
+			CZE = { controls_state = 513 }   # 1.19-migration: was vanilla 9 (Bohemia)
+			CZE = { controls_state = 2246 }   # 1.19-migration: was vanilla 73 (Carpathian Ruthenia)
 		}
 
 		bypass = {
@@ -874,11 +1310,10 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_balanced_3"
-			513 = {
+			513 = {   # 1.19-migration: was vanilla 9 (Bohemia); mod Hradec Králové
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -886,7 +1321,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			574 = {
+			2246 = {   # 1.19-migration: was vanilla 73 (Carpathian Ruthenia); mod Severné Maramures
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = industrial_complex
@@ -898,6 +1333,15 @@ focus_tree = {
 					level = 1
 					instant_build = yes
 				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_tech_bonus = {
+				name = CZE_bolster_domestic_construction
+				bonus = 0.25
+				uses = 1
+				category = construction_tech
 			}
 		}
 	}
@@ -914,6 +1358,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -930,17 +1378,21 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_united_population"
 			if = {
 				limit = { has_idea = CZE_divided_nation }
 				remove_ideas = CZE_divided_nation
+			}
+			else = {
+				add_political_power = 150
+				add_stability = 0.1
+				add_war_support = 0.1
 			}
 		}
 	}
 
 	focus = {
 		id = CZE_arms_exports_1
-		icon = GFX_goal_generic_production
+		icon = GFX_focus_generic_reorient_production
 		prerequisite = { focus = CZE_industrial_legacy }
 		x = 2
 		y = 1
@@ -958,6 +1410,10 @@ focus_tree = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -974,8 +1430,12 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_arms_exports_1"
 			add_ideas = CZE_export_focus1
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = CZE_frantisek_machnik_dod
 		}
 	}
 
@@ -999,6 +1459,10 @@ focus_tree = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1015,14 +1479,13 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_arms_exports_2"
 			swap_ideas = { remove_idea = CZE_export_focus1 add_idea = CZE_export_focus2  }
 		}
 	}
 
 	focus = {
 		id = CZE_arms_exports_3
-		icon = GFX_goal_generic_production
+		icon = GFX_goal_generic_positive_trade_relations
 		prerequisite = { focus = CZE_arms_exports_2 }
 		x = 0
 		y = 2
@@ -1040,6 +1503,10 @@ focus_tree = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1056,7 +1523,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_arms_exports_3"
 			swap_ideas = { remove_idea = CZE_export_focus2 add_idea = CZE_export_focus3 }
 		}
 	}
@@ -1068,7 +1534,7 @@ focus_tree = {
 	focus = {
 		id = CZE_political_direction
 		icon = GFX_goal_generic_intelligence_exchange
-		x = 8
+		x = 9
 		y = 0
 		relative_position_id = CZE_industrial_legacy
 
@@ -1076,6 +1542,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1092,7 +1562,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_political_direction"
 			add_political_power = 120
 		}
 	}
@@ -1102,7 +1571,7 @@ focus_tree = {
 		icon = GFX_focus_generic_soviet_politics
 		prerequisite = { focus = CZE_political_direction }
 		mutually_exclusive = { focus = CZE_democratic_bastion focus = CZE_go_right }
-		x = -2
+		x = -3
 		y = 1
 		relative_position_id = CZE_political_direction
 
@@ -1118,6 +1587,10 @@ focus_tree = {
 				factor = 0
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1134,10 +1607,14 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_go_left"
 			add_political_power = 120
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}	
 			#allow communist reformer
 			# relations changes
+			custom_effect_tooltip = generic_skip_one_line_tt
 			every_other_country = {
 				limit = { 
 					has_government = communism
@@ -1173,7 +1650,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_czech_socialism
-		icon = GFX_focus_generic_soviet_politics
+		icon = GFX_focus_SWE_socialist_reforms
 		prerequisite = { focus = CZE_communist_support }
 		x = -2
 		y = 3
@@ -1183,6 +1660,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1199,13 +1680,18 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_czech_socialism"
+			add_political_power = 120
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			if = {
 				limit = { has_idea = CZE_divided_nation }
 				remove_ideas = CZE_divided_nation
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 			}
 			add_ideas = CZE_czech_socialism
-			add_political_power = 120
 		}
 	}
 
@@ -1221,6 +1707,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 50
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1234,17 +1724,20 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = yes
-		search_filters = { FOCUS_FILTER_MANPOWER }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_communism_with_a_human_face"
+			add_war_support = 0.05
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = CZE_communism_with_a_human_face
 		}
 	}
 
 	focus = {
 		id = CZE_communist_support
-		icon = GFX_focus_generic_soviet_politics
+		icon = GFX_focus_generic_workers
 		prerequisite = { focus = CZE_go_left }
 		x = 0
 		y = 1
@@ -1254,6 +1747,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1270,23 +1767,26 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_communist_support"
 			add_ideas = communist_influence
 		}
 	}
 
 	focus = {
 		id = CZE_join_comintern
-		icon = GFX_goal_support_communism
+		icon = GFX_focus_generic_join_comintern
 		prerequisite = { focus = CZE_communist_support }
 		x = 0
 		y = 2
 		relative_position_id = CZE_go_left
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1310,14 +1810,13 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_join_comintern"
 			SOV = { country_event = { hours = 1 id = czech.1 } }
 		}
 	}
 
 	focus = {
 		id = CZE_the_romanian_question
-		icon = GFX_goal_generic_war_with_comintern
+		icon = GFX_focus_SOV_builder_of_the_red_army
 		prerequisite = { focus = CZE_join_comintern }
 		x = 0
 		y = 3
@@ -1327,6 +1826,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1342,7 +1845,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_the_romanian_question"
 			SOV = { country_event = { hours = 1 id = czech.4 } }
 		}
 	}
@@ -1359,6 +1861,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1374,7 +1880,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_the_polish_division"
 			SOV = { country_event = { hours = 1 id = czech.7 } }
 		}
 	}
@@ -1396,6 +1901,10 @@ focus_tree = {
 				factor = 0
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1412,8 +1921,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_democratic_bastion"
 			add_political_power = 200
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = CZE_democratic_bastion
 		}
 	}
@@ -1429,11 +1940,15 @@ focus_tree = {
 		cost = 2
 
 		ai_will_do = {
-			factor = 70
+			factor = 75
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			democratic > 0.7
+			democratic > 0.75
 		}
 
 		bypass = {
@@ -1446,8 +1961,51 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_beacon_of_liberty"
 			swap_ideas = { remove_idea = CZE_democratic_bastion add_idea = CZE_beacon_of_liberty }
+		}
+	}
+
+	focus = {
+		id = CZE_healing_a_divided_nation
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = CZE_beacon_of_liberty }
+		x = -1
+		y = 1
+		relative_position_id = CZE_beacon_of_liberty
+
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
+		}
+
+		available = {
+			democratic > 0.80
+		}
+
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+
+		completion_reward = {
+			if = {
+				limit = { has_idea = CZE_divided_nation }
+				remove_ideas = CZE_divided_nation
+			}
+			else = {
+				add_political_power = 150
+				add_stability = 0.1
+				add_war_support = 0.1
+			}
 		}
 	}
 
@@ -1463,6 +2021,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1483,7 +2045,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_defensive_preparations"
 			add_ideas = extensive_conscription
 		}
 	}
@@ -1500,6 +2061,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1516,7 +2081,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_bonus_research_slot_1"
 			add_research_slot = 1
 			custom_effect_tooltip = CZE_war_college_effect_tt
 		}
@@ -1527,7 +2091,7 @@ focus_tree = {
 		icon = GFX_focus_generic_strike_at_democracy1
 		prerequisite = { focus = CZE_political_direction }
 		mutually_exclusive = { focus = CZE_democratic_bastion focus = CZE_go_left }
-		x = 2
+		x = 3
 		y = 1
 		relative_position_id = CZE_political_direction
 
@@ -1542,6 +2106,10 @@ focus_tree = {
 			modifier = {
 				factor = 0
 				has_completed_focus = CZE_trust_in_the_west
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
 			}
 		}
 
@@ -1558,9 +2126,12 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_go_right"
 			add_political_power = 120
-			#allow nazi leader
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt 
 			every_other_country = {
 				limit = { 
 					has_government = fascism
@@ -1606,6 +2177,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1622,7 +2197,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_czech_fascism"
 			add_timed_idea = { idea = CZE_czech_fascism days = 1095 }
 		}
 	}
@@ -1639,6 +2213,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1654,14 +2232,13 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_aggressive_wars"
 			add_ideas = FRA_army_of_aggression_focus
 		}
 	}
 
 	focus = {
 		id = CZE_the_polish_question
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_focus_generic_attack_poland
 		prerequisite = { focus = CZE_aggressive_wars focus = CZE_german_puppet }
 		x = -1
 		y = 4
@@ -1671,6 +2248,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1693,7 +2274,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_the_polish_question"
 			GER = { country_event = { hours = 1 id = czech.10 } }
 		}
 	}
@@ -1715,6 +2295,10 @@ focus_tree = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1723,10 +2307,10 @@ focus_tree = {
 
 		bypass = {
 			NOT = {
-				owns_state = 1437
-				owns_state = 1442
-				owns_state = 574
-				owns_state = 550
+				owns_state = 2662   # 1.19-migration: was vanilla 70 (Western Slovakia)
+				owns_state = 574   # 1.19-migration: was vanilla 71 (Eastern Slovakia)
+				owns_state = 2246   # 1.19-migration: was vanilla 73 (Carpathian Ruthenia)
+				owns_state = 1439   # 1.19-migration: was vanilla 664 (Southern Slovakia)
 			}
 		}
 
@@ -1735,21 +2319,29 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_exclude_the_slovaks"
+
 			if = {
 				limit = {
 					has_idea = CZE_divided_nation
 				}
 				remove_ideas = CZE_divided_nation
+				custom_effect_tooltip = generic_skip_one_line_tt
 			}
-			add_timed_idea = { idea = CZE_czech_fascism_idea days = 1095 }
+
+			add_timed_idea = { 
+				idea = CZE_czech_fascism_idea 
+				days = 1095 
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			country_event = { days = 6 random_days = 5 id = czech.14 }			
 		}
 	}
 	
 	focus = {
 		id = CZE_national_fascism
-		icon = GFX_goal_generic_propaganda
+		icon = GFX_focus_ITA_generic_fascist_workers
 		mutually_exclusive = { focus = CZE_exclude_the_slovaks }
 		prerequisite = { focus = CZE_czech_fascism }
 		x = 4
@@ -1763,6 +2355,10 @@ focus_tree = {
 			modifier = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
 			}
 		}
 
@@ -1782,7 +2378,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_national_fascism"
 			add_ideas = CZE_national_fascism_idea
 		}
 	}
@@ -1796,13 +2391,17 @@ focus_tree = {
 		y = 3
 		relative_position_id = CZE_go_right
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
 			modifier = {
 				factor = 2
 				has_completed_focus = CZE_german_leanings
+			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
 			}
 		}
 
@@ -1823,7 +2422,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_german_minor_ally"
 			custom_effect_tooltip = CZE_german_minor_ally_tt
 			hidden_effect = {
 				GER = {
@@ -1846,6 +2444,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1872,7 +2474,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_german_ally"
 			GER = { country_event = { hours = 1 id = czech.16 } }
 		}
 	}
@@ -1884,7 +2485,7 @@ focus_tree = {
 	focus = {
 		id = CZE_strategy_decisions
 		icon = GFX_goal_generic_position_armies
-		x = 12
+		x = 13
 		y = 0
 		relative_position_id = CZE_political_direction
 
@@ -1892,6 +2493,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -1908,14 +2513,13 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_strategy_decisions"
 			add_political_power = 150
 		}
 	}
 
 	focus = {
 		id = CZE_german_leanings
-		icon = GFX_goal_generic_propaganda
+		icon = GFX_focus_generic_fascist_propaganda
 		prerequisite = { focus = CZE_strategy_decisions }
 		mutually_exclusive = { focus = CZE_trust_in_the_west focus = CZE_an_entente_of_our_own }
 		x = -2
@@ -1934,14 +2538,18 @@ focus_tree = {
 				factor = 0
 				has_completed_focus = CZE_democratic_bastion
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-
+			NOT = { has_war_with = GER }
 		}
 
 		bypass = {
-
+			
 		}
 
 		cancel_if_invalid = yes
@@ -1949,30 +2557,38 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_german_leanings"
-			 GER = { add_opinion_modifier = { target = CZE modifier = CZE_german_leanings } }
-			 add_political_power = 120
+			GER = { add_opinion_modifier = { target = CZE modifier = CZE_german_leanings } }
+			add_political_power = 75
+			add_popularity = {
+				ideology = GER
+				popularity = 0.1
+			}	
 		}
 	}
 
 	focus = {
 		id = CZE_german_puppet
-		icon = GFX_focus_CZE_german_puppet
+		icon = GFX_focus_GER_integrate_czechoslovakia
 		prerequisite = { focus = CZE_deliver_sudetenland }
 		mutually_exclusive = { focus = CZE_german_ally focus = CZE_german_minor_ally }
 		x = -2
 		y = 3
 		relative_position_id = CZE_german_leanings
 
-		cost = 10
+		cost = 2
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
 			GER = { exists = yes }
 			GER = { is_subject = no }
+			NOT = { has_war_with = GER }
 		}
 
 		bypass = {
@@ -1984,14 +2600,13 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_german_puppet"
 			GER = { country_event = { hours = 1 id = czech.19 } }
 		}
 	}
 
 	focus = {
 		id = CZE_hungarian_situation
-		icon = GFX_goal_generic_territory_or_war
+		icon = GFX_focus_generic_attack_hungary
 		prerequisite = { focus = CZE_german_puppet focus = CZE_aggressive_wars }
 		x = -7
 		y = 4
@@ -2003,6 +2618,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2025,7 +2644,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_hungarian_situation"
 			create_wargoal = {
 				type = annex_everything
 				target = HUN
@@ -2042,19 +2660,43 @@ focus_tree = {
 		y = 1
 		relative_position_id = CZE_german_leanings
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
 			GER = { exists = yes }
 			GER = { is_subject = no }
+			NOT = { has_war_with = GER }
+			AND = {
+				owns_state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
+				owns_state = 507   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
+				owns_state = 972
+			}
 		}
 
 		bypass = {
-
+			1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland); mod Ústí nad Labem
+				NOT = {
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+			507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia); mod Šternberk
+				NOT = {
+					is_owned_and_controlled_by = ROOT
+				}
+			}
+			972 = {
+				NOT = {
+					is_owned_and_controlled_by = ROOT
+				}
+			}
 		}
 
 		cancel_if_invalid = yes
@@ -2062,14 +2704,13 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_deliver_sudetenland"
 			GER = { country_event = { hours = 1 id = czech.22 } }
 		}
 	}
 
 	focus = {
 		id = CZE_german_technology
-		icon = GFX_goal_generic_scientific_exchange
+		icon = GFX_focus_ARG_fascist_researchers
 		prerequisite = { focus = CZE_deliver_sudetenland }
 		x = 0
 		y = 2
@@ -2079,6 +2720,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2095,7 +2740,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_german_technology"
 			add_ideas = CZE_german_millitary_cooperation_focus
 		}
 	}
@@ -2121,6 +2765,10 @@ focus_tree = {
 				factor = 2
 				has_completed_focus = CZE_go_left
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2136,11 +2784,16 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_trust_in_the_west"
+
+			add_stability = 0.05
+			add_political_power = 50
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			ENG = {
 				add_opinion_modifier = { 
-						target = ROOT 
-						modifier =  CZE_trust_in_the_west
+					target = ROOT 
+					modifier =  CZE_trust_in_the_west
 				}
 			}
 			FRA = {
@@ -2162,6 +2815,11 @@ focus_tree = {
 					active = no
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = CZE_karel_englis
 		}
 	}
 
@@ -2177,6 +2835,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2193,7 +2855,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_doctrinal_innovation"
+			army_experience = 5
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.75
@@ -2205,7 +2870,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_bonus_research_slot_2
-		icon = GFX_focus_research
+		icon = GFX_focus_generic_university_2
 		prerequisite = { focus = CZE_doctrinal_innovation }
 		x = 0
 		y = 1
@@ -2215,6 +2880,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2231,7 +2900,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_bonus_research_slot_2"
 			add_research_slot = 1
 			custom_effect_tooltip = CZE_war_college_effect_tt	
 		}
@@ -2250,6 +2918,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 60
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2266,15 +2938,23 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_secret_weapons"
-			add_tech_bonus = {
-				name = secret_bonus
-				bonus = 1.0
-				uses = 3
-				category = electronics
-				category = jet_technology
-				category = rocketry
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.5
 			}
+
+			add_ideas = generic_secret_weapons_ns
+
+			#add_tech_bonus = {
+			#	name = secret_bonus
+			#	bonus = 1.0
+			#	uses = 2 # was 3
+			#	category = electronics
+			#	category = jet_technology
+			#	category = rocketry
+			#}
+
 		}
 	}
 
@@ -2291,6 +2971,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 40
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2307,14 +2991,32 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_nukes"
-			add_tech_bonus = {
-				name = nuclear_bonus
-				bonus = 1.0
-				ahead_reduction = 2
-				uses = 1
-				category = nuclear
+
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = nuclear_bonus
+					bonus = 1.0
+					ahead_reduction = 1 # was 2
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.75
+				}
 			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 1
+				}
+			}
+
 		}
 	}
 
@@ -2327,10 +3029,14 @@ focus_tree = {
 		y = 1
 		relative_position_id = CZE_strategy_decisions
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 40
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2346,15 +3052,17 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_an_entente_of_our_own"
 			set_rule = { can_create_factions = yes }
-			create_faction = "CZE_little_entente"
+			create_faction_from_template = {
+				template = faction_template_the_little_entente
+				name = CZE_little_entente
+			}
 		}
 	}
 
 	focus = {
 		id = CZE_invite_yugoslavia
-		icon = GFX_goal_generic_major_alliance
+		icon = GFX_focus_invite_yugoslavia
 		prerequisite = { focus = CZE_an_entente_of_our_own }
 		x = -1
 		y = 1
@@ -2364,6 +3072,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2388,14 +3100,13 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_invite_yugoslavia"
 			YUG = { country_event = { hours = 1 id = czech.25 } }
 		}
 	}
 
 	focus = {
 		id = CZE_invite_romania
-		icon = GFX_goal_generic_major_alliance
+		icon = GFX_focus_invite_romania
 		prerequisite = { focus = CZE_an_entente_of_our_own }
 		x = 1
 		y = 1
@@ -2405,6 +3116,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2428,7 +3143,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_invite_romania"
 			ROM = { country_event = { hours = 1 id = czech.28 } }
 		}
 	}
@@ -2453,6 +3167,10 @@ focus_tree = {
 				factor = 1.5
 				has_completed_focus = CZE_invite_yugoslavia
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2470,7 +3188,6 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_faction_tech_sharing"
 			add_to_tech_sharing_group = little_entente_research_group
 			every_country = {
 				limit = {
@@ -2501,6 +3218,10 @@ focus_tree = {
 				factor = 1.5
 				has_completed_focus = CZE_invite_yugoslavia
 			}
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2516,7 +3237,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_security_council"
 			add_ideas = CZE_planning_bonus
 			every_other_country = {
 				limit = {
@@ -2529,7 +3249,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_deal_with_hungary
-		icon = GFX_goal_generic_major_war
+		icon = GFX_focus_generic_attack_hungary
 		prerequisite = { focus = CZE_security_council }
 		mutually_exclusive = { focus = CZE_rapprochement_with_hungary }
 		x = 0
@@ -2540,6 +3260,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2560,7 +3284,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_deal_with_hungary"
 			create_wargoal = {
 				type = annex_everything
 				target = HUN
@@ -2571,7 +3294,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_deal_with_bulgaria
-		icon = GFX_goal_generic_major_war
+		icon = GFX_focus_generic_attack_bulgaria
 		prerequisite = { focus = CZE_security_council }
 		x = 2
 		y = 1
@@ -2581,6 +3304,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2589,6 +3316,11 @@ focus_tree = {
 			}
 			BUL = { exists = yes }
 			BUL = { is_subject = no }
+			OR = {
+				is_in_faction_with = ROM
+				has_subject = ROM
+				owns_state = 768   # 1.19-migration: was vanilla 46 (Muntenia)
+			}
 		}
 
 		bypass = {
@@ -2600,7 +3332,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_deal_with_bulgaria"
 			create_wargoal = {
 				type = annex_everything
 				target = BUL
@@ -2611,7 +3342,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_rapprochement_with_hungary
-		icon = GFX_goal_generic_military_deal
+		icon = GFX_focus_generic_befriend_hungary
 		prerequisite = { focus = CZE_security_council }
 		mutually_exclusive = { focus = CZE_deal_with_hungary }
 		x = -2
@@ -2622,6 +3353,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 40
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2641,23 +3376,26 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_rapprochement_with_hungary"
 			HUN = { country_event = { hours = 1 id = czech.32 } }
 		}
 	}
 
 	focus = {
 		id = CZE_czechoslovak_legion
-		icon = GFX_goal_generic_axis_build_infantry
+		icon = GFX_focus_CZE_czechoslovak_legion_export
 		prerequisite = { focus = CZE_strategy_decisions }
 		x = 5
 		y = 1
 		relative_position_id = CZE_strategy_decisions
 
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 60
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2673,11 +3411,10 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_czechoslovak_legion"
 			set_rule = {
 				can_send_volunteers = yes
 			}
-			add_ideas = foreign_expeditions_focus
+			add_ideas = CZE_state_sponsored_recruitment_idea_2
 		}
 	}
 	#######################################
@@ -2695,6 +3432,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2710,14 +3451,20 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_military_research_institute"
 			army_experience = 50
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
+			}
 		}
 	}
 
 	focus = {
 		id = CZE_mountain_bonus
-		icon = GFX_goal_generic_special_forces
+		icon = GFX_focus_SMB_special_forces_option_1
 		prerequisite = { focus = CZE_military_research_institute }
 		x = -3
 		y = 1
@@ -2727,6 +3474,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 50
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2743,7 +3494,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_mountain_bonus"
 			add_tech_bonus = {
 				name = CZE_mountain_bonus
 				bonus = 1.0
@@ -2766,6 +3516,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2782,7 +3536,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_inf_and_artillery_advancement"
 			add_tech_bonus = {
 				name = CZE_inf_and_artillery_advancement
 				bonus = 1.0
@@ -2805,6 +3558,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 60
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2821,7 +3578,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_support_bonus"
 			add_tech_bonus = {
 				name = CZE_support_bonus #@#
 				bonus = 1.0
@@ -2850,6 +3606,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2866,7 +3626,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_inf_and_artillery_advancement_2"
 			add_tech_bonus = {
 				name = CZE_inf_and_artillery_advancement_2 #@#
 				bonus = 1.0
@@ -2890,6 +3649,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2906,7 +3669,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_doctrine_bonus"
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 1
@@ -2928,6 +3690,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 60
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2944,7 +3710,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_motorization_scheme"
 			add_tech_bonus = {
 				name = motorized_bonus
 				bonus = 3.0
@@ -2965,6 +3730,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 70
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -2981,7 +3750,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_armour_bonus_1"
 			add_tech_bonus = {
 				name = armor_bonus
 				bonus = 1.0
@@ -2993,7 +3761,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_mechanization
-		icon = GFX_goal_generic_production2
+		icon = GFX_focus_generic_mechanized
 		prerequisite = { focus = CZE_motorization_scheme }
 		x = 1
 		y = 2
@@ -3003,6 +3771,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 50
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3019,7 +3791,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_mechanization"
 			add_tech_bonus = {
 				name = CZE_mechanization #@#
 				bonus = 1.0
@@ -3031,7 +3802,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_armour_bonus_ii
-		icon = GFX_goal_generic_army_tanks
+		icon = GFX_focus_generic_army_tanks2
 		prerequisite = { focus = CZE_armour_bonus_1 }
 		x = 3
 		y = 2
@@ -3041,6 +3812,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 60
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3057,7 +3832,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_armour_bonus_ii"
 			add_tech_bonus = {
 				name = armor_bonus
 				bonus = 1.0
@@ -3069,7 +3843,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_doctrine_bonus_2
-		icon = GFX_goal_generic_army_doctrines
+		icon = GFX_focus_FIN_motti_tactics
 		prerequisite = { focus = CZE_mechanization }
 		prerequisite = { focus = CZE_armour_bonus_ii }
 		x = 2
@@ -3080,6 +3854,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 100
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3096,19 +3874,25 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_doctrine_bonus_2"
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
 				uses = 2
 				category = land_doctrine
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.25
+			}
 		}
 	}
 
 	focus = {
 		id = CZE_war_college
-		icon = GFX_goal_generic_build_tank
+		icon = GFX_focus_generic_military_academy
 		prerequisite = { focus = CZE_doctrine_bonus }
 		prerequisite = { focus = CZE_doctrine_bonus_2 }
 		x = 0
@@ -3119,6 +3903,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3135,12 +3923,14 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_war_college"
 			add_ideas = CZE_war_college_idea
 			if = {
 				limit = {
 					NOT = { amount_research_slots > 4 }
 				}
+
+				custom_effect_tooltip = generic_skip_one_line_tt
+
 				add_research_slot = 1
 				custom_effect_tooltip = CZE_war_college_effect_tt
 			}
@@ -3162,6 +3952,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 90
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3177,8 +3971,14 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_military_aeronautical_institute"
 			air_experience = 100
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
 		}
 	}
 
@@ -3194,6 +3994,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 70
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3210,7 +4014,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_import_foreign_fighters"
 			add_tech_bonus = {
 				name = CZE_import_foreign_fighters #@#
 				bonus = 1.0
@@ -3234,6 +4037,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 70
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3250,7 +4057,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_light_fighter_focus"
 			add_tech_bonus = {
 				name = CZE_light_fighter_focus #@#
 				bonus = 1.0
@@ -3262,7 +4068,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_heavy_fighter_focus
-		icon = GFX_goal_generic_air_fighter
+		icon = GFX_focus_usa_escort_fighters
 		prerequisite = { focus = CZE_import_foreign_fighters }
 		mutually_exclusive = { focus = CZE_light_fighter_focus }
 		x = 1
@@ -3273,6 +4079,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 50
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3289,7 +4099,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_heavy_fighter_focus"
 			add_tech_bonus = {
 				name = CZE_heavy_fighter_focus #@#
 				bonus = 1.0
@@ -3311,6 +4120,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3326,8 +4139,12 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_air_is_our_sea"
 			add_ideas = CZE_air_focus
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = available_chief_of_airforce
+			show_ideas_tooltip = CZE_alois_vicherek_advisor_idea_reform
 		}
 	}
 
@@ -3345,6 +4162,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 80
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3361,7 +4182,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_rule_the_air"
 			add_doctrine_cost_reduction = {
 				name = air_doc_bonus
 				cost_reduction = 0.5
@@ -3383,6 +4203,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 70
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3399,7 +4223,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_import_foreign_bombers"
 			add_tech_bonus = {
 				name = CZE_import_foreign_bombers #@#
 				bonus = 1.0
@@ -3423,6 +4246,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 70
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3439,7 +4266,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_cas_focus"
 			add_tech_bonus = {
 				name = CZE_cas_focus #@#
 				bonus = 1.0
@@ -3451,7 +4277,7 @@ focus_tree = {
 
 	focus = {
 		id = CZE_tac_focus
-		icon = GFX_goal_generic_air_bomber
+		icon = GFX_focus_SWE_marauder_bombers
 		prerequisite = { focus = CZE_import_foreign_bombers }
 		mutually_exclusive = { focus = CZE_cas_focus }
 		x = 1
@@ -3462,6 +4288,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 30
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3478,7 +4308,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_tac_focus"
 			add_tech_bonus = {
 				name = CZE_tac_focus #@#
 				bonus = 1.0
@@ -3495,7 +4324,7 @@ focus_tree = {
 	focus = {
 		id = CZE_access_to_the_sea
 		icon = GFX_goal_generic_occupy_states_coastal
-		x = 7
+		x = 8
 		y = 0
 		relative_position_id = CZE_military_aeronautical_institute
 
@@ -3503,6 +4332,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 30
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3520,8 +4353,19 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_access_to_the_sea"
 			navy_experience = 100
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			unlock_decision_tooltip = {
+				decision = CZE_recall_zdenko_hudecek
+				show_effect_tooltip = yes # default is no
+				show_modifiers = yes # default is no
+			} 
 		}
 	}
 
@@ -3537,11 +4381,14 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 70
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
-			any_state = {
-				is_controlled_by = ROOT
+			any_controlled_state = {
 				is_coastal = yes
 			}
 		}
@@ -3556,7 +4403,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_sudden_shipyard"
 			navy_experience = 10
 			random_owned_controlled_state = {
 				limit = {
@@ -3604,6 +4450,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 40
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3619,7 +4469,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_shipbuilding_legacy"
 			add_ideas = CZE_naval_focus
 		}
 	}
@@ -3636,6 +4485,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3652,7 +4505,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_battleship_catchup_1"
 			add_tech_bonus = {
 				bonus = 1.0
 				uses = 2
@@ -3673,6 +4525,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 20
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3689,7 +4545,6 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_destroyer_catchup_1"
 			add_tech_bonus = {
 				bonus = 1.0
 				uses = 2
@@ -3710,6 +4565,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 10
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3726,11 +4585,9 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_cruiser__catchup_1"
 			add_tech_bonus = {
 				bonus = 1.0
 				uses = 2
-				category = industry
 				category = ca_tech
 			}
 		}
@@ -3750,6 +4607,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 20
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3766,19 +4627,31 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_raiding_focus"
+			add_mastery_bonus = {
+				name = CZE_raiding_focus
+				bonus = 0.1
+				days = 240
+				track = screens
+			}
+			add_mastery_bonus = {
+				name = CZE_raiding_focus
+				bonus = 0.1
+				days = 240
+				track = submarines
+			}
+
 			add_doctrine_cost_reduction = {
-				name = naval_doc_bonus
+				name = CZE_raiding_focus
 				cost_reduction = 0.25
 				uses = 2
-				category = cat_trade_interdiction
+				category = naval_doctrine
 			}
 		}
 	}
 
 	focus = {
 		id = CZE_capital_focus
-		icon = GFX_goal_generic_navy_doctrines_tactics
+		icon = GFX_focus_generic_navy_battleship2
 		prerequisite = { focus = CZE_cruiser__catchup_1 }
 		prerequisite = { focus = CZE_battleship_catchup_1 }
 		mutually_exclusive = { focus = CZE_raiding_focus }
@@ -3790,6 +4663,10 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 5
+			modifier = {
+				factor = 0.1
+				HABSBURG_joint_trigger = yes
+			}
 		}
 
 		available = {
@@ -3806,12 +4683,24 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus CZE_capital_focus"
+
+			add_mastery_bonus = {
+				name = CZE_capital_focus
+				bonus = 0.1
+				days = 240
+				track = carriers
+			}
+			add_mastery_bonus = {
+				name = CZE_capital_focus
+				bonus = 0.1
+				days = 240
+				track = capital_ships
+			}
 			add_doctrine_cost_reduction = {
-				name = naval_doc_bonus
+				name = CZE_capital_focus
 				cost_reduction = 0.25
 				uses = 2
-				category = cat_fleet_in_being
+				category = naval_doctrine
 			}
 		}
 	}

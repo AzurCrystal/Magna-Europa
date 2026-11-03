@@ -456,7 +456,7 @@ focus_tree = {
 		cancel_if_invalid = no
 		continue_if_invalid = yes
 		available_if_capitulated = no
-		search_filters = {  }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
 			swap_ideas = {
@@ -655,7 +655,7 @@ focus_tree = {
 
 		completion_reward = {
 			random_core_state = {
-				prioritize = { 212 }
+				prioritize = { 138 }
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -717,7 +717,7 @@ focus_tree = {
 			}
 			
 			random_core_state = {
-				prioritize = { 212 }
+				prioritize = { 138 }
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -830,7 +830,7 @@ focus_tree = {
 			else = {
 				add_tech_bonus = {
 					name = SWE_lynx_winter_armored_cars
-					bonus = 0.6
+					bonus = 0.5
 					uses = 2
 					category = support_tech
 
@@ -884,7 +884,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.5
+				bonus = 1
 				uses = 1
 				category = cat_mechanized_equipment # optional
 				name = SWE_kp_bill
@@ -1182,7 +1182,7 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = SWE_continue_the_second_industrial_revolution
-				bonus = 1.5
+				bonus = 1
 				uses = 2
 				category = industry # optional 
 				# technology  = technology_id # optional
@@ -1483,10 +1483,16 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-		custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = SWE_frans_severin
+
+			hidden_effect = {
+				set_province_name = {
+					id = 3054
+					name = SWE_harspranget_dam
+				}
+			}
+		
 			random_core_state = {
-				prioritize = { 23 } # was vanilla 666
+				prioritize = { 666 }
 				limit = {
 					infrastructure < 5
 				}
@@ -1498,7 +1504,7 @@ focus_tree = {
 			}
 
 			random_core_state = {
-				prioritize = { 2704 }
+				prioritize = { 918 }
 				limit = {
 					infrastructure < 5
 				}
@@ -1508,6 +1514,32 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
+
+			IF = {
+				limit = {
+					23 = {   # 1.19-migration: was vanilla 666 (Norrbotten); mod Norrbotten
+						is_fully_controlled_by = ROOT
+					}
+				}
+				23 = {   # 1.19-migration: was vanilla 666 (Norrbotten); mod Norrbotten
+					add_building_construction = {
+						type = dam
+						level = 1
+						instant_build = yes
+						province = {
+							id = 3054
+						}
+					}
+					custom_effect_tooltip = {
+						localization_key = building_state_modifier|dam
+						INDENT = "    "
+					}
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = SWE_frans_severin
 		}
 	}
 
@@ -1584,7 +1616,7 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = {  }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
 			add_tech_bonus = {
@@ -1635,7 +1667,7 @@ focus_tree = {
 
 		completion_reward = {
 			random_core_state = {
-				prioritize = { 150 }
+				prioritize = { 139 }
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -1698,7 +1730,7 @@ focus_tree = {
 		completion_reward = {
 
 			random_core_state = {
-				prioritize = { 110 }
+				prioritize = { 919 }
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -1711,7 +1743,7 @@ focus_tree = {
 			}
 
 			random_core_state = {
-				prioritize = { 110 }
+				prioritize = { 919 }
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -1725,8 +1757,9 @@ focus_tree = {
 			custom_effect_tooltip = SWE_norma_projektilfabrik_tt
 			if = {
 				limit = {
-					any_other_country = {
-						original_tag = NOR 
+					any_country_with_original_tag = {
+						exists = yes
+						original_tag_to_check = NOR 
 						NOT = { 
 							has_war_with = ROOT 
 							has_government = fascism
@@ -1740,7 +1773,7 @@ focus_tree = {
 				}
 				
 				random_core_state = {
-					prioritize = { 110 }
+					prioritize = { 919 }
 					limit = {
 						is_fully_controlled_by = ROOT
 					}
@@ -1800,7 +1833,7 @@ focus_tree = {
 
 		completion_reward = {
 			random_core_state = {
-				prioritize = { 148 }
+				prioritize = { 140 }
 				limit = {
 					is_coastal = yes
 					is_fully_controlled_by = ROOT
@@ -1858,7 +1891,7 @@ focus_tree = {
 		completion_reward = {
 			add_timed_idea = { idea = SWE_lindsholmens_varv_idea days = 270 }
 			random_core_state = {
-				prioritize = { 148 }
+				prioritize = { 140 }
 				limit = {
 					is_coastal = yes
 					is_fully_controlled_by = ROOT
@@ -1942,7 +1975,7 @@ focus_tree = {
 		}
 
 		available = {
-			148 = {
+			148 = {   # 1.19-migration: was vanilla 140 (Västergötland); mod Göteborg
 				is_fully_controlled_by = ROOT
 			}
 		}
@@ -2093,7 +2126,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 0.25
+				bonus = 0.5
 				uses = 1
 				category = bb_tech 
 				name = SWE_rule_the_baltic
@@ -2453,7 +2486,7 @@ focus_tree = {
 
 				add_tech_bonus = {
 					name = ss_bonus
-					ahead_reduction = 1.5
+					ahead_reduction = 1
 					uses = 1
 					category = ss_tech
 				}
@@ -2466,7 +2499,7 @@ focus_tree = {
 
 					add_tech_bonus = {
 						name = ss_bonus
-						ahead_reduction = 1.5
+						ahead_reduction = 1
 						uses = 1
 						technology = basic_submarine_snorkel
 					}
@@ -2762,7 +2795,7 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = {  }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
 			add_tech_bonus = {
@@ -2772,7 +2805,7 @@ focus_tree = {
 			}
 
 			add_tech_bonus = {
-			    bonus = 0.25
+			    bonus = 0.5
 			    uses = 1
 			    category = artillery
 			}
@@ -2973,11 +3006,11 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = { FOCUS_FILTER_FOLKHEMMET }
+		search_filters = { FOCUS_FILTER_FOLKHEMMET FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
 			random_core_state = {
-				prioritize = { 150 }
+				prioritize = { 913 }
 				limit = {
 					is_fully_controlled_by = ROOT
 				}
@@ -3073,8 +3106,9 @@ focus_tree = {
 		}
 
 		available = {
-			any_other_country = {
-				is_major = yes
+			any_collection_element = {
+				collection = game:all_majors
+				NOT = { tag = ROOT }
 				has_government = ROOT
 				NOT = { has_war_with = ROOT }
 			}
@@ -3257,25 +3291,32 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			add_tech_bonus = {
-				bonus = 1
-				uses = 1
-				category  = jet_technology # optional
-				name = SWE_the_barrel
-			}
-			add_tech_bonus = {
-				bonus = 1
-				uses = 1
-				technology  = rocket_engines # optional
-				name = SWE_the_barrel
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.75
 			}
 
 			add_tech_bonus = {
 				bonus = 1
-				uses = 1
-				technology  = jet_engines 
+				uses = 2 # was 1
+				category  = jet_technology 
 				name = SWE_the_barrel
 			}
+
+			#add_tech_bonus = {
+			#	bonus = 1
+			#	uses = 1
+			#	technology = rocket_engines 
+			#	name = SWE_the_barrel
+			#}
+			#add_tech_bonus = {
+			#	bonus = 1
+			#	uses = 1
+			#	technology  = jet_engines 
+			#	name = SWE_the_barrel
+			#}
+
 		}
 	}
 
@@ -3318,7 +3359,7 @@ focus_tree = {
 			add_tech_bonus = {
 				bonus = 1
 				uses = 1
-				technology  = rocket_engines # optional
+				technology  = sp_rockets_improved_guidance # optional
 				name = SWE_rockets
 			}
 
@@ -3413,6 +3454,9 @@ focus_tree = {
 		}
 
 		available = {
+			NOT = {
+				has_government = communism
+			}
 		}
 
 		bypass = {
@@ -3425,9 +3469,16 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			hidden_effect = { #need tt because variables dont show up in tooltip
-				remove_dynamic_modifier = {
-					modifier = SWE_folkhemmet
+			hidden_effect = {
+				if = { #need tt because variables dont show up in tooltip
+					limit = {
+						has_dynamic_modifier = {
+							modifier = SWE_folkhemmet
+						}
+					}
+					remove_dynamic_modifier = {
+						modifier = SWE_folkhemmet
+					}
 				}
 			}
 			custom_effect_tooltip = SWE_economic_deregulation_tt
@@ -3535,7 +3586,7 @@ focus_tree = {
 		}
 
 		available = {
-			98 = { 
+			98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 				controller = {
 					original_tag = FIN
 				} 
@@ -3550,7 +3601,7 @@ focus_tree = {
 		}
 
 		bypass = {
-			98 = {
+			98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 				controller = {
 					original_tag = SWE
 				}
@@ -3569,7 +3620,7 @@ focus_tree = {
 
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
-				98 = {
+				98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 					add_core_of = ROOT
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
@@ -3704,7 +3755,7 @@ focus_tree = {
 	cancel_if_invalid = no
 	continue_if_invalid = no
 	available_if_capitulated = no
-	search_filters = { FOCUS_FILTER_POLITICAL }
+	search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 	completion_reward = {
 		country_event = {
 			id = AAT_Sweden_communism.1
@@ -3832,6 +3883,14 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
+			if = {
+				limit = {
+					has_idea = SWE_economic_deregulation_idea
+				}
+				remove_ideas = {
+					SWE_economic_deregulation_idea
+				}
+			}
 			hidden_effect = {
 				if = {
 					limit = { has_dynamic_modifier = { modifier = SWE_folkhemmet } }
@@ -3938,6 +3997,17 @@ focus_tree = {
 					USA_harry_white = { set_nationality = ROOT }
 				}
 			}
+
+			if = {
+				limit = {
+					has_dlc = "Man the Guns"
+					#MEX = {   # 1.19-migration: dead tag MEX
+						#has_completed_focus = MEX_focus_liberalize_the_banking_sector   # 1.19-migration: dead tag MEX
+					}
+				}
+				#MEX = { MEX_vicente_lombardo = { set_nationality = ROOT } }   # 1.19-migration: dead tag MEX
+			}
+
 			if = {
 				limit = {
 					has_dlc = "La Resistance"
@@ -4151,6 +4221,23 @@ focus_tree = {
 					EST_august_jakobson = { set_nationality = ROOT }
 					EST_voldemar_voolman = { set_nationality = ROOT }
 					EST_henrik_allik = { set_nationality = ROOT }
+				}
+			}
+
+			if = {
+				limit = {
+					has_dlc = "By Blood Alone"
+					#ETH = {   # 1.19-migration: dead tag ETH
+						OR = {
+							#has_completed_focus = ETH_soviet_aid   # 1.19-migration: dead tag ETH
+							#has_completed_focus = ETH_reach_out_to_the_italians   # 1.19-migration: dead tag ETH
+							#has_completed_focus = ETH_rally_around_the_emperor   # 1.19-migration: dead tag ETH
+						}
+					}
+				}
+				#ETH = {   # 1.19-migration: dead tag ETH
+					IA_emma_goldman = { set_nationality = ROOT }
+					IA_sakutaro_iwasa = { set_nationality = ROOT }
 				}
 			}
 			custom_effect_tooltip = available_political_advisor
@@ -4908,7 +4995,7 @@ focus_tree = {
 				has_war_with = NOR
 			}
 			OR = {
-				25 = {
+				25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
 					controller = { 
 						OR = {
 							NOT = { original_tag = NOR }
@@ -4927,7 +5014,7 @@ focus_tree = {
 					}
 				}
 
-				13 = {
+				13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
 					controller = { 
 						OR = {
 							NOT = { original_tag = NOR }
@@ -4946,7 +5033,7 @@ focus_tree = {
 					}
 				}
 
-				4 = {
+				4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
 					controller = { 
 						OR = {
 							NOT = { original_tag = NOR }
@@ -4993,22 +5080,22 @@ focus_tree = {
 			#		NOR = { OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 }  } }
 			#	}
 			#}
-			#}
 
-			every_state = {
+
+
+			if = {
 				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					OR = {
-						region = 120
-						region = 116
-					}
-					controller = {
-						NOT = {
-							original_tag = SWE
+					25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+						controller = {
+							NOT = {
+								original_tag = SWE
+							}
 						}
 					}
 				}
-				controller = {
+
+				25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+					controller = {
 						if = {
 							limit = { 
 								original_tag = NOR 
@@ -5036,6 +5123,97 @@ focus_tree = {
 							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
 						}
 					}
+				}
+			}
+
+			if = {
+				limit = {
+					 13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+					 	controller = {
+					 		NOT = { 
+					 			controls_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
+					 			original_tag = SWE
+					 		}
+					 	}
+					 }
+				}
+
+				13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+					controller = {
+						if = {
+							limit = { 
+								original_tag = NOR 
+								is_subject = no
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								original_tag = NOR
+								is_subject = yes
+								is_ai = no
+								OVERLORD = { is_ai = yes }
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								is_subject = yes
+								OVERLORD = { is_ai = no }
+							}
+							OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else = {
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					 4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+					 	controller = {
+					 		NOT = { 
+					 			OR = {
+					 				controls_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
+					 				controls_state = 13   # 1.19-migration: was vanilla 924 (Troms)
+					 			}
+					 			original_tag = SWE
+					 		}
+					 	}
+					 }
+				}
+				4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+					controller = {
+						if = {
+							limit = { 
+								original_tag = NOR 
+								is_subject = no
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								original_tag = NOR
+								is_subject = yes
+								is_ai = no
+								OVERLORD = { is_ai = yes }
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								is_subject = yes
+								OVERLORD = { is_ai = no }
+							}
+							OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else = {
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+					}
+				}
 			}
 
 
@@ -5043,17 +5221,24 @@ focus_tree = {
 
 			custom_effect_tooltip = if_they_accept
 			effect_tooltip = {
-				every_state = {
-					limit = {
-						has_state_flag = NOR_INITIAL_STATE
-						OR = {
-							region = 120
-							region = 116
-						}
+				ROOT = {
+					transfer_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
+					25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+						set_demilitarized_zone = yes
+						add_compliance = 70
 					}
-					transfer_state_to = ROOT 
-					set_demilitarized_zone = yes
-					add_compliance = 70
+
+					transfer_state = 13   # 1.19-migration: was vanilla 924 (Troms)
+					13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+
+					transfer_state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
+					4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
 				}
 			}
 		}
@@ -5101,7 +5286,7 @@ focus_tree = {
 			#add_timed_idea = { idea = SWE_with_finland_for_sweden days = 180  }
 			#FIN = { 
 			#	add_timed_idea = { idea = SWE_with_finland_for_sweden_fin days = 180 }
-			#	add_ideas = SWE_gateway_to_peace
+		#		add_ideas = SWE_gateway_to_peace
 			#}
 
 			#give_military_access = FIN
@@ -5299,6 +5484,9 @@ focus_tree = {
 				limit = {
 					NOR = {
 						is_subject = no
+						NOT = {
+							has_war_with = ROOT
+						}
 					}
 				}
 				NOR = { country_event = { id = AAT_Sweden_nordic_defense_council.1 hours = 3 } }
@@ -5309,6 +5497,9 @@ focus_tree = {
 				limit = {
 					FIN = {
 						is_subject = no
+						NOT = {
+							has_war_with = ROOT
+						}
 					}
 				}
 				if = {
@@ -5327,6 +5518,9 @@ focus_tree = {
 				limit = {
 					DEN = {
 						is_subject = no
+						NOT = {
+							has_war_with = ROOT
+						}
 					}
 				}
 				DEN = { country_event = { id = AAT_Sweden_nordic_defense_council.1 hours = 3 } }
@@ -5336,6 +5530,9 @@ focus_tree = {
 				limit = {
 					ICE = {
 						is_subject = no
+						NOT = {
+							has_war_with = ROOT
+						}
 					}
 				}
 				ICE = { country_event = { id = AAT_Sweden_nordic_defense_council.1 hours = 3 } }
@@ -5433,13 +5630,15 @@ focus_tree = {
 		}
 
 		available = {
-			if = {
-				limit = { has_dlc = "Man the Guns" }
-				has_tech = ship_hull_super_heavy
-			}
-			else = {
-				has_tech = heavy_battleship
-			}
+			is_special_project_completed = sp:sp_naval_super_heavy_battleship
+
+			#if = {
+				#limit = { has_dlc = "Man the Guns" }
+				#has_tech = ship_hull_super_heavy
+			#}
+			#else = {
+				#has_tech = heavy_battleship
+			#}
 
 			FIN = {
 				is_subject_of = ROOT
@@ -5918,12 +6117,28 @@ focus_tree = {
 		search_filters = {  }
 
 		completion_reward = {
-			create_faction = SWE_the_nordic_defense_council
+			
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_SWE_the_nordic_defense_council
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction = SWE_the_nordic_defense_council
+			}
+
 			complete_national_focus = NORDIC_form_joint_alliance
 			every_other_country = {
 				limit = {
 					NORDIC_is_nordic = yes 
 					is_subject = no
+					NOT = {
+						has_war_with = ROOT
+					}
 					IF= {
 						limit = { SWE = { NORDIC_is_democratic = yes }}
 						NORDIC_is_democratic = yes
@@ -6552,17 +6767,17 @@ focus_tree = {
 		completion_reward = {
 			if = {	
 				limit = {
-					212 = {
+					212 = {   # 1.19-migration: was vanilla 138 (Skåne); mod Kristianstad
 						is_fully_controlled_by = ROOT
 					}
 				}
-				212 = {
+				212 = {   # 1.19-migration: was vanilla 138 (Skåne); mod Kristianstad
 					add_building_construction = {
 						type = bunker
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19533
+							id = 6345
 
 						}
 					}
@@ -6572,7 +6787,7 @@ focus_tree = {
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19533
+							id = 9279
 							
 						}
 					}
@@ -6587,18 +6802,18 @@ focus_tree = {
 
 			if = {
 				limit = {
-					14 = {
+					148 = {   # 1.19-migration: was vanilla 140 (Västergötland); mod Göteborg
 						is_fully_controlled_by = ROOT
 					}
 				}
 
-				14 = {
+				148 = {   # 1.19-migration: was vanilla 140 (Västergötland); mod Göteborg
 					add_building_construction = {
 						type = bunker
 						level = 2
 						instant_build = yes
 						province = {
-							id = 59
+							id = 3063
 						}
 					}
 
@@ -6607,7 +6822,7 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 						province = {
-							id = 59
+							id = 383
 						}
 					}
 				}
@@ -6615,18 +6830,18 @@ focus_tree = {
 
 			if = {
 				limit = {
-					226 = { # was vanilla 124
+					110 = {   # 1.19-migration: was vanilla 919 (Värmland); mod Värmland
 						is_fully_controlled_by = ROOT
 					}
 				}
 
-				226 = { # was vanilla 124
+				110 = {   # 1.19-migration: was vanilla 919 (Värmland); mod Värmland
 					add_building_construction = {
 						type = bunker
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19427
+							id = 69
 						}
 					}
 				}
@@ -6634,34 +6849,36 @@ focus_tree = {
 
 			if = {
 				limit = {
-					65 = {
+					150 = {   # 1.19-migration: was vanilla 913 (Östergötland); mod Östergötland
 						is_fully_controlled_by = ROOT
 					}
 				}
-				65 = {
+				150 = {   # 1.19-migration: was vanilla 913 (Östergötland); mod Östergötland
 					add_building_construction = {
 						type = bunker
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19681
+							id = 9393
+							id = 11380
+							id = 6311
 						}
 					}
 				}
 			}
 			if = {
 				limit = {
-					141 = {
+					136 = {   # 1.19-migration: was vanilla 141 (Södermanland); mod Södermanland
 						is_fully_controlled_by = ROOT
 					}
 				}
-				141 = {
+				136 = {   # 1.19-migration: was vanilla 141 (Södermanland); mod Södermanland
 					add_building_construction = {
 						type = bunker
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19542
+							id = 6050
 						}
 					}
 
@@ -6670,7 +6887,7 @@ focus_tree = {
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19542
+							id = 6050
 						}
 					}
 				}
@@ -6678,17 +6895,17 @@ focus_tree = {
 
 			if = {
 				limit = {
-					226 = {
+					226 = {   # 1.19-migration: was vanilla 124 (Gotland); mod Götland
 						is_fully_controlled_by = ROOT
 					}
 				}
-				226 = {
+				226 = {   # 1.19-migration: was vanilla 124 (Gotland); mod Götland
 					add_building_construction = {
 						type = bunker
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19638
+							id = 6050
 						}
 					}
 
@@ -6697,7 +6914,8 @@ focus_tree = {
 						level = 2
 						instant_build = yes
 						province = {
-							id = 19638
+							id = 408
+							id = 6258
 						}
 					}
 
@@ -6706,7 +6924,7 @@ focus_tree = {
 						level = 1
 						instant_build = yes
 						province = {
-							id = 19638
+							id = 6258
 						}
 					}
 				}
@@ -6751,7 +6969,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = SWE_rapid_response_force
-				bonus = 1
+				bonus = 0.75
 				uses = 2
 				category = support_tech # optional 
 				# technology  = technology_id # optional
@@ -6827,7 +7045,7 @@ focus_tree = {
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
-		search_filters = {  }
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP }
 
 		completion_reward = {
 
@@ -7463,7 +7681,7 @@ focus_tree = {
 		completion_reward = {
 			add_timed_idea = {
 				idea = SWE_secret_mobilization
-				days = 150
+				days = 913
 			}
 		}
 	}
@@ -7941,8 +8159,9 @@ focus_tree = {
 		relative_position_id = SWE_unify_the_national_socialist_movement
 		cost = 10
 		available = {
-			any_other_country = {
-				original_tag = GER
+			any_country_with_original_tag = {
+				exists = yes
+				original_tag_to_check = GER
 				has_government = fascism
 				NOT = { has_war_with = ROOT }
 			}
@@ -8030,6 +8249,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 
 		completion_reward = {
+			drop_cosmetic_tag = yes
 			set_party_name = {
 				ideology = neutrality
 				name = SWE_kings_party
@@ -8110,7 +8330,7 @@ focus_tree = {
 			ELSE = {
 				add_tech_bonus = {
 					name = SWE_electronics_bonus
-					bonus = 1
+					bonus = 0.5
 					uses = 2
 					category = electronics
 				}
@@ -8197,31 +8417,30 @@ focus_tree = {
 			has_government = fascism
 		}
 	                
-		search_filters = { FOCUS_FILTER_ARMY_XP }
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP FOCUS_FILTER_NAVY_XP }
 
 		completion_reward = {
 			if = {
 				limit = {
 					GER = {
-#						has_completed_focus = GER_rhineland
+						has_completed_focus = GER_remilitarize_the_rhineland
 					}
-					
 					NOT = { has_global_flag = von_lettow_is_in_a_country }
 					has_dlc = "Waking the Tiger"
 				}
 
-				set_global_flag = von_lettow_is_in_a_country
-				create_corps_commander = {
-					name = "Paul von Lettow-Vorbeck"
-					gfx = GFX_portrait_ger_von_lettow_vorbeck
-					traits = { trickster war_hero media_personality jungle_rat}
-					skill = 4
-					id = 499
-					attack_skill = 3
-					defense_skill = 3
-					planning_skill = 2
-					logistics_skill = 5
+				every_possible_country = {
+					limit = {
+						has_character = GER_paul_von_lettow_vorbeck
+					}
+					set_nationality = {
+					    target_country = ROOT
+					    character = GER_paul_von_lettow_vorbeck
+					}	
 				}
+				
+				set_global_flag = von_lettow_is_in_a_country
+				
 			}
 			else = {
 				army_experience = 55
@@ -8365,7 +8584,7 @@ focus_tree = {
 	    		}
 	    	}
 	    }    
-		search_filters = {}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		will_lead_to_war_with = FIN
 
 		completion_reward = {
@@ -8403,12 +8622,13 @@ focus_tree = {
 			    		}
 			    	}
 
-		    		114 = {
+		    		114 = {   # 1.19-migration: was vanilla 111 (Uusimaa); mod Uusimaa
 		    			owner = {
 		    				ROOT = {
 						    	create_wargoal = {
 						    		type = annex_everything
 						    		target = PREV
+						    		generator = { 111 }
 						    	}
 					    	}
 				    	}
@@ -8465,19 +8685,27 @@ focus_tree = {
 			has_government = fascism
 		}
 	                
-		search_filters = {}
+		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
+			add_breakthrough_progress = {
+				specialization = specialization_nuclear
+				value = 0.25
+			}
 			add_tech_bonus = {
 				name = SWE_ger_swe_nuclear_bonus
-				bonus = 1
-				uses = 2
+				bonus = 0.5
+				uses = 1 # was 2
 				category = nuclear
 			}
 			GER = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
 				add_tech_bonus = {
 					name = SWE_ger_swe_nuclear_bonus
-					bonus = 1
+					bonus = 0.75 # was 1
 					uses = 1
 					category = nuclear
 				}
@@ -8633,7 +8861,7 @@ focus_tree = {
 			has_government = fascism
 		}
 	                
-		search_filters = {}
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_RESEARCH }
 		completion_reward = {
 			custom_effect_tooltip = SWE_the_new_order_tt_2
 			drop_cosmetic_tag = yes
@@ -8995,14 +9223,9 @@ focus_tree = {
 			has_war_support > 0.4
 			has_army_manpower = { size > 80000 }
 			OR = {
-				25 = { is_fully_controlled_by = NOR }
-				2703 = { is_fully_controlled_by =  NOR }
-				2702 = { is_fully_controlled_by =  NOR }
-				2700 = { is_fully_controlled_by =  NOR }
-				13 = { is_fully_controlled_by =  NOR }
-				2712 = { is_fully_controlled_by =  NOR }
-				4 = { is_fully_controlled_by =  NOR }
-				2701 = { is_fully_controlled_by =  NOR }
+				25 = { is_fully_controlled_by = NOR }   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+				4 = { is_fully_controlled_by =  NOR }   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+				13 = { is_fully_controlled_by =  NOR }   # 1.19-migration: was vanilla 924 (Troms); mod Troms
 			}
 		}
 
@@ -9028,14 +9251,9 @@ focus_tree = {
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
 
-				transfer_state = 25
-				transfer_state = 2703
-				transfer_state = 2702
-				transfer_state =  2700
-				transfer_state = 13
-				transfer_state = 2712
-				transfer_state = 2701
-				transfer_state = 4
+				transfer_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
+				transfer_state = 13   # 1.19-migration: was vanilla 924 (Troms)
+				transfer_state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
 				
 			}
 
@@ -9054,13 +9272,13 @@ focus_tree = {
 		available = {
 			has_war_support > 0.4
 			has_army_manpower = { size > 80000 }
-			164 = { controller = { NOT = { is_in_faction_with = ROOT } } }
+			164 = { controller = { NOT = { is_in_faction_with = ROOT } } }   # 1.19-migration: was vanilla 910 (Bornholm); mod Bornholm
 		}
 
 		bypass = {
 			OR = {
 				is_subject = yes
-				164 = {
+				164 = {   # 1.19-migration: was vanilla 910 (Bornholm); mod Bornholm
 					controller = { 
 						OR = {
 							has_war_with = ROOT 
@@ -9075,7 +9293,7 @@ focus_tree = {
 
 		completion_reward = {
 			
-			164 = {
+			164 = {   # 1.19-migration: was vanilla 910 (Bornholm); mod Bornholm
 				controller = {
 					country_event = { id = AAT_Sweden.31 hours = 6 }
 				}
@@ -9083,7 +9301,7 @@ focus_tree = {
 
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
-				transfer_state = 164
+				transfer_state = 164   # 1.19-migration: was vanilla 910 (Bornholm)
 			}
 
 			custom_effect_tooltip = SWE_crisis_affecting_variables
@@ -9101,7 +9319,7 @@ focus_tree = {
 		available = {
 			has_war_support > 0.4
 			has_army_manpower = { size > 80000 }
-			98 = {
+			98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 				controller = {
 					NOT = { has_war_with = ROOT }
 				}
@@ -9110,7 +9328,7 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				98 = {
+				98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 					controller = { original_tag = ROOT }
 				}
 				is_subject = yes
@@ -9120,7 +9338,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 
 		completion_reward = {
-			98 = {
+			98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 				controller = {
 					country_event = { id = AAT_Sweden.40 hours = 4 }
 				}
@@ -9128,18 +9346,18 @@ focus_tree = {
 			}
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
-				transfer_state = 98
+				transfer_state = 98   # 1.19-migration: was vanilla 145 (Åland)
 				
-				98 = { 
+				98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 					add_core_of = ROOT 
 					add_extra_state_shared_building_slots = 2
 				}
 
 				if = {
 					limit = {
-						98 = { is_demilitarized_zone = yes }
+						98 = { is_demilitarized_zone = yes }   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 					}
-					98 = { set_demilitarized_zone = no }
+					98 = { set_demilitarized_zone = no }   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 				}
 				
 			}
@@ -9193,6 +9411,7 @@ focus_tree = {
 				create_wargoal = {
 					target = LAT
 					type = puppet_wargoal_focus
+					generator = { 808 }
 					expire = 0
 				}
 			}
@@ -9206,6 +9425,7 @@ focus_tree = {
 				create_wargoal = {
 					target = LIT
 					type = puppet_wargoal_focus
+					generator = { 11 }
 					expire = 0
 				}
 			}
@@ -9219,6 +9439,7 @@ focus_tree = {
 				create_wargoal = {
 					target = EST
 					type = puppet_wargoal_focus
+					generator = { 812 }
 					expire = 0
 				}
 			}
@@ -9235,6 +9456,9 @@ focus_tree = {
 		relative_position_id = SWE_mythologize_swedish_history
 		cost = 5
 		available = {
+			NOT = {
+				has_war_with = GER
+			}
 		}
 	                
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -9330,30 +9554,38 @@ focus_tree = {
 		relative_position_id = SWE_the_aland_issue
 		cost = 5
 		available = {
-			98 = {
+			98 = {   # 1.19-migration: was vanilla 145 (Åland); mod Åland
 				is_owned_and_controlled_by = SWE
 			}
 		}
 
 		bypass = {
-			has_war_with = FIN
+			14 = {   # 1.19-migration: was vanilla 148 (Lappi); mod Lappi
+				OR = {
+					owner = {
+						OR = {
+							has_war = yes
+							is_subject_of = ROOT
+						}
+					}
+					is_owned_by = ROOT
+					is_demilitarized_zone = yes
+				}
+			}
 		}
 	                
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 
 		completion_reward = {
 
-			14 = {
+			14 = {   # 1.19-migration: was vanilla 148 (Lappi); mod Lappi
 				owner = {
 					country_event = { id = AAT_Sweden.43 hours = 4 }
 				}
 			}
 			custom_effect_tooltip = if_they_accept
 			effect_tooltip = {
-				14 = {
-					set_demilitarized_zone = yes
-				}
-				2699 = {
+				14 = {   # 1.19-migration: was vanilla 148 (Lappi); mod Lappi
 					set_demilitarized_zone = yes
 				}
 
@@ -9422,9 +9654,11 @@ focus_tree = {
 		search_filters = {}
 
 		completion_reward = {
-			#TODO_Manu: Please poke Manu if this leads to inviting Finland to a faction tack!
 			set_rule = { can_create_factions = yes }
-			create_faction = "Swedish-Finnish Defense Agreement"
+			create_faction_from_template = {
+				template = faction_template_NORDIC_alliance_democratic
+				name = SWE_swedish_finnish_defense_agreement_faction
+			}
 			FIN = {
 				country_event = { id = generic.5 hours = 4 }
 			}
@@ -9555,44 +9789,15 @@ focus_tree = {
 			every_state = {
 				limit = {
 					OR = {
-						is_core_of = UKR 
-						region = 29 #Belarus
-						region = 41
-						region = 42
-						region = 43
-						region = 97
-						region = 98
-						region = 133
-						region = 140
-						region = 108
-						region = 132
-						region = 109
-						region = 142
-						region = 135
-						region = 110
-						region = 131
-						region = 111
-						region = 130
-						region = 146
-						region = 136
-						region = 148 #this is a random collection of regions I haven't got the patience to check if this looks good
-						state = 225
-						state = 1309
-						state = 1296
-						state = 2493
-						state = 2695
-						state = 2407
+						region = 131 #Ukraine
+						region = 130 #Belarus
+						region = 132 #Novgorod
+						state = 134 #Virumaa   # 1.19-migration: was vanilla 813 (Virumaa)
+						state = 696   # 1.19-migration: was vanilla 234 (Krasnodar)
+						state = 457 #Stalingrad   # 1.19-migration: was vanilla 217 (Stalingrad)
 					}
-					NOT = { 
-						is_core_of = CRI 
-						region = 105
-						state = 2732
-						region = 104
-						
-					} 
-
+					NOT = { state = 769 } #Crimea   # 1.19-migration: was vanilla 137 (Crimea)
 				} 
-
 				add_claim_by = ROOT
 			}
 		}
@@ -9714,7 +9919,11 @@ focus_tree = {
 			}
 		}
 		completion_reward = {
-			create_faction = scandinavian_defense_union
+			create_faction_from_template = {
+				template = faction_template_NORDIC_alliance_democratic
+				name = scandinavian_defense_union
+				icon = GFX_faction_logo_generic_9
+			}
 			NOR = {	SWE_scandinavian_defense_union_invite = yes	}
 			DEN = {	SWE_scandinavian_defense_union_invite = yes	}
 			FIN = {	SWE_scandinavian_defense_union_invite = yes	}
@@ -9743,8 +9952,8 @@ focus_tree = {
 			}
 		}
 		available = {
-			any_other_country = {
-				is_major = yes
+			any_collection_element = {
+				collection = game:all_majors
 				is_faction_leader = yes
 				has_government = ROOT
 				NOT = { is_in_faction_with = ROOT }
@@ -9829,7 +10038,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = SWE_acquire_ww2_tanks_and_wrecks
-				bonus = 1
+				bonus = 0.75
 				uses = 2
 				category = cat_medium_armor
 			
@@ -9940,18 +10149,43 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			add_tech_bonus = {
-				name = SWE_karnvapenprogram_nuclear_bonus
-				bonus = 1
-				uses = 1
-				category = nuclear
+
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = SWE_karnvapenprogram_nuclear_bonus
+					bonus = 0.5 # was 1
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
 			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.75
+				}
+			}
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.25
+			}
+
 			add_tech_bonus = {
 				name = SWE_karnvapenprogram_air_bonus
-				bonus = 1
+				bonus = 0.75 # was 1
 				uses = 1
 				category = air_equipment
 			}
+
 		}
 	}
 	focus = {
@@ -9977,7 +10211,9 @@ focus_tree = {
 				navy_experience = 25
 				army_experience = 25
 				IF = {
-					limit = { has_dlc = "Man the Guns" }
+					limit = { 
+						has_dlc = "Man the Guns" 
+					}
 					IF = {
 						limit = {
 							NOT = {
@@ -10003,17 +10239,36 @@ focus_tree = {
 						set_technology = { mtg_tank_landing_craft = 1 }
 					}
 					IF = {
-						limit = {
-							NOT = { has_tech = amphibious_tank_chassis }
+						limit = { 
+							has_dlc = "No Step Back" 
 						}
+						IF = {
+							limit = {
+								NOT = { has_tech = amphibious_tank_chassis }
+							}
 						set_technology = { amphibious_tank_chassis = 1}
-					}
-					ELSE_IF = {
-						limit = {
-							NOT = { has_tech = amphibious_drive }
 						}
-						set_technology = { amphibious_drive = 1}
+						ELSE_IF = {
+							limit = {
+								NOT = { has_tech = amphibious_drive }
+							}
+							set_technology = { amphibious_drive = 1}
+						}
 					}
+					ELSE = {
+						IF = {
+							limit = {
+								NOT = { has_tech = amphibious_tank }
+							}
+							set_technology = { amphibious_tank = 1}
+						}
+						ELSE_IF = {
+							limit = {
+								NOT = { has_tech = amphibious_tank_2 }
+							}
+							set_technology = { amphibious_tank_2 = 1}
+						}
+					}	
 				}
 				ELSE = {
 					IF = {
@@ -10137,8 +10392,8 @@ focus_tree = {
 		relative_position_id = SWE_karnvapenprogram
 		cost = 10
 		available = {
-			any_other_country = {
-				is_major = yes
+			any_collection_element = {
+				collection = game:all_majors
 				is_faction_leader = yes
 				NOT = {
 					is_in_faction_with = ROOT
@@ -10185,7 +10440,7 @@ focus_tree = {
 					}
 				}
 				IF = {
-					limit = { original_tag = JAP }
+					#limit = { original_tag = JAP }   # 1.19-migration: dead tag JAP
 					SWE = {
 						add_ideas = { SWE_anti_jap_cold_war }
 					}
@@ -10203,13 +10458,13 @@ focus_tree = {
 					}
 				}
 				IF = {
-					limit = { original_tag = PRC }
+					#limit = { original_tag = PRC }   # 1.19-migration: dead tag PRC
 					SWE = {
 						add_ideas = { SWE_anti_prc_cold_war }
 					}
 				}
 				IF = {
-					limit = { original_tag = CHI }
+					#limit = { original_tag = CHI }   # 1.19-migration: dead tag CHI
 					SWE = {
 						add_ideas = { SWE_anti_chi_cold_war }
 					}
@@ -10307,7 +10562,7 @@ focus_tree = {
 		cancel_if_invalid = no
 		continue_if_invalid = yes
 		available_if_capitulated = no
-		search_filters = {  }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
 			add_research_slot = 1

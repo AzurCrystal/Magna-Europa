@@ -24,6 +24,7 @@ focus_tree = {
 		}
 	}
 	continuous_focus_position = { x = 50 y = 1600 }
+	shared_focus = ABDA_abdacom
 	default = no
 #	focus = {
 #		id = USA_
@@ -70,7 +71,27 @@ focus_tree = {
 			x = -12
 			y = 0
 			trigger = {
-				not = { has_dlc = "Man the Guns" }
+				OR = {
+					NOT = { has_dlc = "Man the Guns" }
+					AND = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+						has_completed_focus = USA_reestablish_the_gold_standard
+					}
+				}
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_neutrality_act
 			}
 		}
 
@@ -79,6 +100,20 @@ focus_tree = {
 
 		ai_will_do = {
 			factor = 1
+		}
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+			}
 		}
 
 		available = {
@@ -94,8 +129,18 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_continue_the_new_deal"
 			add_political_power = 150
+			hidden_effect = {
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+					}
+					mark_focus_tree_layout_dirty = yes
+				}
+			}
 		}
 	}
 
@@ -113,6 +158,17 @@ focus_tree = {
 		}
 		allow_branch = {
 			has_dlc = "Man the Guns"
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+			}
 		}
 		available = {
 
@@ -127,7 +183,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_suspend_the_presecution"
 			add_stability = -0.05
 			custom_effect_tooltip = available_political_advisor
 		    show_ideas_tooltip = earl_browder
@@ -175,7 +230,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_desegregate_the_armed_forces"
 			add_ideas = USA_armed_forces_desegregation
 		}
 	}
@@ -205,7 +259,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_full_desegregation"
 			swap_ideas = {
 				remove_idea = USA_armed_forces_desegregation
 				add_idea = USA_full_desegregation
@@ -215,6 +268,19 @@ focus_tree = {
 					not = { has_government = communism }
 				}
 				USA_congress_large_opposition = yes
+			}
+			if = {
+				limit = {
+					has_country_flag = mtg_usa_civil_war_fascists_1
+					not = { has_country_flag = mtg_usa_civil_war_fascists_2 }
+				}
+				country_event = mtg_usa_civil_war_fascists.2
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+			}
+			else_if = {
+				limit = { not = { has_country_flag = mtg_usa_civil_war_fascists_1 } }
+				country_event = mtg_usa_civil_war_fascists.1
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
 			}
 		}
 	}
@@ -244,9 +310,20 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_democratic_socialism"
 			set_politics = { ruling_party = communism elections_allowed = yes } #good and nice communism has elections
 			add_popularity = { ideology = communism popularity = 0.25 }
+			hidden_effect = {
+				if = {
+					limit = {
+						has_war = no
+						has_country_flag = mtg_usa_civil_war_fascists_2
+						not = {
+							has_country_flag = mucwf4
+						}
+					}
+					country_event = mtg_usa_civil_war_fascists.4
+				}
+			}
 		}
 	}
 	
@@ -289,7 +366,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_union_representation_act"
 			if = {
 				limit = {
 					not = { congress_high_support_trigger = yes }
@@ -297,6 +373,31 @@ focus_tree = {
 				add_stability = -0.1
 			}
 			USA_return_majority = yes
+			if = {
+				limit = {
+					has_country_flag = mtg_usa_civil_war_fascists_1
+					not = {
+						has_country_flag = mtg_usa_civil_war_fascists_2
+					}
+				}
+				country_event = mtg_usa_civil_war_fascists.2
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+			}
+			else_if = {
+				limit = { not = { has_country_flag = mtg_usa_civil_war_fascists_1 } }
+				country_event = mtg_usa_civil_war_fascists.1
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_country_flag = mtg_usa_civil_war_fascists_2
+						has_war = no
+						not = { has_country_flag = mucwf4 }
+					}
+					country_event = mtg_usa_civil_war_fascists.4
+				}
+			}
 		}
 	}
 	focus = {
@@ -325,7 +426,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_old_age_pension_act"
 			add_stability = 0.1
 			USA_congress_small_opposition = yes
 		}
@@ -360,7 +460,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_accumulated_wealth_tax_act"
 			add_ideas = USA_accumulated_wealth_tax_act
 			if = {
 				limit = {
@@ -411,7 +510,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_guarantee_the_american_dream"
 			add_war_support = 0.1
 		}
 	}
@@ -445,7 +543,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_worker_management_act"
 			add_ideas = USA_worker_management_act
 			if = {
 				limit = {
@@ -494,7 +591,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_militia_organization_act"
 			add_ideas = USA_militia_organization_act
 			USA_congress_small_opposition = yes
 		}
@@ -526,7 +622,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_communal_property_act"
 			if = {
 				limit = {
 					communism > 0.3
@@ -575,7 +670,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_reintegration"
 			unlock_decision_tooltip = { decision = USA_readmit_state show_effect_tooltip = yes }
 		}
 	}
@@ -617,7 +711,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_reach_out_to_the_ware_group"
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = harry_white
 			custom_effect_tooltip = available_political_advisor
@@ -660,7 +753,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_us_ussr_economic_cooperation"
 			SOU = { add_to_tech_sharing_group = USA_SOV_tech_group }
 			add_to_tech_sharing_group = USA_SOV_tech_group
 		}	
@@ -691,7 +783,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_unholy_alliance"
 			SOU = {
 				country_event = generic.2
 			}
@@ -706,9 +797,13 @@ focus_tree = {
 		mutually_exclusive = { focus = USA_unholy_alliance }
 		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
-		allow_branch = { has_global_flag = NEVER }
+
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
 		}
 
 		available = {
@@ -721,6 +816,9 @@ focus_tree = {
 					is_faction_leader = yes
 				}
 			}
+			event_target:WTT_communist_china = {
+				has_rule = can_join_factions
+			}
 		}
 		
 		bypass = {
@@ -732,7 +830,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_secure_china"
 			if = {
 				limit = {
 					event_target:WTT_communist_china = {
@@ -783,7 +880,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_end_monarchism"
 			if = {
 				limit = {
 					ENG = {
@@ -826,6 +922,33 @@ focus_tree = {
 					expire = 0
 				}
 			}
+			if = {
+				limit = {
+					#JAP = {   # 1.19-migration: dead tag JAP
+						not = { has_government = communism }
+						not = { has_government = democratic }
+						not = { is_in_faction_with = ROOT }
+					}
+				}
+				create_wargoal = {
+					#target = JAP   # 1.19-migration: dead tag JAP
+					type = topple_government
+					expire = 0
+				}
+			}
+			if = {
+				limit = {
+					#MAN = {   # 1.19-migration: dead tag MAN
+						#has_completed_focus = MAN_imperial_divinity   # 1.19-migration: dead tag MAN
+						not = { is_in_faction_with = ROOT }
+					}
+				}
+				create_wargoal = {
+					#target = MAN   # 1.19-migration: dead tag MAN
+					type = topple_government
+					expire = 0
+				}
+			}
 		}
 	}
 	focus = {
@@ -862,8 +985,7 @@ focus_tree = {
 							has_completed_focus = ITA_new_colonial_policies
 						}
 					}
-					any_state = {
-						is_controlled_by = ITA
+					any_controlled_state = {
 						NOT = { is_core_of = ITA }
 					}
 				}
@@ -871,8 +993,7 @@ focus_tree = {
 					exists = yes
 					NOT = { has_war_with = ROOT }
 					NOT = { is_in_faction_with = ROOT }
-					any_state = {
-						is_controlled_by = FRA
+					any_controlled_state = {
 						NOT = { is_core_of = FRA }
 					}
 				}
@@ -880,8 +1001,7 @@ focus_tree = {
 					exists = yes
 					NOT = { has_war_with = ROOT }
 					NOT = { is_in_faction_with = ROOT }
-					any_state = {
-						is_controlled_by = GER
+					any_controlled_state = {
 						NOT = { is_core_of = GER }
 					}
 				}
@@ -897,7 +1017,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_shatter_the_empires"
 			if = {
 				limit = {
 					ENG = {
@@ -929,8 +1048,7 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 						NOT = { is_in_faction_with = ROOT }
-						any_state = {
-							is_controlled_by = ITA
+						any_controlled_state = {
 							NOT = { is_core_of = ITA }
 						}
 						OR = {
@@ -964,8 +1082,7 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 						NOT = { is_in_faction_with = ROOT }
-						any_state = {
-							is_controlled_by = FRA
+						any_controlled_state = {
 							NOT = { is_core_of = FRA }
 						}
 					}
@@ -992,8 +1109,7 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 						NOT = { is_in_faction_with = ROOT }
-						any_state = {
-							is_controlled_by = GER
+						any_controlled_state = {
 							NOT = { is_core_of = GER }
 						}
 					}
@@ -1029,6 +1145,30 @@ focus_tree = {
 		relative_position_id = USA_continue_the_new_deal
 		x = -4
 		y = 1
+
+		offset = {
+			x = 1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 		#ai_will_do = {
 		#	factor = 1
@@ -1037,7 +1177,6 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_wpa"
 			add_political_power = 150
 		}
 	}
@@ -1074,7 +1213,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_agricultural_adjustment_act"
 			USA_great_depression_level_down = yes
 			set_country_flag = { flag = USA_great_depression_cooldown value = 1 days = 230 }
 			USA_congress_medium_opposition = yes
@@ -1116,7 +1254,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_fair_labour_standards_act"
 			USA_great_depression_level_down = yes
 			set_country_flag = { flag = USA_great_depression_cooldown value = 1 days = 230 }
 			custom_effect_tooltip = USA_great_depression_cooldown_tt
@@ -1159,7 +1296,6 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_federal_housing_act"
 			USA_great_depression_level_down = yes
 			USA_congress_medium_opposition = yes
 			custom_effect_tooltip = federal_housing_tt
@@ -1257,7 +1393,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_office_of_scientific_research_and_development"
 			add_research_slot = 1
 		}
 	}
@@ -1278,7 +1413,6 @@ focus_tree = {
 		#}
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_rubber_reserve_company"
 			add_tech_bonus = {
 				name = USA_rubber_reserve_company
 				bonus = 1.0
@@ -1305,6 +1439,19 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = USA_continue_the_new_deal
+
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_reestablish_the_gold_standard
+			}
+		}
+
 		cost = 10
 		#ai_will_do = {
 		#	factor = 1
@@ -1313,6 +1460,21 @@ focus_tree = {
 		available_if_capitulated = no
 		cancel_if_invalid = no
 		continue_if_invalid = yes
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = USA_neutrality_act
+				}
+			}
+		}
+
 		available = {
 			congress_high_support_trigger = yes 
 			has_government = democratic
@@ -1324,7 +1486,6 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_limited_intervention"
 			hidden_effect = {
 				every_other_country = {
 					limit = {
@@ -1365,6 +1526,17 @@ focus_tree = {
 			hidden_effect = {
 				news_event = { id = mtg_news.4 days = 3 }
 			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+					}
+					mark_focus_tree_layout_dirty = yes
+				}
+			}
 		}
 	}
 
@@ -1385,13 +1557,25 @@ focus_tree = {
 		continue_if_invalid = yes
 		x = 0
 		y = 2
+
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 		#ai_will_do = {
 		#	factor = 1
 		#}
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_propaganda"
 			add_war_support = 0.1
 			if = {
 				limit = {
@@ -1409,6 +1593,19 @@ focus_tree = {
 		prerequisite = { focus = USA_war_propaganda }
 		mutually_exclusive = { focus = USA_focus_on_asia }
 		relative_position_id = USA_limited_intervention
+
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 
 		ai_will_do = {
@@ -1432,7 +1629,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_focus_on_europe"
 			unlock_decision_category_tooltip = USA_intervention_mandate
 			custom_effect_tooltip = USA_intervention_mandate_tt
 			hidden_effect = {
@@ -1465,6 +1661,19 @@ focus_tree = {
 		x = -1
 		y = 4
 		relative_position_id = USA_limited_intervention
+
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -1472,7 +1681,6 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_office_of_strategic_services"
 			if = {
 				limit = {
 					NOT = {
@@ -1494,8 +1702,21 @@ focus_tree = {
 		prerequisite = { focus = USA_war_propaganda }
 		mutually_exclusive = { focus = USA_focus_on_europe }
 		relative_position_id = USA_limited_intervention
+
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
-		allow_branch = { has_global_flag = NEVER }
+
 		ai_will_do = {
 			factor = 1
 		}
@@ -1503,8 +1724,8 @@ focus_tree = {
 		available = {
 			NOT = {
 				OR = {
-					has_war_with = JAP
-					has_war_with = CHI
+					#has_war_with = JAP   # 1.19-migration: dead tag JAP
+					#has_war_with = CHI   # 1.19-migration: dead tag CHI
 				}
 			}
 		}
@@ -1518,7 +1739,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_focus_on_asia"
 			unlock_decision_category_tooltip = USA_intervention_mandate
 			custom_effect_tooltip = USA_intervention_mandate_tt
 		}
@@ -1530,6 +1750,19 @@ focus_tree = {
 		y = 4
 		prerequisite = { focus = USA_focus_on_asia }
 		relative_position_id = USA_limited_intervention
+
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 
 		ai_will_do = {
@@ -1549,7 +1782,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_magic"
 			add_ideas = USA_magic
 		}
 	}
@@ -1561,13 +1793,25 @@ focus_tree = {
 		x = 1
 		y = 3
 		relative_position_id = USA_war_propaganda
+
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 		ai_will_do = {
 			factor = 1
 		}
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_black_chamber"
 			if = {
 				limit = {
 					NOT = {
@@ -1595,10 +1839,54 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = USA_black_chamber
+
+		offset = {
+			x = -1
+			y = -4
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_neutrality_act
+				has_completed_focus = USA_reestablish_the_gold_standard
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
-		#ai_will_do = {
-		#	factor = 1
-		#}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 2
+				date > 1938.1.1
+			}
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
 
 		available_if_capitulated = yes
 		available = {
@@ -1606,10 +1894,10 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_scientist_haven"
 			add_research_slot = 1
 		}
 	}
+
 	focus = {
 		id = USA_manhattan_project
 		icon = GFX_focus_wonderweapons
@@ -1619,29 +1907,51 @@ focus_tree = {
 		y = 1
 		relative_position_id = USA_scientist_haven
 		cost = 10
-		#ai_will_do = {
-		#	factor = 1
-		#}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 2
+				date > 1938.1.1
+			}
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
 
 		available_if_capitulated = yes
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_manhattan_project"
-			add_tech_bonus = {
-				name = USA_manhattan_project
-				bonus = 1.0
-				uses = 1
-				category = nuclear
+
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = USA_manhattan_project
+					bonus = 0.5
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.5
+				}
+				add_ideas = USA_manhattan_project_ns
 			}
-			add_tech_bonus = {
-				name = USA_manhattan_project
-				bonus = 1.0
-				uses = 1
-				category = nuclear
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 1
+				}
+				add_ideas = USA_manhattan_project_ns
 			}
 		}
 	}
+
 	focus = {
 		id = USA_neutrality_act
 		icon = GFX_goal_generic_neutrality_focus
@@ -1650,11 +1960,54 @@ focus_tree = {
 		prerequisite = { focus = USA_continue_the_new_deal focus = USA_reestablish_the_gold_standard }
 		mutually_exclusive = { focus = USA_limited_intervention }
 		relative_position_id = USA_continue_the_new_deal
+
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				OR = {
+					has_completed_focus = USA_reestablish_the_gold_standard
+					has_completed_focus = USA_neutrality_act
+				}
+			}
+		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_reestablish_the_gold_standard
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+
 		cost = 10
 
 		ai_will_do = {
 			factor = 1
 		}
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = USA_limited_intervention
+				}
+			}
+		}
+
 
 		available = {
 			congress_low_support_trigger = yes
@@ -1672,19 +2025,48 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_neutrality_act"
 			add_political_power = 200
-			add_ideas = USA_neutrality_act 
 			add_war_support = -0.05
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_ideas = USA_neutrality_act_aat
+				hidden_effect = {
+					add_relation_rule_override = {
+						can_access_market = no
+						trigger = trade_partner_not_at_war
+						usage_desc = trade_partner_not_at_war_tt
+					}
+				}
+			}
+			else = {
+				add_ideas = USA_neutrality_act
+			}
+			
 			if = {
 				limit = {
 					has_war_support < 0.4
 				}
 				USA_congress_small_support = yes
 			}
+
+			
 			custom_effect_tooltip = USA_lend_lease_act_neutrality_tt
 			hidden_effect = {
 				news_event = { id = mtg_news.3 days = 3 random_days = 5 }
+				set_country_flag = USA_passed_neutrality_pact_flag
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+					}
+					mark_focus_tree_layout_dirty = yes
+				}
 			}
 		}
 	}
@@ -1695,6 +2077,43 @@ focus_tree = {
 		y = 2
 		prerequisite = { focus = USA_neutrality_act focus = USA_limited_intervention }
 		relative_position_id = USA_limited_intervention
+
+		offset = {
+			x = -1
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				NOT = { has_completed_focus = USA_reestablish_the_gold_standard }
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+		offset = {
+			x = -2
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_reestablish_the_gold_standard
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_limited_intervention
+			}
+		}
+
 		cost = 10
 
 		ai_will_do = {
@@ -1737,7 +2156,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_lend_lease_act"
 			every_other_country = {
 				limit = {
 					is_major = yes
@@ -1762,9 +2180,20 @@ focus_tree = {
 			}
 			else_if = {
 				limit = { has_completed_focus = USA_neutrality_act }
-				swap_ideas = {
-					remove_idea = USA_neutrality_act
-					add_idea = USA_lend_lease_act_na
+				if = {
+					limit = {
+						has_dlc = "Arms Against Tyranny"
+					}
+					swap_ideas = {
+						remove_idea = USA_neutrality_act_aat
+						add_idea = USA_lend_lease_act_na
+					}
+				}
+				else = {
+					swap_ideas = {
+						remove_idea = USA_neutrality_act
+						add_idea = USA_lend_lease_act_na
+					}
 				}
 			}
 			else = {
@@ -1803,6 +2232,19 @@ focus_tree = {
 		x = 0
 		y = 2
 		relative_position_id = USA_neutrality_act
+
+		offset = {
+			x = 0
+			y = -1
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -1850,7 +2292,6 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_arsenal_of_democracy"
 			navy_experience = 50
 			army_experience = 50
 			air_experience = 10
@@ -1924,10 +2365,6 @@ focus_tree = {
 				}
 				set_state_flag = USA_arsenal_of_democracy_3AF
 			}
-			if = {
-				limit = { is_ai = yes }
-				add_offsite_building = { type = arms_factory level =  10 }
-			}
 		}
 	}
 	focus = {
@@ -1957,7 +2394,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_the_giant_wakes"
 			if = {
 				limit = {
 					NOT = { has_idea = undisturbed_isolation }
@@ -1977,10 +2413,6 @@ focus_tree = {
 				add_ideas = civilian_economy
 				set_country_flag = USA_the_giant_wakes_added_civ_eco
 			}
-			if = {
-				limit = { is_ai = yes }
-				add_offsite_building = { type = arms_factory level =  10 }
-			}
 		}
 	}
 	focus = {
@@ -1999,14 +2431,10 @@ focus_tree = {
 			democratic > 0.95
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_wartime_industry"
 			add_ideas = wartime_industry_focus
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_designer
 			show_ideas_tooltip = USA_general_motors
-			if = {
-				limit = { is_ai = yes }
-				add_offsite_building = { type = arms_factory level =  10 }
-			}
 		}
 	}
 	
@@ -2053,14 +2481,11 @@ focus_tree = {
 				}
 			}
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_military_construction"
 			army_experience = 10
-			if = {
-				limit = { is_ai = yes }
-				add_offsite_building = { type = arms_factory level =  10 }
-			}
 			random_owned_controlled_state = {
 				limit = {
 					arms_factory > 0
@@ -2070,9 +2495,17 @@ focus_tree = {
 						include_locked = yes
 					}
 					OR = {
-						# MEPORT: vanilla US-home region set (117-120/199/219/218/211/214/198/197) was stale ME Finland/Atlantic/Russia regions; replaced by ME's on-map US regions
-						region = 156 # New England
-						region = 157 # East Coast
+						region = 117
+						region = 118
+						region = 119
+						region = 120
+						region = 199
+						region = 219
+						region = 218
+						region = 211
+						region = 214
+						region = 198
+						region = 197
 					}
 				}
 				add_extra_state_shared_building_slots = 5
@@ -2331,9 +2764,10 @@ focus_tree = {
 			}
 			add_ideas = extensive_conscription
 		}
-		search_filters = {FOCUS_FILTER_INDUSTRY}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_USACE_projects"
 			random_owned_controlled_state = {
 				limit = {
 					arms_factory > 0
@@ -2343,9 +2777,10 @@ focus_tree = {
 						include_locked = yes
 					}
 					OR = {
-						# MEPORT: vanilla {117-120} (E./W./SW./Central USA) was stale ME Finland/Norway regions -> ME US regions
-						region = 156 # New England
-						region = 157 # East Coast
+						region = 117
+						region = 118
+						region = 119
+						region = 120
 					}
 				}
 				add_extra_state_shared_building_slots = 3
@@ -2363,9 +2798,10 @@ focus_tree = {
 						size > 2
 					}
 					OR = {
-						# MEPORT: same stale vanilla set -> ME US regions
-						region = 156 # New England
-						region = 157 # East Coast
+						region = 117
+						region = 118
+						region = 119
+						region = 120
 					}
 					state_population > 3000000
 				}
@@ -2397,11 +2833,15 @@ focus_tree = {
 				}
 				set_state_flag = USA_USACE_projects_3Inf
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			air_experience = 50
 			navy_experience = 50
 			army_experience = 10			
 		}
 	}
+
 ###  ## ###  ##  ###  #   ###  ## #  #     ### #  # ###      ##   ##  #   ###       ## ###  ##  #  # ###   ##  ###  ###  
 #   #    #  #  # #  # #    #  #   #  #      #  #  # #       #    #  # #   #  #     #    #  #  # ## # #  # #  # #  # #  # 
 ##   #   #  #### ###  #    #   #  ####      #  #### ##      # ## #  # #   #  #      #   #  #### # ## #  # #### ###  #  # 
@@ -2417,7 +2857,62 @@ focus_tree = {
 			x = -12
 			y = 0
 			trigger = {
-				not = { has_dlc = "Man the Guns" }
+				OR = {
+					NOT = { has_dlc = "Man the Guns" }
+					AND = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+						has_completed_focus = USA_reestablish_the_gold_standard
+					}
+				}
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_reestablish_the_gold_standard
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+		offset = {
+			x = -1
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_reestablish_the_gold_standard
+				has_completed_focus = USA_neutrality_act
+			}
+		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_completed_focus = USA_reestablish_the_gold_standard
+				has_completed_focus = USA_limited_intervention
 			}
 		}
 		cost = 10
@@ -2426,6 +2921,21 @@ focus_tree = {
 			factor = 1
 		}
 		mutually_exclusive = { focus = USA_continue_the_new_deal }
+
+		allow_branch = {
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = USA_continue_the_new_deal
+				}
+			}
+		}
+
 		available = {
 			has_government = democratic
 			NOT = {
@@ -2442,9 +2952,19 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_reestablish_the_gold_standard"
 			add_ideas = USA_gold_standard
 			USA_congress_small_opposition = yes
+			hidden_effect = {
+				if = {
+					limit = {
+						has_game_rule = {
+							rule = obsolete_focus_branches_visibility
+							option = HIDE
+						}
+					}
+					mark_focus_tree_layout_dirty = yes
+				}
+			}
 		}
 	}
 	focus = {
@@ -2473,7 +2993,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_adjusted_compensation_act"
 			add_timed_idea = { idea = USA_adjusted_compensation_payment days = 180 }
 			USA_great_depression_level_down = yes
 			if = {
@@ -2510,7 +3029,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_labour_management_relations_act"
 			add_ideas = USA_labour_management_relations_act
 			if = {
 				limit = {
@@ -2549,7 +3067,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_protectionist_tariffs"
 			USA_great_depression_level_down = yes
 			if = {
 				limit = {
@@ -2585,7 +3102,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_income_tax_reform"
 			USA_great_depression_level_down = yes
 			USA_congress_medium_opposition = yes
 			unlock_decision_tooltip = { decision = USA_give_tax_break show_effect_tooltip = yes }
@@ -2617,7 +3133,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_institute_of_american_sciences"
 			add_research_slot = 1
 		}
 	}
@@ -2641,6 +3156,17 @@ focus_tree = {
 		}
 		allow_branch = {
 			has_dlc = "Man the Guns"
+			if = {
+				limit = {
+					has_game_rule = {
+						rule = obsolete_focus_branches_visibility
+						option = HIDE
+					}
+				}
+				NOT = {
+					has_completed_focus = USA_continue_the_new_deal
+				}
+			}
 		}
 		available = {
 
@@ -2655,7 +3181,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_america_first"
 			custom_effect_tooltip = available_political_advisor
 		    show_ideas_tooltip = charles_coughlin
 		    add_popularity = { ideology = fascism popularity = 0.05 }
@@ -2700,9 +3225,10 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_extend_the_chinese_exclusion_acts"
 			USA_congress_large_support = yes
-			
+			event_target:WTT_current_china_leader = {
+				add_opinion_modifier = { modifier = USA_extend_the_chinese_exclusion_acts target = ROOT }
+			}
 		}
 	}
 	focus = {
@@ -2732,7 +3258,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_empower_the_huac"
 			custom_effect_tooltip = available_political_advisor
 		    show_ideas_tooltip = USA_joseph_mccarthy
 		    unlock_decision_tooltip = { decision = USA_use_huac show_effect_tooltip = yes }
@@ -2766,13 +3291,25 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_voter_registration_act"
 			USA_return_majority = yes
 			if = {
 				limit = {
 					democratic > 0.75
 				}
 				add_stability = -0.1
+			}
+			if = {
+				limit = {
+					has_country_flag = mtg_usa_civil_war_democrats_1
+					not = { has_country_flag = mtg_usa_civil_war_democrats_2 }
+				}
+				country_event = mtg_usa_civil_war_democrats.2
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+			}
+			else_if = {
+				limit = { not = { has_country_flag = mtg_usa_civil_war_democrats_1 } }
+				country_event = mtg_usa_civil_war_democrats.1
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
 			}
 		}
 	}
@@ -2812,9 +3349,21 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_ally_with_the_silver_shirts"
 			USA_congress_medium_support = yes
 			unlock_decision_tooltip = { decision = USA_beat_up_opposition show_effect_tooltip = yes }
+			if = {
+				limit = {
+					has_country_flag = mtg_usa_civil_war_democrats_1
+					not = { has_country_flag = mtg_usa_civil_war_democrats_2 }
+				}
+				country_event = mtg_usa_civil_war_democrats.2
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+			}
+			else_if = {
+				limit = { not = { has_country_flag = mtg_usa_civil_war_democrats_1 } }
+				country_event = mtg_usa_civil_war_democrats.1
+				custom_effect_tooltip = mtg_usa_civil_war_warning_tt
+			}
 		}
 	}
 
@@ -2844,7 +3393,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_national_prosperity_program"
 			add_stability = 0.05
 		}
 	}
@@ -2908,7 +3456,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_de_regulate_the_banking_sector"
 			add_ideas = USA_banking_sector_deregulation
 		}
 	}
@@ -2939,7 +3486,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_national_employment_strategy"
 			swap_ideas = {
 				remove_idea = USA_banking_sector_deregulation
 				add_idea = USA_national_employment_strategy
@@ -2973,7 +3519,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_invite_foreign_support"
 			unlock_decision_category_tooltip = USA_foreign_support
 			custom_effect_tooltip = USA_foreign_support_tt
 		}
@@ -3004,7 +3549,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_send_lindbergh_to_germany"
 			air_experience = 75
 			custom_effect_tooltip = available_chief_of_airforce
 			show_ideas_tooltip = USA_charles_lindbergh
@@ -3038,7 +3582,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_work_with_the_bund"
 			add_stability = 0.05
 			GER = { add_opinion_modifier = { target = ROOT modifier = USA_work_with_the_bund } }
 			set_country_flag = MTG_work_with_the_bund # to check if the focus was completed regularly or bypassed
@@ -3071,7 +3614,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_recruit_the_free_corps"
 			unlock_decision_tooltip = USA_raise_the_free_corps 
 			custom_effect_tooltip = USA_raise_the_free_corps_tt
 		}
@@ -3107,7 +3649,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_honor_the_confederacy"
 			unlock_decision_category_tooltip = USA_honor_the_confederacy
 			custom_effect_tooltip = USA_honor_the_confederacy_tt
 		}
@@ -3148,7 +3689,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_powers_act"
 			add_ideas = USA_war_powers_act
 			set_rule = {
 				can_create_factions = yes
@@ -3171,8 +3711,44 @@ focus_tree = {
 			factor = 1
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_manifest_destiny"
 			add_ideas = USA_world_police
+		}
+	}
+	focus = {
+		id = USA_eliminate_the_southern_threat
+		icon = GFX_goal_generic_military_sphere
+		x = -1
+		y = 2
+		prerequisite = { focus = USA_seize_cuba }
+		relative_position_id = USA_war_powers_act
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+			#MEX = {   # 1.19-migration: dead tag MEX
+				OR = {
+					is_subject_of = ROOT
+					exists = no
+					has_War_with = ROOT
+				}
+			}
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			#MEX = {   # 1.19-migration: dead tag MEX
+				country_event = mtg_usa_southern_threat.1
+			}
 		}
 	}
 	focus = {
@@ -3257,7 +3833,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		prerequisite = { focus = USA_the_canadian_corridor }
-		#prerequisite = { focus = USA_eliminate_the_southern_threat }
+		prerequisite = { focus = USA_eliminate_the_southern_threat }
 		relative_position_id = USA_war_powers_act
 		cost = 10
 
@@ -3271,7 +3847,77 @@ focus_tree = {
 		
 		bypass = {
 
+				#CUB = {   # 1.19-migration: dead tag CUB
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#HAI = {   # 1.19-migration: dead tag HAI
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#DOM = {   # 1.19-migration: dead tag DOM
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#GUA = {   # 1.19-migration: dead tag GUA
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
 				CAN = {
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#MEX = {   # 1.19-migration: dead tag MEX
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#HON = {   # 1.19-migration: dead tag HON
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#NIC = {   # 1.19-migration: dead tag NIC
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#PAN = {   # 1.19-migration: dead tag PAN
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#COS = {   # 1.19-migration: dead tag COS
+					OR = {
+						exists = no
+						has_war_with = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				#ELS = {   # 1.19-migration: dead tag ELS
 					OR = {
 						exists = no
 						has_war_with = ROOT
@@ -3285,11 +3931,20 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_north_american_dominion"
 			every_country = {
 				limit = {
 					OR = {
+						#original_tag = CUB   # 1.19-migration: dead tag CUB
+						#original_tag = HAI   # 1.19-migration: dead tag HAI
+						#original_tag = DOM   # 1.19-migration: dead tag DOM
+						#original_tag = GUA   # 1.19-migration: dead tag GUA
+						#original_tag = MEX   # 1.19-migration: dead tag MEX
 						original_tag = CAN
+						#original_tag = HON   # 1.19-migration: dead tag HON
+						#original_tag = NIC   # 1.19-migration: dead tag NIC
+						#original_tag = PAN   # 1.19-migration: dead tag PAN
+						#original_tag = COS   # 1.19-migration: dead tag COS
+						#original_tag = ELS   # 1.19-migration: dead tag ELS
 					}
 					not = { has_war_with = ROOT }
 					not = { is_subject_of = ROOT }
@@ -3388,8 +4043,8 @@ focus_tree = {
 		icon = GFX_focus_generic_diplomatic_treaty
 		x = 0
 		y = 6
-		#prerequisite = { focus = USA_secure_asia }
-		prerequisite = { focus = USA_strategic_interests }
+		prerequisite = { focus = USA_secure_asia }
+		prerequisite = { focus = USA_protect_south_america }
 		relative_position_id = USA_war_powers_act
 		cost = 10
 
@@ -3410,7 +4065,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_global_hegemony"
 			every_country = {
 				limit = {
 					is_major = yes
@@ -3450,7 +4104,73 @@ focus_tree = {
 			x = -26
 			y = 0
 			trigger = {
-				not = { has_dlc = "Man the Guns" }
+				NOT = { has_dlc = "Man the Guns" }
+			}
+		}
+		offset = {
+			x = -17
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_dlc = "Man the Guns"
+				has_completed_focus = USA_continue_the_new_deal
+			}
+		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				NOT = { has_dlc = "Man the Guns" }
+				has_completed_focus = USA_continue_the_new_deal
+			}
+		}
+		offset = {
+			x = -14
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				has_dlc = "Man the Guns"
+				has_completed_focus = USA_reestablish_the_gold_standard
+			}
+		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				NOT = { has_dlc = "Man the Guns" }
+				has_completed_focus = USA_reestablish_the_gold_standard
+			}
+		}
+		offset = {
+			x = -2
+			y = 0
+			trigger = {
+				has_game_rule = {
+					rule = obsolete_focus_branches_visibility
+					option = HIDE
+				}
+				OR = {
+					has_completed_focus = USA_continue_the_new_deal
+					has_completed_focus = USA_reestablish_the_gold_standard
+				}
+				OR = {
+					has_completed_focus = USA_limited_intervention
+					has_completed_focus = USA_neutrality_act
+				}
 			}
 		}
 		
@@ -3473,7 +4193,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plans_division"
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = walter_krueger
 			unlock_decision_category_tooltip = USA_war_plans
@@ -3505,8 +4224,36 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_intervention_in_the_americas"
 			add_ideas = USA_intervention_in_the_americas
+		}
+	}
+	focus = {
+		id = USA_war_plan_green
+		icon = GFX_focus_attack_mexico
+		x = -1
+		y = 1
+		prerequisite = { focus = USA_intervention_in_the_americas }
+		relative_position_id = USA_intervention_in_the_americas
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			unlock_decision_tooltip = { decision = USA_execute_war_plan_green show_effect_tooltip = yes show_modifiers = yes }
 		}
 	}
 	focus = {
@@ -3535,7 +4282,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_crimson"
 			unlock_decision_tooltip = { decision = USA_execute_war_plan_crimson show_effect_tooltip = yes show_modifiers = yes }
 		}
 	}
@@ -3551,9 +4297,31 @@ focus_tree = {
 			factor = 2
 		}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_reinforce_monroe_doctrine"
 			custom_effect_tooltip = USA_reinforce_monroe_doctrine_tt
 			unlock_decision_category_tooltip = USA_intervention_mandate
+			hidden_effect = {
+				#CUB = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag CUB
+				#HAI = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag HAI
+				#DOM = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag DOM
+				#GUA = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag GUA
+				#ELS = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag ELS
+				#HON = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag HON
+				#NIC = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag NIC
+				#COS = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag COS
+				CAN = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }
+				#MEX = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag MEX
+				#COL = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag COL
+				#VEN = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag VEN
+				#ECU = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag ECU
+				#PRU = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag PRU
+				#BRA = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag BRA
+				#BOL = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag BOL
+				#PAR = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag PAR
+				#URG = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag URG
+				#ARG = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag ARG
+				#CHL = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag CHL
+				#"PAN" = { add_opinion_modifier =  { target = USA modifier = monroe_doctrine_trade } }   # 1.19-migration: dead tag PAN
+			}
 		}
 	}
 
@@ -3583,7 +4351,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_gray"
 			unlock_decision_tooltip = { decision = USA_execute_war_plan_gray show_effect_tooltip = yes show_modifiers = yes } 
 		}
 	}
@@ -3617,12 +4384,14 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_hemisphere_defense"
 			if = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction = USA_hemisphere_defense_faction
+				create_faction_from_template = {
+					template = faction_template_pan_american
+					name = USA_hemisphere_defense_faction
+				}
 			}
 			if = {
 				limit = {
@@ -3634,7 +4403,27 @@ focus_tree = {
 						has_government = ROOT
 						not = { has_war_with = ROOT }
 						OR = {
+							#original_tag = CUB   # 1.19-migration: dead tag CUB
 							original_tag = CAN
+							#original_tag = MEX   # 1.19-migration: dead tag MEX
+							#original_tag = BRA   # 1.19-migration: dead tag BRA
+							#original_tag = ARG   # 1.19-migration: dead tag ARG
+							#original_tag = URG   # 1.19-migration: dead tag URG
+							#original_tag = CHL   # 1.19-migration: dead tag CHL
+							#original_tag = "PAN"   # 1.19-migration: dead tag PAN
+							#original_tag = PAR   # 1.19-migration: dead tag PAR
+							#original_tag = VEN   # 1.19-migration: dead tag VEN
+							#original_tag = PRU   # 1.19-migration: dead tag PRU
+							#original_tag = BOL   # 1.19-migration: dead tag BOL
+							#original_tag = COL   # 1.19-migration: dead tag COL
+							#original_tag = ECU   # 1.19-migration: dead tag ECU
+							#original_tag = HON   # 1.19-migration: dead tag HON
+							#original_tag = DOM   # 1.19-migration: dead tag DOM
+							#original_tag = HAI   # 1.19-migration: dead tag HAI
+							#original_tag = GUA   # 1.19-migration: dead tag GUA
+							#original_tag = COS   # 1.19-migration: dead tag COS
+							#original_tag = ELS   # 1.19-migration: dead tag ELS
+							#original_tag = NIC   # 1.19-migration: dead tag NIC
 						}
 					}
 					country_event = generic.5
@@ -3668,8 +4457,13 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_intervention_in_europe"
 			add_ideas = USA_intervention_in_europe
+			IF = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				USA_create_george_musulin_operative = yes
+			}
 		}
 	}
 	focus = {
@@ -3698,7 +4492,12 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_gold"
+			IF = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				USA_create_rene_joyeuse_operative = yes
+			}
 			unlock_decision_tooltip = { decision = USA_execute_war_plan_gold show_effect_tooltip = yes show_modifiers = yes }
 		}
 	}
@@ -3729,7 +4528,12 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_silver"
+			IF = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				USA_create_joe_savoldi_operative = yes
+			}
 			unlock_decision_tooltip = { decision = USA_execute_war_plan_silver show_effect_tooltip = yes show_modifiers = yes }
 		}
 	}
@@ -3751,9 +4555,14 @@ focus_tree = {
 		#	factor = 1
 		#}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_black"
 			GER = {
 				add_opinion_modifier = { target = USA modifier = war_plan_black }
+			}
+			IF = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				USA_create_william_sebold_operative = yes
 			}
 			unlock_decision_tooltip = { decision = USA_execute_war_plan_black show_effect_tooltip = yes show_modifiers = yes }
 		}
@@ -3822,9 +4631,14 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_white"
 			SOU = {
 				add_opinion_modifier = { target = USA modifier = war_plan_white }
+			}
+			IF = {
+				limit = {
+					has_dlc = "La Resistance"
+				}
+				USA_create_serge_obolensky_operative = yes
 			}
 			unlock_decision_tooltip = { decision = USA_execute_war_plan_white show_effect_tooltip = yes show_modifiers = yes }
 		}
@@ -3878,7 +4692,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_plan_red"
 			ENG = {
 				add_opinion_modifier = { target = USA modifier = war_plan_red }
 			}
@@ -3886,14 +4699,14 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = USA_intervention_in_asia
-		icon = GFX_goal_generic_major_war
-		x = 6
-		y = 1
-		prerequisite = { focus = USA_war_plans_division }
-		relative_position_id = USA_war_plans_division
+		id = USA_war_plan_ruby
+		icon = GFX_focus_attack_india
+		x = 4
+		y = 3
+		prerequisite = { focus = USA_war_plan_red }
+		relative_position_id = USA_intervention_in_europe
 		cost = 10
-		allow_branch = { has_global_flag = NEVER }
+
 		ai_will_do = {
 			factor = 1
 		}
@@ -3911,7 +4724,64 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_intervention_in_asia"
+			unlock_decision_tooltip = { decision = USA_execute_war_plan_ruby show_effect_tooltip = yes show_modifiers = yes }
+		}
+	}
+	focus = {
+		id = USA_war_plan_scarlet_garnet
+		icon = GFX_focus_attack_australia
+		x = 6
+		y = 3
+		prerequisite = { focus = USA_war_plan_red }
+		relative_position_id = USA_intervention_in_europe
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			unlock_decision_tooltip = { decision = USA_execute_war_plan_scarlet_garnet show_effect_tooltip = yes show_modifiers = yes }
+		}
+	}
+	focus = {
+		id = USA_intervention_in_asia
+		icon = GFX_goal_generic_major_war
+		x = 6
+		y = 1
+		prerequisite = { focus = USA_war_plans_division }
+		relative_position_id = USA_war_plans_division
+		cost = 10
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
 			show_unit_leaders_tooltip = USA_alexander_vandegrift
 		}
 	}
@@ -3926,15 +4796,10 @@ focus_tree = {
 	focus = {
 		id = USA_war_department
 		icon = GFX_goal_generic_army_doctrines
-		x = 58
+		x = 16
 		y = 0
-		offset = {
-			x = -26
-			y = 0
-			trigger = {
-				not = { has_dlc = "Man the Guns" }
-			}
-		}
+		relative_position_id = USA_war_plans_division
+		
 		cost = 10
 
 		ai_will_do = {
@@ -3954,7 +4819,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_war_department"
 			add_ideas = USA_war_department
 		}
 	}
@@ -3993,7 +4857,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_USA_CONGRESS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_selective_training_act"
 			if = {
 				limit = {
 					OR = {
@@ -4035,7 +4898,6 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_first_special_service_force"
 			army_experience = 5
 			add_tech_bonus = {
 				name = special_bonus
@@ -4080,7 +4942,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_louisiana_maneuvers"
 			army_experience = 20
 			add_doctrine_cost_reduction = {
 				name = USA_louisiana_maneuvers
@@ -4088,6 +4949,10 @@ focus_tree = {
 				uses = 1
 				category = land_doctrine
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			USA_george_s_patton = {
+				add_skill_level = 1
+			}	
 		}
 	}
 	focus = {
@@ -4116,8 +4981,19 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_airborne_divisions"
 			add_ideas = USA_airborne_divisions
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_potential_special_forces_tree = yes
+				add_doctrine_cost_reduction = {
+					name = USA_airborne_divisions
+					cost_reduction = 0.25
+					uses = 2
+					category = special_forces_doctrine
+				}
+			}
 		}
 	}
 	focus = {
@@ -4146,8 +5022,14 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_army_of_the_united_states"
 			add_ideas = USA_army_of_the_united_states
+			custom_effect_tooltip = generic_skip_one_line_tt
+			USA_omar_bradley = {
+				add_skill_level = 1
+			}
+			USA_mark_clark = {
+				add_skill_level = 1
+			}
 		}
 	}
 	focus = {
@@ -4176,7 +5058,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_MANPOWER}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_womens_armed_service_integration_act"
 			add_ideas = USA_womens_armed_service_integration_act
 		}
 	}
@@ -4196,7 +5077,6 @@ focus_tree = {
 		available_if_capitulated = yes
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_support_rock_island"
 			add_tech_bonus = {
 				name = USA_support_rock_island
 				uses = 2
@@ -4206,6 +5086,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = USA_tank_experiments
 		icon = GFX_goal_generic_army_tanks
@@ -4232,7 +5113,10 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_tank_experiments"
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.5
+			}
 			add_tech_bonus = {
 				name = USA_tank_experiments
 				uses = 1
@@ -4241,6 +5125,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = USA_tank_destroyer_doctrine
 		icon = GFX_focus_usa_tank_destroyer_doctrine
@@ -4249,7 +5134,7 @@ focus_tree = {
 		prerequisite = { focus = USA_tank_experiments }
 		mutually_exclusive = { focus = USA_main_battle_tanks }
 		relative_position_id = USA_selective_training_act
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -4268,9 +5153,21 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_tank_destroyer_doctrine"
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = tank_destroyer_board
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = USA_tank_destroyer_board_organization
+				mio:USA_tank_destroyer_board_organization = {
+					add_mio_size = 2
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = tank_destroyer_board
+			}
+			
 		}
 	}
 	focus = {
@@ -4281,7 +5178,7 @@ focus_tree = {
 		prerequisite = { focus = USA_tank_experiments }
 		mutually_exclusive = { focus = USA_tank_destroyer_doctrine }
 		relative_position_id = USA_selective_training_act
-		cost = 10
+		cost = 5
 
 		ai_will_do = {
 			factor = 1
@@ -4300,15 +5197,26 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_main_battle_tanks"
-			custom_effect_tooltip = available_designer
-			show_ideas_tooltip = detroit_arsenal
+			IF = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}	
+				custom_effect_tooltip = available_mio_tt
+				show_mio_tooltip = USA_detroit_arsenal_organization
+				mio:USA_detroit_arsenal_organization = {
+					add_mio_size = 2
+				}
+			}
+			ELSE = {
+				custom_effect_tooltip = available_designer
+				show_ideas_tooltip = detroit_arsenal
+			}
 		}
 	}
 	focus = {
 		id = USA_armored_infantry
 		icon = GFX_goal_generic_build_tank
-		x = 2
+		x = 3
 		y = 4
 		prerequisite = { focus = USA_main_battle_tanks focus = USA_tank_destroyer_doctrine }
 		relative_position_id = USA_selective_training_act
@@ -4331,7 +5239,6 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_armored_infantry"
 			add_tech_bonus = {
 				name = USA_armored_infantry
 				uses = 2
@@ -4366,7 +5273,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_build_the_pentagon"
 			add_ideas = USA_the_pentagon
 		}
 	}
@@ -4396,7 +5302,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_department_of_defense"
 			swap_ideas = {
 				remove_idea = USA_war_department
 				add_idea = USA_department_of_defense
@@ -4427,7 +5332,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 	
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_air_war_plans_division"
 			air_experience = 25
 			add_doctrine_cost_reduction = {
 				name = USA_air_war_plans_division
@@ -4454,7 +5358,6 @@ focus_tree = {
 
 		available_if_capitulated = yes
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_air_support"
 			air_experience = 25
 			add_ideas = air_support_focus
 		}
@@ -4476,7 +5379,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_strategic_bombing"
 			air_experience = 25
 			add_ideas = strategic_bombing_focus
 		}
@@ -4498,7 +5400,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_TAC"
 			air_experience = 25
 			add_tech_bonus = {
 				name = USA_TAC
@@ -4544,6 +5445,7 @@ focus_tree = {
 			has_war = yes
 			OR = {
 				is_in_faction_with = GER
+				#is_in_faction_with = JAP   # 1.19-migration: dead tag JAP
 				is_in_faction_with = ITA
 				is_in_faction_with = SOV
 				is_in_faction_with = FRA
@@ -4562,7 +5464,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_combined_bomber_offensive"
 			air_experience = 25
 			add_tech_bonus = {
 				name = USA_combined_bomber_offensive
@@ -4600,7 +5501,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_escort_fighters"
 			add_tech_bonus = {
 				name = USA_escort_fighters
 				bonus = 3.0
@@ -4636,7 +5536,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_us_army_airforce"
 			add_doctrine_cost_reduction = {
 				name = USA_us_army_airforce
 				uses = 2
@@ -4672,7 +5571,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_us_air_force"
 			add_ideas = USA_us_air_force
 		}
 	}
@@ -4812,7 +5710,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_maritime_commission"
 			add_ideas = USA_maritime_commission
 		}
 	}
@@ -4832,7 +5729,6 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_liberty_ships"
 			add_ideas = liberty_ships_focus
 		}
 	}
@@ -4851,12 +5747,18 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_bureau_of_ships"
 			navy_experience = 50
 			add_ideas = bureau_of_ships_focus
 			if = {
 				limit = { has_idea = bureau_of_ordnance_spirit }
 				remove_ideas = bureau_of_ordnance_spirit
+			}
+			custom_effect_tooltip = generic_skip_one_line_tt
+			USA_chester_w_nimitz = {
+				add_skill_level = 1
+			}
+			USA_william_halsey_jr = {
+				add_skill_level = 1
 			}
 		}
 	}
@@ -4878,7 +5780,10 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_battleship_primacy"
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
 			add_tech_bonus = {
 				name = USA_battleship_primacy
 				bonus = 1.0
@@ -4904,12 +5809,12 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_advanced_mahanian_doctrine"
-			add_doctrine_cost_reduction = {
+
+			add_mastery_bonus = {
 				name = USA_advanced_mahanian_doctrine
-				cost_reduction = 0.5
-				uses = 1
-				category = cat_base_strike
+				bonus = 0.1
+				days = 180
+				track = capital_ships
 			}
 		}
 	}
@@ -4931,13 +5836,35 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_carrier_primacy"
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
 			add_tech_bonus = {
 				name = USA_carrier_primacy
 				bonus = 1.0
 				uses = 2
 				category = cv_tech
 			}
+
+			create_equipment_variant = {
+				name = "Essex Class"				
+				name_group = USA_CV_HISTORICAL
+				type = ship_hull_carrier_2
+				allow_without_tech = no
+				modules = {
+					fixed_ship_deck_slot_1 = ship_deck_space
+					fixed_ship_deck_slot_2 = ship_deck_space
+					fixed_ship_anti_air_slot = ship_anti_air_2
+					fixed_ship_engine_slot = carrier_ship_engine_3
+					fixed_ship_secondaries_slot = empty
+					front_1_custom_slot = ship_deck_space
+					mid_1_custom_slot = ship_armor_carrier_deck
+				}
+				design_team = mio:USA_newport_news_shipbuilding_organization
+			}
+
+
 		}
 	}
 
@@ -4957,7 +5884,6 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_bureau_of_aeronautics"
 			add_tech_bonus = {
 				name = USA_bureau_of_aeronautics
 				bonus = 1.0
@@ -4967,6 +5893,7 @@ focus_tree = {
 			}
 		}
 	}
+
 	focus = {
 		id = USA_naval_radar
 		icon = GFX_goal_generic_radar
@@ -4994,10 +5921,19 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_naval_radar"
+
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.5
+			}
+
 			add_tech_bonus = {
 				name = USA_naval_radar
-				uses = 2
+				uses = 1 # was 2
 				bonus = 1.0
 				category = radar_tech
 			}
@@ -5020,9 +5956,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_escort_effort"
 			add_ideas = escort_effort_focus
-			
 		}
 	}
 
@@ -5042,13 +5976,42 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_convoy_tactics"
 			navy_experience = 25
-			add_doctrine_cost_reduction = {
+			add_mastery = {
+				amount = 50
+				track = screens
+			}
+			add_mastery_bonus = {
 				name = USA_convoy_tactics
-				cost_reduction = 0.35
-				uses = 2
-				category = convoy_defense_tree
+				bonus = 0.1
+				days = 180
+				track = screens
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			if = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				create_equipment_variant = {
+					name = "Casablanca Class"
+					allow_without_tech = no 
+					type = ship_hull_escort_carrier
+					modules = {
+						fixed_ship_engine_slot = carrier_ship_engine_1
+						fixed_ship_deck_slot_1 = ship_escort_deck_space
+						fixed_ship_deck_slot_2 = ship_escort_deck_space
+						front_1_custom_slot = empty
+						mid_1_custom_slot = empty
+						fixed_ship_radar_slot = empty
+						fixed_ship_secondaries_slot = empty
+						fixed_ship_armor_slot = empty
+						fixed_ship_anti_air_slot = ship_anti_air_1
+					}
+					design_team = mio:USA_newport_news_shipbuilding_organization
+					name_group = USA_CVL_HISTORICAL
+				}
 			}
 		}
 	}
@@ -5066,32 +6029,36 @@ focus_tree = {
 		}
 
 		available = {
-
+			is_special_project_completed = sp:sp_naval_cruiser_submarine
 		}
 		
-		bypass = {
-
-		}
-
 		cancel_if_invalid = yes
 		continue_if_invalid = no
 		available_if_capitulated = no
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_fleet_submarines"
 			add_tech_bonus = {
 				name = USA_fleet_submarines
 				bonus = 1.0
 				uses = 2
 				category = ss_tech
 			}
-			if = {
+
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+
+			IF = {
 				limit = {
 					has_dlc = "Man the Guns"
 				}
-				set_technology = { cruiser_submarines = 1 }
+				add_ideas = fleet_submarine_specialization_mtg
 			}
+			ELSE = {
+				add_ideas = fleet_submarine_specialization
+			}	
 		}
 	}
 
@@ -5121,7 +6088,6 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_unrestricted_submarine_warfare"
 			add_ideas = USA_unrestricted_submarine_warfare
 		}
 	}
@@ -5132,7 +6098,7 @@ focus_tree = {
 		x = 7
 		y = 1
 		relative_position_id = USA_two_ocean_navy_act
-		cost = 10
+		cost = 5
 		prerequisite = { focus = USA_two_ocean_navy_act }
 		ai_will_do = {
 			factor = 1
@@ -5142,7 +6108,6 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 				completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_fund_the_navy"
 			add_doctrine_cost_reduction = {
 				name = USA_fund_the_navy
 				uses = 3
@@ -5168,13 +6133,25 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_expand_the_USMC"
-			add_tech_bonus = {
-				name = USA_expand_the_USMC
-				bonus = 1.0
-				uses = 1
-				technology = marines2
-				technology = marines3
+			if = {
+				limit = {
+					has_dlc = "Arms Against Tyranny"
+				}
+				add_doctrine_cost_reduction = {
+					name = USA_expand_the_USMC
+					cost_reduction = 0.25
+					uses = 2
+					category = special_forces_doctrine
+				}
+			}
+			else = {
+				add_tech_bonus = {
+					name = USA_expand_the_USMC
+					bonus = 1.0
+					uses = 1
+					technology = marines2
+					technology = marines3
+				}
 			}
 		}
 	}
@@ -5195,7 +6172,6 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus USA_amphibious_operations"
 			add_tech_bonus = {
 				name = USA_amphibious_operations
 				bonus = 1.0

@@ -47,7 +47,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_bring_home_the_exiled_republicans"
 			add_political_power = 120
 			add_popularity = {
     			ideology = democratic
@@ -146,7 +145,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_compromise_with_the_monarchists"
 			add_stability = 0.1
 			custom_effect_tooltip = GRE_compromise_with_the_monarchists_focus_tt
 			hidden_effect = { 
@@ -175,7 +173,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_remembering_the_anatolian_catastrophe"
 			add_ideas = GRE_martyrs_of_the_anatolian_catastrophe
 			custom_effect_tooltip = GRE_old_memories_stir_new_threats_tt
 			hidden_effect = { 
@@ -199,7 +196,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_venerate_the_ancient_hellenes"
 			add_ideas = GRE_venerate_the_ancient_hellenes_spirit
 			add_political_power = 120
 		}
@@ -245,7 +241,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_GRE_DEBT_TO_IFC FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_restoring_our_home"
 			remove_ideas = GRE_schachtplan
 			if = { 
 				limit = { 
@@ -299,7 +294,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_birthplace_of_democracy"
 			add_stability = 0.1
 			add_popularity = { 
 				ideology = democratic 
@@ -329,8 +323,7 @@ focus_tree = {
 			base = 1
 		}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_theban_warriors #HELLENES2"	
+		completion_reward = {	
 			if = {
 				limit = {
 					has_idea = GRE_venerate_the_ancient_hellenes_spirit
@@ -392,7 +385,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_athenian_thinkers #HELLENES3"
 			if = {
 				limit = {
 					has_idea = GRE_venerate_the_ancient_hellenes_spirit
@@ -453,7 +445,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_macedonian_generals #HELLENES4"
 			if = {
 				limit = {
 					has_idea = GRE_venerate_the_ancient_hellenes_spirit
@@ -515,7 +506,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_anatolian_refugees"
 			add_political_power = 120
 			country_event = { id = bftb_greece.6 }
 		}
@@ -530,6 +520,9 @@ focus_tree = {
 				country_exists = TUR
 				has_country_flag = GRE_megali_convention_a_failure
 			}
+			
+			is_subject = no
+			
 		}
 		cancel_if_invalid = yes
 		x = 0
@@ -561,7 +554,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_resurrecting_the_megali_idea"
 			add_war_support = 0.1
 			custom_effect_tooltip = GRE_megali_idea_conference_invites_tt
 		}
@@ -570,7 +562,10 @@ focus_tree = {
 	focus = {
 		id = GRE_the_gordian_knot
 		icon = GFX_goal_generic_military_deal
-		available = { has_country_flag = GRE_megali_idea_approved }
+		available = { 
+			is_subject = no
+			has_country_flag = GRE_megali_idea_approved 
+		}
 		prerequisite = { focus = GRE_resurrecting_the_megali_idea }
 		mutually_exclusive = { focus = GRE_horror_and_fear }
 		x = 1
@@ -622,7 +617,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_gordian_knot"
 			add_war_support = 0.1
 			custom_effect_tooltip = GRE_gordian_knot_tt
 			hidden_effect = {	
@@ -633,10 +627,7 @@ focus_tree = {
 				}
 				if = { 
 					limit = { 
-						any_state = {
-							is_core_of = WAM
-							is_claimed_by = ENG
-						}
+						958 = { is_claimed_by = ENG }   # 1.19-migration: was vanilla 354 (Trabzon); mod Trabzon
 					}
 					ENG = {
 						country_event = { id = bftb_greece.229 }
@@ -644,10 +635,11 @@ focus_tree = {
 				}
 				if = { 
 					limit = { 
-						any_state = {
-							is_core_of = ART
-							is_claimed_by = FRA
-						}
+						1049 = { is_claimed_by = FRA }   # 1.19-migration: was vanilla 344 (Malatya); mod Malatya
+						1059 = { is_claimed_by = FRA }   # 1.19-migration: was vanilla 350 (Diyarbakır); mod Diyarbakır
+						1092 = { is_claimed_by = FRA }   # 1.19-migration: was vanilla 352 (Hakkari); mod Hakkâri
+						1012 = { is_claimed_by = FRA }   # 1.19-migration: was vanilla 353 (Tunceli); mod Tunceli
+						1039 = { is_claimed_by = FRA }   # 1.19-migration: was vanilla 800 (Van); mod Van
 					}
 					FRA = { 
 						country_event = { id = bftb_greece.229 }
@@ -655,8 +647,8 @@ focus_tree = {
 				}
 				if = { 
 					limit = { 
-						1097 = { is_claimed_by = ITA }  # 1.19-migration: was vanilla 342 (Antalya)
-						1098 = { is_claimed_by = ITA }  # 1.19-migration: was vanilla 345 (Mersin)
+						1097 = { is_claimed_by = ITA }   # 1.19-migration: was vanilla 342 (Antalya); mod Antalya
+						1098 = { is_claimed_by = ITA }   # 1.19-migration: was vanilla 345 (Mersin); mod Mersin
 					}
 					ITA = { 
 						add_opinion_modifier = { 
@@ -691,7 +683,10 @@ focus_tree = {
 	focus = {
 		id = GRE_horror_and_fear
 		icon = GFX_focus_generic_strike_at_democracy2
-		available = { NOT = { has_country_flag = GRE_megali_idea_approved } }
+		available = {
+			is_subject = no
+			NOT = { has_country_flag = GRE_megali_idea_approved } 
+		}
 		prerequisite = { focus = GRE_resurrecting_the_megali_idea }
 		mutually_exclusive = { focus = GRE_the_gordian_knot }
 		x = -1
@@ -715,7 +710,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_horror_and_fear"
 			declare_war_on = {
 				target = TUR
 				type = take_state_focus
@@ -732,11 +726,11 @@ focus_tree = {
 		icon = GFX_focus_generic_strike_at_democracy1
 		available = { 
 			ROOT = {
-				controls_state = 932 
-				controls_state = 928
-				controls_state = 1032
-				controls_state = 994
-				controls_state = 2879
+				controls_state = 932   # 1.19-migration: was vanilla 797 (Istanbul)
+				controls_state = 928   # 1.19-migration: was vanilla 341 (Edirne)
+				controls_state = 952   # 1.19-migration: was vanilla 347 (Izmit)
+				controls_state = 1932   # 1.19-migration: was vanilla 340 (Bursa)
+				controls_state = 1032   # 1.19-migration: was vanilla 339 (Izmir)
 			}
 			TUR = { 
 				OR = { 
@@ -759,7 +753,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_nenikikamen"
 			if = {
 				limit = {
 					has_government = democratic
@@ -787,7 +780,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_die_is_cast"
 			add_research_slot = 1
 			set_rule = { can_create_factions = yes }
 		}
@@ -819,10 +811,12 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_reviving_the_double_headed_eagle"
 			add_war_support = 0.05
 			add_ideas = GRE_reviving_the_double_headed_eagle_spirit
 			unlock_decision_tooltip = byz_restore_byzantium
+			hidden_effect = {
+				mark_focus_tree_layout_dirty = yes
+			}
 		}
 	}
 
@@ -840,7 +834,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_phoideratoi"
 			swap_ideas = {
     			remove_idea = GRE_reviving_the_double_headed_eagle_spirit
     			add_idea = GRE_reviving_the_double_headed_eagle_2
@@ -881,7 +874,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_byzantine_themata"
 			add_war_support = 0.1
 			custom_effect_tooltip = byz_restore_byzantine_empire_category_tt
 		}
@@ -912,7 +904,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY  }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_request_communist_support"
 			add_popularity = {
     			ideology = communism
     			popularity = 0.05
@@ -965,7 +956,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_a_socialist_economy"
 			add_ideas = GRE_socialist_economy_spirit
 		}
 	}
@@ -984,7 +974,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_nationalized_banks"
 			swap_ideas = {
 				remove_idea = GRE_socialist_economy_spirit
 				add_idea = GRE_socialist_economy_2
@@ -1021,7 +1010,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_agricultural_communes"
 			if = {
 				limit = {
 					has_idea = GRE_agrarian_society
@@ -1143,13 +1131,12 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_clearing_land_for_industrial_expansion"
 			every_owned_state = {
                 limit = {
                     is_fully_controlled_by = ROOT
                     is_core_of = GRE
-					NOT = { OR = { state = 1554 state = 1555 } } # was vanilla 187 (Aegean Islands)
-					NOT = { OR = { state = 1560 state = 1964 } } # was vanilla 182 (Crete)
+                    NOT = { state = 1552 }   # 1.19-migration: was vanilla 187 (Aegean Islands)
+                    NOT = { state = 1560 }   # 1.19-migration: was vanilla 182 (Crete)
                 }
                 add_extra_state_shared_building_slots = 1
             }
@@ -1174,13 +1161,16 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			has_government = communism
 		}
 
 		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_depose_the_reactionaries"
 			set_politics = {
 				ruling_party = communism
 				elections_allowed = no
@@ -1239,7 +1229,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_greek_industrial_revolution"
 			add_research_slot = 1	
 			random_owned_controlled_state = {
 				limit = {
@@ -1289,7 +1278,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_red_militias"
 			add_ideas = GRE_red_militias_spirit
 		}
 	}
@@ -1320,9 +1308,12 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_prepare_for_the_great_anti_fascist_war"
 			if = {
 				limit = {
 					has_dlc = "Battle for the Bosporus"
@@ -1398,29 +1389,47 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_tow_the_stalinist_line"
 			swap_ideas = {
 				remove_idea = GRE_socialist_economy_2
 				add_idea = GRE_socialist_economy_3
 			}
 			hidden_effect = { 
 				set_cosmetic_tag = GRE_stalinist
+			}
+			if = {
+				limit = {
+					TUR = {
+						exists = yes
+						NOT = {
+							is_ally_with = ROOT
+							is_ally_with = SOV
+						}
+					}
+					SOV = {
+						exists = yes
+						NOT = {
+							has_war_with = ROOT
+						}
+					}
+				}
 				TUR = { 
 					country_event = { id = bftb_greece.29 days = 1 }
 				}
 				SOV = { 
-					country_event = { id = bftb_greece.29 days = 7 }
+					country_event = { id = bftb_greece.30 days = 7 }
 				}
-				add_opinion_modifier = {
-		    		target = TUR
-		    		modifier = GRE_strategic_enemy
-				}
-				TUR = { 
+				hidden_effect = {
 					add_opinion_modifier = {
-		   				target = GRE
-		   				modifier = GRE_strategic_enemy
+						target = TUR
+						modifier = GRE_strategic_enemy
 					}
-				}	
+					TUR = { 
+						add_opinion_modifier = {
+							target = GRE
+							modifier = GRE_strategic_enemy
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1436,6 +1445,9 @@ focus_tree = {
 					is_puppet_of = GRE
 				}
 			}
+			
+			is_subject = no
+			
 		}
 		x = 0
 		y = 1
@@ -1444,12 +1456,30 @@ focus_tree = {
 		ai_will_do = {
 			base = 0
 			modifier = { 
-				add = 1
+				add = 4
 				AND = { 
 					has_war = no
 					strength_ratio = { 
 						tag = BUL
-						ratio > 0.4
+						ratio > 1.25
+					}
+					NOT = {
+						any_other_country = {
+							OR = {
+								AND = {
+									has_guaranteed = BUL
+									NOT = {
+										has_guaranteed = ROOT
+										is_ally_with = ROOT
+									}
+								}
+								is_ally_with = BUL
+							}
+							strength_ratio = { 
+								tag = ROOT
+								ratio > 1.25
+							}
+						}
 					}
 				}
 			}
@@ -1466,7 +1496,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_dominate_the_bulgarians"
 			create_wargoal = {
 				type = puppet_wargoal_focus
 				target = BUL
@@ -1486,6 +1515,9 @@ focus_tree = {
 					is_puppet_of = GRE
 				}
 			}
+			
+			is_subject = no
+			
 		}
 		x = -2
 		y = 1
@@ -1515,9 +1547,11 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_ally_tito"
 			set_rule = { can_create_factions = yes }
-			create_faction = GRE_corfu_cooperative
+			create_faction_from_template = {
+				template = faction_template_BUL_balkan_federation_of_socialist_republics
+				name = GRE_corfu_cooperative
+			}
 			if = { 
 				limit = { 
 					YUG = { 
@@ -1554,8 +1588,9 @@ focus_tree = {
 			OR = { 
 				TUR = { has_government = fascism }
 				TUR = { has_added_tension_amount > 5 }
-			}		
-		}	
+			}	
+			is_subject = no
+		}
 		x = 0
 		y = 1
 		relative_position_id = GRE_ally_tito
@@ -1573,7 +1608,12 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				controls_state = 1032
+				AND = { 
+					owns_state = 928   # 1.19-migration: was vanilla 341 (Edirne)
+					owns_state = 1932   # 1.19-migration: was vanilla 340 (Bursa)
+					owns_state = 1032   # 1.19-migration: was vanilla 339 (Izmir)
+					owns_state = 1097   # 1.19-migration: was vanilla 342 (Antalya)
+				}
 				TUR = {
 					exists = no
 					is_puppet_of = GRE
@@ -1583,26 +1623,19 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_secure_the_aegean"
-			
-				every_state = {
-					limit = {
-						is_coastal = yes
-						OR = {
-							is_greek_anatolia = yes
-							state = 1554
-						}
-					}
-					add_claim_by = ROOT
-				
-				
+			GRE = {
+				add_state_core = 928   # 1.19-migration: was vanilla 341 (Edirne)
+				add_state_claim = 1932   # 1.19-migration: was vanilla 340 (Bursa)
+				add_state_claim = 1032   # 1.19-migration: was vanilla 339 (Izmir)
+				add_state_claim = 1097   # 1.19-migration: was vanilla 342 (Antalya)
+				add_state_claim = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = TUR
+					expire = 0
+				}
 			}
 			add_war_support = -0.05
-			create_wargoal = {
-				type = puppet_wargoal_focus
-				target = TUR
-				expire = 0
-			}
 		}
 	}
 
@@ -1615,17 +1648,15 @@ focus_tree = {
 		relative_position_id = GRE_dominate_the_bulgarians
 		cost = 10
 		ai_will_do = {
-			factor = 0
-			modifier = { 
-				add = 1
-				has_offensive_war = no
-				num_of_military_factories > 20
-			}
+			factor = 0	#the idea upgrade is useless and the wargoals are primarily against much larger enemies
+		}
+
+		available = {
+			is_subject = no
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_attack_the_fascists"
 			if = { 	
 				limit = {
 					ITA = {
@@ -1712,8 +1743,14 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+			SOV = {
+				has_country_flag = SOV_isolating_turkey
+			}
+		}
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_stage_an_incident_in_the_bosporus"
 			country_event = { id = bftb_greece.31 }
 			add_war_support = 0.05
 		}
@@ -1722,8 +1759,8 @@ focus_tree = {
 	focus = {
 		id = GRE_revolutionaries_of_the_south
 		icon = GFX_goal_support_communism
-		prerequisite = { focus = GRE_stage_an_incident_in_the_bosporus }
-		x = 0
+		prerequisite = { focus = GRE_tow_the_stalinist_line }
+		x = 1
 		y = 1
 		relative_position_id = GRE_stage_an_incident_in_the_bosporus
 		cost = 10
@@ -1732,7 +1769,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_revolutionaries_of_the_south"
 			swap_ideas = {
 				remove_idea = GRE_red_militias_spirit
 				add_idea = GRE_red_militias_3
@@ -1773,7 +1809,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_kings_government"
 			add_stability = 0.1
 		}
 	}
@@ -1795,9 +1830,12 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		search_filters = { FOCUS_FILTER_GRE_DEBT_TO_IFC FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_right_to_rule"
 			add_stability = -0.15
 			add_political_power = 120
 			country_event = { id = bftb_greece.50 }
@@ -1833,7 +1871,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_metaxism_focus"
 			effect_tooltip = {
 				create_country_leader = { #FAKE EFFECT FOR TOOLTIP PURPOSES
 					name = "Ioannis Metaxas"
@@ -1863,6 +1900,97 @@ focus_tree = {
 				set_variable = { var = GRE_fascist_loyalty value = 0 }
 				GRE_political_instability_update_effect = yes
 			}
+		}
+	}
+
+	focus = {
+		id = GRE_reorganize_the_royal_guard
+		icon = GFX_focus_generic_little_entente
+		prerequisite = { focus = GRE_the_right_to_rule }
+		
+		x = -1
+		y = 1
+
+		relative_position_id = GRE_the_right_to_rule
+		cost = 5
+		ai_will_do = {
+			base = 5
+		}
+
+		available = {
+		}
+
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
+		completion_reward = {
+
+			add_manpower = 2500
+			
+			hidden_effect = {
+				delete_unit_template_and_units = {
+					division_template = "Tmíma Vasilikís Synodeías"
+					disband = yes #if yes, will refund equipment/manpower.
+				}
+				delete_unit_template_and_units = {
+					division_template = "Íli Vasilikís Frourás"
+					disband = yes #if yes, will refund equipment/manpower.
+				}
+
+				division_template = {
+					name = "Tmíma Vasilikís Synodeías"		
+					division_names_group = GRE_INF_01
+					is_locked = no
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 2 y = 0 }
+					}
+					support = {  
+						artillery = { x = 0 y = 0 } 
+					}
+				}
+				division_template = {
+					name = "Íli Vasilikís Frourás"		
+					division_names_group = GRE_CAV_01
+					is_locked = no
+					regiments = {
+						cavalry = { x = 0 y = 0 }
+						cavalry = { x = 0 y = 1 }
+						cavalry = { x = 1 y = 0 }
+						cavalry = { x = 1 y = 1 }
+						cavalry = { x = 2 y = 0 }
+					}
+					support = {  
+						recon = { x = 0 y = 0 } 
+					}
+				}
+			}
+
+			random_state = { 
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_owned_by = ROOT
+					is_core_of = ROOT
+				}
+				create_unit = {
+				    division = "name = \"Tmíma Vasilikís Synodeías'\" division_template = \"Tmíma Vasilikís Synodeías\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+				    owner = ROOT
+				}
+			}
+
+			random_state = { 
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_owned_by = ROOT
+					is_core_of = ROOT
+				}
+				create_unit = {
+				    division = "name = \"Íli Vasilikís Frourás'\" division_template = \"Íli Vasilikís Frourás\" start_experience_factor = 0.4 start_equipment_factor = 0.9"
+				    owner = ROOT
+				}
+			}
+
 		}
 	}
 
@@ -1897,7 +2025,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_petition_britain_for_aid"
 			if = {
 				limit = { 
 					ENG = { 
@@ -1934,6 +2061,71 @@ focus_tree = {
 				}
 			}
 		}
+	}
+
+	focus = {
+		id = GRE_utilize_british_capital
+		icon = GFX_focus_generic_british_trade
+		available = { 
+			NOT = {
+				OR = {
+					has_war_with = ENG
+					ENG = {
+						has_government = communism
+					}
+				}
+			}
+		}
+		prerequisite = { focus = GRE_petition_britain_for_aid }
+		x = -1
+		y = 1
+		relative_position_id = GRE_petition_britain_for_aid
+
+		cost = 10
+
+		ai_will_do = {
+			base = 1
+		}
+
+		completion_reward = {
+
+			add_political_power = 75
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			every_state = {
+				limit = {
+					is_fully_controlled_by = ROOT
+					is_owned_by = ROOT
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			IF = {
+				limit = {
+					1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
+						is_fully_controlled_by = ROOT
+					}
+				}
+				1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}	
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}	
+				}
+			}
+
+		}
 	}	
 
 	focus = {
@@ -1949,7 +2141,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_hellenic_spirit"
 			add_political_power = 120
 			effect_tooltip = { 
 				swap_ideas = {
@@ -1985,7 +2176,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_national_youth_organisation"
 			add_ideas = GRE_eon 
 		}
 	}
@@ -2004,7 +2194,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INTERNAL_AFFAIRS FOCUS_FILTER_STABILITY  }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_crack_down_on_the_republicans"
 			add_stability = 0.1
 			unlock_decision_tooltip = GRE_crush_republicans
 		}
@@ -2025,7 +2214,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_use_the_military"
 			if = {
 				limit = {
 					has_idea = GRE_political_instability
@@ -2100,7 +2288,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_recruit_the_fascists"
 			add_popularity = {
    				ideology = fascism
    	 			popularity = 0.05
@@ -2156,19 +2343,66 @@ focus_tree = {
 		prerequisite = { focus = GRE_use_the_military }
 		mutually_exclusive = { focus = GRE_our_traditional_allies_in_the_aegean }
 		available = {
+			is_subject = no
 			has_country_leader = { 
-				name = "George II"
+				character = GRE_king_george_ii
 				ruling_only = yes
 			}
-			OR = {
-				HUN = { 
-					has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
 				}
-				AND = { 
-					GER = { 
-						has_completed_focus = GER_revive_the_kaiserreich 
-						is_in_faction = yes
-						is_faction_leader = yes
+				OR = {
+					GER = {
+						has_completed_focus = GER_revive_the_kaiserreich_ww
+						OR = {
+							is_in_faction = no
+							is_faction_leader = yes
+						}
+					}
+					HUN = {
+						has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen
+						OR = {
+							is_in_faction = no
+							is_faction_leader = yes
+						}
+					}
+					AUS = {
+						has_completed_focus = AUS_reinstate_the_imperial_council
+						OR = {
+							is_in_faction = no
+							is_faction_leader = yes
+						}
+					}
+				}
+			}
+			ELSE = {
+				OR = {
+					GER = {
+						has_completed_focus = GER_revive_the_kaiserreich
+						OR = {
+							is_in_faction = no
+							is_faction_leader = yes
+						}
+					}
+					HUN = {
+						has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen
+						OR = {
+							is_in_faction = no
+							is_faction_leader = yes
+						}
+					}
+					AND = {
+						custom_trigger_tooltip = {
+							tooltip = GRE_AUS_is_HUN_EMPIRE_tt
+							AUS = {
+								has_cosmetic_tag = HUN_EMPIRE
+							}
+						}
+						OR = {
+							is_in_faction = no
+							is_faction_leader = yes
+						}
 					}
 				}
 			}
@@ -2186,15 +2420,42 @@ focus_tree = {
 		}
 
 		bypass = { 
-			GRE = { 
+			IF = {
+				limit = {
+					has_dlc = "Gotterdammerung"
+				}
 				OR = {
-					AND = { 
-						is_in_faction_with = GER
-						GER = { has_completed_focus = GER_oppose_hitler }
+					GER = {
+						has_completed_focus = GER_revive_the_kaiserreich_ww
+						is_in_faction_with = ROOT 
+						}
+					HUN = {
+						has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen
+						is_in_faction_with = ROOT 
 					}
-					AND = { 
-						is_in_faction_with = HUN
-						HUN = { has_completed_focus = HUN_invite_the_habsburg_prince }
+					AUS = {
+						has_completed_focus = AUS_reinstate_the_imperial_council
+						is_in_faction_with = ROOT 
+					}
+				}
+				
+			}
+			ELSE = {
+				OR = {
+					GER = {
+						has_completed_focus = GER_revive_the_kaiserreich
+						is_in_faction_with = ROOT 
+						}
+					HUN = {
+						has_completed_focus = GER_revive_the_kaiserreich
+						is_in_faction_with = ROOT 
+					}
+					AUS = {
+						custom_trigger_tooltip = {
+							tooltip = GRE_AUS_is_HUN_EMPIRE_tt
+							has_cosmetic_tag = HUN_EMPIRE
+						}
+						is_in_faction_with = ROOT 
 					}
 				}
 			}
@@ -2202,11 +2463,13 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_realign_ourselves_with_the_central_powers "
 			if = {
 				limit = { 
 					GER = { 
-						has_completed_focus = GER_the_central_powers 
+						OR = {
+							has_completed_focus = GER_mitteleuropa
+							has_completed_focus = GER_the_central_powers 
+						}
 					}
 				}
 				GER = { country_event = { id  = generic.2 days = 7 } }
@@ -2214,20 +2477,30 @@ focus_tree = {
 			else_if = {
 				limit = { 
 					GER = { 
-						has_completed_focus = GER_revive_the_kaiserreich 
-						is_faction_leader = no
+						OR = {
+							has_completed_focus = GER_revive_the_kaiserreich_ww
+							has_completed_focus = GER_revive_the_kaiserreich 
+						}
+						is_in_faction = no
 					}
 				}
 				GER = { 
 					set_rule = { can_create_factions = yes }
-					create_faction = "GER_central_powers_faction"
+					create_faction_from_template = {
+						template = faction_template_GER_mitteleuropa_alliance
+						name = GER_central_powers_faction
+						icon = GFX_faction_logo_generic_13
+					}
 					country_event = { id  = generic.2 days = 7 } 
 				}
 			}
 			else_if = {
 				limit = { 
 					HUN = { 
-						has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+						OR = {
+							has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+							has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen 
+						}
 						is_faction_leader = yes
 					}
 				}
@@ -2236,7 +2509,10 @@ focus_tree = {
 			else_if = {
 				limit = { 
 					HUN = { 
-						has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+						OR = {
+							has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary 
+							has_completed_focus = wuw_HUN_the_lands_of_the_crown_of_saint_stephen 
+						}
 						is_faction_leader = no
 						is_in_faction = no
 					}
@@ -2246,8 +2522,34 @@ focus_tree = {
 						}
 					}
 				}
-				create_faction = GRE_argos_alliance
+				create_faction_from_template = {
+					template = faction_template_generic_dominance
+					name = GRE_argos_alliance
+				}
 				HUN = { country_event = { id = generic.5 days = 7 } }
+			}
+			else_if = {
+				limit = { 
+					AUS = { 
+						has_completed_focus = AUS_reinstate_the_imperial_council 
+						is_faction_leader = yes
+					}
+				}
+				HUN = { country_event = { id  = generic.2 days = 7 } }
+			}
+			else_if = {
+				limit = {
+					AUS = { 
+						has_completed_focus = AUS_reinstate_the_imperial_council 
+						is_faction_leader = no
+						is_in_faction = no
+					}
+				}
+				create_faction_from_template = {
+					template = faction_template_generic_dominance
+					name = GRE_argos_alliance
+				}
+				AUS = { country_event = { id = generic.5 days = 7 } }
 			}
 			else = { 
 				custom_effect_tooltip = GRE_no_central_powers_tt
@@ -2275,6 +2577,10 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			OR = { 
 				GRE = { 
@@ -2289,7 +2595,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_our_traditional_allies_in_the_aegean"
 			if = {
 				limit = { 
 					ENG = { 
@@ -3158,6 +3463,10 @@ focus_tree = {
 			base = 1
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = {
 			TUR = {
 				has_completed_focus = TUR_pivot_to_the_past
@@ -3166,7 +3475,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_reclaiming_the_wayward_ally"
 			create_wargoal = {
     			type = puppet_wargoal_focus
    				target = TUR
@@ -3208,7 +3516,7 @@ focus_tree = {
 					CYP = { exists = no }
 					ENG = { 
 						NOT = { 
-							owns_state = 1962
+							owns_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
 						}
 					}
 				}
@@ -3217,7 +3525,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_greater_enosis"
 			if = { 
 				limit = { 
 					CYP = { exists = yes }
@@ -3253,6 +3560,10 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = { 
 			BUL = { 
 				has_government = democratic
@@ -3261,7 +3572,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_securing_the_bulgarian_menace"
 			if = { 	
 				limit = {
 					NOT = { 	
@@ -3293,7 +3603,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_expansion_of_athens_university"
 			add_research_slot = 1
 		}
 	}
@@ -3311,7 +3620,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_protectors_of_the_mediterranean"
 			add_political_power = 120
 			add_ideas = GRE_protectors_of_the_mediterranean_spirit
 		}
@@ -3321,14 +3629,24 @@ focus_tree = {
 		id = GRE_an_orthodox_state
 		icon = GFX_focus_GRE_an_orthodox_state
 		prerequisite = { focus = GRE_use_the_military focus = GRE_recruit_the_fascists }
+
 		available = { 
-			has_country_leader = { 
-				character = GRE_ioannis_metaxas
-				ruling_only = yes
+			OR = {
+				AND = {
+					has_country_leader = { 
+						character = GRE_ioannis_metaxas
+						ruling_only = yes
+					}
+					is_in_faction = no
+					has_idea = GRE_metaxism_2
+				}
+				has_country_leader = { 
+					character = GRE_king_george_ii
+					ruling_only = yes
+				}
 			}
-			is_in_faction = no
-			has_idea = GRE_metaxism_2
 		}
+
 		x = 0
 		y = 2
 		relative_position_id = GRE_crack_down_on_the_republicans
@@ -3338,20 +3656,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_an_orthodox_state"
-			if = {
+
+			IF = {
 				limit = {
-					has_idea = GRE_metaxism_2
+					NOT = {
+						has_completed_focus = GRE_the_right_to_rule
+						has_completed_focus = GRE_metaxism_focus 
+					}
 				}
-				swap_ideas = {
-					remove_idea = GRE_metaxism_2
-					add_idea = GRE_metaxism_3
+				custom_effect_tooltip = GRE_if_does_right_to_rule_effect_tt
+				effect_tooltip = {
+					add_ideas = GRE_orthodox_church_support
 				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_metaxism
-				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				custom_effect_tooltip = GRE_if_does_metaxism_effect_tt
 				effect_tooltip = { 	
 					swap_ideas = {
 						remove_idea = GRE_metaxism
@@ -3359,17 +3677,51 @@ focus_tree = {
 					}
 				}
 			}
-			else_if = {
+			ELSE_IF = {
 				limit = {
-					NOT = { has_idea = GRE_metaxism } 
+					has_completed_focus = GRE_the_right_to_rule
 				}
-				effect_tooltip = { 	
+				add_ideas = GRE_orthodox_church_support
+				hidden_effect = {
+					set_cosmetic_tag = GRE_orthodox_church_dominant 
+				}
+			}
+			ELSE = {
+
+				IF = {
+					limit = {
+						has_idea = GRE_metaxism_2
+					}
 					swap_ideas = {
-						remove_idea = GRE_metaxism
+						remove_idea = GRE_metaxism_2
 						add_idea = GRE_metaxism_3
 					}
 				}
+				ELSE_IF = {
+					limit = {
+						has_idea = GRE_metaxism
+					}
+					effect_tooltip = { 	
+						swap_ideas = {
+							remove_idea = GRE_metaxism
+							add_idea = GRE_metaxism_3
+						}
+					}
+				}
+				ELSE_IF = {
+					limit = {
+						NOT = { has_idea = GRE_metaxism } 
+					}
+					effect_tooltip = { 	
+						swap_ideas = {
+							remove_idea = GRE_metaxism
+							add_idea = GRE_metaxism_3
+						}
+					}
+				}
+
 			}
+
 		}			
 	}
 
@@ -3394,7 +3746,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_third_hellenic_civilization"
 			effect_tooltip = { 
 				swap_ideas = {
 					remove_idea = GRE_metaxism_3
@@ -3436,7 +3787,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_defending_our_kingdom"
 			effect_tooltip = { 
 				swap_ideas = {
 					remove_idea = GRE_metaxism_4
@@ -3478,7 +3828,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_reviving_the_spartan_warrior_spirit"
 			effect_tooltip = { 
 				swap_ideas = {
 					remove_idea = GRE_metaxism_5
@@ -3513,7 +3862,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_following_in_the_footsteps_of_giants"
 			add_popularity = {
    				ideology = fascism
    	 			popularity = 0.1
@@ -3634,7 +3982,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_modern_movement"
 			country_event = { id = bftb_greece.217 }
 			hidden_effect = { 
 				swap_ideas = {
@@ -3658,6 +4005,10 @@ focus_tree = {
 			base = 1
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = { 
 			OR = { 
 				TUR = { 
@@ -3671,7 +4022,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_hellenoturkism"
 			add_war_support = 0.1
 			TUR = { country_event = { id = bftb_greece.62 days = 1 } }
 		}
@@ -3709,7 +4059,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_cement_greco_german_ties"
 			swap_ideas = {
 				remove_idea = GRE_schachtplan_modified
 				add_idea = GRE_schachtplan_fascistised
@@ -3741,6 +4090,10 @@ focus_tree = {
 			}
 		}
 
+		available = {
+			is_subject = no
+		}
+
 		bypass = { 
 			BUL = { 
 				OR = { 
@@ -3752,7 +4105,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_subjugating_the_bulgarians"
 			create_wargoal = {
 				type = annex_everything
 				target = BUL
@@ -3765,7 +4117,10 @@ focus_tree = {
 		id = GRE_greece_and_turkey_in_the_axis
 		icon = GFX_goal_generic_dangerous_deal
 		prerequisite = { focus = GRE_subjugating_the_bulgarians }
-		available = { has_global_flag = greek_turkish_friendship }
+		available = { 
+			is_subject = no
+			has_global_flag = greek_turkish_friendship 
+		}
 		mutually_exclusive = { focus = GRE_last_country_standing }
 		x = -1
 		y = 1
@@ -3781,7 +4136,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_greece_and_turkey_in_the_axis"
 			if = {
 				limit = {
 					NOT = { 
@@ -3800,7 +4154,10 @@ focus_tree = {
 		id = GRE_last_country_standing
 		icon = GFX_goal_generic_attack_allies
 		prerequisite = { focus = GRE_subjugating_the_bulgarians }
-		available = { NOT = { has_global_flag = greek_turkish_friendship } }
+		available = { 
+			is_subject = no
+			NOT = { has_global_flag = greek_turkish_friendship } 
+		}
 		mutually_exclusive = { focus = GRE_greece_and_turkey_in_the_axis }
 		x = 1
 		y = 1
@@ -3812,7 +4169,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_last_country_standing"
 			add_war_support = 0.05
 			create_wargoal = { 
 				type = annex_everything
@@ -3835,7 +4191,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_moulding_the_new_world_order"
 			swap_ideas = {
 				remove_idea = GRE_political_instability_fascism
 				add_idea = GRE_state_of_the_nation_fascism
@@ -3863,7 +4218,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_GRE_DEBT_TO_IFC FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_reevaluating_the_drachma"
 			add_political_power = 120
 			unlock_decision_category_tooltip = GRE_pay_back_debt_to_the_ifc_category
 			custom_effect_tooltip = GRE_pay_back_debt_tt
@@ -3883,8 +4237,7 @@ focus_tree = {
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_lignite_liquefaction"	
+		completion_reward = {	
             random_owned_controlled_state = {
 				prioritize = { 186 }
                	limit = {
@@ -3921,14 +4274,13 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_extracting_more_from_our_soil"
-			2015 = { 
+			1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 				add_resource = { 
 					type = aluminium
 					amount = 12
 				}
 			}
-			1547 = { 
+			1089 = {   # 1.19-migration: was vanilla 186 (Peloponnese); mod Lakonía
 				add_resource = { 
 					type = aluminium
 					amount = 8
@@ -3942,7 +4294,7 @@ focus_tree = {
 					amount = 5
 				}
 			}
-			995 = { 
+			1552 = {   # 1.19-migration: was vanilla 187 (Aegean Islands); mod Lesbos
 				add_resource = { 
 					type = aluminium
 					amount = 21
@@ -3952,6 +4304,32 @@ focus_tree = {
 					amount = 9
 				}
 			}
+		}
+	}
+
+	focus = {
+		id = GRE_the_macedonian_farmlands
+		icon = GFX_focus_generic_farmland
+		prerequisite = { focus = GRE_extracting_more_from_our_soil }
+		x = 0
+		y = 1
+		relative_position_id = GRE_extracting_more_from_our_soil
+		cost = 10
+		ai_will_do = {
+			base = 1
+		}
+
+		available = {
+			941 = {   # 1.19-migration: was vanilla 731 (Central Macedonia); mod Thessaloniki
+				is_fully_controlled_by = ROOT
+				is_core_of = ROOT
+			}
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		completion_reward = {
+			add_ideas = GRE_macedonian_farmlands_idea
 		}
 	}
 
@@ -3970,7 +4348,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_utilize_our_strengths"
 			if = {
 				limit = { 
 					has_idea = GRE_agrarian_society
@@ -4007,8 +4384,7 @@ focus_tree = {
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER FOCUS_FILTER_STABILITY }
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_force_the_farmers_into_factories" 
+		completion_reward = { 
 			if = { 
 				limit = { 
 					has_idea = GRE_agrarian_society
@@ -4055,7 +4431,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_open_foreign_subsidized_factories"
 			custom_effect_tooltip = GRE_open_foreign_subsidized_factories_tt
 			hidden_effect = {
 				if = { 
@@ -4235,7 +4610,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_GRE_DEBT_TO_IFC FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_paying_back_our_debts_in_bulk"
 			add_stability = 0.05
 			custom_effect_tooltip = GRE_paying_back_our_debts_in_bulk_ENG_tt
 			custom_effect_tooltip = GRE_paying_back_our_debts_in_bulk_FRA_tt
@@ -4249,9 +4623,9 @@ focus_tree = {
 		prerequisite = { focus = GRE_open_foreign_subsidized_factories }
 		available = {
 			OR = {
-				has_full_control_of_state = 2003
-				has_full_control_of_state = 1540
-				has_full_control_of_state = 941
+				has_full_control_of_state = 1089   # 1.19-migration: was vanilla 186 (Peloponnese)
+				has_full_control_of_state = 1073   # 1.19-migration: was vanilla 47 (Attica)
+				has_full_control_of_state = 995   # 1.19-migration: was vanilla 185 (Epirus)
 			}
 		}
 		x = 0
@@ -4264,19 +4638,19 @@ focus_tree = {
 
 		bypass = { 
 			AND = { 
-				2003 = {
+				1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 					free_building_slots = {
 						building = infrastructure
 						size < 1
 					}
 				}
-				1540 = { 
+				1089 = {   # 1.19-migration: was vanilla 186 (Peloponnese); mod Lakonía
 					free_building_slots = {
 						building = infrastructure
 						size < 1
 					}
 				}
-				941 = { 
+				995 = {   # 1.19-migration: was vanilla 185 (Epirus); mod Ioannina
 					free_building_slots = {
 						building = infrastructure
 						size < 1
@@ -4287,9 +4661,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_connecting_our_prefectures"
 			add_stability = 0.1
-			941 = {
+			1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 				if = {
 					limit = { 
 						is_controlled_by = ROOT 
@@ -4305,7 +4678,7 @@ focus_tree = {
 					}
 				}
 			}			
-			1540 = {
+			1089 = {   # 1.19-migration: was vanilla 186 (Peloponnese); mod Lakonía
 				if = {
 					limit = { 
 						is_controlled_by = ROOT 
@@ -4321,7 +4694,7 @@ focus_tree = {
 					}
 				}
 			}
-			2003 = {
+			995 = {   # 1.19-migration: was vanilla 185 (Epirus); mod Ioannina
 				if = {
 					limit = { 
 						is_controlled_by = ROOT 
@@ -4373,15 +4746,36 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_fiscal_responsibility"
-			if = {
+			IF = {
 				limit = {
 					NOT = { has_government = communism }
+					amount_taken_ideas = {
+					    amount < 3
+					    slots = {
+					        political_advisor
+					    }
+					}
 				}
 				add_political_power = 120
 				effect_tooltip = { add_ideas = GRE_emmanouil_tsouderos }
+				hidden_effect = {
+					add_ideas = GRE_emmanouil_tsouderos
+				}
 			}
-			else = {
+			ELSE_IF = {
+				limit = {
+					NOT = { has_government = communism }
+					amount_taken_ideas = {
+					    amount > 2
+					    slots = {
+					        political_advisor
+					    }
+					}
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = GRE_emmanouil_tsouderos
+			}
+			ELSE = {
 				add_political_power = 250
 				add_stability = 0.1
 			}
@@ -4402,7 +4796,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_sophistry_and_science"
 			add_ideas = GRE_sophistry_and_science_idea
 		}
 	}
@@ -4421,7 +4814,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_bedrock_of_balkan_financial_stability"
 			add_political_power = 200
 			custom_effect_tooltip = GRE_bedrock_of_balkan_financial_stability_tt
 			hidden_effect = {
@@ -4498,7 +4890,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_exporting_more_luxury_commodoties"
 			swap_ideas = {
 				remove_idea = GRE_foreign_monopolies
 				add_idea = GRE_foreign_monopolies_2
@@ -4522,7 +4913,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_greek_autarky"
 			swap_ideas = {
 				remove_idea = GRE_foreign_monopolies
 				add_idea = GRE_foreign_monopolies_2
@@ -4547,12 +4937,11 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_expand_our_tobacco_industry"
 			swap_ideas = {
 				remove_idea = GRE_foreign_monopolies_2
 				add_idea = GRE_foreign_monopolies_3
 			}
-			941 = { 
+			941 = {   # 1.19-migration: was vanilla 731 (Central Macedonia); mod Thessaloniki
 				if = {
 					limit = {
 						free_building_slots = {
@@ -4569,7 +4958,7 @@ focus_tree = {
 					}
 				}
 			}	
-			937 = {
+			910 = {   # 1.19-migration: was vanilla 184 (Thrace); mod Alexandroupoli
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4654,12 +5043,11 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_increase_our_mining_operations"
 			swap_ideas = {
 				remove_idea = GRE_foreign_monopolies_2
 				add_idea = GRE_foreign_monopolies_3
 			}
-			1540 = {
+			1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4676,7 +5064,7 @@ focus_tree = {
 					}
 				}	
 			}
-			1044 = {
+			995 = {   # 1.19-migration: was vanilla 185 (Epirus); mod Ioannina
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4694,6 +5082,7 @@ focus_tree = {
 				}
 			}	
 			add_tech_bonus = {
+				name = GRE_increase_our_mining_operations
 				bonus = 1.0
 				uses = 2
 				category = excavation_tech
@@ -4716,7 +5105,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_encourage_tourism"
 			swap_ideas = {
 				remove_idea = GRE_foreign_monopolies_3
 				add_idea = GRE_foreign_monopolies_4
@@ -4743,7 +5131,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_mobilise_our_economy"
 			swap_ideas = {
 				remove_idea = GRE_foreign_monopolies_3
 				add_idea = GRE_foreign_monopolies_4
@@ -4785,8 +5172,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_rejuvenating_athens"
-			2003 = {
+			1073 = {   # 1.19-migration: was vanilla 47 (Attica); mod Lárisa
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4831,8 +5217,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_making_use_of_our_islands"
-			1560 = {
+			1552 = {   # 1.19-migration: was vanilla 187 (Aegean Islands); mod Lesbos
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4840,6 +5225,7 @@ focus_tree = {
 							size > 0
 							include_locked = yes
 						}
+						is_fully_controlled_by = ROOT
 					}
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
@@ -4849,7 +5235,7 @@ focus_tree = {
 					}
 				}	
 			}
-			1552 = {
+			1560 = {   # 1.19-migration: was vanilla 182 (Crete); mod Lasíthi
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4857,6 +5243,7 @@ focus_tree = {
 							size > 1
 							include_locked = yes
 						}
+						is_fully_controlled_by = ROOT
 					}
 					add_extra_state_shared_building_slots = 3
 					add_building_construction = {
@@ -4868,9 +5255,17 @@ focus_tree = {
 			}	
 			if = { 
 				limit = { 
-					owns_state = 1964 
+					OR = {
+						1964 = {   # 1.19-migration: was vanilla 183 (Cyprus); mod Morphou
+							is_fully_controlled_by = ROOT
+						}
+						CYP = {
+							is_subject_of = ROOT
+							controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+						}
+					}
 				}		
-				1964 = {
+				1964 = {   # 1.19-migration: was vanilla 183 (Cyprus); mod Morphou
 					if = {
 						limit = {
 							free_building_slots = {
@@ -4890,9 +5285,11 @@ focus_tree = {
 			}
 			if = { 
 				limit = { 
-					owns_state = 1554 
+					1554 = {   # 1.19-migration: was vanilla 164 (Dodecanese); mod Dodecaneso
+						is_fully_controlled_by = ROOT
+					}
 				}
-				1554 = {
+				1554 = {   # 1.19-migration: was vanilla 164 (Dodecanese); mod Dodecaneso
 					if = {
 						limit = {
 							free_building_slots = {
@@ -4913,8 +5310,8 @@ focus_tree = {
 			if = { 
 				limit = { 
 					NOT = { 
-						owns_state = 1554
-						owns_state = 1964
+						controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+						controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
 					}
 				}
 				custom_effect_tooltip = GRE_making_use_of_our_islands_tt
@@ -4922,7 +5319,7 @@ focus_tree = {
 			else_if = { 
 				limit = { 
 					NOT = { 
-						owns_state = 1964
+						controls_state = 1554   # 1.19-migration: was vanilla 164 (Dodecanese)
 					}
 				}
 				custom_effect_tooltip = GRE_making_use_of_our_islands_dodecanese_tt
@@ -4930,18 +5327,31 @@ focus_tree = {
 			else_if = { 
 				limit = { 
 					NOT = { 
-						owns_state = 1554
+						controls_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
 					}
 				}
 				custom_effect_tooltip = GRE_making_use_of_our_islands_cyprus_tt
 			}
 			hidden_effect = { 
-				every_state = {
-					limit = {
-						is_core_of = CYP
-						is_owned_by = GRE
+				if = { 
+					limit = { 
+						1964 = { is_owned_by = GRE }   # 1.19-migration: was vanilla 183 (Cyprus); mod Morphou
+						NOT = { 183 = { is_core_of = GRE } }
 					}
-					add_core_of = GRE
+					add_state_core = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+				}
+				if = {
+					limit = {
+						CYP = {
+							is_subject_of = ROOT
+							owns_state = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
+						}
+					}
+					annex_country = {
+						target = CYP
+						transfer_troops = yes
+					}	
+					add_state_core = 1964   # 1.19-migration: was vanilla 183 (Cyprus)
 				}
 			}
 		}
@@ -4962,7 +5372,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_clear_the_slums"
 			random_owned_controlled_state = {
 				prioritize = { 184 }
 				add_extra_state_shared_building_slots = 2
@@ -5000,7 +5409,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_crack_down_on_foreign_monopolies"
 			add_stability = 0.05
 			if = { 
 				limit = {
@@ -5013,8 +5421,8 @@ focus_tree = {
 			else = {
 				remove_ideas = GRE_foreign_monopolies_4
 			}
-			
-			if = {
+
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}	
@@ -5052,7 +5460,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_cooperate_with_foreign_monopolies"
 			add_political_power = 120
 			if = { 
 				limit = {
@@ -5090,7 +5497,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_academy_of_athens"
 			add_research_slot = 1
 		}
 	}
@@ -5125,7 +5531,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_four_year_plan"
 			if = { 
 				limit = { 
 					date > 1936.01.01
@@ -5156,7 +5561,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_open_up_the_country"
 			unlock_decision_category_tooltip = GRE_investment_decisions_category
 		}
 	}
@@ -5194,7 +5598,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_bolster_the_schachtplan"
 			unlock_decision_tooltip = GRE_exploit_errata_in_schachtplan
 			swap_ideas = {
 				remove_idea = GRE_schachtplan
@@ -5234,14 +5637,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_rapprochement_with_the_italians"
 			unlock_decision_tooltip = GRE_request_italian_assistance_with_industrialisation
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}	
 				custom_effect_tooltip = available_mio_tt
 				show_mio_tooltip = ITA_fiat_organization
+				mio:ITA_fiat_organization = {
+					add_mio_size = 2
+				}
 			}
 		}
 	}	
@@ -5268,7 +5673,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_british_docking_rights"
 			unlock_decision_tooltip = GRE_trade_manufactured_ship_parts_for_investment
 			diplomatic_relation = {
 				country = ENG
@@ -5308,7 +5712,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_renegotiate_debt_with_france"
 			custom_effect_tooltip = GRE_renegotiate_debt_with_france_tt
 			hidden_effect = { 
 				set_temp_variable = { a = GRE_debt_to_the_ifc_france_var }
@@ -5350,14 +5753,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_appeal_to_the_soviet_union"
 			unlock_decision_tooltip = GRE_attend_talks_with_the_presidium
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}	
 				custom_effect_tooltip = available_mio_tt
 				show_mio_tooltip = SOV_grabin_design_bureau_organization
+				mio:SOV_grabin_design_bureau_organization = {
+					add_mio_size = 2
+				}
 			}
 		}
 	}
@@ -5379,7 +5784,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_hellenic_armed_forces"
 			army_experience = 30
 			navy_experience = 30
 			air_experience = 30
@@ -5397,21 +5801,28 @@ focus_tree = {
 		cost = 5
 		ai_will_do = {
 			base = 1
+			modifier = {
+				factor = 0.1
+				arms_factory < 25
+				has_deployed_air_force_size = {
+					size < 100
+					type = fighter
+				}
+			}
 		}
 
 		available = {
 			OR = {
-				has_full_control_of_state = 1173
-				has_full_control_of_state = 995
-				has_full_control_of_state = 2003
+				has_full_control_of_state = 1560   # 1.19-migration: was vanilla 182 (Crete)
+				has_full_control_of_state = 995   # 1.19-migration: was vanilla 185 (Epirus)
+				has_full_control_of_state = 1073   # 1.19-migration: was vanilla 47 (Attica)
 			}
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_hellenic_air_force"
 			air_experience = 50
 			random_owned_controlled_state = {
-				prioritize = { 1173 }
+				prioritize = { 182 }
 				if = {
 					limit = { 
 						is_controlled_by = ROOT
@@ -5424,7 +5835,7 @@ focus_tree = {
 				}
 			}
 			random_owned_controlled_state = {	
-				prioritize = { 995 } 
+				prioritize = { 185 } 
 					if = {
 						limit = { 
 							is_controlled_by = ROOT
@@ -5437,7 +5848,7 @@ focus_tree = {
 					}
 				}
 			random_owned_controlled_state = {	
-				prioritize = { 2003 }
+				prioritize = { 47 }
 				if = {
 					limit = { 
 						is_controlled_by = ROOT
@@ -5465,7 +5876,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_hellenic_army"
 			army_experience = 15
 			add_doctrine_cost_reduction = {
 				name = GRE_the_hellenic_army
@@ -5495,7 +5905,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_hellenic_navy "
 			navy_experience = 15
 			random_owned_controlled_state = {
 				limit = {
@@ -5546,13 +5955,20 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_a_modern_navy" 
-			if = {
+			add_breakthrough_progress = {
+				specialization = specialization_naval
+				value = 0.25
+			}
+			IF = {
 				limit = {
 					has_dlc = "Man the Guns"
 				}
-				set_technology = { cruiser_submarines = 1 }
+				add_ideas = cruiser_submarine_specialization_mtg
 			}
+			ELSE = {
+				add_ideas = cruiser_submarine_specialization
+			}
+
 			add_tech_bonus = {
 				name = GRE_a_modern_navy
 				bonus = 0.75
@@ -5586,7 +6002,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_abandon_the_greek_turkish_naval_treaty"
 			custom_effect_tooltip = GRE_abandon_the_greek_turkish_naval_treaty_tt
 			TUR = {
 				add_opinion_modifier = { 
@@ -5610,7 +6025,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_a_fleet_fit_for_the_aegean"
 			add_tech_bonus = {
 				name = GRE_a_fleet_fit_for_the_aegean
 				bonus = 1.0
@@ -5640,7 +6054,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_disrupting_the_great_powers"
 			add_tech_bonus = {
 				name = GRE_disrupting_the_great_powers
 				bonus = 0.75
@@ -5650,7 +6063,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = GRE_disrupting_the_great_powers
 				cost_reduction = 0.5
-				uses = 3
+				uses = 2
 				category = naval_doctrine
 			}
 		}
@@ -5669,7 +6082,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_cannon"
 			if = {
  				limit = { has_dlc = "Man the Guns" }
  				add_tech_bonus = {
@@ -5680,8 +6092,8 @@ focus_tree = {
 				}
 				add_tech_bonus = {
 					name = GRE_the_cannon
-					bonus = 1.00
-					uses = 2
+					bonus = 0.5
+					uses = 3
 					category = naval_equipment
 				}
  			}	
@@ -5704,12 +6116,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_torpedo"
 			if = {
  				limit = { has_dlc = "Man the Guns" }
 				add_tech_bonus = {
 					name = GRE_the_torpedo
-					bonus = 1.00
+					bonus = 0.5
 					uses = 2
 					category = ss_tech
 				}
@@ -5739,7 +6150,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_a_long_and_proud_tradition"
 			add_stability = 0.05
 			navy_experience = 20
 			add_ideas = GRE_ancient_talents
@@ -5760,7 +6170,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_backbone_of_our_army"
 			add_doctrine_cost_reduction = {
 				name = GRE_the_backbone_of_our_army
 				cost_reduction = 0.5
@@ -5806,7 +6215,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_a_legacy_of_war"
 			add_doctrine_cost_reduction = {
 				name = GRE_a_legacy_of_war
 				cost_reduction = 0.5
@@ -5851,10 +6259,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_embracing_modern_warfare"
 			add_tech_bonus = {
 				name = GRE_embracing_modern_warfare
-				bonus = 0.75
+				bonus = 1
 				uses = 1
 				category = cat_light_armor
 			}
@@ -5881,7 +6288,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_new_weapons_old_tricks"
 			army_experience = 10
 			add_tech_bonus = {
 				name = GRE_new_weapons_old_tricks
@@ -5893,7 +6299,7 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = GRE_new_weapons_old_tricks
-				bonus = 1.0
+				bonus = 0.5
 				uses = 2
 				category = artillery
 			}
@@ -5913,7 +6319,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_hellenic_armoured_corp"
 			add_tech_bonus = {
 				name = GRE_hellenic_armoured_corp
 				bonus = 1.0
@@ -5938,7 +6343,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_greek_mechanisation"
 			add_tech_bonus = {
 				name = GRE_greek_mechanisation
 				bonus = 1.0
@@ -5961,10 +6365,9 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_a_land_of_mountains"
 			add_tech_bonus = {
 				name = special_bonus
-				bonus = 1.0
+				bonus = 0.5
 				uses = 2
 				technology = tech_mountaineers
 				technology = tech_mountaineers2
@@ -5992,18 +6395,17 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_destroying_our_foes"
 			add_doctrine_cost_reduction = {
 				name = GRE_destroying_our_foes
 				cost_reduction = 0.5
 				uses = 2
 				category = air_doctrine
 			}
-			add_doctrine_cost_reduction = {
+			add_mastery_bonus = {
 				name = GRE_destroying_our_foes
-				cost_reduction = 0.25
-				uses = 1
-				category = strategic_destruction_tree
+				bonus = 0.1
+				days = 240
+				grand_doctrine = new_strategic_destruction
 			}
 			add_tech_bonus = {
 				name = GRE_destroying_our_foes
@@ -6029,19 +6431,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_protecting_our_skies"
-			add_doctrine_cost_reduction = {
-				name = GRE_protecting_our_skies
-				cost_reduction = 0.5
-				uses = 2
-				category = air_doctrine
-			}
 			add_doctrine_cost_reduction = {
 				name = GRE_protecting_our_skies
 				cost_reduction = 0.25
-				uses = 1
-				category = battlefield_support_tree
+				uses = 2
+				category = air_doctrine
 			}
+			add_mastery_bonus = {
+				name = GRE_protecting_our_skies
+				bonus = 0.1
+				days = 240
+				grand_doctrine = new_battlefield_support
+			}
+			
 			add_tech_bonus = {
 				name = GRE_protecting_our_skies
 				bonus = 1.0
@@ -6064,7 +6466,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_escorts_for_our_bombers"
 			add_doctrine_cost_reduction = {
 				name = GRE_escorts_for_our_bombers
 				cost_reduction = 0.25
@@ -6093,7 +6494,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_defending_our_seas"
 			add_doctrine_cost_reduction = {
 				name = GRE_defending_our_seas
 				cost_reduction = 0.5
@@ -6122,7 +6522,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_fund_the_hellenic_air_force_academy"
 			air_experience = 10
 			add_ideas = GRE_hellenic_air_force_academy
 		}
@@ -6132,17 +6531,24 @@ focus_tree = {
 		id = GRE_the_double_headed_aquila
 		icon = GFX_goal_generic_air_production
 		prerequisite = { focus = GRE_fund_the_hellenic_air_force_academy }
+
+		allow_branch = {
+			has_completed_focus = GRE_reviving_the_double_headed_eagle
+		}
+
 		available = { has_global_flag = form_byzantine_empire_flag }
+
 		x = 0
 		y = 1
 		relative_position_id = GRE_fund_the_hellenic_air_force_academy
+
 		cost = 10
+
 		ai_will_do = {
 			base = 1
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_the_double_headed_aquila"
 			add_tech_bonus = {
 				name = GRE_the_double_headed_aquila
 				bonus = 1.0
@@ -6158,18 +6564,27 @@ focus_tree = {
 		id = GRE_modern_cataphracts
 		icon = GFX_focus_generic_army_tanks2
 		prerequisite = { focus = GRE_a_land_of_mountains }
+
+		allow_branch = {
+			has_completed_focus = GRE_reviving_the_double_headed_eagle
+		}
+
 		available = { has_global_flag = form_byzantine_empire_flag }
+
 		x = 0
 		y = 1
 		relative_position_id = GRE_a_land_of_mountains
+
 		cost = 10
+
 		ai_will_do = {
 			base = 1
 		}
 
 		search_filters = { FOCUS_FILTER_MANPOWER }
+
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_modern_cataphracts"
+
 			add_tech_bonus = {
 				bonus = 1.0
 				uses = 1
@@ -6187,6 +6602,7 @@ focus_tree = {
 				remove_idea = GRE_hellenic_army_3
 				add_idea = GRE_byzantine_army
 			}
+
 		}
 	}
 
@@ -6194,17 +6610,24 @@ focus_tree = {
 		id = GRE_thema_nautikon
 		icon = GFX_goal_generic_amphibious_assault
 		prerequisite = { focus = GRE_a_long_and_proud_tradition }
+
+		allow_branch = {
+			has_completed_focus = GRE_reviving_the_double_headed_eagle
+		}
+		
 		available = { has_global_flag = form_byzantine_empire_flag }
+
 		x = 0
 		y = 1
 		relative_position_id = GRE_a_long_and_proud_tradition
+
 		cost = 10
+
 		ai_will_do = {
 			base = 1
 		}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus GRE_thema_nautikon"
 			add_doctrine_cost_reduction = {
 				name = GRE_thema_nautikon
 				cost_reduction = 0.35

@@ -924,8 +924,8 @@ focus_tree = {
 				has_global_flag = scw_over
 			}
 
-			any_country = {
-				original_tag = SPR 
+			any_country_with_original_tag = {
+				original_tag_to_check = SPR # Add other triggers as needed
 				exists = yes
 				OR = {
 					has_government = democratic
@@ -1019,8 +1019,8 @@ focus_tree = {
 		available = {
 			has_global_flag = scw_over
 
-			any_country = {
-				original_tag = SPR
+			any_country_with_original_tag = {
+				original_tag_to_check = SPR # Add other triggers as needed
 				OR = {
 					has_government = democratic
 					has_government = communism
@@ -1068,8 +1068,8 @@ focus_tree = {
 			has_country_flag = AUS_volunteer_effort_SPR_flag
 			has_global_flag = scw_over
 
-			any_country = {
-				original_tag = SPR
+			any_country_with_original_tag = {
+				original_tag_to_check = SPR # Add other triggers as needed
 				exists = yes
 				OR = {
 					has_government = democratic
@@ -3646,10 +3646,10 @@ focus_tree = {
 		available = {
 			is_faction_leader = yes
 			has_government = democratic
-			any_country = {
-				original_tag = ITA
-				NOT = { is_in_faction_with = ROOT }
+			any_country_with_original_tag = {
+				original_tag_to_check = ITA
 				exists = yes
+				NOT = { is_in_faction_with = ROOT }
 				has_government = fascism
 			}
 		}
@@ -4687,7 +4687,6 @@ focus_tree = {
 				name = AUS_danubian_federation
 			}
 
-
 			custom_effect_tooltip = HABSBURG_joint_ft_unlock_tt
 			hidden_effect = {
 
@@ -4934,9 +4933,7 @@ focus_tree = {
 
 		available = {
 			is_faction_leader = yes
-			any_country = {
-				is_in_faction_with = ROOT
-			}
+			num_faction_members > 1
 		}
 		
 		bypass = {
@@ -4997,9 +4994,7 @@ focus_tree = {
 
 		available = {
 			is_faction_leader = yes
-			any_country = {
-				is_in_faction_with = ROOT
-			}
+			num_faction_members > 1
 		}
 		
 		bypass = {
@@ -5033,9 +5028,7 @@ focus_tree = {
 
 		available = {
 			is_faction_leader = yes
-			any_country = {
-				is_in_faction_with = ROOT
-			}
+			num_faction_members > 1
 		}
 		
 		bypass = {
@@ -6351,28 +6344,28 @@ focus_tree = {
 		}
 
 		available = {
+			is_in_faction = no
+			is_subject = no
 			OR = {
 				GER = {
 					exists = yes
+					is_faction_leader = yes
 					OR = {
 						has_government = fascism
 						has_government = neutrality
 					}
-					is_faction_leader = yes
 					NOT = { has_war_with = ROOT }
 				}
 				ITA = {
 					exists = yes
+					is_faction_leader = yes
 					OR = {
 						has_government = fascism
 						has_government = neutrality
 					}
-					is_faction_leader = yes
 					NOT = { has_war_with = ROOT }
 				}
 			}
-			is_in_faction = no
-			is_subject = no
 		}
 		
 		bypass = {
@@ -6476,8 +6469,12 @@ focus_tree = {
 
 		completion_reward = {
 			set_rule = { can_create_factions = yes }
-			create_faction = GER_central_powers_faction #we might need a new name here...
-
+			#we might need a new name here...
+			create_faction_from_template = {
+				template = faction_template_GER_mitteleuropa_alliance
+				name = GER_central_powers_faction
+				icon = GFX_faction_logo_generic_13
+			}
 
 			custom_effect_tooltip = AUS_reforming_the_central_powers_tt
 
@@ -7124,80 +7121,19 @@ focus_tree = {
 
 		available = {
 			OR = {
-				NOT = {
-					controls_state = 523
-					controls_state = 1975
-					controls_state = 1977
-					controls_state = 2329
-					controls_state = 481
-					controls_state = 1654
-					controls_state = 2262
-					controls_state = 1655
-					controls_state = 2667
-					controls_state = 1428
-					controls_state = 1658
-					controls_state = 461
-					controls_state = 2664
-					controls_state = 1653
-					controls_state = 1656
-					controls_state = 1657
-					controls_state = 2665
-					controls_state = 1669
-					controls_state = 1662
-					controls_state = 1659
-					controls_state = 1663
-					controls_state = 425
-					controls_state = 1664
-					controls_state = 1665
-					controls_state = 1660
-					controls_state = 2482
-					controls_state = 1661
-					controls_state = 1666
-					controls_state = 2562
-					controls_state = 1668
-					controls_state = 1667
-					controls_state = 415
-					controls_state = 2593
-					controls_state = 441
+				1666 = {   # 1.19-migration: was vanilla 66 (Lower Silesia); mod Bunzlau
+					controller = {
+						NOT = { 
+							tag = ROOT 
+							has_war_with = ROOT
+							is_in_faction_with = ROOT
+						}
+					}
 				}
-				AND = {
-					any_country = {
-						controls_state = 523
-						controls_state = 1975
-						controls_state = 1977
-						controls_state = 2329
-						controls_state = 481
-						controls_state = 1654
-						controls_state = 2262
-						controls_state = 1655
-						controls_state = 2667
-						controls_state = 1428
-						controls_state = 1658
-						controls_state = 461
-						controls_state = 2664
-						controls_state = 1428
-						controls_state = 1653
-						controls_state = 1656
-						controls_state = 1657
-						controls_state = 2665
-						controls_state = 1669
-						controls_state = 1662
-						controls_state = 1659
-						controls_state = 1663
-						controls_state = 425
-						controls_state = 1664
-						controls_state = 1665
-						controls_state = 1660
-						controls_state = 2482
-						controls_state = 1661
-						controls_state = 1666
-						controls_state = 2562
-						controls_state = 1668
-						controls_state = 1667
-						controls_state = 415
-						controls_state = 2593
-						controls_state = 441
-						NOT = {
+				1658 = {   # 1.19-migration: was vanilla 67 (Upper Silesia); mod Rosenberg
+					controller = {
+						NOT = { 
+							tag = ROOT 
 							has_war_with = ROOT
 							is_in_faction_with = ROOT
 						}
@@ -7207,41 +7143,8 @@ focus_tree = {
 		}
 		
 		bypass = {
-						controls_state = 523
-						controls_state = 1975
-						controls_state = 1977
-						controls_state = 2329
-						controls_state = 481
-						controls_state = 1654
-						controls_state = 2262
-						controls_state = 1655
-						controls_state = 2667
-						controls_state = 1428
-						controls_state = 1658
-						controls_state = 461
-						controls_state = 2664
-						controls_state = 1428
-						controls_state = 1653
-						controls_state = 1656
-						controls_state = 1657
-						controls_state = 2665
-						controls_state = 1669
-						controls_state = 1662
-						controls_state = 1659
-						controls_state = 1663
-						controls_state = 425
-						controls_state = 1664
-						controls_state = 1665
-						controls_state = 1660
-						controls_state = 2482
-						controls_state = 1661
-						controls_state = 1666
-						controls_state = 2562
-						controls_state = 1668
-						controls_state = 1667
-						controls_state = 415
-						controls_state = 2593
-						controls_state = 441
+			controls_state = 1666 #niederschlesien   # 1.19-migration: was vanilla 66 (Lower Silesia)
+			controls_state = 1658 #Oberschlesien   # 1.19-migration: was vanilla 67 (Upper Silesia)
 		}
 
 		available_if_capitulated = no
@@ -7604,7 +7507,7 @@ focus_tree = {
 			SWI = {
 				exists = yes
 				is_subject = no
-				controls_state = 661 #Swiss Plateau
+				controls_state = 1456 #Swiss Plateau   # 1.19-migration: was vanilla 3 (Swiss Plateau)
 			}
 		}
 		
@@ -7742,11 +7645,11 @@ focus_tree = {
 		bypass = {
 			ENG = {
 				OR = {
+					exists = no
 					has_guaranteed = ROOT
 					has_non_aggression_pact_with = ROOT
 					is_in_faction_with  = ROOT
 					is_subject = yes
-					exists = no
 					has_capitulated = yes
 				}
 				
@@ -7754,22 +7657,22 @@ focus_tree = {
 
 			FRA = {
 				OR = {
+					exists = no
 					has_guaranteed = ROOT
 					has_non_aggression_pact_with = ROOT
 					is_in_faction_with  = ROOT
 					is_subject = yes
-					exists = no
 					has_capitulated = yes
 				}
 			}
 
 			USA = {
 				OR = {
+					exists = no
 					has_guaranteed = ROOT
 					has_non_aggression_pact_with = ROOT
 					is_in_faction_with  = ROOT
 					is_subject = yes
-					exists = no
 					has_capitulated = yes
 				}
 			}
@@ -7848,34 +7751,16 @@ focus_tree = {
 			ITA = {
 				exists = yes
 				OR = {
-					controls_state = 2535
+					controls_state = 1408   # 1.19-migration: was vanilla 39 (South Tyrol)
 					any_subject_country = {
-						controls_state = 2535
+						controls_state = 1408   # 1.19-migration: was vanilla 39 (South Tyrol)
 					}
 				}
 
 				OR = {
-					controls_state = 1408
+					controls_state = 683   # 1.19-migration: was vanilla 850 (Trentino)
 					any_subject_country = {
-						controls_state = 1408
-					}
-				}
-				OR = {
-					controls_state = 2904
-					any_subject_country = {
-						controls_state = 2904
-					}
-				}
-				OR = {
-					controls_state = 2536
-					any_subject_country = {
-						controls_state = 2536
-					}
-				}
-				OR = {
-					controls_state = 683
-					any_subject_country = {
-						controls_state = 683
+						controls_state = 683   # 1.19-migration: was vanilla 850 (Trentino)
 					}
 				}
 			}
@@ -7903,7 +7788,7 @@ focus_tree = {
 				create_wargoal = {
 					type = take_claimed_state
 					target = ITA
-					generator = { 2535 1408 2904 2536  } # optional 
+					generator = { 39 850 } # optional 
 				}
 			}
 			event_option_tooltip = AUS_political_events.57.a
@@ -7926,71 +7811,16 @@ focus_tree = {
 		}
 
 		available = {
-		controls_state = 2535
-		controls_state = 1408
-		controls_state = 683
-		controls_state = 2904
-		controls_state = 2536
+			controls_state = 1408   # 1.19-migration: was vanilla 39 (South Tyrol)
+			controls_state = 683   # 1.19-migration: was vanilla 850 (Trentino)
 		}
 		
 		bypass = {
-			controls_state = 1361
-			controls_state = 709
-			controls_state = 1436
-			controls_state = 2604
-			controls_state = 1364
-			controls_state = 2603
-			controls_state = 1358
-			controls_state = 1370
-			controls_state = 1369
-			controls_state = 1372
-			controls_state = 1371
-			controls_state = 1359
-			controls_state = 1365
-			controls_state = 1362
-			controls_state = 2311
-			controls_state = 1360
-			controls_state = 2952
-			controls_state = 2953
-			controls_state = 742
-			controls_state = 1373
-			controls_state = 704
-			controls_state = 2905
-			controls_state = 2849
-			controls_state = 1424
-			controls_state = 2850
-			controls_state = 2951
-			controls_state = 706
-			controls_state = 1616
-			controls_state = 2907
-			controls_state = 720
-			controls_state = 2910
-			controls_state = 2970
-			controls_state = 1533
-			controls_state = 744
-			controls_state = 1484
-			controls_state = 2901
-			controls_state = 1485
-			controls_state = 2900
-			controls_state = 2972
-			controls_state = 1482
-			controls_state = 1483
-			controls_state = 762
-			controls_state = 2971
-			controls_state = 2330
-			controls_state = 2908
-		}
-
-		bypass_effect = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = JUL
-						is_core_of = LBV
-						state = 1476
-					}
-				}
-			}
+			controls_state = 742   # 1.19-migration: was vanilla 160 (Veneto)
+			controls_state = 1362   # 1.19-migration: was vanilla 159 (Lombardy)
+			controls_state = 744   # 1.19-migration: was vanilla 736 (Litorale)
+			controls_state = 762   # 1.19-migration: was vanilla 852 (Istria)
+			controls_state = 2827   # 1.19-migration: was vanilla 163 (Zadar)
 		}
 
 		cancel_if_invalid = yes
@@ -7998,14 +7828,20 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = JUL
-						is_core_of = LBV
-						state = 1476
-					}
-				}
+			742 = { #Veneto   # 1.19-migration: was vanilla 160 (Veneto); mod Belluno
+				add_claim_by = ROOT
+			}
+			1362 = { #Lombardia   # 1.19-migration: was vanilla 159 (Lombardy); mod Milano
+				add_claim_by = ROOT
+			}
+			744 = { #Litorale   # 1.19-migration: was vanilla 736 (Litorale); mod Udine
+				add_claim_by = ROOT
+			}
+			762 = { #Istria   # 1.19-migration: was vanilla 852 (Istria); mod Fiume
+				add_claim_by = ROOT
+			}
+			2827 = { #Zara   # 1.19-migration: was vanilla 163 (Zadar); mod Šibenik
+				add_claim_by = ROOT
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -8029,10 +7865,27 @@ focus_tree = {
 		}
 
 		available = {
-			any_state = {
-				has_state_flag = ITA_INITIAL_STATE
-				is_core_of = TIR
-				is_controlled_by = ITA
+			ITA = {
+				1408 = {   # 1.19-migration: was vanilla 39 (South Tyrol); mod Bolzano
+					controller = {
+						OR = {
+							tag = ITA
+							is_subject_of = ITA
+						}
+					}
+				}
+
+				683 = {   # 1.19-migration: was vanilla 850 (Trentino); mod Trento
+					controller = {
+						OR = {
+							tag = ITA
+							is_subject_of = ITA
+						}
+					}
+				}
+				
+				exists = yes
+				NOT = { has_war_with =  ROOT}
 			}
 		}
 		
@@ -8062,7 +7915,8 @@ focus_tree = {
 						limit = {
 							is_core_of = ITA
 							NOT = {
-								is_core_of = TIR
+								state = 1408   # 1.19-migration: was vanilla 39 (South Tyrol)
+								state = 683   # 1.19-migration: was vanilla 850 (Trentino)
 							}
 						}
 						add_extra_state_shared_building_slots = 2
@@ -8201,11 +8055,11 @@ focus_tree = {
 		}
 
 		available = {
+			is_subject = no
 			NOT = {
 				has_idea = AUS_treaty_of_saint_germain_en_laye
 				has_war_with = HUN
 			}
-			is_subject = no
 			HUN = {
 				exists = yes
 				is_subject = no
@@ -8217,11 +8071,11 @@ focus_tree = {
 				OR = {
 					is_subject = yes 
 					exists = no
+					is_in_faction_with = ROOT
+					has_war_with = ROOT
 					all_core_state = {
 						is_fully_controlled_by = AUS
 					}
-					is_in_faction_with = ROOT
-					has_war_with = ROOT
 				}
 			}
 		}
@@ -9826,7 +9680,7 @@ focus_tree = {
 		}
 
 		available = {
-			date < 1937.2.19
+			has_global_flag = second_italo_ethiopian_war_flag
 		}
 		
 		bypass = {
@@ -10030,26 +9884,6 @@ focus_tree = {
 		relative_position_id = AUS_clamp_down_on_dnsap
 
 		search_filters = { FOCUS_FILTER_HISTORICAL FOCUS_FILTER_STABILITY }#I mean technically... it just went really badly...
-
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 10
-				AUS_is_historical_ai = yes
-			}
-		}
-
-		available = {
-
-		}
-		
-		bypass = {
-
-		}
-
-		search_filters = { FOCUS_FILTER_HISTORICAL }
 
 		available_if_capitulated = no
 
@@ -11462,7 +11296,7 @@ focus_tree = {
 
 		available = {
 			
-			1808 = {
+			976 = {
 				is_owned_and_controlled_by = ROOT
 			}
 			has_tech = excavation1
@@ -11470,7 +11304,7 @@ focus_tree = {
 		
 		bypass = {
 			
-			1808 = {
+			976 = {
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11482,7 +11316,7 @@ focus_tree = {
 		completion_reward = {
 
 			
-			1808 = {
+			976 = {
 				add_resource = {
 					type = steel
 					amount = 12
@@ -11553,14 +11387,14 @@ focus_tree = {
 		}
 
 		available = {
-			1812 = {
+			1795 = {   # 1.19-migration: was vanilla 152 (Upper Austria); mod Linz
 				is_owned_and_controlled_by = ROOT
 			}
 			has_tech = excavation2
 		}
 		
 		bypass = {
-			1812 = {
+			1795 = {   # 1.19-migration: was vanilla 152 (Upper Austria); mod Linz
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11571,7 +11405,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			1812 = {
+			1795 = {   # 1.19-migration: was vanilla 152 (Upper Austria); mod Linz
 				add_resource = {
 					type = steel
 					amount = 14
@@ -11606,13 +11440,13 @@ focus_tree = {
 		}
 
 		available = {
-			1815 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				is_owned_and_controlled_by = ROOT
 			}
 		}
 		
 		bypass = {
-			1815 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11684,13 +11518,13 @@ focus_tree = {
 		}
 
 		available = {
-			1815 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				is_owned_and_controlled_by = ROOT
 			}
 		}
 		
 		bypass = {
-			1815 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				NOT = {
 					is_owned_and_controlled_by = ROOT
 				}
@@ -11701,7 +11535,7 @@ focus_tree = {
 
 		completion_reward = {
 
-			1815 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -11710,11 +11544,11 @@ focus_tree = {
 				}	
 			}
 
-			if = {
+			IF = {
 				limit = {
 					has_tech = fuel_silos
 				}
-				1815 = {
+				1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = fuel_silo
@@ -11723,7 +11557,7 @@ focus_tree = {
 					}	
 				}
 			}
-			else_if = {
+			ELSE_IF = {
 				limit = {
 					NOT = {
 						has_tech = fuel_silos
@@ -11770,10 +11604,10 @@ focus_tree = {
 
 		available = {
 			has_tech = excavation3
-			568 = {
+			975 = {
 				is_owned_and_controlled_by = ROOT
 			}
-			1803 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				is_owned_and_controlled_by = ROOT
 			}
 			
@@ -11787,14 +11621,14 @@ focus_tree = {
 
 		completion_reward = {
 
-			568 = {
+			975 = {
 				add_resource = {
 					type = oil
 					amount = 8
 				}	
 			}
 
-			1803 = {
+			1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 				add_resource = {
 					type = oil
 					amount = 10
@@ -11867,16 +11701,10 @@ focus_tree = {
 
 		available = {
 			AND = {
-				1795 = {
+				1795 = {   # 1.19-migration: was vanilla 152 (Upper Austria); mod Linz
 					is_owned_and_controlled_by = ROOT
 				}
-				1798 = {
-					is_owned_and_controlled_by = ROOT
-				}
-				644 = {
-					is_owned_and_controlled_by = ROOT
-				}
-				582= {
+				1811 = {   # 1.19-migration: was vanilla 4 (Lower Austria); mod Horn
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -12003,10 +11831,10 @@ focus_tree = {
 		available = {
 	
 			AND = {
-				679 = {
+				1795 = {   # 1.19-migration: was vanilla 152 (Upper Austria); mod Linz
 					is_owned_and_controlled_by = ROOT
 				}
-				1797 = {
+				976 = {
 					is_owned_and_controlled_by = ROOT
 				}
 			}
@@ -12119,10 +11947,7 @@ focus_tree = {
 		}
 
 		available = {
-			1805 = {
-				is_owned_and_controlled_by = ROOT
-			}
-			621 = {
+			975 = {
 				is_owned_and_controlled_by = ROOT
 			}
 		}

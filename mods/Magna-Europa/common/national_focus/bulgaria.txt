@@ -317,12 +317,10 @@ focus_tree = {
 		available = {
 			NOT = { has_government = democratic }
 			NOT = { has_idea = BUL_second_national_catastrophe }
-			any_country = {
-				OR = {
-					tag = GER
-					tag = ENG
-					tag = SOV
-				}
+			any_country_with_original_tag_of = {
+				exists = yes
+				target = {GER ENG SOV}
+				
 				#BUL_country_can_influence_bulgaria = yes
 				custom_trigger_tooltip = {
 					tooltip = BUL_industrial_investments_in_bulgaria_flag
@@ -536,13 +534,13 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			controls_state = 1566
+			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
 		}
-
+		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			add_stability = 0.05
-			1566 = {
+			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -552,7 +550,7 @@ focus_tree = {
 			}
 		}
 	}
-
+	
 	focus = {
 		id = BUL_light_metal_exploitation
 
@@ -565,12 +563,12 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			controls_state = 1566
+			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
 		}
-
+		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
-			1566 = {
+			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
 				add_resource = {
 					type = aluminium
 					amount = 8 #At least one factory's worth
@@ -578,13 +576,11 @@ focus_tree = {
 			}
 		}
 	}
-
+	
 	focus = {
 		id = BUL_steel_plant_in_pernik
 
 		prerequisite = { focus = BUL_all_that_glitters focus = BUL_light_metal_exploitation }
-
-		prerequisite = { focus = BUL_national_railway_lines }
 		icon = GFX_focus_generic_steel
 		relative_position_id = BUL_national_railway_lines
 		x = 0
@@ -592,7 +588,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 1566
+			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -633,8 +629,8 @@ focus_tree = {
 		available = {
 			has_tech = excavation2
 			OR = {
-				controls_state = 2833
-				controls_state = 1569
+				controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+				controls_state = 878   # 1.19-migration: was vanilla 212 (Plovdiv)
 			}
 		}
 		
@@ -665,7 +661,7 @@ focus_tree = {
 
 		available = {
 			has_tech = excavation3
-			controls_state = 1566
+			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -885,7 +881,7 @@ focus_tree = {
 		mutually_exclusive = { focus = BUL_foreign_aircraft_designers }
 
 		available = {
-			1566 = {
+			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
 				is_owned_by = BUL
 			}
 		}
@@ -936,7 +932,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			1566 = {
+			1575 = {   # 1.19-migration: was vanilla 801 (Moesia); mod Veliko Tarnovo
 				is_owned_by = BUL
 			}
 		}
@@ -1024,7 +1020,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			877 = {
+			878 = {   # 1.19-migration: was vanilla 212 (Plovdiv); mod Plovdiv
 				is_owned_by = BUL
 			}
 		}
@@ -1076,7 +1072,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			877 = {
+			878 = {   # 1.19-migration: was vanilla 212 (Plovdiv); mod Plovdiv
 				is_owned_by = BUL
 			}
 		}
@@ -1128,15 +1124,14 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			878 = {
+			878 = {   # 1.19-migration: was vanilla 212 (Plovdiv); mod Plovdiv
 				is_owned_by = BUL
 			}
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_found_dvf_sopot"
-			878 = {
+			878 = {   # 1.19-migration: was vanilla 212 (Plovdiv); mod Plovdiv
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
@@ -1146,11 +1141,11 @@ focus_tree = {
 			}
 			add_tech_bonus = {
 				name = BUL_found_dvf_sopot
-			    bonus = 1.0
+			    bonus = 0.5
 			    uses = 2
 				category = artillery
 			}
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}	
@@ -1161,7 +1156,7 @@ focus_tree = {
 					add_mio_size = 3
 				}
 			}
-			else = {
+			ELSE = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = BUL_dvf_sopot
 			}
@@ -1324,10 +1319,10 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 1566
-			controls_state = 878
-			controls_state = 1580
-			controls_state = 868
+			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			controls_state = 878   # 1.19-migration: was vanilla 212 (Plovdiv)
+			controls_state = 868   # 1.19-migration: was vanilla 211 (Burgas)
+			controls_state = 1575   # 1.19-migration: was vanilla 801 (Moesia)
 		}
 		
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY}
@@ -1442,7 +1437,7 @@ focus_tree = {
 		mutually_exclusive = { focus = BUL_reinforce_naval_bases }
 
 		available = {
-			1566 = {
+			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
 				is_owned_by = BUL
 			}
 		}
@@ -1617,7 +1612,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			1580 = {
+			868 = {   # 1.19-migration: was vanilla 211 (Burgas); mod Burgas
 				is_owned_by = BUL
 			}
 		}
@@ -1779,22 +1774,20 @@ focus_tree = {
 			OR = {
 				AND = {
 					BUL = {
-						has_full_control_of_state = 1934 #EDIRNE
-						has_full_control_of_state = 932 #ISTANBUL
+						has_full_control_of_state = 928 #EDIRNE   # 1.19-migration: was vanilla 341 (Edirne)
+						has_full_control_of_state = 932 #ISTANBUL   # 1.19-migration: was vanilla 797 (Istanbul)
 					}
 				}
 				AND = {
 					is_faction_leader = yes
-					any_country = {
-						is_in_faction_with = ROOT
-						has_full_control_of_state = 1934 #EDIRNE
-						has_full_control_of_state = 932 #ISTANBUL
+					any_allied_country = {
+						has_full_control_of_state = 928 #EDIRNE   # 1.19-migration: was vanilla 341 (Edirne)
+						has_full_control_of_state = 932 #ISTANBUL   # 1.19-migration: was vanilla 797 (Istanbul)
 					}
 				}
-				any_country = {
-					is_subject_of = ROOT
-					has_full_control_of_state = 1934 #EDIRNE
-					has_full_control_of_state = 932 #ISTANBUL
+				any_subject_country = {
+					has_full_control_of_state = 928 #EDIRNE   # 1.19-migration: was vanilla 341 (Edirne)
+					has_full_control_of_state = 932 #ISTANBUL   # 1.19-migration: was vanilla 797 (Istanbul)
 				}
 			}
 		}
@@ -1916,8 +1909,9 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			any_state = {
-				BUL_state_is_in_the_black_sea = yes
+			any_state_of = {
+				target = constant:state_groups.bul_black_sea_states
+				tooltip = BUL_state_is_in_the_black_sea_tt
 				controller = {
 					NOT = {
 						OR = {
@@ -1933,8 +1927,9 @@ focus_tree = {
 
 		bypass = {
 			NOT = {
-				any_state = {
-					BUL_state_is_in_the_black_sea = yes
+				any_state_of = {
+					target = constant:state_groups.bul_black_sea_states
+					tooltip = BUL_state_is_in_the_black_sea_tt
 					controller = {
 						NOT = {
 							OR = {
@@ -2017,8 +2012,8 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			any_state = {
-				BUL_state_is_in_the_aegean_sea = yes
+			any_state_of = {
+				target = constant:state_groups.bul_aegean_sea_states
 				controller = {
 					NOT = {
 						OR = {
@@ -2034,8 +2029,8 @@ focus_tree = {
 
 		bypass = {
 			NOT = {
-				any_state = {
-					BUL_state_is_in_the_aegean_sea = yes
+				any_state_of = {
+					target = constant:state_groups.bul_aegean_sea_states
 					controller = {
 						NOT = {
 							OR = {
@@ -2118,8 +2113,8 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			any_state = {
-				BUL_state_is_in_the_adriatic_sea = yes
+			any_state_of = {
+				target = constant:state_groups.bul_adriatic_sea_states
 				controller = {
 					NOT = {
 						OR = {
@@ -2135,8 +2130,8 @@ focus_tree = {
 
 		bypass = {
 			NOT = {
-				any_state = {
-					BUL_state_is_in_the_adriatic_sea = yes
+				any_state_of = {
+					target = constant:state_groups.bul_adriatic_sea_states
 					controller = {
 						NOT = {
 							OR = {
@@ -2322,7 +2317,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 1580
+			controls_state = 868   # 1.19-migration: was vanilla 211 (Burgas)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
@@ -2393,7 +2388,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 1580
+			controls_state = 868   # 1.19-migration: was vanilla 211 (Burgas)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
@@ -2443,7 +2438,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 868
+			controls_state = 868   # 1.19-migration: was vanilla 211 (Burgas)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
@@ -2717,8 +2712,9 @@ focus_tree = {
 				}
 			}
 			else = {
-				any_country = {
-					original_tag = SPR
+				any_country_with_original_tag = {
+					exists = yes
+					original_tag_to_check = SPR
 					has_civil_war = yes
 					NOT = { has_war_with = ROOT }
 					OR = {
@@ -3050,11 +3046,11 @@ focus_tree = {
 				NOT = { has_government = communism }
 				AND = {
 					NOT = { has_war_with = SOV }
-					any_country = {
+					any_collection_element = {
+						collection = game:all_majors
 						has_war_with = ROOT
-						is_major = yes
 						NOT = { has_government = communism }
-					}
+		    		}
 				}
 			}
 		}
@@ -3850,7 +3846,7 @@ focus_tree = {
 		select_effect = {
 			random_neighbor_country = {
 				limit = {
-					is_balkan = yes
+					BUL_is_balkan_nation = yes
 					OR = {
 						AND = {
 							has_government = communism
@@ -4121,9 +4117,8 @@ focus_tree = {
 					has_completed_focus = BUL_democratic_principles
 				}
 				has_government = democratic
-				any_country = {
+				any_allied_country = {
 					BUL_is_balkan_nation_no_bulgaria = yes
-					is_in_faction_with = ROOT
 					has_government = democratic
 				}
 			}
@@ -4132,9 +4127,8 @@ focus_tree = {
 					has_completed_focus = BUL_appoint_communist_ministers
 				}
 				has_government = communism
-				any_country = {
+				any_allied_country = {
 					BUL_is_balkan_nation_no_bulgaria = yes
-					is_in_faction_with = ROOT
 					has_government = communism
 				}
 			}
@@ -4147,9 +4141,8 @@ focus_tree = {
 					has_government = democratic
 					has_government = communism
 				}
-				any_country = {
+				any_allied_country = {
 					BUL_is_balkan_nation_no_bulgaria = yes
-					is_in_faction_with = ROOT
 					OR = {
 						has_government = democratic
 						has_government = communism
@@ -4202,7 +4195,6 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_ANNEXATION}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_the_unification_of_the_balkans"
 			if = {
 				limit = {
 					has_idea = BUL_second_national_catastrophe
@@ -4239,9 +4231,8 @@ focus_tree = {
 			#Event for unification
 			if = {
 				limit = {
-					any_other_country = {
+					any_allied_country = {
 						BUL_is_balkan_nation = yes
-						is_in_faction_with = ROOT
 					}
 				}
 				every_other_country = {
@@ -4433,7 +4424,7 @@ focus_tree = {
 		icon = GFX_focus_invite_yugoslavia
 		relative_position_id = BUL_the_peoples_republic_of_bulgaria
 		x = 2
-		y = 3
+		y = 1
 		cost = 10
 
 		bypass = {
@@ -4461,12 +4452,12 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_treaty_of_perpetual_friendship"
 			unlock_decision_category_tooltip = BUL_the_balkan_federation_dream
 			YUG = {
 				country_event = { id = bftb_bulgaria_yugoslavian_influence.1 hours = 4 random_hours = 4 }
 			}
 			custom_effect_tooltip = BUL_treaty_of_perpetual_friendship_event_effects_tt
+			custom_effect_tooltip = BUL_treaty_of_perpetual_friendship_claims_tt
 			effect_tooltip = {
 				YUG = {
 					diplomatic_relation = {
@@ -4514,72 +4505,6 @@ focus_tree = {
 			}
 		}
 	}
-	focus = {
-		id = BUL_renounce_territorial_claims
-
-		prerequisite = { focus = BUL_the_peoples_republic_of_bulgaria focus = BUL_legislative_elections }
-		icon = GFX_goal_generic_major_alliance
-		relative_position_id = BUL_the_peoples_republic_of_bulgaria
-		x = 3
-		y = 1
-		cost = 5
-
-		bypass = {
-			
-		}
-
-		available = {
-			has_completed_focus = BUL_condemn_macedonian_organizations
-		}
-		
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_renounce_territorial_claims"
-			if = {
-				limit = {
-					has_completed_focus = BUL_the_peoples_republic_of_bulgaria
-				}
-				every_state = {
-					limit = {
-						is_claimed_by = BUL
-						is_core_of = YUG
-						is_owned_by = YUG
-					}
-					remove_claim_by = BUL
-				}
-			}
-			else_if = {
-				limit = {
-					has_completed_focus = BUL_legislative_elections
-				}
-				every_state = {
-					limit = {
-						is_claimed_by = BUL
-						is_core_of = GRE
-						is_owned_by = GRE
-					}
-					remove_claim_by = BUL
-				}
-			}
-			else = {
-				every_state = {
-					limit = {
-						is_claimed_by = BUL
-						OR = {
-							AND = {
-								is_core_of = GRE
-								is_owned_by = GRE
-							}
-							AND = {
-								is_core_of = YUG
-								is_owned_by = YUG
-							}
-						}
-					}
-					remove_claim_by = BUL
-				}
-			}
-		}
-	}
 
 	focus = {
 		id = BUL_balkan_federation_of_socialist_republics
@@ -4588,7 +4513,7 @@ focus_tree = {
 		icon = GFX_focus_BUL_balkan_federation_of_socialist_republics
 		relative_position_id = BUL_treaty_of_perpetual_friendship
 		x = 0
-		y = 2
+		y = 4
 		cost = 5
 		mutually_exclusive = { focus = BUL_follow_the_stalinist_doctrine }
 
@@ -4601,10 +4526,22 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_balkan_federation_of_socialist_republics"
 			
 			add_stability = 0.1
-			create_faction = BUL_balkan_federation_of_socialist_republics		
+
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_BUL_balkan_federation_of_socialist_republics
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_BUL_balkan_federation_of_socialist_republics
+			}
+
 			YUG = {
 				hidden_effect = {
 					country_event = { id = generic.5 hours = 4 random_hours = 4 }
@@ -4802,7 +4739,6 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_defy_moscow"
 			add_war_support = 0.1
 			if = {
 				limit = {
@@ -5433,7 +5369,7 @@ focus_tree = {
 		icon = GFX_focus_generic_befriend_greece
 		relative_position_id = BUL_legislative_elections
 		x = -3
-		y = 2
+		y = 1
 		cost = 10
 
 		bypass = {
@@ -5518,7 +5454,7 @@ focus_tree = {
 		icon = GFX_goal_anschluss
 		relative_position_id = BUL_the_salonika_agreement
 		x = 0
-		y = 3
+		y = 4
 		cost = 5
 		mutually_exclusive = { focus = BUL_join_the_allies focus = BUL_the_fate_of_the_balkans }
 
@@ -5529,10 +5465,20 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_a_balkan_confederation"
 			add_stability = 0.05
 			add_political_power = 50
-			create_faction = BUL_balkan_federation_democratic
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_BUL_balkan_federation_democratic
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_BUL_balkan_federation_democratic
+			}
 			GRE = {
 				hidden_effect = {
 					country_event = { id = generic.5 hours = 4 random_hours = 4 }
@@ -5790,7 +5736,6 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_consolidate_the_third_bulgarian_state"
 			add_political_power = 70
 			add_war_support = 0.05
 			add_ideas = BUL_third_bulgarian_state
@@ -6552,7 +6497,6 @@ focus_tree = {
 		
 		search_filters = {FOCUS_FILTER_INTERNAL_AFFAIRS}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus BUL_support_macedonian_organizations"
 			add_threat = 1
 			BUL_zveno_low_loyalty_decrease_effect = yes
 			BUL_bs_low_loyalty_decrease_effect = yes
@@ -7241,8 +7185,7 @@ focus_tree = {
 				is_faction_leader = yes
 				is_in_faction = no
 				AND = {
-					any_country = {
-						is_in_faction_with = ROOT
+					any_allied_country = {
 						is_faction_leader = yes
 						NOT = { has_government = communism }
 						NOT = { has_government = democratic }
@@ -7674,12 +7617,12 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			any_country = {
-				is_major = yes
-				is_neighbor_of = ROOT
-				NOT = { is_in_faction_with = ROOT }
-			}
 			is_subject = no
+			any_collection_element = {
+				collection = game:all_majors
+				is_neighbor_of = ROOT
+				NOT = { is_in_faction_with = ROOT}
+		  	}
 		}
 		
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
@@ -8252,8 +8195,9 @@ focus_tree = {
 				NOT = { has_war_with = SPA }
 			}
 			else = {
-				any_country = {
-					original_tag = SPR
+				any_country_with_original_tag = {
+					exists = yes
+					original_tag_to_check = SPR
 					has_civil_war = yes
 					NOT = { has_war_with = ROOT }
 					OR = {
@@ -9006,7 +8950,7 @@ focus_tree = {
 		cost = 20
 
 		available = {
-			any_state = {
+			any_controlled_state = {
 				has_state_flag = BUL_historical_bulgarian_claim_flag
 				is_fully_controlled_by = BUL
 			}

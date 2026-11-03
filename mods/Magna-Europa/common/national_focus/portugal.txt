@@ -26,7 +26,7 @@ focus_tree = {
 	focus = {
 		id = POR_colonial_assimilation_policy
 		available = {
-			any_controlled_state = {
+			any_owned_state = {
 				NOT = { is_core_of = ROOT }
 			}
 		}
@@ -41,7 +41,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_MANPOWER}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_colonial_assimilation_policy"
 			add_ideas = POR_colonial_assimilation_policy
 		}
 	}
@@ -66,8 +65,10 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_MANPOWER}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_colonial_army"
 			add_ideas = POR_colonial_army
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POR_francisco_craveiro_lopes
 		}
@@ -80,11 +81,11 @@ focus_tree = {
 		id = POR_continue_the_public_works
 		available = {
 			OR = {
-				has_full_control_of_state = 935 #PORTO
-				has_full_control_of_state = 954 #GUARDA
-				has_full_control_of_state = 1024 #SANTAREM
-				has_full_control_of_state = 1072 #BEJA
-				has_full_control_of_state = 1042 #LISBON
+				has_full_control_of_state = 935 #PORTO   # 1.19-migration: was vanilla 180 (Porto)
+				has_full_control_of_state = 954 #GUARDA   # 1.19-migration: was vanilla 181 (Guarda)
+				has_full_control_of_state = 1021 #SANTAREM   # 1.19-migration: was vanilla 795 (Santarém)
+				has_full_control_of_state = 1072 #BEJA   # 1.19-migration: was vanilla 179 (Beja)
+				has_full_control_of_state = 1042 #LISBON   # 1.19-migration: was vanilla 112 (Lisbon)
 			}
 		}
 
@@ -92,7 +93,7 @@ focus_tree = {
 		}
 			
 		icon = GFX_focus_generic_industry_2
-		x = 9
+		x = 12
 		y = 0
 
 		relative_position_id = POR_colonial_assimilation_policy
@@ -186,8 +187,7 @@ focus_tree = {
 		relative_position_id = POR_continue_the_public_works
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_instituto_superior_tecnico" 	
+		completion_reward = { 	
 			add_research_slot = 1
 		}
 	}
@@ -207,11 +207,10 @@ focus_tree = {
 		relative_position_id = POR_instituto_superior_tecnico
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_ogme" 
+		completion_reward = { 
 			if = {
-				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
-				1042 = {   # was vanilla 112 (Lisbon)
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
@@ -239,7 +238,7 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -249,7 +248,7 @@ focus_tree = {
 					add_mio_funds = 500
 				}
 			}
-			else = {
+			ELSE = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = ogme
 			}
@@ -271,11 +270,10 @@ focus_tree = {
 		relative_position_id = POR_instituto_superior_tecnico
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_ogma" 
+		completion_reward = { 
 			if = {
-				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
-				1042 = {   # was vanilla 112 (Lisbon)
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
@@ -303,7 +301,7 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -313,10 +311,11 @@ focus_tree = {
 					add_mio_funds = 500
 				}
 			}
-			else = {
+			ELSE = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = ogma
 			}
+			
 		}
 	}
 
@@ -324,11 +323,11 @@ focus_tree = {
 		id = POR_roads_bridges_and_dams
 		available = {	
 			OR = {
-				has_full_control_of_state = 954 #GUARDA
-				has_full_control_of_state = 1021 #SANTAREM
-				has_full_control_of_state = 1072 #BEJA
-				has_full_control_of_state = 935 #PORTO
-				has_full_control_of_state = 1042 #LISBON
+				has_full_control_of_state = 954 #GUARDA   # 1.19-migration: was vanilla 181 (Guarda)
+				has_full_control_of_state = 1021 #SANTAREM   # 1.19-migration: was vanilla 795 (Santarém)
+				has_full_control_of_state = 1072 #BEJA   # 1.19-migration: was vanilla 179 (Beja)
+				has_full_control_of_state = 935 #PORTO   # 1.19-migration: was vanilla 180 (Porto)
+				has_full_control_of_state = 1042 #LISBON   # 1.19-migration: was vanilla 112 (Lisbon)
 			}			
 		}
 
@@ -336,10 +335,10 @@ focus_tree = {
 		}
 		prerequisite = { focus = POR_instituto_superior_tecnico }	
 		icon = GFX_goal_generic_construct_infrastructure
-		x = -5
-		y = 1
+		x = 2
+		y = 0
 
-		relative_position_id = POR_instituto_superior_tecnico
+		relative_position_id = POR_infrastructure_in_angola
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
@@ -422,8 +421,8 @@ focus_tree = {
 		id = POR_extraction_industries
 		available = {
 			OR = {
-				has_full_control_of_state = 1042
-				has_full_control_of_state = 1021
+				has_full_control_of_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
+				has_full_control_of_state = 1021   # 1.19-migration: was vanilla 795 (Santarém)
 			}			
 		}
 
@@ -437,14 +436,13 @@ focus_tree = {
 		relative_position_id = POR_roads_bridges_and_dams
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_extraction_industries" 	
+		completion_reward = { 	
 			if = {
-				limit = { has_full_control_of_state = 1042 }	
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
 				unlock_decision_tooltip = POR_develop_lisbon_tungsten_deposits
 			}
 			if = {
-				limit = { has_full_control_of_state = 1021 }
+				limit = { has_full_control_of_state = 1021 }   # 1.19-migration: was vanilla 795 (Santarém)
 				unlock_decision_tooltip = POR_develop_santarem_chromium_deposits
 			}			
 		}
@@ -454,29 +452,34 @@ focus_tree = {
 		id = POR_hydroelectricity
 		available = {
 			OR = {
-				has_full_control_of_state = 1053 #PORTO
-				has_full_control_of_state = 847 #GUARDA
-				has_full_control_of_state = 1026 #BEJA
-				has_full_control_of_state = 985 #LISBON
+				has_full_control_of_state = 935 #PORTO   # 1.19-migration: was vanilla 180 (Porto)
+				has_full_control_of_state = 954 #GUARDA   # 1.19-migration: was vanilla 181 (Guarda)
+				has_full_control_of_state = 1072 #BEJA   # 1.19-migration: was vanilla 179 (Beja)
+				has_full_control_of_state = 1042 #LISBON   # 1.19-migration: was vanilla 112 (Lisbon)
 			}			
 		}
 
 		bypass = {		
 		}
 		prerequisite = { focus = POR_extraction_industries }	
-		icon = GFX_goal_generic_construction
+		icon = GFX_focus_generic_hydroelectric_energy
 		x = 0
 		y = 1
 
 		relative_position_id = POR_extraction_industries
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_hydroelectricity" 	
+		completion_reward = { 	
+			hidden_effect = {
+				set_province_name = {
+					id = 11885
+					name = POR_cabril_dam
+				}
+			}
 			add_ideas = POR_hydroelectric_power
 			if = {
-				limit = { has_full_control_of_state = 1053 }
-				1053 = {
+				limit = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+				935 = {   # 1.19-migration: was vanilla 180 (Porto); mod Porto
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
@@ -486,46 +489,21 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 847 }
-				847 = {
+				limit = { has_full_control_of_state = 954 }   # 1.19-migration: was vanilla 181 (Guarda)
+				954 = {   # 1.19-migration: was vanilla 181 (Guarda); mod Guarda
+					add_extra_state_shared_building_slots = 1	
 					add_building_construction = {
-						type = industrial_complex
+						type = dam
 						level = 1
 						instant_build = yes
+						province = {
+							id = 11885
+						}
 					}
-					add_extra_state_shared_building_slots = 1	
-				}
-			}
-		}
-	}
-	focus = {
-		id = POR_portuguese_oil
-		available = {
-			OR = {
-				has_full_control_of_state = 1823
-				1823 = {
-					owner = { is_subject_of = ROOT }
-				}
-			}
-		}
-		relative_position_id = POR_hydroelectricity
-		bypass = {		
-		}
-		prerequisite = { focus = POR_hydroelectricity }
-				
-		icon = GFX_goal_generic_oil_refinery
-		x = 0
-		y = 1
-
-		
-		cost = 10
-		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_portuguese_oil" 
-			1823 = {
-				add_resource = {
-					type = oil
-					amount = 12
+					custom_effect_tooltip = {
+						localization_key = building_state_modifier|dam
+						INDENT = "    "
+					}
 				}
 			}
 		}
@@ -547,8 +525,7 @@ focus_tree = {
 		relative_position_id = POR_ogme
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_military_vehicles" 			
+		completion_reward = { 			
 			add_tech_bonus = {
 				name = POR_military_vehicles
 			    bonus = 1.0
@@ -557,8 +534,8 @@ focus_tree = {
 			}
 
 			if = {
-				limit = { has_full_control_of_state = 1010 }
-				1010 = {
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
@@ -605,8 +582,7 @@ focus_tree = {
 		relative_position_id = POR_ogme
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_portuguese_artillery" 
+		completion_reward = { 
 			add_tech_bonus = {
 				name = POR_portuguese_artillery
 			    bonus = 1.0
@@ -615,8 +591,8 @@ focus_tree = {
 			}
 
 			if = {
-				limit = { has_full_control_of_state = 1072 }   # was vanilla 179 (Beja)
-				1072 = {   # was vanilla 179 (Beja)
+				limit = { has_full_control_of_state = 1072 }   # 1.19-migration: was vanilla 179 (Beja)
+				1072 = {   # 1.19-migration: was vanilla 179 (Beja); mod Beja
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
@@ -644,7 +620,7 @@ focus_tree = {
 					}
 				}
 			}
-			if = {
+			IF = {
 				limit = {
 					has_dlc = "Arms Against Tyranny"
 				}
@@ -654,10 +630,11 @@ focus_tree = {
 					add_mio_funds = 500
 				}
 			}
-			else = {
+			ELSE = {
 				custom_effect_tooltip = available_designer
 				show_ideas_tooltip = fma
 			}
+			
 		}
 	}
 
@@ -677,8 +654,7 @@ focus_tree = {
 		relative_position_id = POR_portuguese_artillery
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_advanced_artillery" 	
+		completion_reward = { 	
 			add_tech_bonus = {
 				name = POR_advanced_artillery
 			    bonus = 1.0
@@ -712,8 +688,7 @@ focus_tree = {
 		relative_position_id = POR_military_vehicles
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_military_research_facilities" 	
+		completion_reward = { 	
 			add_research_slot = 1
 		}
 	}
@@ -734,11 +709,10 @@ focus_tree = {
 		relative_position_id = POR_military_research_facilities
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_armor_focus" 	
+		completion_reward = { 	
 			if = {
-				limit = { has_full_control_of_state = 1042 }	   # was vanilla 112 (Lisbon)
-				1042 = {   # was vanilla 112 (Lisbon)
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory		
@@ -790,8 +764,7 @@ focus_tree = {
 		relative_position_id = POR_armor_focus
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_mechanized_focus" 	
+		completion_reward = { 	
 			add_tech_bonus = {
 				name = POR_mechanized_focus
 			    bonus = 1.0
@@ -816,8 +789,7 @@ focus_tree = {
 		relative_position_id = POR_ogma
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_light_aircraft_focus" 
+		completion_reward = { 
 			add_tech_bonus = {
 				name = POR_light_aircraft_focus
 			    bonus = 1.0
@@ -825,8 +797,8 @@ focus_tree = {
 			    category = light_air
 			}
 			if = {
-				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
-				1042 = {   # was vanilla 112 (Lisbon)
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory		
@@ -874,8 +846,7 @@ focus_tree = {
 		relative_position_id = POR_light_aircraft_focus
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_advanced_light_aircraft" 
+		completion_reward = { 
 			add_tech_bonus = {
 				name = POR_advanced_light_aircraft
 			    bonus = 1.0
@@ -902,14 +873,20 @@ focus_tree = {
 		relative_position_id = POR_advanced_light_aircraft
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_jet_research" 	
+		completion_reward = { 	
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.5
+			}
+
 			add_tech_bonus = {
 				name = POR_jet_research
 			    bonus = 1.0
 			    uses = 1
 			    category = jet_technology
 			}
+
 		}
 	}
 
@@ -929,8 +906,7 @@ focus_tree = {
 		relative_position_id = POR_instituto_superior_tecnico
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_industrial_modernization" 	
+		completion_reward = { 	
 			add_tech_bonus = {
 				name = POR_industrial_modernization
 			    bonus = 1.0
@@ -956,11 +932,10 @@ focus_tree = {
 		relative_position_id = POR_industrial_modernization
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_a_new_industry" 
+		completion_reward = { 
 		   if = {
-				limit = { has_full_control_of_state = 1042 }   # was vanilla 112 (Lisbon)
-			    1042 = {   # was vanilla 112 (Lisbon)
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+			    1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -970,8 +945,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 1021 }   # was vanilla 795 (Santarem)
-				1021 = {   # was vanilla 795 (Santarem)
+				limit = { has_full_control_of_state = 1021 }   # 1.19-migration: was vanilla 795 (Santarém)
+				1021 = {   # 1.19-migration: was vanilla 795 (Santarém); mod Santarém
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1007,8 +982,8 @@ focus_tree = {
 		id = POR_food_industries
 		available = {
 			OR = {
-				has_full_control_of_state = 935
-				has_full_control_of_state = 954
+				has_full_control_of_state = 935   # 1.19-migration: was vanilla 180 (Porto)
+				has_full_control_of_state = 954   # 1.19-migration: was vanilla 181 (Guarda)
 			}		
 		}
 
@@ -1023,11 +998,10 @@ focus_tree = {
 		relative_position_id = POR_continue_the_public_works
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_food_industries" 
+		completion_reward = { 
 			if = {
-				limit = { has_full_control_of_state = 935 }
-				935 = {
+				limit = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+				935 = {   # 1.19-migration: was vanilla 180 (Porto); mod Porto
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1038,8 +1012,8 @@ focus_tree = {
 			}
 
 			if = {
-				limit = { has_full_control_of_state = 954 }
-				954 = {
+				limit = { has_full_control_of_state = 954 }   # 1.19-migration: was vanilla 181 (Guarda)
+				954 = {   # 1.19-migration: was vanilla 181 (Guarda); mod Guarda
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1055,8 +1029,8 @@ focus_tree = {
 		id = POR_textile_industry
 		available = {
 			OR = {
-				has_full_control_of_state = 1072
-				has_full_control_of_state = 1042
+				has_full_control_of_state = 1072   # 1.19-migration: was vanilla 179 (Beja)
+				has_full_control_of_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
 			}			
 		}
 
@@ -1070,11 +1044,10 @@ focus_tree = {
 		relative_position_id = POR_food_industries
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_textile_industry" 	
+		completion_reward = { 	
 			if = {
-				limit = { has_full_control_of_state = 1072 }	
-				1072 = {
+				limit = { has_full_control_of_state = 1072 }   # 1.19-migration: was vanilla 179 (Beja)
+				1072 = {   # 1.19-migration: was vanilla 179 (Beja); mod Beja
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1085,8 +1058,8 @@ focus_tree = {
 			}
 
 			if = {
-				limit = { has_full_control_of_state = 1042 }
-				1042 = {
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1097,8 +1070,8 @@ focus_tree = {
 			}
 
 			if = {
-				limit = { has_full_control_of_state = 1096 }
-				1096 = {
+				limit = { has_full_control_of_state = 1021 }   # 1.19-migration: was vanilla 795 (Santarém)
+				1021 = {   # 1.19-migration: was vanilla 795 (Santarém); mod Santarém
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -1126,11 +1099,10 @@ focus_tree = {
 		relative_position_id = POR_continue_the_public_works
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_second_navy_reequipment" 
+		completion_reward = { 
 			if = {
-				limit = { has_full_control_of_state = 1042 }
-				1042 = {
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = {   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = dockyard		
@@ -1178,11 +1150,10 @@ focus_tree = {
 		relative_position_id = POR_second_navy_reequipment
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_a_powerful_merchant_marine" 	
+		completion_reward = { 	
 			if = {
-				limit = { has_full_control_of_state = 1096 }
-				1072 = { # Beja (was 1096)
+				limit = { has_full_control_of_state = 1072 }   # 1.19-migration: was vanilla 179 (Beja)
+				1072 = { #Beja   # 1.19-migration: was vanilla 179 (Beja); mod Beja
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = dockyard		
@@ -1211,8 +1182,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 935 }
-				935 = { #Porto
+				limit = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+				935 = { #Porto   # 1.19-migration: was vanilla 180 (Porto); mod Porto
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = dockyard		
@@ -1265,8 +1236,7 @@ focus_tree = {
 		relative_position_id = POR_a_powerful_merchant_marine
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_merchant_marine_protection" 	
+		completion_reward = { 	
 			add_tech_bonus = {
 				name = POR_merchant_marine_protection
 			    bonus = 1.0
@@ -1280,7 +1250,7 @@ focus_tree = {
 		    	}
 		    	add_tech_bonus = {
 		    		name = POR_merchant_marine_protection
-				    bonus = 1.0
+				    bonus = 0.5
 				    uses = 2
 				    category = asw_tech		   
 				}
@@ -1303,18 +1273,25 @@ focus_tree = {
 		relative_position_id = POR_second_navy_reequipment
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_submarine_effort" 	
+		completion_reward = { 
+
+			add_mastery_bonus = {
+				name = POR_submarine_effort
+				bonus = 0.1
+				days = 240
+				grand_doctrine = new_convoy_raiding
+				track = submarines
+			}
 			add_doctrine_cost_reduction = {
 				name = POR_submarine_effort
-			    cost_reduction = 0.5
+			    cost_reduction = 0.2
 			    uses = 1
-			    category = cat_trade_interdiction			   
+			    category = naval_doctrine			   
 			}
 
 			add_tech_bonus = {
 				name = POR_submarine_effort
-			    bonus = 1.0
+			    bonus = 0.75
 			    uses = 2
 			    category = ss_tech			   
 			}
@@ -1337,11 +1314,10 @@ focus_tree = {
 		relative_position_id = POR_submarine_effort
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_fuzileiros" 
+		completion_reward = { 
 			add_tech_bonus = {
 				name = POR_fuzileiros
-			    bonus = 1.0
+			    bonus = 0.5
 			    uses = 2
 			    category = marine_tech			   
 			}
@@ -1377,8 +1353,7 @@ focus_tree = {
 		relative_position_id = POR_fuzileiros 
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_naval_research_institute" 
+		completion_reward = { 
 			navy_experience = 50
 			add_research_slot = 1
 		}
@@ -1399,8 +1374,7 @@ focus_tree = {
 
 		relative_position_id = POR_naval_research_institute 
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_air_naval_research" 	
+		completion_reward = { 	
 			navy_experience = 50
 			air_experience = 50
 		}
@@ -1409,7 +1383,7 @@ focus_tree = {
 	focus = {
 		id = POR_arsenal_do_alfeite
 		available = {
-			has_full_control_of_state = 1042		
+			has_full_control_of_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
 		}
 
 		bypass = {		
@@ -1470,8 +1444,7 @@ focus_tree = {
 		relative_position_id = POR_arsenal_do_alfeite
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_national_cruiser_production" 	
+		completion_reward = { 	
 			add_tech_bonus = {
 				name = POR_national_cruiser_production
 			    bonus = 1.0
@@ -1482,7 +1455,7 @@ focus_tree = {
 				name = POR_national_cruiser_production
 			    bonus = 1.0
 			    uses = 1
-			    category = industry	   
+			    category = ca_tech	   
 			}
 
 			navy_experience = 50
@@ -1505,18 +1478,19 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_battleship_effort"
 			add_tech_bonus = {
 				name = POR_battleship_effort
-			    bonus = 1.0
+			    bonus = 0.75
 			    uses = 2
 			    category = bb_tech	   
 			}
-			add_doctrine_cost_reduction = {
+
+			add_mastery_bonus = {
 				name = POR_battleship_effort
-			    cost_reduction = 0.5
-			    uses = 1
-			    category = cat_fleet_in_being	   
+				bonus = 0.2
+				days = 240
+				grand_doctrine = new_fleet_in_being
+				track = capital_ships
 			}
 		}
 	}
@@ -1536,20 +1510,22 @@ focus_tree = {
 		relative_position_id = POR_national_cruiser_production
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_carrier_effort" 	
+		completion_reward = { 	
 			add_tech_bonus = {
 				name = POR_carrier_effort
 			    bonus = 1.0
 			    uses = 2
 			    category = cv_tech	   
 			}
-			add_doctrine_cost_reduction = {
-  				name = POR_carrier_effort
-  				cost_reduction = 0.5
-  				uses = 1
-  				category = base_strike_main
-  			}
+
+			add_mastery_bonus = {
+				name = POR_carrier_effort
+				bonus = 0.2
+				days = 240
+				grand_doctrine = new_base_strike
+				track = carriers
+			}
+			
 		}
 	}
 
@@ -1630,8 +1606,7 @@ focus_tree = {
 		relative_position_id = POR_second_navy_reequipment
 		cost = 10
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_army_reorganization" 	
+		completion_reward = { 	
 			remove_ideas = POR_unreliable_army
 			army_experience	= 15
 			add_stability = -0.05
@@ -1653,8 +1628,7 @@ focus_tree = {
 		relative_position_id = POR_army_reorganization
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_metropolitan_army" 	
+		completion_reward = { 	
 			army_experience	= 20
 			add_tech_bonus = {
 				name = POR_metropolitan_army
@@ -1682,8 +1656,7 @@ focus_tree = {
 		relative_position_id = POR_metropolitan_army
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_standardization" 	
+		completion_reward = { 	
 			add_ideas = POR_standardization
 		}
 	}
@@ -1692,11 +1665,9 @@ focus_tree = {
 		id = POR_defend_the_borders
 		available = {
 			OR = {
-				has_full_control_of_state = 1042
-				has_full_control_of_state = 962
-				has_full_control_of_state = 935
-				has_full_control_of_state = 847
-				has_full_control_of_state = 1096
+				has_full_control_of_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
+				has_full_control_of_state = 935   # 1.19-migration: was vanilla 180 (Porto)
+				has_full_control_of_state = 1072   # 1.19-migration: was vanilla 179 (Beja)
 			}			
 		}
 
@@ -1710,12 +1681,11 @@ focus_tree = {
 
 		relative_position_id = POR_standardization
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_defend_the_borders" 
+		completion_reward = { 
 		#Add coastal fort to each port
 			if = {
-				limit = { has_full_control_of_state = 1042 }
-				1042 = { #Lisbon
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = { #Lisbon   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_building_construction = {
 						type = coastal_bunker
 						province = {
@@ -1737,8 +1707,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 962 }
-				935 = { # Porto (was 962)
+				limit = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+				935 = { #Porto   # 1.19-migration: was vanilla 180 (Porto); mod Porto
 					add_building_construction = {
 						type = coastal_bunker
 						province = {
@@ -1760,54 +1730,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 935 }
-				1072 = { # Beja (was 935)
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-					    type = bunker
-					    level = 1
-					    instant_build = yes
-					    province = {
-					        all_provinces = yes
-					        limit_to_border = yes
-					    }
-					}
-				}
-			}
-			if = {
-				limit = { has_full_control_of_state = 847 }
-				1072 = { # Beja (was 847)
-					add_building_construction = {
-						type = coastal_bunker
-						province = {
-							all_provinces = yes
-							limit_to_naval_base = yes
-						}
-						level = 1
-						instant_build = yes
-					}
-					add_building_construction = {
-					    type = bunker
-					    level = 1
-					    instant_build = yes
-					    province = {
-					        all_provinces = yes
-					        limit_to_border = yes
-					    }
-					}
-				}
-			}
-			if = {
-				limit = { has_full_control_of_state = 1096 }
-				1072 = { # Beja (was 1096)
+				limit = { has_full_control_of_state = 1072 }   # 1.19-migration: was vanilla 179 (Beja)
+				1072 = { #Beja   # 1.19-migration: was vanilla 179 (Beja); mod Beja
 					add_building_construction = {
 						type = coastal_bunker
 						province = {
@@ -1834,7 +1758,7 @@ focus_tree = {
 	focus = {
 		id = POR_rebuild_the_lines_of_torres_vedras
 		available = {
-			has_full_control_of_state = 1042		
+			has_full_control_of_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
 		}
 
 		bypass = {		
@@ -1888,13 +1812,20 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_tropas_paraquedistas" 
+		completion_reward = { 
 			add_tech_bonus = {
 				name = POR_tropas_paraquedistas
-				bonus = 2.0
+				bonus = 1.0
 				uses = 1
 				category = para_tech
+			}
+			if = {
+				limit = { has_dlc = "Arms Against Tyranny" }
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.5
+					uses = 2
+					category = special_forces_doctrine
+				}
 			}
 		}
 	}
@@ -1917,7 +1848,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_regimento_de_comandos"
 			add_ideas = special_forces
 			add_tech_bonus = {
 				name = POR_regimento_de_comandos
@@ -1947,8 +1877,7 @@ focus_tree = {
 
 		relative_position_id = POR_army_reorganization
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_corpo_do_estado_maior" 	
+		completion_reward = { 	
 			add_ideas = POR_corpo_do_estado_maior	
 			army_experience = 20
 		}
@@ -1970,7 +1899,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_staff_wargames"
 			add_doctrine_cost_reduction = {
 				name = POR_staff_wargames
 			    cost_reduction = 0.5
@@ -1997,8 +1925,7 @@ focus_tree = {
 
 		search_filters = {FOCUS_FILTER_RESEARCH}
 
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_field_maneuvers" 
+		completion_reward = { 
 			army_experience = 15
 			add_doctrine_cost_reduction = {
 				name = POR_field_maneuvers
@@ -2027,7 +1954,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_popular_front"
 			set_party_name = { 
 			    ideology = communism
 			    long_name = POR_communism2_party_long
@@ -2042,10 +1968,14 @@ focus_tree = {
 			    ideology = democratic
 			    popularity = 0.05
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = internationalism
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_political_power = 100
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POR_maria_lamas
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = remove_political_advisor
 			show_ideas_tooltip = POR_fernando_dos_santos_costa
 			show_ideas_tooltip = POR_jose_adriano_pequito_rebelo
@@ -2069,8 +1999,7 @@ focus_tree = {
 		relative_position_id = POR_popular_front
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_MANPOWER}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_nation_in_arms" 
+		completion_reward = { 
 			add_popularity = {
 			    ideology = communism
 			    popularity = 0.1
@@ -2096,7 +2025,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_unify_leftist_youth_wings"
 			add_popularity = {
 			    ideology = communism
 			    popularity = 0.05
@@ -2109,18 +2037,18 @@ focus_tree = {
 		id = POR_nationalize_industry
 		available = {
 			OR = {
-				has_full_control_of_state = 1042
-				has_full_control_of_state = 935
-				has_full_control_of_state = 962
-				has_full_control_of_state = 847
+				has_full_control_of_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
+				has_full_control_of_state = 935   # 1.19-migration: was vanilla 180 (Porto)
+				has_full_control_of_state = 954   # 1.19-migration: was vanilla 181 (Guarda)
+				has_full_control_of_state = 1021   # 1.19-migration: was vanilla 795 (Santarém)
 			}
 		}
 
 		bypass = {
-			NOT = { has_full_control_of_state = 1042 }
-			NOT = { has_full_control_of_state = 935 }
-			NOT = { has_full_control_of_state = 962 }
-			NOT = { has_full_control_of_state = 847 }
+			NOT = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+			NOT = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+			NOT = { has_full_control_of_state = 954 }   # 1.19-migration: was vanilla 181 (Guarda)
+			NOT = { has_full_control_of_state = 1021 }   # 1.19-migration: was vanilla 795 (Santarém)
 		}
 		prerequisite = { focus = POR_nation_in_arms }
 		icon = GFX_goal_generic_soviet_construction
@@ -2130,11 +2058,10 @@ focus_tree = {
 		relative_position_id = POR_nation_in_arms
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_nationalize_industry" 
+		completion_reward = { 
 			if = {
-				limit = { has_full_control_of_state = 1042 }
-				1042 = { #Lisbon
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = { #Lisbon   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex		
@@ -2144,8 +2071,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 935 }
-				935 = { #Porto
+				limit = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+				935 = { #Porto   # 1.19-migration: was vanilla 180 (Porto); mod Porto
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -2155,8 +2082,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 962 }
-				954 = { # Guarda (was 962)
+				limit = { has_full_control_of_state = 954 }   # 1.19-migration: was vanilla 181 (Guarda)
+				954 = { #Guarda   # 1.19-migration: was vanilla 181 (Guarda); mod Guarda
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -2166,8 +2093,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 847 }
-				1021 = { # Santarem (was 847)
+				limit = { has_full_control_of_state = 1021 }   # 1.19-migration: was vanilla 795 (Santarém)
+				1021 = { #Santarem   # 1.19-migration: was vanilla 795 (Santarém); mod Santarém
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -2198,7 +2125,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_reorganization_of_the_communist_party"
 			SOV = {
 				if = {
 					limit = { has_government = communism }
@@ -2230,8 +2156,8 @@ focus_tree = {
 					start_civil_war = {	
 						ideology = neutrality
 						size = POR_communist_cw_opposition
-						capital = 847
-						states = { 847 1053 1072 1096 }
+						capital = 180
+						states = { 181 }
 					}
 				}
 				else = {
@@ -2254,14 +2180,7 @@ focus_tree = {
 		available = {
 			is_in_faction = no
 			SOV_comintern_joinable = yes 
-			SOV = {
-				has_government = communism
-				is_faction_leader = yes
-				has_civil_war = no
-				NOT = {
-					has_war_with = POR
-				}
-			}
+			has_government = communism	
 		}
 
 		bypass = {	
@@ -2274,9 +2193,8 @@ focus_tree = {
 		y = 3
 
 		relative_position_id = POR_nation_in_arms
-		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_join_the_comintern" 	
+		cost = 5
+		completion_reward = { 	
 			SOV = {
 				country_event = { id = generic.2 hours = 4 }
 			}		
@@ -2299,8 +2217,7 @@ focus_tree = {
 		relative_position_id = POR_join_the_comintern
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_research_collaboration" 	
+		completion_reward = { 	
 			SOV = { add_to_tech_sharing_group = comintern_research }
 			add_to_tech_sharing_group = comintern_research
 		}
@@ -2330,8 +2247,7 @@ focus_tree = {
 
 		relative_position_id = POR_join_the_comintern
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_cooperate_with_french_militants" 
+		completion_reward = { 	
 			hidden_effect = {
 				add_equipment_to_stockpile = {
 					type = infantry_equipment
@@ -2414,7 +2330,6 @@ focus_tree = {
 		relative_position_id = POR_cooperate_with_french_militants
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_anti_fascism"
 			hidden_effect = {
 				every_country = {
 					limit = {
@@ -2508,7 +2423,6 @@ focus_tree = {
 		relative_position_id = POR_popular_front
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_support_the_spanish_republic"
 			if = {
 				limit = {
 					NOT = { has_global_flag = spanish_civil_war }
@@ -2577,7 +2491,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_workers_of_iberia_unite"
 			# Event that add NS to POR and SPD
 			hidden_effect = {				
 				country_event = {
@@ -2613,8 +2526,8 @@ focus_tree = {
 					start_civil_war = {	
 						ideology = neutrality
 						size = POR_communist_cw_opposition
-						capital = 847
-						states = { 847 1053 1072 1096 }
+						capital = 180
+						states = { 181 }
 					}
 				}
 				custom_effect_tooltip = POR_workers_of_iberia_unite_civil_war_tt				
@@ -2716,7 +2629,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_ANNEXATION}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_iberian_socialist_union"
 			if = {
 				limit = {
 					NOT = { has_global_flag = spanish_civil_war }
@@ -2727,7 +2639,7 @@ focus_tree = {
 						every_state = {
 							limit = {
 								OR = {
-									state = 882
+									state = 882   # 1.19-migration: was vanilla 118 (Gibraltar)
 									has_state_flag = SPR_core_of_spain_flag
 								}
 							}
@@ -2762,7 +2674,7 @@ focus_tree = {
 					every_state = {
 						limit = {
 							OR = {
-								state = 882
+								state = 882   # 1.19-migration: was vanilla 118 (Gibraltar)
 								has_state_flag = SPR_core_of_spain_flag
 							}
 						}
@@ -2772,7 +2684,7 @@ focus_tree = {
 				custom_effect_tooltip = POR_the_iberian_socialist_union_cores_tt
 				if = { # Any Spanish Puppet will get annexed
 					limit = {
-						any_country = {
+						any_subject_country = {
 							OR = {
 								original_tag = SPR
 								tag = GLC
@@ -2780,7 +2692,6 @@ focus_tree = {
 								tag = CAT
 								tag = ADU
 							}
-							is_puppet_of = ROOT
 						}
 					}
 					hidden_effect = {
@@ -2842,8 +2753,19 @@ focus_tree = {
 		relative_position_id = POR_the_iberian_socialist_union
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_popular_front_bloc"
-			create_faction = POR_popular_front_bloc
+			IF = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+				}
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_POR_popular_front_bloc
+				add_faction_initiative = 1
+			}
+			ELSE = {
+				set_rule = { can_create_factions = yes }
+				create_faction_from_template = faction_template_POR_popular_front_bloc
+			}
+
 			every_other_country = {
 				limit = {
 					capital_scope = { is_on_continent = europe }
@@ -2906,23 +2828,23 @@ focus_tree = {
 
 	focus = {
 		id = POR_latin_american_communism
-		allow_branch = { has_country_flag = NEVER }
 		available = {
 			has_global_flag = scw_over
 			has_government = communism
 			OR = {
-				country_exists = BRA country_exists = MEX
-				country_exists = COL country_exists = ARG
-				country_exists = PRU country_exists = VEN
-				country_exists = CHL country_exists = GUA
-				country_exists = ECU country_exists = CUB
-				country_exists = BOL country_exists = HAI
-				country_exists = DOM country_exists = HON
-				country_exists = PAR country_exists = ELS
-				country_exists = NIC country_exists = COS
-				country_exists = PAN country_exists = URG
+				#country_exists = BRA country_exists = MEX   # 1.19-migration: dead tag BRA/MEX
+				#country_exists = COL country_exists = ARG   # 1.19-migration: dead tag ARG/COL
+				#country_exists = PRU country_exists = VEN   # 1.19-migration: dead tag PRU/VEN
+				#country_exists = CHL country_exists = GUA   # 1.19-migration: dead tag CHL/GUA
+				#country_exists = ECU country_exists = CUB   # 1.19-migration: dead tag CUB/ECU
+				#country_exists = BOL country_exists = HAI   # 1.19-migration: dead tag BOL/HAI
+				#country_exists = DOM country_exists = HON   # 1.19-migration: dead tag DOM/HON
+				#country_exists = PAR country_exists = ELS   # 1.19-migration: dead tag ELS/PAR
+				#country_exists = NIC country_exists = COS   # 1.19-migration: dead tag COS/NIC
+				#country_exists = PAN country_exists = URG   # 1.19-migration: dead tag PAN/URG
 			}				
 		}
+
 		bypass = {		
 		}
 		prerequisite = { focus = POR_the_popular_front_bloc }			
@@ -2933,20 +2855,19 @@ focus_tree = {
 		relative_position_id = POR_the_popular_front_bloc
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_latin_american_communism"
 			every_other_country = {
 				limit = {
 					OR = {
-						TAG = BRA TAG = MEX
-						TAG = COL TAG = ARG
-						TAG = PRU TAG = VEN
-						TAG = CHL TAG = GUA
-						TAG = ECU TAG = CUB
-						TAG = BOL TAG = HAI
-						TAG = DOM TAG = HON
-						TAG = PAR TAG = ELS
-						TAG = NIC TAG = COS
-						TAG = PAN TAG = URG
+						#TAG = BRA TAG = MEX   # 1.19-migration: dead tag BRA/MEX
+						#TAG = COL TAG = ARG   # 1.19-migration: dead tag ARG/COL
+						#TAG = PRU TAG = VEN   # 1.19-migration: dead tag PRU/VEN
+						#TAG = CHL TAG = GUA   # 1.19-migration: dead tag CHL/GUA
+						#TAG = ECU TAG = CUB   # 1.19-migration: dead tag CUB/ECU
+						#TAG = BOL TAG = HAI   # 1.19-migration: dead tag BOL/HAI
+						#TAG = DOM TAG = HON   # 1.19-migration: dead tag DOM/HON
+						#TAG = PAR TAG = ELS   # 1.19-migration: dead tag ELS/PAR
+						#TAG = NIC TAG = COS   # 1.19-migration: dead tag COS/NIC
+						#TAG = PAN TAG = URG   # 1.19-migration: dead tag PAN/URG
 					}
 					has_government = communism
 				}
@@ -2958,16 +2879,16 @@ focus_tree = {
 			every_other_country = {
 				limit = {
 					OR = {
-						TAG = BRA TAG = MEX
-						TAG = COL TAG = ARG
-						TAG = PRU TAG = VEN
-						TAG = CHL TAG = GUA
-						TAG = ECU TAG = CUB
-						TAG = BOL TAG = HAI
-						TAG = DOM TAG = HON
-						TAG = PAR TAG = ELS
-						TAG = NIC TAG = COS
-						TAG = PAN TAG = URG
+						#TAG = BRA TAG = MEX   # 1.19-migration: dead tag BRA/MEX
+						#TAG = COL TAG = ARG   # 1.19-migration: dead tag ARG/COL
+						#TAG = PRU TAG = VEN   # 1.19-migration: dead tag PRU/VEN
+						#TAG = CHL TAG = GUA   # 1.19-migration: dead tag CHL/GUA
+						#TAG = ECU TAG = CUB   # 1.19-migration: dead tag CUB/ECU
+						#TAG = BOL TAG = HAI   # 1.19-migration: dead tag BOL/HAI
+						#TAG = DOM TAG = HON   # 1.19-migration: dead tag DOM/HON
+						#TAG = PAR TAG = ELS   # 1.19-migration: dead tag ELS/PAR
+						#TAG = NIC TAG = COS   # 1.19-migration: dead tag COS/NIC
+						#TAG = PAN TAG = URG   # 1.19-migration: dead tag PAN/URG
 					}
 					NOT = { has_government = communism }
 				}
@@ -2989,19 +2910,9 @@ focus_tree = {
 		available = {
 			has_global_flag = scw_over
 			has_government = communism
-			any_country = {
-				OR = {
-					TAG = BRA TAG = MEX
-					TAG = COL TAG = ARG
-					TAG = PRU TAG = VEN
-					TAG = CHL TAG = GUA
-					TAG = ECU TAG = CUB
-					TAG = BOL TAG = HAI
-					TAG = DOM TAG = HON
-					TAG = PAR TAG = ELS
-					TAG = NIC TAG = COS
-					TAG = PAN TAG = URG						
-				}
+			any_country_of = {
+				exists = yes
+				#target = {BRA COL PRU CHL ECU BOL DOM PAR NIC PAN MEX ARG VEN GUA CUB HAI HON ELS COS URG }   # 1.19-migration: dead tag ARG/BOL/BRA/CHL/COL/COS/CUB/DOM/ECU/ELS/GUA/HAI/HON/MEX/NIC/PAN/PAR/PRU/URG/VEN
 				has_government = communism
 			}
 		}
@@ -3015,21 +2926,20 @@ focus_tree = {
 
 		relative_position_id = POR_latin_american_communism
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_our_comrades_overseas" 
+		completion_reward = { 
 			every_other_country = {
 				limit = {
 					OR = {
-						TAG = BRA TAG = MEX
-						TAG = COL TAG = ARG
-						TAG = PRU TAG = VEN
-						TAG = CHL TAG = GUA
-						TAG = ECU TAG = CUB
-						TAG = BOL TAG = HAI
-						TAG = DOM TAG = HON
-						TAG = PAR TAG = ELS
-						TAG = NIC TAG = COS
-						TAG = PAN TAG = URG						
+						#TAG = BRA TAG = MEX   # 1.19-migration: dead tag BRA/MEX
+						#TAG = COL TAG = ARG   # 1.19-migration: dead tag ARG/COL
+						#TAG = PRU TAG = VEN   # 1.19-migration: dead tag PRU/VEN
+						#TAG = CHL TAG = GUA   # 1.19-migration: dead tag CHL/GUA
+						#TAG = ECU TAG = CUB   # 1.19-migration: dead tag CUB/ECU
+						#TAG = BOL TAG = HAI   # 1.19-migration: dead tag BOL/HAI
+						#TAG = DOM TAG = HON   # 1.19-migration: dead tag DOM/HON
+						#TAG = PAR TAG = ELS   # 1.19-migration: dead tag ELS/PAR
+						#TAG = NIC TAG = COS   # 1.19-migration: dead tag COS/NIC
+						#TAG = PAN TAG = URG   # 1.19-migration: dead tag PAN/URG
 					}
 					has_government = communism			
 				}
@@ -3081,8 +2991,7 @@ focus_tree = {
 		relative_position_id = POR_support_the_spanish_republic
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_visit_the_front" 
+		completion_reward = { 
 			add_doctrine_cost_reduction = {
 				name = POR_visit_the_front
 			    cost_reduction = 0.5
@@ -3194,8 +3103,7 @@ focus_tree = {
 
 		relative_position_id = POR_visit_the_front
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_they_need_our_help"
+		completion_reward = { 	
 			unlock_decision_tooltip = POR_fight_alongside_the_republic
 			if = { 
 				limit = { country_exists = SPA }
@@ -3254,8 +3162,9 @@ focus_tree = {
 				has_government = democratic
 				has_government = communism
 			}
-			any_country = {
-				original_tag = SPR
+			any_country_with_original_tag = {
+				exists = yes
+				original_tag_to_check = SPR
 				NOT = { has_government = ROOT }
 				NOT = { is_in_faction_with = ROOT }
 			}
@@ -3285,7 +3194,6 @@ focus_tree = {
 		relative_position_id = POR_they_need_our_help
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_intervention_in_spain"
 			hidden_effect = {
 				every_country = {
 					limit = {
@@ -3342,7 +3250,6 @@ focus_tree = {
 		relative_position_id = POR_they_need_our_help
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_securing_the_free_world"
 			hidden_effect = {
 				every_other_country = {
 					limit = {
@@ -3373,7 +3280,7 @@ focus_tree = {
 
 	focus = {
 		id = POR_protect_chinese_civilians
-		allow_branch = { has_country_flag = NEVER }
+
 		select_effect = {
 			# 1.19-migration: off-map Guangzhou (was vanilla 592)
 			#random_country = {
@@ -3401,13 +3308,17 @@ focus_tree = {
 
 		bypass = {		
 		}
-		prerequisite = { focus = POR_they_need_our_help focus = POR_allow_free_elections focus = POR_the_popular_front_bloc }			
+
+		prerequisite = { focus = POR_they_need_our_help focus = POR_allow_free_elections focus = POR_the_popular_front_bloc }	
+
 		icon = GFX_focus_chi_united_front
+
 		x = -2		
 		y = 1
-
 		relative_position_id = POR_they_need_our_help
+
 		cost = 10
+
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus POR_protect_chinese_civilians" 
 			# 1.19-migration: off-map region Guangzhou
@@ -3455,8 +3366,7 @@ focus_tree = {
 
 		relative_position_id = POR_support_the_spanish_republic
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_strict_neutrality_in_the_spanish_civil_war" 	
+		completion_reward = { 	
 			every_other_country = {
 				add_opinion_modifier = {
 				    target = POR
@@ -3484,7 +3394,7 @@ focus_tree = {
 				NOT = { has_war_with = ROOT }
 				has_civil_war = no
 				has_capitulated = no
-				owns_state = 2475 #Owns London
+				owns_state = 435 #Owns London   # 1.19-migration: was vanilla 126 (Greater London Area)
 			}	
 		}
 
@@ -3500,18 +3410,17 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_british_investment_in_mines"
 			if = {
-				limit = { has_full_control_of_state = 1042 }
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
 				add_resource = {
 				    type = tungsten
 				    amount = 50
-				    state = 1042 #Lisbon
+				    state = 1042 #Lisbon   # 1.19-migration: was vanilla 112 (Lisbon)
 				}
 			}
 			add_tech_bonus = {
 				name = POR_british_investment_in_mines
-			    bonus = 1.0
+			    bonus = 0.5
 			    uses = 2
 			    category = industry
 			}
@@ -3551,10 +3460,10 @@ focus_tree = {
 
 		relative_position_id = POR_strict_neutrality_in_the_spanish_civil_war
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_british_guns" 
+		completion_reward = { 
 			unlock_decision_tooltip = POR_buy_aa_in_britain	
 			unlock_decision_tooltip = POR_buy_at_in_britain
+			unlock_decision_tooltip = POR_buy_artillery_in_britain
 		}
 	}
 
@@ -3567,7 +3476,7 @@ focus_tree = {
 				NOT = { has_war_with = ROOT }
 				has_civil_war = no
 				has_capitulated = no
-				owns_state = 2475 #Owns London
+				owns_state = 435 #Owns London   # 1.19-migration: was vanilla 126 (Greater London Area)
 			}
 		}
 
@@ -3583,10 +3492,9 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_british_industrial_investments"
 			if = {
-				limit = { has_full_control_of_state = 1042 }
-				1042 = { #Lisbon
+				limit = { has_full_control_of_state = 1042 }   # 1.19-migration: was vanilla 112 (Lisbon)
+				1042 = { #Lisbon   # 1.19-migration: was vanilla 112 (Lisbon); mod Aveiro
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -3596,8 +3504,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 935 }
-				935 = { #Porto
+				limit = { has_full_control_of_state = 935 }   # 1.19-migration: was vanilla 180 (Porto)
+				935 = { #Porto   # 1.19-migration: was vanilla 180 (Porto); mod Porto
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -3607,8 +3515,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 954 }
-				954 = { #Guarda
+				limit = { has_full_control_of_state = 954 }   # 1.19-migration: was vanilla 181 (Guarda)
+				954 = { #Guarda   # 1.19-migration: was vanilla 181 (Guarda); mod Guarda
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -3618,8 +3526,8 @@ focus_tree = {
 				}
 			}
 			if = {
-				limit = { has_full_control_of_state = 1072 }
-				1072 = { #Beja
+				limit = { has_full_control_of_state = 1072 }   # 1.19-migration: was vanilla 179 (Beja)
+				1072 = { #Beja   # 1.19-migration: was vanilla 179 (Beja); mod Beja
 					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex		
@@ -3668,7 +3576,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_allow_free_elections"
 			every_other_country = {
 				limit = {
 					has_government = democratic
@@ -3679,6 +3586,7 @@ focus_tree = {
 				    modifier = POR_election_opinion_democratic
 				}
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			remove_ideas = POR_unstable_republic
 			if = {
 				limit = {
@@ -3686,10 +3594,18 @@ focus_tree = {
 				}
 				remove_ideas = internationalism
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POR_jaime_cortesao
 			custom_effect_tooltip = available_theorist
 			show_ideas_tooltip = POR_jose_manuel_sarmento_de_beires
+			if = {
+				limit = {
+					has_completed_focus = POR_limited_self_rule
+				}
+				custom_effect_tooltip = available_political_advisor
+				show_ideas_tooltip = POR_francisco_da_cunha_leal
+			}
 			create_corps_commander = {
 				name = "José Mendes dos Reis"
 				portrait_path = GFX_portrait_Jose_Mendes_dos_Reis
@@ -3710,6 +3626,7 @@ focus_tree = {
 				maneuvering_skill = 3
 				coordination_skill = 2
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			if = {
 				limit = {
 					NOT = { has_government = democratic }
@@ -3729,8 +3646,8 @@ focus_tree = {
 					start_civil_war = {	
 						ideology = fascism
 						size = POR_democratic_cw_opposition
-						capital = 847
-						states = { 847 1053 1072 1096 }
+						capital = 180
+						states = { 181 }
 					}
 				}
 				else = {
@@ -3752,16 +3669,18 @@ focus_tree = {
 		id = POR_join_the_allies
 		available = {
 			is_in_faction = no
-			any_other_country = {
-				NOT = { has_war_with = ROOT }
+			any_collection_element = {
+				collection = game:all_majors
+				NOT = { tag = ROOT }
 				is_faction_leader = yes
-				is_major = yes
+				NOT = { has_war_with = ROOT }
 				has_government = democratic
 			}
 			NOT = {
-				any_other_country = {
-					is_in_faction_with = ENG
-					has_war_with = POR
+				POR = {
+					any_enemy_country = {
+						is_in_faction_with = ENG
+					}
 				}
 			}			
 		}
@@ -3771,9 +3690,9 @@ focus_tree = {
 				is_in_faction_with = ENG
 				AND = {
 					is_in_faction = yes
-					any_other_country = {
+					any_allied_country = {
 						is_faction_leader = yes
-						is_in_faction_with = ROOT
+						NOT = {tag = ROOT}
 						has_government = democratic
 					}
 				}
@@ -3785,9 +3704,8 @@ focus_tree = {
 		y = 2
 
 		relative_position_id = POR_allow_free_elections
-		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_join_the_allies" 	
+		cost = 5
+		completion_reward = { 	
 			if = {
 				limit = { 
 					ENG = {
@@ -3823,8 +3741,7 @@ focus_tree = {
 		relative_position_id = POR_join_the_allies
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_research_sharing" 
+		completion_reward = { 
 			ENG = { add_to_tech_sharing_group = commonwealth_research }
 			add_to_tech_sharing_group = commonwealth_research
 		}
@@ -3860,8 +3777,7 @@ focus_tree = {
 
 		relative_position_id = POR_join_the_allies
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_oppose_germany" 	
+		completion_reward = { 	
 			create_wargoal = {
 				target = GER
 				type = topple_government
@@ -3943,10 +3859,9 @@ focus_tree = {
 
 		relative_position_id = POR_allow_free_elections
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_iberian_summit" 
+		completion_reward = { 
 			unlock_decision_tooltip = POR_iberian_summit_pro_axis
-			#dead decision ref: unlock_decision_tooltip = POR_iberian_summit_pro_allies
+			unlock_decision_tooltip = POR_iberian_summit_pro_allies
 		}
 	}
 
@@ -3967,12 +3882,14 @@ focus_tree = {
 		relative_position_id = POR_popular_front
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_estado_novo" 	
+		completion_reward = { 	
 			add_ideas = POR_estado_novo
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_political_power = 100
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = available_chief_of_army
 			show_ideas_tooltip = POR_julio_botelho_moniz
+			custom_effect_tooltip = generic_skip_one_line_tt
 			custom_effect_tooltip = remove_political_advisor
 			show_ideas_tooltip = POR_alvaro_cunhal
 		}
@@ -3997,17 +3914,18 @@ focus_tree = {
 
 		relative_position_id = POR_estado_novo
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_support_the_spanish_nationalists" 	
+		completion_reward = { 	
 			SPA = {
 				add_opinion_modifier = {
 				    target = POR
 				    modifier = POR_helped_in_civil_war
 				}
 				add_manpower = 10000
-			}			
+			}	
+			add_manpower = -10000		
+			custom_effect_tooltip = generic_skip_one_line_tt
 			add_ideas = POR_volunteers_in_the_war_nationalist
-			add_manpower = -10000
+			
 			hidden_effect = {
 				add_equipment_to_stockpile = {
 					type = infantry_equipment
@@ -4066,8 +3984,7 @@ focus_tree = {
 		relative_position_id = POR_portuguese_legion
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_observation_mission" 	
+		completion_reward = { 	
 			add_doctrine_cost_reduction = {
 				name = POR_observation_mission
 			    cost_reduction = 0.5
@@ -4163,8 +4080,7 @@ focus_tree = {
 
 		relative_position_id = POR_observation_mission
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_send_assistance" 	
+		completion_reward = { 	
 			unlock_decision_tooltip = POR_fight_alongside_the_nationalists
 			if = { 
 				limit = { country_exists = SPD }
@@ -4219,8 +4135,9 @@ focus_tree = {
 
 		available = {	
 			has_global_flag = scw_over
-			any_country = {
-				original_tag = SPR
+			any_country_with_original_tag = {
+				exists = yes
+				original_tag_to_check = SPR
 				NOT = { has_government = ROOT }
 				NOT = { is_in_faction_with = ROOT }
 			}
@@ -4238,8 +4155,7 @@ focus_tree = {
 
 		relative_position_id = POR_send_assistance
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_nationalist_intervention" 	
+		completion_reward = { 	
 			hidden_effect = {
 				every_country = {
 					limit = {
@@ -4298,8 +4214,7 @@ focus_tree = {
 		relative_position_id = POR_observation_mission
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_strengthen_the_regime" 
+		completion_reward = { 
 			add_manpower = -3000
 			add_equipment_to_stockpile = {
 				type = support_equipment
@@ -4316,6 +4231,7 @@ focus_tree = {
 			    ideology = neutrality
 				popularity = 0.10
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			swap_ideas = {
 				remove_idea = POR_estado_novo
 				add_idea = POR_estado_novo_2	
@@ -4328,7 +4244,7 @@ focus_tree = {
 	focus = {
 		id = POR_the_capital_of_espionage
 		available = {	
-			owns_state = 1042
+			owns_state = 1042   # 1.19-migration: was vanilla 112 (Lisbon)
 			has_war = no
 			OR = {
 				AND = {
@@ -4336,8 +4252,8 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 					}
-					any_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						has_war_with = ENG
 					}
 				}
@@ -4346,8 +4262,8 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 					}
-					any_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						has_war_with = GER
 					}
 				}
@@ -4364,8 +4280,7 @@ focus_tree = {
 
 		relative_position_id = POR_strengthen_the_regime
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_capital_of_espionage" 
+		completion_reward = { 
 			add_ideas = POR_the_capital_of_espionage
 		}
 	}
@@ -4385,13 +4300,13 @@ focus_tree = {
 		relative_position_id = POR_strengthen_the_regime
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_appease_monarchists" 
+		completion_reward = { 
 			add_political_power = 70
 			add_popularity = {
 			    ideology = neutrality
 				popularity = 0.05
 			}
+			custom_effect_tooltip = generic_skip_one_line_tt
 			swap_ideas = {
 				remove_idea = POR_estado_novo_2
 				add_idea = POR_estado_novo_3	
@@ -4417,9 +4332,9 @@ focus_tree = {
 		relative_position_id = POR_appease_monarchists
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_concordat_with_the_holy_see" 
+		completion_reward = { 
 			add_political_power = 120
+			custom_effect_tooltip = generic_skip_one_line_tt
 			swap_ideas = {
 				remove_idea = POR_estado_novo_3
 				add_idea = POR_estado_novo_4	
@@ -4438,14 +4353,13 @@ focus_tree = {
 				exists = yes
 				NOT = {
 					has_war_with = ROOT 
-					any_other_country = {
-						is_in_faction_with = ENG
+					any_allied_country = {
 						has_war_with = ROOT
 					}
 				}
 			}
-			any_country = {
-				is_major = yes
+			any_collection_element = {
+				collection = game:all_majors
 				has_war_with = ENG
 			}
 		}
@@ -4464,8 +4378,7 @@ focus_tree = {
 
 		relative_position_id = POR_concordat_with_the_holy_see
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_honor_anglo_portuguese_alliance"
+		completion_reward = { 
 			remove_ideas = POR_national_gold_reserves
 			remove_ideas = POR_unstable_republic
 			if = {
@@ -4497,8 +4410,8 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 					}
-					any_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						has_war_with = ENG
 					}
 				}
@@ -4507,8 +4420,8 @@ focus_tree = {
 						exists = yes
 						NOT = { has_war_with = ROOT }
 					}
-					any_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						has_war_with = GER
 					}
 				}
@@ -4525,8 +4438,7 @@ focus_tree = {
 		relative_position_id = POR_appease_monarchists
 		cost = 10
 		search_filters = {FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_national_gold_reserves" 
+		completion_reward = { 
 			add_ideas = POR_national_gold_reserves
 			ENG = {
 				add_opinion_modifier = {
@@ -4579,8 +4491,7 @@ focus_tree = {
 		relative_position_id = POR_concordat_with_the_holy_see
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_proudly_alone" 
+		completion_reward = { 
 			swap_ideas = {
 				remove_idea = POR_estado_novo_4
 				add_idea = POR_estado_novo_5	
@@ -4591,7 +4502,7 @@ focus_tree = {
 
 	focus = {
 		id = POR_the_eastern_menace
-		allow_branch = { has_country_flag = NEVER }
+
 		will_lead_to_war_with = JAP
 
 		select_effect = {
@@ -4620,10 +4531,10 @@ focus_tree = {
 
 		relative_position_id = POR_proudly_alone
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_eastern_menace" 
+
+		completion_reward = { 
 			create_wargoal = {
-				target = JAP
+				#target = JAP   # 1.19-migration: dead tag JAP
 				type = puppet_wargoal_focus
 				expire = 0
 			}
@@ -4631,11 +4542,12 @@ focus_tree = {
 			hidden_effect = {
 				add_ai_strategy = {
 					type = declare_war
-					id = JAP
+					#id = JAP   # 1.19-migration: dead tag JAP
 					value = 100
 				}
 			}
 		}
+
 	}
 
 	focus = {
@@ -4657,10 +4569,16 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_national_syndicalism"
+
 			add_stability = -0.2
 			add_war_support = 0.1
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			add_ideas = POR_national_syndicalism
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POR_jose_hipolito_raposo
 			show_ideas_tooltip = POR_alberto_monsaraz
@@ -4686,7 +4604,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_ditadura_militar"
 			remove_ideas = POR_estado_novo
 			every_country = {
 				limit = { 
@@ -4720,8 +4637,8 @@ focus_tree = {
 					start_civil_war = {	
 						ideology = neutrality
 						size = POR_fascist_cw_opposition
-						capital = 847
-						states = { 847 1053 1072 1096 }
+						capital = 180
+						states = { 181 }
 					}
 				}
 				else = {
@@ -4755,8 +4672,7 @@ focus_tree = {
 		relative_position_id = POR_ditadura_militar
 		cost = 10
 		search_filters = {FOCUS_FILTER_WAR_SUPPORT}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_camisas_azuis" 
+		completion_reward = { 
 			add_ideas = POR_camisas_azuis
 		}
 	}
@@ -4773,9 +4689,8 @@ focus_tree = {
 				NOT = { has_war_with = ROOT }
 			}
 			NOT = {
-				any_other_country = {
+				any_enemy_country = {
 					is_in_faction_with = GER
-					has_war_with = ROOT
 				}
 			}	
 		}
@@ -4789,9 +4704,8 @@ focus_tree = {
 		y = 1
 
 		relative_position_id = POR_camisas_azuis
-		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_join_the_axis" 	
+		cost = 5
+		completion_reward = { 	
 			GER = {
 				country_event = { id = generic.2 hours = 4 }
 			}
@@ -4816,7 +4730,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_research_agreements"
 			GER = { add_to_tech_sharing_group = axis_research }
 			add_to_tech_sharing_group = axis_research
 		}
@@ -4839,16 +4752,21 @@ focus_tree = {
 		relative_position_id = POR_camisas_azuis
 		cost = 10
 		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_fifth_empire" 	
+
+		completion_reward = { 	
+
 			add_ideas = POR_the_fifth_empire
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			remove_ideas = POR_unstable_republic
-			if = {
+			IF = {
 				limit = { is_in_faction = yes }
 				leave_faction = yes
 			}
 			set_rule = { can_create_factions = yes }
 			set_rule = { can_join_factions = no }
+
 			every_other_country = {
 				limit = {
 					NOT = { is_puppet_of = ROOT }
@@ -4862,6 +4780,9 @@ focus_tree = {
 					modifier = embargo
 				}
 			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			set_cosmetic_tag = POR_empire
 		}
 	}
@@ -4895,8 +4816,7 @@ focus_tree = {
 
 		relative_position_id = POR_national_syndicalism
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_refuse_the_naval_blockade" 
+		completion_reward = { 
 			every_other_country = {
 				limit = {
 					has_war_with = ENG
@@ -4934,18 +4854,18 @@ focus_tree = {
 		mutually_exclusive = { focus = POR_support_the_spanish_nationalists focus = POR_strict_neutrality_in_the_spanish_civil_war focus = POR_support_the_spanish_republic }
 
 		icon = GFX_focus_generic_royal_wedding
-		x = 9
+		x = 13
 		y = 0
 
 		relative_position_id = POR_support_the_spanish_nationalists
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_a_royal_wedding" 
+		completion_reward = { 
 			hidden_effect = {
 				news_event = { id = lar_news.25 days = 3 random_days = 5 }
 			}	
 			add_political_power = 120
+			unlock_decision_tooltip = POR_stir_monarchist_sentiment_in_brazil
 			unlock_decision_tooltip = POR_stir_monarchist_sentiment_in_portugal
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = POR_joao_de_azevedo_coutinho
@@ -4968,8 +4888,7 @@ focus_tree = {
 		relative_position_id = POR_a_royal_wedding
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_return_of_duarte" 	
+		completion_reward = { 	
 			set_party_name = { 
 			    ideology = neutrality
 			    long_name = POR_monarchy_party_long
@@ -5031,8 +4950,7 @@ focus_tree = {
 
 		relative_position_id = POR_the_return_of_duarte
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_support_a_spanish_monarchy_in_the_war" 	
+		completion_reward = { 	
 			SPB = {
 				add_opinion_modifier = {
 				    target = POR
@@ -5077,7 +4995,6 @@ focus_tree = {
 		cost = 10
 		search_filters = {FOCUS_FILTER_RESEARCH}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_assist_the_requetes"
 			add_tech_bonus = {
 				name = POR_assist_the_requetes
 			    bonus = 1.0
@@ -5173,8 +5090,7 @@ focus_tree = {
 
 		relative_position_id = POR_assist_the_requetes
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_join_the_carlist_fight" 	
+		completion_reward = { 	
 			unlock_decision_tooltip = POR_fight_alongside_the_carlists
 			if = { 
 				limit = { country_exists = SPA }
@@ -5233,9 +5149,8 @@ focus_tree = {
 		y = 1
 
 		relative_position_id = POR_join_the_carlist_fight
-		cost = 10
+		cost = 5
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_royal_iberian_alliance"
 			SPB = { 
 				country_event = { id = lar_portugal_royal_iberian_alliance.1 hours = 6 }
 			}
@@ -5257,11 +5172,201 @@ focus_tree = {
 		relative_position_id = POR_the_return_of_duarte
 		cost = 10
 		search_filters = {FOCUS_FILTER_POLITICAL}
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_promote_the_monarchist_cause_in_portugal" 	
+		completion_reward = { 	
 			add_timed_idea = {
 			    idea = POR_monarchists_on_the_rise2
 			    days = 730
+			}
+		}
+	}
+
+	focus = {
+		id = POR_monarchist_uprising_in_brazil
+		available = {
+		}
+
+		bypass = {
+			#BRA = {   # 1.19-migration: dead tag BRA
+				OR = { 
+					exists = no
+					has_capitulated = yes 
+					#has_completed_focus = BRA_romanticize_the_old_empire   # 1.19-migration: dead tag BRA
+				}
+			}
+		}
+		prerequisite = { focus = POR_the_return_of_duarte }
+		icon = GFX_focus_por_reclaim_crown_jewel
+		x = -2
+		y = 1
+
+		relative_position_id = POR_the_return_of_duarte
+		cost = 10
+		completion_reward = {
+			IF = {
+				limit = {
+					has_dlc = "Trial of Allegiance"
+				}
+				#BRA = {   # 1.19-migration: dead tag BRA
+					country_event ={
+						id = JUNO_brazil_events.190
+						days = 1
+					}
+					custom_effect_tooltip = if_they_accept
+					event_option_tooltip = JUNO_brazil_events.190.a
+				}
+			}
+			ELSE = {
+				#BRA = {   # 1.19-migration: dead tag BRA
+					country_event = lar_portugal_promote_monarchist_cause.7
+					effect_tooltip = {
+						add_timed_idea = {
+						    idea = POR_monarchists_on_the_rise
+						    days = 730
+						}
+						set_party_name = { 
+						    ideology = neutrality
+						    #long_name = BRA_monarchy_party_long   # 1.19-migration: dead tag BRA
+						    #name = BRA_monarchy_party   # 1.19-migration: dead tag BRA
+						}
+						set_party_name = { 
+						    ideology = fascism
+						    #long_name = BRA_antimonarchist_coalition_long   # 1.19-migration: dead tag BRA
+						    #name = BRA_antimonarchist_coalition   # 1.19-migration: dead tag BRA
+						}
+						if = {
+							limit = {
+								OR = {
+									has_government = neutrality
+									has_government = democratic
+									has_government = communism
+								} 
+							}
+							set_politics = {
+								ruling_party = fascism
+							}
+						}
+						set_popularities = {
+							democratic = 0
+							neutrality = 20
+							fascism = 80
+							communism = 0
+						}
+						hidden_effect = {
+							retire_country_leader = yes
+						}
+						#BRA_getulio_vargas = {   # 1.19-migration: dead tag BRA
+							remove_country_leader_role = {
+								ideology = despotism
+							}
+							add_country_leader_role = {
+								country_leader = {
+									expire = "1954.8.24"
+									ideology = fascism_ideology
+									traits = {
+										anti_communist
+									}
+								}
+								promote_leader = yes
+							}
+						}
+						#promote_character = BRA_arlindo_veiga_dos_santos   # 1.19-migration: dead tag BRA
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = POR_the_empire_of_brazil
+
+		select_effect = {
+			if = {
+				limit = {
+					has_war = no
+				}
+				add_ai_strategy = {
+					type = prepare_for_war
+					#id = BRA   # 1.19-migration: dead tag BRA
+					value = 100
+				}
+			}
+		}
+
+		available = {
+			IF = {
+				limit = {
+					has_dlc = "Trial of Allegiance"
+				}
+				is_subject = no
+				NOT = {
+					#BRA = {   # 1.19-migration: dead tag BRA
+						#has_country_flag = BRA_rejected_monarchism   # 1.19-migration: dead tag BRA
+					}
+				}
+			}
+			ELSE = {
+				is_subject = no
+			}
+		}
+
+		bypass = {
+			#BRA = {   # 1.19-migration: dead tag BRA
+				OR = { 
+					exists = no
+					has_capitulated = yes 
+					#has_completed_focus = BRA_romanticize_the_old_empire   # 1.19-migration: dead tag BRA
+				}
+			}
+		}
+		prerequisite = { focus = POR_monarchist_uprising_in_brazil }
+		icon = GFX_focus_generic_home_defense
+		x = 0		
+		y = 1
+
+		relative_position_id = POR_monarchist_uprising_in_brazil
+		cost = 10
+		completion_reward = {
+			if = {
+				limit = {
+					#BRA = {   # 1.19-migration: dead tag BRA
+						OR = {
+							has_country_flag = POR_brazil_supports_fascist_coalition_flag
+							AND = {
+								NOT = { has_government = neutrality }
+								OR = {
+									has_stability < 0.5
+									neutrality < 0.7
+								}
+							}
+						}
+					}
+				}
+				#BRA = { country_event = lar_portugal_promote_monarchist_cause.3 }   # 1.19-migration: dead tag BRA
+			}
+			else = {
+				#BRA = { country_event = lar_portugal_promote_monarchist_cause.4 }   # 1.19-migration: dead tag BRA
+			}
+			custom_effect_tooltip = POR_the_empire_of_brazil_potential_civil_war_tt
+
+			hidden_effect = {
+				every_country = {
+					limit = {
+						#original_tag = BRA   # 1.19-migration: dead tag BRA
+						has_government = neutrality
+					}
+					add_ai_strategy = {
+						type = befriend
+						id = ROOT
+						value = 100
+					}
+					ROOT = {
+						add_ai_strategy = {
+							type = befriend
+							id = PREV
+							value = 100
+						}
+					}
+				}
 			}
 		}
 	}
@@ -5284,7 +5389,6 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY
 		FOCUS_FILTER_STABILITY}
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_restoration_of_the_monarchy"
 			remove_ideas = POR_estado_novo
 			swap_ideas = {
 				remove_idea = POR_unstable_republic
@@ -5300,8 +5404,8 @@ focus_tree = {
 				start_civil_war = {	
 					ideology = fascism
 					size = POR_monarchist_cw_opposition
-					capital = 847
-					states = { 847 1053 1072 1096 }
+					capital = 180
+					states = { 181 }
 				}
 			}
 			else = {
@@ -5352,7 +5456,6 @@ focus_tree = {
 	focus = {
 		id = POR_remember_olivenca
 		available = {
-			has_global_flag = scw_over
 		}
 
 		ai_will_do = {
@@ -5372,8 +5475,8 @@ focus_tree = {
 		}
 
 		bypass = {
-			owns_state = 1079
-			owns_state = 987
+			owns_state = 987   # 1.19-migration: was vanilla 170 (Extremadura)
+			owns_state = 1079   # 1.19-migration: was vanilla 169 (Sevilla)
 		}
 		prerequisite = { focus = POR_restoration_of_the_monarchy }
 		mutually_exclusive = { focus = POR_the_royal_iberian_alliance }
@@ -5383,17 +5486,18 @@ focus_tree = {
 
 		relative_position_id = POR_restoration_of_the_monarchy
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_remember_olivenca"
-			custom_effect_tooltip = POR_remember_olivenca_tt
+		completion_reward = { 	
+			add_state_claim = 987   # 1.19-migration: was vanilla 170 (Extremadura)
+			add_state_claim = 1079   # 1.19-migration: was vanilla 169 (Sevilla)
+
 			hidden_effect = {
 				random_country = {
-					limit = { controls_state = 2778 }
+					limit = { controls_state = 987 }   # 1.19-migration: was vanilla 170 (Extremadura)
 					ROOT = {
-						create_wargoal = {
-							type = take_state_focus
-							target = PREV
-							generator = { 2778 }
+						add_ai_strategy = {
+							type = prepare_for_war
+							id = PREV
+							value = 100
 						}
 					}
 				}
@@ -5439,13 +5543,12 @@ focus_tree = {
 		}
 		prerequisite = { focus = POR_remember_olivenca focus = POR_the_royal_iberian_alliance }
 		icon = GFX_focus_attack_germany
-		x = 2
+		x = 1
 		y = 1
 
 		relative_position_id = POR_remember_olivenca
 		cost = 10
-		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_deal_with_fascism" 	
+		completion_reward = { 	
 			hidden_effect = {
 				every_country = {
 					limit = {
@@ -5535,16 +5638,15 @@ focus_tree = {
 
 		bypass = {		
 		}
-		prerequisite = { focus = POR_the_kingdom_reunited focus = POR_proudly_alone }
+		prerequisite = { focus = POR_latin_america focus = POR_proudly_alone }
 
 		icon = GFX_focus_ger_great_red_menace
-		x = 0
-		y = 3
+		x = -8
+		y = 1
 
-		relative_position_id = POR_proudly_alone
+		relative_position_id = POR_latin_america
 		cost = 10
 		completion_reward = {
-			log = "[GetDateText]: [Root.GetName]: Focus POR_the_communist_threat"
 			hidden_effect = {
 				every_country = {
 					limit = {
