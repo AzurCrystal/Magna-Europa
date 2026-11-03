@@ -7,7 +7,6 @@ add_namespace = hungary
 # Second Vienna Award - No Territory
 country_event = {
 	id = hungary.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hungary.1 FROM = [From.GetName]" }
 	title = hungary.1.t
 	desc = hungary.1.d
 	picture = GFX_report_event_finnish_letter
@@ -22,7 +21,6 @@ country_event = {
 # Second Vienna Award - Northern Transylvania
 country_event = {
 	id = hungary.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hungary.2 FROM = [From.GetName]" }
 	title = hungary.2.t
 	desc = hungary.2.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -31,40 +29,58 @@ country_event = {
 	
 	option = {
 		name = hungary.2.a
-		HUN = {
-			custom_effect_tooltip = mer_transfer_northern_transylvania
-			hidden_effect = {
-				transfer_state = 1586
-				transfer_state = 1587
-				transfer_state = 674
-				transfer_state = 680
-				transfer_state = 649
-				transfer_state = 628
-				transfer_state = 1582
-				transfer_state = 665
-				transfer_state = 2676
-				transfer_state = 2860
-				transfer_state = 639
-				transfer_state = 2675
-				transfer_state = 622
-				transfer_state = 2671
-				transfer_state = 2859
-				transfer_state = 664
-				transfer_state = 2673
-				transfer_state = 2672
-				transfer_state = 2680
+
+		HUN = { 
+			transfer_state = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+			transfer_state = 628 # -> Maramureș
+			transfer_state = 639 # -> Zalău
+			transfer_state = 649 # -> Năsăud
+			transfer_state = 664 # -> Oradea
+			transfer_state = 665 # -> Cluj
+			transfer_state = 674 # -> Ciuc
+			transfer_state = 680 # -> Mureș
+			transfer_state = 692 # -> Turda
+			transfer_state = 1582 # -> Someș
+			transfer_state = 1584 # -> Târnava-Mare
+			transfer_state = 1586 # -> Trei Scaune
+			transfer_state = 1587 # -> Odorhei
+			transfer_state = 2671 # -> Carei
+			transfer_state = 2672 # -> Baia Mare
+			transfer_state = 2673 # -> Aleşd
+			transfer_state = 2675 # -> Negrești-Oaș
+			transfer_state = 2676 # -> Crasna
+			transfer_state = 2680 # -> Vișeu
+			transfer_state = 2859 # -> Tășnad
+			transfer_state = 2860 # -> Recea
+			add_opinion_modifier = {
+				target = GER
+				modifier = GER_align_hungary	
+			}	
+			add_timed_idea = {
+				idea = fascist_influence
+				days = 365
+			}	
+		}
+
+		hidden_effect = {
+			ROM = {
+				set_country_flag = second_vienna_accepted_north #for event bulgaria.4
 			}
 		}
+
 		hidden_effect = {
-			country_event = { days = 1 id = news.15 }
+			country_event = { 
+				days = 1 
+				id = news.15 
+			}
 		}
+
 	}
 }
 
 # Second Vienna Award - All of Transylvania
 country_event = {
 	id = hungary.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hungary.3 FROM = [From.GetName]" }
 	title = hungary.2.t
 	desc = hungary.3.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -73,27 +89,81 @@ country_event = {
 	
 	option = {
 		name = hungary.2.a
+
 		HUN = { 
-			custom_effect_tooltip = mer_transfer_transylvania
-			hidden_effect = {
-				every_state = {
-					limit = {
-						region = 12
-					}
-					transfer_state_to = HUN
-				}
+			transfer_state = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+			transfer_state = 628 # -> Maramureș
+			transfer_state = 639 # -> Zalău
+			transfer_state = 649 # -> Năsăud
+			transfer_state = 664 # -> Oradea
+			transfer_state = 665 # -> Cluj
+			transfer_state = 674 # -> Ciuc
+			transfer_state = 680 # -> Mureș
+			transfer_state = 692 # -> Turda
+			transfer_state = 1582 # -> Someș
+			transfer_state = 1584 # -> Târnava-Mare
+			transfer_state = 1586 # -> Trei Scaune
+			transfer_state = 1587 # -> Odorhei
+			transfer_state = 2671 # -> Carei
+			transfer_state = 2672 # -> Baia Mare
+			transfer_state = 2673 # -> Aleşd
+			transfer_state = 2675 # -> Negrești-Oaș
+			transfer_state = 2676 # -> Crasna
+			transfer_state = 2680 # -> Vișeu
+			transfer_state = 2859 # -> Tășnad
+			transfer_state = 2860 # -> Recea
+			transfer_state = 686 # was vanilla 83 (Crisana -> Beiuș)
+			transfer_state = 705 # -> Arad
+			transfer_state = 2669 # -> Sebiș
+			transfer_state = 2674 # -> Tinca
+			transfer_state = 2679 # -> Beliu
+			transfer_state = 713 # was vanilla 84 (Transylvania -> Alba Iulia)
+			transfer_state = 727 # -> Hunedoara
+			transfer_state = 730 # -> Sibiu
+			transfer_state = 737 # -> Brașov
+			transfer_state = 1583 # -> Târnava Mică
+			transfer_state = 1585 # -> Făgăraș
+			transfer_state = 2024 # -> Sebeș
+			transfer_state = 2261 # -> Brad
+			transfer_state = 2359 # -> Obârşia Lotrului
+			transfer_state = 2678 # -> Câmpeni
+			transfer_state = 2981 # -> Câineni
+			transfer_state = 736 # was vanilla 82 (Banat -> Timișoara)
+			transfer_state = 756 # -> Reșița
+			transfer_state = 1581 # -> Făget
+			transfer_state = 2668 # -> Sânnicolau Mare
+			transfer_state = 2670 # -> Lipova
+			transfer_state = 2677 # -> Orșova
+			add_opinion_modifier = {
+				target = GER
+				modifier = GER_align_hungary	
+			}	
+			add_timed_idea = {
+				idea = fascist_influence
+				days = 365
 			}
 		}
+
 		hidden_effect = {
-			country_event = { days = 1 id = news.16 }
+			ROM = {
+				set_country_flag = second_vienna_accepted_all #for event bulgaria.4
+			}
 		}
+		
+
+		hidden_effect = {
+			country_event = { 
+				days = 1 
+				id = news.16 
+			}
+		}
+
 	}
 }
 
 # Second Vienna Award - Romania Rejects Verdict (Northern Transylvania)
 country_event = {
 	id = hungary.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hungary.4 FROM = [From.GetName]" }
 	title = hungary.2.t
 	desc = hungary.4.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -102,31 +172,34 @@ country_event = {
 	
 	option = {
 		name = hungary.4.a
-		HUN = {
-			custom_effect_tooltip = mer_claim_northern_transylvania
-			hidden_effect = {
-				add_state_claim = 1586
-				add_state_claim = 1587
-				add_state_claim = 674
-				add_state_claim = 680
-				add_state_claim = 649
-				add_state_claim = 2880
-				add_state_claim = 628
-				add_state_claim = 1582
-				add_state_claim = 665
-				add_state_claim = 2676
-				add_state_claim = 2860
-				add_state_claim = 639
-				add_state_claim = 2675
-				add_state_claim = 622
-				add_state_claim = 2671
-				add_state_claim = 2859
-				add_state_claim = 664
-				add_state_claim = 2673
-			}
-		}
+
+		add_state_claim = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+		add_state_claim = 628 # -> Maramureș
+		add_state_claim = 639 # -> Zalău
+		add_state_claim = 649 # -> Năsăud
+		add_state_claim = 664 # -> Oradea
+		add_state_claim = 665 # -> Cluj
+		add_state_claim = 674 # -> Ciuc
+		add_state_claim = 680 # -> Mureș
+		add_state_claim = 692 # -> Turda
+		add_state_claim = 1582 # -> Someș
+		add_state_claim = 1584 # -> Târnava-Mare
+		add_state_claim = 1586 # -> Trei Scaune
+		add_state_claim = 1587 # -> Odorhei
+		add_state_claim = 2671 # -> Carei
+		add_state_claim = 2672 # -> Baia Mare
+		add_state_claim = 2673 # -> Aleşd
+		add_state_claim = 2675 # -> Negrești-Oaș
+		add_state_claim = 2676 # -> Crasna
+		add_state_claim = 2680 # -> Vișeu
+		add_state_claim = 2859 # -> Tășnad
+		add_state_claim = 2860 # -> Recea
+
 		hidden_effect = {
-			country_event = { days = 1 id = news.17 }
+			country_event = { 
+				days = 1 
+				id = news.17 
+			}
 		}
 	}
 }
@@ -134,7 +207,6 @@ country_event = {
 # Second Vienna Award - Romania Rejects Verdict (All of Transylvania)
 country_event = {
 	id = hungary.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hungary.5 FROM = [From.GetName]" }
 	title = hungary.2.t
 	desc = hungary.5.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -143,27 +215,64 @@ country_event = {
 	
 	option = {
 		name = hungary.4.a
-		HUN = { 
-			custom_effect_tooltip = mer_claim_transylvania
-			hidden_effect = {
-				every_state = {
-					limit = {
-						region = 12
-					}
-					add_claim_by = HUN
-				}
+
+		add_state_claim = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+		add_state_claim = 628 # -> Maramureș
+		add_state_claim = 639 # -> Zalău
+		add_state_claim = 649 # -> Năsăud
+		add_state_claim = 664 # -> Oradea
+		add_state_claim = 665 # -> Cluj
+		add_state_claim = 674 # -> Ciuc
+		add_state_claim = 680 # -> Mureș
+		add_state_claim = 692 # -> Turda
+		add_state_claim = 1582 # -> Someș
+		add_state_claim = 1584 # -> Târnava-Mare
+		add_state_claim = 1586 # -> Trei Scaune
+		add_state_claim = 1587 # -> Odorhei
+		add_state_claim = 2671 # -> Carei
+		add_state_claim = 2672 # -> Baia Mare
+		add_state_claim = 2673 # -> Aleşd
+		add_state_claim = 2675 # -> Negrești-Oaș
+		add_state_claim = 2676 # -> Crasna
+		add_state_claim = 2680 # -> Vișeu
+		add_state_claim = 2859 # -> Tășnad
+		add_state_claim = 2860 # -> Recea
+		add_state_claim = 686 # was vanilla 83 (Crisana -> Beiuș)
+		add_state_claim = 705 # -> Arad
+		add_state_claim = 2669 # -> Sebiș
+		add_state_claim = 2674 # -> Tinca
+		add_state_claim = 2679 # -> Beliu
+		add_state_claim = 713 # was vanilla 84 (Transylvania -> Alba Iulia)
+		add_state_claim = 727 # -> Hunedoara
+		add_state_claim = 730 # -> Sibiu
+		add_state_claim = 737 # -> Brașov
+		add_state_claim = 1583 # -> Târnava Mică
+		add_state_claim = 1585 # -> Făgăraș
+		add_state_claim = 2024 # -> Sebeș
+		add_state_claim = 2261 # -> Brad
+		add_state_claim = 2359 # -> Obârşia Lotrului
+		add_state_claim = 2678 # -> Câmpeni
+		add_state_claim = 2981 # -> Câineni
+		add_state_claim = 736 # was vanilla 82 (Banat -> Timișoara)
+		add_state_claim = 756 # -> Reșița
+		add_state_claim = 1581 # -> Făget
+		add_state_claim = 2668 # -> Sânnicolau Mare
+		add_state_claim = 2670 # -> Lipova
+		add_state_claim = 2677 # -> Orșova
+
+		hidden_effect = {
+			country_event = { 
+				days = 1 
+				id = news.18 
 			}
 		}
-		hidden_effect = {
-			country_event = { days = 1 id = news.18 }
-		}
+
 	}
 }
 
 # Hungary (First Ljubljana Award) from german focus
 country_event = {
 	id = hungary.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event hungary.6 FROM = [From.GetName]" }
 	title = hungary.6.t
 	desc = hungary.6.d
 	picture = GFX_report_event_vienna_award_negotiations
@@ -172,17 +281,20 @@ country_event = {
 	
 	option = {
 		name = hungary.6.a
-		HUN = { 
-			transfer_state = 712 
-			custom_effect_tooltip = mer_transfer_western_vojvodina
-			hidden_effect = {
-				transfer_state = 1514
-				transfer_state = 1516
-				transfer_state = 735
-				transfer_state = 1515
-				transfer_state = 2856
-				transfer_state = 1472
-			}
-		}
+
+		HUN = { transfer_state = 735 } # was vanilla 45 (Vojvodina -> Subotica)
+		transfer_state = 738 # -> Srednji Banat
+		transfer_state = 775 # -> Sremska Mitrovica
+		transfer_state = 790 # -> Beograd
+		transfer_state = 1470 # -> Šid
+		transfer_state = 1472 # -> Baranja
+		transfer_state = 1513 # -> Sjeverni Banat
+		transfer_state = 1514 # -> Novi Sad
+		transfer_state = 1515 # -> Sombor
+		transfer_state = 1516 # -> Senta
+		transfer_state = 2554 # -> Borča
+		transfer_state = 2555 # -> Zemun
+		transfer_state = 2856 # -> Bezdan
+
 	}
 }

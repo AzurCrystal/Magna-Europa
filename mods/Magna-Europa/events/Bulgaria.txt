@@ -7,35 +7,32 @@ add_namespace = bulgaria
 # Treaty of Craiova - Romania Accepts
 country_event = {
 	id = bulgaria.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bulgaria.1 FROM = [From.GetName]" }
 	title = bulgaria.1.t
 	desc = bulgaria.1.d
-	picture = GFX_report_event_hitler_handshake
+	picture = [GetHitlerHandshakeEventPicture]
 	
 	is_triggered_only = yes
 	
 	option = {
 		name = bulgaria.1.a
 		BUL = { 
-			transfer_state = 818
-			transfer_state = 1579
-			add_state_core = 818
-			add_state_core = 1579
+			transfer_state = 818 # was vanilla 77 (Dobrudja -> Bazargic)
+			transfer_state = 1578 # -> Razgrad
+			transfer_state = 1579 # -> Durostor
+			add_state_core = 818 # was vanilla 77 (Dobrudja -> Bazargic)
+			add_state_core = 1578 # -> Razgrad
+			add_state_core = 1579 # -> Durostor
 		}
 		if = {
 			limit = {
-				818 = { is_core_of = ROM }
+				818 = { is_core_of = ROM }   # was vanilla 77 (Dobrudja)
+				1578 = { is_core_of = ROM }   # -> Razgrad
+				1579 = { is_core_of = ROM }   # -> Durostor
 			}
 			ROM = {
-				remove_state_core = 818
-			}
-		}
-		if = {
-			limit = {
-				1579 = { is_core_of = ROM }
-			}
-			ROM = {
-				remove_state_core = 1579
+				remove_state_core = 818 # was vanilla 77 (Dobrudja -> Bazargic)
+				remove_state_core = 1578 # -> Razgrad
+				remove_state_core = 1579 # -> Durostor
 			}
 		}
 		hidden_effect = {
@@ -47,7 +44,6 @@ country_event = {
 # Treaty of Craiova - Romania Refuses
 country_event = {
 	id = bulgaria.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bulgaria.2 FROM = [From.GetName]" }
 	title = bulgaria.2.t
 	desc = bulgaria.2.d
 	picture = GFX_report_event_finnish_letter
@@ -59,7 +55,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = ROM
-			generator = { 818 1579 }
+			generator = { 818 1578 1579 }   # was vanilla 77
 		}
 		#generate wargoal for romania
 	}
@@ -68,7 +64,6 @@ country_event = {
 # Bulgaria (First Ljubljana Award) from german focus
 country_event = {
 	id = bulgaria.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bulgaria.3 FROM = [From.GetName]" }
 	title = bulgaria.3.t
 	desc = bulgaria.3.d
 	picture = GFX_report_event_vienna_award_negotiations
@@ -80,34 +75,44 @@ country_event = {
 		if = {
 			limit = {
 				OR = {
-					846 = { is_owned_by = YUG }
-					846 = { is_owned_by = GER }
-					1529 = { is_owned_by = YUG }
-					1529 = { is_owned_by = GER }
+					1528 = { is_owned_by = YUG }   # was vanilla 106 (Macedonia)
+					1529 = { is_owned_by = YUG }   # -> Skopje
+					1530 = { is_owned_by = YUG }   # -> Kumanovo
+					1531 = { is_owned_by = YUG }   # -> Štip
+					1532 = { is_owned_by = YUG }   # -> Strumica
+					1973 = { is_owned_by = YUG }   # -> Gevgelija
+					2755 = { is_owned_by = YUG }   # -> Sveti Nikole
+					2805 = { is_owned_by = YUG }   # -> Preševo
+					2899 = { is_owned_by = YUG }   # -> Dračevo
+					1528 = { is_owned_by = GER }   # was vanilla 106 (Macedonia)
+					1529 = { is_owned_by = GER }   # -> Skopje
+					1530 = { is_owned_by = GER }   # -> Kumanovo
+					1531 = { is_owned_by = GER }   # -> Štip
+					1532 = { is_owned_by = GER }   # -> Strumica
+					1973 = { is_owned_by = GER }   # -> Gevgelija
+					2755 = { is_owned_by = GER }   # -> Sveti Nikole
+					2805 = { is_owned_by = GER }   # -> Preševo
+					2899 = { is_owned_by = GER }   # -> Dračevo
+					862 = { is_owned_by = YUG }   # was vanilla 803 (Southern Serbia)
+					865 = { is_owned_by = YUG }   # -> Vranje
+					894 = { is_owned_by = YUG }   # -> Veles
+					862 = { is_owned_by = GER }   # was vanilla 803 (Southern Serbia)
+					865 = { is_owned_by = GER }   # -> Vranje
+					894 = { is_owned_by = GER }   # -> Veles
 				}
 			}
-			custom_effect_tooltip = mer_transfer_macedonia
-			hidden_effect = {
-				every_state = {
-					limit = {
-						is_core_of = MAC
-						OR = {
-							is_owned_by = YUG
-							is_owned_by = GER
-						}
-					}
-					transfer_state_to = BUL
-				}
-			}
-			custom_effect_tooltip = mer_transfer_western_outlands
-			hidden_effect = {
-				transfer_state = 2805
-				transfer_state = 865
-				transfer_state = 1971
-				transfer_state = 1972
-				transfer_state = 846
-				transfer_state = 1970
-			}
+			transfer_state = 1528 # was vanilla 106 (Macedonia -> Bitola)
+			transfer_state = 1529 # -> Skopje
+			transfer_state = 1530 # -> Kumanovo
+			transfer_state = 1531 # -> Štip
+			transfer_state = 1532 # -> Strumica
+			transfer_state = 1973 # -> Gevgelija
+			transfer_state = 2755 # -> Sveti Nikole
+			transfer_state = 2805 # -> Preševo
+			transfer_state = 2899 # -> Dračevo
+			transfer_state = 862 # was vanilla 803 (Southern Serbia -> Leskovac)
+			transfer_state = 865 # -> Vranje
+			transfer_state = 894 # -> Veles
 		}
 	}
 }
@@ -115,7 +120,6 @@ country_event = {
 # Treaty of Craiova - Hungary gets land. So should we
 country_event = {
 	id = bulgaria.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bulgaria.4 FROM = [From.GetName]" }
 	title = bulgaria.4.t
 	desc = bulgaria.4.d
 	picture = GFX_report_event_vienna_award_negotiations
@@ -157,7 +161,6 @@ country_event = {
 # Treaty of Craiova - Germany will not back us
 country_event = {
 	id = bulgaria.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event bulgaria.5 FROM = [From.GetName]" }
 	title = bulgaria.5.t
 	desc = bulgaria.5.d
 	picture = GFX_report_event_vienna_award_negotiations

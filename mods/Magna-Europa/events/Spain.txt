@@ -7,7 +7,6 @@ add_namespace = spain
 # Spanish Civil War
 country_event = {
 	id = spain.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.1 FROM = [From.GetName]" }
 	title = spain.1.t
 	desc = spain.1.d
 	picture = GFX_report_event_spain_civil_war_soldiers
@@ -37,15 +36,14 @@ country_event = {
 					}
 				}
 				retire_country_leader = yes
-				create_country_leader = {
-					name = "Manuel Azaña"
-					desc = "POLITICS_MANUEL_AZANA_DESC"
-					picture = GFX_portrait_Manuel_Azana
-					expire = "1965.1.1"
-					ideology = conservatism
-					traits = {
-
+				add_country_leader_role = {
+					character = SPR_manuel_azana
+					country_leader = {
+					 	ideology = conservatism
+					 	traits = { }
+					 	expire = "1965.1.1"
 					}
+					promote_leader = yes
 				}
 			}
 		}
@@ -55,46 +53,20 @@ country_event = {
 		name = spain.1.a
 		trigger = { is_ai = no }
 		hidden_effect = {
-			set_capital = { state = 897 }
+			set_capital = { state = 176 }
 			start_civil_war = {
 				ruling_party = fascism
 				ideology = communism
 				size = 0.5
-				capital = 951
-				states = all
-				states_filter = {
-					is_nationalist_state = no
-				}
+				capital = 41
+				states = { 41 165 167 168 173 175 790 792 793 794 }
 			}
 			random_other_country = {
 				limit = {
 					original_tag = SPR
 					has_government = communism
 				}
-				save_event_target_as = SPR_tag
-				division_template = {
-					name = "Brigada Internacionales"			# International volunteers -- poor equipment, no experience (militia)
-					is_locked = yes
-					division_names_group = SPR_INF_01
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-					}
-				}
-				every_owned_state = {
-					limit = {
-						is_on_continent = europe
-						NOT = { is_core_of = BAL }
-					}
-					create_unit = {
-						division = "division_template = \"Brigada Internacionales\" start_experience_factor = 0.1" 
-						owner = event_target:SPR_tag
-						allow_spawning_on_enemy_provs = no
-						count = 2
-					}
-				}
-				
+				load_oob = "SPR_Civil_War"
 				set_equipment_fraction = 0.5
 				set_stability = 0.9
 				set_war_support = 0.8
@@ -108,28 +80,7 @@ country_event = {
 			set_global_flag = spanish_civil_war
 			set_country_flag = scw_no_lar_nationalists
 
-			division_template = {
-				name = "Brigada Legionario"
-				is_locked = yes
-				division_names_group = SPA_INF_01
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-				}
-			}
-			every_owned_state = {
-				limit = {
-						is_on_continent = europe
-						NOT = { is_core_of = BAL }
-					}
-					create_unit = {
-						division = "division_template = \"Brigada Legionario\" start_experience_factor = 0.1" 
-						owner = ROOT
-						allow_spawning_on_enemy_provs = no
-						count = 2
-					}
-				}
+			load_oob = "SPA_Civil_War"
 			set_equipment_fraction = 0.5
 			set_stability = 0.9
 			set_war_support = 0.8
@@ -157,13 +108,8 @@ country_event = {
 			start_civil_war = {
 				ideology = fascism
 				size = 0.5
-				capital = 897
-				states = all
-				states_filter = {
-					
-					is_nationalist_state = yes
-					
-				}
+				capital = 176
+				states = { 166 169 170 171 172 174 176 177 178 290 297 699 788 789 791 }
 			}
 			random_other_country = {
 				limit = {
@@ -174,28 +120,7 @@ country_event = {
 				set_stability = 0.9
 				set_war_support = 0.8
 				#country_event = { id = spain.2 days = 1 }
-				division_template = {
-				name = "Brigada Legionario"
-				is_locked = yes
-				division_names_group = SPA_INF_01
-				regiments = {
-					infantry = { x = 0 y = 0 }
-					infantry = { x = 0 y = 1 }
-					infantry = { x = 0 y = 2 }
-				}
-			}
-			every_owned_state = {
-				limit = {
-						is_on_continent = europe
-						NOT = { is_core_of = BAL }
-					}
-					create_unit = {
-						division = "division_template = \"Brigada Legionario\" start_experience_factor = 0.1" 
-						owner = PREV
-						allow_spawning_on_enemy_provs = no
-						count = 2
-					}
-				}
+				load_oob = "SPA_Civil_War"
 			}
 			news_event = { hours = 6 id = news.63 }
 			set_global_flag = spanish_civil_war
@@ -221,28 +146,7 @@ country_event = {
 				set_cosmetic_tag = SPR_civil_war
 				set_country_flag = scw_no_lar_nationalists
 			}
-			division_template = {
-					name = "Brigada Internacionales"			# International volunteers -- poor equipment, no experience (militia)
-					is_locked = yes
-					division_names_group = SPR_INF_01
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-					}
-				}
-				every_owned_state = {
-					limit = {
-						is_on_continent = europe
-						NOT = { is_core_of = BAL }
-					}
-					create_unit = {
-						division = "division_template = \"Brigada Internacionales\" start_experience_factor = 0.1" 
-						owner = ROOT
-						allow_spawning_on_enemy_provs = no
-						count = 2
-					}
-				}
+			load_oob = "SPR_Civil_War"
 			set_equipment_fraction = 0.5
 			set_stability = 0.9
 			set_war_support = 0.8
@@ -256,7 +160,6 @@ country_event = {
 # Nationalists: Seek Support
 country_event = {
 	id = spain.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.2 FROM = [From.GetName]" }
 	title = spain.2.t
 	desc = spain.2.d
 	picture = GFX_report_event_spain_civil_war_volunteers_01
@@ -295,7 +198,6 @@ country_event = {
 # Republicans: Seek Support
 country_event = {
 	id = spain.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.3 FROM = [From.GetName]" }
 	title = spain.2.t
 	desc = spain.3.d
 	picture = GFX_report_event_spain_civil_war_volunteers
@@ -333,7 +235,6 @@ country_event = {
 # Nationalist Spain Wants Our Help
 country_event = {
 	id = spain.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.4 FROM = [From.GetName]" }
 	title = spain.4.t
 	desc = spain.4.d
 	picture = GFX_report_event_spain_civil_war_soldiers
@@ -359,7 +260,6 @@ country_event = {
 # Republican Spain Wants Our Help
 country_event = {
 	id = spain.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.5 FROM = [From.GetName]" }
 	title = spain.5.t
 	desc = spain.5.d
 	picture = GFX_report_event_spain_civil_war_volunteers_02
@@ -385,7 +285,6 @@ country_event = {
 # Nationalist Spain Appreciates our Help
 country_event = {
 	id = spain.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.6 FROM = [From.GetName]" }
 	title = spain.6.t
 	desc = spain.6.d
 	picture = GFX_report_event_finnish_letter
@@ -393,8 +292,9 @@ country_event = {
 	trigger = {
 		has_country_flag = promised_help_nationalist_spain
 		SPR = { has_civil_war = yes }
-		any_other_country = {
-			original_tag = SPR
+		any_other_country_with_original_tag_of = {
+			exists = yes
+			target = {SPR}
 			has_government = fascism
 			ROOT = { is_lend_leasing = PREV }
 		}
@@ -420,7 +320,6 @@ country_event = {
 # Republican Spain Appreciates our Help
 country_event = {
 	id = spain.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.7 FROM = [From.GetName]" }
 	title = spain.7.t
 	desc = spain.7.d
 	picture = GFX_report_event_spain_civil_war_volunteers_01
@@ -445,7 +344,6 @@ country_event = {
 # Civil war over. Move Capital
 country_event = {
 	id = spain.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.8 FROM = [From.GetName]" }
 	title = spain.8.t
 	desc = spain.8.d
 	picture = GFX_report_event_spain_civil_war_volunteers_01
@@ -480,7 +378,6 @@ country_event = {
 # Election of 1936
 country_event = {
 	id = spain.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.9 FROM = [From.GetName]" }
 	title = spain.9.t
 	desc = spain.9.d
 	picture = GFX_report_event_election_vote
@@ -522,7 +419,6 @@ country_event = {
 # Spanish Civil War if Franco is elected
 country_event = {
 	id = spain.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event spain.10 FROM = [From.GetName]" }
 	title = spain.1.t
 	desc = spain.10.d
 	picture = GFX_report_event_spain_civil_war_soldiers
@@ -544,7 +440,7 @@ country_event = {
 		name = spain.1.a
 		trigger = { is_ai = no }
 		hidden_effect = {
-			set_capital = { state = 951 }
+			set_capital = { state = 176 }
 			start_civil_war = {
 				ruling_party = fascism
 				ideology = communism

@@ -7,7 +7,6 @@ add_namespace = greece
 # Soviet Demands
 country_event = {
 	id = greece.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event greece.1 FROM = [From.GetName]" }
 	title = greece.1.t
 	desc = greece.1.d
 	picture = GFX_report_event_stalin_02
@@ -94,16 +93,15 @@ country_event = {
 # German demands to hand over territory to friends or self
 country_event = {
 	id = greece.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event greece.2 FROM = [From.GetName]" }
 	title = greece.2.t
 
 	desc = { 
 		text = greece.2.d_GER_demand
 		trigger = {
 			OR = {
-				941 = { has_state_flag = GER_second_ljubljana_award_GER_demand }
-				995 = { has_state_flag = GER_second_ljubljana_award_GER_demand }
-				2003 = { has_state_flag = GER_second_ljubljana_award_GER_demand }
+				has_global_flag = GER_second_ljubljana_award_GER_185
+				has_global_flag = GER_second_ljubljana_award_GER_731
+				has_global_flag = GER_second_ljubljana_award_GER_184
 			}
 		}
 	}
@@ -113,10 +111,14 @@ country_event = {
 		trigger = {
 			OR = {
 				has_global_flag = GER_second_ljubljana_award_ITA_185
-				has_global_flag = GER_second_ljubljana_award_ITA_186
-				has_global_flag = GER_second_ljubljana_award_ITA_47
+				has_global_flag = GER_second_ljubljana_award_ITA_731
 			}
-			NOT = { has_global_flag = GER_second_ljubljana_award_BUL_184 }
+			NOT = {
+				OR = {
+					has_global_flag = GER_second_ljubljana_award_BUL_184
+					has_global_flag = GER_second_ljubljana_award_BUL_731
+				}
+			}
 		}
 	}
 	
@@ -124,21 +126,22 @@ country_event = {
 		text = greece.2.d_BUL
 		trigger = {
 			NOT = { has_global_flag = GER_second_ljubljana_award_ITA_185 }
-			NOT = { has_global_flag = GER_second_ljubljana_award_ITA_186 }
-			NOT = { has_global_flag = GER_second_ljubljana_award_ITA_47 }
-			has_global_flag = GER_second_ljubljana_award_BUL_184
+			NOT = { has_global_flag = GER_second_ljubljana_award_ITA_731 }
+			OR = {
+				has_global_flag = GER_second_ljubljana_award_BUL_184
+				has_global_flag = GER_second_ljubljana_award_BUL_731
+			}
 		}
 	}
 
 	desc = {
 		text = greece.2.d_ITA_BUL
 		trigger = {
+			has_global_flag = GER_second_ljubljana_award_ITA_185
 			OR = {
-				has_global_flag = GER_second_ljubljana_award_ITA_185
-				has_global_flag = GER_second_ljubljana_award_ITA_186
-				has_global_flag = GER_second_ljubljana_award_ITA_47
+				has_global_flag = GER_second_ljubljana_award_BUL_184
+				has_global_flag = GER_second_ljubljana_award_BUL_731
 			}
-			has_global_flag = GER_second_ljubljana_award_BUL_184
 		}
 	}
 
@@ -149,15 +152,12 @@ country_event = {
 	option = { # Accept demands
 		name = greece.2.a
 		ai_chance = {	
+			base = 100	
 			modifier = {
 				factor = 0
-				OR = {
-					any_other_country = {
-
+				any_other_country = {
+					OR = {
 						has_guaranteed = GRE
-					}
-					any_other_country = {
-
 						is_in_faction_with = GRE
 					}
 				}
@@ -166,165 +166,212 @@ country_event = {
 				factor = 0
 				is_puppet = yes
 			}
-			factor = 100	
 		}
 
 		hidden_effect = {
 			news_event = { id = news.170 hours = 2}
 		}
-		if = {
+		
+		if = { #Only Italy gets a piece of Greece
 			limit = {
-				has_global_flag = GER_second_ljubljana_award_BUL_184
+				has_global_flag = GER_second_ljubljana_award_ITA_event
+				NOT = { has_global_flag = GER_second_ljubljana_award_BUL_done }
 			}
-			BUL = {
-				custom_effect_tooltip = mer_transfer_thrace
-				hidden_effect = {
-					transfer_state = 1969
-					transfer_state = 2006
-					transfer_state = 2005
-					transfer_state = 910
-					transfer_state = 937
-					transfer_state = 2564
-					transfer_state = 2751
-					transfer_state = 2016
-					transfer_state = 2840
-					transfer_state = 1548
-					transfer_state = 929
-					transfer_state = 1549
-					transfer_state = 2000
-					transfer_state = 2940
-					transfer_state = 1546
-					transfer_state = 1547
-					transfer_state = 1557
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_ITA_185
 				}
+				ITA = { transfer_state = 995 } # was vanilla 185 (Epirus -> Ioannina)
+				transfer_state = 1044 # -> Aitoloakarnanía
+				transfer_state = 1061 # -> Zakynthos
+				transfer_state = 1540 # -> Trikala
+				transfer_state = 1541 # -> Arta
+				transfer_state = 1542 # -> Preveza
+				transfer_state = 1543 # -> Thesprotia
+				transfer_state = 1550 # -> Kerkyra
+				transfer_state = 1551 # -> Kefalonia
+				transfer_state = 1561 # -> Lefkada
+				transfer_state = 2000 # -> Stavros
+				transfer_state = 2001 # -> Grevena
+				transfer_state = 2002 # -> Kastoria
+				transfer_state = 2015 # -> Kardista
+				transfer_state = 2021 # -> Evrytania
+				transfer_state = 2922 # -> Prespa
+				transfer_state = 2940 # -> Lefkochori
+			}
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_ITA_731
+				}
+				ITA = { transfer_state = 941 } # was vanilla 731 (Central Macedonia -> Thessaloniki)
+				transfer_state = 969 # -> Florina
+				transfer_state = 1544 # -> Kozani
+				transfer_state = 1545 # -> Pella
+				transfer_state = 1546 # -> Kilkis
+				transfer_state = 1547 # -> Chalkidiki
+				transfer_state = 1549 # -> Serres
+				transfer_state = 1557 # -> Oros Athos
+				transfer_state = 2020 # -> Pieria
+				transfer_state = 2748 # -> Koufalia
+				transfer_state = 2898 # -> Bogdanci
+				transfer_state = 2923 # -> Veria
 			}
 		}
-
-		if = {
+		else_if = { #Only Bulgaria gets a piece of Greece
 			limit = {
-				has_global_flag = GER_second_ljubljana_award_ITA_185
+				has_global_flag = GER_second_ljubljana_award_BUL_done
+				NOT = { has_global_flag = GER_second_ljubljana_award_ITA_event }
 			}
-			ITA = {
-				custom_effect_tooltip = mer_transfer_ioannina
-				hidden_effect = {
-					transfer_state = 1061
-					transfer_state = 1551
-					transfer_state = 1561
-					transfer_state = 1550
-					transfer_state = 1044
-					transfer_state = 2021
-					transfer_state = 2015
-					transfer_state = 1540
-					transfer_state = 2001
-					transfer_state = 2922
-					transfer_state = 2002
-					transfer_state = 995
-					transfer_state = 1541
-					transfer_state = 1542
-					transfer_state = 1543
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_BUL_184
 				}
+				BUL = { transfer_state = 910 } # was vanilla 184 (Thrace -> Alexandroupoli)
+				transfer_state = 929 # -> Drama
+				transfer_state = 937 # -> Rhodope
+				transfer_state = 1548 # -> Kavala
+				transfer_state = 1969 # -> Didymoteicho
+				transfer_state = 2005 # -> Feres
+				transfer_state = 2006 # -> Petrota
+				transfer_state = 2016 # -> Katafigio
+				transfer_state = 2564 # -> Samothraki
+				transfer_state = 2751 # -> Xanthi
+				transfer_state = 2840 # -> Skaloti
+			}
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_BUL_731
+				}
+				BUL = { transfer_state = 941 } # was vanilla 731 (Central Macedonia -> Thessaloniki)
+				transfer_state = 969 # -> Florina
+				transfer_state = 1544 # -> Kozani
+				transfer_state = 1545 # -> Pella
+				transfer_state = 1546 # -> Kilkis
+				transfer_state = 1547 # -> Chalkidiki
+				transfer_state = 1549 # -> Serres
+				transfer_state = 1557 # -> Oros Athos
+				transfer_state = 2020 # -> Pieria
+				transfer_state = 2748 # -> Koufalia
+				transfer_state = 2898 # -> Bogdanci
+				transfer_state = 2923 # -> Veria
 			}
 		}
-		if = {
+		else_if = { #Both Italy and Bulgaria are good bois and gets a piece each of Greece
 			limit = {
-				has_global_flag = GER_second_ljubljana_award_ITA_186
+				has_global_flag = GER_second_ljubljana_award_ITA_event
+				has_global_flag = GER_second_ljubljana_award_BUL_done
 			}
-			ITA = {
-				custom_effect_tooltip = mer_transfer_pelopennese
-				hidden_effect = {
-					transfer_state = 1562
-					transfer_state = 1089
-					transfer_state = 1536
-					transfer_state = 1537
-					transfer_state = 1539
-					transfer_state = 1538
-					transfer_state = 1073
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_ITA_185
 				}
+				ITA = { transfer_state = 995 } # was vanilla 185 (Epirus -> Ioannina)
+				transfer_state = 1044 # -> Aitoloakarnanía
+				transfer_state = 1061 # -> Zakynthos
+				transfer_state = 1540 # -> Trikala
+				transfer_state = 1541 # -> Arta
+				transfer_state = 1542 # -> Preveza
+				transfer_state = 1543 # -> Thesprotia
+				transfer_state = 1550 # -> Kerkyra
+				transfer_state = 1551 # -> Kefalonia
+				transfer_state = 1561 # -> Lefkada
+				transfer_state = 2000 # -> Stavros
+				transfer_state = 2001 # -> Grevena
+				transfer_state = 2002 # -> Kastoria
+				transfer_state = 2015 # -> Kardista
+				transfer_state = 2021 # -> Evrytania
+				transfer_state = 2922 # -> Prespa
+				transfer_state = 2940 # -> Lefkochori
+			}
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_BUL_184
+				}
+				BUL = { transfer_state = 910 } # was vanilla 184 (Thrace -> Alexandroupoli)
+				transfer_state = 929 # -> Drama
+				transfer_state = 937 # -> Rhodope
+				transfer_state = 1548 # -> Kavala
+				transfer_state = 1969 # -> Didymoteicho
+				transfer_state = 2005 # -> Feres
+				transfer_state = 2006 # -> Petrota
+				transfer_state = 2016 # -> Katafigio
+				transfer_state = 2564 # -> Samothraki
+				transfer_state = 2751 # -> Xanthi
+				transfer_state = 2840 # -> Skaloti
+			}
+			if = {
+				limit = {
+					has_global_flag = GER_second_ljubljana_award_BUL_731
+				}
+				BUL = { transfer_state = 941 } # was vanilla 731 (Central Macedonia -> Thessaloniki)
+				transfer_state = 969 # -> Florina
+				transfer_state = 1544 # -> Kozani
+				transfer_state = 1545 # -> Pella
+				transfer_state = 1546 # -> Kilkis
+				transfer_state = 1547 # -> Chalkidiki
+				transfer_state = 1549 # -> Serres
+				transfer_state = 1557 # -> Oros Athos
+				transfer_state = 2020 # -> Pieria
+				transfer_state = 2748 # -> Koufalia
+				transfer_state = 2898 # -> Bogdanci
+				transfer_state = 2923 # -> Veria
 			}
 		}
-		if = {
-			limit = {
-				has_global_flag = GER_second_ljubljana_award_ITA_47
-			}
-			ITA = {
-				custom_effect_tooltip = mer_transfer_central_greece
-				hidden_effect = {
-					transfer_state = 2014
-					transfer_state = 1015
-					transfer_state = 2017
-					transfer_state = 1045
-					transfer_state = 2018
-					transfer_state = 1074
-					transfer_state = 1052
-					transfer_state = 2019
-					transfer_state = 2003
+		else = {
+			if = {
+				limit = { 
+					has_global_flag = GER_second_ljubljana_award_GER_185
 				}
+				GER = { transfer_state = 995 } # was vanilla 185 (Epirus -> Ioannina)
+				transfer_state = 1044 # -> Aitoloakarnanía
+				transfer_state = 1061 # -> Zakynthos
+				transfer_state = 1540 # -> Trikala
+				transfer_state = 1541 # -> Arta
+				transfer_state = 1542 # -> Preveza
+				transfer_state = 1543 # -> Thesprotia
+				transfer_state = 1550 # -> Kerkyra
+				transfer_state = 1551 # -> Kefalonia
+				transfer_state = 1561 # -> Lefkada
+				transfer_state = 2000 # -> Stavros
+				transfer_state = 2001 # -> Grevena
+				transfer_state = 2002 # -> Kastoria
+				transfer_state = 2015 # -> Kardista
+				transfer_state = 2021 # -> Evrytania
+				transfer_state = 2922 # -> Prespa
+				transfer_state = 2940 # -> Lefkochori
 			}
-		}
-
-		if = {
-			limit = { 
-				has_global_flag = GER_second_ljubljana_award_GER_731
-			}
-			GER = {
-				custom_effect_tooltip = mer_transfer_greek_macedonia
-				hidden_effect = {
-					transfer_state = 941
-					transfer_state = 2748
-					transfer_state = 1545
-					transfer_state = 969
-					transfer_state = 2923
-					transfer_state = 1544
-					transfer_state = 2020
-					transfer_state = 2748
+			if = {
+				limit = { 
+					has_global_flag = GER_second_ljubljana_award_GER_731
 				}
+				GER = { transfer_state = 941 } # was vanilla 731 (Central Macedonia -> Thessaloniki)
+				transfer_state = 969 # -> Florina
+				transfer_state = 1544 # -> Kozani
+				transfer_state = 1545 # -> Pella
+				transfer_state = 1546 # -> Kilkis
+				transfer_state = 1547 # -> Chalkidiki
+				transfer_state = 1549 # -> Serres
+				transfer_state = 1557 # -> Oros Athos
+				transfer_state = 2020 # -> Pieria
+				transfer_state = 2748 # -> Koufalia
+				transfer_state = 2898 # -> Bogdanci
+				transfer_state = 2923 # -> Veria
 			}
-		}
-		if = {
-			limit = { 
-				has_global_flag = GER_second_ljubljana_award_GER_185
-				NOT = { has_global_flag = GER_second_ljubljana_award_GER_731 }
-			}
-			GER = {
-				custom_effect_tooltip = mer_transfer_ioannina
-				hidden_effect = {
-					transfer_state = 1061
-					transfer_state = 1551
-					transfer_state = 1561
-					transfer_state = 1550
-					transfer_state = 1044
-					transfer_state = 2021
-					transfer_state = 2015
-					transfer_state = 1540
-					transfer_state = 2001
-					transfer_state = 2922
-					transfer_state = 2002
-					transfer_state = 995
-					transfer_state = 1541
-					transfer_state = 1542
-					transfer_state = 1543
+			if = {
+				limit = { 
+					has_global_flag = GER_second_ljubljana_award_GER_184
 				}
-			}
-		}
-		if = {
-			limit = { 
-				has_global_flag = GER_second_ljubljana_award_GER_47
-				NOT = { has_global_flag = GER_second_ljubljana_award_GER_731 }
-				NOT = { has_global_flag = GER_second_ljubljana_award_GER_185 }
-			}
-			GER = {
-				custom_effect_tooltip = mer_transfer_central_greece
-				hidden_effect = {
-					transfer_state = 2014
-					transfer_state = 1015
-					transfer_state = 2017
-					transfer_state = 1045
-					transfer_state = 2018
-					transfer_state = 1074
-					transfer_state = 1052
-					transfer_state = 2019
-					transfer_state = 2003
-				}
+				GER = { transfer_state = 910 } # was vanilla 184 (Thrace -> Alexandroupoli)
+				transfer_state = 929 # -> Drama
+				transfer_state = 937 # -> Rhodope
+				transfer_state = 1548 # -> Kavala
+				transfer_state = 1969 # -> Didymoteicho
+				transfer_state = 2005 # -> Feres
+				transfer_state = 2006 # -> Petrota
+				transfer_state = 2016 # -> Katafigio
+				transfer_state = 2564 # -> Samothraki
+				transfer_state = 2751 # -> Xanthi
+				transfer_state = 2840 # -> Skaloti
 			}
 		}
 	}
@@ -332,29 +379,25 @@ country_event = {
 	option = { # Refuse
 		name = greece.2.b
 		ai_chance = {	
+			base = 5	
 			modifier = {
 				factor = 0
 				NOT = {
-					OR = {
-						any_other_country = {
-
+					any_other_country = {
+						OR = {
 							has_guaranteed = GRE
-						}
-						any_other_country = {
-
 							is_in_faction_with = GRE
 						}
 					}
 				}
 			}
-			factor = 5	
 		}
 		GER = { country_event = { id = germany.102 hours = 6 } }
 		news_event = { id = news.171 hours = 2 }
 		effect_tooltip = {
 			GER = {
 				create_wargoal = {
-					type = annex_everything
+					type = puppet_wargoal_focus
 					target = GRE		
 				}
 			}			
@@ -365,7 +408,6 @@ country_event = {
 # Germany demands Greece become puppet
 country_event = {
 	id = greece.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event greece.3 FROM = [From.GetName]" }
 	title = greece.3.t
 	desc = greece.3.d
 	picture = GFX_report_event_generic_sign_treaty2
@@ -375,6 +417,7 @@ country_event = {
 	option = { # Accept demands
 		name = greece.3.a
 		ai_chance = {	
+			base = 100	
 			modifier = {
 				factor = 0
 				OR = {
@@ -388,7 +431,6 @@ country_event = {
 					}
 				}
 			}
-			factor = 100	
 		}
 		GER = { puppet = GRE }
 		hidden_effect = {
@@ -399,6 +441,7 @@ country_event = {
 	option = { # Refuse
 		name = greece.3.b
 		ai_chance = {	
+			base = 5	
 			modifier = {
 				factor = 0
 				NOT = {
@@ -414,7 +457,6 @@ country_event = {
 					}
 				}
 			}
-			factor = 5	
 		}
 		GER = { country_event = { id = germany.102 hours = 6 } }
 		effect_tooltip = {
@@ -431,7 +473,6 @@ country_event = {
 # Greece gets wargoal - From Italian focus tree
 country_event = {
 	id = greece.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event greece.4 FROM = [From.GetName]" }
 	title = greece.4.t
 	desc = greece.4.d
 	picture = GFX_report_event_fascist_militia
@@ -440,12 +481,10 @@ country_event = {
 	
 	option = { # Accept demands
 		name = greece.4.a
-		ai_chance = {	factor = 100	}
 		create_wargoal = {
 			type = take_state_focus
 			target = TUR
-			generator = { 1032 }
+			generator = { 1032 1038 1050 1081 1935 1936 1937 1941 }   # was vanilla 339
 		}
-		
 	}
 }

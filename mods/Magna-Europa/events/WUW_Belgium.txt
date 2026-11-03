@@ -156,7 +156,7 @@ country_event = {
 	fire_only_once = yes
 
 	mean_time_to_happen = {
-		days = 140
+		days = 100
 	}
 
 	option = { #Is There No End?
@@ -632,7 +632,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = ROOT
-					generator = { 8 }
+					generator = { 404 427 500 512 }   # was vanilla 8
 				}
 			}
 			country_event = { days = 1 id = ww_BEL_event_diplomatic.4 }
@@ -673,7 +673,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 8 }
+			generator = { 404 427 500 512 }   # was vanilla 8
 		}
 	}
 }
@@ -1332,7 +1332,7 @@ country_event = { #To GER/USA/ENG: BEL requests equipment
 	}
 
 	option = { #sure, support
-		name = ww_BEL_event_diplomatic.15.b
+		name = ww_BEL_event_diplomatic.15.c
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -1346,7 +1346,7 @@ country_event = { #To GER/USA/ENG: BEL requests equipment
 		ROOT = {
 			send_equipment = {
 				equipment = support_equipment
-				amount = 2000
+				amount = 250
 				target = FROM
 			}
 		}
@@ -1365,7 +1365,7 @@ country_event = { #To GER/USA/ENG: BEL requests equipment
 	}
 
 	option = { #no
-		name = ww_BEL_event_diplomatic.15.c
+		name = ww_BEL_event_diplomatic.15.b
 		ai_chance = {
 			base = 1
 			modifier = {
@@ -1532,7 +1532,7 @@ country_event = { #To BEL: Generic accept
 
 			clr_country_flag = BEL_got_support_eqiupment_flag
 
-			event_option_tooltip = ww_BEL_event_diplomatic.15.b
+			event_option_tooltip = ww_BEL_event_diplomatic.15.c
 		}
 
 		IF = {
@@ -1585,14 +1585,29 @@ country_event = { # To potential EU member: Please join the EU
 			base = 10
 			modifier = {
 				factor = 5
-				has_government = ROOT
+				has_government = FROM
 			}
 			modifier = {
 				factor = 2
 				has_opinion = {
-					target = ROOT
+					target = FROM
 					value > 24
 				}
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = {
+					target = FROM
+					value > 74
+				}
+			}
+			modifier = {
+				factor = 1.5
+				is_guaranteed_by = FROM
+			}
+			modifier = {
+				factor = 1.5
+				threat > 0.5
 			}
 		}
 
@@ -1619,8 +1634,14 @@ country_event = { # To potential EU member: Please join the EU
 			modifier = {
 				factor = 5
 				has_opinion = {
-					target = ROOT
+					target = FROM
 					value < -24
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					has_government = FROM
 				}
 			}
 		}
@@ -1773,14 +1794,49 @@ country_event = { #To EU Member: subjugation request
 			base = 10
 			modifier = {
 				factor = 5
-				has_government = ROOT
+				has_government = FROM
 			}
 			modifier = {
 				factor = 2
 				has_opinion = {
-					target = ROOT
+					target = FROM
 					value > 24
 				}
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = {
+					target = FROM
+					value > 74
+				}
+			}
+			modifier = {
+				factor = 1.5
+				is_guaranteed_by = FROM
+			}
+			modifier = {
+				factor = 1.5
+				is_in_tech_sharing_group = EU_tech_sharing_group
+			}
+			modifier = {
+				factor = 1.5
+				FROM = {
+					any_subject_country = {
+						has_autonomy_state = autonomy_eu_member
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				surrender_progress > 0.3
+			}
+			modifier = {
+				factor = 1.5
+				has_country_flag = BEL_received_eu_investment_flag
+			}
+			modifier = {
+				factor = 0.25
+				has_country_flag = BEL_refused_federalization_flag
 			}
 		}
 
@@ -1801,10 +1857,34 @@ country_event = { #To EU Member: subjugation request
 			modifier = {
 				factor = 5
 				has_opinion = {
-					target = ROOT
+					target = FROM
 					value < -24
 				}
 			}
+			modifier = {
+				factor = 2
+				NOT = {
+					has_government = FROM
+				}
+			}
+			modifier = {
+				factor = 3
+				has_country_flag = BEL_refused_federalization_flag
+			}
+			modifier = {
+				factor = 0.5
+				has_country_flag = BEL_received_eu_investment_flag
+			}
+			modifier = {
+				factor = 0.5
+				surrender_progress > 0.3
+			}
+		}
+
+		set_country_flag = {
+			flag = BEL_refused_federalization_flag
+			days = 365
+			value = 1
 		}
 
 		FROM = {
@@ -3039,7 +3119,11 @@ country_event = { #Event for SPD: BEL proposes faction
 		}		
 		
 		FROM = {
-			create_faction = BEL_SPR_alliance
+			create_faction_from_template = {
+				template = faction_template_anti_fascist
+				name = BEL_SPR_alliance
+				icon = GFX_faction_logo_generic_11
+			}
 			add_to_faction = ROOT
 			country_event = {
 				id = ww_BEL_event_spanish_interaction.7
@@ -3086,7 +3170,11 @@ country_event = { #Event for BEL: SPD accepts
 		}		
 		
 		effect_tooltip = {
-			create_faction = BEL_SPR_alliance
+			create_faction_from_template = {
+				template = faction_template_anti_fascist
+				name = BEL_SPR_alliance
+				icon = GFX_faction_logo_generic_11
+			}
 			add_to_faction = FROM
 		}
 	}
@@ -3160,44 +3248,60 @@ country_event = { #Vandervelde Dies (Prime Minister)
 		ai_chance = {
 			base = 100
 		}
-		add_country_leader_role = {
-		    character = BEL_henri_de_man
-		    promote_leader = yes
-		    country_leader = {
-		        ideology = socialism
-		        expire = "1965.1.1.1"
-		        traits = { BEL_man_with_a_plan_leader }
-		    }
-		}
-		hidden_effect = {
+		if = { ## Don't change country leader if he's not current country leader, only show effect tooltip
+			limit = {
+				has_country_leader = {
+					ruling_only = yes # default = yes
+					character = BEL_emile_vanderveld
+					
+				}
+			}
 			add_country_leader_role = {
 			    character = BEL_henri_de_man
 			    promote_leader = yes
 			    country_leader = {
-			        ideology = marxism
+			        ideology = socialism
 			        expire = "1965.1.1.1"
 			        traits = { BEL_man_with_a_plan_leader }
 			    }
 			}
+			hidden_effect = {
+				add_country_leader_role = {
+				    character = BEL_henri_de_man
+				    promote_leader = yes
+				    country_leader = {
+				        ideology = marxism
+				        expire = "1965.1.1.1"
+				        traits = { BEL_man_with_a_plan_leader }
+				    }
+				}
+			}
+		}
+		else = {
+			effect_tooltip = {
+				add_country_leader_role = {
+				    character = BEL_henri_de_man
+				    promote_leader = yes
+				    country_leader = {
+				        ideology = socialism
+				        expire = "1965.1.1.1"
+				        traits = { BEL_man_with_a_plan_leader }
+				    }
+				}
+				hidden_effect = {
+					add_country_leader_role = {
+					    character = BEL_henri_de_man
+					    promote_leader = yes
+					    country_leader = {
+					        ideology = marxism
+					        expire = "1965.1.1.1"
+					        traits = { BEL_man_with_a_plan_leader }
+					    }
+					}
+				}
+			}
 		}
 		add_stability = -0.05
-	}
-}
-
-
-country_event = { #Tintin
-	id = ww_BEL_event_misc.2
-	title = ww_BEL_event_misc.2.t
-	desc = ww_BEL_event_misc.2.desc 
-	picture = GFX_report_event_generic_sign_treaty2
-
-	is_triggered_only = yes
-
-	option = { #Ok!
-		name = ww_BEL_event_misc.2.a
-		ai_chance = {
-			base = 100
-		}
 	}
 }
 
@@ -3213,6 +3317,59 @@ country_event = { #Cockerill
 		name = ww_BEL_event_misc.3.a
 		ai_chance = {
 			base = 100
+		}
+	}
+}
+
+country_event = { #To EU member: the Union invests in their industry
+	id = ww_BEL_event_diplomatic.38
+	title = ww_BEL_event_diplomatic.38.t
+	desc = ww_BEL_event_diplomatic.38.desc
+	picture = GFX_report_event_generic_factory
+
+	is_triggered_only = yes
+
+	option = { #Excellent
+		name = ww_BEL_event_diplomatic.38.a
+		ai_chance = {
+			base = 100
+		}
+
+		set_temp_variable = { BEL_eu_investment_paid = 0 } #has to be read before the state flag is cleared below
+		if = {
+			limit = {
+				any_owned_state = {
+					has_state_flag = BEL_eu_investment_target
+					is_controlled_by = PREV #mirrors the random_owned_controlled_state that actually builds
+				}
+			}
+			set_temp_variable = { BEL_eu_investment_paid = 1 }
+		}
+
+		random_owned_controlled_state = {
+			limit = {
+				has_state_flag = BEL_eu_investment_target
+			}
+			clr_state_flag = BEL_eu_investment_target
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = arms_factory
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		if = { #only mark them invested if a state actually qualified and got the buildings
+			limit = {
+				check_variable = { BEL_eu_investment_paid > 0 }
+			}
+			set_country_flag = BEL_received_eu_investment_flag
+			add_opinion_modifier = { target = FROM modifier = BEL_eu_industrial_investment }
 		}
 	}
 }

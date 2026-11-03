@@ -291,13 +291,123 @@ country_event = {
 		}
 
 		HUN = {
-			every_state = {
+			IF = {
 				limit = {
-					is_transylvania_proper = yes
-					is_controlled_by = FROM
+					FROM = {
+						controls_state = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+						controls_state = 628 # -> Maramureș
+						controls_state = 639 # -> Zalău
+						controls_state = 649 # -> Năsăud
+						controls_state = 664 # -> Oradea
+						controls_state = 665 # -> Cluj
+						controls_state = 674 # -> Ciuc
+						controls_state = 680 # -> Mureș
+						controls_state = 692 # -> Turda
+						controls_state = 1582 # -> Someș
+						controls_state = 1584 # -> Târnava-Mare
+						controls_state = 1586 # -> Trei Scaune
+						controls_state = 1587 # -> Odorhei
+						controls_state = 2671 # -> Carei
+						controls_state = 2672 # -> Baia Mare
+						controls_state = 2673 # -> Aleşd
+						controls_state = 2675 # -> Negrești-Oaș
+						controls_state = 2676 # -> Crasna
+						controls_state = 2680 # -> Vișeu
+						controls_state = 2859 # -> Tășnad
+						controls_state = 2860 # -> Recea
+					}
 				}
-				transfer_state_to = ROOT
+				transfer_state = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+				transfer_state = 628 # -> Maramureș
+				transfer_state = 639 # -> Zalău
+				transfer_state = 649 # -> Năsăud
+				transfer_state = 580 # -> Oradea # was vanilla 664 (Southern Slovakia -> Nové Zámky)
+				transfer_state = 610 # -> Komárno
+				transfer_state = 1438 # -> Gemer a Malohont
+				transfer_state = 1439 # -> Tekov a Hontianska
+				transfer_state = 1442 # -> Košice
+				transfer_state = 2930 # -> Čop
+				transfer_state = 665 # -> Cluj
+				transfer_state = 674 # -> Ciuc
+				transfer_state = 680 # -> Mureș
+				transfer_state = 692 # -> Turda
+				transfer_state = 1582 # -> Someș
+				transfer_state = 1584 # -> Târnava-Mare
+				transfer_state = 1586 # -> Trei Scaune
+				transfer_state = 1587 # -> Odorhei
+				transfer_state = 2671 # -> Carei
+				transfer_state = 2672 # -> Baia Mare
+				transfer_state = 2673 # -> Aleşd
+				transfer_state = 2675 # -> Negrești-Oaș
+				transfer_state = 2676 # -> Crasna
+				transfer_state = 2680 # -> Vișeu
+				transfer_state = 2859 # -> Tășnad
+				transfer_state = 2860 # -> Recea
+			}
 
+			IF = {
+				limit = {
+					FROM = {
+						controls_state = 686 # was vanilla 83 (Crisana -> Beiuș)
+						controls_state = 705 # -> Arad
+						controls_state = 2669 # -> Sebiș
+						controls_state = 2674 # -> Tinca
+						controls_state = 2679 # -> Beliu
+					}
+				}
+				transfer_state = 686 # was vanilla 83 (Crisana -> Beiuș)
+				transfer_state = 705 # -> Arad
+				transfer_state = 2669 # -> Sebiș
+				transfer_state = 2674 # -> Tinca
+				transfer_state = 2679 # -> Beliu
+			}
+
+			IF = {
+				limit = {
+					FROM = {
+						controls_state = 713 # was vanilla 84 (Transylvania -> Alba Iulia)
+						controls_state = 727 # -> Hunedoara
+						controls_state = 730 # -> Sibiu
+						controls_state = 737 # -> Brașov
+						controls_state = 1583 # -> Târnava Mică
+						controls_state = 1585 # -> Făgăraș
+						controls_state = 2024 # -> Sebeș
+						controls_state = 2261 # -> Brad
+						controls_state = 2359 # -> Obârşia Lotrului
+						controls_state = 2678 # -> Câmpeni
+						controls_state = 2981 # -> Câineni
+					}
+				}
+				transfer_state = 713 # was vanilla 84 (Transylvania -> Alba Iulia)
+				transfer_state = 727 # -> Hunedoara
+				transfer_state = 730 # -> Sibiu
+				transfer_state = 737 # -> Brașov
+				transfer_state = 1583 # -> Târnava Mică
+				transfer_state = 1585 # -> Făgăraș
+				transfer_state = 2024 # -> Sebeș
+				transfer_state = 2261 # -> Brad
+				transfer_state = 2359 # -> Obârşia Lotrului
+				transfer_state = 2678 # -> Câmpeni
+				transfer_state = 2981 # -> Câineni
+			}
+			
+			IF = {
+				limit = {
+					FROM = {
+						controls_state = 736 # was vanilla 82 (Banat -> Timișoara)
+						controls_state = 756 # -> Reșița
+						controls_state = 1581 # -> Făget
+						controls_state = 2668 # -> Sânnicolau Mare
+						controls_state = 2670 # -> Lipova
+						controls_state = 2677 # -> Orșova
+					}
+				}
+				transfer_state = 736 # was vanilla 82 (Banat -> Timișoara)
+				transfer_state = 756 # -> Reșița
+				transfer_state = 1581 # -> Făget
+				transfer_state = 2668 # -> Sânnicolau Mare
+				transfer_state = 2670 # -> Lipova
+				transfer_state = 2677 # -> Orșova
 			}
 		}
 
@@ -326,7 +436,8 @@ country_event = {
 
 		declare_war_on = {
 			target = FROM
-			type = take_claimed_state
+			type = take_state_focus
+			generator = { 622 628 639 649 664 665 674 680 692 1582 1584 1586 1587 2671 2672 2673 2675 2676 2680 2859 2860 686 705 2669 2674 2679 713 727 730 737 1583 1585 2024 2261 2359 2678 2981 }    # was vanilla 76 83 84
 		}
 
 	}
@@ -340,14 +451,43 @@ country_event = {
 
 		add_stability = -0.1
 		add_war_support = -0.05
-		every_state = {
-			limit = {
-				is_transylvania_proper = yes 
-				is_claimed_by = ROOT
-				is_owned_by = FROM
-			}
-			remove_claim_by = ROOT
-		}
+		remove_state_claim = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+		remove_state_claim = 628 # -> Maramureș
+		remove_state_claim = 639 # -> Zalău
+		remove_state_claim = 649 # -> Năsăud
+		remove_state_claim = 664 # -> Oradea
+		remove_state_claim = 665 # -> Cluj
+		remove_state_claim = 674 # -> Ciuc
+		remove_state_claim = 680 # -> Mureș
+		remove_state_claim = 692 # -> Turda
+		remove_state_claim = 1582 # -> Someș
+		remove_state_claim = 1584 # -> Târnava-Mare
+		remove_state_claim = 1586 # -> Trei Scaune
+		remove_state_claim = 1587 # -> Odorhei
+		remove_state_claim = 2671 # -> Carei
+		remove_state_claim = 2672 # -> Baia Mare
+		remove_state_claim = 2673 # -> Aleşd
+		remove_state_claim = 2675 # -> Negrești-Oaș
+		remove_state_claim = 2676 # -> Crasna
+		remove_state_claim = 2680 # -> Vișeu
+		remove_state_claim = 2859 # -> Tășnad
+		remove_state_claim = 2860 # -> Recea
+		remove_state_claim = 686 # was vanilla 83 (Crisana -> Beiuș)
+		remove_state_claim = 705 # -> Arad
+		remove_state_claim = 2669 # -> Sebiș
+		remove_state_claim = 2674 # -> Tinca
+		remove_state_claim = 2679 # -> Beliu
+		remove_state_claim = 713 # was vanilla 84 (Transylvania -> Alba Iulia)
+		remove_state_claim = 727 # -> Hunedoara
+		remove_state_claim = 730 # -> Sibiu
+		remove_state_claim = 737 # -> Brașov
+		remove_state_claim = 1583 # -> Târnava Mică
+		remove_state_claim = 1585 # -> Făgăraș
+		remove_state_claim = 2024 # -> Sebeș
+		remove_state_claim = 2261 # -> Brad
+		remove_state_claim = 2359 # -> Obârşia Lotrului
+		remove_state_claim = 2678 # -> Câmpeni
+		remove_state_claim = 2981 # -> Câineni
 		add_threat = -1
 
 	}
@@ -481,7 +621,10 @@ country_event = {
 		621 = {   # 1.19-migration: mod state Eisenstadt
 			transfer_state_to = ROOT
 		}
-		1805 = {
+		641 = {   # 1.19-migration: mod state Sopron (vanilla 1.19 merged Burgenland into 975)
+			transfer_state_to = ROOT
+		}
+		1805 = {  # 1.19-migration: mod state Oberwart
 			transfer_state_to = ROOT
 		}
 
@@ -930,7 +1073,7 @@ country_event = {
 					create_wargoal = {
 						type = take_state_focus
 						target = FROM
-						generator = { 764 }
+						generator = { 1512 2933 }   # was vanilla 764
 					}
 				}
 			}
@@ -2296,11 +2439,10 @@ country_event = {
 
 		every_state = {
 			limit = {
-				OR = {
-					is_controlled_by = ROOT
-					any_country = {
+				controller = {
+					OR = {
+						tag = ROOT
 						is_subject_of = ROOT
-						controls_state = PREV
 					}
 				}
 				NOT = {
@@ -2516,11 +2658,10 @@ country_event = {
 
 		every_state = {
 			limit = {
-				OR = {
-					is_controlled_by = ROOT
-					any_country = {
+				controller = {
+					OR = {
+						tag = ROOT
 						is_subject_of = ROOT
-						controls_state = PREV
 					}
 				}
 				NOT = {
@@ -2740,7 +2881,10 @@ country_event = {
 			promote_character = CZE_albrecht_franz
 		}
 
-		puppet = FROM 
+		puppet = {
+			target = FROM
+			end_wars = no
+		}
 
 		hidden_effect = {
 			set_country_flag = HUN_created_bohemian_monarchy 
@@ -3067,11 +3211,10 @@ country_event = {
 
 		every_state = {
 			limit = {
-				OR = {
-					is_controlled_by = ROOT
-					any_country = {
+				controller = {
+					OR = {
+						tag = ROOT
 						is_subject_of = ROOT
-						controls_state = PREV
 					}
 				}
 				NOT = {
@@ -3271,11 +3414,10 @@ country_event = {
 
 		every_state = {
 			limit = {
-				OR = {
-					is_controlled_by = ROOT
-					any_country = {
+				controller = {
+					OR = {
+						tag = ROOT
 						is_subject_of = ROOT
-						controls_state = PREV
 					}
 				}
 				NOT = {
@@ -3438,11 +3580,10 @@ country_event = {
 		LBV = {
 			every_core_state = {
 				limit = {
-					OR = {
-						is_controlled_by = ROOT
-						any_country = {
+					controller = {
+						OR = {
+							tag = ROOT
 							is_subject_of = ROOT
-							controls_state = PREV
 						}
 					}
 					NOT = {
@@ -3985,7 +4126,8 @@ country_event = {
 					state = 1164
 					state = 1292
 					state = 1157
-					state = 762
+					state = 467 # was vanilla 762 (Katowice -> Sosnowiec)
+					state = 481 # -> Katowice
 					state = 1483 
 					state = 1408
 					state = 683
@@ -4318,8 +4460,7 @@ country_event = {
 			FROM = {
 				add_political_power = -120
 
-				transfer_state = 1805
-				transfer_state = 621
+				transfer_state = 975
 			}
 			
 		}
@@ -4388,8 +4529,7 @@ country_event = {
 
 		add_political_power = -120
 
-		transfer_state = 1805
-		transfer_state = 621
+		transfer_state = 975
 
 	}
 }
@@ -4415,7 +4555,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 1805 621 }
+			generator = { 975 }
 		}	
 
 	}
@@ -4429,13 +4569,12 @@ country_event = {
 
 		add_political_power = 10
 		
-		remove_state_claim = 1805
-		remove_state_claim = 621
+		remove_state_claim = 975
 
 	}
 }
 
-# Hungary stages an uprising in Leitha - event for owner of (1805 or 621) 
+# Hungary stages an uprising in Leitha - event for owner of (975) 
 country_event = {
 	id = WW_hungary.86
 	title = WW_hungary.86.t
@@ -4481,7 +4620,7 @@ country_event = {
 		declare_war_on = {
 			target = FROM
 			type = take_core_state
-			generator = { 1805 621 }
+			generator = 975
 		}		
 
 	}

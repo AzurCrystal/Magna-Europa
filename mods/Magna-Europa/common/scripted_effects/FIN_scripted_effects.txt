@@ -171,7 +171,12 @@ FIN_seize_weapon_caches = { #Used on the state scope
 
 FIN_pact_for_continuation_war_start = { #To be used on FIN's scope - Used immediately upon signing agreement
 	FIN = {
-		give_military_access = GER
+		if = {
+			limit = {
+				NOT = { gives_military_access_to = GER }
+			}
+			give_military_access = GER
+		}
 		diplomatic_relation = { 
 			country = GER
 			relation = docking_rights 
@@ -186,7 +191,12 @@ FIN_pact_for_continuation_war_start = { #To be used on FIN's scope - Used immedi
 			}
 		}
 	}
-	GER = { give_guarantee = FIN }
+	if = {  # 1.19-migration: guard - GER may already guarantee FIN
+		limit = {
+			GER = { NOT = { has_guaranteed = FIN } }
+		}
+		GER = { give_guarantee = FIN }
+	}
 }
 
 ### STATE CHANGES AND NAMES ###
@@ -230,7 +240,6 @@ FIN_purchase_soviet_equipment_for_cw = {
 			allow_without_tech = yes
 			model = "SOV_armored_car_0_entity"
 			icon = "GFX_SOV_armored_car1_medium"
-			#design_team = mio:my_mio_token # Optional. accepts mio:token, variable or keyword #TODO_Manu
 		}
 		add_equipment_to_stockpile = { 
 			type = gw_armored_car_equipment
@@ -415,7 +424,6 @@ FIN_purchase_german_equipment_for_cw = {
 			allow_without_tech = yes
 			model = "GER_armored_car_0_entity"
 			icon = "GFX_GER_armored_car1_medium"
-			#design_team = mio:my_mio_token # Optional. accepts mio:token, variable or keyword #TODO_Manu
 		}
 		add_equipment_to_stockpile = { 
 			type = gw_armored_car_equipment
@@ -455,7 +463,7 @@ FIN_purchase_german_equipment_for_cw = {
 				tank_nsb_armor_upgrade = 2
 			}
 			obsolete = yes
-			icon = "GFX_gwtank_medium"
+			icon = "GFX_GER_gwtank_medium"
 		}
 		add_equipment_to_stockpile = { 
 			type = light_tank_chassis_0
@@ -470,7 +478,7 @@ FIN_purchase_german_equipment_for_cw = {
 			type = gw_tank_equipment
 			allow_without_tech = yes
 			obsolete = yes
-			icon = "GFX_gwtank_medium"
+			icon = "GFX_GER_gwtank_medium"
 		}
 		add_equipment_to_stockpile = { 
 			type = gw_tank_equipment

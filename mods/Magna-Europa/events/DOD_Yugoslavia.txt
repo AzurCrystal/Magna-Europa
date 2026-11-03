@@ -8,7 +8,6 @@ add_namespace = DOD_yugoslavia
 # Yugoslavia joins axis without solving Anti-German military - coup event
 country_event = {
 	id = DOD_yugoslavia.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.1 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.1.t
 	desc = DOD_yugoslavia.1.desc
 	picture = GFX_report_event_yugoslavian_king_peter
@@ -17,6 +16,7 @@ country_event = {
 
 	trigger = {
 		tag = YUG
+		is_subject = no
 		is_in_faction_with = GER
 		has_idea = anti_german_military
 		GER = {
@@ -127,7 +127,14 @@ country_event = {
 				set_country_flag = peter_is_of_age
 			}
 		}
-		GER = { country_event = DOD_yugoslavia.2 }
+		GER = { 
+			country_event = {
+				id = DOD_yugoslavia.2
+				hours = 4
+				random_hours = 6
+			}	
+		}
+		custom_effect_tooltip = generic_skip_one_line_tt
 		if = {
 			limit = {
 				is_in_faction_with = GER
@@ -149,54 +156,204 @@ country_event = {
 			limit = {
 				has_government = fascism
 			}
-			set_politics = { ruling_party = neutrality elections_allowed = no }
-			add_popularity = { ideology = neutrality popularity = 0.5 }
-			set_party_name = { ideology = neutrality long_name = YUG_royal_party name = YUG_royal_party }
+			set_politics = { 
+				ruling_party = neutrality 
+				elections_allowed = no 
+			}
+			add_popularity = { 
+				ideology = neutrality 
+				popularity = 0.5 
+			}
+			set_party_name = { 
+				ideology = neutrality 
+				long_name = YUG_royal_party 
+				name = YUG_royal_party 
+			}
 		}
+
 	}
 	option = { #resistance to the coup, call on Germans for support
 		name = DOD_yugoslavia.1.b
 		ai_chance = {
 			factor = 30
 		}	
-		GER = { country_event = DOD_yugoslavia.3 }
+
+		GER = { 
+			country_event = {
+				id = DOD_yugoslavia.3
+				hours = 4
+				random_hours = 6
+			}	
+		}
 		YUG_start_peters_coup = yes
+
 	}
 }
 
-#Yugoslavian coup event - Yugoslavia has rolled over, event for Germany to intervene
+# Yugoslavian coup event - Yugoslavia has rolled over, event for Germany to intervene
 country_event = {
 	id = DOD_yugoslavia.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.2 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.2.t
 	desc = DOD_yugoslavia.2.desc
 	picture = GFX_report_event_military_planning
 	
 	is_triggered_only = yes
 	
-	option = { #invasion!
+	option = { # invasion!
 		name = DOD_yugoslavia.2.a	
+
 		create_wargoal = {
 			type = annex_everything
 			target = YUG
 		}
-		if = {
+
+		IF = {
 			limit = {
 				CRO = { 
 					exists = yes 
 					is_subject_of = YUG
 				}
-				YUG = { NOT = { has_completed_focus = YUG_towards_independence } }
+				YUG = { 
+					NOT = { 
+						has_completed_focus = YUG_towards_independence 
+					} 
+				}
 			}
 			puppet = CRO
 		}
+
+		# Claiming German Slovenia
+		695 = {   # was vanilla 102 (North Slovenia)
+			add_claim_by = ROOT
+		}
+		703 = {   # -> Drava
+			add_claim_by = ROOT
+		}
+		712 = {   # -> Međimurje
+			add_claim_by = ROOT
+		}
+		714 = {   # -> Gorenjska
+			add_claim_by = ROOT
+		}
+		1489 = {   # -> Savinja
+			add_claim_by = ROOT
+		}
+		1490 = {   # -> Koroška
+			add_claim_by = ROOT
+		}
+		1616 = {   # -> Val Canale
+			add_claim_by = ROOT
+		}
+		2861 = {   # -> Krško
+			add_claim_by = ROOT
+		}
+		2901 = {   # -> Circhina
+			add_claim_by = ROOT
+		}
+
+		custom_effect_tooltip = generic_skip_one_line_tt
+
+		# Claiming Serbia proper for Protection under the Reich 
+		785 = {   # was vanilla 107 (Serbia)
+			add_claim_by = ROOT
+		}
+		834 = {   # -> Ivanjica
+			add_claim_by = ROOT
+		}
+		1504 = {   # -> Šabac
+			add_claim_by = ROOT
+		}
+		1505 = {   # -> Valjevo
+			add_claim_by = ROOT
+		}
+		1506 = {   # -> Užice
+			add_claim_by = ROOT
+		}
+		1507 = {   # -> Kragujevac
+			add_claim_by = ROOT
+		}
+		1508 = {   # -> Požarevac
+			add_claim_by = ROOT
+		}
+		1510 = {   # -> Jagodina
+			add_claim_by = ROOT
+		}
+		1517 = {   # -> Mitrovica
+			add_claim_by = ROOT
+		}
+		1991 = {   # -> Ćuprija
+			add_claim_by = ROOT
+		}
+		1995 = {   # -> Čačak
+			add_claim_by = ROOT
+		}
+		2809 = {   # -> Vrnjačka Banja
+			add_claim_by = ROOT
+		}
+		2810 = {   # -> Loznica
+			add_claim_by = ROOT
+		}
+		2937 = {   # -> Smederevo
+			add_claim_by = ROOT
+		}
+		796 = {   # was vanilla 108 (Morava)
+			add_claim_by = ROOT
+		}
+		844 = {   # -> Sjenica
+			add_claim_by = ROOT
+		}
+		846 = {   # -> Pirot
+			add_claim_by = ROOT
+		}
+		1509 = {   # -> Zaječar
+			add_claim_by = ROOT
+		}
+		1511 = {   # -> Kruševac
+			add_claim_by = ROOT
+		}
+		1970 = {   # -> Timok
+			add_claim_by = ROOT
+		}
+		1971 = {   # -> Bosilegrad
+			add_claim_by = ROOT
+		}
+		1972 = {   # -> Dimitrovgrad
+			add_claim_by = ROOT
+		}
+		1987 = {   # -> Tutin
+			add_claim_by = ROOT
+		}
+		1992 = {   # -> Kučevo
+			add_claim_by = ROOT
+		}
+		1996 = {   # -> Besianë
+			add_claim_by = ROOT
+		}
+		2596 = {   # -> Kuršumlija
+			add_claim_by = ROOT
+		}
+		2804 = {   # -> Novi Pazar
+			add_claim_by = ROOT
+		}
+		2806 = {   # -> Aleksinac
+			add_claim_by = ROOT
+		}
+		2807 = {   # -> Golija
+			add_claim_by = ROOT
+		}
+		2808 = {   # -> Bogutovac
+			add_claim_by = ROOT
+		}
+		2960 = {   # -> Golubinje
+			add_claim_by = ROOT
+		}
+
 	}
 }
 
-#Yugoslavian coup event - Yugoslavian government resists the coup, Germany comes to the rescue...or not
+# Yugoslavian coup event - Yugoslavian government resists the coup, Germany comes to the rescue...or not
 country_event = {
 	id = DOD_yugoslavia.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.3 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.2.t
 	desc = DOD_yugoslavia.3.desc
 	picture = GFX_report_event_military_planning
@@ -207,11 +364,139 @@ country_event = {
 		name = DOD_yugoslavia.3.a
 		ai_chance = {
 			factor = 70
-		}	
+		}
+
 		create_wargoal = {
 			type = annex_everything
 			target = YUG
 		}
+
+		# Claiming German Slovenia
+		695 = {   # was vanilla 102 (North Slovenia)
+			add_claim_by = ROOT
+		}
+		703 = {   # -> Drava
+			add_claim_by = ROOT
+		}
+		712 = {   # -> Međimurje
+			add_claim_by = ROOT
+		}
+		714 = {   # -> Gorenjska
+			add_claim_by = ROOT
+		}
+		1489 = {   # -> Savinja
+			add_claim_by = ROOT
+		}
+		1490 = {   # -> Koroška
+			add_claim_by = ROOT
+		}
+		1616 = {   # -> Val Canale
+			add_claim_by = ROOT
+		}
+		2861 = {   # -> Krško
+			add_claim_by = ROOT
+		}
+		2901 = {   # -> Circhina
+			add_claim_by = ROOT
+		}
+
+		custom_effect_tooltip = generic_skip_one_line_tt
+
+		# Claiming Serbia proper for Protection under the Reich 
+		785 = {   # was vanilla 107 (Serbia)
+			add_claim_by = ROOT
+		}
+		834 = {   # -> Ivanjica
+			add_claim_by = ROOT
+		}
+		1504 = {   # -> Šabac
+			add_claim_by = ROOT
+		}
+		1505 = {   # -> Valjevo
+			add_claim_by = ROOT
+		}
+		1506 = {   # -> Užice
+			add_claim_by = ROOT
+		}
+		1507 = {   # -> Kragujevac
+			add_claim_by = ROOT
+		}
+		1508 = {   # -> Požarevac
+			add_claim_by = ROOT
+		}
+		1510 = {   # -> Jagodina
+			add_claim_by = ROOT
+		}
+		1517 = {   # -> Mitrovica
+			add_claim_by = ROOT
+		}
+		1991 = {   # -> Ćuprija
+			add_claim_by = ROOT
+		}
+		1995 = {   # -> Čačak
+			add_claim_by = ROOT
+		}
+		2809 = {   # -> Vrnjačka Banja
+			add_claim_by = ROOT
+		}
+		2810 = {   # -> Loznica
+			add_claim_by = ROOT
+		}
+		2937 = {   # -> Smederevo
+			add_claim_by = ROOT
+		}
+		796 = {   # was vanilla 108 (Morava)
+			add_claim_by = ROOT
+		}
+		844 = {   # -> Sjenica
+			add_claim_by = ROOT
+		}
+		846 = {   # -> Pirot
+			add_claim_by = ROOT
+		}
+		1509 = {   # -> Zaječar
+			add_claim_by = ROOT
+		}
+		1511 = {   # -> Kruševac
+			add_claim_by = ROOT
+		}
+		1970 = {   # -> Timok
+			add_claim_by = ROOT
+		}
+		1971 = {   # -> Bosilegrad
+			add_claim_by = ROOT
+		}
+		1972 = {   # -> Dimitrovgrad
+			add_claim_by = ROOT
+		}
+		1987 = {   # -> Tutin
+			add_claim_by = ROOT
+		}
+		1992 = {   # -> Kučevo
+			add_claim_by = ROOT
+		}
+		1996 = {   # -> Besianë
+			add_claim_by = ROOT
+		}
+		2596 = {   # -> Kuršumlija
+			add_claim_by = ROOT
+		}
+		2804 = {   # -> Novi Pazar
+			add_claim_by = ROOT
+		}
+		2806 = {   # -> Aleksinac
+			add_claim_by = ROOT
+		}
+		2807 = {   # -> Golija
+			add_claim_by = ROOT
+		}
+		2808 = {   # -> Bogutovac
+			add_claim_by = ROOT
+		}
+		2960 = {   # -> Golubinje
+			add_claim_by = ROOT
+		}
+
 	}
 
 	option = { #rescue
@@ -219,49 +504,111 @@ country_event = {
 		ai_chance = {
 			factor = 30
 		}
+
 		add_to_faction = YUG
+
 	}
 }
 
-#Yugoslavian independence war(s)
+# Yugoslavian independence war(s) - event for YUG
 country_event = {
 	id = DOD_yugoslavia.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.10 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.10.t
 	desc = DOD_yugoslavia.10.desc
 	picture = GFX_report_event_yugoslavia_partisans
 	
 	trigger = {
-		tag = YUG
+		original_tag = YUG
 		OR = {
-			is_historical_focus_on = yes
 			has_idea = YUG_idea_croatian_opposition
-			has_idea = YUG_idea_croats_suppressed
+			AND = {
+				is_ai = yes 
+				has_idea = YUG_idea_croats_suppressed
+			}
 		}
-		has_war_with = GER
-		GER = {
+		any_country_with_original_tag_of = {
+			exists = yes
+			target = {GER}
 			has_government = fascism
+			has_war_with = YUG
 		}
 		OR = {
 			AND = {
 				CRO = { exists = yes }
 				CRO = { is_subject_of = YUG }
 			}
-			1464 = { is_owned_and_controlled_by = YUG }
+			721 = { is_owned_and_controlled_by = YUG }   # was vanilla 109 (Croatia)
+			1463 = { is_owned_and_controlled_by = YUG }   # -> Jastrebarsko
+			1464 = { is_owned_and_controlled_by = YUG }   # -> Prigorje
+			1465 = { is_owned_and_controlled_by = YUG }   # -> Glina
+			1466 = { is_owned_and_controlled_by = YUG }   # -> Zagorje
+			1467 = { is_owned_and_controlled_by = YUG }   # -> Koprivnica
+			1468 = { is_owned_and_controlled_by = YUG }   # -> Daruvar
+			1469 = { is_owned_and_controlled_by = YUG }   # -> Slavonski Brod
+			1471 = { is_owned_and_controlled_by = YUG }   # -> Vukovar
+			2830 = { is_owned_and_controlled_by = YUG }   # -> Nova Gradiška
+			2831 = { is_owned_and_controlled_by = YUG }   # -> Sisak
+			2832 = { is_owned_and_controlled_by = YUG }   # -> Virovitica
+			2881 = { is_owned_and_controlled_by = YUG }   # -> Vinkovci
+			754 = { is_owned_and_controlled_by = YUG }   # was vanilla 103 (Dalmatia)
+			815 = { is_owned_and_controlled_by = YUG }   # -> Cetina
+			1461 = { is_owned_and_controlled_by = YUG }   # -> Modruš
+			1462 = { is_owned_and_controlled_by = YUG }   # -> Karlovac
+			1477 = { is_owned_and_controlled_by = YUG }   # -> Senj
+			1478 = { is_owned_and_controlled_by = YUG }   # -> Korenica
+			1479 = { is_owned_and_controlled_by = YUG }   # -> Bribir-Sidraga
+			1480 = { is_owned_and_controlled_by = YUG }   # -> Korčula
+			1481 = { is_owned_and_controlled_by = YUG }   # -> Dubrovnik
+			1491 = { is_owned_and_controlled_by = YUG }   # -> Brač
+			1502 = { is_owned_and_controlled_by = YUG }   # -> Neum
+			1534 = { is_owned_and_controlled_by = YUG }   # -> Lagosta
+			1563 = { is_owned_and_controlled_by = YUG }   # -> Split
+			1990 = { is_owned_and_controlled_by = YUG }   # -> Gruda
+			1998 = { is_owned_and_controlled_by = YUG }   # -> Pag
+			1999 = { is_owned_and_controlled_by = YUG }   # -> Starigrad
+			2241 = { is_owned_and_controlled_by = YUG }   # -> Pelješac
+			2651 = { is_owned_and_controlled_by = YUG }   # -> Krk
+			2815 = { is_owned_and_controlled_by = YUG }   # -> Hutovo
+			2816 = { is_owned_and_controlled_by = YUG }   # -> Drvar
+			2820 = { is_owned_and_controlled_by = YUG }   # -> Zavala
+			2825 = { is_owned_and_controlled_by = YUG }   # -> Novi Kot
+			2829 = { is_owned_and_controlled_by = YUG }   # -> Lovinac
+			2895 = { is_owned_and_controlled_by = YUG }   # -> Rab
+			2896 = { is_owned_and_controlled_by = YUG }   # -> Hvar
+			2897 = { is_owned_and_controlled_by = YUG }   # -> Mljet
+			2911 = { is_owned_and_controlled_by = YUG }   # -> Crikvenica
+			2916 = { is_owned_and_controlled_by = YUG }   # -> Vis
+			2924 = { is_owned_and_controlled_by = YUG }   # -> Karlobag
+			811 = { is_owned_and_controlled_by = YUG }   # was vanilla 163 (Zadar)
+			1475 = { is_owned_and_controlled_by = YUG }   # -> Preko
+			1476 = { is_owned_and_controlled_by = YUG }   # -> Zara
+			1988 = { is_owned_and_controlled_by = YUG }   # -> Biograd na Moru
+			2826 = { is_owned_and_controlled_by = YUG }   # -> Benkovac
+			2827 = { is_owned_and_controlled_by = YUG }   # -> Nin
+			2828 = { is_owned_and_controlled_by = YUG }   # -> Jasenice
+			755 = { is_owned_and_controlled_by = YUG }   # was vanilla 852 (Istria)
+			762 = { is_owned_and_controlled_by = YUG }   # -> Pola
+			1473 = { is_owned_and_controlled_by = YUG }   # -> Sušak
+			1474 = { is_owned_and_controlled_by = YUG }   # -> Cherso
+			2330 = { is_owned_and_controlled_by = YUG }   # -> Abbazia
+			2908 = { is_owned_and_controlled_by = YUG }   # -> Albona
+			2970 = { is_owned_and_controlled_by = YUG }   # -> Aquileia
+			2971 = { is_owned_and_controlled_by = YUG }   # -> Pisino
 		}
 	}
+	
 	mean_time_to_happen = {
-		days = 4
+		days = 2
 	}
 	
 	fire_only_once = yes #would be funny though
 
-	option = { 
+	option = {
 		name = DOD_yugoslavia.10.a
 		ai_chance = {
-			factor = 70
+			base = 100
 		}	
-		if = {
+		IF = {
 			limit = {
 				CRO = {
 					exists = yes
@@ -270,23 +617,13 @@ country_event = {
 			}
 			set_autonomy = { target = CRO autonomy_state = autonomy_free }
 			CRO = {
-				set_politics = {
-					ruling_party = fascism
-					elections_allowed = no
-				}
-				set_popularities = {
-					democratic = 15
-					neutrality = 15
-					fascism = 60
-					communism = 10
-				}
 				declare_war_on = {
 					target = YUG
 					type = annex_everything
 				}
 			}
 		}
-		if = { #if Montenegro exists, they also join
+		IF = { #if Montenegro exists, they also join
 			limit = {
 				MNT = {
 					exists = yes
@@ -301,93 +638,585 @@ country_event = {
 				}
 			}
 		}
-		if = {
+		IF = {
 			limit = {
 				CRO = {
 					exists = no
 				}
-				1464 = { is_owned_and_controlled_by = YUG }
 			}
-			CRO = {
-				every_core_state = {
-					limit = { is_owned_and_controlled_by = YUG }
-					transfer_state_to = PREV
-				}
+			if = {
+				limit = { 109 = { is_owned_and_controlled_by = YUG } }
+				CRO = { transfer_state = 721 } # was vanilla 109 (Croatia -> Osijek)
+				transfer_state = 1463 # -> Jastrebarsko
+				transfer_state = 1464 # -> Prigorje
+				transfer_state = 1465 # -> Glina
+				transfer_state = 1466 # -> Zagorje
+				transfer_state = 1467 # -> Koprivnica
+				transfer_state = 1468 # -> Daruvar
+				transfer_state = 1469 # -> Slavonski Brod
+				transfer_state = 1471 # -> Vukovar
+				transfer_state = 2830 # -> Nova Gradiška
+				transfer_state = 2831 # -> Sisak
+				transfer_state = 2832 # -> Virovitica
+				transfer_state = 2881 # -> Vinkovci
 			}
-	#		CRO = { 
-	#			transfer_state = 1464
-	#				transfer_state = 1462
-	#				transfer_state = 1461
-	#				transfer_state = 1463
-	#				transfer_state = 1464
-	#				transfer_state = 1466
-	#				transfer_state = 712
-	#				transfer_state = 1467
-	#				transfer_state = 2831
-	#				transfer_state = 1465
-	#				transfer_state = 1503
-	#				transfer_state = 1468
-	#				transfer_state = 2832
-	#				transfer_state = 2830
-	#				transfer_state = 1469
-	#				transfer_state = 721
-	#				transfer_state = 1472
-	#				transfer_state = 2881
-	#				transfer_state = 1471
-	#		}
-	#		if = {
-	#			limit = {
-	#				1583 = { is_owned_and_controlled_by = YUG }
-	#			}
-	#			CRO = { 
-	#				transfer_state = 1473
-	#				transfer_state = 1477
-	#				transfer_state = 2651
-	#				transfer_state = 754
-	#				transfer_state = 1478
-	#				transfer_state = 2829
-	#				transfer_state = 1999
-	#				transfer_state = 2828
-	#				transfer_state = 2827
-	#				transfer_state = 1998
-	#				transfer_state = 2826
-	#				transfer_state = 1988
-	#				transfer_state = 811
-	#				transfer_state = 815
-	#				transfer_state = 1479
-	#				transfer_state = 1563
-	#				transfer_state = 1491
-	#				transfer_state = 1481
-	#				transfer_state = 1990
-	#				transfer_state = 2241
-	#				transfer_state = 1480
-	#				transfer_state = 1475
-	#			}
-	#		}
+			IF = {
+				limit = { 103 = { is_owned_and_controlled_by = YUG } }
+				CRO = { transfer_state = 754 } # was vanilla 103 (Dalmatia -> Gospić)
+				transfer_state = 815 # -> Cetina
+				transfer_state = 1461 # -> Modruš
+				transfer_state = 1462 # -> Karlovac
+				transfer_state = 1477 # -> Senj
+				transfer_state = 1478 # -> Korenica
+				transfer_state = 1479 # -> Bribir-Sidraga
+				transfer_state = 1480 # -> Korčula
+				transfer_state = 1481 # -> Dubrovnik
+				transfer_state = 1491 # -> Brač
+				transfer_state = 1502 # -> Neum
+				transfer_state = 1534 # -> Lagosta
+				transfer_state = 1563 # -> Split
+				transfer_state = 1990 # -> Gruda
+				transfer_state = 1998 # -> Pag
+				transfer_state = 1999 # -> Starigrad
+				transfer_state = 2241 # -> Pelješac
+				transfer_state = 2651 # -> Krk
+				transfer_state = 2815 # -> Hutovo
+				transfer_state = 2816 # -> Drvar
+				transfer_state = 2820 # -> Zavala
+				transfer_state = 2825 # -> Novi Kot
+				transfer_state = 2829 # -> Lovinac
+				transfer_state = 2895 # -> Rab
+				transfer_state = 2896 # -> Hvar
+				transfer_state = 2897 # -> Mljet
+				transfer_state = 2911 # -> Crikvenica
+				transfer_state = 2916 # -> Vis
+				transfer_state = 2924 # -> Karlobag
+			}
+			IF = {
+				limit = { 163 = { is_owned_and_controlled_by = YUG } }
+				CRO = { transfer_state = 811 } # was vanilla 163 (Zadar -> Šibenik)
+				transfer_state = 1475 # -> Preko
+				transfer_state = 1476 # -> Zara
+				transfer_state = 1988 # -> Biograd na Moru
+				transfer_state = 2826 # -> Benkovac
+				transfer_state = 2827 # -> Nin
+				transfer_state = 2828 # -> Jasenice
+			}
+			IF = {
+				limit = { 852 = { is_owned_and_controlled_by = YUG } }
+				CRO = { transfer_state = 755 } # was vanilla 852 (Istria -> Fiume)
+				transfer_state = 762 # -> Pola
+				transfer_state = 1473 # -> Sušak
+				transfer_state = 1474 # -> Cherso
+				transfer_state = 2330 # -> Abbazia
+				transfer_state = 2908 # -> Albona
+				transfer_state = 2970 # -> Aquileia
+				transfer_state = 2971 # -> Pisino
+			}
+			hidden_effect = {
+				776 =  {   # was vanilla 104 (Bosnia)
+					add_claim_by = CRO
+				}
+				777 =  {   # -> Bihać
+					add_claim_by = CRO
+				}
+				792 =  {   # -> Zenica
+					add_claim_by = CRO
+				}
+				1492 =  {   # -> Jajce
+					add_claim_by = CRO
+				}
+				1493 =  {   # -> Prnjavor
+					add_claim_by = CRO
+				}
+				1494 =  {   # -> Banja Luka
+					add_claim_by = CRO
+				}
+				1496 =  {   # -> Brčko
+					add_claim_by = CRO
+				}
+				1497 =  {   # -> Tuzla
+					add_claim_by = CRO
+				}
+				1498 =  {   # -> Travnik
+					add_claim_by = CRO
+				}
+				1499 =  {   # -> Sarajevo
+					add_claim_by = CRO
+				}
+				1503 =  {   # -> Dvor
+					add_claim_by = CRO
+				}
+				1993 =  {   # -> Modriča
+					add_claim_by = CRO
+				}
+				2803 =  {   # -> Jablanica
+					add_claim_by = CRO
+				}
+				2811 =  {   # -> Goražde
+					add_claim_by = CRO
+				}
+				2812 =  {   # -> Ustikolina
+					add_claim_by = CRO
+				}
+				2813 =  {   # -> Bijeljina
+					add_claim_by = CRO
+				}
+				2814 =  {   # -> Višegrad
+					add_claim_by = CRO
+				}
+				2817 =  {   # -> Mrkonjić Grad
+					add_claim_by = CRO
+				}
+				2818 =  {   # -> Teslić
+					add_claim_by = CRO
+				}
+				2819 =  {   # -> Gračanica
+					add_claim_by = CRO
+				}
+				2821 =  {   # -> Orašje
+					add_claim_by = CRO
+				}
+				2822 =  {   # -> Odžak
+					add_claim_by = CRO
+				}
+				2823 =  {   # -> Šamac
+					add_claim_by = CRO
+				}
+				2824 =  {   # -> Lopare
+					add_claim_by = CRO
+				}
+				2846 =  {   # -> Velika Kladuša
+					add_claim_by = CRO
+				}
+				782 =  {   # was vanilla 804 (Herzegovina)
+					add_claim_by = CRO
+				}
+				813 =  {   # -> Mostar
+					add_claim_by = CRO
+				}
+				835 =  {   # -> Trebinje
+					add_claim_by = CRO
+				}
+				1495 =  {   # -> Nevesinje
+					add_claim_by = CRO
+				}
+				1500 =  {   # -> Tomislavgrad
+					add_claim_by = CRO
+				}
+				1501 =  {   # -> Čapljina
+					add_claim_by = CRO
+				}
+
+				IF = {
+					limit = {
+						CRO = {
+							capital_scope = {
+								NOT = {
+									is_in_array = {
+										array = AUS.expansion_targets
+										value = THIS
+									}
+								}
+							}
+						}
+					}
+
+					CRO = {
+						capital_scope = {
+							add_to_array = {
+								array = AUS.expansion_targets
+								value = THIS
+							}
+						}
+					}
+
+					IF = {
+						limit = {
+							SLV = {
+								capital_scope = {
+									NOT = {
+										is_in_array = {
+											array = AUS.expansion_targets
+											value = THIS
+										}
+									}
+								}
+							}
+						}
+
+						YUG = {
+							capital_scope = {
+								remove_from_array = {
+									array = AUS.expansion_targets
+									value = THIS
+								}
+								set_state_flag = AUS_no_longer_expansion_target
+							} 
+						}
+						
+					}
+				}
+				
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
 			CRO = {
-				add_popularity = {
-					ideology = democratic
-					popularity = -0.3
-				}
-				set_politics = {
-					ruling_party = fascism
-					elections_allowed = no
-				}
-				effect_tooltip = { set_cosmetic_tag = CRO_fascism }
 				declare_war_on = {
 					target = YUG
 					type = annex_everything
 				}
-				load_oob = "CRO_YUG_independence"
+				custom_effect_tooltip = YUG_CRO_independence_war_troops_tt
+				hidden_effect = {
+					load_oob = "CRO_YUG_independence"
+				}
 			}
 		}
+	}
+	# Play as Croatia
+	option = { 
+		name = DOD_yugoslavia.10.b
+		ai_chance = {
+			base = 0
+		}	
+		
+		IF = {
+			limit = {
+				CRO = {
+					exists = yes
+					is_subject_of = YUG
+				}
+			}
+			set_autonomy = { target = CRO autonomy_state = autonomy_free }
+			CRO = {
+				declare_war_on = {
+					target = YUG
+					type = annex_everything
+				}
+			}
+		}
+
+		IF = { #if Montenegro exists, they also join
+			limit = {
+				MNT = {
+					exists = yes
+					is_subject_of = YUG
+				}
+			}
+			set_autonomy = { target = MNT autonomy_state = autonomy_free }
+			MNT = {
+				declare_war_on = {
+					target = YUG
+					type = annex_everything
+				}
+			}
+		}
+
+		IF = {
+			limit = {
+				CRO = {
+					exists = no
+				}
+				721 = { is_owned_and_controlled_by = YUG }   # was vanilla 109 (Croatia)
+				1463 = { is_owned_and_controlled_by = YUG }   # -> Jastrebarsko
+				1464 = { is_owned_and_controlled_by = YUG }   # -> Prigorje
+				1465 = { is_owned_and_controlled_by = YUG }   # -> Glina
+				1466 = { is_owned_and_controlled_by = YUG }   # -> Zagorje
+				1467 = { is_owned_and_controlled_by = YUG }   # -> Koprivnica
+				1468 = { is_owned_and_controlled_by = YUG }   # -> Daruvar
+				1469 = { is_owned_and_controlled_by = YUG }   # -> Slavonski Brod
+				1471 = { is_owned_and_controlled_by = YUG }   # -> Vukovar
+				2830 = { is_owned_and_controlled_by = YUG }   # -> Nova Gradiška
+				2831 = { is_owned_and_controlled_by = YUG }   # -> Sisak
+				2832 = { is_owned_and_controlled_by = YUG }   # -> Virovitica
+				2881 = { is_owned_and_controlled_by = YUG }   # -> Vinkovci
+			}
+			CRO = { transfer_state = 721 } # was vanilla 109 (Croatia -> Osijek)
+			transfer_state = 1463 # -> Jastrebarsko
+			transfer_state = 1464 # -> Prigorje
+			transfer_state = 1465 # -> Glina
+			transfer_state = 1466 # -> Zagorje
+			transfer_state = 1467 # -> Koprivnica
+			transfer_state = 1468 # -> Daruvar
+			transfer_state = 1469 # -> Slavonski Brod
+			transfer_state = 1471 # -> Vukovar
+			transfer_state = 2830 # -> Nova Gradiška
+			transfer_state = 2831 # -> Sisak
+			transfer_state = 2832 # -> Virovitica
+			transfer_state = 2881 # -> Vinkovci
+			IF = {
+				limit = {
+					754 = { is_owned_and_controlled_by = YUG }   # was vanilla 103 (Dalmatia)
+					815 = { is_owned_and_controlled_by = YUG }   # -> Cetina
+					1461 = { is_owned_and_controlled_by = YUG }   # -> Modruš
+					1462 = { is_owned_and_controlled_by = YUG }   # -> Karlovac
+					1477 = { is_owned_and_controlled_by = YUG }   # -> Senj
+					1478 = { is_owned_and_controlled_by = YUG }   # -> Korenica
+					1479 = { is_owned_and_controlled_by = YUG }   # -> Bribir-Sidraga
+					1480 = { is_owned_and_controlled_by = YUG }   # -> Korčula
+					1481 = { is_owned_and_controlled_by = YUG }   # -> Dubrovnik
+					1491 = { is_owned_and_controlled_by = YUG }   # -> Brač
+					1502 = { is_owned_and_controlled_by = YUG }   # -> Neum
+					1534 = { is_owned_and_controlled_by = YUG }   # -> Lagosta
+					1563 = { is_owned_and_controlled_by = YUG }   # -> Split
+					1990 = { is_owned_and_controlled_by = YUG }   # -> Gruda
+					1998 = { is_owned_and_controlled_by = YUG }   # -> Pag
+					1999 = { is_owned_and_controlled_by = YUG }   # -> Starigrad
+					2241 = { is_owned_and_controlled_by = YUG }   # -> Pelješac
+					2651 = { is_owned_and_controlled_by = YUG }   # -> Krk
+					2815 = { is_owned_and_controlled_by = YUG }   # -> Hutovo
+					2816 = { is_owned_and_controlled_by = YUG }   # -> Drvar
+					2820 = { is_owned_and_controlled_by = YUG }   # -> Zavala
+					2825 = { is_owned_and_controlled_by = YUG }   # -> Novi Kot
+					2829 = { is_owned_and_controlled_by = YUG }   # -> Lovinac
+					2895 = { is_owned_and_controlled_by = YUG }   # -> Rab
+					2896 = { is_owned_and_controlled_by = YUG }   # -> Hvar
+					2897 = { is_owned_and_controlled_by = YUG }   # -> Mljet
+					2911 = { is_owned_and_controlled_by = YUG }   # -> Crikvenica
+					2916 = { is_owned_and_controlled_by = YUG }   # -> Vis
+					2924 = { is_owned_and_controlled_by = YUG }   # -> Karlobag
+				}
+				CRO = { transfer_state = 754 } # was vanilla 103 (Dalmatia -> Gospić)
+				transfer_state = 815 # -> Cetina
+				transfer_state = 1461 # -> Modruš
+				transfer_state = 1462 # -> Karlovac
+				transfer_state = 1477 # -> Senj
+				transfer_state = 1478 # -> Korenica
+				transfer_state = 1479 # -> Bribir-Sidraga
+				transfer_state = 1480 # -> Korčula
+				transfer_state = 1481 # -> Dubrovnik
+				transfer_state = 1491 # -> Brač
+				transfer_state = 1502 # -> Neum
+				transfer_state = 1534 # -> Lagosta
+				transfer_state = 1563 # -> Split
+				transfer_state = 1990 # -> Gruda
+				transfer_state = 1998 # -> Pag
+				transfer_state = 1999 # -> Starigrad
+				transfer_state = 2241 # -> Pelješac
+				transfer_state = 2651 # -> Krk
+				transfer_state = 2815 # -> Hutovo
+				transfer_state = 2816 # -> Drvar
+				transfer_state = 2820 # -> Zavala
+				transfer_state = 2825 # -> Novi Kot
+				transfer_state = 2829 # -> Lovinac
+				transfer_state = 2895 # -> Rab
+				transfer_state = 2896 # -> Hvar
+				transfer_state = 2897 # -> Mljet
+				transfer_state = 2911 # -> Crikvenica
+				transfer_state = 2916 # -> Vis
+				transfer_state = 2924 # -> Karlobag
+			}
+			IF = {
+				limit = {
+					811 = { is_owned_and_controlled_by = YUG }   # was vanilla 163 (Zadar)
+					1475 = { is_owned_and_controlled_by = YUG }   # -> Preko
+					1476 = { is_owned_and_controlled_by = YUG }   # -> Zara
+					1988 = { is_owned_and_controlled_by = YUG }   # -> Biograd na Moru
+					2826 = { is_owned_and_controlled_by = YUG }   # -> Benkovac
+					2827 = { is_owned_and_controlled_by = YUG }   # -> Nin
+					2828 = { is_owned_and_controlled_by = YUG }   # -> Jasenice
+				}
+				CRO = { transfer_state = 811 } # was vanilla 163 (Zadar -> Šibenik)
+				transfer_state = 1475 # -> Preko
+				transfer_state = 1476 # -> Zara
+				transfer_state = 1988 # -> Biograd na Moru
+				transfer_state = 2826 # -> Benkovac
+				transfer_state = 2827 # -> Nin
+				transfer_state = 2828 # -> Jasenice
+			}
+			IF = {
+				limit = {
+					755 = { is_owned_and_controlled_by = YUG }   # was vanilla 852 (Istria)
+					762 = { is_owned_and_controlled_by = YUG }   # -> Pola
+					1473 = { is_owned_and_controlled_by = YUG }   # -> Sušak
+					1474 = { is_owned_and_controlled_by = YUG }   # -> Cherso
+					2330 = { is_owned_and_controlled_by = YUG }   # -> Abbazia
+					2908 = { is_owned_and_controlled_by = YUG }   # -> Albona
+					2970 = { is_owned_and_controlled_by = YUG }   # -> Aquileia
+					2971 = { is_owned_and_controlled_by = YUG }   # -> Pisino
+				}
+				CRO = { transfer_state = 755 } # was vanilla 852 (Istria -> Fiume)
+				transfer_state = 762 # -> Pola
+				transfer_state = 1473 # -> Sušak
+				transfer_state = 1474 # -> Cherso
+				transfer_state = 2330 # -> Abbazia
+				transfer_state = 2908 # -> Albona
+				transfer_state = 2970 # -> Aquileia
+				transfer_state = 2971 # -> Pisino
+			}
+			hidden_effect = {
+				776 =  {   # was vanilla 104 (Bosnia)
+					add_claim_by = CRO
+				}
+				777 =  {   # -> Bihać
+					add_claim_by = CRO
+				}
+				792 =  {   # -> Zenica
+					add_claim_by = CRO
+				}
+				1492 =  {   # -> Jajce
+					add_claim_by = CRO
+				}
+				1493 =  {   # -> Prnjavor
+					add_claim_by = CRO
+				}
+				1494 =  {   # -> Banja Luka
+					add_claim_by = CRO
+				}
+				1496 =  {   # -> Brčko
+					add_claim_by = CRO
+				}
+				1497 =  {   # -> Tuzla
+					add_claim_by = CRO
+				}
+				1498 =  {   # -> Travnik
+					add_claim_by = CRO
+				}
+				1499 =  {   # -> Sarajevo
+					add_claim_by = CRO
+				}
+				1503 =  {   # -> Dvor
+					add_claim_by = CRO
+				}
+				1993 =  {   # -> Modriča
+					add_claim_by = CRO
+				}
+				2803 =  {   # -> Jablanica
+					add_claim_by = CRO
+				}
+				2811 =  {   # -> Goražde
+					add_claim_by = CRO
+				}
+				2812 =  {   # -> Ustikolina
+					add_claim_by = CRO
+				}
+				2813 =  {   # -> Bijeljina
+					add_claim_by = CRO
+				}
+				2814 =  {   # -> Višegrad
+					add_claim_by = CRO
+				}
+				2817 =  {   # -> Mrkonjić Grad
+					add_claim_by = CRO
+				}
+				2818 =  {   # -> Teslić
+					add_claim_by = CRO
+				}
+				2819 =  {   # -> Gračanica
+					add_claim_by = CRO
+				}
+				2821 =  {   # -> Orašje
+					add_claim_by = CRO
+				}
+				2822 =  {   # -> Odžak
+					add_claim_by = CRO
+				}
+				2823 =  {   # -> Šamac
+					add_claim_by = CRO
+				}
+				2824 =  {   # -> Lopare
+					add_claim_by = CRO
+				}
+				2846 =  {   # -> Velika Kladuša
+					add_claim_by = CRO
+				}
+				782 =  {   # was vanilla 804 (Herzegovina)
+					add_claim_by = CRO
+				}
+				813 =  {   # -> Mostar
+					add_claim_by = CRO
+				}
+				835 =  {   # -> Trebinje
+					add_claim_by = CRO
+				}
+				1495 =  {   # -> Nevesinje
+					add_claim_by = CRO
+				}
+				1500 =  {   # -> Tomislavgrad
+					add_claim_by = CRO
+				}
+				1501 =  {   # -> Čapljina
+					add_claim_by = CRO
+				}
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			custom_effect_tooltip = warning_we_will_change_to_this_country_tt
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+
+			CRO = {
+				declare_war_on = {
+					target = YUG
+					type = annex_everything
+				}
+				custom_effect_tooltip = YUG_CRO_independence_war_troops_tt
+				hidden_effect = {
+					load_oob = "CRO_YUG_independence"
+
+					IF = {
+						limit = {
+							CRO = {
+								capital_scope = {
+									NOT = {
+										is_in_array = {
+											array = AUS.expansion_targets
+											value = THIS
+										}
+									}
+								}
+							}
+						}
+
+						CRO = {
+							capital_scope = {
+								add_to_array = {
+									array = AUS.expansion_targets
+									value = THIS
+								}
+							}
+						}
+
+						IF = {
+							limit = {
+								SLV = {
+									capital_scope = {
+										NOT = {
+											is_in_array = {
+												array = AUS.expansion_targets
+												value = THIS
+											}
+										}
+									}
+								}
+							}
+
+							YUG = {
+								capital_scope = {
+									remove_from_array = {
+										array = AUS.expansion_targets
+										value = THIS
+									}
+								}
+							}
+						}
+					}
+				}
+
+				change_tag_from = ROOT
+
+			}
+
+		}
+
 	}
 }
 
 #Yugoslavia wants to buy planes - event for GER,FRA,ENG,ITA
 country_event = {
 	id = DOD_yugoslavia.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.20 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.20.t
 	desc = DOD_yugoslavia.20.desc
 	picture = GFX_report_event_fighters
@@ -472,7 +1301,6 @@ country_event = {
 #Yugoslavia wants to buy planes - Major nation sells some fighters
 country_event = {
 	id = DOD_yugoslavia.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.21 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.21.t
 	desc = DOD_yugoslavia.21.desc   
 	picture = GFX_report_event_fighters
@@ -493,7 +1321,6 @@ country_event = {
 #Yugoslavia wants to buy planes - Major nation sells some bombers
 country_event = {
 	id = DOD_yugoslavia.22
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.22 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.22.t
 	desc = DOD_yugoslavia.22.desc
 	picture = GFX_report_event_generic_bombers
@@ -513,7 +1340,6 @@ country_event = {
 #Yugoslavia wants to buy planes - Major nation sells some fighters
 country_event = {
 	id = DOD_yugoslavia.23
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.23 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.21.t
 	desc = DOD_yugoslavia.21.desc   
 	picture = GFX_report_event_fighters
@@ -572,7 +1398,7 @@ country_event = {
 				}
 				set_variable = { fighter_buy_amount = 50 } 
 				bba_get_fighter_GER_effect = yes
-			}		
+			}
 		} 
 		if = {
 			limit = {
@@ -671,7 +1497,7 @@ country_event = {
 				}
 				set_variable = { fighter_buy_amount = 50 } 
 				bba_get_fighter_FRA_effect = yes
-			}		
+			}
 		}
 
 		if = {
@@ -715,13 +1541,13 @@ country_event = {
 				}
 				add_equipment_to_stockpile = { type = fighter_equipment_3 amount = 50 producer = ENG } 
 			}
-		else_if = {
+			else_if = {
 				limit = {
 					has_dlc = "By Blood Alone"
 				}
 				set_variable = { fighter_buy_amount = 50 } 
 				bba_get_fighter_ENG_effect = yes
-			}		
+			}
 		}
 		add_opinion_modifier = { target = FROM modifier = YUG_sold_planes}	
 	}	
@@ -732,7 +1558,6 @@ country_event = {
 #Yugoslavia wants to buy planes - Major nation sells some bombers
 country_event = {
 	id = DOD_yugoslavia.24
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.24 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.22.t
 	desc = DOD_yugoslavia.22.desc
 	picture = GFX_report_event_generic_bombers
@@ -791,7 +1616,7 @@ country_event = {
 				}
 				set_variable = { tac_buy_amount = 25 } 
 				bba_get_tac_GER_effect = yes
-			}		
+			}
 		}
 		if = {
 			limit = {
@@ -840,7 +1665,7 @@ country_event = {
 				}
 				set_variable = { tac_buy_amount = 25 } 
 				bba_get_tac_ITA_effect = yes
-			}		
+			}
 		}
 
 		if = {
@@ -884,7 +1709,7 @@ country_event = {
 				}
 				add_equipment_to_stockpile = { type = tac_bomber_equipment_3 amount = 25 producer = FRA } 
 			}
-		else_if = {
+			else_if = {
 				limit = {
 					has_dlc = "By Blood Alone"
 				}
@@ -943,14 +1768,13 @@ country_event = {
 			}
 		}
 		add_opinion_modifier = { target = FROM modifier = YUG_sold_planes}	
-	}	
-		
+	}		
 	
 }
-#Yugoslavia pressured by Germany - Anschluss
+
+# Yugoslavia pressured by Germany - after Anschluss - event for GER
 country_event = {
 	id = DOD_yugoslavia.30
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.30 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.30.desc
 	picture = GFX_report_event_german_speech
@@ -960,10 +1784,15 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.30.a
 		ai_chance = {
-			factor = 70
+			base = 70
 		}
+
 		YUG = { 
-			country_event = DOD_yugoslavia.31 
+			country_event = {
+				id = DOD_yugoslavia.31 
+				hours = 6
+				random_hours = 12
+			}	
 			set_country_flag = YUG_GER_pressure_1 #for ai_weights in focus tree
 		}
 		
@@ -971,7 +1800,11 @@ country_event = {
 	option = { # not interested
 		name = DOD_yugoslavia.30.b
 		ai_chance = {
-			factor = 30
+			base = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
 		}
 		
 	}
@@ -979,10 +1812,9 @@ country_event = {
 	
 }
 
-#Yugoslavia pressured by Germany - First event
+#Yugoslavia pressured by Germany - First event - event for YUG
 country_event = {
 	id = DOD_yugoslavia.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.31 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.31.t
 	desc = DOD_yugoslavia.31.desc
 	picture = GFX_report_event_german_speech
@@ -992,18 +1824,48 @@ country_event = {
 	option = { # not that bad yet
 		name = DOD_yugoslavia.31.a
 		ai_chance = {
-			factor = 30
+			base = 50
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
 		}
+
+		add_opinion_modifier = {
+			target = FROM
+			modifier = YUG_GER_pressured_us_annoyed_opm
+		}	
+		set_country_flag = YUG_stands_up_to_german_pressure_once_flag
+		
+	}
+
+	option = { # We must keep up good relation with them...
+		name = DOD_yugoslavia.31.b
+		ai_chance = {
+			base = 50
+		}
+		
+		FROM = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = YUG_wavering_to_GER_pressure_opm
+			}
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = YUG_wavering_to_GER_pressure_reverse_opm
+		}
+			
+		set_country_flag = YUG_wavered_to_german_pressure_once_flag
 		
 	}
 		
 	
 }
 
-#Yugoslavia pressured by Germany - Fate of CZE
+# Yugoslavia pressured by Germany - Fate of CZE - event for GER
 country_event = {
 	id = DOD_yugoslavia.32
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.32 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.32.desc
 	picture = GFX_report_event_german_troops
@@ -1013,10 +1875,15 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.32.a
 		ai_chance = {
-			factor = 80
+			base = 80
 		}
+
 		YUG = { 
-			country_event = DOD_yugoslavia.33 
+			country_event = {
+				id = DOD_yugoslavia.33 
+				hours = 6
+				random_hours = 12
+			}	
 			set_country_flag = YUG_GER_pressure_2 #for ai_weights
 		}
 		
@@ -1024,7 +1891,11 @@ country_event = {
 	option = { # not interested
 		name = DOD_yugoslavia.32.b
 		ai_chance = {
-			factor = 20
+			base = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
 		}
 		
 	}
@@ -1035,23 +1906,78 @@ country_event = {
 #Yugoslavia pressured by Germany - Second event
 country_event = {
 	id = DOD_yugoslavia.33
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.33 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.31.t
 	desc = DOD_yugoslavia.33.desc
 	picture = GFX_report_event_german_troops
 	
 	is_triggered_only = yes
 		
-	option = { # not that bad
+	option = { # not that bad 
 		name = DOD_yugoslavia.33.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
+		}
+
+		IF = {
+			limit = {
+				has_country_flag = YUG_stands_up_to_german_pressure_once_flag
+			}
+			set_country_flag = YUG_stands_up_to_german_pressure_twice_flag
+			clr_country_flag = YUG_stands_up_to_german_pressure_once_flag
+		}		
+		ELSE_IF = {
+			limit = {
+				has_country_flag = YUG_wavered_to_german_pressure_once_flag
+			}
+			set_country_flag = YUG_wavered_to_german_pressure_once_and_stood_up_once_flag
+		}
+		
+	}
+
+	option = { # This is getting serious, we must crack down on anti-German elements immediately!
+		name = DOD_yugoslavia.33.b
+		ai_chance = {
+			base = 50
+		}
+
+		add_stability = -0.03
+
+		IF = {
+			limit = {
+				has_idea = anti_german_military
+			}
+			remove_ideas = anti_german_military
+		}
+
+		add_popularity = {
+			ideology = FROM
+			popularity = 0.05
+		}	
+
+		IF = {
+			limit = {
+				has_country_flag = YUG_wavered_to_german_pressure_once_flag
+			}
+			set_country_flag = YUG_wavered_to_german_pressure_twice_flag
+			clr_country_flag = YUG_wavered_to_german_pressure_once_flag
+		}		
+		ELSE_IF = {
+			limit = {
+				has_country_flag = YUG_stands_up_to_german_pressure_once_flag
+			}
+			set_country_flag = YUG_wavered_to_german_pressure_once_and_stood_up_once_flag
+		}
 		
 	}
 }
 
-#Yugoslavia pressured by Germany - Last Warning - after Fall of France
+# Yugoslavia pressured by Germany - Last Warning - after Fall of France - event for GER
 country_event = {
 	id = DOD_yugoslavia.34
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.34 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.34.desc
 	picture = GFX_report_event_german_troops_paris
@@ -1059,9 +1985,12 @@ country_event = {
 	mean_time_to_happen = {
 		days = 5
 	}
+
 	fire_only_once = yes
+
 	trigger = {
 		tag = GER
+		has_government = fascism
 		NOT = {
 			has_war_with = YUG
 		}
@@ -1079,26 +2008,38 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.34.a
 		ai_chance = {
-			factor = 90
+			base = 90
 		}
-		YUG = { country_event = DOD_yugoslavia.35 }
+
+		YUG = { 
+			country_event = {
+				id = DOD_yugoslavia.35
+				hours = 6
+				random_hours = 12
+			}
+		}
 		
 	}	
 	option = { # not interested
 		name = DOD_yugoslavia.34.b
 		ai_chance = {
-			factor = 10
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
 		}
+
+
 		
 	}
 		
 	
 }
 
-#Yugoslavia pressured by Germany - third event
+# Yugoslavia pressured by Germany - third event - event for YUG
 country_event = {
 	id = DOD_yugoslavia.35
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.35 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.31.t
 	desc = DOD_yugoslavia.35.desc
 	picture = GFX_report_event_german_troops_paris
@@ -1108,7 +2049,46 @@ country_event = {
 	option = { # not that bad
 		name = DOD_yugoslavia.35.a
 		ai_chance = {
-			factor = 30
+			base = 30
+		}
+
+		add_political_power = -25
+
+		add_popularity = {
+			ideology = FROM
+			popularity = 0.05
+		}	
+
+		FROM = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = YUG_wavering_to_GER_pressure_2_opm
+			}
+		}
+		add_opinion_modifier = {
+			target = FROM
+			modifier = YUG_wavering_to_GER_pressure_reverse_2_opm
+		}
+		
+	}
+
+	option = { # No, we must not placate them further!
+		name = DOD_yugoslavia.35.b
+		ai_chance = {
+			base = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
+		}
+
+		add_war_support = 0.05
+
+		FROM = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = enemy_of_the_reich_opm
+			}	
 		}
 		
 	}
@@ -1118,10 +2098,9 @@ country_event = {
 
 
 
-#Yugoslavia pressured by Britain - Balkan Strategy
+# Yugoslavia pressured by Britain - Balkan Strategy - event for ENG
 country_event = {
 	id = DOD_yugoslavia.40
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.40 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.40.desc
 	picture = GFX_report_event_chamberlain_announce
@@ -1131,15 +2110,26 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.40.a
 		ai_chance = {
-			factor = 70
+			base = 70
 		}
-		YUG = { country_event = DOD_yugoslavia.41 }
+
+		YUG = { 
+			country_event = {
+				id = DOD_yugoslavia.41 
+				hours = 6
+				random_hours = 12
+			} 
+		}
 		
 	}	
 	option = { # not interested
 		name = DOD_yugoslavia.40.b
 		ai_chance = {
-			factor = 30
+			base = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
 		}
 		
 	}
@@ -1147,10 +2137,9 @@ country_event = {
 	
 }
 
-#Yugoslavia pressured by Britain - First event
+# Yugoslavia pressured by Britain - First event - event for YUG
 country_event = {
 	id = DOD_yugoslavia.41
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.41 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.41.t
 	desc = DOD_yugoslavia.41.desc
 	picture = GFX_report_event_french_british_officers
@@ -1160,16 +2149,20 @@ country_event = {
 	option = { # not that bad yet
 		name = DOD_yugoslavia.41.a
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
+
+		add_popularity = {
+			ideology = FROM
+			popularity = 0.05
+		}	
 		
 	}	
 }
 
-#Yugoslavia pressured by Britain - Munich
+# Yugoslavia pressured by Britain - Munich - event for ENG
 country_event = {
 	id = DOD_yugoslavia.42
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.42 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.42.desc
 	picture = GFX_report_event_french_british_officers
@@ -1179,26 +2172,36 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.42.a
 		ai_chance = {
-			factor = 70
+			base = 70
 		}
-		YUG = { country_event = DOD_yugoslavia.43 }
+		YUG = { 
+			country_event = {
+				id = DOD_yugoslavia.43 
+				hours = 6
+				random_hours = 12
+			} 
+		}
 		
 	}	
 	option = { # not interested
 		name = DOD_yugoslavia.42.b
 		ai_chance = {
-			factor = 30
+			base = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
 		}
+
+
 		
 	}
-		
 	
 }
 
-#Yugoslavia pressured by Britain - Second event
+# Yugoslavia pressured by Britain - Second event - event for YUG
 country_event = {
 	id = DOD_yugoslavia.43
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.43 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.41.t
 	desc = DOD_yugoslavia.43.desc
 	picture = GFX_report_event_canadian_soldiers
@@ -1208,16 +2211,17 @@ country_event = {
 	option = { # not that bad yet
 		name = DOD_yugoslavia.43.a
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
+
+
 		
 	}	
 }
 
-#Yugoslavia pressured by Britain - late 1940, last warning
+#Yugoslavia pressured by Britain - late 1940, last warning - event for ENG
 country_event = {
 	id = DOD_yugoslavia.44
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.44 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.44.desc
 	picture = GFX_report_event_french_british_officers
@@ -1226,6 +2230,7 @@ country_event = {
 	
 	trigger = {
 		tag = ENG
+		is_historical_focus_on = no
 		has_government = democratic
 		has_war_with = GER
 		NOT = { has_war_with = YUG }
@@ -1233,7 +2238,6 @@ country_event = {
 		YUG = { is_in_faction = no }
 		YUG = { NOT = { has_war_with = GER } }
 		YUG = { exists = yes }
-		is_historical_focus_on = no
 	}
 
 	mean_time_to_happen = { days = 4 }
@@ -1241,24 +2245,42 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.44.a
 		ai_chance = {
-			factor = 90
+			base = 90
 		}
-		YUG = { country_event = DOD_yugoslavia.45 }
-		hidden_effect = { country_event = { id = DOD_yugoslavia.46 days = 180 random = 672 } }
+		YUG = { 
+			country_event = {
+				id = DOD_yugoslavia.45  
+				hours = 6
+				random_hours = 12
+			} 
+		}
+		hidden_effect = { 
+			country_event = { 
+				id = DOD_yugoslavia.46 
+				days = 180 
+				random = 672 
+			} 
+		}
 		
 	}	
 	option = { # not interested
 		name = DOD_yugoslavia.44.b
 		ai_chance = {
-			factor = 10
-		}	
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes 
+			}
+		}
+
+
+
 	}
 }
 
-#Yugoslavia pressured by Britain - Third event
+#Yugoslavia pressured by Britain - Third event - event for YUG
 country_event = {
 	id = DOD_yugoslavia.45
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.45 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.41.t
 	desc = DOD_yugoslavia.45.desc
 	picture = GFX_report_event_british_inspect_troops
@@ -1268,16 +2290,17 @@ country_event = {
 	option = { # not that bad yet
 		name = DOD_yugoslavia.45.a
 		ai_chance = {
-			factor = 30
+			base = 30
 		}
 		
+		custom_effect_tooltip = YUG_if_we_dont_side_with_britain_within_a_year_warning_tt
+
 	}	
 }
 
-#Yugoslavia pressured by Britain - war
+# Yugoslavia pressured by Britain - war - event for ENG
 country_event = {
 	id = DOD_yugoslavia.46
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.46 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.30.t
 	desc = DOD_yugoslavia.46.desc
 	picture = GFX_report_event_ast_army
@@ -1295,8 +2318,9 @@ country_event = {
 	option = { # put the squeeze on them
 		name = DOD_yugoslavia.46.a
 		ai_chance = {
-			factor = 90
+			base = 90
 		}
+
 		declare_war_on = {
 			target = YUG
 			type = puppet_wargoal_focus
@@ -1306,8 +2330,11 @@ country_event = {
 	option = { # not interested
 		name = DOD_yugoslavia.46.b
 		ai_chance = {
-			factor = 10
-		}	
+			base = 10
+		}
+
+
+
 	}
 }
 
@@ -1316,7 +2343,6 @@ country_event = {
 #fighter competition - initial choice for Yugoslavia
 country_event = {
 	id = DOD_yugoslavia.150
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.150 FROM = [From.GetName]" }
 	title = DOD_hungary.150.t
 	desc = DOD_hungary.150.desc 
 	picture = GFX_report_event_fighters
@@ -1328,7 +2354,7 @@ country_event = {
 		trigger = {
 			OR = {
 				GER = {
-					is_available_fighter_HUN = yes
+					is_available_fighter_HUN = yes #it says HUN but it is really using ROOT
 				}
 				FRA = {
 					is_available_fighter_HUN = yes
@@ -1380,7 +2406,7 @@ country_event = {
 			country_event = DOD_yugoslavia.151 
 		}
 		else = {
-			country_event = DOD_yugoslavia.1511	
+			country_event = DOD_yugoslavia.1511
 		}
 		
 	}
@@ -1415,7 +2441,7 @@ country_event = {
 			country_event = DOD_romania.152
 		}
 		else = {
-			country_event = DOD_hungary.1521	
+			country_event = DOD_romania.1521	
 		}
 		ai_chance = {
 			factor = 50
@@ -1450,7 +2476,6 @@ country_event = {
 #Fighter competition - Yugoslavia is looking for a light fighter
 country_event = {
 	id = DOD_yugoslavia.151
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.151 FROM = [From.GetName]" }
 	title = DOD_hungary.151.t
 	desc = {
 		text = DOD_hungary.151.desc_light_fighter
@@ -2091,7 +3116,6 @@ country_event = {
 #Fighter competition - Yugoslavia is looking for a heavy fighter
 country_event = {
 	id = DOD_yugoslavia.152
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.152 FROM = [From.GetName]" }
 	title = DOD_hungary.152.t
 	desc = {
 		text = DOD_hungary.152.desc_heavy_fighter
@@ -2732,7 +3756,6 @@ country_event = {
 #fighter competition - light fighter competition winner gets a choice whether to permit license production
 country_event = {
 	id = DOD_yugoslavia.153
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.153 FROM = [From.GetName]" }
 	title = DOD_hungary.153.t
 	desc = DOD_hungary.153.desc 
 	picture = GFX_report_event_fighters
@@ -2829,7 +3852,8 @@ country_event = {
 				}
 				YUG = { bba_get_fighter_USA_effect = yes }
 			}
-			bba_create_fighter_license_effect = yes		}
+			bba_create_fighter_license_effect = yes
+		}
 	}
 
 	option = {# no
@@ -2871,14 +3895,14 @@ country_event = {
 		}
 		else = {
 			YUG = { country_event = DOD_yugoslavia.1511 }
-		}		reverse_add_opinion_modifier = { target = YUG modifier = refused_help }
+		}
+		reverse_add_opinion_modifier = { target = YUG modifier = refused_help }
 	}
 }
 
 #fighter competition - heavy fighter competition winner gets a choice whether to permit license production
 country_event = {
 	id = DOD_yugoslavia.154
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.154 FROM = [From.GetName]" }
 	title = DOD_hungary.153.t
 	desc = DOD_hungary.154.desc 
 	picture = GFX_report_event_fighters
@@ -2975,7 +3999,8 @@ country_event = {
 				}
 				YUG = { bba_get_heavy_fighter_USA_effect = yes }
 			}
-			bba_create_heavy_fighter_license_effect = yes		}
+			bba_create_heavy_fighter_license_effect = yes
+		}
 		
 	}
 
@@ -3018,7 +4043,7 @@ country_event = {
 		}
 		else = {
 			YUG = { country_event = DOD_yugoslavia.1521 }
-		}		
+		}
 		reverse_add_opinion_modifier = { target = YUG modifier = refused_help }
 	}
 }
@@ -3026,7 +4051,6 @@ country_event = {
 #fighter competition - license production approved
 country_event = {
 	id = DOD_yugoslavia.155
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.155 FROM = [From.GetName]" }
 	title = DOD_hungary.155.t
 	desc = DOD_hungary.155.desc 
 	picture = GFX_report_event_fighters
@@ -3043,7 +4067,6 @@ country_event = {
 #bomber competition - initial choice for Yugoslavia
 country_event = {
 	id = DOD_yugoslavia.160
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.160 FROM = [From.GetName]" }
 	title = DOD_hungary.160.t
 	desc = DOD_hungary.160.desc 
 	picture = GFX_report_event_generic_bombers
@@ -3055,19 +4078,19 @@ country_event = {
 		trigger = {
 			OR = {
 				GER = {
-					is_available_cas_YUG = yes
+					is_available_cas_HUN = yes
 				}
 				FRA = {
-					is_available_cas_YUG = yes
+					is_available_cas_HUN = yes
 				}
 				ITA = {
-					is_available_cas_YUG = yes
+					is_available_cas_HUN = yes
 				}
 				ENG = {
-					is_available_cas_YUG = yes
+					is_available_cas_HUN = yes
 				}
 				USA = {
-					is_available_cas_YUG = yes
+					is_available_cas_HUN = yes
 				}
 			}
 		}
@@ -3109,7 +4132,6 @@ country_event = {
 		else = {
 			country_event = DOD_yugoslavia.1611 		
 		}
-		
 	}
 
 	option = {# TAC
@@ -3117,19 +4139,19 @@ country_event = {
 		trigger = {
 			OR = {
 				GER = {
-					is_available_tac_YUG = yes
+					is_available_tac_HUN = yes
 				}
 				FRA = {
-					is_available_tac_YUG = yes
+					is_available_tac_HUN = yes
 				}
 				ITA = {
-					is_available_tac_YUG = yes
+					is_available_tac_HUN = yes
 				}
 				ENG = {
-					is_available_tac_YUG = yes
+					is_available_tac_HUN = yes
 				}
 				USA = {
-					is_available_tac_YUG = yes
+					is_available_tac_HUN = yes
 				}
 			}
 		}
@@ -3169,7 +4191,7 @@ country_event = {
 			country_event = DOD_yugoslavia.162 	
 		}
 		else = {
-			country_event = DOD_yugoslavia.1621 
+			country_event = DOD_yugoslavia.1621 		
 		}
 	}
 }
@@ -3177,7 +4199,6 @@ country_event = {
 #Bomber competition - Yugoslavia is looking for a CAS
 country_event = {
 	id = DOD_yugoslavia.161
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.161 FROM = [From.GetName]" }
 	title = DOD_hungary.161.t
 	desc = {
 		text = DOD_hungary.161.desc_cas
@@ -3818,7 +4839,6 @@ country_event = {
 #Bomber competition - Yugoslavia is looking for a tacbomber
 country_event = {
 	id = DOD_yugoslavia.162
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.162 FROM = [From.GetName]" }
 	title = DOD_hungary.162.t
 	desc = {
 		text = DOD_hungary.162.desc_tac
@@ -4457,10 +5477,10 @@ country_event = {
 	}
 
 }
+
 #bomber competition - CAS competition winner gets a choice whether to permit license production
 country_event = {
 	id = DOD_yugoslavia.163
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.163 FROM = [From.GetName]" }
 	title = DOD_hungary.163.t
 	desc = DOD_hungary.163.desc 
 	picture = GFX_report_event_generic_bombers
@@ -4556,7 +5576,8 @@ country_event = {
 				}
 				YUG = { bba_get_cas_USA_effect = yes }
 			}
-			bba_create_cas_license_effect = yes		}
+			bba_create_cas_license_effect = yes
+		}
 	}
 
 	option = {# no
@@ -4606,7 +5627,6 @@ country_event = {
 #bomber competition - tac bomber competition winner gets a choice whether to permit license production
 country_event = {
 	id = DOD_yugoslavia.164
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.164 FROM = [From.GetName]" }
 	title = DOD_hungary.164.t
 	desc = DOD_hungary.164.desc 
 	picture = GFX_report_event_generic_bombers
@@ -4704,7 +5724,6 @@ country_event = {
 			}
 			bba_create_tac_license_effect = yes
 		}
-		
 	}
 
 	option = {# no
@@ -4746,7 +5765,7 @@ country_event = {
 		}
 		else = {
 			YUG = { country_event = DOD_yugoslavia.1621 }	
-		}		
+		}
 		reverse_add_opinion_modifier = { target = YUG modifier = refused_help }
 	}
 }
@@ -4754,7 +5773,6 @@ country_event = {
 #bomber competition - license production approved
 country_event = {
 	id = DOD_yugoslavia.165
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.165 FROM = [From.GetName]" }
 	title = DOD_hungary.165.t
 	desc = DOD_hungary.165.desc 
 	picture = GFX_report_event_generic_bombers
@@ -4770,7 +5788,6 @@ country_event = {
 # Yugoslavia starting Communist propaganda in another nation
 country_event = {
 	id = DOD_yugoslavia.181
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.181 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.181.t
 	desc = DOD_yugoslavia.181.d
 	picture = GFX_report_event_generic_bombers
@@ -4790,7 +5807,6 @@ country_event = {
 # Pan-Slavic propaganda
 country_event = {
 	id = DOD_yugoslavia.182
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.182 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.182.t
 	desc = DOD_yugoslavia.182.d
 	picture = GFX_report_event_generic_bombers
@@ -4814,7 +5830,6 @@ country_event = {
 # Pan-Slavic militants
 country_event = {
 	id = DOD_yugoslavia.183
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.183 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.183.t
 	desc = DOD_yugoslavia.183.d
 	picture = GFX_report_event_generic_bombers
@@ -4845,7 +5860,6 @@ country_event = {
 # Communist civil war
 country_event = {
 	id = DOD_yugoslavia.184
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.184 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.184.t
 	desc = DOD_yugoslavia.184.d
 	picture = GFX_report_event_generic_bombers
@@ -4954,7 +5968,6 @@ country_event = {
 #Age King Peter after a few years
 country_event = {
 	id = DOD_yugoslavia.19
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.19 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.19.t
 	desc = DOD_yugoslavia.19.desc
 	picture = GFX_report_event_yugoslavian_king_peter
@@ -5025,7 +6038,6 @@ country_event = {
 #The Royal Wedding
 country_event = {
 	id = DOD_yugoslavia.50
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.50 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.50.t
 	desc = DOD_yugoslavia.50.desc
 	picture = GFX_report_event_generic_rally
@@ -5043,8 +6055,9 @@ country_event = {
 	option = { #Italy
 		name = DOD_yugoslavia.50.b
 		trigger = {
-			any_other_country = {
-				original_tag = ITA
+			any_other_country_with_original_tag_of = {
+				exists = yes
+				target = {ITA}
 				NOT = { has_war_with = ROOT }
 				NOT = { has_government = communism }
 			}
@@ -5064,8 +6077,9 @@ country_event = {
 	option = { #Germany
 		name = DOD_yugoslavia.50.c
 		trigger = {
-			any_other_country = {
-				original_tag = GER
+			any_other_country_with_original_tag_of = {
+				exists = yes
+				target = {GER}
 				NOT = { has_war_with = ROOT }
 				OR = {
 					has_completed_focus = GER_revive_the_kaiserreich
@@ -5091,8 +6105,9 @@ country_event = {
 	option = { #Austria-Hungary
 		name = DOD_yugoslavia.50.d
 		trigger = {
-			any_other_country = {
-				original_tag = HUN
+			any_other_country_with_original_tag_of = {
+				exists = yes
+				target = { HUN }
 				NOT = { has_war_with = ROOT }
 				has_completed_focus = HUN_invite_the_habsburg_prince
 			}
@@ -5112,8 +6127,9 @@ country_event = {
 	option = { #Spanish Princess
 		name = DOD_yugoslavia.50.e
 		trigger = {
-			any_other_country = {
-				original_tag = SPR
+			any_other_country_with_original_tag_of = {
+				exists = yes
+				target = { SPR }
 				NOT = { has_war_with = ROOT }
 				has_completed_focus = SPA_settle_the_succession_question
 			}
@@ -5135,7 +6151,6 @@ country_event = {
 #Wedding partner can accept or decline
 country_event = {
 	id = DOD_yugoslavia.501
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.501 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.501.t
 	desc = DOD_yugoslavia.501.desc
 	picture = GFX_report_event_election_vote
@@ -5225,7 +6240,6 @@ country_event = {
 #Yugoslavia is informed of their choice
 country_event = {
 	id = DOD_yugoslavia.502
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.502 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.502.t
 	desc = DOD_yugoslavia.502.desc
 	picture = GFX_report_event_election_vote
@@ -5259,7 +6273,6 @@ country_event = {
 #Yugoslavia is informed of their rejection
 country_event = {
 	id = DOD_yugoslavia.503
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.503 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.503.t
 	desc = DOD_yugoslavia.503.desc
 	picture = GFX_report_event_election_vote
@@ -5280,7 +6293,6 @@ country_event = {
 #The Coronation
 country_event = {
 	id = DOD_yugoslavia.60
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.60 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.60.t
 	desc = {
 		text = DOD_yugoslavia.60.peter
@@ -5315,6 +6327,7 @@ country_event = {
 					ruling_only = yes
 				}
 			}
+
 			YUG_prince_paul = {
 				add_country_leader_role = {
 					country_leader = {
@@ -5327,6 +6340,7 @@ country_event = {
 				promote_leader = yes
 				}
 			}
+			
 			set_party_name = { 
 				ideology = fascism
 				name = YUG_kardocevik
@@ -5377,7 +6391,7 @@ country_event = {
 						YUG_peter_ii = {
 							set_portraits = {
 								civilian = {
-							    	large="GFX_portrait_yugoslavia_peter_ii_old"
+							    	large = GFX_portrait_yugoslavia_peter_ii_old
 								}
 							}					
 						}
@@ -5413,7 +6427,6 @@ country_event = {
 #Signing the Tripartite Pact
 country_event = {
 	id = DOD_yugoslavia.70
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.70 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.70.t
 	desc = DOD_yugoslavia.70.desc
 	picture = GFX_report_event_election_vote
@@ -5452,13 +6465,18 @@ country_event = {
 		ai_chance = {
 			factor = 0
 		}
-		YUG = { country_event = DOD_yugoslavia.701 }
+		YUG = { 
+			country_event = {
+				id = DOD_yugoslavia.701 
+				hours = 6
+			}	
+		}
 	}
 }
+
 #Yugo is informed of their choice
 country_event = {
 	id = DOD_yugoslavia.701
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.701 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.701.t
 	desc = {
 		text = DOD_yugoslavia.701.tripartite_rejection
@@ -5513,25 +6531,56 @@ country_event = {
 					}
 				}
 				GER = {
-					country_event = {
-						id = germany.132
-						days = 4
-					}
-					add_ai_strategy = {
-						type = prepare_for_war
-						id = YUG
-						value = 200
-					}
-				}
-			}
-			else = {
-				get_best_alliance_match_fascism_effect = yes
-				var:best_leader = {
 					create_wargoal = {
 						type = annex_everything
 						target = YUG
 					}
 				}
+				695 = {   # was vanilla 102 (North Slovenia)
+					add_claim_by = GER
+				}
+				703 = {   # -> Drava
+					add_claim_by = GER
+				}
+				712 = {   # -> Međimurje
+					add_claim_by = GER
+				}
+				714 = {   # -> Gorenjska
+					add_claim_by = GER
+				}
+				1489 = {   # -> Savinja
+					add_claim_by = GER
+				}
+				1490 = {   # -> Koroška
+					add_claim_by = GER
+				}
+				1616 = {   # -> Val Canale
+					add_claim_by = GER
+				}
+				2861 = {   # -> Krško
+					add_claim_by = GER
+				}
+				2901 = {   # -> Circhina
+					add_claim_by = GER
+				}
+			}
+			else_if = {
+				limit = {
+					ITA = {
+						exists = yes
+						has_capitulated = no
+						has_government = fascism
+					}
+				}
+				ITA = {
+					create_wargoal = {
+						type = annex_everything
+						target = YUG
+					}
+				}
+			}
+			ELSE = {
+				add_stability = -0.05
 			}
 		}
 		complete_national_focus = YUG_end_the_regency #switches to the Peter branch so Yugoslavia is not stuck
@@ -5554,10 +6603,10 @@ country_event = {
 		YUG_start_peters_coup = yes
 	}
 }
-#England can demand Paul to step down
+
+# England can demand Paul to step down
 country_event = {
 	id = DOD_yugoslavia.702
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.702 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.702.t
 	desc = DOD_yugoslavia.702.desc
 	picture = GFX_report_event_election_vote
@@ -5617,10 +6666,9 @@ country_event = {
 	}
 }
 
-#Italy recieves Yugo's request to control Zara
+# Italy recieves Yugo's request to control Zara
 country_event = {
 	id = DOD_yugoslavia.80
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.80 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.80.t
 	desc = DOD_yugoslavia.80.desc
 	picture = GFX_report_event_election_vote
@@ -5689,41 +6737,32 @@ country_event = {
 					has_war = yes
 				}
 			}
+
+			modifier = {
+				factor = 0
+				ITA_is_alt_fascist_balbo_ai = yes	
+			}
 		}
-		FROM = { transfer_state = 1476 }
+		FROM = { transfer_state = 811 } # was vanilla 163 (Zadar -> Šibenik)
+		transfer_state = 1475 # -> Preko
+		transfer_state = 1476 # -> Zara
+		transfer_state = 1988 # -> Biograd na Moru
+		transfer_state = 2826 # -> Benkovac
+		transfer_state = 2827 # -> Nin
+		transfer_state = 2828 # -> Jasenice
 		
 		if = {
 			limit = {
-				ITA = { is_faction_leader = yes }
+				is_faction_leader = yes
 			}
-			ITA = { add_to_faction = YUG }
+			add_to_faction = YUG
 		}
-		else_if = {
-			limit = {
-				ITA = { is_in_faction = yes }
-			}
+		else = {
 			random_country = {
 				limit = {
 					is_in_faction_with = ITA
 					is_faction_leader = yes
 				}
-				add_to_faction = YUG
-			}
-		}
-		else_if = {
-			limit = {
-				GER = {
-					exists = yes
-					has_capitulated = no
-					has_government = fascism
-					is_faction_leader = yes
-				}
-			}
-			GER = { add_to_faction = YUG }
-		}
-		else = {
-			get_best_alliance_match_fascism_effect = yes
-			var:best_leader = {
 				add_to_faction = YUG
 			}
 		}
@@ -5809,7 +6848,6 @@ country_event = {
 #Yugo informed of rejection
 country_event = {
 	id = DOD_yugoslavia.801
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.801 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.801.t
 	desc = DOD_yugoslavia.801.desc
 	picture = GFX_report_event_election_vote
@@ -5820,44 +6858,36 @@ country_event = {
 	
 	option = {
 		name = DOD_yugoslavia.801.a #I'mma join anyway
-		ITA = {
-			transfer_state = 2827
-			transfer_state = 2826
-			transfer_state = 1988
-			transfer_state = 811
-			transfer_state = 1475
-			transfer_state = 2651
-			transfer_state = 1998
-			transfer_state = 2895
-			transfer_state = 2916
-			transfer_state = 2896
-			transfer_state = 1491
-			transfer_state = 1480
-			transfer_state = 2897
-			transfer_state = 2241
-			transfer_state = 1473
-			transfer_state = 1990
-			transfer_state = 884
-		}
+		ITA = { transfer_state = 754 } # was vanilla 103 (Dalmatia -> Gospić)
+		transfer_state = 815 # -> Cetina
+		transfer_state = 1461 # -> Modruš
+		transfer_state = 1462 # -> Karlovac
+		transfer_state = 1477 # -> Senj
+		transfer_state = 1478 # -> Korenica
+		transfer_state = 1479 # -> Bribir-Sidraga
+		transfer_state = 1480 # -> Korčula
+		transfer_state = 1481 # -> Dubrovnik
+		transfer_state = 1491 # -> Brač
+		transfer_state = 1502 # -> Neum
+		transfer_state = 1534 # -> Lagosta
+		transfer_state = 1563 # -> Split
+		transfer_state = 1990 # -> Gruda
+		transfer_state = 1998 # -> Pag
+		transfer_state = 1999 # -> Starigrad
+		transfer_state = 2241 # -> Pelješac
+		transfer_state = 2651 # -> Krk
+		transfer_state = 2815 # -> Hutovo
+		transfer_state = 2816 # -> Drvar
+		transfer_state = 2820 # -> Zavala
+		transfer_state = 2825 # -> Novi Kot
+		transfer_state = 2829 # -> Lovinac
+		transfer_state = 2895 # -> Rab
+		transfer_state = 2896 # -> Hvar
+		transfer_state = 2897 # -> Mljet
+		transfer_state = 2911 # -> Crikvenica
+		transfer_state = 2916 # -> Vis
+		transfer_state = 2924 # -> Karlobag
 		if = {
-			limit = {
-				ITA = { is_faction_leader = yes }
-			}
-			ITA = { add_to_faction = YUG }
-		}
-		else_if = {
-			limit = {
-				ITA = { is_in_faction = yes }
-			}
-			random_country = {
-				limit = {
-					is_in_faction_with = ITA
-					is_faction_leader = yes
-				}
-				country_event = generic.2
-			}
-		}
-		else_if = {
 			limit = {
 				GER = {
 					exists = yes
@@ -5884,7 +6914,6 @@ country_event = {
 #Yugo informed of acceptance
 country_event = {
 	id = DOD_yugoslavia.802
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.802 FROM = [From.GetName]" }
 	title = DOD_yugoslavia.802.t
 	desc = DOD_yugoslavia.802.desc
 	picture = GFX_report_event_election_vote
@@ -5896,7 +6925,13 @@ country_event = {
 	option = {
 		name = DOD_yugoslavia.802.a #Epic
 		effect_tooltip = {
-			transfer_state = 1476
+			transfer_state = 811 # was vanilla 163 (Zadar -> Šibenik)
+			transfer_state = 1475 # -> Preko
+			transfer_state = 1476 # -> Zara
+			transfer_state = 1988 # -> Biograd na Moru
+			transfer_state = 2826 # -> Benkovac
+			transfer_state = 2827 # -> Nin
+			transfer_state = 2828 # -> Jasenice
 			if = {
 				limit = {
 					FROM = { is_faction_leader = yes }
@@ -5919,7 +6954,6 @@ country_event = {
 #Hidden event adding Yugoslavia's puppets to wars involving Yugo.
 country_event = {
 	id = DOD_yugoslavia.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event DOD_yugoslavia.9 FROM = [From.GetName]" }
 	
 	is_triggered_only = yes
 

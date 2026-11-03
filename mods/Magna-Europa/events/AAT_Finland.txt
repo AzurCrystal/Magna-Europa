@@ -2292,7 +2292,11 @@ country_event = {
 		uncomplete_national_focus = {
 			focus = FIN_finno_soviet_pact
 		}
-		set_country_flag = FIN_soviet_refused_finno_soviet_pact_flag
+		set_country_flag = {
+			flag = FIN_soviet_refused_finno_soviet_pact_flag
+			value = 1
+			days = 180
+		}
 	}
 }
 
@@ -2764,6 +2768,34 @@ country_event = {
 					ROOT = { white_peace = PREV }
 				}
 			}
+			else_if = {
+				limit = {
+					FROM = {
+						is_subject = yes
+					}
+				}
+				FROM = {
+					overlord = {
+						ROOT = { white_peace = PREV }
+					}
+				}
+				if = {
+					limit = {
+						FROM = {
+							any_allied_country = {
+								has_war_with = ROOT
+							}
+						}
+					}
+					every_other_country = {
+						limit = {
+							is_in_faction_with = FROM
+							has_war_with = ROOT
+						}
+						ROOT = { white_peace = PREV }
+					}
+				}
+			}
 			FROM = {
 				every_owned_state = {
 					limit = {
@@ -2826,6 +2858,29 @@ country_event = {
 				white_peace = FROM
 			}
 		}
+		else_if = {
+			limit = {
+				is_subject = yes
+			}
+			overlord = {
+				white_peace = FROM
+			}
+			if = {
+				limit = {
+					any_allied_country = {
+						has_war_with = FROM
+					}
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						has_war_with = FROM
+					}
+					white_peace = FROM
+				}
+			}
+		}
+
 		every_owned_state = {
 			limit = {
 				is_claimed_by = FROM
@@ -2904,6 +2959,34 @@ country_event = {
 						is_in_faction_with = FROM
 					}
 					ROOT = { white_peace = PREV }
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = {
+						is_subject = yes
+					}
+				}
+				FROM = {
+					overlord = {
+						ROOT = { white_peace = PREV }
+					}
+				}
+				if = {
+					limit = {
+						FROM = {
+							any_allied_country = {
+								has_war_with = ROOT
+							}
+						}
+					}
+					every_other_country = {
+						limit = {
+							is_in_faction_with = FROM
+							has_war_with = ROOT
+						}
+						ROOT = { white_peace = PREV }
+					}
 				}
 			}
 
@@ -2991,6 +3074,28 @@ country_event = {
 				white_peace = FROM
 			}
 		}
+		else_if = {
+			limit = {
+				is_subject = yes
+			}
+			overlord = {
+				white_peace = FROM
+			}
+			if = {
+				limit = {
+					any_allied_country = {
+						has_war_with = FROM
+					}
+				}
+				every_other_country = {
+					limit = {
+						is_in_faction_with = ROOT
+						has_war_with = FROM
+					}
+					white_peace = FROM
+				}
+			}
+		}
 
 		every_owned_state = {
 			limit = {
@@ -3075,7 +3180,18 @@ country_event = {
 # FIN proposes pact for Continuation War - Event for GER
 country_event = {
 	id = AAT_finland_continuation_war.01
-	title = AAT_finland_continuation_war.01.t
+	title = {
+		text = AAT_finland_continuation_war.01.t
+		trigger = {
+			has_global_flag = SOV_winter_war_flag
+		}
+	}
+	title = {
+		text = AAT_finland_continuation_war.01.t.2
+		trigger = {
+			NOT = { has_global_flag = SOV_winter_war_flag }
+		}
+	}
 	desc = AAT_finland_continuation_war.01.desc
 	picture = GFX_report_event_finnish_letter
 
@@ -3182,6 +3298,24 @@ country_event = {
 					amount = 300
 					producer = ROOT
 				}
+
+				add_state_claim = 16 # was vanilla 213 (Murmansk -> Rybachy Peninsula)
+				add_state_claim = 19 # -> Murmansk
+				add_state_claim = 2709 # -> Tuloma
+				add_state_claim = 2785 # -> Kandalaksha
+				add_state_claim = 2786 # -> Kayraly
+				add_state_claim = 30 # was vanilla 215 (Onega -> Medvezhyegorsk)
+				add_state_claim = 33 # -> Paanajärvi
+				add_state_claim = 38 # -> Ukhta
+				add_state_claim = 39 # -> Belomorsk
+				add_state_claim = 52 # -> Segezha
+				add_state_claim = 62 # -> Repola
+				add_state_claim = 74 # -> Porajärvi
+				add_state_claim = 2458 # -> Onega
+				add_state_claim = 24 # was vanilla 216 (Olonets -> Petrozavodsk)
+				add_state_claim = 57 # -> Olonets
+				add_state_claim = 59 # -> Suoyarvi
+				add_state_claim = 2437 # -> Podporozhye
 			}
 		}
 		custom_effect_tooltip = FIN_pact_for_continuation_war_ger_tt
@@ -3270,7 +3404,18 @@ country_event = {
 # GER agrees to the pact for Continuation War - Event for FIN
 country_event = {
 	id = AAT_finland_continuation_war.02
-	title = AAT_finland_continuation_war.02.t
+	title = {
+		text = AAT_finland_continuation_war.02.t
+		trigger = {
+			has_global_flag = SOV_winter_war_flag
+		}
+	}
+	title = {
+		text = AAT_finland_continuation_war.02.t.2
+		trigger = {
+			NOT = { has_global_flag = SOV_winter_war_flag }
+		}
+	}
 	desc = AAT_finland_continuation_war.02.desc
 	picture = GFX_report_event_FIN_finnish_german_pact
 
@@ -3342,6 +3487,24 @@ country_event = {
 				amount = 300
 				producer = FROM
 			}
+
+			add_state_claim = 16 # was vanilla 213 (Murmansk -> Rybachy Peninsula)
+			add_state_claim = 19 # -> Murmansk
+			add_state_claim = 2709 # -> Tuloma
+			add_state_claim = 2785 # -> Kandalaksha
+			add_state_claim = 2786 # -> Kayraly
+			add_state_claim = 30 # was vanilla 215 (Onega -> Medvezhyegorsk)
+			add_state_claim = 33 # -> Paanajärvi
+			add_state_claim = 38 # -> Ukhta
+			add_state_claim = 39 # -> Belomorsk
+			add_state_claim = 52 # -> Segezha
+			add_state_claim = 62 # -> Repola
+			add_state_claim = 74 # -> Porajärvi
+			add_state_claim = 2458 # -> Onega
+			add_state_claim = 24 # was vanilla 216 (Olonets -> Petrozavodsk)
+			add_state_claim = 57 # -> Olonets
+			add_state_claim = 59 # -> Suoyarvi
+			add_state_claim = 2437 # -> Podporozhye
 		}
 
 		FIN_pact_for_continuation_war_start = yes
@@ -3374,7 +3537,18 @@ country_event = {
 # Pact for continuation war broken - Event for FIN & GER
 country_event = {
 	id = AAT_finland_continuation_war.04
-	title = AAT_finland_continuation_war.04.t
+	title = {
+		text = AAT_finland_continuation_war.04.t
+		trigger = {
+			has_global_flag = SOV_winter_war_flag
+		}
+	}
+	title = {
+		text = AAT_finland_continuation_war.04.t.2
+		trigger = {
+			NOT = { has_global_flag = SOV_winter_war_flag }
+		}
+	}
 	desc = AAT_finland_continuation_war.04.desc
 	picture = GFX_report_event_soviet_german_soldier_handshake
 
@@ -3439,7 +3613,18 @@ country_event = {
 # CONTINUATION WAR STARTS - Event for FIN
 country_event = {
 	id = AAT_finland_continuation_war.05
-	title = AAT_finland_continuation_war.05.t
+	title = {
+		text = AAT_finland_continuation_war.05.t
+		trigger = {
+			has_global_flag = SOV_winter_war_flag
+		}
+	}
+	title = {
+		text = AAT_finland_continuation_war.05.t.2
+		trigger = {
+			NOT = { has_global_flag = SOV_winter_war_flag }
+		}
+	}
 	desc = AAT_finland_continuation_war.05.desc
 	picture = GFX_report_event_FIN_continuation_war
 
@@ -4622,14 +4807,17 @@ country_event = {
 				}
 			}
 		}
+		set_country_flag = FIN_full_support_for_karelia_flag #Used for the effect tooltip in the Soviet event
 		KAR = {
 			if = {
 				limit = {
-					any_other_country = {
-						original_tag = SOV
+					any_other_country_with_original_tag_of = {
+						exists = yes
+						target = {SOV}
 						has_civil_war = yes
 					}
 				}
+				# This is AI Stalin in the CW, no need for event, just declare on them
 				random_other_country = {
 					limit = {
 						original_tag = SOV
@@ -4642,9 +4830,21 @@ country_event = {
 							type = independence_wargoal
 						}
 					}
+					ROOT = {
+						if = {
+							limit = {
+								NOT = { has_war_with = PREV }
+							}
+							add_to_war = {
+								targeted_alliance = KAR
+								enemy = PREV
+								hostility_reason = asked_to_join
+							}
+						}
+					}
 				}
 				SOV = {
-					#Send event to the other side of the civil war
+					#Send event to the other side of the civil war - Actual original SOV (Trotskyist or Bukharinist)
 					set_variable = { SOV_nationalist_country = KAR }
 					set_country_flag = KAR_uprising_flag
 					country_event = NSB_soviet_nationalist.001
@@ -4655,23 +4855,30 @@ country_event = {
 					target = SOV
 					type = independence_wargoal
 				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { has_war_with = SOV }
-			}
-			set_country_flag = FIN_joining_war_against_sov_flag #For Soviet tooltip
-			add_to_war = {
-				targeted_alliance = KAR
-				enemy = SOV
-				hostility_reason = asked_to_join
+
+				if = {
+					limit = {
+						ROOT = { NOT = { has_war_with = SOV } }
+					}
+					ROOT = {
+						set_country_flag = FIN_joining_war_against_sov_flag #For Soviet tooltip
+						add_to_war = {
+							targeted_alliance = KAR
+							enemy = SOV
+							hostility_reason = asked_to_join
+						}
+					}
+				}
 			}
 		}
 
 		hidden_effect = {
-			set_country_flag = FIN_full_support_for_karelia_flag #Used for the effect tooltip in the Soviet event
-			SOV = { country_event = { id = AAT_finland_kinship_war.03 hours = 1 } }
+			if = { #Send Karelian Uprising event if Finland has triggered the Karelian Uprising
+				limit = {
+					SOV = { NOT = { has_country_flag = KAR_uprising_flag } }
+				}
+				SOV = { country_event = { id = AAT_finland_kinship_war.03 hours = 1 } }
+			}
 		}
 	}
 
@@ -4899,32 +5106,53 @@ country_event = {
 		}
 
 		KAR = {
-			declare_war_on = {
-				target = SOV
-				type = independence_wargoal
-			}
-
-			give_military_access = ROOT
-		}
-		give_military_access = KAR
-
-		#TODO_Manu: Relation modifier so that FIN can send more volunteers to Karelia
-
-		hidden_effect = {
-			SOV = { country_event = { id = AAT_finland_kinship_war.03 hours = 1 } }
 			if = {
 				limit = {
-					SOV = { has_civil_war =  yes }
-				}
-				SOV = {
-					random_enemy_country = {
-						limit = {
-							original_tag = SOV
-							has_civil_war = yes
-						}
-						country_event = { id = AAT_finland_kinship_war.03 hours = 1 }
+					any_other_country_with_original_tag_of = {
+						exists = yes
+						target = {SOV}
+						has_civil_war = yes
 					}
 				}
+				# This is AI Stalin in the CW, no need for event, just declare on them
+				random_other_country = {
+					limit = {
+						original_tag = SOV
+						has_civil_war = yes
+						has_country_leader_ideology = stalinism
+					}
+					PREV = {
+						declare_war_on = {
+							target = PREV
+							type = independence_wargoal
+						}
+					}
+				}
+				SOV = {
+					#Send event to the other side of the civil war - Actual original SOV (Trotskyist or Bukharinist)
+					set_variable = { SOV_nationalist_country = KAR }
+					set_country_flag = KAR_uprising_flag
+					country_event = NSB_soviet_nationalist.001
+				}
+			}
+			else = {
+				declare_war_on = {
+					target = SOV
+					type = independence_wargoal
+				}
+			}
+
+			# Military access FIN-KAR
+			give_military_access = ROOT
+			ROOT = { give_military_access = PREV }
+		}
+
+		hidden_effect = {
+			if = { #Send Karelian Uprising event if Finland has triggered the Karelian Uprising
+				limit = {
+					SOV = { NOT = { has_country_flag = KAR_uprising_flag } }
+				}
+				SOV = { country_event = { id = AAT_finland_kinship_war.03 hours = 1 } }
 			}
 		}
 	}
@@ -5320,8 +5548,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 		
@@ -5438,6 +5665,17 @@ country_event = {
 			has_global_flag = FIN_snipers_active
 			has_global_flag = FIN_snipers_active_with_extra_arms
 		}
+
+		FIN = {
+			any_core_state = {
+				ROOT = {
+					divisions_in_state = {
+						size > 0
+						state = PREV
+					}
+				}
+			}
+		}
 		
 	}
 
@@ -5500,10 +5738,43 @@ country_event = {
 		hidden_effect = {
 			
 			random_list =  {
-				70 = {
+				555 = {   # was vanilla 70 (Western Slovakia)
 					set_global_flag = FIN_simo_hayha_appears_flag
 				}
-				30 = {
+				577 = {   # -> Žilina
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				586 = {   # -> Nitra
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				591 = {   # -> Malacky
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				1437 = {   # -> Bratislava
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				2662 = {   # -> Piešťany
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				2663 = {   # -> Čadca
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				2978 = {   # -> Trnava
+					set_global_flag = FIN_simo_hayha_appears_flag
+				}
+				595 = {   # was vanilla 30 (Loire)
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				599 = {   # -> Sarthe
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				634 = {   # -> Loire-Inférieure
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				637 = {   # -> Maine-et-Loire
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				729 = {   # -> Loire
 					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
 				}
 			}
@@ -5595,13 +5866,79 @@ country_event = {
 		hidden_effect = {
 
 			random_list =  {
-				40 = {
-					set_global_flag = FIN_simo_hayha_appears_flag
-				}
-				50 = {
+				# 40 = {   # 1.19-migration: off-map vanilla state 40 (Altai Krai)
+				# set_global_flag = FIN_simo_hayha_appears_flag
+				# }
+				545 = {   # was vanilla 50 (Württemberg)
 					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
 				}
-				10 = {
+				553 = {   # -> Heilbronn
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				575 = {   # -> Rottweil
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				581 = {   # -> Ravensburg
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				602 = {   # -> Sigmaringen
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				616 = {   # -> Konstanz
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1764 = {   # -> Baden-Baden
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1767 = {   # -> Tübingen
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1768 = {   # -> Ulm
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1769 = {   # -> Salgau
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1770 = {   # -> Künzelsau
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1771 = {   # -> Stuttgart
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				1780 = {   # -> Nördlingen
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				2549 = {   # -> Lindau am Bodensee
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				2582 = {   # -> Horb
+					set_global_flag = FIN_simo_hayha_appears_and_is_wounded_flag
+				}
+				5 = {   # was vanilla 10 (Warsaw)
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				351 = {   # -> Ostrów Mazowiecka
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				370 = {   # -> Pruszków
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				407 = {   # -> Sochaczew
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				508 = {   # -> Warszawa
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				982 = {   # -> Siedlce
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				1981 = {   # -> Legionowo
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				2927 = {   # -> Wyszkow
+					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
+				}
+				2928 = {   # -> Kosów Lacki
 					set_global_flag = FIN_simo_hayha_appears_and_is_killed_flag
 				}
 			}
@@ -5715,8 +6052,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 
@@ -5837,8 +6173,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 
@@ -5959,8 +6294,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 
@@ -6400,8 +6734,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 
@@ -6459,8 +6792,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 
@@ -6507,8 +6839,7 @@ country_event = {
 		
 		is_subject = no
 
-		any_country = {
-			has_war_with = FIN
+		any_enemy_country = {
 			has_variable = FIN_white_death_target_country
 		}
 

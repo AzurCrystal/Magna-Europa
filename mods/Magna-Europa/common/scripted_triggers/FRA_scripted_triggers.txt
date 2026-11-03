@@ -313,3 +313,17 @@ is_ger_occupation_zone = {
 		is_core_of = ALG
 	}
 }
+
+### 1.19-migration: vanilla Indochina/Vichy triggers; Indochina states unmapped in this mod so FRA_is_indochina_state is always false (kept for FRA_peace.txt compatibility)
+FRA_is_indochina_state = {
+	always = no
+}
+
+### Scoped in Vichy - true when Free France may absorb it, shared by the demand decision and both reunification chains.
+FRA_vichy_can_rejoin_free_france = {
+	NOT = { has_war_with = FRA }
+	OR = {
+		is_subject = no
+		is_subject_of = FRA
+	}
+}

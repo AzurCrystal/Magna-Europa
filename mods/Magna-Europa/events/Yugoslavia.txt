@@ -7,7 +7,6 @@ add_namespace = yugoslavia
 # Britain to Back Coup in Yugoslavia
 country_event = {
 	id = yugoslavia.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.1 FROM = [From.GetName]" }
 	title = yugoslavia.1.t
 	desc = yugoslavia.1.d
 	picture = GFX_report_event_yugoslavian_king_peter
@@ -25,7 +24,7 @@ country_event = {
 				gives_military_access_to = GER
 			}
 		}
-		HUN = { owns_state = 633 }
+		HUN = { owns_state = 76 }
 		GER = {
 			OR = {
 				AND = { is_in_faction_with = ITA is_in_faction_with = HUN }
@@ -69,7 +68,6 @@ country_event = {
 # Yugoslavian Coup
 country_event = {
 	id = yugoslavia.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.2 FROM = [From.GetName]" }
 	title = yugoslavia.2.t
 	desc = yugoslavia.2.d
 	picture = GFX_report_event_yugoslavian_king_peter
@@ -143,10 +141,10 @@ country_event = {
 			limit = {
 				has_completed_focus = YUG_dissolve_serbia
 			}
-			start_civil_war = { ideology = democratic size = 0.6 capital = 790 } # was vanilla 107 (Kosavo -> Beograd)
+			start_civil_war = { ideology = democratic size = 0.6 capital = 790 states = { 796 894 } } # was vanilla 107 (Kosavo -> Beograd); states was vanilla { 108 803 }
 		}
 		else = {
-			start_civil_war = { ideology = democratic size = 0.6 capital = 790 } # was vanilla 107 (Kosavo -> Beograd)
+			start_civil_war = { ideology = democratic size = 0.6 capital = 790 states = { 796 894 888 1530 881 } } # was vanilla 107 (Kosovo -> Beograd); states was vanilla { 108 803 802 106 105 }
 		}
 		random_country = {
 			limit = {
@@ -165,13 +163,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					PREV = { has_completed_focus = YUG_release_vrbas }
-				}
-				puppet = BOS
-			}
-			if = {
-				limit = {
-					PREV = { has_completed_focus = YUG_release_drina }
+					PREV = { has_completed_focus = YUG_divide_bosnia }
 				}
 				puppet = HRZ
 			}
@@ -247,7 +239,6 @@ country_event = {
 # Yugoslavia (British and (possibly) French Support)
 country_event = {
 	id = yugoslavia.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.3 FROM = [From.GetName]" }
 	title = yugoslavia.3.t
 	desc = {
 		text = yugoslavia.3.d 
@@ -272,7 +263,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = YUG
-					generator = { 1489 703 }
+					generator = { 102 853 }
 				}
 			}
 		}
@@ -282,7 +273,6 @@ country_event = {
 # Yugoslavia (French Support)
 country_event = {
 	id = yugoslavia.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.4 FROM = [From.GetName]" }
 	title = yugoslavia.3.t
 	desc = yugoslavia.4.d
 	picture = GFX_report_event_chamberlain_announce
@@ -296,7 +286,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = YUG
-					generator = { 1489 703 }
+					generator = { 102 853 }
 				}
 			}
 		}
@@ -306,10 +296,9 @@ country_event = {
 # Yugoslavia (Abandoned)
 country_event = {
 	id = yugoslavia.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.5 FROM = [From.GetName]" }
 	title = yugoslavia.5.t
 	desc = yugoslavia.5.d
-	picture = GFX_report_event_hitler_croatia_handshake
+	picture = GFX_report_event_generic_croatia_handshake
 	
 	is_triggered_only = yes
 	
@@ -351,7 +340,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = YUG
-					generator = { 1489 703 }
+					generator = { 102 853 }
 				}
 			}
 		}
@@ -362,7 +351,6 @@ country_event = {
 # Yugoslavia (Italian Support)
 country_event = {
 	id = yugoslavia.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.6 FROM = [From.GetName]" }
 	title = yugoslavia.3.t
 	desc = yugoslavia.6.d
 	picture = GFX_report_event_fascists_posing
@@ -376,7 +364,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = YUG
-					generator = { 1489 703 }
+					generator = { 102 853 }
 				}
 			}
 		}
@@ -386,7 +374,6 @@ country_event = {
 # Fate of Yugoslavia
 country_event = {
 	id = yugoslavia.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.7 FROM = [From.GetName]" }
 	title = germany.98.t
 	desc = {
 		text = yugoslavia.7.d
@@ -423,8 +410,8 @@ country_event = {
 			}
 			modifier = {
 				factor = 0
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					OR = {
 						has_guaranteed = YUG
 						is_in_faction_with = YUG
@@ -460,14 +447,18 @@ country_event = {
 				set_global_flag = GER_fate_of_yugoslavia_annex_YUG
 				news_event = { hours = 6 id = news.169 }
 			}
+			GER_yugoslavia_modify_mefo_bills_or_economy_of_conquest = yes
+			GER_seize_gold_reserves_in_europe_peacefully = yes
+			add_to_variable = { var = GER_mefo_bill_counter value = -10 }
 		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = GAME_OVER_TT
 	}
 }
 
 # Fate of Yugoslavia
 country_event = {
 	id = yugoslavia.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.8 FROM = [From.GetName]" }
 	title = germany.98.t
 	desc = {
 		text = yugoslavia.8.d
@@ -501,8 +492,8 @@ country_event = {
 			factor = 10
 			modifier = {
 				factor = 0
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					OR = {
 						has_guaranteed = YUG
 						is_in_faction_with = YUG
@@ -518,8 +509,10 @@ country_event = {
 		trigger = { 
 			YUG = { 
 				OR = { 
-					owns_state = 1563
-					owns_state = 1464
+					owns_state = 103
+					owns_state = 104
+					owns_state = 109
+					owns_state = 804
 				} 
 			} 
 		}
@@ -528,122 +521,22 @@ country_event = {
 			add_political_power = -25
 			add_named_threat = { threat = 3 name = GER_fate_of_yugoslavia }
 			
-			if = {
-				limit = {
-					is_in_faction_with = ITA
+			CRO = {
+				if = {
+					limit = { YUG = { owns_state = 103 } }
+					transfer_state = 103
 				}
-				if = { #If Albania do not exists, ITA grabs the stuff
-					limit = {
-						ALB = {
-							exists = no
-						}
-					}
-					every_state = {
-						limit = {
-							is_owned_by = YUG
-							OR = {
-								AND = {
-									is_core_of = KOS
-									NOT = {
-										OR = {
-											state = 1517
-											state = 1997
-											state = 1996
-										}
-									}
-								}
-								state = 2795
-								state = 989
-								state = 904
-								state = 2796
-								state = 1986
-								state = 1987
-								state = 2007
-							}
-						}
-						transfer_state_to = ITA
-					}
+				if = {
+					limit = { YUG = { owns_state = 104 } }
+					transfer_state = 104
 				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							state = 811
-							state = 1988
-							state = 2826
-							state = 2827
-							state = 1988
-							state = 1475
-							state = 2651
-							state = 1480
-							state = 2897
-							state = 2916
-							state = 1990
-							state = 884
-							state = 1473
-							state = 2825
-							state = 1486
-							state = 743
-						}
-					}
-					transfer_state_to = ITA
-				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							is_core_of = MNT
-							state = 2802
-							state = 844
-						}
-						NOT = { is_owned_by = ITA }
-					}
-					transfer_state_to = MNT
-					ITA = {
-						puppet = MNT
-						set_autonomy = { target = MNT autonomy_state = autonomy_integrated_puppet }
-					}
-				}
-			}
-			if = {
-				limit = {
-					is_in_faction_with = HUN
-				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						is_core_of = VJV
-						NOT = { 
-							is_core_of = BNT 
-							state = 2555
-							state = 775
-							state = 1470
-						}
-					}
-					transfer_state_to = HUN
-				}
-			}
-			if = {
-				limit = {
-					is_in_faction_with = BUL
-				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							is_core_of = MAC
-							state = 846
-							state = 1972
-							state = 865
-							state = 1971
-							state = 2805
-						}
-						NOT = {
-							state = 904
-							state = 2796
-						}
-					}
-					transfer_state_to = BUL
+				if = {
+					limit = { YUG = { owns_state = 109 } }
+					transfer_state = 109
+				}	
+				if = {
+					limit = { YUG = { owns_state = 804 } }
+					transfer_state = 804
 				}
 			}
 			if = {
@@ -752,18 +645,18 @@ country_event = {
 			MCS = {
 				add_ideas = GER_military_regime
 			}
+			GER_yugoslavia_modify_mefo_bills_or_economy_of_conquest = yes
+			GER_seize_gold_reserves_in_europe_peacefully = yes
+			add_to_variable = { var = GER_mefo_bill_counter value = -10 }
 		}
-		hidden_effect = {
-			set_global_flag = GER_fate_of_yugoslavia_puppet_CRO_annex_YUG
-			news_event = { hours = 6 id = news.169 }
-		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+		custom_effect_tooltip = GAME_OVER_TT
 	}
 }
 
 # Fate of Yugoslavia
 country_event = {
 	id = yugoslavia.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event yugoslavia.9 FROM = [From.GetName]" }
 	title = germany.98.t
 	desc = {
 		text = yugoslavia.9.d
@@ -794,8 +687,8 @@ country_event = {
 			factor = 10
 			modifier = {
 				factor = 0
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					OR = {
 						has_guaranteed = YUG
 						is_in_faction_with = YUG
@@ -812,205 +705,27 @@ country_event = {
 
 			add_named_threat = { threat = 2 name = GER_fate_of_yugoslavia }
 			
-			if = {
-				limit = {
-					is_in_faction_with = ITA
+			CRO = {
+				if = {
+					limit = { YUG = { owns_state = 103 } }
+					transfer_state = 103
 				}
-				if = { #If Albania do not exists, ITA grabs the stuff
-					limit = {
-						ALB = {
-							exists = no
-						}
-					}
-					every_state = {
-						limit = {
-							is_owned_by = YUG
-							OR = {
-								AND = {
-									is_core_of = KOS
-									NOT = {
-										OR = {
-											state = 1517
-											state = 1997
-											state = 1996
-										}
-									}
-								}
-								state = 2795
-								state = 989
-								state = 904
-								state = 2796
-								state = 1986
-								state = 1987
-								state = 2007
-							}
-						}
-						transfer_state_to = ITA
-					}
+				if = {
+					limit = { YUG = { owns_state = 104 } }
+					transfer_state = 104
 				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							state = 811
-							state = 1988
-							state = 2826
-							state = 2827
-							state = 1988
-							state = 1475
-							state = 2651
-							state = 1480
-							state = 2897
-							state = 2916
-							state = 1990
-							state = 884
-							state = 1473
-							state = 2825
-							state = 1486
-							state = 743
-						}
-					}
-					transfer_state_to = ITA
+				if = {
+					limit = { YUG = { owns_state = 109 } }
+					transfer_state = 109
 				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							is_core_of = MNT
-							state = 2802
-							state = 844
-						}
-						NOT = { is_owned_by = ITA }
-					}
-					transfer_state_to = MNT
-					ITA = {
-						puppet = MNT
-						set_autonomy = { target = MNT autonomy_state = autonomy_integrated_puppet }
-					}
-				}
+				if = {
+					limit = { YUG = { owns_state = 804 } }
+					transfer_state = 804
+				}				
 			}
-			if = {
-				limit = {
-					is_in_faction_with = HUN
-				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						is_core_of = VJV
-						NOT = { 
-							is_core_of = BNT 
-							state = 2555
-							state = 775
-							state = 1470
-						}
-					}
-					transfer_state_to = HUN
-				}
-			}
-			if = {
-				limit = {
-					is_in_faction_with = BUL
-				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							is_core_of = MAC
-							state = 846
-							state = 1972
-							state = 865
-							state = 1971
-							state = 2805
-						}
-						NOT = {
-							state = 904
-							state = 2796
-						}
-					}
-					transfer_state_to = BUL
-				}
-			}
-			
-			if = {
-				limit = {
-					is_in_faction_with = ALB
-				}
-				every_state = {
-					limit = {
-						is_owned_by = YUG
-						OR = {
-							AND = {
-								is_core_of = KOS
-								NOT = {
-									OR = {
-										state = 1517
-										state = 1997
-										state = 1996
-									}
-								}
-							}
-							state = 2795
-							state = 989
-							state = 904
-							state = 2796
-							state = 1986
-							state = 1987
-							state = 2007
-						}
-					}
-					transfer_state_to = ALB
-					add_core_of = ALB
-				}
-			}
-			if = {
-				limit = {
-					is_in_faction_with = BUL
-					NOT = { is_in_faction_with = ALB }
-				}
-				BUL = {
-					transfer_state = 904
-					transfer_state = 2796
-				}
-			}
-		}
-		YUG = {
-			every_owned_state = {
-				limit = {
-					OR = {
-						is_core_of = CRO
-						is_core_of = BOS
-						state = 1470
-						state = 775
-						state = 2555
-					}
-					NOT = {
-						state = 1472
-						is_core_of = ITA
-						is_core_of = HUN
-					}
-				}
-				transfer_state_to = CRO
-				add_claim_by = CRO
-				GER = {
-					puppet = CRO
-					set_autonomy = { target = CRO autonomy_state = autonomy_integrated_puppet }
-				}
-			}
-			
-			every_owned_state = {
-				limit = {
-					is_core_of = SLV
-					NOT = {
-						is_owned_by = ITA 
-						is_owned_by = HUN 
-					}
-				}
-				transfer_state_to = GER
-			}
-		}
-		GER = {
+			puppet = CRO
 			puppet = YUG
-			set_autonomy = { target = YUG autonomy_state = autonomy_integrated_puppet }
+
 
 			hidden_effect = {
 				set_global_flag = GER_fate_of_yugoslavia_puppet_CRO_YUG

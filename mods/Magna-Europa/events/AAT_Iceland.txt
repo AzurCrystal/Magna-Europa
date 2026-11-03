@@ -509,8 +509,8 @@ country_event = {
 			    skill = 2
 			    attack_skill = 2
 			    defense_skill = 1
-			    planning_skill = 3
-			    logistics_skill = 2
+			    maneuvering_skill = 3
+			    coordination_skill = 2
 			}
 		}
 	}
@@ -536,8 +536,8 @@ country_event = {
 			    skill = 2
 			    attack_skill = 2
 			    defense_skill = 1
-			    planning_skill = 3
-			    logistics_skill = 2
+			    maneuvering_skill = 3
+			    coordination_skill = 2
 			}
 		}
 	}
@@ -661,15 +661,86 @@ country_event = {
 		effect_tooltip = {
 			IF = {
 				limit = {
-					90 = { is_owned_by = ROOT  }
+					# 101 = { is_owned_by = ROOT  }   # 1.19-migration: off-map vanilla state 101 (Greenland)
 				}
-				90 = { add_claim_by = FROM }
+				# 101 = { add_claim_by = FROM }   # 1.19-migration: off-map vanilla state 101 (Greenland)
+			}
+			IF = {
+				limit = {
+					90 = { is_owned_by = ROOT }   # was vanilla 337 (Faroe Islands)
+				}
+				90 = { add_claim_by = FROM }   # was vanilla 337 (Faroe Islands)
 			}
 			FROM = {
 				create_wargoal = {
 					type = take_claimed_state
 					target = ROOT
-					generator = { 90 } # optional 
+					# generator = { 101 337 } # optional   # 1.19-migration: off-map state in generator
+				}
+			}
+		}
+	}
+	# They can have one of them 
+	option = { 
+		name = iceland_events.12.c
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = ROOT.opinion@FROM
+				always = yes 
+			}
+		}
+		trigger = {
+			OR = {
+				# 101 = { is_owned_by = ROOT }   # 1.19-migration: off-map vanilla state 101 (Greenland)
+				90 = { is_owned_by = ROOT }   # was vanilla 337 (Faroe Islands)
+			}
+		}
+		FROM = {
+			country_event = {
+				id = iceland_events.15
+				hours = 16
+				random_hours = 32 
+			}
+		}
+		effect_tooltip = {
+			IF = {
+				limit = {
+					# 101 = { is_owned_by = ROOT }   # 1.19-migration: off-map vanilla state 101 (Greenland)
+				}
+				# 101 = {   # 1.19-migration: off-map vanilla state 101 (Greenland)
+				# transfer_state_to = FROM
+				# add_core_of = FROM
+				# }
+				FROM = {
+					add_timed_idea = {
+						idea = ICE_compensation_purchase_idea
+						days = 360
+					}
+				}
+				ROOT = {
+					add_timed_idea = {
+						idea = ICE_compensation_sale_idea
+						days = 360
+					}
+				}
+			}
+			ELSE = {
+				90 = {    # was vanilla 337 (Faroe Islands)
+					transfer_state_to = FROM
+					add_core_of = FROM
+				}
+				FROM = {
+					add_timed_idea = {
+						idea = ICE_compensation_purchase_idea
+						days = 360
+					}
+				}
+				ROOT = {
+					add_timed_idea = {
+						idea = ICE_compensation_sale_idea
+						days = 360
+					}
 				}
 			}
 		}
@@ -700,13 +771,13 @@ country_event = {
 		ROOT = {
 			add_timed_idea = {
 				idea = ICE_compensation_purchase_idea
-				days = 360
+				days = 720
 			}
 		}
 		FROM = {
 			add_timed_idea = {
 				idea = ICE_compensation_sale_idea
-				days = 360
+				days = 720
 			}
 		}
 	}
@@ -731,17 +802,83 @@ country_event = {
 		}
 		IF = {
 			limit = {
-				90 = { is_owned_by = FROM }
+				# 101 = { is_owned_by = FROM }   # 1.19-migration: off-map vanilla state 101 (Greenland)
 			}
-			90 = { add_claim_by = ROOT }
+			# 101 = { add_claim_by = ROOT }   # 1.19-migration: off-map vanilla state 101 (Greenland)
+		}
+		IF = {
+			limit = {
+				90 = { is_owned_by = FROM }   # was vanilla 337 (Faroe Islands)
+			}
+			90 = { add_claim_by = ROOT }   # was vanilla 337 (Faroe Islands)
 		}
 		ROOT = {
 			create_wargoal = {
 				type = take_claimed_state
 				target = FROM
-				generator = { 90 } # optional 
+				# generator = { 101 337 } # optional   # 1.19-migration: off-map state in generator
 			}
 		}
+	}
+	
+}
+# one island
+country_event = { 
+	id = iceland_events.15
+	title = iceland_events.15.t
+	desc = iceland_events.15.desc
+	picture = GFX_report_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	immediate = {
+		
+	}
+	# I mean, one island extra is like 100% of the starting number of states after all
+	option = { 
+		name = iceland_events.15.a
+		ai_chance = {
+			base = 1
+		}
+		IF = {
+			limit = {
+				# 101 = { is_owned_by = FROM }   # 1.19-migration: off-map vanilla state 101 (Greenland)
+			}
+			# 101 = {   # 1.19-migration: off-map vanilla state 101 (Greenland)
+			# transfer_state_to = ROOT
+			# add_core_of = ROOT
+			# }
+			ROOT = {
+				add_timed_idea = {
+					idea = ICE_compensation_purchase_idea
+					days = 360
+				}
+			}
+			FROM = {
+				add_timed_idea = {
+					idea = ICE_compensation_sale_idea
+					days = 360
+				}
+			}
+		}
+		ELSE = {
+			90 = {    # was vanilla 337 (Faroe Islands)
+				transfer_state_to = ROOT 
+				add_core_of = ROOT
+			}
+			ROOT = {
+				add_timed_idea = {
+					idea = ICE_compensation_purchase_idea
+					days = 360
+				}
+			}
+			FROM = {
+				add_timed_idea = {
+					idea = ICE_compensation_sale_idea
+					days = 360
+				}
+			}
+		}
+
 	}
 	
 }
@@ -992,13 +1129,11 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-
-		ROOT = {
-			create_wargoal = {
-				target = PREV
-				type = take_state_focus
-				generator = { 101 }
-			}
+		
+		create_wargoal = {
+			target = FROM
+			type = take_state_focus
+			# generator = { 101 }   # 1.19-migration: off-map state in generator
 		}
 
     	add_war_support = 0.05
@@ -1089,10 +1224,9 @@ country_event = {
 			every_owned_state = {
 				limit = {
 					OR = {
-						state = 90
-						state = 187
-						state = 116
-						state = 1822
+						state = 90 # was vanilla 337 (Faroe Islands)
+						state = 116 # was vanilla 933 (Shetland Islands)
+						state = 1822 # was vanilla 914 (Jan Mayen)
 					}
 				}
 				add_core_of = ROOT
@@ -1122,79 +1256,45 @@ country_event = {
 		IF = {
 			limit = {
 				FROM = {
-					owns_state = 90
+					owns_state = 90 # was vanilla 337 (Faroe Islands)
 				}
 			}
-			90 = { add_core_of = ROOT }
+			90 = { add_core_of = ROOT }   # was vanilla 337 (Faroe Islands)
 			ROOT = {
 				create_wargoal = {
 					target = FROM
 					type = take_core_state
-					generator = { 90}
+					generator = { 90 }   # was vanilla 337
 				}
 			}
 		}
 		ELSE_IF = {
 			limit = {
 				FROM = {
-					AND = { 
-						owns_state = 116
-						owns_state = 187
-					}
+					owns_state = 116 # was vanilla 933 (Shetland Islands)
 				}
 			}
-			116 = { add_core_of = ROOT }
-			187 = { add_core_of = ROOT }
+			116 = { add_core_of = ROOT }   # was vanilla 933 (Shetland Islands)
 			ROOT = {
 				create_wargoal = {
 					target = FROM
 					type = take_core_state
-					generator = { 116 187 }
+					generator = { 116 }   # was vanilla 933
 				}
 			}
 		}
 		ELSE_IF = {
 			limit = {
 				FROM = {
-					owns_state = 116
+					owns_state = 1822 # was vanilla 914 (Jan Mayen)
 				}
 			}
-			116 = { add_core_of = ROOT }
+			1822 = { add_core_of = ROOT }   # was vanilla 914 (Jan Mayen)
 			ROOT = {
 				create_wargoal = {
 					target = FROM
 					type = take_core_state
-					generator = { 116}
-				}
-			}
-		}
-		ELSE_IF = {
-			limit = {
-				FROM = {
-					owns_state = 187
-				}
-			}
-			187 = { add_core_of = ROOT }
-			ROOT = {
-				create_wargoal = {
-					target = FROM
-					type = take_core_state
-					generator = { 187}
-				}
-			}
-		}
-		ELSE_IF = {
-			limit = {
-				FROM = {
-					owns_state = 1822
-				}
-			}
-			1822 = { add_core_of = ROOT }
-			ROOT = {
-				create_wargoal = {
-					target = FROM
-					type = take_core_state
-					generator = { 1822}
+					generator = { 1822 }   # was vanilla 914
 				}
 			}
 		}

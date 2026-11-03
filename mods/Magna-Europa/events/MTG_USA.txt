@@ -7,7 +7,6 @@ add_namespace = mtg_usa_civil_war_fascists
 #initial event for the fascist uprising
 country_event = {
 	id = mtg_usa_civil_war_fascists.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.1 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.1.t
 	desc = mtg_usa_civil_war_fascists.1.desc
 	picture = GFX_report_event_gathering_protest
@@ -43,7 +42,6 @@ country_event = {
 ##second event for the fascist uprising
 country_event = {
 	id = mtg_usa_civil_war_fascists.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.2 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.2.t
 	desc = mtg_usa_civil_war_fascists.2.desc
 	picture = GFX_report_event_generic_riot
@@ -79,7 +77,6 @@ country_event = {
 ##dispatcher event - general
 country_event = {
 	id = mtg_usa_civil_war_fascists.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.3 FROM = [From.GetName]" }
 
 	is_triggered_only = yes
 	hidden = yes
@@ -104,7 +101,6 @@ country_event = {
 ##dispatcher event - industry
 country_event = {
 	id = mtg_usa_civil_war_fascists.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.4 FROM = [From.GetName]" }
 
 	is_triggered_only = yes
 	hidden = yes
@@ -131,7 +127,6 @@ country_event = {
 ##armory raided
 country_event = {
 	id = mtg_usa_civil_war_fascists.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.10 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.10.t
 	desc = mtg_usa_civil_war_fascists.10.desc
 	picture = GFX_report_event_french_resistance_01
@@ -168,7 +163,6 @@ country_event = {
 ##state refuses to pay
 country_event = {
 	id = mtg_usa_civil_war_fascists.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.11 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.11.t
 	desc = mtg_usa_civil_war_fascists.11.desc
 	picture = GFX_report_event_communist_leader
@@ -214,7 +208,6 @@ unit_leader_event = {
 ##governor mobilizes national guard
 country_event = {
 	id = mtg_usa_civil_war_fascists.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.13 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.13.t
 	desc = mtg_usa_civil_war_fascists.13.desc
 	picture = GFX_report_event_soldiers_marching
@@ -253,7 +246,6 @@ country_event = {
 ##soldiers desert
 country_event = {
 	id = mtg_usa_civil_war_fascists.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.14 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.14.t
 	desc = mtg_usa_civil_war_fascists.14.desc
 	picture = GFX_report_event_desertion_poster
@@ -285,7 +277,6 @@ country_event = {
 ##industrialist moves factory
 country_event = {
 	id = mtg_usa_civil_war_fascists.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.15 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.15.t
 	desc = mtg_usa_civil_war_fascists.15.desc
 	picture = GFX_report_event_generic_lend_lease
@@ -332,7 +323,6 @@ country_event = {
 ##industrialist moves factory
 country_event = {
 	id = mtg_usa_civil_war_fascists.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.16 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.16.t
 	desc = mtg_usa_civil_war_fascists.16.desc
 	picture = GFX_report_event_generic_factory
@@ -380,7 +370,6 @@ country_event = {
 ##fascist uprising - first state secedes from the union
 country_event = {
 	id = mtg_usa_civil_war_fascists.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.20 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.20.t
 	desc = mtg_usa_civil_war_fascists.20.desc
 	picture = GFX_report_event_fascists_posing
@@ -392,10 +381,7 @@ country_event = {
 
 			random_owned_state = {
 				limit = {
-					OR = {
-						state = 31
-						state = 28
-					}
+					is_csa_state = yes
 				}
 				CSA = {
 					transfer_state = PREV
@@ -439,7 +425,6 @@ country_event = {
 ##fascist uprising - confederacy forms
 country_event = {
 	id = mtg_usa_civil_war_fascists.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.21 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.21.t
 	desc = mtg_usa_civil_war_fascists.21.desc
 	picture = GFX_report_event_generic_battle
@@ -449,10 +434,7 @@ country_event = {
 		hidden_effect = {
 			every_owned_state = {
 				limit = {
-					OR = {
-						state = 31
-						state = 28
-					}
+					is_csa_state = yes
 				}
 				CSA = {
 					transfer_state = PREV
@@ -511,6 +493,24 @@ country_event = {
 							has_state_flag = ng_mobilized
 						}
 					}
+					division_template = {
+						name = "National Guard"
+						priority = 2
+						division_names_group = CSA_INF_01
+						regiments = {
+							infantry = { x = 0 y = 0 }
+							infantry = { x = 0 y = 1 }
+							infantry = { x = 0 y = 2 }
+							
+							infantry = { x = 1 y = 0 }
+							infantry = { x = 1 y = 1 }
+							infantry = { x = 1 y = 2 }
+							
+							infantry = { x = 2 y = 0 }
+							artillery_brigade = { x = 2 y = 1 }
+							artillery_brigade = { x = 2 y = 2 }
+						}
+					}
 				}
 #				if = { # 1.19-migration fix: off-map vanilla Florida 31 (mod 31 = North Carolina) — dead block
 #					limit = {
@@ -530,6 +530,116 @@ country_event = {
 #					28 = {
 #						create_unit = {
 #							division = "name = \"Georgia National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Florida 366 — dead block
+#					limit = {
+#						366 = { has_state_flag = ng_mobilized }
+#					}
+#					366 = {
+#						create_unit = {
+#							division = "name = \"Florida National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Georgia 365 — dead block
+#					limit = {
+#						365 = { has_state_flag = ng_mobilized }
+#					}
+#					365 = {
+#						create_unit = {
+#							division = "name = \"Georgia National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Alabama 367 — dead block
+#					limit = {
+#						367 = { has_state_flag = ng_mobilized }
+#					}
+#					367 = {
+#						create_unit = {
+#							division = "name = \"Alabama National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Mississippi 370 — dead block
+#					limit = {
+#						370 = { has_state_flag = ng_mobilized }
+#					}
+#					370 = {
+#						create_unit = {
+#							division = "name = \"Mississippi National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+				if = {
+					limit = {
+						28 = { has_state_flag = ng_mobilized }   # was vanilla 362 (Virginia)
+					}
+					28 = {
+						create_unit = {
+							division = "name = \"Virginia National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+							owner = CSA
+						}
+					}
+				}
+				if = {
+					limit = {
+						31 = { has_state_flag = ng_mobilized }   # was vanilla 363 (North Carolina)
+					}
+					31 = {
+						create_unit = {
+							division = "name = \"North Carolina National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+							owner = CSA
+						}
+					}
+				}
+#				if = { # 1.19-migration: off-map South Carolina 364 — dead block
+#					limit = {
+#						364 = { has_state_flag = ng_mobilized }
+#					}
+#					364 = {
+#						create_unit = {
+#							division = "name = \"South Carolina National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Louisiana 371 — dead block
+#					limit = {
+#						371 = { has_state_flag = ng_mobilized }
+#					}
+#					371 = {
+#						create_unit = {
+#							division = "name = \"Louisiana National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Texas 375 — dead block
+#					limit = {
+#						375 = { has_state_flag = ng_mobilized }
+#					}
+#					375 = {
+#						create_unit = {
+#							division = "name = \"Texas National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
+#							owner = CSA
+#						}
+#					}
+#				}
+#				if = { # 1.19-migration: off-map Arkansas 372 — dead block
+#					limit = {
+#						372 = { has_state_flag = ng_mobilized }
+#					}
+#					372 = {
+#						create_unit = {
+#							division = "name = \"Arkansas National Guard\" division_template = \"National Guard\" start_experience_factor = 0.7" 
 #							owner = CSA
 #						}
 #					}
@@ -627,7 +737,6 @@ country_event = {
 ##fascist uprising - neutral bloc forms
 country_event = {
 	id = mtg_usa_civil_war_fascists.22
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.22 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.22.t
 	desc = mtg_usa_civil_war_fascists.22.desc
 	picture = GFX_report_event_generic_rally_3
@@ -638,12 +747,12 @@ country_event = {
 			every_owned_state = {
 				limit = {
 					OR = {
-						state = 32
-						state = 7
-						state = 10
-						state = 12
-						state = 2
-						state = 55
+						state = 393
+						state = 396
+						state = 394
+						state = 392
+						state = 395
+						state = 391
 					}
 				}
 				USB = {
@@ -690,7 +799,7 @@ country_event = {
 		add_war_support = -0.1
 		every_owned_state = {
 			limit = {
-				state = 32 
+				is_csa_state = yes   # 1.19-migration: vanilla OR{state=369,state=373} is off-map in mod; swapped to mod CSA secession trigger
 			}
 			CSA = {
 				transfer_state = PREV
@@ -712,7 +821,6 @@ country_event = {
 # neutrals rejoin after war is over
 country_event = {
 	id = mtg_usa_civil_war_fascists.23
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.23 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.23.t
 	desc = mtg_usa_civil_war_fascists.23.desc
 	picture = GFX_report_event_pla_in_beijing
@@ -753,7 +861,6 @@ country_event = {
 #hidden trigger event that moves the civil war along if communist support over 30%
 country_event = {
 	id = mtg_usa_civil_war_fascists.32
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.32 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.201.t
 	desc = mtg_usa_civil_war_fascists.201.desc
 	hidden = yes
@@ -776,7 +883,6 @@ country_event = {
 #hidden trigger event to allow arms purchases in ACW
 country_event = {
 	id = mtg_usa_civil_war_fascists.230
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.230 FROM = [From.GetName]" }
 	hidden = yes
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -805,6 +911,24 @@ state_event = {
 						has_country_flag = USA_civil_war_volunteers
 					}
 				}
+			}
+			CSA = {
+				division_template = {
+					name = "Local Volunteers"
+					priority = 0
+					is_locked = yes
+					division_names_group = CSA_INF_01
+					regiments = {
+						infantry = { x = 0 y = 0 }
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+					}
+				}
+				set_country_flag = USA_civil_war_volunteers
 			}
 		}
 		event_target:CSA_liberated_state = {
@@ -902,7 +1026,6 @@ state_event = {
 }
 country_event = {
 	id = mtg_usa_civil_war_fascists.203
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.203 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.203.t
 	desc = mtg_usa_civil_war_fascists.203.desc
 	picture = GFX_report_event_saf_coup
@@ -918,7 +1041,6 @@ country_event = {
 #hidden trigger event that shows the civil war is over
 country_event = {
 	id = mtg_usa_civil_war_fascists.331
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_fascists.331 FROM = [From.GetName]" }
 	hidden = yes
 	trigger = {
 		has_global_flag = USA_civil_war_fired
@@ -951,7 +1073,6 @@ add_namespace = mtg_usa_civil_war_democrats
 #initial event for the democrat uprising
 country_event = {
 	id = mtg_usa_civil_war_democrats.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.1 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.1.t
 	desc = mtg_usa_civil_war_democrats.1.desc
 	picture = GFX_report_event_worker_protests
@@ -977,7 +1098,6 @@ country_event = {
 #second event for the democrat uprising
 country_event = {
 	id = mtg_usa_civil_war_democrats.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.2 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.2.t
 	desc = mtg_usa_civil_war_democrats.2.desc
 	picture = GFX_report_event_worker_protests
@@ -1029,7 +1149,6 @@ country_event = {
 #hidden dispatch event - general
 country_event = {
 	id = mtg_usa_civil_war_democrats.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.3 FROM = [From.GetName]" }
 
 	hidden = yes
 	is_triggered_only = yes
@@ -1055,7 +1174,6 @@ country_event = {
 #hidden dispatch event - industrial
 country_event = {
 	id = mtg_usa_civil_war_democrats.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.4 FROM = [From.GetName]" }
 
 	hidden = yes
 	is_triggered_only = yes
@@ -1073,7 +1191,6 @@ country_event = {
 ##armory raided
 country_event = {
 	id = mtg_usa_civil_war_democrats.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.10 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.10.t
 	desc = mtg_usa_civil_war_democrats.10.desc
 	picture = GFX_report_event_french_resistance_01
@@ -1109,7 +1226,6 @@ country_event = {
 ##citizen militia forms
 country_event = {
 	id = mtg_usa_civil_war_democrats.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.11 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.11.t
 	desc = mtg_usa_civil_war_democrats.11.desc
 	picture = GFX_report_event_french_resistance_02
@@ -1160,7 +1276,6 @@ unit_leader_event = {
 ##soldiers desert
 country_event = {
 	id = mtg_usa_civil_war_democrats.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.13 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_fascists.14.t
 	desc = mtg_usa_civil_war_fascists.14.desc
 	picture = GFX_report_event_desertion_poster
@@ -1191,7 +1306,6 @@ country_event = {
 ##workers on strike
 country_event = {
 	id = mtg_usa_civil_war_democrats.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.14 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.14.t
 	desc = mtg_usa_civil_war_democrats.14.desc
 	picture = GFX_report_event_generic_strike
@@ -1213,7 +1327,6 @@ country_event = {
 ##industrialist moves factory
 country_event = {
 	id = mtg_usa_civil_war_democrats.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.15 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.15.t
 	desc = mtg_usa_civil_war_democrats.15.desc
 	picture = GFX_report_event_generic_lend_lease
@@ -1262,7 +1375,6 @@ country_event = {
 ##industrialist moves factory
 country_event = {
 	id = mtg_usa_civil_war_democrats.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.16 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.16.t
 	desc = mtg_usa_civil_war_democrats.16.desc
 	picture = GFX_report_event_generic_factory
@@ -1311,7 +1423,6 @@ country_event = {
 ##first state seceedes
 country_event = {
 	id = mtg_usa_civil_war_democrats.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.20 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.20.t
 	desc = mtg_usa_civil_war_democrats.20.desc
 	picture = GFX_report_event_ger_civil_war
@@ -1737,7 +1848,6 @@ country_event = {
 ##west coast seceeds
 country_event = {
 	id = mtg_usa_civil_war_democrats.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.21 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.21.t
 	desc = mtg_usa_civil_war_democrats.21.desc
 	picture = GFX_report_event_generic_rally2
@@ -1855,7 +1965,6 @@ country_event = {
 ##midwestern bloc declares for loyalists
 country_event = {
 	id = mtg_usa_civil_war_democrats.22
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.22 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.22.t
 	desc = mtg_usa_civil_war_democrats.22.desc
 	picture = GFX_report_event_generic_sign_treaty3
@@ -1871,7 +1980,6 @@ country_event = {
 ##east coast seceeds
 country_event = {
 	id = mtg_usa_civil_war_democrats.23
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.23 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.23.t
 	desc = mtg_usa_civil_war_democrats.23.desc
 	picture = GFX_report_event_generic_rally2
@@ -1898,14 +2006,12 @@ country_event = {
 	option = {
 		name = mtg_usa_civil_war_democrats.23.a
 		add_stability = -0.05
-		
 	}
 }
 
 #hidden dispatcher event to split remaining states
 country_event = {
 	id = mtg_usa_civil_war_democrats.24
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.24 FROM = [From.GetName]" }
 
 	is_triggered_only = yes
 	hidden = yes
@@ -1946,7 +2052,6 @@ country_event = {
 ##north west seceeds
 country_event = {
 	id = mtg_usa_civil_war_democrats.25
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.25 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.25.t
 	desc = mtg_usa_civil_war_democrats.25.desc
 	picture = GFX_report_event_generic_rally2
@@ -1996,7 +2101,6 @@ country_event = {
 ##north western bloc declares for loyalists
 country_event = {
 	id = mtg_usa_civil_war_democrats.26
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.26 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.26.t
 	desc = mtg_usa_civil_war_democrats.26.desc
 	picture = GFX_report_event_generic_sign_treaty3
@@ -2033,7 +2137,6 @@ country_event = {
 ##south west seceeds
 country_event = {
 	id = mtg_usa_civil_war_democrats.27
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.27 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.27.t
 	desc = mtg_usa_civil_war_democrats.27.desc
 	picture = GFX_report_event_generic_rally2
@@ -2085,7 +2188,6 @@ country_event = {
 ##south western bloc declares for loyalists
 country_event = {
 	id = mtg_usa_civil_war_democrats.28
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.28 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.28.t
 	desc = mtg_usa_civil_war_democrats.28.desc
 	picture = GFX_report_event_generic_sign_treaty3
@@ -2122,7 +2224,6 @@ country_event = {
 ## west midwest seceeds
 country_event = {
 	id = mtg_usa_civil_war_democrats.29
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.29 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.29.t
 	desc = mtg_usa_civil_war_democrats.29.desc
 	picture = GFX_report_event_generic_rally2
@@ -2174,7 +2275,6 @@ country_event = {
 ##west midwestern bloc declares for loyalists
 country_event = {
 	id = mtg_usa_civil_war_democrats.30
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.30 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.30.t
 	desc = mtg_usa_civil_war_democrats.30.desc
 	picture = GFX_report_event_generic_sign_treaty3
@@ -2211,7 +2311,6 @@ country_event = {
 ## east midwest seceeds
 country_event = {
 	id = mtg_usa_civil_war_democrats.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.31 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.31.t
 	desc = mtg_usa_civil_war_democrats.31.desc
 	picture = GFX_report_event_generic_rally2
@@ -2243,7 +2342,6 @@ country_event = {
 # hidden trigger event to move the civil war along if fascist support is > 30%
 country_event = {
 	id = mtg_usa_civil_war_democrats.32
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.32 FROM = [From.GetName]" }
 	hidden = yes
 	title = test_state.1.t
 	desc = test_state.1.d
@@ -2267,7 +2365,6 @@ country_event = {
 #McArthur Offers Leadership
 country_event = {
 	id = mtg_usa_civil_war_democrats.40
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.40 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.40.t
 	desc = mtg_usa_civil_war_democrats.40.desc
 	picture = GFX_report_event_generic_rally2
@@ -2321,7 +2418,6 @@ country_event = {
 #Fascist Leadership challenge to McArthur
 country_event = {
 	id = mtg_usa_civil_war_democrats.41
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.41 FROM = [From.GetName]" }
 	title = mtg_usa_civil_war_democrats.41.t
 	desc = mtg_usa_civil_war_democrats.41.desc
 	picture = GFX_report_event_generic_rally2
@@ -2403,7 +2499,6 @@ country_event = {
 ##spawn citizen militias
 country_event = {
 	id = mtg_usa_civil_war_democrats.999
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_civil_war_democrats.999 FROM = [From.GetName]" }
 	hidden = yes
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -2467,7 +2562,6 @@ add_namespace = mtg_usa_canadian_corridor
 ##intial event for Canada
 country_event = {
 	id = mtg_usa_canadian_corridor.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_canadian_corridor.1 FROM = [From.GetName]" }
 	title = mtg_usa_canadian_corridor.1.t
 	desc = mtg_usa_canadian_corridor.1.desc
 	picture = GFX_report_event_canada_patriation
@@ -2489,9 +2583,11 @@ country_event = {
 		}
 		effect_tooltip = {
 			FROM = {
-				transfer_state = 6
-				transfer_state = 60
-				transfer_state = 8
+				transfer_state = 740
+				transfer_state = 473
+				transfer_state = 739
+				transfer_state = 471
+				transfer_state = 864
 			}
 		}
 	}
@@ -2524,7 +2620,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state
 					target = CAN
-					generator = { 6 60 8}
+					generator = { 740 473 739 471 864}
 				}
 			}
 		}
@@ -2534,7 +2630,6 @@ country_event = {
 ##Canada agrees!
 country_event = {
 	id = mtg_usa_canadian_corridor.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_canadian_corridor.2 FROM = [From.GetName]" }
 	title = mtg_usa_canadian_corridor.2.t
 	desc = mtg_usa_canadian_corridor.2.desc
 	picture = GFX_report_event_canada_treaty
@@ -2542,16 +2637,17 @@ country_event = {
 	is_triggered_only = yes
 	option = { #agree
 		name = mtg_usa_canadian_corridor.2.a
-		transfer_state = 6
-		transfer_state = 60
-		transfer_state = 8
+		transfer_state = 740
+		transfer_state = 473
+		transfer_state = 739
+		transfer_state = 471
+		transfer_state = 864
 	}
 }
 
 ##Canada refuses
 country_event = {
 	id = mtg_usa_canadian_corridor.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_canadian_corridor.3 FROM = [From.GetName]" }
 	title = mtg_usa_canadian_corridor.3.t
 	desc = mtg_usa_canadian_corridor.3.desc
 	picture = GFX_report_event_canadian_artillery
@@ -2569,7 +2665,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state
 			target = CAN
-			generator = { 6 60 8 }
+			generator = { 740 473 739 471 864 }
 		}
 	}
 	option = { #no war!
@@ -2592,7 +2688,6 @@ add_namespace = mtg_usa_southern_threat
 ##intial event for Mexico
 country_event = {
 	id = mtg_usa_southern_threat.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_southern_threat.1 FROM = [From.GetName]" }
 	title = mtg_usa_southern_threat.1.t
 	desc = mtg_usa_southern_threat.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -2655,7 +2750,6 @@ country_event = {
 ##Mexico agrees!
 country_event = {
 	id = mtg_usa_southern_threat.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_southern_threat.2 FROM = [From.GetName]" }
 	title = mtg_usa_southern_threat.2.t
 	desc = mtg_usa_southern_threat.2.desc
 	picture = GFX_report_event_tanks_mexico_city
@@ -2670,7 +2764,6 @@ country_event = {
 ##Mexico refuses
 country_event = {
 	id = mtg_usa_southern_threat.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_southern_threat.3 FROM = [From.GetName]" }
 	title = mtg_usa_southern_threat.3.t
 	desc = mtg_usa_southern_threat.3.desc
 	picture = GFX_report_event_soldiers_marching
@@ -2710,7 +2803,6 @@ add_namespace = mtg_usa_north_american_dominion
 ##US demands subjugation
 country_event = {
 	id = mtg_usa_north_american_dominion.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_north_american_dominion.1 FROM = [From.GetName]" }
 	title = mtg_usa_north_american_dominion.1.t
 	desc = mtg_usa_north_american_dominion.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -2770,7 +2862,6 @@ country_event = {
 ##Country agrees!
 country_event = {
 	id = mtg_usa_north_american_dominion.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_north_american_dominion.2 FROM = [From.GetName]" }
 	title = mtg_usa_north_american_dominion.2.t
 	desc = mtg_usa_north_american_dominion.2.desc
 	picture = GFX_report_event_generic_sign_treaty3
@@ -2785,7 +2876,6 @@ country_event = {
 ##Country refuses
 country_event = {
 	id = mtg_usa_north_american_dominion.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_north_american_dominion.3 FROM = [From.GetName]" }
 	title = mtg_usa_north_american_dominion.3.t
 	desc = mtg_usa_north_american_dominion.3.desc
 	picture = GFX_report_event_british_inspect_troops
@@ -2826,7 +2916,6 @@ add_namespace = mtg_usa_strategic_interests
 ##US demands colonies
 country_event = {
 	id = mtg_usa_strategic_interests.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_strategic_interests.1 FROM = [From.GetName]" }
 	title = mtg_usa_strategic_interests.1.t
 	desc = mtg_usa_strategic_interests.1.desc
 	picture = GFX_report_event_generic_conference
@@ -2853,15 +2942,45 @@ country_event = {
 			FROM = {
 				if = {
 					limit = {
-						has_full_control_of_state = 64
+						has_full_control_of_state = 118
 					}
-					transfer_state = 64
+					transfer_state = 118
 				}
 				if = {
 					limit = {
-						has_full_control_of_state = 2920
+						has_full_control_of_state = 1021
 					}
-					transfer_state = 2920
+					transfer_state = 1021
+				}
+				if = {
+					limit = {
+						has_full_control_of_state = 1065
+					}
+					transfer_state = 1065
+				}
+			}
+			if = {
+				limit = {
+					336 = {
+						OWNER = {
+							is_subject_of = ROOT
+						}
+					}
+				}
+				336 = {
+					OWNER = {
+						USA = {
+							puppet = PREV
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_full_control_of_state = 336
+				}
+				USA = {
+					transfer_state = 336
 				}
 			}
 		}
@@ -2901,7 +3020,6 @@ country_event = {
 ##Country agrees!
 country_event = {
 	id = mtg_usa_strategic_interests.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_strategic_interests.2 FROM = [From.GetName]" }
 	title = mtg_usa_strategic_interests.2.t
 	desc = mtg_usa_strategic_interests.2.desc
 	picture = GFX_report_event_generic_military_parade
@@ -2911,19 +3029,37 @@ country_event = {
 		name = mtg_usa_strategic_interests.2.a
 		if = {
 			limit = {
-				FROM = { has_full_control_of_state = 2920 }
+				FROM = { has_full_control_of_state = 118 }
 			}
-			transfer_state = 2920
+			transfer_state = 118
 		}
 		if = {
 			limit = {
-				64 = {
+				FROM = { has_full_control_of_state = 1021 }
+			}
+			transfer_state = 1021
+		}
+		if = {
+			limit = {
+				FROM = { has_full_control_of_state = 1065 }
+			}
+			transfer_state = 1065
+		}
+		if = {
+			limit = {
+				FROM = { has_full_control_of_state = 326 }
+			}
+			transfer_state = 326
+		}
+		if = {
+			limit = {
+				336 = {
 					CONTROLLER = {
 						is_subject_of = FROM
 					}
 				}
 			}
-			64 = {
+			336 = {
 				CONTROLLER = {
 					USA = {
 						puppet = PREV
@@ -2933,10 +3069,10 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				FROM = { has_full_control_of_state = 64 }
+				FROM = { has_full_control_of_state = 336 }
 			}
 			USA = {
-				transfer_state = 64
+				transfer_state = 336
 			}
 		}
 	}
@@ -2945,7 +3081,6 @@ country_event = {
 ##Country refuses
 country_event = {
 	id = mtg_usa_strategic_interests.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_strategic_interests.3 FROM = [From.GetName]" }
 	title = mtg_usa_strategic_interests.3.t
 	desc = mtg_usa_strategic_interests.3.desc
 	picture = GFX_report_event_british_artillery
@@ -2986,7 +3121,6 @@ add_namespace = mtg_usa_pacific_pacification
 ##US demands colonies - to AST/NZL if independent, otherwise to britain
 country_event = {
 	id = mtg_usa_pacific_pacification.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_pacific_pacification.1 FROM = [From.GetName]" }
 	title = mtg_usa_pacific_pacification.1.t
 	desc = {
 		text = mtg_usa_pacific_pacification.1.desc_a 
@@ -3078,7 +3212,6 @@ country_event = {
 ##Country agrees!
 country_event = {
 	id = mtg_usa_pacific_pacification.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_pacific_pacification.2 FROM = [From.GetName]" }
 	title = mtg_usa_pacific_pacification.2.t
 	desc = mtg_usa_pacific_pacification.2.desc
 	picture = GFX_report_event_ast_planning
@@ -3119,7 +3252,6 @@ country_event = {
 ##Country refuses
 country_event = {
 	id = mtg_usa_pacific_pacification.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_pacific_pacification.3 FROM = [From.GetName]" }
 	title = mtg_usa_pacific_pacification.3.t
 	desc = mtg_usa_pacific_pacification.3.desc
 	picture = GFX_report_event_ast_troops_landing
@@ -3160,7 +3292,6 @@ add_namespace = mtg_usa_secure_asia
 ##intial event for Siam
 country_event = {
 	id = mtg_usa_secure_asia.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.1 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.1.t
 	desc = mtg_usa_secure_asia.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -3223,7 +3354,6 @@ country_event = {
 ##Siam agrees!
 country_event = {
 	id = mtg_usa_secure_asia.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.2 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.2.t
 	desc = mtg_usa_secure_asia.2.desc
 	picture = GFX_report_event_japanese_soldiers_03
@@ -3238,7 +3368,6 @@ country_event = {
 ##Siam refuses
 country_event = {
 	id = mtg_usa_secure_asia.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.3 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.3.t
 	desc = mtg_usa_secure_asia.3.desc
 	picture = GFX_report_event_chinese_soldiers_01
@@ -3271,7 +3400,6 @@ country_event = {
 ##intial event for DEI
 country_event = {
 	id = mtg_usa_secure_asia.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.4 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.4.t
 	desc = mtg_usa_secure_asia.4.desc
 	picture = GFX_report_event_generic_read_write
@@ -3334,7 +3462,6 @@ country_event = {
 ##DEI agrees!
 country_event = {
 	id = mtg_usa_secure_asia.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.5 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.5.t
 	desc = mtg_usa_secure_asia.5.desc
 	picture = GFX_report_event_indonesia_handover
@@ -3349,7 +3476,6 @@ country_event = {
 ##DEI refuses
 country_event = {
 	id = mtg_usa_secure_asia.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.6 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.6.t
 	desc = mtg_usa_secure_asia.6.desc
 	picture = GFX_report_event_dutch_soldiers_indonesia
@@ -3382,7 +3508,6 @@ country_event = {
 ##intial event for France
 country_event = {
 	id = mtg_usa_secure_asia.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.7 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.7.t
 	desc = mtg_usa_secure_asia.7.desc
 	picture = GFX_report_event_generic_read_write
@@ -3408,6 +3533,11 @@ country_event = {
 				# transfer_state = 670 # 1.19-migration: off-map Laos (mod 670 is unrelated)
 				# transfer_state = 286 # 1.19-migration: off-map South Annam (mod 286 is unrelated)
 				# transfer_state = 741 # 1.19-migration: off-map Cambodia (mod 741 is Charente)
+				# transfer_state = 1017 # 1.19-migration: off-map Da Nang
+				# transfer_state = 1069 # 1.19-migration: off-map Lan Chang
+				# transfer_state = 1068 # 1.19-migration: off-map Bassac
+				# transfer_state = 1066 # 1.19-migration: off-map Cochinchina
+				# transfer_state = 1067 # 1.19-migration: off-map Battambang
 			}
 		}
 	}
@@ -3448,7 +3578,6 @@ country_event = {
 ##FRA agrees!
 country_event = {
 	id = mtg_usa_secure_asia.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.8 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.8.t
 	desc = mtg_usa_secure_asia.8.desc
 	picture = GFX_report_event_generic_conference
@@ -3460,13 +3589,17 @@ country_event = {
 			# transfer_state = 670 # 1.19-migration: off-map Laos (mod 670 is unrelated)
 			# transfer_state = 286 # 1.19-migration: off-map South Annam (mod 286 is unrelated)
 			# transfer_state = 741 # 1.19-migration: off-map Cambodia (mod 741 is Charente)
+			# transfer_state = 1017 # 1.19-migration: off-map Da Nang
+			# transfer_state = 1069 # 1.19-migration: off-map Lan Chang
+			# transfer_state = 1068 # 1.19-migration: off-map Bassac
+			# transfer_state = 1066 # 1.19-migration: off-map Cochinchina
+			# transfer_state = 1067 # 1.19-migration: off-map Battambang
 	}
 }
 
 ##FRA refuses
 country_event = {
 	id = mtg_usa_secure_asia.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_secure_asia.9 FROM = [From.GetName]" }
 	title = mtg_usa_secure_asia.9.t
 	desc = mtg_usa_secure_asia.9.desc
 	picture = GFX_report_event_degaulle_inspect_troops
@@ -3507,7 +3640,6 @@ add_namespace = mtg_usa_protect_south_america
 ##intial event 
 country_event = {
 	id = mtg_usa_protect_south_america.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_protect_south_america.1 FROM = [From.GetName]" }
 	title = mtg_usa_protect_south_america.1.t
 	desc = mtg_usa_protect_south_america.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -3584,7 +3716,6 @@ country_event = {
 ##Country agrees!
 country_event = {
 	id = mtg_usa_protect_south_america.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_protect_south_america.2 FROM = [From.GetName]" }
 	title = mtg_usa_protect_south_america.2.t
 	desc = mtg_usa_protect_south_america.2.desc
 	picture = GFX_report_event_generic_sign_treaty1
@@ -3599,7 +3730,6 @@ country_event = {
 ##Country refuses
 country_event = {
 	id = mtg_usa_protect_south_america.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_protect_south_america.3 FROM = [From.GetName]" }
 	title = mtg_usa_protect_south_america.3.t
 	desc = mtg_usa_protect_south_america.3.desc
 	picture = GFX_report_event_lithuania_army
@@ -3640,7 +3770,6 @@ add_namespace = mtg_usa_foreign_support
 ##event for FROM, USA wants donations
 country_event = {
 	id = mtg_usa_foreign_support.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.1 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.1.t
 	desc = mtg_usa_foreign_support.1.desc
 	picture = GFX_report_event_german_politician_speech
@@ -3677,10 +3806,9 @@ country_event = {
 #event for US, donations approved
 country_event = {
 	id = mtg_usa_foreign_support.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.2 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.2.t
 	desc = mtg_usa_foreign_support.2.desc
-	picture = GFX_report_event_hitler_handshake
+	picture = GFX_report_event_generic_handshake
 
 	is_triggered_only = yes
 	option = { #agree
@@ -3694,7 +3822,6 @@ country_event = {
 #event for US, donations refused
 country_event = {
 	id = mtg_usa_foreign_support.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.3 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.3.t
 	desc = mtg_usa_foreign_support.3.desc
 	picture = GFX_report_event_generic_read_write
@@ -3711,7 +3838,6 @@ country_event = {
 ##event for FROM, USA wants to smuggle in weapons
 country_event = {
 	id = mtg_usa_foreign_support.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.4 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.4.t
 	desc = mtg_usa_foreign_support.4.desc
 	picture = GFX_report_event_generic_lend_lease
@@ -3792,7 +3918,6 @@ country_event = {
 #event for US, weapons approved
 country_event = {
 	id = mtg_usa_foreign_support.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.5 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.5.t
 	desc = mtg_usa_foreign_support.5.desc
 	picture = GFX_report_event_generic_rifles
@@ -3809,7 +3934,6 @@ country_event = {
 #event for US, weapons refused
 country_event = {
 	id = mtg_usa_foreign_support.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.6 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.6.t
 	desc = mtg_usa_foreign_support.6.desc
 	picture = GFX_report_event_generic_read_write
@@ -3825,7 +3949,6 @@ country_event = {
 #event for US, artillery approved
 country_event = {
 	id = mtg_usa_foreign_support.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.7 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.7.t
 	desc = mtg_usa_foreign_support.7.desc
 	picture = GFX_report_event_british_artillery
@@ -3842,7 +3965,6 @@ country_event = {
 #event for US, tanks approved
 country_event = {
 	id = mtg_usa_foreign_support.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.8 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.8.t
 	desc = mtg_usa_foreign_support.8.desc
 	picture = GFX_report_event_polish_tanks_02
@@ -3860,7 +3982,6 @@ country_event = {
 ##event for FROM, USA wants to build training camps
 country_event = {
 	id = mtg_usa_foreign_support.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.9 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.9.t
 	desc = mtg_usa_foreign_support.9.desc
 	picture = GFX_report_event_aid_pact
@@ -3897,7 +4018,6 @@ country_event = {
 #event for US, training camps approved
 country_event = {
 	id = mtg_usa_foreign_support.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.10 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.10.t
 	desc = mtg_usa_foreign_support.10.desc
 	picture = GFX_report_event_chinese_army_training
@@ -3926,7 +4046,6 @@ country_event = {
 #event for US, training camps refused
 country_event = {
 	id = mtg_usa_foreign_support.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.11 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.11.t
 	desc = mtg_usa_foreign_support.11.desc
 	picture = GFX_report_event_generic_read_write
@@ -3943,10 +4062,9 @@ country_event = {
 ##event for FROM, USA wants to train pilots
 country_event = {
 	id = mtg_usa_foreign_support.12
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.12 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.12.t
 	desc = mtg_usa_foreign_support.12.desc
-	picture = GFX_report_event_hitler_handshake
+	picture = GFX_report_event_generic_handshake
 
 	is_triggered_only = yes
 	option = { #agree
@@ -3980,7 +4098,6 @@ country_event = {
 #event for US, pilot training approved
 country_event = {
 	id = mtg_usa_foreign_support.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.13 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.13.t
 	desc = mtg_usa_foreign_support.13.desc
 	picture = GFX_report_event_china_flying_tigers
@@ -4009,7 +4126,6 @@ country_event = {
 #event for US, pilot training refused
 country_event = {
 	id = mtg_usa_foreign_support.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.14 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.14.t
 	desc = mtg_usa_foreign_support.14.desc
 	picture = GFX_report_event_generic_read_write
@@ -4026,7 +4142,6 @@ country_event = {
 ##event for FROM, USA wants to fund shipyards
 country_event = {
 	id = mtg_usa_foreign_support.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.15 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.15.t
 	desc = mtg_usa_foreign_support.15.desc
 	picture = GFX_report_event_destroyers
@@ -4062,7 +4177,6 @@ country_event = {
 #event for US, shipyards approved
 country_event = {
 	id = mtg_usa_foreign_support.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.16 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.16.t
 	desc = mtg_usa_foreign_support.16.desc
 	picture = GFX_report_event_ast_navy
@@ -4079,7 +4193,6 @@ country_event = {
 #event for US, shipyards refused
 country_event = {
 	id = mtg_usa_foreign_support.17
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_foreign_support.17 FROM = [From.GetName]" }
 	title = mtg_usa_foreign_support.17.t
 	desc = mtg_usa_foreign_support.17.desc
 	picture = GFX_report_event_generic_read_write
@@ -4096,7 +4209,6 @@ add_namespace = mtg_usa_diplomatic_protest
 #US protests recent diplomatic move
 country_event = {
 	id = mtg_usa_diplomatic_protest.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_diplomatic_protest.1 FROM = [From.GetName]" }
 	title = mtg_usa_diplomatic_protest.1.t
 	desc = mtg_usa_diplomatic_protest.1.desc
 	picture = GFX_report_event_FDR_speech
@@ -4113,7 +4225,6 @@ country_event = {
 #US demands handover of american holdings
 country_event = {
 	id = mtg_usa_diplomatic_protest.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_diplomatic_protest.2 FROM = [From.GetName]" }
 	title = mtg_usa_diplomatic_protest.2.t
 	desc = mtg_usa_diplomatic_protest.2.desc
 	picture = GFX_report_event_generic_usa_treaty
@@ -4162,7 +4273,6 @@ country_event = {
 #US demands handover of american holdings - agree
 country_event = {
 	id = mtg_usa_diplomatic_protest.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_diplomatic_protest.3 FROM = [From.GetName]" }
 	title = mtg_usa_diplomatic_protest.3.t
 	desc = mtg_usa_diplomatic_protest.3.desc
 	picture = GFX_report_event_generic_conference
@@ -4191,7 +4301,6 @@ country_event = {
 #US demands handover of american holdings - refuse
 country_event = {
 	id = mtg_usa_diplomatic_protest.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event mtg_usa_diplomatic_protest.4 FROM = [From.GetName]" }
 	title = mtg_usa_diplomatic_protest.4.t
 	desc = mtg_usa_diplomatic_protest.4.desc
 	picture = GFX_report_event_swedish_soldier
@@ -4229,11 +4338,11 @@ add_namespace = panay_incident
 #Hidden event to trigger synchronised Panay events for USA and ENG
 country_event = {
 	id = panay_incident.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event panay_incident.1 FROM = [From.GetName]" }
 
 	hidden = yes
 
 	trigger = {
+		has_start_date < 1939.1.1
   		tag = CHI
  		has_war_with = JAP
  		# This next bit is to make sure that event only fires if JAP has conquered a fair bit of CHI first, so 
@@ -4258,6 +4367,9 @@ country_event = {
 				CHI = { has_war_with = ENG }
 			}
 			USA = { has_war_with = ENG }
+			
+			USA = { is_subject_of = JAP}
+			ENG = { is_subject_of = JAP}
 		}
 	}
 
@@ -4279,7 +4391,6 @@ country_event = {
 #Panay Incident - USA notification
 country_event = {
 	id = panay_incident.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event panay_incident.2 FROM = [From.GetName]" }
 	title = panay_incident.2.t
 	desc = { #Low war support text
 		text = panay_incident.2.d
@@ -4380,7 +4491,6 @@ country_event = {
 #Panay Incident - JAP gets demand for compensation
 country_event = {
 	id = panay_incident.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event panay_incident.3 FROM = [From.GetName]" }
 	title = panay_incident.3.t
 	desc = panay_incident.3.d
 	picture = GFX_report_event_us_panay_demands
@@ -4411,7 +4521,6 @@ country_event = {
 #Panay Incident - USA receives JAP compensation
 country_event = {
 	id = panay_incident.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event panay_incident.4 FROM = [From.GetName]" }
 	title = panay_incident.4.t
 	desc = panay_incident.4.d
 	picture = GFX_report_event_generic_sign_treaty1
@@ -4427,7 +4536,6 @@ country_event = {
 #Panay Incident - USA receives JAP refusal
 country_event = {
 	id = panay_incident.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event panay_incident.5 FROM = [From.GetName]" }
 	title = panay_incident.5.t
 	desc = panay_incident.5.d
 	picture = GFX_report_event_japanese_reply
@@ -4477,7 +4585,6 @@ country_event = {
 #Event for Japan if USA withdraws forces.
 country_event = {
 	id = panay_incident.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event panay_incident.6 FROM = [From.GetName]" }
 	title = panay_incident.6.t
 	desc = panay_incident.6.d
 	picture = GFX_report_event_oahu_withdraws

@@ -7,7 +7,6 @@ add_namespace = romania
 # Soviet Union demands Bessarabia
 country_event = {
 	id = romania.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event romania.1 FROM = [From.GetName]" }
 	title = romania.1.t
 	desc = romania.1.d
 	picture = GFX_report_event_generic_read_write
@@ -23,8 +22,8 @@ country_event = {
 				has_war_with = FROM
 				NOT = { is_in_faction_with = FROM }
 				OR = {
-					any_other_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						NOT = { tag = SOV }
 						OR = {
 							is_in_faction_with = ROM
@@ -74,8 +73,8 @@ country_event = {
 			effect_tooltip = {
 				create_wargoal = {
 					type = take_state
-					target = ROM
-					generator = { 1604 }
+					target = ROOT
+					generator = { 592 600 617 1602 1603 1604 1605 1606 2744 }   # was vanilla 78
 				}
 			}
 		}
@@ -85,7 +84,6 @@ country_event = {
 # Second Vienna Award - Northern Transylvania
 country_event = {
 	id = romania.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event romania.2 FROM = [From.GetName]" }
 	title = romania.2.t
 	desc = romania.2.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -106,7 +104,10 @@ country_event = {
 			}
 		}
 		HUN = {
-			country_event = { days = 1 id = hungary.2 }
+			country_event = { 
+				days = 1 
+				id = hungary.2 
+			}
 		}
 		set_country_flag = second_vienna_accepted_north
 	}
@@ -120,8 +121,31 @@ country_event = {
 			}
 		}
 		HUN = {
-			country_event = { days = 1 id = hungary.4 }
-			effect_tooltip = { add_state_claim = 665 }
+			country_event = { 
+				days = 1 
+				id = hungary.4 
+			}
+			effect_tooltip = { add_state_claim = 622 } # was vanilla 76 (North Transylvania -> Satu Mare)
+			add_state_claim = 628 # -> Maramureș
+			add_state_claim = 639 # -> Zalău
+			add_state_claim = 649 # -> Năsăud
+			add_state_claim = 664 # -> Oradea
+			add_state_claim = 665 # -> Cluj
+			add_state_claim = 674 # -> Ciuc
+			add_state_claim = 680 # -> Mureș
+			add_state_claim = 692 # -> Turda
+			add_state_claim = 1582 # -> Someș
+			add_state_claim = 1584 # -> Târnava-Mare
+			add_state_claim = 1586 # -> Trei Scaune
+			add_state_claim = 1587 # -> Odorhei
+			add_state_claim = 2671 # -> Carei
+			add_state_claim = 2672 # -> Baia Mare
+			add_state_claim = 2673 # -> Aleşd
+			add_state_claim = 2675 # -> Negrești-Oaș
+			add_state_claim = 2676 # -> Crasna
+			add_state_claim = 2680 # -> Vișeu
+			add_state_claim = 2859 # -> Tășnad
+			add_state_claim = 2860 # -> Recea
 		}
 		GER = {
 			country_event = { days = 1 id = germany.21 }
@@ -129,7 +153,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state
 					target = ROM
-					generator = { 665 1586 }
+					generator = { 622 628 639 649 664 665 674 680 692 1582 1584 1586 1587 2671 2672 2673 2675 2676 2680 2859 2860 }   # was vanilla 76
 				}
 			}
 		}
@@ -139,7 +163,6 @@ country_event = {
 # Second Vienna Award - All of Transylvania
 country_event = {
 	id = romania.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event romania.3 FROM = [From.GetName]" }
 	title = romania.2.t
 	desc = romania.3.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -170,7 +193,49 @@ country_event = {
 		HUN = {
 			country_event = { days = 1 id = hungary.5 }
 			effect_tooltip = {
-				custom_effect_tooltip = "Claims Transylvania"
+				add_state_claim = 622 # was vanilla 76 (North Transylvania -> Satu Mare)
+				add_state_claim = 628 # -> Maramureș
+				add_state_claim = 639 # -> Zalău
+				add_state_claim = 649 # -> Năsăud
+				add_state_claim = 664 # -> Oradea
+				add_state_claim = 665 # -> Cluj
+				add_state_claim = 674 # -> Ciuc
+				add_state_claim = 680 # -> Mureș
+				add_state_claim = 692 # -> Turda
+				add_state_claim = 1582 # -> Someș
+				add_state_claim = 1584 # -> Târnava-Mare
+				add_state_claim = 1586 # -> Trei Scaune
+				add_state_claim = 1587 # -> Odorhei
+				add_state_claim = 2671 # -> Carei
+				add_state_claim = 2672 # -> Baia Mare
+				add_state_claim = 2673 # -> Aleşd
+				add_state_claim = 2675 # -> Negrești-Oaș
+				add_state_claim = 2676 # -> Crasna
+				add_state_claim = 2680 # -> Vișeu
+				add_state_claim = 2859 # -> Tășnad
+				add_state_claim = 2860 # -> Recea
+				add_state_claim = 686 # was vanilla 83 (Crisana -> Beiuș)
+				add_state_claim = 705 # -> Arad
+				add_state_claim = 2669 # -> Sebiș
+				add_state_claim = 2674 # -> Tinca
+				add_state_claim = 2679 # -> Beliu
+				add_state_claim = 713 # was vanilla 84 (Transylvania -> Alba Iulia)
+				add_state_claim = 727 # -> Hunedoara
+				add_state_claim = 730 # -> Sibiu
+				add_state_claim = 737 # -> Brașov
+				add_state_claim = 1583 # -> Târnava Mică
+				add_state_claim = 1585 # -> Făgăraș
+				add_state_claim = 2024 # -> Sebeș
+				add_state_claim = 2261 # -> Brad
+				add_state_claim = 2359 # -> Obârşia Lotrului
+				add_state_claim = 2678 # -> Câmpeni
+				add_state_claim = 2981 # -> Câineni
+				add_state_claim = 736 # was vanilla 82 (Banat -> Timișoara)
+				add_state_claim = 756 # -> Reșița
+				add_state_claim = 1581 # -> Făget
+				add_state_claim = 2668 # -> Sânnicolau Mare
+				add_state_claim = 2670 # -> Lipova
+				add_state_claim = 2677 # -> Orșova
 			}
 		}
 		GER = {
@@ -179,7 +244,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state
 					target = ROM
-					generator = { 665 }
+					generator = { 622 628 639 649 664 665 674 680 692 1582 1584 1586 1587 2671 2672 2673 2675 2676 2680 2859 2860 }   # was vanilla 76
 				}
 			}
 		}
@@ -189,7 +254,6 @@ country_event = {
 # Second Vienna Award - No Concessions
 country_event = {
 	id = romania.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event romania.4 FROM = [From.GetName]" }
 	title = romania.4.t
 	desc = romania.4.d
 	picture = GFX_report_event_germany_politician_handshake
@@ -204,10 +268,9 @@ country_event = {
 # Treaty of Craiova - Bulgaria Demands Territory
 country_event = {
 	id = romania.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event romania.5 FROM = [From.GetName]" }
 	title = romania.5.t
 	desc = romania.5.d
-	picture = GFX_report_event_hitler_croatia_handshake
+	picture = [GetHitlerCroatianHandshakeEventPicture]
 	
 	is_triggered_only = yes
 	
@@ -215,7 +278,9 @@ country_event = {
 		name = romania.5.a
 		ai_chance = { factor = 90 }
 		effect_tooltip = {
-			BUL = { transfer_state = 1579 transfer_state = 818 }
+			BUL = { transfer_state = 818 } # was vanilla 77 (Dobrudja -> Bazargic)
+			transfer_state = 1578 # -> Razgrad
+			transfer_state = 1579 # -> Durostor
 		}
 		BUL = {
 			country_event = { days = 1 id = bulgaria.1 }
@@ -239,10 +304,9 @@ country_event = {
 # Seek an alliance - Since everyone is out to get us
 country_event = {
 	id = romania.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event romania.6 FROM = [From.GetName]" }
 	title = romania.6.t
 	desc = romania.6.d
-	picture = GFX_report_event_hitler_croatia_handshake
+	picture = GFX_report_event_generic_croatia_handshake
 	
 	trigger = {
 		has_country_flag = bessarabia_ceded

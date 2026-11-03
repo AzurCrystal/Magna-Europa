@@ -554,39 +554,82 @@ DEN_the_king_takes_over = {
 		limit = {
 			NOT = { has_government = neutrality }
 		}
-		set_politics = {
-			ruling_party = neutrality
-			long_name = DEN_neutrality_monarchist_party_long
-			name = DEN_neutrality_monarchist_party
+		if = {
+			limit = {
+				NOT = { has_character = DEN_christian_x } #He be dead
+			}
+			set_politics = {
+				ruling_party = neutrality
+				long_name = DEN_neutrality_monarchist_party_long
+				name = DEN_neutrality_monarchist_party
+			}
+			DEN_frederik_ix = {
+				add_country_leader_role = {
+					promote_leader = yes
+					country_leader = {
+						ideology = despotism
+						expire = "1965.1.1.1"
+						traits = { DEN_the_king }
+					}
+				}
+			}
 		}
-		DEN_christian_x = {
-			add_country_leader_role = {
-				promote_leader = yes
-				country_leader = {
-					ideology = despotism
-					expire = "1965.1.1.1"
-					traits = { DEN_the_king }
+		else = {
+			set_politics = {
+				ruling_party = neutrality
+				long_name = DEN_neutrality_monarchist_party_long
+				name = DEN_neutrality_monarchist_party
+			}
+			DEN_christian_x = {
+				add_country_leader_role = {
+					promote_leader = yes
+					country_leader = {
+						ideology = despotism
+						expire = "1965.1.1.1"
+						traits = { DEN_the_king }
+					}
 				}
 			}
 		}
 	}
 	else_if = {
-		limit = {
-			DEN_christian_x = { is_country_leader = no }
+		if = {
+			limit = {
+				NOT = { has_character = DEN_christian_x } #He be dead
+				#DEN_frederik_ix = { is_country_leader = no }
+			}
+			DEN_remove_neutral_leader = yes
+			set_politics = {
+				ruling_party = neutrality
+				long_name = DEN_neutrality_monarchist_party_long
+				name = DEN_neutrality_monarchist_party
+			}
+			DEN_frederik_ix = {
+				add_country_leader_role = {
+					promote_leader = yes
+					country_leader = {
+						ideology = despotism
+						expire = "1965.1.1.1"
+						traits = { DEN_the_king }
+					}
+				}
+			}
 		}
-		DEN_remove_neutral_leader = yes
-		set_party_name = {
-			ideology = neutrality
-			name = DEN_neutrality_monarchist_party_long
-			long_name = DEN_neutrality_monarchist_party
-		}
-		DEN_christian_x = {
-			add_country_leader_role = {
-				promote_leader = yes
-				country_leader = {
-					ideology = despotism
-					expire = "1965.1.1.1"
-					traits = { DEN_the_king }
+		else = {
+			DEN_remove_neutral_leader = yes
+			set_party_name = {
+				ideology = neutrality
+				name = DEN_neutrality_monarchist_party_long
+				long_name = DEN_neutrality_monarchist_party
+			}
+			DEN_christian_x = {
+				add_country_leader_role = {
+					promote_leader = yes
+					country_leader = {
+						ideology = despotism
+						expire = "1965.1.1.1"
+						traits = { DEN_the_king }
+					}
 				}
 			}
 		}
@@ -3030,7 +3073,7 @@ DEN_joint_military_cooperation = {
 		DEN_improve_haeren_NS = yes
 		add_to_variable = { 
 			DEN_haeren_army_artillery_attack = 0.05
-			tooltip = artillery_attack_factor_tt 
+			tooltip = army_artillery_attack_factor_tt 
 		}
 		add_to_variable = { 
 			DEN_haeren_army_artillery_defence = 0.05
@@ -3475,26 +3518,175 @@ DEN_alliance_tech_sharing = {
 }
 
 DEN_swedish_territory_wargoals = { #Set in an event
-	
-	ROOT = {
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 212
+			}
+		}
 		create_wargoal = {
-			type = annex_everything
+			type = take_state_focus
 			target = FROM
+			generator = { 212 } # 1.19-migration: was vanilla 138 (Skane)
 		}
 	}
-	
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 190
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 190 } # 1.19-migration: was vanilla 139 (Smaland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 148
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 148 } # 1.19-migration: was vanilla 140 (Vastergotland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 184
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 184 } # 1.19-migration: was vanilla 915 (Bohuslan)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 150
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 150 } # 1.19-migration: was vanilla 913 (Ostergotland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 110
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 110 } # 1.19-migration: was vanilla 919 (Varmland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 141
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 141 } # 1.19-migration: vanilla 141 (Sodermanland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 2708
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 2708 } # 1.19-migration: was vanilla 916 (Dalarna)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 66
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 66 } # 1.19-migration: was vanilla 38 (Gavleborg)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 54
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 54 } # 1.19-migration: was vanilla 917 (Jamtland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 45
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 45 } # 1.19-migration: was vanilla 918 (Vasterbotten)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 2711
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 2711 } # 1.19-migration: was vanilla 666 (Norrbotten)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 226
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 226 } # 1.19-migration: was vanilla 124 (Gotland)
+		}
+	}
 }
 
 DEN_icelandic_territory_wargoals = { #Set in an event
 	if = {
 		limit = {
 			FROM = {
-				controls_state = 159
+				controls_state = 51
 			}
 		}
 		create_wargoal = {
-			type = annex_everything
+			type = take_state_focus
 			target = FROM
+			generator = { 51 } # 1.19-migration: was vanilla 100 (Iceland)
 		}
 	}
 }
@@ -3507,8 +3699,117 @@ DEN_finnish_territory_wargoals = { #Set in an event
 			}
 		}
 		create_wargoal = {
-			type = annex_everything
+			type = take_state_focus
 			target = FROM
+			generator = { 114 } # 1.19-migration: was vanilla 111 (Uusimaa)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 98
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 98 } # 1.19-migration: was vanilla 145 (Aland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 14
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 14 } # 1.19-migration: was vanilla 148 (Lappi)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 73
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 73 } # 1.19-migration: was vanilla 149 (Vaasa)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 50
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 50 } # 1.19-migration: was vanilla 150 (Kuopio)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 109
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 109 } # 1.19-migration: was vanilla 926 (Turku)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 103
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 103 } # 1.19-migration: was vanilla 927 (Hame)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 115
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 115 } # 1.19-migration: was vanilla 928 (Kymi)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 42
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 42 } # 1.19-migration: was vanilla 929 (Oulu)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 81
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 81 } # 1.19-migration: was vanilla 930 (Mikkeli)
 		}
 	}
 }
@@ -3517,111 +3818,171 @@ DEN_norwegian_territory_wargoals = { #Set in an event
 	if = {
 		limit = {
 			FROM = {
-				controls_state = 226
+				controls_state = 124
 			}
 		}
 		create_wargoal = {
-			type = annex_everything
+			type = take_state_focus
 			target = FROM
+			generator = { 124 } # 1.19-migration: was vanilla 110 (Oslofjord)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 128
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 128 } # 1.19-migration: was vanilla 142 (Vestlandet)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 53
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 53 } # 1.19-migration: was vanilla 143 (Trondelag)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 25
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 25 } # 1.19-migration: was vanilla 144 (Nordland)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 83
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 83 } # 1.19-migration: was vanilla 920 (Opplandene)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 106
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 106 } # 1.19-migration: was vanilla 921 (Telemark)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 132
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 132 } # 1.19-migration: was vanilla 922 (Agder)
+		}
+	}
+	# 1.19-migration: vanilla 923 (Helgeland) has no mod state; skipped
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 13
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 13 } # 1.19-migration: was vanilla 924 (Troms)
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				controls_state = 4
+			}
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = FROM
+			generator = { 4 } # 1.19-migration: was vanilla 925 (Finnmark)
 		}
 	}
 }
 
-DEN_install_a_plenipotentiary = { #This is set in an event
+DEN_install_a_plenipotentiary = {
+	get_current_ruling_party = yes
 	if = {
 		limit = {
-			FROM = {
-				original_tag = GER
+			FROM = { #Overlord Scope
 				has_government = fascism
 			}
 		}
-		set_politics = {
+		set_politics = { #Denmark Scope
 			ruling_party = fascism
-		}
-		DEN_werner_best = {
-			promote_character = yes
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = {
-				has_government = fascism
-			}
-		}
-		set_politics = {
-			ruling_party = fascism
-		}
-		FROM = {
-			create_country_leader = {
-				picture = GFX_portrait_Europe_Generic_1
-				expire = "1965.1.1"
-				ideology = fascism_ideology
-				traits = {
-					DEN_plenipotentiary
-				}	
-			}
-		}
-	}
-	else_if = {
-		limit = {
-			FROM = {
+			FROM = { #Overlord Scope
 				has_government = communism
 			}
 		}
-		set_politics = {
+		set_politics = { #Denmark Scope
 			ruling_party = communism
-		}
-		FROM = {
-			create_country_leader = {
-				picture = GFX_portrait_Europe_Generic_1
-				expire = "1965.1.1"
-				ideology = stalinism
-				traits = {
-					DEN_plenipotentiary
-				}	
-			}
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = {
+			FROM = { #Overlord Scope
 				has_government = neutrality
 			}
 		}
-		set_politics = {
+		set_politics = { #Denmark Scope
 			ruling_party = neutrality
-		}
-		FROM = {
-			create_country_leader = {
-				picture = GFX_portrait_Europe_Generic_1
-				expire = "1965.1.1"
-				ideology = despotism
-				traits = {
-					DEN_plenipotentiary
-				}	
-			}
 		}
 	}
 	else_if = {
 		limit = {
-			FROM = {
+			FROM = { #Overlord Scope
 				has_government = democratic
 			}
 		}
-		set_politics = {
+		set_politics = { #Denmark Scope
 			ruling_party = democratic
 		}
-		FROM = {
-			create_country_leader = {
-				picture = GFX_portrait_Europe_Generic_1
-				expire = "1965.1.1"
-				ideology = conservatism
-				traits = {
-					DEN_plenipotentiary
-				}	
+	}
+	FROM = { #Overlord Scope. Transfer the newly created character to Denmark
+		random_character = {
+			limit = {
+				has_trait = DEN_plenipotentiary
 			}
+			set_nationality = DEN
 		}
 	}
+	every_character = { #Promote the newly created country leader to become the actual country leader of Denmark
+		limit = {
+			has_trait = DEN_plenipotentiary
+		}
+		promote_character = yes
+	}
+
 }
 
 DEN_drop_occupation_tag = {
@@ -3649,11 +4010,28 @@ DEN_independence_war_effects = {
 		}
 		DEN_drop_occupation_tag = yes
 	}
+
+	if = {
+		limit = {	
+			has_country_flag = DEN_cannot_join_factions_flag
+		}
+		set_rule = { can_join_factions = yes }
+		set_rule = { can_decline_call_to_war = no }
+		clr_country_flag = DEN_cannot_join_factions_flag
+	}
+
+	if = {
+		limit = {
+			has_country_flag = DEN_is_protectorate_flag
+		}
+		clr_country_flag = DEN_is_protectorate_flag
+	}
+
 	
 	if = {
 		limit = {
 			NOT = { #Necessary in case Overlord already declared war
-				has_war_with = var:DEN.DEN_overlord_natio
+				has_war_with = var:DEN.DEN_overlord_nation
 			}
 		}
 		declare_war_on = {

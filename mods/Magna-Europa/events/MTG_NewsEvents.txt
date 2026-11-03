@@ -113,6 +113,7 @@ news_event = {
 	option = {
 		name = mtg_news.3.a
 		trigger = {
+			NOT = { original_tag = BEL }
 			original_tag = USA
 		}
 	}
@@ -120,6 +121,7 @@ news_event = {
 		name = mtg_news.3.b
 		trigger = { 
 			NOT = { original_tag = USA }
+			NOT = { original_tag = BEL }
 			has_government = fascism
 		}
 	}
@@ -127,6 +129,7 @@ news_event = {
 		name = mtg_news.3.c
 		trigger = { 
 			NOT = { original_tag = USA }
+			NOT = { original_tag = BEL }
 			has_government = communism
 		}
 	}
@@ -140,12 +143,20 @@ news_event = {
 				has_government = democratic
 				has_government = neutrality
 			}
+			NOT = {
+				original_tag = AUS
+				is_guaranteed_by = USA
+			}
 		}
 	}
 	option = {
 		name = mtg_news.3.e
 		trigger = { 
 			has_idea = HOL_aloof_neutrality
+			NOT = {
+				has_government = communism
+			}
+			NOT = { original_tag = BEL }
 		}
 	}
 	option = {
@@ -153,6 +164,15 @@ news_event = {
 		trigger = { 
 			original_tag = BEL
 		}
+	}
+	option = {
+		name = mtg_news.3.g
+		trigger = { 
+			original_tag = AUS
+			is_guaranteed_by = USA
+			NOT = { original_tag = BEL }
+		}
+		custom_effect_tooltip = mtg_news.3.g_tt
 	}
 }
 # US goes Interventionist
@@ -521,6 +541,9 @@ news_event = {
 			OR = {
 				original_tag = CAN
 				original_tag = SAF
+				original_tag = RAJ
+				original_tag = AST
+				original_tag = NZL
 			}
 		}
 	}
@@ -534,6 +557,9 @@ news_event = {
 					OR = {
 						original_tag = CAN
 						original_tag = SAF
+						original_tag = RAJ
+						original_tag = AST
+						original_tag = NZL
 					}
 				}
 			}
@@ -669,7 +695,21 @@ news_event = {
 					}
 				}
 				AND = {
+					original_tag = JAP
+					NOT = { is_in_faction_with = ENG }
+					NOT = { has_war_with = ENG }
+					naval_strength_comparison = {
+						other = ENG
+						ratio > 0.65
+						sub_unit_def_weights = {
+							carrier = 1
+							battleship = 1
+						}
+					}
+				}
+				AND = {
 					NOT = { original_tag = USA }
+					NOT = { original_tag = JAP }
 					NOT = { is_in_faction_with = ENG }
 					NOT = { has_war_with = ENG }
 					naval_strength_comparison = {
@@ -1038,7 +1078,9 @@ news_event = {
 		trigger = {
 			OR = {
 				tag = CAN
-				tag = EGY
+				tag = SAF
+				tag = AST
+				tag = NZL
 			}
 			NOT = { original_tag = FROM }
 		}
@@ -1051,7 +1093,9 @@ news_event = {
 			NOT = {
 				OR = {
 					original_tag = CAN
-					original_tag = EGY
+					original_tag = SAF
+					original_tag = AST
+					original_tag = NZL
 				}
 			}
 		}
@@ -1088,7 +1132,9 @@ news_event = {
 		trigger = {
 			OR = {
 				tag = CAN
-				tag = EGY
+				tag = SAF
+				tag = AST
+				tag = NZL
 			}
 			has_civil_war = yes
 			NOT = { original_tag = FROM }
@@ -1103,7 +1149,9 @@ news_event = {
 				AND = {
 					OR = {
 						original_tag = CAN
-						original_tag = EGY
+						original_tag = SAF
+						original_tag = AST
+						original_tag = NZL
 					}
 					has_civil_war = yes
 				}
@@ -1153,6 +1201,7 @@ news_event = {
 		trigger = { 
 			NOT = { original_tag = ENG }
 			NOT = { original_tag = PER }
+			NOT = { original_tag = AFG }
 		}
 	}
 }
@@ -1187,6 +1236,7 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = AFG
+				original_tag = PER
 			}
 			NOR = { original_tag = FROM }
 		}
@@ -1197,6 +1247,7 @@ news_event = {
 		trigger = { 
 			NOT = { original_tag = ENG }
 			NOT = { original_tag = PER }
+			NOT = { original_tag = AFG }
 		}
 	}
 }
@@ -1224,7 +1275,10 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = CAN
-				original_tag = EGY
+				original_tag = SAF
+				original_tag = RAJ
+				original_tag = AST
+				original_tag = NZL
 			}
 			is_subject_of = ENG
 		}
@@ -1238,7 +1292,10 @@ news_event = {
 				AND = {
 					OR = {
 						original_tag = CAN
-						original_tag = EGY
+						original_tag = SAF
+						original_tag = RAJ
+						original_tag = AST
+						original_tag = NZL
 					}
 					is_subject_of = ENG
 				}
@@ -1277,7 +1334,10 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = CAN
-				original_tag = EGY
+				original_tag = SAF
+				original_tag = RAJ
+				original_tag = AST
+				original_tag = NZL
 			}
 			is_subject_of = ENG
 			NOT = { original_tag = FROM }
@@ -1292,7 +1352,10 @@ news_event = {
 				AND = {
 					OR = {
 						original_tag = CAN
-						original_tag = EGY
+						original_tag = SAF
+						original_tag = RAJ
+						original_tag = AST
+						original_tag = NZL
 					}
 					is_subject_of = ENG
 				}
@@ -1331,7 +1394,10 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = CAN
-				original_tag = EGY
+				original_tag = SAF
+				original_tag = RAJ
+				original_tag = AST
+				original_tag = NZL
 			}
 			is_subject_of = ENG
 			NOT = { original_tag = FROM }
@@ -1346,7 +1412,10 @@ news_event = {
 				AND = {
 					OR = {
 						original_tag = CAN
-						original_tag = EGY
+						original_tag = SAF
+						original_tag = RAJ
+						original_tag = AST
+						original_tag = NZL
 					}
 					is_subject_of = ENG
 				}
@@ -1527,14 +1596,316 @@ news_event = {
 			OR = {
 				AND = {
 					original_tag = USA
+					OR = {
+						AND = {
+							# owns_state = 686   # 1.19-migration: off-map vanilla 686 (Puerto Rico)
+							has_full_control_of_state = 686
+						}
+						PUE = {
+							is_subject_of = PREV
+						}
+						"PHI" = {
+							is_subject_of = PREV
+						}
+					}
 				}
 				AND = {
 					original_tag = FRA
 					OR = {
+						AND = {
+							# owns_state = 694   # 1.19-migration: off-map vanilla 694 (French Caribbean)
+							has_full_control_of_state = 694
+						}
+						AND = {
+							owns_state = 1124 # was vanilla 677 (Aleppo -> Aleppo)
+							owns_state = 1148 # -> Idlib
+							owns_state = 1924 # -> Tal Abyad
+							owns_state = 1926 # -> Manbij
+							owns_state = 2842 # -> Kobani
+							has_full_control_of_state = 677
+							owns_state = 1105 # was vanilla 680 (Deir-az-Zur -> Al-Hasakah)
+							owns_state = 1134 # -> Al-Raqqah
+							owns_state = 1141 # -> Deir ez-Zor
+							owns_state = 1149 # -> Shadadah
+							owns_state = 1159 # -> Al-Thawrah
+							owns_state = 1168 # -> Al-Bukamal
+							owns_state = 1185 # -> Palmyra
+							owns_state = 2925 # -> Al Suwar
+							owns_state = 2926 # -> Markadah
+							has_full_control_of_state = 680
+							owns_state = 1158 # was vanilla 554 (Damascus -> Latakia)
+							owns_state = 1167 # -> Salamiyah
+							owns_state = 1190 # -> Tartus
+							owns_state = 1218 # -> Duma
+							owns_state = 1228 # -> Quneitra
+							owns_state = 1230 # -> As-Suwayda
+							owns_state = 1925 # -> Daraa
+							owns_state = 1927 # -> Hamah
+							owns_state = 1928 # -> Homs
+							owns_state = 1929 # -> Rif Dimashq
+							owns_state = 1930 # -> Damascus
+							owns_state = 2194 # -> Al Tanf
+							has_full_control_of_state = 554
+						}
+						AND = {
+							owns_state = 1204 # was vanilla 553 (Lebanon -> Liban Nord)
+							owns_state = 1916 # -> Liban-Sud
+							owns_state = 1917 # -> Nabatiyeh
+							owns_state = 1918 # -> Beqaa
+							owns_state = 1919 # -> Mont-Liban
+							owns_state = 1920 # -> Beyrouth
+							owns_state = 1921 # -> Baalbek-Hermel
+							owns_state = 1922 # -> Kersouane Al Fatouh Jbeil
+							owns_state = 1923 # -> Aakkar
+							has_full_control_of_state = 553
+						}
+						AND = {
+							# owns_state = 543   # 1.19-migration: off-map vanilla 543 (Madagascar)
+							has_full_control_of_state = 543
+						}
+						AND = {
+							# owns_state = 670   # 1.19-migration: off-map vanilla 670 (Laos)
+							has_full_control_of_state = 670
+							owns_state = 1069
+							has_full_control_of_state = 1069
+							owns_state = 1068
+							has_full_control_of_state = 1068
+						}
+						AND = {
+							# owns_state = 741   # 1.19-migration: off-map vanilla 741 (Cambodia)
+							has_full_control_of_state = 741
+							owns_state = 1067
+							has_full_control_of_state = 1067
+						}
+						AND = {
+							# owns_state = 671   # 1.19-migration: off-map vanilla 671 (Tonkin)
+							has_full_control_of_state = 671
+							# owns_state = 286   # 1.19-migration: off-map vanilla 286 (South Annam)
+							has_full_control_of_state = 286
+							owns_state = 1017
+							has_full_control_of_state = 1017
+							owns_state = 1066
+							has_full_control_of_state = 1066
+						}
+						AND = {
+							# owns_state = 728   # 1.19-migration: off-map vanilla 728 (Guangzhouwan)
+							has_full_control_of_state = 728
+						}
+						AND = {
+							owns_state = 1177 # was vanilla 461 (Casablanca -> Locus)
+							owns_state = 1200 # -> Sidi Kacem
+							owns_state = 1201 # -> Taza
+							owns_state = 1222 # -> Settat
+							owns_state = 1227 # -> El Jadida
+							owns_state = 1837 # -> Ben Slimane
+							owns_state = 1838 # -> Casablanca
+							owns_state = 1839 # -> Skhirate Témara
+							owns_state = 1840 # -> Khémisset
+							owns_state = 1841 # -> El Hajeb
+							owns_state = 1842 # -> Meknès
+							owns_state = 1843 # -> Ifrane
+							owns_state = 1844 # -> Sefrou
+							owns_state = 1845 # -> Moulay Yacoub
+							owns_state = 1846 # -> Kénitra
+							owns_state = 1847 # -> Taounate
+							owns_state = 1848 # -> Berkane Taourirt
+							owns_state = 1849 # -> Oujda-Angad
+							owns_state = 1850 # -> Jerada
+							owns_state = 1853 # -> Fès
+							owns_state = 1854 # -> Salé
+							owns_state = 1855 # -> Rabat
+							has_full_control_of_state = 461
+							owns_state = 1196 # was vanilla 462 (Marrakech -> Figuig)
+							owns_state = 1214 # -> Boulemane
+							owns_state = 1216 # -> Khénifra
+							owns_state = 1244 # -> El Kelaâ des Sraghna
+							owns_state = 1248 # -> Azilal
+							owns_state = 1268 # -> Ouarzazate
+							owns_state = 1297 # -> Guelmim
+							owns_state = 1825 # -> Tiznit
+							owns_state = 1826 # -> Essaouira
+							owns_state = 1827 # -> Safi
+							owns_state = 1828 # -> Chichaoua
+							owns_state = 1829 # -> Marrakech
+							owns_state = 1830 # -> Al Haouz
+							owns_state = 1831 # -> Khouribga
+							owns_state = 1832 # -> Agadir-Inezgane
+							owns_state = 1833 # -> Chtouka-Aït Baha
+							owns_state = 1834 # -> Taroudannt
+							owns_state = 1835 # -> Béni Mellal
+							owns_state = 1836 # -> Errachidia
+							owns_state = 1856 # -> Tata
+							has_full_control_of_state = 462
+						}
+						AND = {
+							owns_state = 1120 # was vanilla 459 (Algiers -> Alger)
+							owns_state = 1128 # -> Miliana
+							owns_state = 1133 # -> Ténès
+							owns_state = 1144 # -> Mostaganem
+							owns_state = 1147 # -> Relizane
+							owns_state = 1161 # -> Oran
+							owns_state = 1188 # -> Marnia
+							owns_state = 1861 # -> Médéa
+							owns_state = 1862 # -> Bordj Menaïel
+							has_full_control_of_state = 459
+							owns_state = 1130 # was vanilla 513 (Tlemcen -> Batna)
+							owns_state = 1139 # -> Aumale
+							owns_state = 1154 # -> Tébessa
+							owns_state = 1156 # -> Boghari
+							owns_state = 1172 # -> Tiaret
+							owns_state = 1175 # -> Mascara
+							owns_state = 1183 # -> Sidi-bel-Abbès
+							owns_state = 1186 # -> Tlemcen
+							owns_state = 1194 # -> Saïda
+							owns_state = 1195 # -> Djelfa
+							owns_state = 1199 # -> Biskra
+							owns_state = 1205 # -> Laghouat
+							owns_state = 1207 # -> Naâma
+							owns_state = 1210 # -> El Bayadh
+							owns_state = 1221 # -> Ouargla
+							owns_state = 1237 # -> Ghardaïa
+							owns_state = 1256 # -> Béchar
+							owns_state = 1276 # -> Adrar
+							owns_state = 1305 # -> Tamanghasset
+							owns_state = 1306 # -> Tindouf
+							owns_state = 1859 # -> Orléansville
+							owns_state = 1860 # -> Teniet-el-Had
+							owns_state = 1866 # -> Khenchela
+							has_full_control_of_state = 513
+							owns_state = 1111 # was vanilla 460 (Constantine -> Philippeville)
+							owns_state = 1112 # -> Bône
+							owns_state = 1118 # -> Tizi-Ouzou
+							owns_state = 1121 # -> Fort-National
+							owns_state = 1122 # -> Bougie
+							owns_state = 1126 # -> Souk-Ahras
+							owns_state = 1136 # -> Sétif
+							owns_state = 1145 # -> Bordj Bou Arreridj
+							owns_state = 1863 # -> Bouira
+							owns_state = 1864 # -> Djidjelli
+							owns_state = 1865 # -> Constantine
+							owns_state = 1867 # -> Guelma
+							owns_state = 1868 # -> Saint-Arnaud
+							has_full_control_of_state = 460
+							owns_state = 1211 # was vanilla 514 (Algerian Desert -> El Oued)
+							owns_state = 1295 # -> Illizi
+							owns_state = 1883 # -> Brezina
+							has_full_control_of_state = 514
+						}
+						AND = {
+							owns_state = 1101 # was vanilla 458 (Tunisia -> Bizerte)
+							owns_state = 1108 # -> Jendouba
+							owns_state = 1109 # -> Tunis
+							owns_state = 1113 # -> Nabeul
+							owns_state = 1116 # -> Le Kef
+							owns_state = 1127 # -> Zaghouan
+							owns_state = 1140 # -> Siliana
+							owns_state = 1142 # -> Sousse
+							owns_state = 1152 # -> Kairouan
+							owns_state = 1165 # -> Kassérine
+							owns_state = 1166 # -> Mahdia
+							owns_state = 1180 # -> Sidi Bou Zid
+							owns_state = 1187 # -> Sfax
+							owns_state = 1620 # -> Pantelleria
+							owns_state = 1621 # -> Lampedusa
+							owns_state = 1869 # -> Béja
+							owns_state = 1870 # -> Manubah
+							owns_state = 1871 # -> Ariana
+							owns_state = 1872 # -> Ben Arous
+							owns_state = 1873 # -> Monastir
+							has_full_control_of_state = 458
+							owns_state = 1203 # was vanilla 665 (Gabès -> Gafsa)
+							owns_state = 1208 # -> Tozeur
+							owns_state = 1215 # -> Gabès
+							owns_state = 1217 # -> Kebili
+							owns_state = 1224 # -> Médénine
+							owns_state = 1231 # -> Tataouine
+							has_full_control_of_state = 665
+						}
+						AND = {
+							owns_state = 2851 # was vanilla 268 (French Somaliland)
+							has_full_control_of_state = 268
+						}
+						AND = {
+							# owns_state = 772   # 1.19-migration: off-map vanilla 772 (Middle Congo)
+							has_full_control_of_state = 772
+						}
+						AND = {
+							# owns_state = 539   # 1.19-migration: off-map vanilla 539 (Gabon)
+							has_full_control_of_state = 539
+						}
+						AND = {
+							# owns_state = 773   # 1.19-migration: off-map vanilla 773 (Cameroon)
+							has_full_control_of_state = 773
+						}
+						AND = {
+							# owns_state = 660   # 1.19-migration: off-map vanilla 660 (Equatorial Africa)
+							has_full_control_of_state = 660
+						}
+						AND = {
+							# owns_state = 774   # 1.19-migration: off-map vanilla 774 (Chad)
+							has_full_control_of_state = 774
+							# owns_state = 775   # 1.19-migration: off-map vanilla 775 (B.E.T.)
+							has_full_control_of_state = 775
+						}
+						AND = {
+							# owns_state = 781   # 1.19-migration: off-map vanilla 781 (Niger)
+							has_full_control_of_state = 781
+							# owns_state = 515   # 1.19-migration: off-map vanilla 515 (Southern Sahara)
+							has_full_control_of_state = 515
+						}
+						AND = {
+							# owns_state = 776   # 1.19-migration: off-map vanilla 776 (Dahomey)
+							has_full_control_of_state = 776
+						}
+						AND = {
+							# owns_state = 777   # 1.19-migration: off-map vanilla 777 (Togo)
+							has_full_control_of_state = 777
+						}
+						AND = {
+							# owns_state = 778   # 1.19-migration: off-map vanilla 778 (Upper Volta)
+							has_full_control_of_state = 778
+						}
+						AND = {
+							# owns_state = 779   # 1.19-migration: off-map vanilla 779 (Ivory Coast)
+							has_full_control_of_state = 779
+						}
+						AND = {
+							# owns_state = 780   # 1.19-migration: off-map vanilla 780 (Guinea)
+							has_full_control_of_state = 780
+						}
+						AND = {
+							# owns_state = 556   # 1.19-migration: off-map vanilla 556 (Bamako)
+							has_full_control_of_state = 556
+							owns_state = 1340 # was vanilla 782 (Tombouctou)
+							has_full_control_of_state = 782
+						}
+						AND = {
+							# owns_state = 272   # 1.19-migration: off-map vanilla 272 (Senegal)
+							has_full_control_of_state = 272
+						}
+						AND = {
+							# owns_state = 310   # 1.19-migration: off-map vanilla 310 (French Guiana)
+							has_full_control_of_state = 310
+						}
+						GDL = {
+							is_subject_of = PREV
+						}
 						SYR = {
 							is_subject_of = PREV
 						}
 						LEB = {
+							is_subject_of = PREV
+						}
+						LAO = {
+							is_subject_of = PREV
+						}
+						CAM = {
+							is_subject_of = PREV
+						}
+						VIN = {
+							is_subject_of = PREV
+						}
+						MAD = {
 							is_subject_of = PREV
 						}
 						MOR = {
@@ -1546,38 +1917,207 @@ news_event = {
 						TUN = {
 							is_subject_of = PREV
 						}
+						DJI = {
+							is_subject_of = PREV
+						}
+						RCG = {
+							is_subject_of = PREV
+						}
+						GAB = {
+							is_subject_of = PREV
+						}
+						CMR = {
+							is_subject_of = PREV
+						}
+						CAR = {
+							is_subject_of = PREV
+						}
+						CHA = {
+							is_subject_of = PREV
+						}
+						NGR = {
+							is_subject_of = PREV
+						}
+						DAH = {
+							is_subject_of = PREV
+						}
+						TOG = {
+							is_subject_of = PREV
+						}
+						VOL = {
+							is_subject_of = PREV
+						}
+						IVO = {
+							is_subject_of = PREV
+						}
+						GNA = {
+							is_subject_of = PREV
+						}
+						MLI = {
+							is_subject_of = PREV
+						}
+						SEN = {
+							is_subject_of = PREV
+						}
+						CAY = {
+							is_subject_of = PREV
+						}
 					}
 				}
 				AND = {
 					original_tag = ITA
 					OR = {
-						LBA = {
-							all_core_state = {
-								is_owned_by = ITA
-							}
+						AND = {
+							owns_state = 1236 # was vanilla 448 (Tripoli -> Nuqat al Khams)
+							owns_state = 1241 # -> Tripoli
+							owns_state = 1245 # -> Zawiya
+							owns_state = 1877 # -> Sabratha wa Sorman
+							owns_state = 1878 # -> Murqub
+							owns_state = 2537 # -> Zouara
+							has_full_control_of_state = 448
+							owns_state = 1242 # was vanilla 661 (Tripolitania -> Jafara)
+							owns_state = 1255 # -> Bani Walid
+							owns_state = 1257 # -> Ghadames
+							owns_state = 1261 # -> Mizda
+							owns_state = 1874 # -> Nalut
+							owns_state = 1875 # -> Yafran
+							owns_state = 1876 # -> Gharyan
+							owns_state = 1880 # -> Abu Nujaym
+							has_full_control_of_state = 661
+							owns_state = 1247 # was vanilla 449 (El Agheila -> Tarhuna wa Msalata)
+							owns_state = 1879 # -> Misrata
+							has_full_control_of_state = 449
+							owns_state = 1282 # was vanilla 662 (Sirte)
+							has_full_control_of_state = 662
+							owns_state = 1251 # was vanilla 450 (Benghasi -> Hizam al Akhdar)
+							owns_state = 1289 # -> Ajdabiya
+							has_full_control_of_state = 450
+							owns_state = 1239 # was vanilla 451 (Derna -> Jabal al Akhdar)
+							owns_state = 1240 # -> Quba
+							owns_state = 1249 # -> Marj
+							owns_state = 1264 # -> Butnan
+							has_full_control_of_state = 451
+							owns_state = 1318 # was vanilla 663 (Cyrenaica -> Jaghbub)
+							owns_state = 1882 # -> Al Wahat
+							has_full_control_of_state = 663
+							owns_state = 1307 # was vanilla 273 (Libyan Desert -> Wadi al Shatii)
+							owns_state = 1308 # -> Jufra
+							owns_state = 1321 # -> Ghat
+							owns_state = 1322 # -> Sebha
+							owns_state = 1328 # -> Wadi al Hayaa
+							owns_state = 1332 # -> Murzuq
+							owns_state = 1333 # -> Kufra
+							owns_state = 1881 # -> Quatrun
+							owns_state = 2396 # -> Bhralrm Al-Alzym
+							owns_state = 2397 # -> Idehan Ubari
+							owns_state = 2777 # -> Gialo
+							owns_state = 2871 # -> Tajarhi
+							has_full_control_of_state = 273
+						}
+						AND = {
+							# owns_state = 271   # 1.19-migration: off-map vanilla 271 (Shewa)
+							has_full_control_of_state = 271
+						}
+						AND = {
+							# owns_state = 550   # 1.19-migration: off-map vanilla 550 (Eritrea)
+							has_full_control_of_state = 550
+						}
+						AND = {
+							# owns_state = 559   # 1.19-migration: off-map vanilla 559 (Somaliland)
+							has_full_control_of_state = 559
 						}
 						LBA = {
+							is_subject_of = PREV
+						}
+						ETH = {
+							is_subject_of = PREV
+						}
+					}
+				}
+				AND = {
+					original_tag = JAP
+					OR = {
+						AND = {
+							# owns_state = 527   # 1.19-migration: off-map vanilla 527 (Pyongan-Hwanghae)
+							has_full_control_of_state = 527
+							# owns_state = 525   # 1.19-migration: off-map vanilla 525 (Gyeonggi)
+							has_full_control_of_state = 525
+						}
+						AND = {
+							# owns_state = 609   # 1.19-migration: off-map vanilla 609 (East Hebei)
+							has_full_control_of_state = 609
+						}
+						AND = {
+							# owns_state = 745   # 1.19-migration: off-map vanilla 745 (Dalian)
+							has_full_control_of_state = 745
+						}
+						AND = {
+							# owns_state = 524   # 1.19-migration: off-map vanilla 524 (Taiwan)
+							has_full_control_of_state = 524
+						}
+						MAN = {
+							is_subject_of = PREV
+						}
+						MEN = {
 							is_subject_of = PREV
 						}
 					}
 				}
 				AND = {
 					original_tag = POR
+					OR = {
+						AND = {
+							# owns_state = 540   # 1.19-migration: off-map vanilla 540 (Luanda)
+							has_full_control_of_state = 540
+						}
+						AND = {
+							# owns_state = 544   # 1.19-migration: off-map vanilla 544 (Lourenço Marques)
+							has_full_control_of_state = 544
+						}
+						AND = {
+							# owns_state = 729   # 1.19-migration: off-map vanilla 729 (Macau)
+							has_full_control_of_state = 729
+						}
+						AND = {
+							# owns_state = 721   # 1.19-migration: off-map vanilla 721 (East Timor)
+							has_full_control_of_state = 721
+						}
+						AND = {
+							# owns_state = 296   # 1.19-migration: off-map vanilla 296 (Portuguese Guinea)
+							has_full_control_of_state = 296
+						}
+						ANG = {
+							is_subject_of = PREV
+						}
+						MZB = {
+							is_subject_of = PREV
+						}
+						GNB = {
+							is_subject_of = PREV
+						}
+					}
 				}
 				AND = {
 					original_tag = SPR
 					OR = {
 						AND = {
-							owns_state = 1189
-							has_full_control_of_state = 1189
+							# owns_state = 297   # 1.19-migration: off-map vanilla 297 (Equatorial Guinea)
+							has_full_control_of_state = 297
 						}
 						AND = {
-							owns_state = 1976
-							has_full_control_of_state = 1976
+							owns_state = 1323 # was vanilla 699 (Rio de Oro -> Saguia el Hamra)
+							owns_state = 1335 # -> Rio de Oro
+							owns_state = 1857 # -> Cabo Juby
+							owns_state = 2843 # -> La Jaram
+							owns_state = 2844 # -> Guetla Zemmur
+							has_full_control_of_state = 699
 						}
 						AND = {
-							owns_state = 1323
-							has_full_control_of_state = 1323
+							owns_state = 1976 # was vanilla 783 (Sidi Ifni)
+							has_full_control_of_state = 783
+						}
+						EQG = {
+							is_subject_of = PREV
 						}
 						WES = {
 							is_subject_of = PREV
@@ -1586,13 +2126,45 @@ news_event = {
 				}
 				AND = {
 					original_tag = HOL
+					OR = {
+						AND = {
+							# owns_state = 695   # 1.19-migration: off-map vanilla 695 (Curaçao)
+							has_full_control_of_state = 695
+						}
+						AND = {
+							# owns_state = 309   # 1.19-migration: off-map vanilla 309 (Suriname)
+							has_full_control_of_state = 309
+						}
+						CRC = {
+							is_subject_of = PREV
+						}
+						SUR = {
+							is_subject_of = PREV
+						}
+						INS = {
+							is_subject_of = PREV
+						}
+					}
 				}
 				AND = {
 					original_tag = BEL
 					OR = {
 						AND = {
-							owns_state = 2974
-							has_full_control_of_state = 2974
+							# owns_state = 295   # 1.19-migration: off-map vanilla 295 (Léopoldville)
+							has_full_control_of_state = 295
+							# owns_state = 538   # 1.19-migration: off-map vanilla 538 (Coquilhatville)
+							has_full_control_of_state = 538
+							# owns_state = 718   # 1.19-migration: off-map vanilla 718 (Stanleyville)
+							has_full_control_of_state = 718
+							# owns_state = 888   # 1.19-migration: off-map vanilla 888 (Lusambo)
+							has_full_control_of_state = 888
+							# owns_state = 889   # 1.19-migration: off-map vanilla 889 (Elisabethville)
+							has_full_control_of_state = 889
+							# owns_state = 890   # 1.19-migration: off-map vanilla 890 (Costermansville)
+							has_full_control_of_state = 890
+						}
+						COG = {
+							is_subject_of = PREV
 						}
 					}
 				}
@@ -1608,14 +2180,308 @@ news_event = {
 				OR = {
 					AND = {
 						original_tag = USA
+						OR = {
+							AND = {
+								# owns_state = 686   # 1.19-migration: off-map vanilla 686 (Puerto Rico)
+								has_full_control_of_state = 686
+							}
+							PUE = {
+								is_subject_of = PREV
+							}
+							"PHI" = {
+								is_subject_of = PREV
+							}
+						}
 					}
 					AND = {
 						original_tag = FRA
 						OR = {
+							AND = {
+								# owns_state = 694   # 1.19-migration: off-map vanilla 694 (French Caribbean)
+								has_full_control_of_state = 694
+							}
+							AND = {
+								owns_state = 1124 # was vanilla 677 (Aleppo -> Aleppo)
+								owns_state = 1148 # -> Idlib
+								owns_state = 1924 # -> Tal Abyad
+								owns_state = 1926 # -> Manbij
+								owns_state = 2842 # -> Kobani
+								has_full_control_of_state = 677
+								owns_state = 1105 # was vanilla 680 (Deir-az-Zur -> Al-Hasakah)
+								owns_state = 1134 # -> Al-Raqqah
+								owns_state = 1141 # -> Deir ez-Zor
+								owns_state = 1149 # -> Shadadah
+								owns_state = 1159 # -> Al-Thawrah
+								owns_state = 1168 # -> Al-Bukamal
+								owns_state = 1185 # -> Palmyra
+								owns_state = 2925 # -> Al Suwar
+								owns_state = 2926 # -> Markadah
+								has_full_control_of_state = 680
+								owns_state = 1158 # was vanilla 554 (Damascus -> Latakia)
+								owns_state = 1167 # -> Salamiyah
+								owns_state = 1190 # -> Tartus
+								owns_state = 1218 # -> Duma
+								owns_state = 1228 # -> Quneitra
+								owns_state = 1230 # -> As-Suwayda
+								owns_state = 1925 # -> Daraa
+								owns_state = 1927 # -> Hamah
+								owns_state = 1928 # -> Homs
+								owns_state = 1929 # -> Rif Dimashq
+								owns_state = 1930 # -> Damascus
+								owns_state = 2194 # -> Al Tanf
+								has_full_control_of_state = 554
+							}
+							AND = {
+								owns_state = 1204 # was vanilla 553 (Lebanon -> Liban Nord)
+								owns_state = 1916 # -> Liban-Sud
+								owns_state = 1917 # -> Nabatiyeh
+								owns_state = 1918 # -> Beqaa
+								owns_state = 1919 # -> Mont-Liban
+								owns_state = 1920 # -> Beyrouth
+								owns_state = 1921 # -> Baalbek-Hermel
+								owns_state = 1922 # -> Kersouane Al Fatouh Jbeil
+								owns_state = 1923 # -> Aakkar
+								has_full_control_of_state = 553
+							}
+							AND = {
+								# owns_state = 543   # 1.19-migration: off-map vanilla 543 (Madagascar)
+								has_full_control_of_state = 543
+							}
+							AND = {
+								# owns_state = 670   # 1.19-migration: off-map vanilla 670 (Laos)
+								has_full_control_of_state = 670
+							}
+							AND = {
+								# owns_state = 741   # 1.19-migration: off-map vanilla 741 (Cambodia)
+								has_full_control_of_state = 741
+							}
+							AND = {
+								# owns_state = 671   # 1.19-migration: off-map vanilla 671 (Tonkin)
+								has_full_control_of_state = 671
+								# owns_state = 286   # 1.19-migration: off-map vanilla 286 (South Annam)
+								has_full_control_of_state = 286
+								owns_state = 1017
+								has_full_control_of_state = 1017
+							}
+							AND = {
+								# owns_state = 728   # 1.19-migration: off-map vanilla 728 (Guangzhouwan)
+								has_full_control_of_state = 728
+							}
+							AND = {
+								owns_state = 1177 # was vanilla 461 (Casablanca -> Locus)
+								owns_state = 1200 # -> Sidi Kacem
+								owns_state = 1201 # -> Taza
+								owns_state = 1222 # -> Settat
+								owns_state = 1227 # -> El Jadida
+								owns_state = 1837 # -> Ben Slimane
+								owns_state = 1838 # -> Casablanca
+								owns_state = 1839 # -> Skhirate Témara
+								owns_state = 1840 # -> Khémisset
+								owns_state = 1841 # -> El Hajeb
+								owns_state = 1842 # -> Meknès
+								owns_state = 1843 # -> Ifrane
+								owns_state = 1844 # -> Sefrou
+								owns_state = 1845 # -> Moulay Yacoub
+								owns_state = 1846 # -> Kénitra
+								owns_state = 1847 # -> Taounate
+								owns_state = 1848 # -> Berkane Taourirt
+								owns_state = 1849 # -> Oujda-Angad
+								owns_state = 1850 # -> Jerada
+								owns_state = 1853 # -> Fès
+								owns_state = 1854 # -> Salé
+								owns_state = 1855 # -> Rabat
+								has_full_control_of_state = 461
+								owns_state = 1196 # was vanilla 462 (Marrakech -> Figuig)
+								owns_state = 1214 # -> Boulemane
+								owns_state = 1216 # -> Khénifra
+								owns_state = 1244 # -> El Kelaâ des Sraghna
+								owns_state = 1248 # -> Azilal
+								owns_state = 1268 # -> Ouarzazate
+								owns_state = 1297 # -> Guelmim
+								owns_state = 1825 # -> Tiznit
+								owns_state = 1826 # -> Essaouira
+								owns_state = 1827 # -> Safi
+								owns_state = 1828 # -> Chichaoua
+								owns_state = 1829 # -> Marrakech
+								owns_state = 1830 # -> Al Haouz
+								owns_state = 1831 # -> Khouribga
+								owns_state = 1832 # -> Agadir-Inezgane
+								owns_state = 1833 # -> Chtouka-Aït Baha
+								owns_state = 1834 # -> Taroudannt
+								owns_state = 1835 # -> Béni Mellal
+								owns_state = 1836 # -> Errachidia
+								owns_state = 1856 # -> Tata
+								has_full_control_of_state = 462
+							}
+							AND = {
+								owns_state = 1120 # was vanilla 459 (Algiers -> Alger)
+								owns_state = 1128 # -> Miliana
+								owns_state = 1133 # -> Ténès
+								owns_state = 1144 # -> Mostaganem
+								owns_state = 1147 # -> Relizane
+								owns_state = 1161 # -> Oran
+								owns_state = 1188 # -> Marnia
+								owns_state = 1861 # -> Médéa
+								owns_state = 1862 # -> Bordj Menaïel
+								has_full_control_of_state = 459
+								owns_state = 1130 # was vanilla 513 (Tlemcen -> Batna)
+								owns_state = 1139 # -> Aumale
+								owns_state = 1154 # -> Tébessa
+								owns_state = 1156 # -> Boghari
+								owns_state = 1172 # -> Tiaret
+								owns_state = 1175 # -> Mascara
+								owns_state = 1183 # -> Sidi-bel-Abbès
+								owns_state = 1186 # -> Tlemcen
+								owns_state = 1194 # -> Saïda
+								owns_state = 1195 # -> Djelfa
+								owns_state = 1199 # -> Biskra
+								owns_state = 1205 # -> Laghouat
+								owns_state = 1207 # -> Naâma
+								owns_state = 1210 # -> El Bayadh
+								owns_state = 1221 # -> Ouargla
+								owns_state = 1237 # -> Ghardaïa
+								owns_state = 1256 # -> Béchar
+								owns_state = 1276 # -> Adrar
+								owns_state = 1305 # -> Tamanghasset
+								owns_state = 1306 # -> Tindouf
+								owns_state = 1859 # -> Orléansville
+								owns_state = 1860 # -> Teniet-el-Had
+								owns_state = 1866 # -> Khenchela
+								has_full_control_of_state = 513
+								owns_state = 1111 # was vanilla 460 (Constantine -> Philippeville)
+								owns_state = 1112 # -> Bône
+								owns_state = 1118 # -> Tizi-Ouzou
+								owns_state = 1121 # -> Fort-National
+								owns_state = 1122 # -> Bougie
+								owns_state = 1126 # -> Souk-Ahras
+								owns_state = 1136 # -> Sétif
+								owns_state = 1145 # -> Bordj Bou Arreridj
+								owns_state = 1863 # -> Bouira
+								owns_state = 1864 # -> Djidjelli
+								owns_state = 1865 # -> Constantine
+								owns_state = 1867 # -> Guelma
+								owns_state = 1868 # -> Saint-Arnaud
+								has_full_control_of_state = 460
+								owns_state = 1211 # was vanilla 514 (Algerian Desert -> El Oued)
+								owns_state = 1295 # -> Illizi
+								owns_state = 1883 # -> Brezina
+								has_full_control_of_state = 514
+							}
+							AND = {
+								owns_state = 1101 # was vanilla 458 (Tunisia -> Bizerte)
+								owns_state = 1108 # -> Jendouba
+								owns_state = 1109 # -> Tunis
+								owns_state = 1113 # -> Nabeul
+								owns_state = 1116 # -> Le Kef
+								owns_state = 1127 # -> Zaghouan
+								owns_state = 1140 # -> Siliana
+								owns_state = 1142 # -> Sousse
+								owns_state = 1152 # -> Kairouan
+								owns_state = 1165 # -> Kassérine
+								owns_state = 1166 # -> Mahdia
+								owns_state = 1180 # -> Sidi Bou Zid
+								owns_state = 1187 # -> Sfax
+								owns_state = 1620 # -> Pantelleria
+								owns_state = 1621 # -> Lampedusa
+								owns_state = 1869 # -> Béja
+								owns_state = 1870 # -> Manubah
+								owns_state = 1871 # -> Ariana
+								owns_state = 1872 # -> Ben Arous
+								owns_state = 1873 # -> Monastir
+								has_full_control_of_state = 458
+								owns_state = 1203 # was vanilla 665 (Gabès -> Gafsa)
+								owns_state = 1208 # -> Tozeur
+								owns_state = 1215 # -> Gabès
+								owns_state = 1217 # -> Kebili
+								owns_state = 1224 # -> Médénine
+								owns_state = 1231 # -> Tataouine
+								has_full_control_of_state = 665
+							}
+							AND = {
+								owns_state = 2851 # was vanilla 268 (French Somaliland)
+								has_full_control_of_state = 268
+							}
+							AND = {
+								# owns_state = 772   # 1.19-migration: off-map vanilla 772 (Middle Congo)
+								has_full_control_of_state = 772
+							}
+							AND = {
+								# owns_state = 539   # 1.19-migration: off-map vanilla 539 (Gabon)
+								has_full_control_of_state = 539
+							}
+							AND = {
+								# owns_state = 773   # 1.19-migration: off-map vanilla 773 (Cameroon)
+								has_full_control_of_state = 773
+							}
+							AND = {
+								# owns_state = 660   # 1.19-migration: off-map vanilla 660 (Equatorial Africa)
+								has_full_control_of_state = 660
+							}
+							AND = {
+								# owns_state = 774   # 1.19-migration: off-map vanilla 774 (Chad)
+								has_full_control_of_state = 774
+								# owns_state = 775   # 1.19-migration: off-map vanilla 775 (B.E.T.)
+								has_full_control_of_state = 775
+							}
+							AND = {
+								# owns_state = 781   # 1.19-migration: off-map vanilla 781 (Niger)
+								has_full_control_of_state = 781
+								# owns_state = 515   # 1.19-migration: off-map vanilla 515 (Southern Sahara)
+								has_full_control_of_state = 515
+							}
+							AND = {
+								# owns_state = 776   # 1.19-migration: off-map vanilla 776 (Dahomey)
+								has_full_control_of_state = 776
+							}
+							AND = {
+								# owns_state = 777   # 1.19-migration: off-map vanilla 777 (Togo)
+								has_full_control_of_state = 777
+							}
+							AND = {
+								# owns_state = 778   # 1.19-migration: off-map vanilla 778 (Upper Volta)
+								has_full_control_of_state = 778
+							}
+							AND = {
+								# owns_state = 779   # 1.19-migration: off-map vanilla 779 (Ivory Coast)
+								has_full_control_of_state = 779
+							}
+							AND = {
+								# owns_state = 780   # 1.19-migration: off-map vanilla 780 (Guinea)
+								has_full_control_of_state = 780
+							}
+							AND = {
+								# owns_state = 556   # 1.19-migration: off-map vanilla 556 (Bamako)
+								has_full_control_of_state = 556
+								owns_state = 1340 # was vanilla 782 (Tombouctou)
+								has_full_control_of_state = 782
+							}
+							AND = {
+								# owns_state = 272   # 1.19-migration: off-map vanilla 272 (Senegal)
+								has_full_control_of_state = 272
+							}
+							AND = {
+								# owns_state = 310   # 1.19-migration: off-map vanilla 310 (French Guiana)
+								has_full_control_of_state = 310
+							}
+							GDL = {
+								is_subject_of = PREV
+							}
 							SYR = {
 								is_subject_of = PREV
 							}
 							LEB = {
+								is_subject_of = PREV
+							}
+							LAO = {
+								is_subject_of = PREV
+							}
+							CAM = {
+								is_subject_of = PREV
+							}
+							VIN = {
+								is_subject_of = PREV
+							}
+							MAD = {
 								is_subject_of = PREV
 							}
 							MOR = {
@@ -1627,41 +2493,207 @@ news_event = {
 							TUN = {
 								is_subject_of = PREV
 							}
+							DJI = {
+								is_subject_of = PREV
+							}
+							RCG = {
+								is_subject_of = PREV
+							}
+							GAB = {
+								is_subject_of = PREV
+							}
+							CMR = {
+								is_subject_of = PREV
+							}
+							CAR = {
+								is_subject_of = PREV
+							}
+							CHA = {
+								is_subject_of = PREV
+							}
+							NGR = {
+								is_subject_of = PREV
+							}
+							DAH = {
+								is_subject_of = PREV
+							}
+							TOG = {
+								is_subject_of = PREV
+							}
+							VOL = {
+								is_subject_of = PREV
+							}
+							IVO = {
+								is_subject_of = PREV
+							}
+							GNA = {
+								is_subject_of = PREV
+							}
+							MLI = {
+								is_subject_of = PREV
+							}
+							SEN = {
+								is_subject_of = PREV
+							}
+							CAY = {
+								is_subject_of = PREV
+							}
 						}
 					}
 					AND = {
 						original_tag = ITA
 						OR = {
 							AND = {
-								LBA = {
-									all_core_state = {
-										is_owned_by = ITA
-									}
-								}	
+								owns_state = 1236 # was vanilla 448 (Tripoli -> Nuqat al Khams)
+								owns_state = 1241 # -> Tripoli
+								owns_state = 1245 # -> Zawiya
+								owns_state = 1877 # -> Sabratha wa Sorman
+								owns_state = 1878 # -> Murqub
+								owns_state = 2537 # -> Zouara
+								has_full_control_of_state = 448
+								owns_state = 1242 # was vanilla 661 (Tripolitania -> Jafara)
+								owns_state = 1255 # -> Bani Walid
+								owns_state = 1257 # -> Ghadames
+								owns_state = 1261 # -> Mizda
+								owns_state = 1874 # -> Nalut
+								owns_state = 1875 # -> Yafran
+								owns_state = 1876 # -> Gharyan
+								owns_state = 1880 # -> Abu Nujaym
+								has_full_control_of_state = 661
+								owns_state = 1247 # was vanilla 449 (El Agheila -> Tarhuna wa Msalata)
+								owns_state = 1879 # -> Misrata
+								has_full_control_of_state = 449
+								owns_state = 1282 # was vanilla 662 (Sirte)
+								has_full_control_of_state = 662
+								owns_state = 1251 # was vanilla 450 (Benghasi -> Hizam al Akhdar)
+								owns_state = 1289 # -> Ajdabiya
+								has_full_control_of_state = 450
+								owns_state = 1239 # was vanilla 451 (Derna -> Jabal al Akhdar)
+								owns_state = 1240 # -> Quba
+								owns_state = 1249 # -> Marj
+								owns_state = 1264 # -> Butnan
+								has_full_control_of_state = 451
+								owns_state = 1318 # was vanilla 663 (Cyrenaica -> Jaghbub)
+								owns_state = 1882 # -> Al Wahat
+								has_full_control_of_state = 663
+								owns_state = 1307 # was vanilla 273 (Libyan Desert -> Wadi al Shatii)
+								owns_state = 1308 # -> Jufra
+								owns_state = 1321 # -> Ghat
+								owns_state = 1322 # -> Sebha
+								owns_state = 1328 # -> Wadi al Hayaa
+								owns_state = 1332 # -> Murzuq
+								owns_state = 1333 # -> Kufra
+								owns_state = 1881 # -> Quatrun
+								owns_state = 2396 # -> Bhralrm Al-Alzym
+								owns_state = 2397 # -> Idehan Ubari
+								owns_state = 2777 # -> Gialo
+								owns_state = 2871 # -> Tajarhi
+								has_full_control_of_state = 273
+							}
+							AND = {
+								# owns_state = 271   # 1.19-migration: off-map vanilla 271 (Shewa)
+								has_full_control_of_state = 271
+							}
+							AND = {
+								# owns_state = 550   # 1.19-migration: off-map vanilla 550 (Eritrea)
+								has_full_control_of_state = 550
+							}
+							AND = {
+								# owns_state = 559   # 1.19-migration: off-map vanilla 559 (Somaliland)
+								has_full_control_of_state = 559
 							}
 							LBA = {
+								is_subject_of = PREV
+							}
+							ETH = {
+								is_subject_of = PREV
+							}
+						}
+					}
+					AND = {
+						original_tag = JAP
+						OR = {
+							AND = {
+								# owns_state = 527   # 1.19-migration: off-map vanilla 527 (Pyongan-Hwanghae)
+								has_full_control_of_state = 527
+								# owns_state = 525   # 1.19-migration: off-map vanilla 525 (Gyeonggi)
+								has_full_control_of_state = 525
+							}
+							AND = {
+								# owns_state = 609   # 1.19-migration: off-map vanilla 609 (East Hebei)
+								has_full_control_of_state = 609
+							}
+							AND = {
+								# owns_state = 745   # 1.19-migration: off-map vanilla 745 (Dalian)
+								has_full_control_of_state = 745
+							}
+							AND = {
+								# owns_state = 524   # 1.19-migration: off-map vanilla 524 (Taiwan)
+								has_full_control_of_state = 524
+							}
+							MAN = {
+								is_subject_of = PREV
+							}
+							MEN = {
 								is_subject_of = PREV
 							}
 						}
 					}
 					AND = {
 						original_tag = POR
-						owns_state = 1823
+						OR = {
+							AND = {
+								# owns_state = 540   # 1.19-migration: off-map vanilla 540 (Luanda)
+								has_full_control_of_state = 540
+							}
+							AND = {
+								# owns_state = 544   # 1.19-migration: off-map vanilla 544 (Lourenço Marques)
+								has_full_control_of_state = 544
+							}
+							AND = {
+								# owns_state = 729   # 1.19-migration: off-map vanilla 729 (Macau)
+								has_full_control_of_state = 729
+							}
+							AND = {
+								# owns_state = 721   # 1.19-migration: off-map vanilla 721 (East Timor)
+								has_full_control_of_state = 721
+							}
+							AND = {
+								# owns_state = 296   # 1.19-migration: off-map vanilla 296 (Portuguese Guinea)
+								has_full_control_of_state = 296
+							}
+							ANG = {
+								is_subject_of = PREV
+							}
+							MZB = {
+								is_subject_of = PREV
+							}
+							GNB = {
+								is_subject_of = PREV
+							}
+						}
 					}
 					AND = {
 						original_tag = SPR
 						OR = {
 							AND = {
-								owns_state = 1189
-								has_full_control_of_state = 1189
+								# owns_state = 297   # 1.19-migration: off-map vanilla 297 (Equatorial Guinea)
+								has_full_control_of_state = 297
 							}
 							AND = {
-								owns_state = 1976
-								has_full_control_of_state = 1976
+								owns_state = 1323 # was vanilla 699 (Rio de Oro -> Saguia el Hamra)
+								owns_state = 1335 # -> Rio de Oro
+								owns_state = 1857 # -> Cabo Juby
+								owns_state = 2843 # -> La Jaram
+								owns_state = 2844 # -> Guetla Zemmur
+								has_full_control_of_state = 699
 							}
 							AND = {
-								owns_state = 1323
-								has_full_control_of_state = 1323
+								owns_state = 1976 # was vanilla 783 (Sidi Ifni)
+								has_full_control_of_state = 783
+							}
+							EQG = {
+								is_subject_of = PREV
 							}
 							WES = {
 								is_subject_of = PREV
@@ -1672,8 +2704,21 @@ news_event = {
 						original_tag = HOL
 						OR = {
 							AND = {
-								owns_state = 2975
-								has_full_control_of_state = 2975
+								# owns_state = 695   # 1.19-migration: off-map vanilla 695 (Curaçao)
+								has_full_control_of_state = 695
+							}
+							AND = {
+								# owns_state = 309   # 1.19-migration: off-map vanilla 309 (Suriname)
+								has_full_control_of_state = 309
+							}
+							CRC = {
+								is_subject_of = PREV
+							}
+							SUR = {
+								is_subject_of = PREV
+							}
+							INS = {
+								is_subject_of = PREV
 							}
 						}
 					}
@@ -1681,8 +2726,21 @@ news_event = {
 						original_tag = BEL
 						OR = {
 							AND = {
-								owns_state = 2974
-								has_full_control_of_state = 2974
+								# owns_state = 295   # 1.19-migration: off-map vanilla 295 (Léopoldville)
+								has_full_control_of_state = 295
+								# owns_state = 538   # 1.19-migration: off-map vanilla 538 (Coquilhatville)
+								has_full_control_of_state = 538
+								# owns_state = 718   # 1.19-migration: off-map vanilla 718 (Stanleyville)
+								has_full_control_of_state = 718
+								# owns_state = 888   # 1.19-migration: off-map vanilla 888 (Lusambo)
+								has_full_control_of_state = 888
+								# owns_state = 889   # 1.19-migration: off-map vanilla 889 (Elisabethville)
+								has_full_control_of_state = 889
+								# owns_state = 890   # 1.19-migration: off-map vanilla 890 (Costermansville)
+								has_full_control_of_state = 890
+							}
+							COG = {
+								is_subject_of = PREV
 							}
 						}
 					}
@@ -2524,6 +3582,21 @@ news_event = {
 		trigger = { 
 			is_major = no
 			not = { has_naval_treaty_trigger = yes }
+			any_controlled_state = {
+				is_coastal = yes
+			}
+		}
+	}
+	option = {
+		name = MTG_naval_treaty.9.d
+		trigger = { 
+			is_major = no
+			not = { has_naval_treaty_trigger = yes }
+			NOT = {
+				any_controlled_state = {
+					is_coastal = yes
+				}
+			}
 		}
 	}
 }

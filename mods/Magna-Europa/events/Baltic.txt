@@ -7,7 +7,6 @@ add_namespace = baltic
 # Soviet Ultimatum (Estonia)
 country_event = {
 	id = baltic.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.1 FROM = [From.GetName]" }
 	title = baltic.1.t
 	desc = baltic.1.d
 	picture = GFX_report_event_soviet_soldiers
@@ -18,10 +17,6 @@ country_event = {
 		name = baltic.1.a
 		ai_chance = {
 			base = 10
-			modifier = {
-				factor = 1000
-				is_historical_focus_on = yes
-			}
 			modifier = { # Don't accept if in a faction that can protect them
 				factor = 0
 				NOT = { is_in_faction_with = FROM }
@@ -43,6 +38,26 @@ country_event = {
 					has_guaranteed = EST
 				}
 			}
+			modifier = { #If Germany has given guarantee through a focus, don't fold
+				factor = 0
+				is_guaranteed_by = GER
+				GER = {
+					OR = {
+						has_completed_focus = GER_tributes_for_guarantees
+						has_completed_focus = GER_safeguard_the_baltic
+						has_completed_focus = GER_safeguard_the_baltic_ww
+					}
+				}
+			}
+
+			modifier = { #To cover an edge case, should not happen
+				factor = 0
+				OR = {
+					has_capitulated = yes
+					exists = no
+					is_subject = yes
+				}
+			}
 		}
 		FROM = {
 			country_event = { days = 5 id = soviet.6 }
@@ -52,7 +67,13 @@ country_event = {
 				has_country_flag = cave_to_enemy_pressure_flag
 			}
 			effect_tooltip = {
-				FROM = { puppet = ROOT }
+				FROM = { 
+					puppet = {
+						target = ROOT
+						end_civil_wars = no
+						end_wars = no
+					}
+				}
 			}
 		}
 		else = {
@@ -82,10 +103,6 @@ country_event = {
 					has_guaranteed = EST
 				}
 			}
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
 		}
 
 		FROM = {
@@ -103,7 +120,6 @@ country_event = {
 # Soviet Ultimatum (Latvia)
 country_event = {
 	id = baltic.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.2 FROM = [From.GetName]" }
 	title = baltic.1.t
 	desc = baltic.1.d
 	picture = GFX_report_event_soviet_soldiers
@@ -114,10 +130,6 @@ country_event = {
 		name = baltic.1.a
 		ai_chance = {
 			base = 10
-			modifier = {
-				factor = 1000
-				is_historical_focus_on = yes
-			}
 			modifier = { # Don't accept if in a faction that can protect them
 				factor = 0
 				NOT = { is_in_faction_with = FROM }
@@ -139,7 +151,27 @@ country_event = {
 					has_guaranteed = LAT
 				}
 			}
-			
+
+			modifier = { #If Germany has given guarantee through a focus, don't fold
+				factor = 0
+				is_guaranteed_by = GER
+				GER = {
+					OR = {
+						has_completed_focus = GER_tributes_for_guarantees
+						has_completed_focus = GER_safeguard_the_baltic
+						has_completed_focus = GER_safeguard_the_baltic_ww
+					}
+				}
+			}
+
+			modifier = { #To cover an edge case this should not happen
+				factor = 0
+				OR = {
+					has_capitulated = yes
+					exists = no
+					is_subject = yes
+				}
+			}
 		}
 
 		FROM = {
@@ -150,7 +182,13 @@ country_event = {
 				has_country_flag = cave_to_enemy_pressure_flag
 			}
 			effect_tooltip = {
-				FROM = { puppet = ROOT }
+				FROM = { 
+					puppet = {
+						target = ROOT
+						end_civil_wars = no
+						end_wars = no
+					}
+				}
 			}
 		}
 		else = {
@@ -197,7 +235,6 @@ country_event = {
 # Soviet Ultimatum (Lithuania)
 country_event = {
 	id = baltic.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.3 FROM = [From.GetName]" }
 	title = baltic.1.t
 	desc = baltic.1.d
 	picture = GFX_report_event_soviet_soldiers
@@ -208,10 +245,6 @@ country_event = {
 		name = baltic.1.a
 		ai_chance = {
 			base = 10
-			modifier = {
-				factor = 1000
-				is_historical_focus_on = yes
-			}
 			modifier = { # Don't accept if in a faction that can protect them
 				factor = 0
 				NOT = { is_in_faction_with = FROM }
@@ -233,6 +266,27 @@ country_event = {
 					has_guaranteed = LIT
 				}
 			}
+
+			modifier = { #If Germany has given guarantee through a focus, don't fold
+				factor = 0
+				is_guaranteed_by = GER
+				GER = {
+					OR = {
+						has_completed_focus = GER_tributes_for_guarantees
+						has_completed_focus = GER_safeguard_the_baltic
+						has_completed_focus = GER_safeguard_the_baltic_ww
+					}
+				}
+			}
+
+			modifier = { #To cover an edge case this should not happen
+				factor = 0
+				OR = {
+					has_capitulated = yes
+					exists = no
+					is_subject = yes
+				}
+			}
 		}
 
 		FROM = {
@@ -241,9 +295,18 @@ country_event = {
 		if = {
 			limit = {
 				has_country_flag = cave_to_enemy_pressure_flag
+				NOT = {	#Appeased the wrong side
+					has_completed_focus = LIT_appease_nazis
+				}
 			}
 			effect_tooltip = {
-				FROM = { puppet = ROOT }
+				FROM = { 
+					puppet = {
+						target = ROOT
+						end_civil_wars = no
+						end_wars = no
+					}
+				}
 			}
 		}
 		else = {
@@ -290,7 +353,6 @@ country_event = {
 # Germany Claims Memel (Lithuania)
 country_event = {
 	id = baltic.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.4 FROM = [From.GetName]" }
 	title = baltic.4.t
 	desc = baltic.4.d
 	picture = GFX_report_event_generic_read_write
@@ -315,8 +377,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 0
-				any_other_country = {
-					is_in_faction_with = ROOT
+				any_allied_country = {
 					has_war_with = GER
 				}
 			}
@@ -326,7 +387,7 @@ country_event = {
 					NOT = {
 						tag = GER
 					}
-					LIT = {
+					ROOT = {
 						is_puppet_of = PREV
 					}
 					NOT = {
@@ -336,7 +397,26 @@ country_event = {
 			}
 		}
 		GER = {
+			effect_tooltip = {
+				transfer_state = 227 # was vanilla 188 (Memel)
+				add_state_core = 227 # was vanilla 188 (Memel)
+			}
 			country_event = { days = 1 id = germany.22 }
+		}
+		hidden_effect = {
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = {
+							is_on_continent = europe
+						}
+					}
+					news_event = { 
+						id = news.19
+						days = 1 
+					}	
+				}
+			}
 		}
 	}
 	option = { # Refuse
@@ -352,8 +432,7 @@ country_event = {
 					}
 				}
 				NOT = {
-					any_other_country = {
-						is_in_faction_with = ROOT
+					any_allied_country = {
 						has_war_with = GER
 					}
 				}
@@ -362,7 +441,7 @@ country_event = {
 						NOT = {
 							tag = GER
 						}
-						LIT = {
+						ROOT = {
 							is_puppet_of = PREV
 						}
 						NOT = {
@@ -375,7 +454,7 @@ country_event = {
 				factor = 0
 				OR = {
 					is_in_faction_with = GER
-					LIT = {
+					ROOT = {
 						is_puppet_of = GER
 					}
 				}
@@ -385,8 +464,8 @@ country_event = {
 			GER = {
 				create_wargoal = {
 				type = take_state_focus
-				target = LIT
-				generator = { 227 }
+				target = ROOT
+				generator = { 227 }   # was vanilla 188
 				}
 				country_event = { days = 1 id = germany.23 }
 			}
@@ -395,6 +474,19 @@ country_event = {
 			GER = {
 				country_event = { days = 1 id = germany.23 }
 			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = {
+							is_on_continent = europe
+						}
+					}
+					news_event = { 
+						id = news.20
+						days = 1 
+					}	
+				}
+			}
 		}		
 	}
 }
@@ -402,7 +494,6 @@ country_event = {
 # Country becomes communist. Get's event to become part of the Soviet Union
 country_event = {
 	id = baltic.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.5 FROM = [From.GetName]" }
 	title = baltic.5.t
 	desc = baltic.5.d
 	picture = GFX_report_event_worker_protests
@@ -471,7 +562,6 @@ country_event = {
 # Hidden event to be annexed. Needed because of problem with FROM and events in annexed countries (JH)
 country_event = {
 	id = baltic.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.6 FROM = [From.GetName]" }
 
 	hidden = yes
 	
@@ -487,7 +577,6 @@ country_event = {
 #Event fired by Poland seeking to make a Baltic faction
 country_event = {
 	id = baltic.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event baltic.7 FROM = [From.GetName]" }
 	title = baltic.7.t
 	desc = baltic.7.d
 	picture = GFX_report_event_polish_tanks_01

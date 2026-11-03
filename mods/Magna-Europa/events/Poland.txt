@@ -7,7 +7,6 @@ add_namespace = poland
 # Eastward Expansion (Danzig Ceded)
 country_event = {
 	id = poland.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1 FROM = [From.GetName]" }
 	title = poland.1.t
 	desc = poland.1.d
 	picture = GFX_report_event_polish_tanks_01
@@ -18,27 +17,33 @@ country_event = {
 		name = poland.1.a
 		ai_chance = { factor = 10 }
 		add_ideas = fascist_influence
-		every_state = {
-			limit = {
-				NOT = {
-					is_core_of = POL 
-					state = 2038
-					state = 2681
-					state = 2682
-					state = 2065
-				}
-				OR = {
-					is_core_of = PLD
-					is_core_of = VLH
-					state = 2053
-					state = 436
-					state = 2687
-					state = 2070
-					state = 2100
-				}
-			}
-			add_claim_by = ROOT
-		}
+		add_state_claim = 527 # was vanilla 198 (Vinnytsia -> Vinnitsa)
+		add_state_claim = 565 # -> Tomashpol
+		add_state_claim = 2039 # -> Bar
+		add_state_claim = 2048 # -> Khmelnik
+		add_state_claim = 2049 # -> Gaysin
+		add_state_claim = 2050 # -> Ladizhyn
+		add_state_claim = 2051 # -> Mogilev-Podolsky
+		add_state_claim = 2052 # -> Zhmerynka
+		add_state_claim = 493 # was vanilla 199 (Proskuriv -> Proskurov)
+		add_state_claim = 2040 # -> Kamenets-Podolskiy
+		add_state_claim = 2041 # -> Shepetovka
+		add_state_claim = 2102 # -> Starokonstantinov
+		add_state_claim = 2494 # -> Letichev
+		add_state_claim = 2495 # -> Iziaslav
+		add_state_claim = 2496 # -> Polonnoye
+		add_state_claim = 2497 # -> Novaya Ushitsa
+		add_state_claim = 2688 # -> Dunaevtsy
+		add_state_claim = 2980 # -> Chelmenți
+		add_state_claim = 436 # was vanilla 201 (Zhytomyr -> Zhitomir)
+		add_state_claim = 2042 # -> Novograd-Volynsky
+		add_state_claim = 2053 # -> Berdychev
+		add_state_claim = 2054 # -> Irpen'
+		add_state_claim = 2056 # -> Vasylkov
+		add_state_claim = 2070 # -> Korosten
+		add_state_claim = 2100 # -> Korostyshev
+		add_state_claim = 2101 # -> Luginy
+		add_state_claim = 2687 # -> Ovrutch
 	}
 
 	option = {
@@ -51,7 +56,6 @@ country_event = {
 # Soviet Union Demands the East
 country_event = {
 	id = poland.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.2 FROM = [From.GetName]" }
 	title = poland.2.t
 	desc = poland.2.d
 	picture = GFX_report_event_polish_tanks_01
@@ -65,8 +69,8 @@ country_event = {
 			modifier = {
 				factor = 0
 				OR = {
-					any_other_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						OR = {
 							is_in_faction_with = POL
 							has_guaranteed = POL
@@ -77,13 +81,148 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			every_state = {
-					limit = {
-						is_owned_and_controlled_by = POL
-						is_east_poland = yes
-					}
-					transfer_state_to = FROM
+			FROM = {
+				if = {
+					limit = { POL = { owns_state = 232 controls_state = 96 } } # was vanilla 96 (Wilejka -> Dzisna)
+					owns_state = 1000 # -> Oszmiana
+					owns_state = 1106 # -> Smorgonie
+					owns_state = 1151 # -> Brasław
+					owns_state = 1198 # -> Mołodeczno
+					transfer_state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+					transfer_state = 1000 # -> Oszmiana
+					transfer_state = 1106 # -> Smorgonie
+					transfer_state = 1151 # -> Brasław
+					transfer_state = 1198 # -> Mołodeczno
 				}
+				if = {
+					limit = { POL = { owns_state = 231 controls_state = 95 } } # was vanilla 95 (Nowogródek -> Lida)
+					owns_state = 292 # -> Baranowicze
+					owns_state = 300 # -> Grodno
+					owns_state = 307 # -> Słonim
+					owns_state = 326 # -> Wołkowysk
+					owns_state = 1225 # -> Nieśwież
+					owns_state = 1310 # -> Brzostowica Mała
+					transfer_state = 231 # was vanilla 95 (Nowogródek -> Lida)
+					transfer_state = 292 # -> Baranowicze
+					transfer_state = 300 # -> Grodno
+					transfer_state = 307 # -> Słonim
+					transfer_state = 326 # -> Wołkowysk
+					transfer_state = 1225 # -> Nieśwież
+					transfer_state = 1310 # -> Brzostowica Mała
+				}
+				if = {
+					limit = { POL = { owns_state = 367 controls_state = 94 } } # was vanilla 94 (Polesie -> Kobryń)
+					owns_state = 1088 # -> Kamień Koszyrski
+					owns_state = 1132 # -> Prużana
+					owns_state = 1153 # -> Brześć
+					owns_state = 1163 # -> Pińsk
+					owns_state = 1250 # -> Łuniniec
+					owns_state = 2258 # -> Pohost Zarzeczny
+					owns_state = 2259 # -> Dąbrowica
+					owns_state = 2315 # -> Dywin
+					owns_state = 2316 # -> Janów Poleski
+					owns_state = 2317 # -> Bereza Kartuska
+					owns_state = 2539 # -> Dawidgródek
+					transfer_state = 367 # was vanilla 94 (Polesie -> Kobryń)
+					transfer_state = 1088 # -> Kamień Koszyrski
+					transfer_state = 1132 # -> Prużana
+					transfer_state = 1153 # -> Brześć
+					transfer_state = 1163 # -> Pińsk
+					transfer_state = 1250 # -> Łuniniec
+					transfer_state = 2258 # -> Pohost Zarzeczny
+					transfer_state = 2259 # -> Dąbrowica
+					transfer_state = 2315 # -> Dywin
+					transfer_state = 2316 # -> Janów Poleski
+					transfer_state = 2317 # -> Bereza Kartuska
+					transfer_state = 2539 # -> Dawidgródek
+				}
+				if = {
+					limit = { POL = { owns_state = 420 controls_state = 93 } } # was vanilla 93 (Wołyn -> Sarny)
+					owns_state = 434 # -> Włodzimierz Wołyński
+					owns_state = 459 # -> Krzemieniec
+					owns_state = 671 # -> Równe
+					owns_state = 992 # -> Kowel
+					owns_state = 1030 # -> Łuck
+					owns_state = 1110 # -> Dubno
+					owns_state = 1129 # -> Włodzimierzec
+					owns_state = 2319 # -> Glinno
+					owns_state = 2538 # -> Kostopol
+					transfer_state = 420 # was vanilla 93 (Wołyn -> Sarny)
+					transfer_state = 434 # -> Włodzimierz Wołyński
+					transfer_state = 459 # -> Krzemieniec
+					transfer_state = 671 # -> Równe
+					transfer_state = 992 # -> Kowel
+					transfer_state = 1030 # -> Łuck
+					transfer_state = 1110 # -> Dubno
+					transfer_state = 1129 # -> Włodzimierzec
+					transfer_state = 2319 # -> Glinno
+					transfer_state = 2538 # -> Kostopol
+				}
+				if = {
+					limit = { POL = { owns_state = 502 controls_state = 91 } } # was vanilla 91 (Lwów -> Czortków)
+					owns_state = 1233 # -> Rawa Ruska
+					owns_state = 1270 # -> Brzeżany
+					owns_state = 1272 # -> Złoczów
+					owns_state = 1292 # -> Lwów
+					owns_state = 1293 # -> Mosty Wielkie
+					owns_state = 1294 # -> Tarnopol
+					owns_state = 2336 # -> Stryj
+					owns_state = 2346 # -> Krystynopol
+					owns_state = 2347 # -> Tudorkovyczi
+					transfer_state = 502 # was vanilla 91 (Lwów -> Czortków)
+					transfer_state = 1233 # -> Rawa Ruska
+					transfer_state = 1270 # -> Brzeżany
+					transfer_state = 1272 # -> Złoczów
+					transfer_state = 1292 # -> Lwów
+					transfer_state = 1293 # -> Mosty Wielkie
+					transfer_state = 1294 # -> Tarnopol
+					transfer_state = 2336 # -> Stryj
+					transfer_state = 2346 # -> Krystynopol
+					transfer_state = 2347 # -> Tudorkovyczi
+				}
+				if = {
+					limit = { POL = { owns_state = 490 controls_state = 89 } } # was vanilla 89 (Stanisławów -> Drohobycz)
+					owns_state = 542 # -> Nadwórna
+					owns_state = 1143 # -> Kołomyja
+					owns_state = 1164 # -> Stanisławów
+					owns_state = 1265 # -> Kałusz
+					transfer_state = 490 # was vanilla 89 (Stanisławów -> Drohobycz)
+					transfer_state = 542 # -> Nadwórna
+					transfer_state = 1143 # -> Kołomyja
+					transfer_state = 1164 # -> Stanisławów
+					transfer_state = 1265 # -> Kałusz
+				}
+				if = {
+					limit = { POL = { owns_state = 284 controls_state = 97 } } # was vanilla 97 (Białystok -> Suwałki)
+					owns_state = 306 # -> Augustów
+					owns_state = 312 # -> Łomża
+					owns_state = 319 # -> Bielsk
+					owns_state = 1287 # -> Białystok
+					owns_state = 2026 # -> Kolno
+					owns_state = 2485 # -> Ciechanowiec
+					owns_state = 2766 # -> Raczki
+					transfer_state = 284 # was vanilla 97 (Białystok -> Suwałki)
+					transfer_state = 306 # -> Augustów
+					transfer_state = 312 # -> Łomża
+					transfer_state = 319 # -> Bielsk
+					transfer_state = 1287 # -> Białystok
+					transfer_state = 2026 # -> Kolno
+					transfer_state = 2485 # -> Ciechanowiec
+					transfer_state = 2766 # -> Raczki
+				}
+				if = {
+					limit = { POL = { owns_state = 236 controls_state = 784 } } # was vanilla 784 (Vilna -> Święciany)
+					owns_state = 241 # -> Wilno
+					owns_state = 294 # -> Druskieniki
+					owns_state = 1135 # -> Dziewieniszki
+					owns_state = 1304 # -> Orany
+					transfer_state = 236 # was vanilla 784 (Vilna -> Święciany)
+					transfer_state = 241 # -> Wilno
+					transfer_state = 294 # -> Druskieniki
+					transfer_state = 1135 # -> Dziewieniszki
+					transfer_state = 1304 # -> Orany
+				}
+			}
 		}
 		FROM = {country_event = { id = poland.3} }
 	}
@@ -92,18 +231,11 @@ country_event = {
 		name = poland.2.b
 		ai_chance = { factor = 70 }
 		effect_tooltip = {
-			every_state = {
-					limit = {
-						is_owned_and_controlled_by = POL
-						is_east_poland = yes
-						NOT = { is_claimed_by = FROM }
-					}
-					add_claim_by = FROM
-				}
 			FROM = {
 				create_wargoal = {
-					type = take_claimed_state
+					type = take_state_focus
 					target = POL
+					generator = { 232 1000 1106 1151 1198 231 292 300 307 326 1225 1310 367 1088 1132 1153 1163 1250 2258 2259 2315 2316 2317 2539 420 434 459 671 992 1030 1110 1129 2319 2538 502 1233 1270 1272 1292 1293 1294 2336 2346 2347 490 542 1143 1164 1265 284 306 312 319 1287 2026 2485 2766 236 241 294 1135 1304 }   # was vanilla 96 95 94 93 91 89 97 784
 				}
 			}
 		}
@@ -114,7 +246,6 @@ country_event = {
 # Poland Cedes the East
 country_event = {
 	id = poland.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.3 FROM = [From.GetName]" }
 	title = poland.3.t
 	desc = poland.3.d
 	picture = GFX_report_event_polish_tanks_01
@@ -123,12 +254,239 @@ country_event = {
 	
 	option = {
 		name = poland.3.a
-		every_state = {
-			limit = {
-				is_owned_and_controlled_by = POL
-				is_east_poland = yes
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+					owns_state = 1000 # -> Oszmiana
+					owns_state = 1106 # -> Smorgonie
+					owns_state = 1151 # -> Brasław
+					owns_state = 1198 # -> Mołodeczno
+					controls_state = 232  # was vanilla 96 (Wilejka -> Dzisna)
+					controls_state = 1000 # -> Oszmiana
+					controls_state = 1106 # -> Smorgonie
+					controls_state = 1151 # -> Brasław
+					controls_state = 1198 # -> Mołodeczno
+				}
 			}
-			transfer_state_to = ROOT
+			transfer_state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+			transfer_state = 1000 # -> Oszmiana
+			transfer_state = 1106 # -> Smorgonie
+			transfer_state = 1151 # -> Brasław
+			transfer_state = 1198 # -> Mołodeczno
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 231 # was vanilla 95 (Nowogródek -> Lida)
+					owns_state = 292 # -> Baranowicze
+					owns_state = 300 # -> Grodno
+					owns_state = 307 # -> Słonim
+					owns_state = 326 # -> Wołkowysk
+					owns_state = 1225 # -> Nieśwież
+					owns_state = 1310 # -> Brzostowica Mała
+					controls_state = 231  # was vanilla 95 (Nowogródek -> Lida)
+					controls_state = 292 # -> Baranowicze
+					controls_state = 300 # -> Grodno
+					controls_state = 307 # -> Słonim
+					controls_state = 326 # -> Wołkowysk
+					controls_state = 1225 # -> Nieśwież
+					controls_state = 1310 # -> Brzostowica Mała
+				}
+			}
+			transfer_state = 231 # was vanilla 95 (Nowogródek -> Lida)
+			transfer_state = 292 # -> Baranowicze
+			transfer_state = 300 # -> Grodno
+			transfer_state = 307 # -> Słonim
+			transfer_state = 326 # -> Wołkowysk
+			transfer_state = 1225 # -> Nieśwież
+			transfer_state = 1310 # -> Brzostowica Mała
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 367 # was vanilla 94 (Polesie -> Kobryń)
+					owns_state = 1088 # -> Kamień Koszyrski
+					owns_state = 1132 # -> Prużana
+					owns_state = 1153 # -> Brześć
+					owns_state = 1163 # -> Pińsk
+					owns_state = 1250 # -> Łuniniec
+					owns_state = 2258 # -> Pohost Zarzeczny
+					owns_state = 2259 # -> Dąbrowica
+					owns_state = 2315 # -> Dywin
+					owns_state = 2316 # -> Janów Poleski
+					owns_state = 2317 # -> Bereza Kartuska
+					owns_state = 2539 # -> Dawidgródek
+					controls_state = 367  # was vanilla 94 (Polesie -> Kobryń)
+					controls_state = 1088 # -> Kamień Koszyrski
+					controls_state = 1132 # -> Prużana
+					controls_state = 1153 # -> Brześć
+					controls_state = 1163 # -> Pińsk
+					controls_state = 1250 # -> Łuniniec
+					controls_state = 2258 # -> Pohost Zarzeczny
+					controls_state = 2259 # -> Dąbrowica
+					controls_state = 2315 # -> Dywin
+					controls_state = 2316 # -> Janów Poleski
+					controls_state = 2317 # -> Bereza Kartuska
+					controls_state = 2539 # -> Dawidgródek
+				}
+			}
+			transfer_state = 367 # was vanilla 94 (Polesie -> Kobryń)
+			transfer_state = 1088 # -> Kamień Koszyrski
+			transfer_state = 1132 # -> Prużana
+			transfer_state = 1153 # -> Brześć
+			transfer_state = 1163 # -> Pińsk
+			transfer_state = 1250 # -> Łuniniec
+			transfer_state = 2258 # -> Pohost Zarzeczny
+			transfer_state = 2259 # -> Dąbrowica
+			transfer_state = 2315 # -> Dywin
+			transfer_state = 2316 # -> Janów Poleski
+			transfer_state = 2317 # -> Bereza Kartuska
+			transfer_state = 2539 # -> Dawidgródek
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 420 # was vanilla 93 (Wołyn -> Sarny)
+					owns_state = 434 # -> Włodzimierz Wołyński
+					owns_state = 459 # -> Krzemieniec
+					owns_state = 671 # -> Równe
+					owns_state = 992 # -> Kowel
+					owns_state = 1030 # -> Łuck
+					owns_state = 1110 # -> Dubno
+					owns_state = 1129 # -> Włodzimierzec
+					owns_state = 2319 # -> Glinno
+					owns_state = 2538 # -> Kostopol
+					controls_state = 420  # was vanilla 93 (Wołyn -> Sarny)
+					controls_state = 434 # -> Włodzimierz Wołyński
+					controls_state = 459 # -> Krzemieniec
+					controls_state = 671 # -> Równe
+					controls_state = 992 # -> Kowel
+					controls_state = 1030 # -> Łuck
+					controls_state = 1110 # -> Dubno
+					controls_state = 1129 # -> Włodzimierzec
+					controls_state = 2319 # -> Glinno
+					controls_state = 2538 # -> Kostopol
+				}
+			}
+			transfer_state = 420 # was vanilla 93 (Wołyn -> Sarny)
+			transfer_state = 434 # -> Włodzimierz Wołyński
+			transfer_state = 459 # -> Krzemieniec
+			transfer_state = 671 # -> Równe
+			transfer_state = 992 # -> Kowel
+			transfer_state = 1030 # -> Łuck
+			transfer_state = 1110 # -> Dubno
+			transfer_state = 1129 # -> Włodzimierzec
+			transfer_state = 2319 # -> Glinno
+			transfer_state = 2538 # -> Kostopol
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 502 # was vanilla 91 (Lwów -> Czortków)
+					owns_state = 1233 # -> Rawa Ruska
+					owns_state = 1270 # -> Brzeżany
+					owns_state = 1272 # -> Złoczów
+					owns_state = 1292 # -> Lwów
+					owns_state = 1293 # -> Mosty Wielkie
+					owns_state = 1294 # -> Tarnopol
+					owns_state = 2336 # -> Stryj
+					owns_state = 2346 # -> Krystynopol
+					owns_state = 2347 # -> Tudorkovyczi
+					controls_state = 502  # was vanilla 91 (Lwów -> Czortków)
+					controls_state = 1233 # -> Rawa Ruska
+					controls_state = 1270 # -> Brzeżany
+					controls_state = 1272 # -> Złoczów
+					controls_state = 1292 # -> Lwów
+					controls_state = 1293 # -> Mosty Wielkie
+					controls_state = 1294 # -> Tarnopol
+					controls_state = 2336 # -> Stryj
+					controls_state = 2346 # -> Krystynopol
+					controls_state = 2347 # -> Tudorkovyczi
+				}
+			}
+			transfer_state = 502 # was vanilla 91 (Lwów -> Czortków)
+			transfer_state = 1233 # -> Rawa Ruska
+			transfer_state = 1270 # -> Brzeżany
+			transfer_state = 1272 # -> Złoczów
+			transfer_state = 1292 # -> Lwów
+			transfer_state = 1293 # -> Mosty Wielkie
+			transfer_state = 1294 # -> Tarnopol
+			transfer_state = 2336 # -> Stryj
+			transfer_state = 2346 # -> Krystynopol
+			transfer_state = 2347 # -> Tudorkovyczi
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 490 # was vanilla 89 (Stanisławów -> Drohobycz)
+					owns_state = 542 # -> Nadwórna
+					owns_state = 1143 # -> Kołomyja
+					owns_state = 1164 # -> Stanisławów
+					owns_state = 1265 # -> Kałusz
+					controls_state = 490  # was vanilla 89 (Stanisławów -> Drohobycz)
+					controls_state = 542 # -> Nadwórna
+					controls_state = 1143 # -> Kołomyja
+					controls_state = 1164 # -> Stanisławów
+					controls_state = 1265 # -> Kałusz
+				}
+			}
+			transfer_state = 490 # was vanilla 89 (Stanisławów -> Drohobycz)
+			transfer_state = 542 # -> Nadwórna
+			transfer_state = 1143 # -> Kołomyja
+			transfer_state = 1164 # -> Stanisławów
+			transfer_state = 1265 # -> Kałusz
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 284 # was vanilla 97 (Białystok -> Suwałki)
+					owns_state = 306 # -> Augustów
+					owns_state = 312 # -> Łomża
+					owns_state = 319 # -> Bielsk
+					owns_state = 1287 # -> Białystok
+					owns_state = 2026 # -> Kolno
+					owns_state = 2485 # -> Ciechanowiec
+					owns_state = 2766 # -> Raczki
+					controls_state = 284  # was vanilla 97 (Białystok -> Suwałki)
+					controls_state = 306 # -> Augustów
+					controls_state = 312 # -> Łomża
+					controls_state = 319 # -> Bielsk
+					controls_state = 1287 # -> Białystok
+					controls_state = 2026 # -> Kolno
+					controls_state = 2485 # -> Ciechanowiec
+					controls_state = 2766 # -> Raczki
+				}
+			}
+			transfer_state = 284 # was vanilla 97 (Białystok -> Suwałki)
+			transfer_state = 306 # -> Augustów
+			transfer_state = 312 # -> Łomża
+			transfer_state = 319 # -> Bielsk
+			transfer_state = 1287 # -> Białystok
+			transfer_state = 2026 # -> Kolno
+			transfer_state = 2485 # -> Ciechanowiec
+			transfer_state = 2766 # -> Raczki
+		}
+		if = {
+			limit = { 
+				POL = { 
+					owns_state = 236 # was vanilla 784 (Vilna -> Święciany)
+					owns_state = 241 # -> Wilno
+					owns_state = 294 # -> Druskieniki
+					owns_state = 1135 # -> Dziewieniszki
+					owns_state = 1304 # -> Orany
+					controls_state = 236  # was vanilla 784 (Vilna -> Święciany)
+					controls_state = 241 # -> Wilno
+					controls_state = 294 # -> Druskieniki
+					controls_state = 1135 # -> Dziewieniszki
+					controls_state = 1304 # -> Orany
+				}
+			}
+			transfer_state = 236 # was vanilla 784 (Vilna -> Święciany)
+			transfer_state = 241 # -> Wilno
+			transfer_state = 294 # -> Druskieniki
+			transfer_state = 1135 # -> Dziewieniszki
+			transfer_state = 1304 # -> Orany
 		}
 		hidden_effect = {
 			news_event = { id = news.194 }
@@ -139,7 +497,6 @@ country_event = {
 # Poland Refuses to Cede the East
 country_event = {
 	id = poland.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.4 FROM = [From.GetName]" }
 	title = poland.4.t
 	desc = poland.4.d
 	picture = GFX_report_event_polish_tanks_01
@@ -148,20 +505,11 @@ country_event = {
 	
 	option = {
 		name = poland.4.a
-		every_state = {
-					limit = {
-						is_owned_and_controlled_by = POL
-						is_east_poland = yes
-						NOT = { is_claimed_by = ROOT }
-					}
-					add_claim_by = ROOT
-				}
-		
-			create_wargoal = {
-				type = take_claimed_state
-				target = POL
-			}
-			
+		create_wargoal = {
+			type = take_state_focus
+			target = POL
+			generator = { 232 1000 1106 1151 1198 231 292 300 307 326 1225 1310 367 1088 1132 1153 1163 1250 2258 2259 2315 2316 2317 2539 420 434 459 671 992 1030 1110 1129 2319 2538 502 1233 1270 1272 1292 1293 1294 2336 2346 2347 490 542 1143 1164 1265 236 241 294 1135 1304 }   # was vanilla 96 95 94 93 91 89 784
+		}
 	}
 }
 
@@ -169,7 +517,6 @@ country_event = {
 # Soviet Union Offers Protection
 country_event = {
 	id = poland.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.5 FROM = [From.GetName]" }
 	title = poland.5.t
 	desc = poland.5.d
 	picture = GFX_report_event_polish_tanks_01
@@ -185,21 +532,208 @@ country_event = {
 				is_subject = yes
 				NOT = { is_subject_of = FROM }
 			}
+			modifier = { #If Germany has given guarantee through a focus, don't fold
+				factor = 0
+				is_guaranteed_by = GER
+				GER = {
+					OR = {
+						has_completed_focus = GER_safeguard_poland
+						has_completed_focus = GER_danzig_for_guarantees
+						has_completed_focus = GER_danzig_for_guarantees_ww
+					}
+				}
+			}
 		}
 		effect_tooltip = {
-			every_state = {
-				limit = {
-					is_yalta_polish_state = yes
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 282 # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+			add_state_claim = 1609 # -> Marienwerder
+			add_state_claim = 1610 # -> Braunsberg
+			add_state_claim = 1611 # -> Allenstein
+			add_state_claim = 1612 # -> Lyck
+			add_state_claim = 1613 # -> Angerburg
+			add_state_claim = 2342 # -> Elbing
+			add_state_claim = 2483 # -> Heilsberg
+			add_state_claim = 2689 # -> Preussisch Holland
+			add_state_claim = 2690 # -> Osterode in Ostpreussen
+			add_state_claim = 2691 # -> Marienburg
+			add_state_claim = 2729 # -> Tiegenhof
+			add_state_claim = 263 # was vanilla 63 (Hinterpommern -> Stolp)
+			add_state_claim = 273 # -> Kolberg
+			add_state_claim = 295 # -> Naugard
+			add_state_claim = 301 # -> Schneidemühl
+			add_state_claim = 1623 # -> Lauenburg-Bütow
+			add_state_claim = 1624 # -> Schlochau
+			add_state_claim = 1625 # -> Köslin
+			add_state_claim = 1626 # -> Regenwalde
+			add_state_claim = 1628 # -> Neustettin
+			add_state_claim = 1629 # -> Greifenhagen
+			add_state_claim = 1630 # -> Stargard
+			add_state_claim = 1631 # -> Stettin
+			add_state_claim = 1636 # -> Wollin
+			add_state_claim = 2341 # -> Chojnice
+			add_state_claim = 2559 # -> Flötenstein
+			add_state_claim = 2560 # -> Belgard
+			add_state_claim = 2561 # -> Märkisch Friedland
+			add_state_claim = 2568 # -> Pottangow
+			add_state_claim = 2666 # -> Netze
+			add_state_claim = 339 # was vanilla 68 (Ostmark -> Landsberg)
+			add_state_claim = 1627 # -> Arnswalde
+			add_state_claim = 1646 # -> Forst
+			add_state_claim = 1647 # -> Crossen
+			add_state_claim = 1648 # -> Sternberg
+			add_state_claim = 1649 # -> Grenzmark
+			add_state_claim = 2595 # -> Rusdorf
+			add_state_claim = 415 # was vanilla 66 (Lower Silesia -> Bunzlau)
+			add_state_claim = 425 # -> Schweidnitz
+			add_state_claim = 1653 # -> Glatz
+			add_state_claim = 1659 # -> Oels
+			add_state_claim = 1660 # -> Trebnitz
+			add_state_claim = 1661 # -> Guhrau
+			add_state_claim = 1662 # -> Frankenstein
+			add_state_claim = 1663 # -> Breslau
+			add_state_claim = 1664 # -> Hirschberg
+			add_state_claim = 1665 # -> Liegnitz
+			add_state_claim = 1666 # -> Glogau
+			add_state_claim = 1667 # -> Grünberg
+			add_state_claim = 1668 # -> Schlawa
+			add_state_claim = 1980 # -> Reichenau in Sachsen
+			add_state_claim = 2482 # -> Militsch
+			add_state_claim = 2562 # -> Fraustadt
+			add_state_claim = 2593 # -> Lauban
+			add_state_claim = 2664 # -> Namslau
+			add_state_claim = 461 # was vanilla 67 (Upper Silesia -> Rosenberg)
+			add_state_claim = 1654 # -> Gleiwitz
+			add_state_claim = 1655 # -> Ratibor
+			add_state_claim = 1656 # -> Neiße
+			add_state_claim = 1657 # -> Falkenberg
+			add_state_claim = 1658 # -> Oppeln
+			add_state_claim = 1669 # -> Brieg
+			add_state_claim = 2262 # -> Tarnowskie Góry
+			add_state_claim = 2329 # -> Rybnik
 			custom_effect_tooltip = SOV_offer_poland_protection_tt
-			every_state = {
-				limit = {
-					is_owned_and_controlled_by = POL
-					is_east_poland = yes
+			FROM = {
+				if = {
+					limit = { POL = { owns_state = 232 controls_state = 96 } } # was vanilla 96 (Wilejka -> Dzisna)
+					owns_state = 1000 # -> Oszmiana
+					owns_state = 1106 # -> Smorgonie
+					owns_state = 1151 # -> Brasław
+					owns_state = 1198 # -> Mołodeczno
+					transfer_state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+					transfer_state = 1000 # -> Oszmiana
+					transfer_state = 1106 # -> Smorgonie
+					transfer_state = 1151 # -> Brasław
+					transfer_state = 1198 # -> Mołodeczno
 				}
-				transfer_state_to = FROM
+				if = {
+					limit = { POL = { owns_state = 231 controls_state = 95 } } # was vanilla 95 (Nowogródek -> Lida)
+					owns_state = 292 # -> Baranowicze
+					owns_state = 300 # -> Grodno
+					owns_state = 307 # -> Słonim
+					owns_state = 326 # -> Wołkowysk
+					owns_state = 1225 # -> Nieśwież
+					owns_state = 1310 # -> Brzostowica Mała
+					transfer_state = 231 # was vanilla 95 (Nowogródek -> Lida)
+					transfer_state = 292 # -> Baranowicze
+					transfer_state = 300 # -> Grodno
+					transfer_state = 307 # -> Słonim
+					transfer_state = 326 # -> Wołkowysk
+					transfer_state = 1225 # -> Nieśwież
+					transfer_state = 1310 # -> Brzostowica Mała
+				}
+				if = {
+					limit = { POL = { owns_state = 367 controls_state = 94 } } # was vanilla 94 (Polesie -> Kobryń)
+					owns_state = 1088 # -> Kamień Koszyrski
+					owns_state = 1132 # -> Prużana
+					owns_state = 1153 # -> Brześć
+					owns_state = 1163 # -> Pińsk
+					owns_state = 1250 # -> Łuniniec
+					owns_state = 2258 # -> Pohost Zarzeczny
+					owns_state = 2259 # -> Dąbrowica
+					owns_state = 2315 # -> Dywin
+					owns_state = 2316 # -> Janów Poleski
+					owns_state = 2317 # -> Bereza Kartuska
+					owns_state = 2539 # -> Dawidgródek
+					transfer_state = 367 # was vanilla 94 (Polesie -> Kobryń)
+					transfer_state = 1088 # -> Kamień Koszyrski
+					transfer_state = 1132 # -> Prużana
+					transfer_state = 1153 # -> Brześć
+					transfer_state = 1163 # -> Pińsk
+					transfer_state = 1250 # -> Łuniniec
+					transfer_state = 2258 # -> Pohost Zarzeczny
+					transfer_state = 2259 # -> Dąbrowica
+					transfer_state = 2315 # -> Dywin
+					transfer_state = 2316 # -> Janów Poleski
+					transfer_state = 2317 # -> Bereza Kartuska
+					transfer_state = 2539 # -> Dawidgródek
+				}
+				if = {
+					limit = { POL = { owns_state = 420 controls_state = 93 } } # was vanilla 93 (Wołyn -> Sarny)
+					owns_state = 434 # -> Włodzimierz Wołyński
+					owns_state = 459 # -> Krzemieniec
+					owns_state = 671 # -> Równe
+					owns_state = 992 # -> Kowel
+					owns_state = 1030 # -> Łuck
+					owns_state = 1110 # -> Dubno
+					owns_state = 1129 # -> Włodzimierzec
+					owns_state = 2319 # -> Glinno
+					owns_state = 2538 # -> Kostopol
+					transfer_state = 420 # was vanilla 93 (Wołyn -> Sarny)
+					transfer_state = 434 # -> Włodzimierz Wołyński
+					transfer_state = 459 # -> Krzemieniec
+					transfer_state = 671 # -> Równe
+					transfer_state = 992 # -> Kowel
+					transfer_state = 1030 # -> Łuck
+					transfer_state = 1110 # -> Dubno
+					transfer_state = 1129 # -> Włodzimierzec
+					transfer_state = 2319 # -> Glinno
+					transfer_state = 2538 # -> Kostopol
+				}
+				if = {
+					limit = { POL = { owns_state = 502 controls_state = 91 } } # was vanilla 91 (Lwów -> Czortków)
+					owns_state = 1233 # -> Rawa Ruska
+					owns_state = 1270 # -> Brzeżany
+					owns_state = 1272 # -> Złoczów
+					owns_state = 1292 # -> Lwów
+					owns_state = 1293 # -> Mosty Wielkie
+					owns_state = 1294 # -> Tarnopol
+					owns_state = 2336 # -> Stryj
+					owns_state = 2346 # -> Krystynopol
+					owns_state = 2347 # -> Tudorkovyczi
+					transfer_state = 502 # was vanilla 91 (Lwów -> Czortków)
+					transfer_state = 1233 # -> Rawa Ruska
+					transfer_state = 1270 # -> Brzeżany
+					transfer_state = 1272 # -> Złoczów
+					transfer_state = 1292 # -> Lwów
+					transfer_state = 1293 # -> Mosty Wielkie
+					transfer_state = 1294 # -> Tarnopol
+					transfer_state = 2336 # -> Stryj
+					transfer_state = 2346 # -> Krystynopol
+					transfer_state = 2347 # -> Tudorkovyczi
+				}
+				if = {
+					limit = { POL = { owns_state = 490 controls_state = 89 } } # was vanilla 89 (Stanisławów -> Drohobycz)
+					owns_state = 542 # -> Nadwórna
+					owns_state = 1143 # -> Kołomyja
+					owns_state = 1164 # -> Stanisławów
+					owns_state = 1265 # -> Kałusz
+					transfer_state = 490 # was vanilla 89 (Stanisławów -> Drohobycz)
+					transfer_state = 542 # -> Nadwórna
+					transfer_state = 1143 # -> Kołomyja
+					transfer_state = 1164 # -> Stanisławów
+					transfer_state = 1265 # -> Kałusz
+				}
+				if = {
+					limit = { POL = { owns_state = 236 controls_state = 784 } } # was vanilla 784 (Vilna -> Święciany)
+					owns_state = 241 # -> Wilno
+					owns_state = 294 # -> Druskieniki
+					owns_state = 1135 # -> Dziewieniszki
+					owns_state = 1304 # -> Orany
+					transfer_state = 236 # was vanilla 784 (Vilna -> Święciany)
+					transfer_state = 241 # -> Wilno
+					transfer_state = 294 # -> Druskieniki
+					transfer_state = 1135 # -> Dziewieniszki
+					transfer_state = 1304 # -> Orany
+				}
 			}
 		}
 		hidden_effect = {
@@ -245,18 +779,11 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			every_state = {
-					limit = {
-						is_owned_and_controlled_by = POL
-						is_east_poland = yes
-						NOT = { is_claimed_by = FROM }
-					}
-					add_claim_by = FROM
-				}
 			FROM = {
 				create_wargoal = {
-					type = take_claimed_state
+					type = take_state_focus
 					target = POL
+					generator = { 232 1000 1106 1151 1198 231 292 300 307 326 1225 1310 367 1088 1132 1153 1163 1250 2258 2259 2315 2316 2317 2539 420 434 459 671 992 1030 1110 1129 2319 2538 502 1233 1270 1272 1292 1293 1294 2336 2346 2347 490 542 1143 1164 1265 236 241 294 1135 1304 }   # was vanilla 96 95 94 93 91 89 784
 				}
 			}
 		}
@@ -267,7 +794,6 @@ country_event = {
 # Poland Accepts Protection
 country_event = {
 	id = poland.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.6 FROM = [From.GetName]" }
 	title = poland.6.t
 	desc = poland.6.d
 	picture = GFX_report_event_polish_tanks_01
@@ -277,22 +803,196 @@ country_event = {
 	option = {
 		name = poland.6.a
 		POL = {
-			every_state = {
-				limit = {
-					is_yalta_polish_state = yes
-				}
-				add_claim_by = ROOT
-			}
+			add_state_claim = 282 # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+			add_state_claim = 1609 # -> Marienwerder
+			add_state_claim = 1610 # -> Braunsberg
+			add_state_claim = 1611 # -> Allenstein
+			add_state_claim = 1612 # -> Lyck
+			add_state_claim = 1613 # -> Angerburg
+			add_state_claim = 2342 # -> Elbing
+			add_state_claim = 2483 # -> Heilsberg
+			add_state_claim = 2689 # -> Preussisch Holland
+			add_state_claim = 2690 # -> Osterode in Ostpreussen
+			add_state_claim = 2691 # -> Marienburg
+			add_state_claim = 2729 # -> Tiegenhof
+			add_state_claim = 263 # was vanilla 63 (Hinterpommern -> Stolp)
+			add_state_claim = 273 # -> Kolberg
+			add_state_claim = 295 # -> Naugard
+			add_state_claim = 301 # -> Schneidemühl
+			add_state_claim = 1623 # -> Lauenburg-Bütow
+			add_state_claim = 1624 # -> Schlochau
+			add_state_claim = 1625 # -> Köslin
+			add_state_claim = 1626 # -> Regenwalde
+			add_state_claim = 1628 # -> Neustettin
+			add_state_claim = 1629 # -> Greifenhagen
+			add_state_claim = 1630 # -> Stargard
+			add_state_claim = 1631 # -> Stettin
+			add_state_claim = 1636 # -> Wollin
+			add_state_claim = 2341 # -> Chojnice
+			add_state_claim = 2559 # -> Flötenstein
+			add_state_claim = 2560 # -> Belgard
+			add_state_claim = 2561 # -> Märkisch Friedland
+			add_state_claim = 2568 # -> Pottangow
+			add_state_claim = 2666 # -> Netze
+			add_state_claim = 339 # was vanilla 68 (Ostmark -> Landsberg)
+			add_state_claim = 1627 # -> Arnswalde
+			add_state_claim = 1646 # -> Forst
+			add_state_claim = 1647 # -> Crossen
+			add_state_claim = 1648 # -> Sternberg
+			add_state_claim = 1649 # -> Grenzmark
+			add_state_claim = 2595 # -> Rusdorf
+			add_state_claim = 415 # was vanilla 66 (Lower Silesia -> Bunzlau)
+			add_state_claim = 425 # -> Schweidnitz
+			add_state_claim = 1653 # -> Glatz
+			add_state_claim = 1659 # -> Oels
+			add_state_claim = 1660 # -> Trebnitz
+			add_state_claim = 1661 # -> Guhrau
+			add_state_claim = 1662 # -> Frankenstein
+			add_state_claim = 1663 # -> Breslau
+			add_state_claim = 1664 # -> Hirschberg
+			add_state_claim = 1665 # -> Liegnitz
+			add_state_claim = 1666 # -> Glogau
+			add_state_claim = 1667 # -> Grünberg
+			add_state_claim = 1668 # -> Schlawa
+			add_state_claim = 1980 # -> Reichenau in Sachsen
+			add_state_claim = 2482 # -> Militsch
+			add_state_claim = 2562 # -> Fraustadt
+			add_state_claim = 2593 # -> Lauban
+			add_state_claim = 2664 # -> Namslau
+			add_state_claim = 461 # was vanilla 67 (Upper Silesia -> Rosenberg)
+			add_state_claim = 1654 # -> Gleiwitz
+			add_state_claim = 1655 # -> Ratibor
+			add_state_claim = 1656 # -> Neiße
+			add_state_claim = 1657 # -> Falkenberg
+			add_state_claim = 1658 # -> Oppeln
+			add_state_claim = 1669 # -> Brieg
+			add_state_claim = 2262 # -> Tarnowskie Góry
+			add_state_claim = 2329 # -> Rybnik
 			set_country_flag = POL_accepted_soviet_protection
 		}
 		custom_effect_tooltip = SOV_offer_poland_protection_tt
-		every_state = {
-				limit = {
-					is_owned_and_controlled_by = POL
-					is_east_poland = yes
-				}
-				transfer_state_to = FROM
-			}
+		if = {
+			limit = { POL = { owns_state = 232 } } # was vanilla 96 (Wilejka -> Dzisna)
+			owns_state = 1000 # -> Oszmiana
+			owns_state = 1106 # -> Smorgonie
+			owns_state = 1151 # -> Brasław
+			owns_state = 1198 # -> Mołodeczno
+			transfer_state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+			transfer_state = 1000 # -> Oszmiana
+			transfer_state = 1106 # -> Smorgonie
+			transfer_state = 1151 # -> Brasław
+			transfer_state = 1198 # -> Mołodeczno
+		}
+		if = {
+			limit = { POL = { owns_state = 231 } } # was vanilla 95 (Nowogródek -> Lida)
+			owns_state = 292 # -> Baranowicze
+			owns_state = 300 # -> Grodno
+			owns_state = 307 # -> Słonim
+			owns_state = 326 # -> Wołkowysk
+			owns_state = 1225 # -> Nieśwież
+			owns_state = 1310 # -> Brzostowica Mała
+			transfer_state = 231 # was vanilla 95 (Nowogródek -> Lida)
+			transfer_state = 292 # -> Baranowicze
+			transfer_state = 300 # -> Grodno
+			transfer_state = 307 # -> Słonim
+			transfer_state = 326 # -> Wołkowysk
+			transfer_state = 1225 # -> Nieśwież
+			transfer_state = 1310 # -> Brzostowica Mała
+		}
+		if = {
+			limit = { POL = { owns_state = 367 } } # was vanilla 94 (Polesie -> Kobryń)
+			owns_state = 1088 # -> Kamień Koszyrski
+			owns_state = 1132 # -> Prużana
+			owns_state = 1153 # -> Brześć
+			owns_state = 1163 # -> Pińsk
+			owns_state = 1250 # -> Łuniniec
+			owns_state = 2258 # -> Pohost Zarzeczny
+			owns_state = 2259 # -> Dąbrowica
+			owns_state = 2315 # -> Dywin
+			owns_state = 2316 # -> Janów Poleski
+			owns_state = 2317 # -> Bereza Kartuska
+			owns_state = 2539 # -> Dawidgródek
+			transfer_state = 367 # was vanilla 94 (Polesie -> Kobryń)
+			transfer_state = 1088 # -> Kamień Koszyrski
+			transfer_state = 1132 # -> Prużana
+			transfer_state = 1153 # -> Brześć
+			transfer_state = 1163 # -> Pińsk
+			transfer_state = 1250 # -> Łuniniec
+			transfer_state = 2258 # -> Pohost Zarzeczny
+			transfer_state = 2259 # -> Dąbrowica
+			transfer_state = 2315 # -> Dywin
+			transfer_state = 2316 # -> Janów Poleski
+			transfer_state = 2317 # -> Bereza Kartuska
+			transfer_state = 2539 # -> Dawidgródek
+		}
+		if = {
+			limit = { POL = { owns_state = 420 } } # was vanilla 93 (Wołyn -> Sarny)
+			owns_state = 434 # -> Włodzimierz Wołyński
+			owns_state = 459 # -> Krzemieniec
+			owns_state = 671 # -> Równe
+			owns_state = 992 # -> Kowel
+			owns_state = 1030 # -> Łuck
+			owns_state = 1110 # -> Dubno
+			owns_state = 1129 # -> Włodzimierzec
+			owns_state = 2319 # -> Glinno
+			owns_state = 2538 # -> Kostopol
+			transfer_state = 420 # was vanilla 93 (Wołyn -> Sarny)
+			transfer_state = 434 # -> Włodzimierz Wołyński
+			transfer_state = 459 # -> Krzemieniec
+			transfer_state = 671 # -> Równe
+			transfer_state = 992 # -> Kowel
+			transfer_state = 1030 # -> Łuck
+			transfer_state = 1110 # -> Dubno
+			transfer_state = 1129 # -> Włodzimierzec
+			transfer_state = 2319 # -> Glinno
+			transfer_state = 2538 # -> Kostopol
+		}
+		if = {
+			limit = { POL = { owns_state = 502 } } # was vanilla 91 (Lwów -> Czortków)
+			owns_state = 1233 # -> Rawa Ruska
+			owns_state = 1270 # -> Brzeżany
+			owns_state = 1272 # -> Złoczów
+			owns_state = 1292 # -> Lwów
+			owns_state = 1293 # -> Mosty Wielkie
+			owns_state = 1294 # -> Tarnopol
+			owns_state = 2336 # -> Stryj
+			owns_state = 2346 # -> Krystynopol
+			owns_state = 2347 # -> Tudorkovyczi
+			transfer_state = 502 # was vanilla 91 (Lwów -> Czortków)
+			transfer_state = 1233 # -> Rawa Ruska
+			transfer_state = 1270 # -> Brzeżany
+			transfer_state = 1272 # -> Złoczów
+			transfer_state = 1292 # -> Lwów
+			transfer_state = 1293 # -> Mosty Wielkie
+			transfer_state = 1294 # -> Tarnopol
+			transfer_state = 2336 # -> Stryj
+			transfer_state = 2346 # -> Krystynopol
+			transfer_state = 2347 # -> Tudorkovyczi
+		}
+		if = {
+			limit = { POL = { owns_state = 490 } } # was vanilla 89 (Stanisławów -> Drohobycz)
+			owns_state = 542 # -> Nadwórna
+			owns_state = 1143 # -> Kołomyja
+			owns_state = 1164 # -> Stanisławów
+			owns_state = 1265 # -> Kałusz
+			transfer_state = 490 # was vanilla 89 (Stanisławów -> Drohobycz)
+			transfer_state = 542 # -> Nadwórna
+			transfer_state = 1143 # -> Kołomyja
+			transfer_state = 1164 # -> Stanisławów
+			transfer_state = 1265 # -> Kałusz
+		}
+		if = {
+			limit = { POL = { owns_state = 236 } } # was vanilla 784 (Vilna -> Święciany)
+			owns_state = 241 # -> Wilno
+			owns_state = 294 # -> Druskieniki
+			owns_state = 1135 # -> Dziewieniszki
+			owns_state = 1304 # -> Orany
+			transfer_state = 236 # was vanilla 784 (Vilna -> Święciany)
+			transfer_state = 241 # -> Wilno
+			transfer_state = 294 # -> Druskieniki
+			transfer_state = 1135 # -> Dziewieniszki
+			transfer_state = 1304 # -> Orany
+		}
 		hidden_effect = {
 			news_event = { id = news.194 }
 		}
@@ -302,7 +1002,6 @@ country_event = {
 # Poland Refuses Protection
 country_event = {
 	id = poland.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.7 FROM = [From.GetName]" }
 	title = poland.7.t
 	desc = poland.7.d
 	picture = GFX_report_event_polish_tanks_01
@@ -311,27 +1010,17 @@ country_event = {
 	
 	option = {
 		name = poland.7.a
-		every_state = {
-					limit = {
-						is_owned_and_controlled_by = POL
-						is_east_poland = yes
-						NOT = { is_claimed_by = ROOT }
-					}
-					add_claim_by = ROOT
-				}
-			ROOT = {
-				create_wargoal = {
-					type = take_claimed_state
-					target = POL
-				}
-			}
+		create_wargoal = {
+			type = take_state_focus
+			target = POL
+			generator = { 232 1000 1106 1151 1198 231 292 300 307 326 1225 1310 367 1088 1132 1153 1163 1250 2258 2259 2315 2316 2317 2539 420 434 459 671 992 1030 1110 1129 2319 2538 502 1233 1270 1272 1292 1293 1294 2336 2346 2347 490 542 1143 1164 1265 }   # was vanilla 96 95 94 93 91 89
+		}
 	}
 }
 
 # Poland Granted Eastern Germany
 country_event = {
 	id = poland.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.8 FROM = [From.GetName]" }
 	title = poland.8.t
 	desc = poland.8.d
 	picture = GFX_report_event_polish_tanks_01
@@ -340,8 +1029,72 @@ country_event = {
 		POL = { has_country_flag = POL_accepted_soviet_protection }
 		tag = POL
 		SOV = {
-			any_owned_state = {
-				is_yalta_polish_state = yes
+			OR = {
+				owns_state = 282 # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+				owns_state = 1609 # -> Marienwerder
+				owns_state = 1610 # -> Braunsberg
+				owns_state = 1611 # -> Allenstein
+				owns_state = 1612 # -> Lyck
+				owns_state = 1613 # -> Angerburg
+				owns_state = 2342 # -> Elbing
+				owns_state = 2483 # -> Heilsberg
+				owns_state = 2689 # -> Preussisch Holland
+				owns_state = 2690 # -> Osterode in Ostpreussen
+				owns_state = 2691 # -> Marienburg
+				owns_state = 2729 # -> Tiegenhof
+				owns_state = 263 # was vanilla 63 (Hinterpommern -> Stolp)
+				owns_state = 273 # -> Kolberg
+				owns_state = 295 # -> Naugard
+				owns_state = 301 # -> Schneidemühl
+				owns_state = 1623 # -> Lauenburg-Bütow
+				owns_state = 1624 # -> Schlochau
+				owns_state = 1625 # -> Köslin
+				owns_state = 1626 # -> Regenwalde
+				owns_state = 1628 # -> Neustettin
+				owns_state = 1629 # -> Greifenhagen
+				owns_state = 1630 # -> Stargard
+				owns_state = 1631 # -> Stettin
+				owns_state = 1636 # -> Wollin
+				owns_state = 2341 # -> Chojnice
+				owns_state = 2559 # -> Flötenstein
+				owns_state = 2560 # -> Belgard
+				owns_state = 2561 # -> Märkisch Friedland
+				owns_state = 2568 # -> Pottangow
+				owns_state = 2666 # -> Netze
+				owns_state = 339 # was vanilla 68 (Ostmark -> Landsberg)
+				owns_state = 1627 # -> Arnswalde
+				owns_state = 1646 # -> Forst
+				owns_state = 1647 # -> Crossen
+				owns_state = 1648 # -> Sternberg
+				owns_state = 1649 # -> Grenzmark
+				owns_state = 2595 # -> Rusdorf
+				owns_state = 415 # was vanilla 66 (Lower Silesia -> Bunzlau)
+				owns_state = 425 # -> Schweidnitz
+				owns_state = 1653 # -> Glatz
+				owns_state = 1659 # -> Oels
+				owns_state = 1660 # -> Trebnitz
+				owns_state = 1661 # -> Guhrau
+				owns_state = 1662 # -> Frankenstein
+				owns_state = 1663 # -> Breslau
+				owns_state = 1664 # -> Hirschberg
+				owns_state = 1665 # -> Liegnitz
+				owns_state = 1666 # -> Glogau
+				owns_state = 1667 # -> Grünberg
+				owns_state = 1668 # -> Schlawa
+				owns_state = 1980 # -> Reichenau in Sachsen
+				owns_state = 2482 # -> Militsch
+				owns_state = 2562 # -> Fraustadt
+				owns_state = 2593 # -> Lauban
+				owns_state = 2664 # -> Namslau
+				owns_state = 461 # was vanilla 67 (Upper Silesia -> Rosenberg)
+				owns_state = 1654 # -> Gleiwitz
+				owns_state = 1655 # -> Ratibor
+				owns_state = 1656 # -> Neiße
+				owns_state = 1657 # -> Falkenberg
+				owns_state = 1658 # -> Oppeln
+				owns_state = 1669 # -> Brieg
+				owns_state = 2262 # -> Tarnowskie Góry
+				owns_state = 2329 # -> Rybnik
 			}
 		}
 	}
@@ -358,22 +1111,152 @@ country_event = {
 	
 	option = {
 		name = poland.8.a
-		every_state = {
-				limit = {
-					is_yalta_polish_state = yes
-					is_owned_by = SOV
-					owner = { is_subject_of = SOV NOT = { tag = POL } }
-					
-				}
-				transfer_state_to = POL
-			}
+		if = {
+			limit = { SOV = { owns_state = 282 } } # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+			owns_state = 1609 # -> Marienwerder
+			owns_state = 1610 # -> Braunsberg
+			owns_state = 1611 # -> Allenstein
+			owns_state = 1612 # -> Lyck
+			owns_state = 1613 # -> Angerburg
+			owns_state = 2342 # -> Elbing
+			owns_state = 2483 # -> Heilsberg
+			owns_state = 2689 # -> Preussisch Holland
+			owns_state = 2690 # -> Osterode in Ostpreussen
+			owns_state = 2691 # -> Marienburg
+			owns_state = 2729 # -> Tiegenhof
+			transfer_state = 282 # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+			transfer_state = 1609 # -> Marienwerder
+			transfer_state = 1610 # -> Braunsberg
+			transfer_state = 1611 # -> Allenstein
+			transfer_state = 1612 # -> Lyck
+			transfer_state = 1613 # -> Angerburg
+			transfer_state = 2342 # -> Elbing
+			transfer_state = 2483 # -> Heilsberg
+			transfer_state = 2689 # -> Preussisch Holland
+			transfer_state = 2690 # -> Osterode in Ostpreussen
+			transfer_state = 2691 # -> Marienburg
+			transfer_state = 2729 # -> Tiegenhof
+		}
+		if = {
+			limit = { SOV = { owns_state = 263 } } # was vanilla 63 (Hinterpommern -> Stolp)
+			owns_state = 273 # -> Kolberg
+			owns_state = 295 # -> Naugard
+			owns_state = 301 # -> Schneidemühl
+			owns_state = 1623 # -> Lauenburg-Bütow
+			owns_state = 1624 # -> Schlochau
+			owns_state = 1625 # -> Köslin
+			owns_state = 1626 # -> Regenwalde
+			owns_state = 1628 # -> Neustettin
+			owns_state = 1629 # -> Greifenhagen
+			owns_state = 1630 # -> Stargard
+			owns_state = 1631 # -> Stettin
+			owns_state = 1636 # -> Wollin
+			owns_state = 2341 # -> Chojnice
+			owns_state = 2559 # -> Flötenstein
+			owns_state = 2560 # -> Belgard
+			owns_state = 2561 # -> Märkisch Friedland
+			owns_state = 2568 # -> Pottangow
+			owns_state = 2666 # -> Netze
+			transfer_state = 263 # was vanilla 63 (Hinterpommern -> Stolp)
+			transfer_state = 273 # -> Kolberg
+			transfer_state = 295 # -> Naugard
+			transfer_state = 301 # -> Schneidemühl
+			transfer_state = 1623 # -> Lauenburg-Bütow
+			transfer_state = 1624 # -> Schlochau
+			transfer_state = 1625 # -> Köslin
+			transfer_state = 1626 # -> Regenwalde
+			transfer_state = 1628 # -> Neustettin
+			transfer_state = 1629 # -> Greifenhagen
+			transfer_state = 1630 # -> Stargard
+			transfer_state = 1631 # -> Stettin
+			transfer_state = 1636 # -> Wollin
+			transfer_state = 2341 # -> Chojnice
+			transfer_state = 2559 # -> Flötenstein
+			transfer_state = 2560 # -> Belgard
+			transfer_state = 2561 # -> Märkisch Friedland
+			transfer_state = 2568 # -> Pottangow
+			transfer_state = 2666 # -> Netze
+		}
+		if = {
+			limit = { SOV = { owns_state = 339 } } # was vanilla 68 (Ostmark -> Landsberg)
+			owns_state = 1627 # -> Arnswalde
+			owns_state = 1646 # -> Forst
+			owns_state = 1647 # -> Crossen
+			owns_state = 1648 # -> Sternberg
+			owns_state = 1649 # -> Grenzmark
+			owns_state = 2595 # -> Rusdorf
+			transfer_state = 339 # was vanilla 68 (Ostmark -> Landsberg)
+			transfer_state = 1627 # -> Arnswalde
+			transfer_state = 1646 # -> Forst
+			transfer_state = 1647 # -> Crossen
+			transfer_state = 1648 # -> Sternberg
+			transfer_state = 1649 # -> Grenzmark
+			transfer_state = 2595 # -> Rusdorf
+		}
+		if = {
+			limit = { SOV = { owns_state = 415 } } # was vanilla 66 (Lower Silesia -> Bunzlau)
+			owns_state = 425 # -> Schweidnitz
+			owns_state = 1653 # -> Glatz
+			owns_state = 1659 # -> Oels
+			owns_state = 1660 # -> Trebnitz
+			owns_state = 1661 # -> Guhrau
+			owns_state = 1662 # -> Frankenstein
+			owns_state = 1663 # -> Breslau
+			owns_state = 1664 # -> Hirschberg
+			owns_state = 1665 # -> Liegnitz
+			owns_state = 1666 # -> Glogau
+			owns_state = 1667 # -> Grünberg
+			owns_state = 1668 # -> Schlawa
+			owns_state = 1980 # -> Reichenau in Sachsen
+			owns_state = 2482 # -> Militsch
+			owns_state = 2562 # -> Fraustadt
+			owns_state = 2593 # -> Lauban
+			owns_state = 2664 # -> Namslau
+			transfer_state = 415 # was vanilla 66 (Lower Silesia -> Bunzlau)
+			transfer_state = 425 # -> Schweidnitz
+			transfer_state = 1653 # -> Glatz
+			transfer_state = 1659 # -> Oels
+			transfer_state = 1660 # -> Trebnitz
+			transfer_state = 1661 # -> Guhrau
+			transfer_state = 1662 # -> Frankenstein
+			transfer_state = 1663 # -> Breslau
+			transfer_state = 1664 # -> Hirschberg
+			transfer_state = 1665 # -> Liegnitz
+			transfer_state = 1666 # -> Glogau
+			transfer_state = 1667 # -> Grünberg
+			transfer_state = 1668 # -> Schlawa
+			transfer_state = 1980 # -> Reichenau in Sachsen
+			transfer_state = 2482 # -> Militsch
+			transfer_state = 2562 # -> Fraustadt
+			transfer_state = 2593 # -> Lauban
+			transfer_state = 2664 # -> Namslau
+		}
+		if = {
+			limit = { SOV = { owns_state = 461 } } # was vanilla 67 (Upper Silesia -> Rosenberg)
+			owns_state = 1654 # -> Gleiwitz
+			owns_state = 1655 # -> Ratibor
+			owns_state = 1656 # -> Neiße
+			owns_state = 1657 # -> Falkenberg
+			owns_state = 1658 # -> Oppeln
+			owns_state = 1669 # -> Brieg
+			owns_state = 2262 # -> Tarnowskie Góry
+			owns_state = 2329 # -> Rybnik
+			transfer_state = 461 # was vanilla 67 (Upper Silesia -> Rosenberg)
+			transfer_state = 1654 # -> Gleiwitz
+			transfer_state = 1655 # -> Ratibor
+			transfer_state = 1656 # -> Neiße
+			transfer_state = 1657 # -> Falkenberg
+			transfer_state = 1658 # -> Oppeln
+			transfer_state = 1669 # -> Brieg
+			transfer_state = 2262 # -> Tarnowskie Góry
+			transfer_state = 2329 # -> Rybnik
+		}
 		SOV = { country_event = { id = poland.9 } }
 	}
 }
 
 country_event = {
 	id = poland.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.9 FROM = [From.GetName]" }
 	title = poland.8.t
 	desc = poland.8.d
 	picture = GFX_report_event_polish_tanks_01
@@ -382,7 +1265,233 @@ country_event = {
 	
 	option = {
 		name = poland.9.a
-			
+		effect_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						SOV = { owns_state = 282 } # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+						owns_state = 1609 # -> Marienwerder
+						owns_state = 1610 # -> Braunsberg
+						owns_state = 1611 # -> Allenstein
+						owns_state = 1612 # -> Lyck
+						owns_state = 1613 # -> Angerburg
+						owns_state = 2342 # -> Elbing
+						owns_state = 2483 # -> Heilsberg
+						owns_state = 2689 # -> Preussisch Holland
+						owns_state = 2690 # -> Osterode in Ostpreussen
+						owns_state = 2691 # -> Marienburg
+						owns_state = 2729 # -> Tiegenhof
+						POL = { owns_state = 282 } # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+						owns_state = 1609 # -> Marienwerder
+						owns_state = 1610 # -> Braunsberg
+						owns_state = 1611 # -> Allenstein
+						owns_state = 1612 # -> Lyck
+						owns_state = 1613 # -> Angerburg
+						owns_state = 2342 # -> Elbing
+						owns_state = 2483 # -> Heilsberg
+						owns_state = 2689 # -> Preussisch Holland
+						owns_state = 2690 # -> Osterode in Ostpreussen
+						owns_state = 2691 # -> Marienburg
+						owns_state = 2729 # -> Tiegenhof
+					}
+				}
+				POL = { transfer_state = 282 } # was vanilla 5 (Ermland-Masuren -> Rastenburg)
+				transfer_state = 1609 # -> Marienwerder
+				transfer_state = 1610 # -> Braunsberg
+				transfer_state = 1611 # -> Allenstein
+				transfer_state = 1612 # -> Lyck
+				transfer_state = 1613 # -> Angerburg
+				transfer_state = 2342 # -> Elbing
+				transfer_state = 2483 # -> Heilsberg
+				transfer_state = 2689 # -> Preussisch Holland
+				transfer_state = 2690 # -> Osterode in Ostpreussen
+				transfer_state = 2691 # -> Marienburg
+				transfer_state = 2729 # -> Tiegenhof
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = { owns_state = 263 } # was vanilla 63 (Hinterpommern -> Stolp)
+						owns_state = 273 # -> Kolberg
+						owns_state = 295 # -> Naugard
+						owns_state = 301 # -> Schneidemühl
+						owns_state = 1623 # -> Lauenburg-Bütow
+						owns_state = 1624 # -> Schlochau
+						owns_state = 1625 # -> Köslin
+						owns_state = 1626 # -> Regenwalde
+						owns_state = 1628 # -> Neustettin
+						owns_state = 1629 # -> Greifenhagen
+						owns_state = 1630 # -> Stargard
+						owns_state = 1631 # -> Stettin
+						owns_state = 1636 # -> Wollin
+						owns_state = 2341 # -> Chojnice
+						owns_state = 2559 # -> Flötenstein
+						owns_state = 2560 # -> Belgard
+						owns_state = 2561 # -> Märkisch Friedland
+						owns_state = 2568 # -> Pottangow
+						owns_state = 2666 # -> Netze
+						POL = { owns_state = 263 } # was vanilla 63 (Hinterpommern -> Stolp)
+						owns_state = 273 # -> Kolberg
+						owns_state = 295 # -> Naugard
+						owns_state = 301 # -> Schneidemühl
+						owns_state = 1623 # -> Lauenburg-Bütow
+						owns_state = 1624 # -> Schlochau
+						owns_state = 1625 # -> Köslin
+						owns_state = 1626 # -> Regenwalde
+						owns_state = 1628 # -> Neustettin
+						owns_state = 1629 # -> Greifenhagen
+						owns_state = 1630 # -> Stargard
+						owns_state = 1631 # -> Stettin
+						owns_state = 1636 # -> Wollin
+						owns_state = 2341 # -> Chojnice
+						owns_state = 2559 # -> Flötenstein
+						owns_state = 2560 # -> Belgard
+						owns_state = 2561 # -> Märkisch Friedland
+						owns_state = 2568 # -> Pottangow
+						owns_state = 2666 # -> Netze
+					}
+				}
+				POL = { transfer_state = 263 } # was vanilla 63 (Hinterpommern -> Stolp)
+				transfer_state = 273 # -> Kolberg
+				transfer_state = 295 # -> Naugard
+				transfer_state = 301 # -> Schneidemühl
+				transfer_state = 1623 # -> Lauenburg-Bütow
+				transfer_state = 1624 # -> Schlochau
+				transfer_state = 1625 # -> Köslin
+				transfer_state = 1626 # -> Regenwalde
+				transfer_state = 1628 # -> Neustettin
+				transfer_state = 1629 # -> Greifenhagen
+				transfer_state = 1630 # -> Stargard
+				transfer_state = 1631 # -> Stettin
+				transfer_state = 1636 # -> Wollin
+				transfer_state = 2341 # -> Chojnice
+				transfer_state = 2559 # -> Flötenstein
+				transfer_state = 2560 # -> Belgard
+				transfer_state = 2561 # -> Märkisch Friedland
+				transfer_state = 2568 # -> Pottangow
+				transfer_state = 2666 # -> Netze
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = { owns_state = 339 } # was vanilla 68 (Ostmark -> Landsberg)
+						owns_state = 1627 # -> Arnswalde
+						owns_state = 1646 # -> Forst
+						owns_state = 1647 # -> Crossen
+						owns_state = 1648 # -> Sternberg
+						owns_state = 1649 # -> Grenzmark
+						owns_state = 2595 # -> Rusdorf
+						POL = { owns_state = 339 } # was vanilla 68 (Ostmark -> Landsberg)
+						owns_state = 1627 # -> Arnswalde
+						owns_state = 1646 # -> Forst
+						owns_state = 1647 # -> Crossen
+						owns_state = 1648 # -> Sternberg
+						owns_state = 1649 # -> Grenzmark
+						owns_state = 2595 # -> Rusdorf
+					}
+				}
+				POL = { transfer_state = 339 } # was vanilla 68 (Ostmark -> Landsberg)
+				transfer_state = 1627 # -> Arnswalde
+				transfer_state = 1646 # -> Forst
+				transfer_state = 1647 # -> Crossen
+				transfer_state = 1648 # -> Sternberg
+				transfer_state = 1649 # -> Grenzmark
+				transfer_state = 2595 # -> Rusdorf
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = { owns_state = 415 } # was vanilla 66 (Lower Silesia -> Bunzlau)
+						owns_state = 425 # -> Schweidnitz
+						owns_state = 1653 # -> Glatz
+						owns_state = 1659 # -> Oels
+						owns_state = 1660 # -> Trebnitz
+						owns_state = 1661 # -> Guhrau
+						owns_state = 1662 # -> Frankenstein
+						owns_state = 1663 # -> Breslau
+						owns_state = 1664 # -> Hirschberg
+						owns_state = 1665 # -> Liegnitz
+						owns_state = 1666 # -> Glogau
+						owns_state = 1667 # -> Grünberg
+						owns_state = 1668 # -> Schlawa
+						owns_state = 1980 # -> Reichenau in Sachsen
+						owns_state = 2482 # -> Militsch
+						owns_state = 2562 # -> Fraustadt
+						owns_state = 2593 # -> Lauban
+						owns_state = 2664 # -> Namslau
+						POL = { owns_state = 415 } # was vanilla 66 (Lower Silesia -> Bunzlau)
+						owns_state = 425 # -> Schweidnitz
+						owns_state = 1653 # -> Glatz
+						owns_state = 1659 # -> Oels
+						owns_state = 1660 # -> Trebnitz
+						owns_state = 1661 # -> Guhrau
+						owns_state = 1662 # -> Frankenstein
+						owns_state = 1663 # -> Breslau
+						owns_state = 1664 # -> Hirschberg
+						owns_state = 1665 # -> Liegnitz
+						owns_state = 1666 # -> Glogau
+						owns_state = 1667 # -> Grünberg
+						owns_state = 1668 # -> Schlawa
+						owns_state = 1980 # -> Reichenau in Sachsen
+						owns_state = 2482 # -> Militsch
+						owns_state = 2562 # -> Fraustadt
+						owns_state = 2593 # -> Lauban
+						owns_state = 2664 # -> Namslau
+					}
+				}
+				POL = { transfer_state = 415 } # was vanilla 66 (Lower Silesia -> Bunzlau)
+				transfer_state = 425 # -> Schweidnitz
+				transfer_state = 1653 # -> Glatz
+				transfer_state = 1659 # -> Oels
+				transfer_state = 1660 # -> Trebnitz
+				transfer_state = 1661 # -> Guhrau
+				transfer_state = 1662 # -> Frankenstein
+				transfer_state = 1663 # -> Breslau
+				transfer_state = 1664 # -> Hirschberg
+				transfer_state = 1665 # -> Liegnitz
+				transfer_state = 1666 # -> Glogau
+				transfer_state = 1667 # -> Grünberg
+				transfer_state = 1668 # -> Schlawa
+				transfer_state = 1980 # -> Reichenau in Sachsen
+				transfer_state = 2482 # -> Militsch
+				transfer_state = 2562 # -> Fraustadt
+				transfer_state = 2593 # -> Lauban
+				transfer_state = 2664 # -> Namslau
+			}
+			if = {
+				limit = {
+					OR = {
+						SOV = { owns_state = 461 } # was vanilla 67 (Upper Silesia -> Rosenberg)
+						owns_state = 1654 # -> Gleiwitz
+						owns_state = 1655 # -> Ratibor
+						owns_state = 1656 # -> Neiße
+						owns_state = 1657 # -> Falkenberg
+						owns_state = 1658 # -> Oppeln
+						owns_state = 1669 # -> Brieg
+						owns_state = 2262 # -> Tarnowskie Góry
+						owns_state = 2329 # -> Rybnik
+						POL = { owns_state = 461 } # was vanilla 67 (Upper Silesia -> Rosenberg)
+						owns_state = 1654 # -> Gleiwitz
+						owns_state = 1655 # -> Ratibor
+						owns_state = 1656 # -> Neiße
+						owns_state = 1657 # -> Falkenberg
+						owns_state = 1658 # -> Oppeln
+						owns_state = 1669 # -> Brieg
+						owns_state = 2262 # -> Tarnowskie Góry
+						owns_state = 2329 # -> Rybnik
+					}
+				}
+				POL = { transfer_state = 461 } # was vanilla 67 (Upper Silesia -> Rosenberg)
+				transfer_state = 1654 # -> Gleiwitz
+				transfer_state = 1655 # -> Ratibor
+				transfer_state = 1656 # -> Neiße
+				transfer_state = 1657 # -> Falkenberg
+				transfer_state = 1658 # -> Oppeln
+				transfer_state = 1669 # -> Brieg
+				transfer_state = 2262 # -> Tarnowskie Góry
+				transfer_state = 2329 # -> Rybnik
+			}
+		}
 		hidden_effect = {
 			news_event = { id = news.195 }
 		}
@@ -392,7 +1501,6 @@ country_event = {
 
 country_event = {
 	id = poland.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.10 FROM = [From.GetName]" }
 	title = poland.10.t
 	desc = poland.10.d
 	picture = GFX_report_event_romania_poland_visit
@@ -407,7 +1515,6 @@ country_event = {
 
 country_event = {
 	id = poland.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.11 FROM = [From.GetName]" }
 	title = poland.11.t
 	desc = poland.11.d
 	picture = GFX_report_event_polish_tanks_01
@@ -425,7 +1532,6 @@ country_event = {
 
 country_event = {
 	id = poland.12
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.12 FROM = [From.GetName]" }
 	title = poland.12.t
 	desc = poland.12.d
 	picture = GFX_report_event_polish_tanks_01
@@ -480,7 +1586,6 @@ country_event = {
 #Poland wants to add Romania to the Allies
 country_event = {
 	id = poland.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.13 FROM = [From.GetName]" }
 	title = poland.13.t
 	desc = poland.13.d
 	picture = GFX_report_event_romania_poland_visit
@@ -512,7 +1617,6 @@ country_event = {
 #Romania recieves invitation to the Allies
 country_event = {
 	id = poland.1301
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1301 FROM = [From.GetName]" }
 	title = poland.1301.t
 	desc = poland.1301.d
 	picture = GFX_report_event_romania_poland_visit
@@ -529,10 +1633,6 @@ country_event = {
 				factor = 2
 				has_same_ideology = yes
 			}
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
 		}
 		FROM = {
 			add_to_faction = PREV
@@ -547,11 +1647,6 @@ country_event = {
 		name = poland.1301.b
 		ai_chance = {
 			factor = 50
-			
-			modifier = {
-				factor = 100
-				is_historical_focus_on = yes
-			}
 			
 			modifier = {
 				factor = 0.5
@@ -635,7 +1730,6 @@ country_event = {
 #Faction leader says no
 country_event = {
 	id = poland.1302
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1302 FROM = [From.GetName]" }
 	title = poland.1302.t
 	desc = poland.1302.d
 	picture = GFX_report_event_british_inspect_troops
@@ -655,7 +1749,6 @@ country_event = {
 #Romania says no
 country_event = {
 	id = poland.1303
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1303 FROM = [From.GetName]" }
 	title = poland.1303.t
 	desc = poland.1303.d
 	picture = GFX_report_event_romania_poland_visit
@@ -675,7 +1768,6 @@ country_event = {
 #Poland asks for peace
 country_event = {
 	id = poland.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.14 FROM = [From.GetName]" }
 	title = LIT_events.2.t
 	desc = LIT_events.2.d
 	picture = GFX_report_event_generic_sign_treaty1
@@ -737,7 +1829,6 @@ country_event = {
 #Poland demands Lithuanian annexation
 country_event = {
 	id = poland.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.15 FROM = [From.GetName]" }
 	title = poland.15.t
 	desc = {
 		text = poland.15.d
@@ -806,8 +1897,8 @@ country_event = {
 				factor = 5 #i've got friends
 			}
 			modifier = {
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					has_guaranteed = LIT
 				}
 				factor = 5 #i've got big friends
@@ -826,7 +1917,6 @@ country_event = {
 #Lithuania says yes
 country_event = {
 	id = poland.1501
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1501 FROM = [From.GetName]" }
 	title = poland.1501.t
 	desc = poland.1501.d
 	picture = GFX_report_event_generic_sign_treaty1
@@ -853,7 +1943,6 @@ country_event = {
 #Lithuania says no
 country_event = {
 	id = poland.1502
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1502 FROM = [From.GetName]" }
 	title = poland.1502.t
 	desc = poland.1502.d
 	picture = GFX_report_event_generic_sign_treaty1
@@ -875,7 +1964,6 @@ country_event = {
 ###MIEDZYMORZE###
 country_event = {
 	id = poland.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.16 FROM = [From.GetName]" }
 	title = poland.16.t
 	desc = { # FROM and ROOT are Democratic
 		text = generic.5.d.a
@@ -1006,6 +2094,12 @@ country_event = {
 				has_same_ideology = no
 			}
 		}
+
+		trigger = {
+			#Lone Wolf Finland can't join any factions
+			FIN_is_lone_wolf_finland = no
+		}
+
 		hidden_effect = {
 			set_country_flag = alliance_applicant@ROOT
 			FROM = { set_country_flag = alliance_inviter@ROOT }
@@ -1105,6 +2199,15 @@ country_event = {
 				}
 			}
 		}
+
+		#Lone Wolf Finland can't join any factions - Tooltip for player
+		if = {
+			limit = {	
+				FIN_is_lone_wolf_finland = yes
+			}
+			custom_effect_tooltip = FIN_the_lone_wolf_no_faction_tt
+		}
+		
 		hidden_effect = { set_country_flag = rejected_miedzymorze_flag }
 		FROM = {
 			country_event = { id = poland.1602 }
@@ -1113,7 +2216,6 @@ country_event = {
 }
 country_event = {
 	id = poland.1602
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.1602 FROM = [From.GetName]" }
 	title = poland.11.t
 	desc = poland.11.d
 	picture = GFX_report_event_generic_sign_treaty1
@@ -1130,7 +2232,6 @@ country_event = {
 
 country_event = {
 	id = poland.17
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.17 FROM = [From.GetName]" }
 	title = poland.17.t
 	desc = poland.17.d
 	picture = GFX_report_event_sanation_left_victory
@@ -1224,7 +2325,6 @@ country_event = {
 
 country_event = {
 	id = poland.18
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.18 FROM = [From.GetName]" }
 	title = poland.18.t
 	desc = poland.18.d
 	picture = GFX_report_event_sanation_revolt
@@ -1318,7 +2418,6 @@ country_event = {
 
 country_event = {
 	id = poland.19
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.19 FROM = [From.GetName]" }
 	title = poland.19.t
 	desc = poland.19.d
 	picture = GFX_report_event_poland_funeral
@@ -1341,7 +2440,6 @@ country_event = {
 
 country_event = {
 	id = poland.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.20 FROM = [From.GetName]" }
 	title = poland.20.t
 	desc = { # Four Year Plan went poorly
 		text = poland.20.desc.a
@@ -1460,7 +2558,6 @@ country_event = {
 
 country_event = {
 	id = poland.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event poland.21 FROM = [From.GetName]" }
 	title = poland.21.t
 	desc = poland.21.d
 	picture = GFX_report_event_danzig_joins_nazis
@@ -1468,7 +2565,7 @@ country_event = {
 	trigger = {
 		tag = GER
 		has_government = fascism
-#		has_completed_focus = GER_rhineland
+		has_completed_focus = GER_remilitarize_the_rhineland
 		is_subject = no
 		DNZ = {
 			has_war_with = POL
@@ -1668,6 +2765,7 @@ country_event = { #Event for independent Danzig winning the war
 		OR = {
 			DNZ = { has_country_flag = rejected_germany_flag }
 			GER = { has_completed_focus = GER_oppose_hitler }
+			GER = { has_completed_focus = GER_oppose_hitler_ww}
 		}
 	}
 

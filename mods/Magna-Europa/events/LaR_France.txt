@@ -12,7 +12,6 @@ add_namespace = lar_congress_of_paris
 #opening event for France - set up claims, pass on to Italy
 country_event = {
 	id = lar_congress_of_paris.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_congress_of_paris.1 FROM = [From.GetName]" }
 	title = lar_congress_of_paris.1.t
 	desc = lar_congress_of_paris.1.desc
 	picture = GFX_report_event_fascist_gathering
@@ -20,56 +19,20 @@ country_event = {
 
 	option = {
 		name = lar_congress_of_paris.1.a
-		add_state_claim = 521
-		add_state_claim = 1757
-		add_state_claim = 1756
-		add_state_claim = 506
-		add_state_claim = 2343
-		add_state_claim = 1758
-		add_state_claim = 1760
-		add_state_claim = 1753
-		add_state_claim = 2337
-		add_state_claim = 537
-		add_state_claim = 524
-		add_state_claim = 2340
-		add_state_claim = 503
-		add_state_claim = 1752
-		add_state_claim = 488
-		add_state_claim = 469
-		add_state_claim = 477
-		add_state_claim = 2339
-		add_state_claim = 460
-		add_state_claim = 2338
-		add_state_claim = 1751
-		add_state_claim = 1750
-		add_state_claim = 423
-		add_state_claim = 2718
-		add_state_claim = 2344
-		add_state_claim = 2717
-		add_state_claim = 432
-		add_state_claim = 479
-		add_state_claim = 2331
-		add_state_claim = 2875
-		add_state_claim = 2332
-		add_state_claim = 451
-		add_state_claim = 1794
-		add_state_claim = 2713
-		add_state_claim = 2845
-		BEL = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
-		}
-		WLN = {
-			every_core_state = {
-				add_core_of = FRA
-			}
-		}
-		LUX = {
-			every_core_state = {
-				add_core_of = FRA
-			}
-		}
+		# add_state_claim = 558   # 1.19-migration: off-map vanilla 558 (Lagos)
+		# add_state_claim = 900   # 1.19-migration: off-map vanilla 900 (Benue)
+		# add_state_claim = 901   # 1.19-migration: off-map vanilla 901 (Borno)
+		# add_state_claim = 902   # 1.19-migration: off-map vanilla 902 (Sokoto)
+		# add_state_claim = 274   # 1.19-migration: off-map vanilla 274 (Ghana)
+		# add_state_claim = 700   # 1.19-migration: off-map vanilla 700 (Sierra Leone)
+		# add_state_claim = 701   # 1.19-migration: off-map vanilla 701 (Gambia)
+		# add_state_claim = 538   # 1.19-migration: off-map vanilla 538 (Coquilhatville)
+		# add_state_claim = 718   # 1.19-migration: off-map vanilla 718 (Stanleyville)
+		add_state_claim = 2974 # was vanilla 768 (Rwanda)
+		# add_state_claim = 769   # 1.19-migration: off-map vanilla 769 (Burundi)
+		# add_state_claim = 890   # 1.19-migration: off-map vanilla 890 (Costermansville)
+		# add_state_claim = 888   # 1.19-migration: off-map vanilla 888 (Lusambo)
+		# add_state_claim = 889   # 1.19-migration: off-map vanilla 889 (Elisabethville)
 		if = {
 			limit = { is_in_faction_with = ITA }
 			ITA = {
@@ -101,7 +64,6 @@ country_event = {
 #second event for Italy
 country_event = {
 	id = lar_congress_of_paris.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_congress_of_paris.2 FROM = [From.GetName]" }
 	title = lar_congress_of_paris.2.t
 	desc = lar_congress_of_paris.2.desc
 	picture = GFX_report_event_fascist_gathering
@@ -112,21 +74,7 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-		EGY = {
-			every_core_state = {
-				add_claim_by = ITA
-			}
-		}
-		PAL = {
-			every_core_state = {
-				add_claim_by = ITA
-			}
-		}
-		JOR = {
-			every_core_state = {
-				add_claim_by = ITA
-			}
-		}
+		FRA_congress_of_paris_italian_claims_setup_effect = yes
 		FRA = {
 			country_event = lar_congress_of_paris.3
 		}
@@ -156,23 +104,9 @@ country_event = {
 		ai_chance = {
 			base = 0
 		}
-		FRA = { 
+		FRA= { 
 			country_event = lar_congress_of_paris.4
-			EGY = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
-		}
-		PAL = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
-		}
-		JOR = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
-		} 
+			FRA_congress_of_paris_italian_claims_setup_effect = yes 
 			effect_tooltip = {
 				remove_from_faction = PREV
 			}
@@ -201,7 +135,6 @@ country_event = {
 #generic event - country agrees
 country_event = {
 	id = lar_congress_of_paris.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_congress_of_paris.3 FROM = [From.GetName]" }
 	title = lar_congress_of_paris.3.t
 	desc = lar_congress_of_paris.3.desc
 	picture = GFX_report_event_generic_conference
@@ -215,7 +148,6 @@ country_event = {
 #generic event - country refuses
 country_event = {
 	id = lar_congress_of_paris.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_congress_of_paris.4 FROM = [From.GetName]" }
 	title = lar_congress_of_paris.4.t
 	desc = lar_congress_of_paris.4.desc
 	picture = GFX_report_event_german_politician_speech
@@ -230,7 +162,6 @@ country_event = {
 #third event for Spain
 country_event = {
 	id = lar_congress_of_paris.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_congress_of_paris.5 FROM = [From.GetName]" }
 	title = lar_congress_of_paris.2.t
 	desc = lar_congress_of_paris.5.desc
 	picture = GFX_report_event_fascist_gathering
@@ -244,13 +175,48 @@ country_event = {
 		FRA = {
 			country_event = lar_congress_of_paris.3
 		}
-		transfer_state = 1186
-		transfer_state = 1188
-		MOR = {
-			every_core_state = {
-				transfer_state_to = SPR
-			}
-		}
+		transfer_state = 1177 # was vanilla 461 (Casablanca -> Locus)
+		transfer_state = 1200 # -> Sidi Kacem
+		transfer_state = 1201 # -> Taza
+		transfer_state = 1222 # -> Settat
+		transfer_state = 1227 # -> El Jadida
+		transfer_state = 1837 # -> Ben Slimane
+		transfer_state = 1838 # -> Casablanca
+		transfer_state = 1839 # -> Skhirate Témara
+		transfer_state = 1840 # -> Khémisset
+		transfer_state = 1841 # -> El Hajeb
+		transfer_state = 1842 # -> Meknès
+		transfer_state = 1843 # -> Ifrane
+		transfer_state = 1844 # -> Sefrou
+		transfer_state = 1845 # -> Moulay Yacoub
+		transfer_state = 1846 # -> Kénitra
+		transfer_state = 1847 # -> Taounate
+		transfer_state = 1848 # -> Berkane Taourirt
+		transfer_state = 1849 # -> Oujda-Angad
+		transfer_state = 1850 # -> Jerada
+		transfer_state = 1853 # -> Fès
+		transfer_state = 1854 # -> Salé
+		transfer_state = 1855 # -> Rabat
+		transfer_state = 1196 # was vanilla 462 (Marrakech -> Figuig)
+		transfer_state = 1214 # -> Boulemane
+		transfer_state = 1216 # -> Khénifra
+		transfer_state = 1244 # -> El Kelaâ des Sraghna
+		transfer_state = 1248 # -> Azilal
+		transfer_state = 1268 # -> Ouarzazate
+		transfer_state = 1297 # -> Guelmim
+		transfer_state = 1825 # -> Tiznit
+		transfer_state = 1826 # -> Essaouira
+		transfer_state = 1827 # -> Safi
+		transfer_state = 1828 # -> Chichaoua
+		transfer_state = 1829 # -> Marrakech
+		transfer_state = 1830 # -> Al Haouz
+		transfer_state = 1831 # -> Khouribga
+		transfer_state = 1832 # -> Agadir-Inezgane
+		transfer_state = 1833 # -> Chtouka-Aït Baha
+		transfer_state = 1834 # -> Taroudannt
+		transfer_state = 1835 # -> Béni Mellal
+		transfer_state = 1836 # -> Errachidia
+		transfer_state = 1856 # -> Tata
 		if = {
 			limit = { is_in_faction_with = POR }
 			POR = {
@@ -292,7 +258,6 @@ country_event = {
 #fourth event for Portugal
 country_event = {
 	id = lar_congress_of_paris.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_congress_of_paris.6 FROM = [From.GetName]" }
 	title = lar_congress_of_paris.2.t
 	desc = lar_congress_of_paris.6.desc
 	picture = GFX_report_event_fascist_gathering
@@ -303,7 +268,7 @@ country_event = {
 		ai_chance = {
 			base = 100
 		}
-		
+		FRA_congress_of_paris_portugese_claims_setup_effect = yes
 		FRA = {
 			country_event = lar_congress_of_paris.3
 		}
@@ -344,7 +309,6 @@ add_namespace = lar_france_political_violence
 # right wing riots
 country_event = {
 	id = lar_france_political_violence.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_political_violence.1 FROM = [From.GetName]" }
 	title = lar_france_political_violence.1.t
 	desc = lar_france_political_violence.1.desc
 	picture = GFX_report_event_generic_riot
@@ -366,7 +330,6 @@ country_event = {
 # communist riots
 country_event = {
 	id = lar_france_political_violence.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_political_violence.2 FROM = [From.GetName]" }
 	title = lar_france_political_violence.1.t
 	desc = lar_france_political_violence.2.desc
 	picture = GFX_report_event_generic_riot
@@ -387,7 +350,6 @@ country_event = {
 # massive right wing riots
 country_event = {
 	id = lar_france_political_violence.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_political_violence.3 FROM = [From.GetName]" }
 	title = lar_france_political_violence.3.t
 	desc = lar_france_political_violence.3.desc
 	picture = GFX_report_event_generic_riot
@@ -409,7 +371,6 @@ country_event = {
 # political violence returns at low stability
 country_event = {
 	id = lar_france_political_violence.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_political_violence.4 FROM = [From.GetName]" }
 	title = lar_france_political_violence.4.t
 	desc = lar_france_political_violence.4.desc
 	picture = GFX_report_event_generic_rally2
@@ -451,7 +412,6 @@ add_namespace = lar_france_french_union
 
 country_event = {
 	id = lar_france_french_union.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.1 FROM = [From.GetName]" }
 
 	is_triggered_only = yes
 	hidden = yes
@@ -462,33 +422,71 @@ country_event = {
 				FRA_controls_north_africa = yes
 			}
 			random_list = {#north africa
-				25 = {
-					modifier = {
-						has_completed_focus = FRA_algerie_france
-						factor = 2
-					}
-					modifier = {
-						has_completed_focus = FRA_global_integration
-						factor = 2
-					}
+				540 = {   # was vanilla 25 (Limousin)
 					modifier = {
 						has_country_flag = FRA_north_africa_promised_independence
 						factor = 0.25
 					}
 					country_event = lar_france_french_union.2 #accepts
-					set_country_flag = north_africa_yes
 				} 
-				75 = {
+				585 = {   # -> Réolais et Bastide
 					modifier = {
-						has_completed_focus = FRA_algerie_france
+						has_country_flag = FRA_north_africa_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				640 = {   # -> Montaigne et Gurson
 					modifier = {
-						has_completed_focus = FRA_global_integration
+						has_country_flag = FRA_north_africa_promised_independence
 						factor = 0.25
 					}
-					country_event = lar_france_french_union.3 #refuses
+					country_event = lar_france_french_union.2 #accepts
 				} 
+				723 = {   # -> Haute-Vienne
+					modifier = {
+						has_country_flag = FRA_north_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				751 = {   # -> Corrèze
+					modifier = {
+						has_country_flag = FRA_north_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				753 = {   # -> Dordogne
+					modifier = {
+						has_country_flag = FRA_north_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				783 = {   # -> Lot
+					modifier = {
+						has_country_flag = FRA_north_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				795 = {   # -> Lot-et-Garonne
+					modifier = {
+						has_country_flag = FRA_north_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				2982 = {   # -> Basse-Marche
+					modifier = {
+						has_country_flag = FRA_north_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.2 #accepts
+				} 
+				532 = { country_event = lar_france_french_union.3 } #refuses   # was vanilla 75 (Moravia)
+				536 = { country_event = lar_france_french_union.3 } #refuses   # -> Brno
 			}
 		}
 		if = {
@@ -496,67 +494,225 @@ country_event = {
 				FRA_controls_west_africa = yes
 			}
 			random_list = {#west africa
-				25 = {
+				735 = {   # was vanilla 45 (Vojvodina)
 					modifier = {
 						has_country_flag = FRA_west_africa_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				738 = {   # -> Srednji Banat
 					modifier = {
-						has_completed_focus = FRA_global_integration
-						factor = 2
-					}
-					modifier = {
-						has_completed_focus = FRA_algerie_france
-						factor = 2
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
 					}
 					country_event = lar_france_french_union.4 #accepts
-					set_country_flag = west_africa_yes
 				} 
-				75 = { 
+				775 = {   # -> Sremska Mitrovica
 					modifier = {
-						has_completed_focus = FRA_algerie_france
+						has_country_flag = FRA_west_africa_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				790 = {   # -> Beograd
 					modifier = {
-						has_completed_focus = FRA_global_integration
+						has_country_flag = FRA_west_africa_promised_independence
 						factor = 0.25
 					}
-					country_event = lar_france_french_union.5 #refuses					
+					country_event = lar_france_french_union.4 #accepts
 				} 
+				1470 = {   # -> Šid
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				1472 = {   # -> Baranja
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				1513 = {   # -> Sjeverni Banat
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				1514 = {   # -> Novi Sad
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				1515 = {   # -> Sombor
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				1516 = {   # -> Senta
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				2554 = {   # -> Borča
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				2555 = {   # -> Zemun
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				2856 = {   # -> Bezdan
+					modifier = {
+						has_country_flag = FRA_west_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.4 #accepts
+				} 
+				439 = { country_event = lar_france_french_union.5 } #refuses   # was vanilla 55 (Hessen)
+				463 = { country_event = lar_france_french_union.5 } #refuses   # -> Eisenach
+				478 = { country_event = lar_france_french_union.5 } #refuses   # -> Giessen
+				521 = { country_event = lar_france_french_union.5 } #refuses   # -> Mainz
+				1738 = { country_event = lar_france_french_union.5 } #refuses   # -> Kassel
+				1739 = { country_event = lar_france_french_union.5 } #refuses   # -> Melsungen
+				1740 = { country_event = lar_france_french_union.5 } #refuses   # -> Fulda
+				1741 = { country_event = lar_france_french_union.5 } #refuses   # -> Ziegenheim
+				1742 = { country_event = lar_france_french_union.5 } #refuses   # -> Wolfhagen
+				1743 = { country_event = lar_france_french_union.5 } #refuses   # -> Lauterbach
+				1745 = { country_event = lar_france_french_union.5 } #refuses   # -> Wiesbaden
+				2573 = { country_event = lar_france_french_union.5 } #refuses   # -> Wetzlar
+				2578 = { country_event = lar_france_french_union.5 } #refuses   # -> Gummersbach
+				2581 = { country_event = lar_france_french_union.5 } #refuses   # -> Gelnhausen
+				2585 = { country_event = lar_france_french_union.5 } #refuses   # -> Dillkreis
 			}
 		}
 		if = {
 			limit = {
-				FRA_controls_central_africa = yes #Now Protectorates
+				FRA_controls_central_africa = yes
 			}
 			random_list = {#central africa
-				25 = {
+				735 = {   # was vanilla 45 (Vojvodina)
 					modifier = {
 						has_country_flag = FRA_central_africa_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				738 = {   # -> Srednji Banat
 					modifier = {
-						has_completed_focus = FRA_global_integration
-						factor = 2
-					}
-					modifier = {
-						has_completed_focus = FRA_invest_in_west_africa
-						factor = 2
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
 					}
 					country_event = lar_france_french_union.6 #accepts
-					set_country_flag = central_africa_yes
 				} 
-				75 = { 
+				775 = {   # -> Sremska Mitrovica
 					modifier = {
-						has_completed_focus = FRA_invest_in_west_africa
+						has_country_flag = FRA_central_africa_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				790 = {   # -> Beograd
 					modifier = {
-						has_completed_focus = FRA_global_integration
+						has_country_flag = FRA_central_africa_promised_independence
 						factor = 0.25
 					}
-					country_event = lar_france_french_union.7 #refuses					
+					country_event = lar_france_french_union.6 #accepts
 				} 
+				1470 = {   # -> Šid
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				1472 = {   # -> Baranja
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				1513 = {   # -> Sjeverni Banat
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				1514 = {   # -> Novi Sad
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				1515 = {   # -> Sombor
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				1516 = {   # -> Senta
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				2554 = {   # -> Borča
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				2555 = {   # -> Zemun
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				2856 = {   # -> Bezdan
+					modifier = {
+						has_country_flag = FRA_central_africa_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.6 #accepts
+				} 
+				439 = { country_event = lar_france_french_union.7 } #refuses   # was vanilla 55 (Hessen)
+				463 = { country_event = lar_france_french_union.7 } #refuses   # -> Eisenach
+				478 = { country_event = lar_france_french_union.7 } #refuses   # -> Giessen
+				521 = { country_event = lar_france_french_union.7 } #refuses   # -> Mainz
+				1738 = { country_event = lar_france_french_union.7 } #refuses   # -> Kassel
+				1739 = { country_event = lar_france_french_union.7 } #refuses   # -> Melsungen
+				1740 = { country_event = lar_france_french_union.7 } #refuses   # -> Fulda
+				1741 = { country_event = lar_france_french_union.7 } #refuses   # -> Ziegenheim
+				1742 = { country_event = lar_france_french_union.7 } #refuses   # -> Wolfhagen
+				1743 = { country_event = lar_france_french_union.7 } #refuses   # -> Lauterbach
+				1745 = { country_event = lar_france_french_union.7 } #refuses   # -> Wiesbaden
+				2573 = { country_event = lar_france_french_union.7 } #refuses   # -> Wetzlar
+				2578 = { country_event = lar_france_french_union.7 } #refuses   # -> Gummersbach
+				2581 = { country_event = lar_france_french_union.7 } #refuses   # -> Gelnhausen
+				2585 = { country_event = lar_france_french_union.7 } #refuses   # -> Dillkreis
 			}
 		}
 		if = {
@@ -564,118 +720,173 @@ country_event = {
 				FRA_controls_syria = yes
 			}
 			random_list = {#syria
-				25 = {
-					modifier = {
-						has_completed_focus = FRA_invest_in_syria
-						factor = 2
-					}
-					modifier = {
-						has_completed_focus = FRA_global_integration
-						factor = 2
-					}
+				517 = {   # was vanilla 15 (Normandy)
 					modifier = {
 						has_country_flag = FRA_syria_promised_independence
 						factor = 0.25
 					}
 					country_event = lar_france_french_union.8 #accepts
-					set_country_flag = syria_yes
 				} 
-				75 = { 
+				534 = {   # -> Manche
 					modifier = {
-						has_completed_focus = FRA_invest_in_syria
+						has_country_flag = FRA_syria_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				548 = {   # -> Eure
 					modifier = {
-						has_completed_focus = FRA_global_integration
+						has_country_flag = FRA_syria_promised_independence
 						factor = 0.25
 					}
-					country_event = lar_france_french_union.9
-				} #refuses
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				551 = {   # -> Calvados
+					modifier = {
+						has_country_flag = FRA_syria_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				572 = {   # -> Orne
+					modifier = {
+						has_country_flag = FRA_syria_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				573 = {   # -> Eure-et-Loir
+					modifier = {
+						has_country_flag = FRA_syria_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				607 = {   # -> Jèrri
+					modifier = {
+						has_country_flag = FRA_syria_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				2909 = {   # -> Guernési
+					modifier = {
+						has_country_flag = FRA_syria_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.8 #accepts
+				} 
+				280 = { country_event = lar_france_french_union.9 } #refuses   # was vanilla 85 (Danzig)
 			}
 		}
 		if = {
 			limit = {
-				FRA_controls_indochina = yes #Now Lebanon
+				FRA_controls_indochina = yes
 			}
 			random_list = {#indochina
-				25 = {
-					modifier = {
-						has_completed_focus = FRA_invest_in_indochina
-						factor = 2
-					}
-					modifier = {
-						has_completed_focus = FRA_global_integration
-						factor = 2
-					}
+				282 = {   # was vanilla 5 (Ermland-Masuren)
 					modifier = {
 						has_country_flag = FRA_indochina_promised_independence
 						factor = 0.25
 					}
 					country_event = lar_france_french_union.10 #accepts
-					set_country_flag = indochina_yes
 				} 
-				75 = {
+				1609 = {   # -> Marienwerder
 					modifier = {
-						has_completed_focus = FRA_invest_in_indochina
+						has_country_flag = FRA_indochina_promised_independence
 						factor = 0.25
 					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				1610 = {   # -> Braunsberg
 					modifier = {
-						has_completed_focus = FRA_global_integration
+						has_country_flag = FRA_indochina_promised_independence
 						factor = 0.25
 					}
-					country_event = lar_france_french_union.11
-				} #refuses
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				1611 = {   # -> Allenstein
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				1612 = {   # -> Lyck
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				1613 = {   # -> Angerburg
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				2342 = {   # -> Elbing
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				2483 = {   # -> Heilsberg
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				2689 = {   # -> Preussisch Holland
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				2690 = {   # -> Osterode in Ostpreussen
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				2691 = {   # -> Marienburg
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				2729 = {   # -> Tiegenhof
+					modifier = {
+						has_country_flag = FRA_indochina_promised_independence
+						factor = 0.25
+					}
+					country_event = lar_france_french_union.10 #accepts
+				} 
+				231 = { country_event = lar_france_french_union.11 } #refuses   # was vanilla 95 (Nowogródek)
+				292 = { country_event = lar_france_french_union.11 } #refuses   # -> Baranowicze
+				300 = { country_event = lar_france_french_union.11 } #refuses   # -> Grodno
+				307 = { country_event = lar_france_french_union.11 } #refuses   # -> Słonim
+				326 = { country_event = lar_france_french_union.11 } #refuses   # -> Wołkowysk
+				1225 = { country_event = lar_france_french_union.11 } #refuses   # -> Nieśwież
+				1310 = { country_event = lar_france_french_union.11 } #refuses   # -> Brzostowica Mała
 			}
 		}
 	}
 
 	option = {
-		name = mer_event.9 
-		if = {
-			limit = {
-				AND = {
-					has_country_flag = north_africa_yes
-					has_country_flag = central_africa_yes
-					has_country_flag = west_africa_yes
-					has_country_flag = syria_yes
-					has_country_flag = indochina_yes
-				}
-				NOT = { has_cosmetic_tag = FRA_THIRD_EMPIRE }
-			}
-			set_cosmetic_tag = FRA_GREATER_FRENCH_UNION_TAG
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_country_flag = north_africa_yes
-					has_country_flag = central_africa_yes
-					has_country_flag = west_africa_yes
-					has_country_flag = syria_yes
-					has_country_flag = indochina_yes
-				}
-				NOT = { has_cosmetic_tag = FRA_THIRD_EMPIRE }
-			}
-			set_cosmetic_tag = FRA_FRENCH_UNION_TAG
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_country_flag = north_africa_yes
-					has_country_flag = central_africa_yes
-					has_country_flag = west_africa_yes
-					has_country_flag = syria_yes
-					has_country_flag = indochina_yes
-				}
-				has_cosmetic_tag = FRA_THIRD_EMPIRE
-			}
-			set_cosmetic_tag = FRA_FRENCH_UNION_THIRD_EMPIRE_TAG
-		}
+		name = lar_france_french_union.1.a 
+		
 	}
 }
 #north africa agrees
 country_event = {
 	id = lar_france_french_union.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.2 FROM = [From.GetName]" }
 	title = lar_france_french_union.2.t
 	desc = lar_france_french_union.2.desc
 	picture = GFX_report_event_election_vote #todo candidate for uniques
@@ -691,9 +902,31 @@ country_event = {
 			}
 			annex_country = { target = ALG }
 		}
-		every_state = {
+		if = {
 			limit = {
-				is_core_of = ALG
+				TUN = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = TUN }
+		}
+		if = {
+			limit = {
+				MOR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = MOR }
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = ALG
+					is_core_of = TUN
+					is_core_of = MOR
+				}
 			}
 			add_core_of = ROOT
 		}
@@ -703,7 +936,6 @@ country_event = {
 #north africa refuses
 country_event = {
 	id = lar_france_french_union.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.3 FROM = [From.GetName]" }
 	title = lar_france_french_union.3.t
 	desc = lar_france_french_union.3.desc
 	picture = GFX_report_event_ghandi_women #TODO candidate for unique
@@ -723,141 +955,7 @@ country_event = {
 					autonomy_state = autonomy_free
 				}
 			}
-			ALG = { drop_cosmetic_tag = yes }
 		}
-		every_state = {
-			limit = {
-				is_controlled_by = ROOT
-				NOT = { is_core_of = ROOT }
-				is_core_of = ALG
-			}
-			add_resistance_target = {
-				amount = 55
-				tooltip = LAR_fra_voted_independence_tt
-			}
-		}
-	}
-}
-
-#west africa agrees
-country_event = {
-	id = lar_france_french_union.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.4 FROM = [From.GetName]" }
-	title = lar_france_french_union.4.t
-	desc = lar_france_french_union.4.desc
-	picture = GFX_report_event_election_vote
-	is_triggered_only = yes
-	option = {
-		name = lar_france_french_union.2.a
-		
-		if = {
-			limit = {
-				MRT = {
-					exists = yes
-					is_subject_of = ROOT
-				}
-			}
-			annex_country = { target = MRT }
-		}
-		every_state = {
-			limit = {
-				is_core_of = MRT
-			}
-			add_core_of = ROOT
-		}
-	}
-}
-
-#west africa refuses
-country_event = {
-	id = lar_france_french_union.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.5 FROM = [From.GetName]" }
-	title = lar_france_french_union.5.t
-	desc = lar_france_french_union.5.desc
-	picture = GFX_report_event_ghandi_women
-	is_triggered_only = yes
-	option = {
-		name = lar_france_french_union.3.a
-		if = {
-			limit = {
-				MRT = {
-					exists = yes
-					is_subject_of = ROOT
-				}
-			}
-			OVERLORD = {
-				set_autonomy = {
-					target = MRT
-					autonomy_state = autonomy_free
-				}
-			}
-			MRT = { drop_cosmetic_tag = yes }
-		}
-		
-		every_state = {
-			limit = {
-				OR = {
-					is_core_of = MRT
-				}
-			}
-			add_resistance_target = {
-				amount = 55
-				tooltip = LAR_fra_voted_independence_tt
-			}
-		}
-	}
-}
-
-#central africa agrees
-country_event = {
-	id = lar_france_french_union.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.6 FROM = [From.GetName]" }
-	title = lar_france_french_union.6.t
-	desc = lar_france_french_union.6.desc
-	picture = GFX_report_event_election_vote
-	is_triggered_only = yes
-	option = {
-		name = lar_france_french_union.2.a
-		if = {
-			limit = {
-				TUN = {
-					exists = yes
-					is_subject_of = ROOT
-				}
-			}
-			annex_country = { target = TUN }
-		}
-		if = {
-			limit = {
-				MOR = {
-					exists = yes
-					is_subject_of = ROOT
-				}
-			}
-			annex_country = { target = MOR }
-		}
-		every_state = {
-			limit = {
-				OR = {
-					is_core_of = TUN
-					is_core_of = MOR
-				}
-			}
-			add_core_of = ROOT
-		}
-	}
-}
-
-#central africa refuses
-country_event = {
-	id = lar_france_french_union.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.7 FROM = [From.GetName]" }
-	title = lar_france_french_union.7.t
-	desc = lar_france_french_union.7.desc
-	picture = GFX_report_event_ghandi_women
-	is_triggered_only = yes
-	option = {
-		name = lar_france_french_union.3.a
 		if = {
 			limit = {
 				TUN = {
@@ -871,7 +969,6 @@ country_event = {
 					autonomy_state = autonomy_free
 				}
 			}
-			TUN = { drop_cosmetic_tag = yes }
 		}
 		if = {
 			limit = {
@@ -886,13 +983,448 @@ country_event = {
 					autonomy_state = autonomy_free
 				}
 			}
-			MOR = { drop_cosmetic_tag = yes }
 		}
-		every_state = {
+		every_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+				OR = {
+					is_core_of = ALG
+					is_core_of = TUN
+					is_core_of = MOR
+				}
+			}
+			add_resistance_target = {
+				amount = 55
+				tooltip = LAR_fra_voted_independence_tt
+			}
+		}
+	}
+}
+
+#west africa agrees
+country_event = {
+	id = lar_france_french_union.4
+	title = lar_france_french_union.4.t
+	desc = lar_france_french_union.4.desc
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	option = {
+		name = lar_france_french_union.2.a
+		if = {
+			limit = {
+				SEN = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = SEN }
+		}
+		if = {
+			limit = {
+				MRT = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = MRT }
+		}
+		if = {
+			limit = {
+				GNA = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = GNA }
+		}
+		if = {
+			limit = {
+				MLI = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = MLI }
+		}
+		if = {
+			limit = {
+				IVO = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = IVO }
+		}
+		if = {
+			limit = {
+				VOL = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = VOL }
+		}
+		if = {
+			limit = {
+				NGR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = NGR }
+		}
+		if = {
+			limit = {
+				DAH = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = DAH }
+		}
+		if = {
+			limit = {
+				TOG = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = TOG }
+		}
+		every_owned_state = {
 			limit = {
 				OR = {
-					is_core_of = MOR
-					is_core_of = TUN
+					is_core_of = SEN
+					is_core_of = MRT
+					is_core_of = GNA
+					is_core_of = MLI
+					is_core_of = IVO
+					is_core_of = VOL
+					is_core_of = NGR
+					is_core_of = DAH
+					is_core_of = TOG
+				}
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+#west africa refuses
+country_event = {
+	id = lar_france_french_union.5
+	title = lar_france_french_union.5.t
+	desc = lar_france_french_union.5.desc
+	picture = GFX_report_event_ghandi_women
+	is_triggered_only = yes
+	option = {
+		name = lar_france_french_union.3.a
+		if = {
+			limit = {
+				SEN = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = SEN
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				MRT = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = MRT
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				GNA = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = GNA
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				MLI = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = MLI
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				IVO = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = IVO
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				VOL = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = VOL
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				NGR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = NGR
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				DAH = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = DAH
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				TOG = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = TOG
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = TOG
+					is_core_of = DAH
+					is_core_of = NGR
+					is_core_of = IVO
+					is_core_of = VOL
+					is_core_of = SEN
+					is_core_of = MLI
+					is_core_of = GNA
+					is_core_of = MRT
+				}
+			}
+			add_resistance_target = {
+				amount = 55
+				tooltip = LAR_fra_voted_independence_tt
+			}
+		}
+	}
+}
+
+#central africa agrees
+country_event = {
+	id = lar_france_french_union.6
+	title = lar_france_french_union.6.t
+	desc = lar_france_french_union.6.desc
+	picture = GFX_report_event_election_vote
+	is_triggered_only = yes
+	option = {
+		name = lar_france_french_union.2.a
+		if = {
+			limit = {
+				CHA = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = CHA }
+		}
+		if = {
+			limit = {
+				CMR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = CMR }
+		}
+		if = {
+			limit = {
+				CAR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = CAR }
+		}
+		if = {
+			limit = {
+				RCG = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = RCG }
+		}
+		if = {
+			limit = {
+				GAB = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = GAB }
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = CHA
+					is_core_of = CMR
+					is_core_of = CAR
+					is_core_of = RCG
+					is_core_of = GAB
+				}
+			}
+			add_core_of = ROOT
+		}
+	}
+}
+
+#central africa refuses
+country_event = {
+	id = lar_france_french_union.7
+	title = lar_france_french_union.7.t
+	desc = lar_france_french_union.7.desc
+	picture = GFX_report_event_ghandi_women
+	is_triggered_only = yes
+	option = {
+		name = lar_france_french_union.3.a
+		if = {
+			limit = {
+				CHA = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = CHA
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				CMR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = CMR
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				CAR = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = CAR
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				RCG = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = RCG
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				GAB = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = GAB
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		every_owned_state = {
+			limit = {
+				is_controlled_by = ROOT
+				OR = {
+					is_core_of = CHA
+					is_core_of = CMR
+					is_core_of = CAR
+					is_core_of = RCG
+					is_core_of = GAB
 				}
 			}
 			add_resistance_target = {
@@ -906,7 +1438,6 @@ country_event = {
 #Syria agrees
 country_event = {
 	id = lar_france_french_union.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.8 FROM = [From.GetName]" }
 	title = lar_france_french_union.8.t
 	desc = lar_france_french_union.8.desc
 	picture = GFX_report_event_election_vote
@@ -924,25 +1455,19 @@ country_event = {
 		}
 		if = {
 			limit = {
-				ALW = {
+				LEB = {
 					exists = yes
 					is_subject_of = ROOT
 				}
 			}
-			annex_country = { target = ALW }
+			annex_country = { target = LEB }
 		}
-		if = {
+		every_owned_state = {
 			limit = {
-				JDZ = {
-					exists = yes
-					is_subject_of = ROOT
+				OR = {
+					is_core_of = SYR
+					is_core_of = LEB
 				}
-			}
-			annex_country = { target = JDZ }
-		}
-		every_state = {
-			limit = {
-				is_core_of = SYR
 			}
 			add_core_of = ROOT
 		}
@@ -952,7 +1477,6 @@ country_event = {
 #Syria refuses
 country_event = {
 	id = lar_france_french_union.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.9 FROM = [From.GetName]" }
 	title = lar_france_french_union.9.t
 	desc = lar_france_french_union.9.desc
 	picture = GFX_report_event_ghandi_women
@@ -966,48 +1490,32 @@ country_event = {
 					is_subject_of = ROOT
 				}
 			}
-			OVERLORD = {
-				set_autonomy = {
-					target = SYR
-					autonomy_state = autonomy_free
-				}
+			
+			set_autonomy = {
+				target = SYR
+				autonomy_state = autonomy_free
 			}
-			SYR = { drop_cosmetic_tag = yes }
+			
 		}
 		if = {
 			limit = {
-				ALW = {
+				LEB = {
 					exists = yes
 					is_subject_of = ROOT
 				}
 			}
-			OVERLORD = {
-				set_autonomy = {
-					target = ALW
-					autonomy_state = autonomy_free
-				}
+			
+			set_autonomy = {
+				target = LEB
+				autonomy_state = autonomy_free
 			}
-			ALW = { drop_cosmetic_tag = yes }
 		}
-		if = {
+		every_owned_state = {
 			limit = {
-				JDZ = {
-					exists = yes
-					is_subject_of = ROOT
+				OR = {
+					is_core_of = LEB
+					is_core_of = SYR
 				}
-			}
-			OVERLORD = {
-				set_autonomy = {
-					target = JDZ
-					autonomy_state = autonomy_free
-				}
-			}
-			JDZ = { drop_cosmetic_tag = yes }
-		}
-		every_state = {
-			limit = {
-				is_controlled_by = ROOT
-				is_core_of = SYR
 			}
 			add_resistance_target = {
 				amount = 55
@@ -1019,7 +1527,6 @@ country_event = {
 #Indochina agrees
 country_event = {
 	id = lar_france_french_union.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.10 FROM = [From.GetName]" }
 	title = lar_france_french_union.10.t
 	desc = lar_france_french_union.10.desc
 	picture = GFX_report_event_election_vote
@@ -1028,16 +1535,38 @@ country_event = {
 		name = lar_france_french_union.2.a
 		if = {
 			limit = {
-				LEB = {
+				VIN = {
 					exists = yes
 					is_subject_of = ROOT
 				}
 			}
-			annex_country = { target = LEB }
+			annex_country = { target = VIN }
 		}
-		every_state = {
+		if = {
 			limit = {
-				is_core_of = LEB
+				LAO = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = LAO }
+		}
+		if = {
+			limit = {
+				CAM = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			annex_country = { target = CAM }
+		}
+		every_owned_state = {
+			limit = {
+				OR = {
+					is_core_of = VIN
+					is_core_of = LAO
+					is_core_of = CAM
+				}
 			}
 			add_core_of = ROOT
 		}
@@ -1047,7 +1576,6 @@ country_event = {
 #Indochina refuses
 country_event = {
 	id = lar_france_french_union.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_french_union.11 FROM = [From.GetName]" }
 	title = lar_france_french_union.11.t
 	desc = lar_france_french_union.11.desc
 	picture = GFX_report_event_ghandi_women
@@ -1056,26 +1584,57 @@ country_event = {
 		name = lar_france_french_union.3.a
 		if = {
 			limit = {
-				LEB = {
+				VIN = {
 					exists = yes
 					is_subject_of = ROOT
 				}
 			}
 			OVERLORD = {
 				set_autonomy = {
-					target = LEB
+					target = VIN
 					autonomy_state = autonomy_free
 				}
 			}
-			LEB = { drop_cosmetic_tag = yes }
 		}
-		every_state = {
+		if = {
+			limit = {
+				LAO = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = LAO
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		if = {
+			limit = {
+				CAM = {
+					exists = yes
+					is_subject_of = ROOT
+				}
+			}
+			OVERLORD = {
+				set_autonomy = {
+					target = CAM
+					autonomy_state = autonomy_free
+				}
+			}
+		}
+		every_owned_state = {
 			limit = {
 				is_controlled_by = ROOT
-				is_core_of = LEB
+				OR = {
+					is_core_of = CAM
+					is_core_of = VIN
+					is_core_of = LAO
+				}
 			}
 			add_resistance_target = {
-				amount = 55
+				amount = 100 #Vietnam War, here we come!
 				tooltip = LAR_fra_voted_independence_tt
 			}
 		}
@@ -1093,7 +1652,6 @@ add_namespace = FRA_syria_intervention
 #attackers win syrian intervention
 country_event = {
 	id = FRA_syria_intervention.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_syria_intervention.1 FROM = [From.GetName]" }
 	title = FRA_syria_intervention.1.t
 	desc = FRA_syria_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
@@ -1118,23 +1676,49 @@ country_event = {
 	}
 	option = {
 		name = FRA_syria_intervention.1.a
-		
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = SYR
-						is_core_of = LEB
-					}
-				}
-				transfer_state_to = event_target:free_france 
-			}
+		event_target:free_france = {
+			transfer_state = 1158 # was vanilla 554 (Damascus -> Latakia)
+			transfer_state = 1167 # -> Salamiyah
+			transfer_state = 1190 # -> Tartus
+			transfer_state = 1218 # -> Duma
+			transfer_state = 1228 # -> Quneitra
+			transfer_state = 1230 # -> As-Suwayda
+			transfer_state = 1925 # -> Daraa
+			transfer_state = 1927 # -> Hamah
+			transfer_state = 1928 # -> Homs
+			transfer_state = 1929 # -> Rif Dimashq
+			transfer_state = 1930 # -> Damascus
+			transfer_state = 2194 # -> Al Tanf
+			transfer_state = 1105 # was vanilla 680 (Deir-az-Zur -> Al-Hasakah)
+			transfer_state = 1134 # -> Al-Raqqah
+			transfer_state = 1141 # -> Deir ez-Zor
+			transfer_state = 1149 # -> Shadadah
+			transfer_state = 1159 # -> Al-Thawrah
+			transfer_state = 1168 # -> Al-Bukamal
+			transfer_state = 1185 # -> Palmyra
+			transfer_state = 2925 # -> Al Suwar
+			transfer_state = 2926 # -> Markadah
+			transfer_state = 1124 # was vanilla 677 (Aleppo -> Aleppo)
+			transfer_state = 1148 # -> Idlib
+			transfer_state = 1924 # -> Tal Abyad
+			transfer_state = 1926 # -> Manbij
+			transfer_state = 2842 # -> Kobani
+			transfer_state = 1204 # was vanilla 553 (Lebanon -> Liban Nord)
+			transfer_state = 1916 # -> Liban-Sud
+			transfer_state = 1917 # -> Nabatiyeh
+			transfer_state = 1918 # -> Beqaa
+			transfer_state = 1919 # -> Mont-Liban
+			transfer_state = 1920 # -> Beyrouth
+			transfer_state = 1921 # -> Baalbek-Hermel
+			transfer_state = 1922 # -> Kersouane Al Fatouh Jbeil
+			transfer_state = 1923 # -> Aakkar
+		}
 	}
 }
 
 #attackers win syrian intervention
 country_event = {
 	id = FRA_syria_intervention.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_syria_intervention.11 FROM = [From.GetName]" }
 	title = FRA_syria_intervention.1.t
 	desc = FRA_syria_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
@@ -1143,14 +1727,42 @@ country_event = {
 	option = {
 		name = FRA_syria_intervention.1.a
 		effect_tooltip = {
-			every_state = {
-				limit = {
-					OR = {
-						is_core_of = SYR
-						is_core_of = LEB
-					}
-				}
-				transfer_state_to = event_target:free_france 
+			event_target:free_france = {
+				transfer_state = 1158 # was vanilla 554 (Damascus -> Latakia)
+				transfer_state = 1167 # -> Salamiyah
+				transfer_state = 1190 # -> Tartus
+				transfer_state = 1218 # -> Duma
+				transfer_state = 1228 # -> Quneitra
+				transfer_state = 1230 # -> As-Suwayda
+				transfer_state = 1925 # -> Daraa
+				transfer_state = 1927 # -> Hamah
+				transfer_state = 1928 # -> Homs
+				transfer_state = 1929 # -> Rif Dimashq
+				transfer_state = 1930 # -> Damascus
+				transfer_state = 2194 # -> Al Tanf
+				transfer_state = 1105 # was vanilla 680 (Deir-az-Zur -> Al-Hasakah)
+				transfer_state = 1134 # -> Al-Raqqah
+				transfer_state = 1141 # -> Deir ez-Zor
+				transfer_state = 1149 # -> Shadadah
+				transfer_state = 1159 # -> Al-Thawrah
+				transfer_state = 1168 # -> Al-Bukamal
+				transfer_state = 1185 # -> Palmyra
+				transfer_state = 2925 # -> Al Suwar
+				transfer_state = 2926 # -> Markadah
+				transfer_state = 1124 # was vanilla 677 (Aleppo -> Aleppo)
+				transfer_state = 1148 # -> Idlib
+				transfer_state = 1924 # -> Tal Abyad
+				transfer_state = 1926 # -> Manbij
+				transfer_state = 2842 # -> Kobani
+				transfer_state = 1204 # was vanilla 553 (Lebanon -> Liban Nord)
+				transfer_state = 1916 # -> Liban-Sud
+				transfer_state = 1917 # -> Nabatiyeh
+				transfer_state = 1918 # -> Beqaa
+				transfer_state = 1919 # -> Mont-Liban
+				transfer_state = 1920 # -> Beyrouth
+				transfer_state = 1921 # -> Baalbek-Hermel
+				transfer_state = 1922 # -> Kersouane Al Fatouh Jbeil
+				transfer_state = 1923 # -> Aakkar
 			}
 		}
 	}
@@ -1159,7 +1771,6 @@ country_event = {
 #defenders win syrian intervention
 country_event = {
 	id = FRA_syria_intervention.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_syria_intervention.2 FROM = [From.GetName]" }
 	title = FRA_syria_intervention.2.t
 	desc = FRA_syria_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
@@ -1191,7 +1802,6 @@ country_event = {
 #defenders win syrian intervention
 country_event = {
 	id = FRA_syria_intervention.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_syria_intervention.21 FROM = [From.GetName]" }
 	title = FRA_syria_intervention.2.t
 	desc = FRA_syria_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
@@ -1206,7 +1816,6 @@ country_event = {
 #syrian intervention stalls out
 country_event = {
 	id = FRA_syria_intervention.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_syria_intervention.3 FROM = [From.GetName]" }
 	title = FRA_syria_intervention.3.t
 	desc = FRA_syria_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1237,7 +1846,6 @@ country_event = {
 #syrian intervention stalls out
 country_event = {
 	id = FRA_syria_intervention.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_syria_intervention.31 FROM = [From.GetName]" }
 	title = FRA_syria_intervention.3.t
 	desc = FRA_syria_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1254,24 +1862,47 @@ add_namespace = FRA_indochina_intervention
 #attackers win indochina intervention
 country_event = {
 	id = FRA_indochina_intervention.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_indochina_intervention.1 FROM = [From.GetName]" }
 	title = FRA_indochina_intervention.1.t
 	desc = FRA_indochina_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
 	is_triggered_only = yes
 	immediate = {
-		
+		hidden_effect = {
+			if = {
+				limit = { has_template = "Indochina Intervention Force" }
+				delete_unit_template_and_units = { division_template = "Indochina Intervention Force" }
+			}
+			if = {
+				limit = { has_template = "Indochina Defense Force" }
+				delete_unit_template_and_units = { division_template = "Indochina Defense Force" }
+			}
+			if = {
+				limit = {
+					NOT = { tag = FRA }
+				}
+				FRA = { country_event = FRA_indochina_intervention.11 } #due to border wars being weird, we might end up in a situation where another country is fighting the border war on French behalf. This ensures that the French are kept in the loop
+			}
+		}
 	}
 	option = {
 		name = FRA_indochina_intervention.1.a
-		
+		event_target:free_france = {
+			# transfer_state = 670   # 1.19-migration: off-map vanilla 670 (Laos)
+			# transfer_state = 671   # 1.19-migration: off-map vanilla 671 (Tonkin)
+			# transfer_state = 741   # 1.19-migration: off-map vanilla 741 (Cambodia)
+			transfer_state = 1069 
+			transfer_state = 1017
+			transfer_state = 1068 
+			# transfer_state = 286    # 1.19-migration: off-map vanilla 286 (South Annam)
+			transfer_state = 1066
+			transfer_state = 1067
+		}
 	}
 }
 
 #attackers win indochina intervention
 country_event = {
 	id = FRA_indochina_intervention.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_indochina_intervention.11 FROM = [From.GetName]" }
 	title = FRA_indochina_intervention.1.t
 	desc = FRA_indochina_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
@@ -1279,20 +1910,46 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = FRA_indochina_intervention.1.a
-		
+		effect_tooltip = {
+			event_target:free_france = {
+				# transfer_state = 670   # 1.19-migration: off-map vanilla 670 (Laos)
+				# transfer_state = 671   # 1.19-migration: off-map vanilla 671 (Tonkin)
+				# transfer_state = 741    # 1.19-migration: off-map vanilla 741 (Cambodia)
+				transfer_state = 1069 
+				transfer_state = 1017
+				transfer_state = 1068 
+				# transfer_state = 286    # 1.19-migration: off-map vanilla 286 (South Annam)
+				transfer_state = 1066
+				transfer_state = 1067
+			}
+		}
 	}
 }
 
 #defenders win indochina intervention
 country_event = {
 	id = FRA_indochina_intervention.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_indochina_intervention.2 FROM = [From.GetName]" }
 	title = FRA_indochina_intervention.2.t
 	desc = FRA_indochina_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
 	is_triggered_only = yes
 	immediate = {
-		
+		hidden_effect = {
+			if = {
+				limit = { has_template = "Indochina Intervention Force" }
+				delete_unit_template_and_units = { division_template = "Indochina Intervention Force" }
+			}
+			if = {
+				limit = { has_template = "Indochina Defense Force" }
+				delete_unit_template_and_units = { division_template = "Indochina Defense Force" }
+			}
+			if = {
+				limit = {
+					NOT = { tag = FRA }
+				}
+				FRA = { country_event = FRA_indochina_intervention.21 } #due to border wars being weird, we might end up in a situation where another country is fighting the border war on French behalf. This ensures that the French are kept in the loop
+			}
+		}
 	}
 	option = {
 		name = FRA_indochina_intervention.2.a
@@ -1303,7 +1960,6 @@ country_event = {
 #defenders win indochina intervention
 country_event = {
 	id = FRA_indochina_intervention.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_indochina_intervention.21 FROM = [From.GetName]" }
 	title = FRA_indochina_intervention.2.t
 	desc = FRA_indochina_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
@@ -1318,13 +1974,27 @@ country_event = {
 #indochina intervention stalls out
 country_event = {
 	id = FRA_indochina_intervention.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_indochina_intervention.3 FROM = [From.GetName]" }
 	title = FRA_indochina_intervention.3.t
 	desc = FRA_indochina_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
 	is_triggered_only = yes
 	immediate = {
-		
+		hidden_effect = {
+			if = {
+				limit = { has_template = "Indochina Intervention Force" }
+				delete_unit_template_and_units = { division_template = "Indochina Intervention Force" }
+			}
+			if = {
+				limit = { has_template = "Indochina Defense Force" }
+				delete_unit_template_and_units = { division_template = "Indochina Defense Force" }
+			}
+			if = {
+				limit = {
+					NOT = { tag = FRA }
+				}
+				FRA = { country_event = FRA_indochina_intervention.31 } #due to border wars being weird, we might end up in a situation where another country is fighting the border war on French behalf. This ensures that the French are kept in the loop
+			}
+		}
 	}
 	option = {
 		name = FRA_indochina_intervention.3.a
@@ -1334,7 +2004,6 @@ country_event = {
 #indochina intervention stalls out
 country_event = {
 	id = FRA_indochina_intervention.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_indochina_intervention.31 FROM = [From.GetName]" }
 	title = FRA_indochina_intervention.3.t
 	desc = FRA_indochina_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1350,22 +2019,49 @@ add_namespace = FRA_central_africa_intervention
 #attackers win central african intervention
 country_event = {
 	id = FRA_central_africa_intervention.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_central_africa_intervention.1 FROM = [From.GetName]" }
 	title = FRA_central_africa_intervention.1.t
 	desc = FRA_central_africa_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
 	is_triggered_only = yes
 	immediate = {
-		
+		hidden_effect = {
+			if = {
+				limit = { has_template = "Central Africa Intervention Force" }
+				delete_unit_template_and_units = { division_template = "Central Africa Intervention Force" }
+			}
+			if = {
+				limit = { has_template = "Central Africa Defense Force" }
+				delete_unit_template_and_units = { division_template = "Central Africa Defense Force" }
+			}
+			if = {
+				limit = {
+					NOT = { tag = FRA }
+				}
+				FRA = { country_event = FRA_central_africa_intervention.11 } #due to border wars being weird, we might end up in a situation where another country is fighting the border war on French behalf. This ensures that the French are kept in the loop
+			}
+		}
 	}
 	option = {
 		name = FRA_central_africa_intervention.1.a
+		every_state = {
+			limit = {
+				OR = {
+					is_core_of = CHA
+					is_core_of = CMR
+					is_core_of = CAR
+					is_core_of = RCG
+					is_core_of = GAB
+				}
+			}
+			event_target:free_france = {
+				transfer_state = PREV
+			}
+		}
 	}
 }
 
 country_event = {
 	id = FRA_central_africa_intervention.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_central_africa_intervention.11 FROM = [From.GetName]" }
 	title = FRA_central_africa_intervention.1.t
 	desc = FRA_central_africa_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
@@ -1373,19 +2069,49 @@ country_event = {
 	fire_only_once = yes
 	option = {
 		name = FRA_central_africa_intervention.1.a
-		
+		effect_tooltip = {
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = CHA
+						is_core_of = CMR
+						is_core_of = CAR
+						is_core_of = RCG
+						is_core_of = GAB
+					}
+				}
+				event_target:free_france = {
+					transfer_state = PREV
+				}
+			}
+		}
 	}
 }
 
 #defenders win central african intervention
 country_event = {
 	id = FRA_central_africa_intervention.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_central_africa_intervention.2 FROM = [From.GetName]" }
 	title = FRA_central_africa_intervention.2.t
 	desc = FRA_central_africa_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
 	is_triggered_only = yes
 	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { has_template = "Central Africa Intervention Force" }
+				delete_unit_template_and_units = { division_template = "Central Africa Intervention Force" }
+			}
+			if = {
+				limit = { has_template = "Central Africa Defense Force" }
+				delete_unit_template_and_units = { division_template = "Central Africa Defense Force" }
+			}
+			if = {
+				limit = {
+					NOT = { tag = FRA }
+				}
+				FRA = { country_event = FRA_central_africa_intervention.21 } #due to border wars being weird, we might end up in a situation where another country is fighting the border war on French behalf. This ensures that the French are kept in the loop
+			}
+		}
 	}
 	option = {
 		name = FRA_central_africa_intervention.2.a
@@ -1396,7 +2122,6 @@ country_event = {
 #defenders win central african intervention
 country_event = {
 	id = FRA_central_africa_intervention.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_central_africa_intervention.21 FROM = [From.GetName]" }
 	title = FRA_central_africa_intervention.2.t
 	desc = FRA_central_africa_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
@@ -1411,12 +2136,27 @@ country_event = {
 #central african intervention stalls out
 country_event = {
 	id = FRA_central_africa_intervention.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_central_africa_intervention.3 FROM = [From.GetName]" }
 	title = FRA_central_africa_intervention.3.t
 	desc = FRA_central_africa_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
 	is_triggered_only = yes
 	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { has_template = "Central Africa Intervention Force" }
+				delete_unit_template_and_units = { division_template = "Central Africa Intervention Force" }
+			}
+			if = {
+				limit = { has_template = "Central Africa Defense Force" }
+				delete_unit_template_and_units = { division_template = "Central Africa Defense Force" }
+			}
+			if = {
+				limit = {
+					NOT = { tag = FRA }
+				}
+				FRA = { country_event = FRA_central_africa_intervention.31 } #due to border wars being weird, we might end up in a situation where another country is fighting the border war on French behalf. This ensures that the French are kept in the loop
+			}
+		}
 	}
 	option = {
 		name = FRA_central_africa_intervention.3.a
@@ -1426,7 +2166,6 @@ country_event = {
 #central african intervention stalls out
 country_event = {
 	id = FRA_central_africa_intervention.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_central_africa_intervention.31 FROM = [From.GetName]" }
 	title = FRA_central_africa_intervention.3.t
 	desc = FRA_central_africa_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1442,7 +2181,6 @@ add_namespace = FRA_west_africa_intervention
 #attackers win west african intervention
 country_event = {
 	id = FRA_west_africa_intervention.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_west_africa_intervention.1 FROM = [From.GetName]" }
 	title = FRA_west_africa_intervention.1.t
 	desc = FRA_west_africa_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
@@ -1470,9 +2208,16 @@ country_event = {
 		every_state = {
 			limit = {
 				OR = {
-					state = 1884
-					state = 1340
-					state = 1331
+					# state = 557   # 1.19-migration: off-map vanilla 557 (Mauritania)
+					# state = 272   # 1.19-migration: off-map vanilla 272 (Senegal)
+					# state = 556   # 1.19-migration: off-map vanilla 556 (Bamako)
+					# state = 898   # 1.19-migration: off-map vanilla 898 (Gao)
+					# state = 899   # 1.19-migration: off-map vanilla 899 (Kayes-Koulikoro)
+					# state = 780   # 1.19-migration: off-map vanilla 780 (Guinea)
+					# state = 779   # 1.19-migration: off-map vanilla 779 (Ivory Coast)
+					# state = 778   # 1.19-migration: off-map vanilla 778 (Upper Volta)
+					# state = 781   # 1.19-migration: off-map vanilla 781 (Niger)
+					# state = 776   # 1.19-migration: off-map vanilla 776 (Dahomey)
 				}
 			}
 			event_target:free_france = {
@@ -1485,7 +2230,6 @@ country_event = {
 #attackers win west african intervention
 country_event = {
 	id = FRA_west_africa_intervention.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_west_africa_intervention.11 FROM = [From.GetName]" }
 	title = FRA_west_africa_intervention.1.t
 	desc = FRA_west_africa_intervention.1.desc
 	picture = GFX_report_event_france_victory_syria
@@ -1497,9 +2241,16 @@ country_event = {
 			every_state = {
 				limit = {
 					OR = {
-						state = 1884
-						state = 1340
-						state = 1331
+						# state = 557   # 1.19-migration: off-map vanilla 557 (Mauritania)
+						# state = 272   # 1.19-migration: off-map vanilla 272 (Senegal)
+						# state = 556   # 1.19-migration: off-map vanilla 556 (Bamako)
+						# state = 898   # 1.19-migration: off-map vanilla 898 (Gao)
+						# state = 899   # 1.19-migration: off-map vanilla 899 (Kayes-Koulikoro)
+						# state = 780   # 1.19-migration: off-map vanilla 780 (Guinea)
+						# state = 779   # 1.19-migration: off-map vanilla 779 (Ivory Coast)
+						# state = 778   # 1.19-migration: off-map vanilla 778 (Upper Volta)
+						# state = 781   # 1.19-migration: off-map vanilla 781 (Niger)
+						# state = 776   # 1.19-migration: off-map vanilla 776 (Dahomey)
 					}
 				}
 				event_target:free_france = {
@@ -1513,7 +2264,6 @@ country_event = {
 #defenders win west african intervention
 country_event = {
 	id = FRA_west_africa_intervention.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_west_africa_intervention.2 FROM = [From.GetName]" }
 	title = FRA_west_africa_intervention.2.t
 	desc = FRA_west_africa_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
@@ -1545,7 +2295,6 @@ country_event = {
 #defenders win west african intervention
 country_event = {
 	id = FRA_west_africa_intervention.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_west_africa_intervention.21 FROM = [From.GetName]" }
 	title = FRA_west_africa_intervention.2.t
 	desc = FRA_west_africa_intervention.2.desc
 	picture = GFX_report_event_romanian_soldiers
@@ -1560,7 +2309,6 @@ country_event = {
 #west african intervention stalls out
 country_event = {
 	id = FRA_west_africa_intervention.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_west_africa_intervention.3 FROM = [From.GetName]" }
 	title = FRA_west_africa_intervention.3.t
 	desc = FRA_west_africa_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1591,7 +2339,6 @@ country_event = {
 #west african intervention stalls out
 country_event = {
 	id = FRA_west_africa_intervention.31
-	immediate = { log = "[GetDateText]: [Root.GetName]: event FRA_west_africa_intervention.31 FROM = [From.GetName]" }
 	title = FRA_west_africa_intervention.3.t
 	desc = FRA_west_africa_intervention.3.desc
 	picture = GFX_report_event_soldiers_in_france
@@ -1613,7 +2360,6 @@ add_namespace = lar_compensate_italy
 #initial event to Italy - France proposes to turn over Djibouti
 country_event = {
 	id = lar_compensate_italy.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_compensate_italy.1 FROM = [From.GetName]" }
 	title = lar_compensate_italy.1.t
 	desc = lar_compensate_italy.1.desc
 	picture = GFX_report_event_generic_conference
@@ -1621,7 +2367,7 @@ country_event = {
 	option = {
 		name = lar_compensate_italy.1.a #agree
 		ai_chance = {
-			base = 40
+			base = 0
 			modifier = {
 				add = 100
 				OR = {
@@ -1634,13 +2380,7 @@ country_event = {
 			country_event = lar_compensate_italy.2
 		}
 		effect_tooltip = {
-			ITA = { 
-					TUN = {
-						every_core_state = {
-							transfer_state_to = ITA
-						}	
-					}
-				}
+			ITA = { transfer_state = 2851 } # was vanilla 268 (French Somaliland)
 			FRA = { add_to_faction = ITA }
 		}
 	}
@@ -1648,7 +2388,7 @@ country_event = {
 	option = {
 		name = lar_compensate_italy.1.b #refuse
 		ai_chance = {
-			base = 0
+			base = 1
 		}
 		FRA = {
 			country_event = lar_compensate_italy.3
@@ -1659,7 +2399,6 @@ country_event = {
 # rasponse event for France - Italy agrees
 country_event = {
 	id = lar_compensate_italy.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_compensate_italy.2 FROM = [From.GetName]" }
 	title = lar_compensate_italy.2.t
 	desc = lar_compensate_italy.2.desc
 	picture = GFX_report_event_generic_read_write
@@ -1671,28 +2410,20 @@ country_event = {
 		}
 		if = {
 			limit = {
-				TUN = {
-					all_core_state = {
-						owner = {
-							OR = {
-								TAG = ROOT
-								is_subject_of = ROOT
-							}
+				2851 = {   # was vanilla 268 (French Somaliland)
+					CONTROLLER = {
+						OR = {
+							TAG = ROOT
+							is_subject_of = ROOT
 						}
 					}
 				}
 			}
-			TUN = {
-				every_core_state = {
-					transfer_state_to = ITA
-				}				
-			}
+			ITA = { transfer_state = 2851 } # was vanilla 268 (French Somaliland)
 		}
 		else = {
-			TUN = {
-				every_core_state = {
-					add_claim_by = ITA
-				}
+			ITA = {
+				add_state_claim = 2851 # was vanilla 268 (French Somaliland)
 			}
 		}
 		FRA = { add_to_faction = ITA }
@@ -1701,7 +2432,6 @@ country_event = {
 #response event for France - Italy refuses
 country_event = {
 	id = lar_compensate_italy.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_compensate_italy.3 FROM = [From.GetName]" }
 	title = lar_compensate_italy.3.t
 	desc = lar_compensate_italy.3.desc
 	picture = GFX_report_event_fascist_speech
@@ -1725,7 +2455,6 @@ add_namespace = lar_intervention_in_greece
 #initial event to Italy - France proposes to intervene in Greece
 country_event = {
 	id = lar_intervention_in_greece.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_intervention_in_greece.1 FROM = [From.GetName]" }
 	title = lar_intervention_in_greece.1.t
 	desc = lar_intervention_in_greece.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -1739,33 +2468,79 @@ country_event = {
 			country_event = lar_intervention_in_greece.2
 		}
 		effect_tooltip = {
-			GRE = { 
-					every_core_state = {
-						add_claim_by = ITA
-					}
-				}
-				CRT = { 
-					every_core_state = {
-						add_claim_by = FRA
-					}
-				}
-				
-				FRA = {
-					add_state_claim = 1555
-					add_state_claim = 2004
-					add_state_claim = 2839
-					add_state_claim = 1553
-					add_state_claim = 1556
-					add_state_claim = 1552
-					add_state_claim = 2950
-				}
-				every_state = {
-					limit = {
-						is_core_of = GRE
-						is_claimed_by = FRA
-					}
-					remove_claim_by = ITA
-				}
+			ITA = { 
+				add_state_claim = 995 # was vanilla 185 (Epirus -> Ioannina)
+				add_state_claim = 1044 # -> Aitoloakarnanía
+				add_state_claim = 1061 # -> Zakynthos
+				add_state_claim = 1540 # -> Trikala
+				add_state_claim = 1541 # -> Arta
+				add_state_claim = 1542 # -> Preveza
+				add_state_claim = 1543 # -> Thesprotia
+				add_state_claim = 1550 # -> Kerkyra
+				add_state_claim = 1551 # -> Kefalonia
+				add_state_claim = 1561 # -> Lefkada
+				add_state_claim = 2000 # -> Stavros
+				add_state_claim = 2001 # -> Grevena
+				add_state_claim = 2002 # -> Kastoria
+				add_state_claim = 2015 # -> Kardista
+				add_state_claim = 2021 # -> Evrytania
+				add_state_claim = 2922 # -> Prespa
+				add_state_claim = 2940 # -> Lefkochori
+				add_state_claim = 941 # was vanilla 731 (Central Macedonia -> Thessaloniki)
+				add_state_claim = 969 # -> Florina
+				add_state_claim = 1544 # -> Kozani
+				add_state_claim = 1545 # -> Pella
+				add_state_claim = 1546 # -> Kilkis
+				add_state_claim = 1547 # -> Chalkidiki
+				add_state_claim = 1549 # -> Serres
+				add_state_claim = 1557 # -> Oros Athos
+				add_state_claim = 2020 # -> Pieria
+				add_state_claim = 2748 # -> Koufalia
+				add_state_claim = 2898 # -> Bogdanci
+				add_state_claim = 2923 # -> Veria
+				add_state_claim = 910 # was vanilla 184 (Thrace -> Alexandroupoli)
+				add_state_claim = 929 # -> Drama
+				add_state_claim = 937 # -> Rhodope
+				add_state_claim = 1548 # -> Kavala
+				add_state_claim = 1969 # -> Didymoteicho
+				add_state_claim = 2005 # -> Feres
+				add_state_claim = 2006 # -> Petrota
+				add_state_claim = 2016 # -> Katafigio
+				add_state_claim = 2564 # -> Samothraki
+				add_state_claim = 2751 # -> Xanthi
+				add_state_claim = 2840 # -> Skaloti
+				add_state_claim = 1015 # was vanilla 47 (Attica -> Lárisa)
+				add_state_claim = 1045 # -> Phthiotis
+				add_state_claim = 1052 # -> Évvia
+				add_state_claim = 1073 # -> Argolis-Corinthia
+				add_state_claim = 1074 # -> Boiōtíā
+				add_state_claim = 2003 # -> Athína
+				add_state_claim = 2014 # -> Elassona
+				add_state_claim = 2017 # -> Magnisía
+				add_state_claim = 2018 # -> Phocis
+				add_state_claim = 2019 # -> Attikí
+				add_state_claim = 2950 # -> Skiros
+				add_state_claim = 1089 # was vanilla 186 (Peloponnese -> Lakonía)
+				add_state_claim = 1536 # -> Messinía
+				add_state_claim = 1537 # -> Ileia
+				add_state_claim = 1538 # -> Arkadía
+				add_state_claim = 1539 # -> Akhaïa
+				add_state_claim = 1562 # -> Kythira
+			}
+			FRA = {
+				add_state_claim = 1552 # was vanilla 187 (Aegean Islands -> Lesbos)
+				add_state_claim = 1553 # -> Samos
+				add_state_claim = 1555 # -> Kyklades
+				add_state_claim = 1556 # -> Chíos
+				add_state_claim = 2004 # -> Milos
+				add_state_claim = 2756 # -> Thasos
+				add_state_claim = 2839 # -> Ikaria
+				add_state_claim = 2949 # -> Limnos
+				add_state_claim = 1173 # was vanilla 182 (Crete -> Lasíthi)
+				add_state_claim = 1558 # -> Khaniá
+				add_state_claim = 1559 # -> Réthimno
+				add_state_claim = 1560 # -> Irákleio
+			}
 		}
 	}
 
@@ -1783,7 +2558,6 @@ country_event = {
 # rasponse event for France - Italy agrees
 country_event = {
 	id = lar_intervention_in_greece.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_intervention_in_greece.2 FROM = [From.GetName]" }
 	title = lar_intervention_in_greece.2.t
 	desc = lar_intervention_in_greece.2.desc
 	picture = GFX_report_event_france_parade
@@ -1793,39 +2567,84 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		GRE = { 
-					every_core_state = {
-						add_claim_by = FROM
-					}
-				}
-				CRT = { 
-					every_core_state = {
-						add_claim_by = FRA
-					}
-				}
-				
-				FRA = {
-					add_state_claim = 1555
-					add_state_claim = 2004
-					add_state_claim = 2839
-					add_state_claim = 1553
-					add_state_claim = 1556
-					add_state_claim = 1552
-					add_state_claim = 2950
-				}
-				every_state = {
-					limit = {
-						is_core_of = GRE
-						is_claimed_by = FRA
-					}
-					remove_claim_by = FROM
-				}
+		FROM = {
+			add_state_claim = 995 # was vanilla 185 (Epirus -> Ioannina)
+			add_state_claim = 1044 # -> Aitoloakarnanía
+			add_state_claim = 1061 # -> Zakynthos
+			add_state_claim = 1540 # -> Trikala
+			add_state_claim = 1541 # -> Arta
+			add_state_claim = 1542 # -> Preveza
+			add_state_claim = 1543 # -> Thesprotia
+			add_state_claim = 1550 # -> Kerkyra
+			add_state_claim = 1551 # -> Kefalonia
+			add_state_claim = 1561 # -> Lefkada
+			add_state_claim = 2000 # -> Stavros
+			add_state_claim = 2001 # -> Grevena
+			add_state_claim = 2002 # -> Kastoria
+			add_state_claim = 2015 # -> Kardista
+			add_state_claim = 2021 # -> Evrytania
+			add_state_claim = 2922 # -> Prespa
+			add_state_claim = 2940 # -> Lefkochori
+			add_state_claim = 941 # was vanilla 731 (Central Macedonia -> Thessaloniki)
+			add_state_claim = 969 # -> Florina
+			add_state_claim = 1544 # -> Kozani
+			add_state_claim = 1545 # -> Pella
+			add_state_claim = 1546 # -> Kilkis
+			add_state_claim = 1547 # -> Chalkidiki
+			add_state_claim = 1549 # -> Serres
+			add_state_claim = 1557 # -> Oros Athos
+			add_state_claim = 2020 # -> Pieria
+			add_state_claim = 2748 # -> Koufalia
+			add_state_claim = 2898 # -> Bogdanci
+			add_state_claim = 2923 # -> Veria
+			add_state_claim = 910 # was vanilla 184 (Thrace -> Alexandroupoli)
+			add_state_claim = 929 # -> Drama
+			add_state_claim = 937 # -> Rhodope
+			add_state_claim = 1548 # -> Kavala
+			add_state_claim = 1969 # -> Didymoteicho
+			add_state_claim = 2005 # -> Feres
+			add_state_claim = 2006 # -> Petrota
+			add_state_claim = 2016 # -> Katafigio
+			add_state_claim = 2564 # -> Samothraki
+			add_state_claim = 2751 # -> Xanthi
+			add_state_claim = 2840 # -> Skaloti
+			add_state_claim = 1015 # was vanilla 47 (Attica -> Lárisa)
+			add_state_claim = 1045 # -> Phthiotis
+			add_state_claim = 1052 # -> Évvia
+			add_state_claim = 1073 # -> Argolis-Corinthia
+			add_state_claim = 1074 # -> Boiōtíā
+			add_state_claim = 2003 # -> Athína
+			add_state_claim = 2014 # -> Elassona
+			add_state_claim = 2017 # -> Magnisía
+			add_state_claim = 2018 # -> Phocis
+			add_state_claim = 2019 # -> Attikí
+			add_state_claim = 2950 # -> Skiros
+			add_state_claim = 1089 # was vanilla 186 (Peloponnese -> Lakonía)
+			add_state_claim = 1536 # -> Messinía
+			add_state_claim = 1537 # -> Ileia
+			add_state_claim = 1538 # -> Arkadía
+			add_state_claim = 1539 # -> Akhaïa
+			add_state_claim = 1562 # -> Kythira
+		}
+		FRA = {
+			add_state_claim = 1552 # was vanilla 187 (Aegean Islands -> Lesbos)
+			add_state_claim = 1553 # -> Samos
+			add_state_claim = 1555 # -> Kyklades
+			add_state_claim = 1556 # -> Chíos
+			add_state_claim = 2004 # -> Milos
+			add_state_claim = 2756 # -> Thasos
+			add_state_claim = 2839 # -> Ikaria
+			add_state_claim = 2949 # -> Limnos
+			add_state_claim = 1173 # was vanilla 182 (Crete -> Lasíthi)
+			add_state_claim = 1558 # -> Khaniá
+			add_state_claim = 1559 # -> Réthimno
+			add_state_claim = 1560 # -> Irákleio
+		}
 	}
 }
 #response event for France - Italy refuses
 country_event = {
 	id = lar_intervention_in_greece.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_intervention_in_greece.3 FROM = [From.GetName]" }
 	title = lar_intervention_in_greece.3.t
 	desc = lar_intervention_in_greece.3.desc
 	picture = GFX_report_event_fascists_posing
@@ -1849,7 +2668,6 @@ add_namespace = lar_dominate_the_middle_east
 #initial event - France wants to control country
 country_event = {
 	id = lar_dominate_the_middle_east.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_dominate_the_middle_east.1 FROM = [From.GetName]" }
 	title = lar_dominate_the_middle_east.1.t
 	desc = lar_dominate_the_middle_east.1.desc
 	picture = GFX_report_event_french_tanks
@@ -1891,7 +2709,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_dominate_the_middle_east.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_dominate_the_middle_east.2 FROM = [From.GetName]" }
 	title = lar_dominate_the_middle_east.2.t
 	desc = lar_dominate_the_middle_east.2.desc
 	picture = GFX_report_event_france_parade
@@ -1907,7 +2724,6 @@ country_event = {
 #response event for France - country refuses
 country_event = {
 	id = lar_dominate_the_middle_east.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_dominate_the_middle_east.3 FROM = [From.GetName]" }
 	title = lar_dominate_the_middle_east.3.t
 	desc = lar_dominate_the_middle_east.3.desc
 	picture = GFX_report_event_generic_battle
@@ -1941,7 +2757,6 @@ add_namespace = lar_spheres_of_influence
 #initial event for Germany - France wants to split up spheres of interest in the benelux
 country_event = {
 	id = lar_spheres_of_influence.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_spheres_of_influence.1 FROM = [From.GetName]" }
 	title = lar_spheres_of_influence.1.t
 	desc = lar_spheres_of_influence.1.desc
 	picture = GFX_report_event_generic_conference
@@ -1955,20 +2770,44 @@ country_event = {
 			country_event = lar_spheres_of_influence.2
 		}
 		effect_tooltip = {
-			HOL = {
-				every_core_state = {
-					add_claim_by = GER
-				}
+			ROOT = {
+				add_state_claim = 404 # was vanilla 8 (Luxembourg -> Dikrech)
+				add_state_claim = 427 # -> Gréiwemaacher
+				add_state_claim = 500 # -> Luxembourg
+				add_state_claim = 512 # -> Lëtzebuerg
+				add_state_claim = 358 # was vanilla 7 (Holland -> Noord-Holland)
+				add_state_claim = 402 # -> Zuid-Holland
+				add_state_claim = 2875 # -> Altena
+				add_state_claim = 432 # was vanilla 35 (Brabant -> Limburg Voormaas)
+				add_state_claim = 474 # -> Limburg
+				add_state_claim = 479 # -> Oost Noord-Brabant
+				add_state_claim = 1317 # -> Achterhoek
+				add_state_claim = 2331 # -> Rivierenland
+				add_state_claim = 2332 # -> Onderrijnmond
+				add_state_claim = 2344 # -> Zuid Overmaas
+				add_state_claim = 2713 # -> West Noord-Brabant
+				add_state_claim = 2717 # -> Noord Overmaas
+				add_state_claim = 2845 # -> 's-Hertogenbosch
+				add_state_claim = 331 # was vanilla 36 (Friesland -> Groningen)
+				add_state_claim = 336 # -> Friesland
+				add_state_claim = 346 # -> Drenthe
+				add_state_claim = 364 # -> Overijssel
+				add_state_claim = 383 # -> Gelderland
+				add_state_claim = 399 # -> Utrecht
+				add_state_claim = 451 # -> Zeeland
+				add_state_claim = 1319 # -> Twente
+				add_to_faction = FROM
 			}
-			LUX = {
-				every_core_state = {
-					add_claim_by = GER
-				}
-			}
-			BEL = {
-				every_core_state = {
-					add_claim_by = ROOT
-				}
+			FROM = {
+				add_state_claim = 422 # was vanilla 34 (Wallonia -> Brabant wallon)
+				add_state_claim = 480 # -> Liége
+				add_state_claim = 482 # -> Hainaut
+				add_state_claim = 487 # -> Namur
+				add_state_claim = 454 # was vanilla 6 (Flanders -> West-Vlaanderen)
+				add_state_claim = 455 # -> Oost-Vlaanderen
+				add_state_claim = 2969 # -> Bruxelles
+				add_state_claim = 977
+				add_state_claim = 980
 			}
 		}
 	}
@@ -1988,7 +2827,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_spheres_of_influence.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_spheres_of_influence.2 FROM = [From.GetName]" }
 	title = lar_spheres_of_influence.2.t
 	desc = lar_spheres_of_influence.2.desc
 	picture = GFX_report_event_german_speech
@@ -1998,20 +2836,44 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		HOL = {
-			every_core_state = {
-				add_claim_by = GER
-			}
+		FROM = {
+			add_state_claim = 404 # was vanilla 8 (Luxembourg -> Dikrech)
+			add_state_claim = 427 # -> Gréiwemaacher
+			add_state_claim = 500 # -> Luxembourg
+			add_state_claim = 512 # -> Lëtzebuerg
+			add_state_claim = 358 # was vanilla 7 (Holland -> Noord-Holland)
+			add_state_claim = 402 # -> Zuid-Holland
+			add_state_claim = 2875 # -> Altena
+			add_state_claim = 432 # was vanilla 35 (Brabant -> Limburg Voormaas)
+			add_state_claim = 474 # -> Limburg
+			add_state_claim = 479 # -> Oost Noord-Brabant
+			add_state_claim = 1317 # -> Achterhoek
+			add_state_claim = 2331 # -> Rivierenland
+			add_state_claim = 2332 # -> Onderrijnmond
+			add_state_claim = 2344 # -> Zuid Overmaas
+			add_state_claim = 2713 # -> West Noord-Brabant
+			add_state_claim = 2717 # -> Noord Overmaas
+			add_state_claim = 2845 # -> 's-Hertogenbosch
+			add_state_claim = 331 # was vanilla 36 (Friesland -> Groningen)
+			add_state_claim = 336 # -> Friesland
+			add_state_claim = 346 # -> Drenthe
+			add_state_claim = 364 # -> Overijssel
+			add_state_claim = 383 # -> Gelderland
+			add_state_claim = 399 # -> Utrecht
+			add_state_claim = 451 # -> Zeeland
+			add_state_claim = 1319 # -> Twente
+			add_to_faction = ROOT
 		}
-		LUX = {
-			every_core_state = {
-				add_claim_by = GER
-			}
-		}
-		BEL = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
+		ROOT = {
+			add_state_claim = 422 # was vanilla 34 (Wallonia -> Brabant wallon)
+			add_state_claim = 480 # -> Liége
+			add_state_claim = 482 # -> Hainaut
+			add_state_claim = 487 # -> Namur
+			add_state_claim = 454 # was vanilla 6 (Flanders -> West-Vlaanderen)
+			add_state_claim = 455 # -> Oost-Vlaanderen
+			add_state_claim = 2969 # -> Bruxelles
+			add_state_claim = 977
+			add_state_claim = 980
 		}
 		hidden_effect = {
 			news_event = { id = lar_news.7 days = 3 random_days = 7 }
@@ -2021,7 +2883,6 @@ country_event = {
 #response event for France - country refuses
 country_event = {
 	id = lar_spheres_of_influence.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_spheres_of_influence.3 FROM = [From.GetName]" }
 	title = lar_spheres_of_influence.3.t
 	desc = lar_spheres_of_influence.3.desc
 	picture = GFX_report_event_generic_read_write
@@ -2031,21 +2892,40 @@ country_event = {
 		ai_chance = {
 			factor = 80
 		}
-		HOL = {
-			every_core_state = {
-				add_claim_by = GER
-			}
-		}
-		LUX = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
-		}
-		BEL = {
-			every_core_state = {
-				add_claim_by = FRA
-			}
-		}
+		add_state_claim = 422 # was vanilla 34 (Wallonia -> Brabant wallon)
+		add_state_claim = 480 # -> Liége
+		add_state_claim = 482 # -> Hainaut
+		add_state_claim = 487 # -> Namur
+		add_state_claim = 454 # was vanilla 6 (Flanders -> West-Vlaanderen)
+		add_state_claim = 455 # -> Oost-Vlaanderen
+		add_state_claim = 2969 # -> Bruxelles
+		add_state_claim = 977
+		add_state_claim = 980
+		add_state_claim = 404 # was vanilla 8 (Luxembourg -> Dikrech)
+		add_state_claim = 427 # -> Gréiwemaacher
+		add_state_claim = 500 # -> Luxembourg
+		add_state_claim = 512 # -> Lëtzebuerg
+		add_state_claim = 358 # was vanilla 7 (Holland -> Noord-Holland)
+		add_state_claim = 402 # -> Zuid-Holland
+		add_state_claim = 2875 # -> Altena
+		add_state_claim = 432 # was vanilla 35 (Brabant -> Limburg Voormaas)
+		add_state_claim = 474 # -> Limburg
+		add_state_claim = 479 # -> Oost Noord-Brabant
+		add_state_claim = 1317 # -> Achterhoek
+		add_state_claim = 2331 # -> Rivierenland
+		add_state_claim = 2332 # -> Onderrijnmond
+		add_state_claim = 2344 # -> Zuid Overmaas
+		add_state_claim = 2713 # -> West Noord-Brabant
+		add_state_claim = 2717 # -> Noord Overmaas
+		add_state_claim = 2845 # -> 's-Hertogenbosch
+		add_state_claim = 331 # was vanilla 36 (Friesland -> Groningen)
+		add_state_claim = 336 # -> Friesland
+		add_state_claim = 346 # -> Drenthe
+		add_state_claim = 364 # -> Overijssel
+		add_state_claim = 383 # -> Gelderland
+		add_state_claim = 399 # -> Utrecht
+		add_state_claim = 451 # -> Zeeland
+		add_state_claim = 1319 # -> Twente
 	}
 }
 
@@ -2060,7 +2940,6 @@ add_namespace = lar_align_belgium
 #initial event - France wants to control country
 country_event = {
 	id = lar_align_belgium.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_align_belgium.1 FROM = [From.GetName]" }
 	title = lar_align_belgium.1.t
 	desc = lar_align_belgium.1.desc
 	picture = GFX_report_event_fascist_speech
@@ -2071,11 +2950,22 @@ country_event = {
 			factor = 70
 		}
 		FROM = {
-			country_event = lar_align_belgium.2
+			country_event = {
+				id = lar_align_belgium.2
+				hours = 2
+			}
 		}
 		effect_tooltip = {
 			FROM = {
 				puppet = PREV
+				IF = {
+					limit = {
+						ROOT = {
+							has_subject = COG
+						}
+					}
+					puppet = COG 
+				}
 			}
 		}
 	}
@@ -2086,7 +2976,10 @@ country_event = {
 			factor = 30
 		}
 		FROM = {
-			country_event = lar_align_belgium.3
+			country_event = {
+				id = lar_align_belgium.3
+				hours = 2
+			}
 		}
 		effect_tooltip = {
 			create_wargoal = {
@@ -2100,7 +2993,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_align_belgium.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_align_belgium.2 FROM = [From.GetName]" }
 	title = lar_align_belgium.2.t
 	desc = lar_align_belgium.2.desc
 	Picture = GFX_report_event_generic_sign_treaty1
@@ -2110,13 +3002,23 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
+
+		IF = {
+			limit = {
+				FROM = {
+					has_subject = COG
+				}
+			}
+			puppet = COG
+		}
+
 		puppet = FROM
+
 	}
 }
 #response event for France - country refuses
 country_event = {
 	id = lar_align_belgium.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_align_belgium.3 FROM = [From.GetName]" }
 	title = lar_align_belgium.3.t
 	desc = lar_align_belgium.3.desc
 	picture = GFX_report_event_generic_defensive_preparations
@@ -2151,7 +3053,6 @@ add_namespace = lar_split_belgium
 #initial event - France wants to control country
 country_event = {
 	id = lar_split_belgium.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_split_belgium.1 FROM = [From.GetName]" }
 	title = lar_split_belgium.1.t
 	desc = lar_split_belgium.1.desc
 	picture = GFX_report_event_fascist_speech
@@ -2167,11 +3068,19 @@ country_event = {
 		effect_tooltip = {
 			FRA = {
 				puppet = PREV
-			}
-			WLN = {
-				every_core_state = {
-					transfer_state_to = FRA
+				IF = {
+					limit = {
+						ROOT = {
+							has_subject = COG
+						}
+					}
+					puppet = COG 
 				}
+				transfer_state = 422 # was vanilla 34 (Wallonia -> Brabant wallon)
+				transfer_state = 480 # -> Liége
+				transfer_state = 482 # -> Hainaut
+				transfer_state = 487 # -> Namur
+				transfer_state = 980
 			}
 		}
 	}
@@ -2196,7 +3105,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_split_belgium.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_split_belgium.2 FROM = [From.GetName]" }
 	title = lar_split_belgium.2.t
 	desc = lar_split_belgium.2.desc
 	Picture = GFX_report_event_generic_sign_treaty1
@@ -2206,18 +3114,25 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		puppet = FROM
-		WLN = {
-			every_core_state = {
-				transfer_state_to = FRA
+		IF = {
+			limit = {
+				FROM = {
+					has_subject = COG
+				}
 			}
+			puppet = COG
 		}
+		puppet = FROM
+		transfer_state = 422 # was vanilla 34 (Wallonia -> Brabant wallon)
+		transfer_state = 480 # -> Liége
+		transfer_state = 482 # -> Hainaut
+		transfer_state = 487 # -> Namur
+		transfer_state = 980
 	}
 }
 #response event for France - Belgium refuses
 country_event = {
 	id = lar_split_belgium.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_split_belgium.3 FROM = [From.GetName]" }
 	title = lar_split_belgium.3.t
 	desc = lar_split_belgium.3.desc
 	Picture = GFX_report_event_generic_defensive_preparations
@@ -2251,7 +3166,6 @@ add_namespace = lar_concessions_to_italy
 #initial event for ENG - France wants to appease Italy to pull them over to their side
 country_event = {
 	id = lar_concessions_to_italy.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.1 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.1.t
 	desc = lar_concessions_to_italy.1.desc
 	picture = GFX_report_event_mussolini_hotel
@@ -2265,12 +3179,10 @@ country_event = {
 			country_event = lar_concessions_to_italy.2
 		}
 		effect_tooltip = {
-			TUN = {
-				every_core_state = {
-					transfer_state_to = ITA
-				}	
+			ITA = {
+				# transfer_state = 269   # 1.19-migration: off-map vanilla 269 (British Somaliland)
+				transfer_state = 2851 # was vanilla 268 (French Somaliland)
 			}
-			transfer_state = 1622
 			custom_effect_tooltip = lar_concessions_italy_tt
 		}
 	}
@@ -2289,7 +3201,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_concessions_to_italy.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.2 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.2.t
 	desc = lar_concessions_to_italy.2.desc
 	picture = GFX_report_event_generic_sign_treaty1
@@ -2307,7 +3218,6 @@ country_event = {
 #response event for France - country refuses
 country_event = {
 	id = lar_concessions_to_italy.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.3 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.3.t
 	desc = lar_concessions_to_italy.3.desc
 	picture = GFX_report_event_fascist_gathering
@@ -2326,7 +3236,6 @@ country_event = {
 # rasponse event for Italy - France and Britain offer consessions
 country_event = {
 	id = lar_concessions_to_italy.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.4 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.4.t
 	desc = lar_concessions_to_italy.4.desc
 	picture = GFX_report_event_generic_conference
@@ -2350,12 +3259,8 @@ country_event = {
 		}
 		set_global_flag = ITA_agrees_ENG_FRA_concessions
 		effect_tooltip = {
-			TUN = {
-				every_core_state = {
-					transfer_state_to = ITA
-				}	
-			}
-			transfer_state = 1622
+			transfer_state = 2851 # was vanilla 268 (French Somaliland)
+			# transfer_state = 269   # 1.19-migration: off-map vanilla 269 (British Somaliland)
 		}
 		custom_effect_tooltip = LAR_concessions_stresa_front_tt
 		hidden_effect = {
@@ -2390,7 +3295,6 @@ country_event = {
 #response event for Italy - only France offers concessions
 country_event = {
 	id = lar_concessions_to_italy.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.5 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.5.t
 	desc = lar_concessions_to_italy.5.desc
 	picture = GFX_report_event_generic_conference
@@ -2402,12 +3306,7 @@ country_event = {
 		}
 		set_global_flag = ITA_agrees_FRA_concessions
 		effect_tooltip = {
-			TUN = {
-				every_core_state = {
-					transfer_state_to = ITA
-				}	
-			}
-			
+			transfer_state = 2851 # was vanilla 268 (French Somaliland)
 		}
 		custom_effect_tooltip = LAR_concessions_stresa_front_tt
 		hidden_effect = {
@@ -2429,7 +3328,6 @@ country_event = {
 #notification event - Italy agrees
 country_event = {
 	id = lar_concessions_to_italy.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.6 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.6.t
 	desc = lar_concessions_to_italy.6.desc
 	picture = GFX_report_event_fascist_speech
@@ -2445,7 +3343,6 @@ country_event = {
 # notification event - Italy refuses
 country_event = {
 	id = lar_concessions_to_italy.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_concessions_to_italy.7 FROM = [From.GetName]" }
 	title = lar_concessions_to_italy.7.t
 	desc = lar_concessions_to_italy.7.desc
 	picture = GFX_report_event_fascist_gathering
@@ -2469,7 +3366,6 @@ add_namespace = lar_ratify_the_stresa_front
 #initial event for Italy
 country_event = {
 	id = lar_ratify_the_stresa_front.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_ratify_the_stresa_front.1 FROM = [From.GetName]" }
 	title = lar_ratify_the_stresa_front.1.t
 	desc = lar_ratify_the_stresa_front.1.desc
 	picture = GFX_report_event_generic_sign_treaty1
@@ -2531,7 +3427,6 @@ country_event = {
 # event for France - Italy has agreed, do we want to hand over territory in exchange for an alliance?
 country_event = {
 	id = lar_ratify_the_stresa_front.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_ratify_the_stresa_front.2 FROM = [From.GetName]" }
 	title = lar_ratify_the_stresa_front.1.t
 	desc = lar_ratify_the_stresa_front.2.desc
 	picture = GFX_report_event_generic_sign_treaty2
@@ -2548,11 +3443,7 @@ country_event = {
 			set_country_flag = Franco_soviet_guaarantee 
 		}
 		ITA = {
-			TUN = {
-				every_core_state = {
-					transfer_state_to = ITA
-				}	
-			}
+			transfer_state = 2851 # was vanilla 268 (French Somaliland)
 		}
 		if = {
 			limit = { is_in_faction = yes }
@@ -2571,7 +3462,10 @@ country_event = {
 			}
 		}
 		else = {
-			create_faction = FRA_stresa_front
+			create_faction_from_template = {
+				template = faction_template_the_little_entente
+				name = FRA_stresa_front
+			}
 			add_to_faction = ITA
 		}
 		if = {
@@ -2627,7 +3521,6 @@ country_event = {
 #notification - country has refused to ratify
 country_event = {
 	id = lar_ratify_the_stresa_front.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_ratify_the_stresa_front.3 FROM = [From.GetName]" }
 	title = lar_ratify_the_stresa_front.3.t
 	desc = lar_ratify_the_stresa_front.3.desc
 	picture = GFX_report_event_worried_french
@@ -2644,7 +3537,6 @@ country_event = {
 # event for Britain - Italy has agreed, do we want to hand over territory in exchange for an alliance?
 country_event = {
 	id = lar_ratify_the_stresa_front.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_ratify_the_stresa_front.4 FROM = [From.GetName]" }
 	title = lar_ratify_the_stresa_front.1.t
 	desc = lar_ratify_the_stresa_front.4.desc
 	picture = GFX_report_event_generic_sign_treaty2
@@ -2655,7 +3547,7 @@ country_event = {
 			factor = 80
 		}
 		ITA = {
-			transfer_state = 1622
+			# transfer_state = 269   # 1.19-migration: off-map vanilla 269 (British Somaliland)
 		}
 		set_global_flag = LaR_Britain_Stresa_Concessions
 		if = {
@@ -2735,7 +3627,6 @@ add_namespace = lar_franco_soviet_treaty
 #initial event - France offers treaty
 country_event = {
 	id = lar_franco_soviet_treaty.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_franco_soviet_treaty.1 FROM = [From.GetName]" }
 	title = lar_franco_soviet_treaty.1.t
 	desc = lar_franco_soviet_treaty.1.desc
 	picture = GFX_report_event_stalin_02
@@ -2774,7 +3665,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_franco_soviet_treaty.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_franco_soviet_treaty.2 FROM = [From.GetName]" }
 	title = lar_franco_soviet_treaty.2.t
 	desc = lar_franco_soviet_treaty.2.desc
 	picture = GFX_report_event_generic_sign_treaty2
@@ -2792,7 +3682,6 @@ country_event = {
 #response event for France - soviets refuse
 country_event = {
 	id = lar_franco_soviet_treaty.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_franco_soviet_treaty.3 FROM = [From.GetName]" }
 	title = lar_franco_soviet_treaty.3.t
 	desc = lar_franco_soviet_treaty.3.desc
 	picture = GFX_report_event_stalin_meeting
@@ -2816,7 +3705,6 @@ add_namespace = lar_end_the_occupation
 #initial event for Germany - vichy wants to end the occupation and join the axis
 country_event = {
 	id = lar_end_the_occupation.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.1 FROM = [From.GetName]" }
 	title = lar_end_the_occupation.1.t
 	desc = lar_end_the_occupation.1.desc
 	picture = GFX_report_event_pierre_laval
@@ -2863,7 +3751,6 @@ country_event = {
 # Germany approves
 country_event = {
 	id = lar_end_the_occupation.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.2 FROM = [From.GetName]" }
 	title = lar_end_the_occupation.2.t
 	desc = lar_end_the_occupation.2.desc
 	picture = GFX_report_event_generic_military_parade
@@ -2908,7 +3795,6 @@ country_event = {
 # Germany refuses
 country_event = {
 	id = lar_end_the_occupation.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.3 FROM = [From.GetName]" }
 	title = lar_end_the_occupation.3.t
 	desc = lar_end_the_occupation.3.desc
 	picture = GFX_report_event_german_reichstag_gathering
@@ -2926,7 +3812,12 @@ country_event = {
 				has_government = democratic
 			}
 			country_event = lar_end_the_occupation.4
-			effect_tooltip = { annex_country = { target = VIC transfer_troops = yes } }
+			if = {
+				limit = {
+					VIC = { FRA_vichy_can_rejoin_free_france = yes }
+				}
+				effect_tooltip = { annex_country = { target = VIC transfer_troops = yes } }
+			}
 		}
 	}
 	option = {
@@ -2946,7 +3837,6 @@ country_event = {
 # Vichy wants to join after germany refuses to hand back territory
 country_event = {
 	id = lar_end_the_occupation.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.4 FROM = [From.GetName]" }
 	title = lar_end_the_occupation.4.t
 	desc = lar_end_the_occupation.4.desc
 	picture = GFX_report_event_degaulle_inspect_troops
@@ -2959,8 +3849,13 @@ country_event = {
 			factor = 80
 		}
 		FROM = { country_event = lar_end_the_occupation.5 }
-		effect_tooltip = {
-			annex_country = { target = VIC transfer_troops = yes }
+		if = {
+			limit = {
+				VIC = { FRA_vichy_can_rejoin_free_france = yes }
+			}
+			effect_tooltip = {
+				annex_country = { target = VIC transfer_troops = yes }
+			}
 		}
 	}
 	option = {
@@ -2979,7 +3874,6 @@ country_event = {
 # Vichy joins Free France after germany refuses to hand back territory
 country_event = {
 	id = lar_end_the_occupation.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.5 FROM = [From.GetName]" }
 	title = lar_end_the_occupation.5.t
 	desc = lar_end_the_occupation.5.desc
 	picture = GFX_report_event_degaulle_inspect_troops
@@ -2992,7 +3886,10 @@ country_event = {
 				if = {
 					limit = {
 						is_ai = yes
-						VIC = { is_ai = no }
+						VIC = {
+							is_ai = no
+							FRA_vichy_can_rejoin_free_france = yes
+						}
 					}
 					change_tag_from = VIC
 				}
@@ -3006,7 +3903,14 @@ country_event = {
 			factor = 80
 		}
 		FRA = {
-			annex_country = { target = VIC transfer_troops = yes }
+			if = { #do not swallow a Vichy that answers to somebody else
+				limit = {
+					VIC = { #ROOT is Vichy in this event, so name Free France explicitly
+						FRA_vichy_can_rejoin_free_france = yes
+					}
+				}
+				annex_country = { target = VIC transfer_troops = yes }
+			}
 			load_focus_tree = french_focus
 			unlock_national_focus = FRA_revive_the_national_bloc
 			unlock_national_focus = FRA_laissez_faire
@@ -3019,7 +3923,6 @@ country_event = {
 # Free France refuses, Vichy goes at it alone after all
 country_event = {
 	id = lar_end_the_occupation.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_end_the_occupation.6 FROM = [From.GetName]" }
 	title = lar_end_the_occupation.6.t
 	desc = lar_end_the_occupation.6.desc
 	picture = GFX_report_event_degaulle_churchill
@@ -3051,7 +3954,6 @@ add_namespace = lar_low_stability_civil_war
 #communists start uprising
 country_event = {
 	id = lar_low_stability_civil_war.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_low_stability_civil_war.1 FROM = [From.GetName]" }
 	title = lar_low_stability_civil_war.1.t
 	desc = lar_low_stability_civil_war.1.desc
 	picture = GFX_report_event_spain_civil_war_volunteers_02
@@ -3073,7 +3975,6 @@ country_event = {
 #fascists start uprising
 country_event = {
 	id = lar_low_stability_civil_war.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_low_stability_civil_war.2 FROM = [From.GetName]" }
 	title = lar_low_stability_civil_war.2.t
 	desc = lar_low_stability_civil_war.2.desc
 	picture = GFX_report_event_spain_civil_war_soldiers
@@ -3106,7 +4007,6 @@ add_namespace = lar_worker_shortage
 #country switched to extensive conscription while on full employment
 country_event = {
 	id = lar_worker_shortage.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_worker_shortage.1 FROM = [From.GetName]" }
 	title = lar_worker_shortage.1.t
 	desc = lar_worker_shortage.1.desc
 	picture = GFX_report_event_generic_factory
@@ -3150,7 +4050,6 @@ country_event = {
 #country demobilizes while having worker shortage
 country_event = {
 	id = lar_worker_shortage.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_worker_shortage.2 FROM = [From.GetName]" }
 	title = lar_worker_shortage.2.t
 	desc = lar_worker_shortage.2.desc
 	picture = GFX_report_event_france_tank_production
@@ -3189,7 +4088,6 @@ add_namespace = lar_arms_purchases
 #intial event for US - France wants to buy weapons
 country_event = {
 	id = lar_arms_purchases.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_arms_purchases.1 FROM = [From.GetName]" }
 	title = lar_arms_purchases.1.t
 	desc = lar_arms_purchases.1.desc
 	picture = GFX_report_event_generic_lend_lease
@@ -3226,7 +4124,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_arms_purchases.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_arms_purchases.2 FROM = [From.GetName]" }
 	title = lar_arms_purchases.2.t
 	desc = lar_arms_purchases.2.desc
 	picture = GFX_report_event_merchant_ship_01
@@ -3242,7 +4139,6 @@ country_event = {
 #response event for France - US refuse
 country_event = {
 	id = lar_arms_purchases.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_arms_purchases.3 FROM = [From.GetName]" }
 	title = lar_arms_purchases.3.t
 	desc = lar_arms_purchases.3.desc
 	picture = GFX_report_event_generic_read_write
@@ -3266,7 +4162,6 @@ add_namespace = lar_france_volunteers
 #event for country - French volunteers have joined!
 country_event = {
 	id = lar_france_volunteers.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_volunteers.1 FROM = [From.GetName]" }
 	title = lar_france_volunteers.1.t
 	desc = lar_france_volunteers.1.desc
 	picture = GFX_report_event_spain_civil_war_volunteers_01
@@ -3304,7 +4199,6 @@ country_event = {
 # volunteers return - hidden event
 country_event = {
 	id = lar_france_volunteers.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_volunteers.2 FROM = [From.GetName]" }
 	hidden = yes
 	
 	trigger = {
@@ -3323,7 +4217,6 @@ country_event = {
 # volunteers return - event for France to accept them
 country_event = {
 	id = lar_france_volunteers.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_volunteers.3 FROM = [From.GetName]" }
 	title = lar_france_volunteers.3.t
 	desc = lar_france_volunteers.3.desc
 	picture = GFX_report_event_saf_civil_war
@@ -3431,7 +4324,6 @@ add_namespace = lar_non_intervention
 #intial event France wants to propose non-intervention
 country_event = {
 	id = lar_non_intervention.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_non_intervention.1 FROM = [From.GetName]" }
 	title = lar_non_intervention.1.t
 	desc = lar_non_intervention.1.desc
 	picture = GFX_report_event_generic_conference
@@ -3462,7 +4354,6 @@ country_event = {
 # rasponse event for France - country agrees
 country_event = {
 	id = lar_non_intervention.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_non_intervention.2 FROM = [From.GetName]" }
 	title = lar_non_intervention.2.t
 	desc = lar_non_intervention.2.desc
 	picture = GFX_report_event_generic_sign_treaty1
@@ -3479,7 +4370,6 @@ country_event = {
 #response event for France - country refuses
 country_event = {
 	id = lar_non_intervention.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_non_intervention.3 FROM = [From.GetName]" }
 	title = lar_non_intervention.3.t
 	desc = lar_non_intervention.3.desc
 	picture = GFX_report_event_generic_sign_treaty2
@@ -3502,7 +4392,6 @@ add_namespace = lar_communist_support
 
 country_event = {
 	id = lar_communist_support.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_communist_support.1 FROM = [From.GetName]" }
 	hidden = yes
 	trigger = {
 		has_idea = FRA_communist_cooperation
@@ -3531,33 +4420,166 @@ add_namespace = lar_appeal_to_overseas_territories
 
 country_event = {
 	id = lar_appeal_to_overseas_territories.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.1 FROM = [From.GetName]" }
 	hidden = yes
 	is_triggered_only = yes
 	immediate = {
 		random_list = {
-			85 = { country_event = lar_appeal_to_overseas_territories.2 } #indochina remains with Vichy
-			15 = { country_event = lar_appeal_to_overseas_territories.3 } #indochina switches sides
+			280 = { country_event = lar_appeal_to_overseas_territories.2 } #indochina remains with Vichy   # was vanilla 85 (Danzig)
+			517 = {  #indochina switches sides   # was vanilla 15 (Normandy)
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			534 = {  #indochina switches sides   # -> Manche
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			548 = {  #indochina switches sides   # -> Eure
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			551 = {  #indochina switches sides   # -> Calvados
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			572 = {  #indochina switches sides   # -> Orne
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			573 = {  #indochina switches sides   # -> Eure-et-Loir
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			607 = {  #indochina switches sides   # -> Jèrri
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
+			2909 = {  #indochina switches sides   # -> Guernési
+				modifier = {
+					factor = 0
+					is_historical_focus_on = yes
+					FRA = { is_ai = yes }
+				}
+				country_event = lar_appeal_to_overseas_territories.3 
+			
+			} 
 		}
 		random_list = {
-			80 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy
-			20 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides
+			590 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy   # was vanilla 80 (Bucovina)
+			629 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy   # -> Câmpulung
+			1597 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy   # -> Suceava
+			1598 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy   # -> Rădăuți
+			1599 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy   # -> Cernăuți
+			1600 = { country_event = { id = lar_appeal_to_overseas_territories.4 days = 3 } } #syria remains with Vichy   # -> Herța
+			691 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # was vanilla 20 (Rhone)
+			715 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # -> Ain
+			728 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # -> Rhône
+			747 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # -> Lyon
+			770 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # -> Haute-Loire
+			772 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # -> Ardèche
+			2983 = { country_event = { id = lar_appeal_to_overseas_territories.5 days = 3 } } #syria switches sides   # -> Haut-Allier
 		}
 		random_list = {
-			80 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy
-			20 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides
+			590 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy   # was vanilla 80 (Bucovina)
+			629 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy   # -> Câmpulung
+			1597 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy   # -> Suceava
+			1598 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy   # -> Rădăuți
+			1599 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy   # -> Cernăuți
+			1600 = { country_event = { id = lar_appeal_to_overseas_territories.6 days = 8 } } #central africa remains with Vichy   # -> Herța
+			691 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # was vanilla 20 (Rhone)
+			715 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # -> Ain
+			728 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # -> Rhône
+			747 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # -> Lyon
+			770 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # -> Haute-Loire
+			772 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # -> Ardèche
+			2983 = { country_event = { id = lar_appeal_to_overseas_territories.7 days = 8 } } #central africa switches sides   # -> Haut-Allier
 		}
 		random_list = {
-			90 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy
-			10 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides
+			429 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy   # was vanilla 90 (Kielce)
+			827 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy   # -> Radom
+			867 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy   # -> Kielce
+			902 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy   # -> Opatów
+			1080 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy   # -> Miechów
+			1119 = { country_event = { id = lar_appeal_to_overseas_territories.8 days = 12 } } #western africa remains with Vichy   # -> Częstochowa
+			5 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # was vanilla 10 (Warsaw)
+			351 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Ostrów Mazowiecka
+			370 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Pruszków
+			407 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Sochaczew
+			508 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Warszawa
+			982 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Siedlce
+			1981 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Legionowo
+			2927 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Wyszkow
+			2928 = { country_event = { id = lar_appeal_to_overseas_territories.9 days = 12 } } #western africa switches sides   # -> Kosów Lacki
 		}
 		random_list = {
-			70 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy
-			30 = { country_event = { id = lar_appeal_to_overseas_territories.11 days = 16 } } #madagascar switches sides
+			555 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # was vanilla 70 (Western Slovakia)
+			577 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Žilina
+			586 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Nitra
+			591 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Malacky
+			1437 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Bratislava
+			2662 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Piešťany
+			2663 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Čadca
+			2978 = { country_event = { id = lar_appeal_to_overseas_territories.10 days = 16 } } #madagascar remains with Vichy   # -> Trnava
+			595 = { country_event = { id = lar_appeal_to_overseas_territories.11 days = 16 } } #madagascar switches sides   # was vanilla 30 (Loire)
+			599 = { country_event = { id = lar_appeal_to_overseas_territories.11 days = 16 } } #madagascar switches sides   # -> Sarthe
+			634 = { country_event = { id = lar_appeal_to_overseas_territories.11 days = 16 } } #madagascar switches sides   # -> Loire-Inférieure
+			637 = { country_event = { id = lar_appeal_to_overseas_territories.11 days = 16 } } #madagascar switches sides   # -> Maine-et-Loire
+			729 = { country_event = { id = lar_appeal_to_overseas_territories.11 days = 16 } } #madagascar switches sides   # -> Loire
 		}
 		random_list = {
-			95 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy
-			5 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides
+			231 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # was vanilla 95 (Nowogródek)
+			292 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # -> Baranowicze
+			300 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # -> Grodno
+			307 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # -> Słonim
+			326 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # -> Wołkowysk
+			1225 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # -> Nieśwież
+			1310 = { country_event = { id = lar_appeal_to_overseas_territories.12 days = 20 } } #north africa remains with Vichy   # -> Brzostowica Mała
+			282 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # was vanilla 5 (Ermland-Masuren)
+			1609 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Marienwerder
+			1610 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Braunsberg
+			1611 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Allenstein
+			1612 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Lyck
+			1613 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Angerburg
+			2342 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Elbing
+			2483 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Heilsberg
+			2689 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Preussisch Holland
+			2690 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Osterode in Ostpreussen
+			2691 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Marienburg
+			2729 = { country_event = { id = lar_appeal_to_overseas_territories.13 days = 20 } } #north africa switches sides   # -> Tiegenhof
 		}
 	}
 	
@@ -3569,7 +4591,6 @@ country_event = {
 # indochina remains with Vichy France
 country_event = {
 	id = lar_appeal_to_overseas_territories.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.2 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.2.t
 	desc = lar_appeal_to_overseas_territories.2.desc
 	picture = GFX_report_event_france_parade
@@ -3584,7 +4605,6 @@ country_event = {
 #indochina switches sides
 country_event = {
 	id = lar_appeal_to_overseas_territories.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.3 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.3.t
 	desc = lar_appeal_to_overseas_territories.3.desc
 	picture = GFX_report_event_felix_eboue
@@ -3602,7 +4622,6 @@ country_event = {
 # syria remains with Vichy France
 country_event = {
 	id = lar_appeal_to_overseas_territories.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.4 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.4.t
 	desc = lar_appeal_to_overseas_territories.4.desc
 	picture = GFX_report_event_france_parade
@@ -3617,7 +4636,6 @@ country_event = {
 #syria switches sides
 country_event = {
 	id = lar_appeal_to_overseas_territories.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.5 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.5.t
 	desc = lar_appeal_to_overseas_territories.5.desc
 	picture = GFX_report_event_felix_eboue
@@ -3635,7 +4653,6 @@ country_event = {
 # central africa remains with Vichy France
 country_event = {
 	id = lar_appeal_to_overseas_territories.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.6 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.6.t
 	desc = lar_appeal_to_overseas_territories.6.desc
 	picture = GFX_report_event_france_parade
@@ -3650,7 +4667,6 @@ country_event = {
 #central africa switches sides
 country_event = {
 	id = lar_appeal_to_overseas_territories.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.7 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.7.t
 	desc = lar_appeal_to_overseas_territories.7.desc
 	picture = GFX_report_event_felix_eboue
@@ -3667,7 +4683,6 @@ country_event = {
 # western africa remains with Vichy France
 country_event = {
 	id = lar_appeal_to_overseas_territories.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.8 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.8.t
 	desc = lar_appeal_to_overseas_territories.8.desc
 	picture = GFX_report_event_france_parade
@@ -3682,7 +4697,6 @@ country_event = {
 #western africa switches sides
 country_event = {
 	id = lar_appeal_to_overseas_territories.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.9 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.9.t
 	desc = lar_appeal_to_overseas_territories.9.desc
 	picture = GFX_report_event_felix_eboue
@@ -3700,7 +4714,6 @@ country_event = {
 # madagascar remains with Vichy France
 country_event = {
 	id = lar_appeal_to_overseas_territories.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.10 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.10.t
 	desc = lar_appeal_to_overseas_territories.10.desc
 	picture = GFX_report_event_france_parade
@@ -3715,7 +4728,6 @@ country_event = {
 #madagascar switches sides
 country_event = {
 	id = lar_appeal_to_overseas_territories.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.11 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.11.t
 	desc = lar_appeal_to_overseas_territories.11.desc
 	picture = GFX_report_event_felix_eboue
@@ -3726,12 +4738,27 @@ country_event = {
 			factor = 80
 		}
 		VIC = { country_event = LaR_france_vichy_notification_events.6 }
+		if = {
+			limit = {
+				MAD = {
+					exists = yes
+					is_subject = yes
+					OVERLORD = { original_tag = FRA }
+				}
+			}
+			puppet = MAD
+		}
+		else_if = {
+			limit = {
+				# 543 = { CONTROLLER = { original_tag = FRA } }   # 1.19-migration: off-map vanilla state 543 (Madagascar)
+			}
+			# transfer_state = 543   # 1.19-migration: off-map vanilla 543 (Madagascar)
+		}
 	}
 }
 # north africa remains with Vichy France
 country_event = {
 	id = lar_appeal_to_overseas_territories.12
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.12 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.12.t
 	desc = lar_appeal_to_overseas_territories.12.desc
 	picture = GFX_report_event_france_parade
@@ -3746,7 +4773,6 @@ country_event = {
 #north africa switches sides
 country_event = {
 	id = lar_appeal_to_overseas_territories.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_appeal_to_overseas_territories.13 FROM = [From.GetName]" }
 	title = lar_appeal_to_overseas_territories.13.t
 	desc = lar_appeal_to_overseas_territories.13.desc
 	picture = GFX_report_event_felix_eboue
@@ -3772,7 +4798,6 @@ add_namespace = lar_france_vichy_reunification
 # initial event - Vichy government asked to unify with FRA
 country_event = {
 	id = lar_france_vichy_reunification.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_vichy_reunification.1 FROM = [From.GetName]" }
 	title = lar_france_vichy_reunification.1.t
 	desc = lar_france_vichy_reunification.1.desc
 	picture = GFX_report_event_degaulle_inspect_troops
@@ -3813,7 +4838,6 @@ country_event = {
 #VIC agrees to unification - event for FRA
 country_event = {
 	id = lar_france_vichy_reunification.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_vichy_reunification.2 FROM = [From.GetName]" }
 	title = lar_france_vichy_reunification.2.t
 	desc = lar_france_vichy_reunification.2.desc
 	picture = GFX_report_event_degaulle_inspect_troops
@@ -3823,22 +4847,27 @@ country_event = {
 		ai_chance = {
 			factor = 80
 		}
-		if = {
+		if = { #failsafe - Vichy may have been puppeted by a third party between the demand and this answer
 			limit = {
-				FROM = { is_ai = no }
-				is_ai = yes
+				FROM = {
+					FRA_vichy_can_rejoin_free_france = yes
+				}
 			}
-			change_tag_from = FROM #if Vichy is played by player and FRA is AI, player gets to keep playing
+			if = {
+				limit = {
+					FROM = { is_ai = no }
+					is_ai = yes
+				}
+				change_tag_from = FROM #if Vichy is played by player and FRA is AI, player gets to keep playing
+			}
+			annex_country = { target = FROM transfer_troops = yes }
 		}
-		
-		annex_country = { target = FROM transfer_troops = yes } 
 	}
 }
 
 #VIC refuses unification, FRA gains wargoal
 country_event = {
 	id = lar_france_vichy_reunification.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_france_vichy_reunification.3 FROM = [From.GetName]" }
 	title = lar_france_vichy_reunification.3.t
 	desc = lar_france_vichy_reunification.3.desc
 	picture = GFX_report_event_degaulle_churchill
@@ -3859,7 +4888,6 @@ add_namespace = lar_fra_inefficient_economy
 
 country_event = {
 	id = lar_fra_inefficient_economy.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_inefficient_economy.1 FROM = [From.GetName]" }
 	hidden = yes
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -3888,7 +4916,6 @@ add_namespace = lar_fra_reconnect_to_the_balkans
 #first event - balkan country asked if it wants to join the French faction
 country_event = {
 	id = lar_fra_reconnect_to_the_balkans.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_reconnect_to_the_balkans.1 FROM = [From.GetName]" }
 	title = generic.5.t
 	desc = generic.5.d.a
 	picture = GFX_report_event_generic_read_write
@@ -3925,7 +4952,6 @@ country_event = {
 #event 2 - country wants to join faction, ask faction leader?
 country_event = {
 	id = lar_fra_reconnect_to_the_balkans.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_reconnect_to_the_balkans.2 FROM = [From.GetName]" }
 	title = generic.2.t
 	desc = generic.2.d.a
 	picture = GFX_report_event_generic_read_write
@@ -3967,7 +4993,6 @@ country_event = {
 #event 3 - country does not want to join faction at all
 country_event = {
 	id = lar_fra_reconnect_to_the_balkans.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_reconnect_to_the_balkans.3 FROM = [From.GetName]" }
 	title = generic.7.t
 	desc = generic.7.d
 	picture = GFX_report_event_generic_read_write
@@ -3986,7 +5011,6 @@ country_event = {
 #event 4 - request accepted by faction leader
 country_event = {
 	id = lar_fra_reconnect_to_the_balkans.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_reconnect_to_the_balkans.4 FROM = [From.GetName]" }
 	title = generic.6.t
 	desc = generic.6.d
 	picture = GFX_report_event_generic_read_write
@@ -4005,7 +5029,6 @@ country_event = {
 #event 4 - request refused by faction leader
 country_event = {
 	id = lar_fra_reconnect_to_the_balkans.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_reconnect_to_the_balkans.5 FROM = [From.GetName]" }
 	title = generic.4.t
 	desc = generic.4.d
 	picture = GFX_report_event_generic_read_write
@@ -4032,7 +5055,6 @@ add_namespace = lar_fra_join_the_ententes
 #first event - join the French faction?
 country_event = {
 	id = lar_fra_join_the_ententes.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_join_the_ententes.1 FROM = [From.GetName]" }
 	title = lar_fra_join_the_ententes.1.t
 	desc = lar_fra_join_the_ententes.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4059,7 +5081,6 @@ country_event = {
 #second event - Britain joins French faction, move them and all their subjects, fire event to independent nations in their faction
 country_event = {
 	id = lar_fra_join_the_ententes.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_join_the_ententes.2 FROM = [From.GetName]" }
 	title = lar_fra_join_the_ententes.2.t
 	desc = lar_fra_join_the_ententes.2.desc
 	picture = GFX_report_event_generic_read_write
@@ -4087,7 +5108,6 @@ country_event = {
 #second event - country refuses
 country_event = {
 	id = lar_fra_join_the_ententes.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_join_the_ententes.3 FROM = [From.GetName]" }
 	title = lar_fra_join_the_ententes.3.t
 	desc = lar_fra_join_the_ententes.3.desc
 	picture = GFX_report_event_generic_read_write
@@ -4106,7 +5126,6 @@ country_event = {
 # event for independent countries in British faction - join france?
 country_event = {
 	id = lar_fra_join_the_ententes.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_join_the_ententes.4 FROM = [From.GetName]" }
 	title = lar_fra_join_the_ententes.1.t
 	desc = lar_fra_join_the_ententes.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4134,7 +5153,6 @@ country_event = {
 # event for france - non-british sovereign nation wants to join
 country_event = {
 	id = lar_fra_join_the_ententes.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event lar_fra_join_the_ententes.5 FROM = [From.GetName]" }
 	title = lar_fra_join_the_ententes.2.t
 	desc = lar_fra_join_the_ententes.2.desc
 	picture = GFX_report_event_generic_read_write
@@ -4161,7 +5179,6 @@ add_namespace = LaR_france_vichy_notification_events
 # event for Vichy - Syria has decided to side with de gaulle
 country_event = {
 	id = LaR_france_vichy_notification_events.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.1 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.1.t
 	desc =  LaR_france_vichy_notification_events.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4180,7 +5197,6 @@ country_event = {
 # event for Vichy - Indochina has decided to side with de gaulle
 country_event = {
 	id = LaR_france_vichy_notification_events.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.2 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.2.t
 	desc =  LaR_france_vichy_notification_events.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4199,7 +5215,6 @@ country_event = {
 # event for Vichy - central africa has decided to side with de gaulle
 country_event = {
 	id = LaR_france_vichy_notification_events.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.3 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.3.t
 	desc =  LaR_france_vichy_notification_events.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4218,7 +5233,6 @@ country_event = {
 # event for Vichy - west africa has decided to side with de gaulle
 country_event = {
 	id = LaR_france_vichy_notification_events.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.4 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.4.t
 	desc =  LaR_france_vichy_notification_events.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4237,7 +5251,6 @@ country_event = {
 # event for Vichy - north_africa has decided to side with de gaulle
 country_event = {
 	id = LaR_france_vichy_notification_events.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.5 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.5.t
 	desc =  LaR_france_vichy_notification_events.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4256,7 +5269,6 @@ country_event = {
 # event for Vichy - madagascar has decided to side with de gaulle
 country_event = {
 	id = LaR_france_vichy_notification_events.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.6 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.6.t
 	desc =  LaR_france_vichy_notification_events.1.desc
 	picture = GFX_report_event_generic_read_write
@@ -4275,7 +5287,6 @@ country_event = {
 # event for Vichy - coup in Syria
 country_event = {
 	id = LaR_france_vichy_notification_events.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.7 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.7.t
 	desc =  LaR_france_vichy_notification_events.7.desc
 	picture = GFX_report_event_generic_read_write
@@ -4294,7 +5305,6 @@ country_event = {
 # event for Vichy - coup in indochina
 country_event = {
 	id = LaR_france_vichy_notification_events.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.8 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.8.t
 	desc =  LaR_france_vichy_notification_events.7.desc
 	picture = GFX_report_event_generic_read_write
@@ -4313,7 +5323,6 @@ country_event = {
 # event for Vichy - coup in central_africa
 country_event = {
 	id = LaR_france_vichy_notification_events.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.9 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.9.t
 	desc =  LaR_france_vichy_notification_events.7.desc
 	picture = GFX_report_event_generic_read_write
@@ -4332,7 +5341,6 @@ country_event = {
 # event for Vichy - coup in west_africa
 country_event = {
 	id = LaR_france_vichy_notification_events.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.10 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.10.t
 	desc =  LaR_france_vichy_notification_events.7.desc
 	picture = GFX_report_event_generic_read_write
@@ -4351,7 +5359,6 @@ country_event = {
 # event for Vichy - coup in north_africa
 country_event = {
 	id = LaR_france_vichy_notification_events.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.11 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.11.t
 	desc =  LaR_france_vichy_notification_events.7.desc
 	picture = GFX_report_event_generic_read_write
@@ -4370,7 +5377,6 @@ country_event = {
 # event for Vichy - coup in Madagascar
 country_event = {
 	id = LaR_france_vichy_notification_events.12
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LaR_france_vichy_notification_events.12 FROM = [From.GetName]" }
 	title =  LaR_france_vichy_notification_events.12.t
 	desc =  LaR_france_vichy_notification_events.7.desc
 	picture = GFX_report_event_generic_read_write

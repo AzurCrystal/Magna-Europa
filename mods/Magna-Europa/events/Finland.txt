@@ -4,10 +4,9 @@
 
 add_namespace = finland
 
-# Soviet Ultimatum
+# Soviet Ultimatum - Event for FIN
 country_event = {
 	id = finland.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.1 FROM = [From.GetName]" }
 	title = finland.1.t
 	desc = finland.1.d
 	picture = GFX_report_event_soviet_tanks_snow
@@ -21,31 +20,46 @@ country_event = {
 			modifier = { # Don't accept if in a faction that can protect them
 				factor = 0
 				NOT = { is_in_faction_with = FROM }
+				NOT = { is_subject_of = FROM }
 				OR = {
-					any_other_country = {
-						is_major = yes
+					any_collection_element = {
+						collection = game:all_majors
 						OR = {
 							is_in_faction_with = FIN
 							has_guaranteed = FIN
 						}
 					}
+					FIN_is_historical_ai = yes # Finland expected to resist on historical
 					has_idea = anti_soviet_pact
 				}
 			}
 		}
 		FROM = {
 			country_event = { days = 5 id = soviet.12 }
+			effect_tooltip = {
+				transfer_state = 146
+				if = {
+					limit = {
+						ROOT = {
+							original_tag = FIN
+						}
+					}
+					custom_effect_tooltip = FIN_remove_soviet_claims_in_other_states_tt
+				}
+			}
 		}
-		effect_tooltip = {
+		hidden_effect = {
 			FROM = {
-				transfer_state = 2783
-				transfer_state = 36
-				transfer_state = 105
-				transfer_state = 29
-			}	
-			ROOT = {
-				transfer_state = 62
-				transfer_state = 74
+				add_ai_strategy = { 
+					type = antagonize 
+					id = ROOT
+					value = -100
+				}
+				add_ai_strategy = { 
+					type = conquer 
+					id = ROOT
+					value = -100
+				}
 			}
 		}
 	}
@@ -55,22 +69,26 @@ country_event = {
 			base = 75
 			modifier = {
 				factor = 0
-				is_in_faction_with = FROM
+				OR = {
+					is_in_faction_with = FROM
+					is_subject_of = FROM
+				}
 			}
 		}
 		FROM = {
 			country_event = { days = 5 id = soviet.13 }
 			effect_tooltip = {
 				create_wargoal = {
-					type = take_claimed_state
-					target = FIN
+					type = take_state
+					target = ROOT
+					generator = { 146 }
 				}
 			}
 		}
 	}
 }
 
-# Request Swedish Assistance? - Event for FIN -> Used before AAT now it is triggered via Finnish Focus - which is free for everyone
+# Request Swedish Assistance? - Event for FIN -> Used before AAT now it is triggered via Finnish Focus
 #country_event = {
 #	id = finland.2
 #	title = finland.2.t
@@ -106,10 +124,9 @@ country_event = {
 #	}
 #}
 
-# Swedish Support in Winter War
+# Swedish Support in Winter War - Event for SWE
 country_event = {
 	id = finland.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.3 FROM = [From.GetName]" }
 	title = finland.3.t
 	desc = finland.3.d
 	picture = GFX_report_event_finnish_letter
@@ -120,7 +137,7 @@ country_event = {
 		name = finland.3.a
 
 		ai_chance = {
-			factor = 10 
+			base = 10
 			modifier = {
 				factor = 10
 				OR = {
@@ -143,9 +160,9 @@ country_event = {
 		name = finland.3.b
 
 		ai_chance = {
-			factor = 25
+			base = 25
 			modifier = {
-				factor = 5							
+				factor = 5
 				has_government = democratic
 				FIN = {
 				 has_government = democratic
@@ -154,12 +171,8 @@ country_event = {
 		}
 
 		trigger = {
-			AND = {
-				has_war = no
-				NOT = {
-					has_government = communism
-				}
-			}	
+			has_war = no
+			NOT = { has_government = communism }
 			has_manpower > 8402
 		}
 		add_manpower = -8402
@@ -201,8 +214,7 @@ country_event = {
 		name = finland.3.c
 
 		ai_chance = {
-
-			factor = 1
+			base = 1
 			modifier = {
 				factor = 0
 				is_historical_focus_on = yes
@@ -218,18 +230,17 @@ country_event = {
 				FIN = {
 					has_government = democratic
 					strength_ratio = {
-						tag = SOV 
+						tag = SOV
 						ratio > 0.3
 					}
 				}
-			}			
+			}
 		}
 
-		declare_war_on = {
-			target = SOV
-			type = take_state
-			generator = { 195 208 } # Leningrand and Luga
-		}
+		add_to_war = {
+      		targeted_alliance = FIN
+      		enemy = SOV
+  		}
 		FIN = {
 			country_event = { id = finland.6 days = 3 }
 			add_opinion_modifier = {
@@ -240,9 +251,9 @@ country_event = {
 	}
 }
 
+# SWE won't help us - Event for FIN
 country_event = {
 	id = finland.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.4 FROM = [From.GetName]" }
 	title = finland.4.t
 	desc = finland.4.d
 	picture = GFX_report_event_finnish_soldiers_snow
@@ -254,9 +265,9 @@ country_event = {
 	}
 }
 
+#SWE sends volunteers - Event for FIN
 country_event = {
 	id = finland.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.5 FROM = [From.GetName]" }
 	title = finland.5.t
 	desc = finland.5.d
 	picture = GFX_report_event_swedish_soldier
@@ -269,38 +280,24 @@ country_event = {
 		effect_tooltip = {
 			SWE = {
 				add_manpower = -8402
-				if = {
-					limit = {
-						has_equipment = {
-							infantry_equipment > 500
-						}
-					}
-					send_equipment = {
-						target = FIN
-						type = infantry_equipment
-						amount = 500
-					}
+				send_equipment = {
+					target = FIN
+					type = infantry_equipment
+					amount = 500
 				}
-				if = {
-					limit = {
-						has_equipment = {
-							artillery_equipment > 250
-						}
-					}
-					send_equipment = {
-						target = FIN
-						type = artillery_equipment
-						amount = 250
-					}
+				send_equipment = {
+					target = FIN
+					type = artillery_equipment
+					amount = 250
 				}
 			}
 		}
 	}
 }
 
+#SWE joins the Winter War - Event for FIN
 country_event = {
 	id = finland.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.6 FROM = [From.GetName]" }
 	title = finland.6.t
 	desc = finland.6.d
 	picture = GFX_report_event_swedish_soldier
@@ -312,10 +309,9 @@ country_event = {
 	}
 }
 
-#Surrender when Soviet has taken too much land
+#Surrender when Soviet has taken too much land - Event for FIN
 country_event = {
 	id = finland.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.7 FROM = [From.GetName]" }
 	title = finland.7.t
 	desc = finland.7.d
 	picture = GFX_report_event_soviet_tanks_snow
@@ -323,25 +319,13 @@ country_event = {
 	trigger = {
 		tag = FIN
 		has_war_with = SOV
-		SOV = { has_government = communism }
-		OR = {
-			surrender_progress > 0.25
-			casualties_inflicted_by = {
-				opponent = SOV
-				thousands > 65
-			}
-		}
+		surrender_progress > 0.25
 		has_civil_war = no
 		is_in_faction = no
-		NOT = {
-			any_controlled_state = {
-				is_owned_by = SOV
-			}
-		}
-		NOT = { has_global_flag = FIN_surrendered_territory_to_SOV }
+		NOT = { has_country_flag = FIN_reached_out_to_soviets_to_surrender_flag }
 	}
 
-	mean_time_to_happen = { days = 7 }
+	mean_time_to_happen = { days = 20 }
 
 	fire_only_once = yes
 
@@ -352,44 +336,25 @@ country_event = {
 			base = 8
 		}
 		SOV = {
-			country_event = { id = finland.8 }
+			country_event = { id = finland.8 hours = 1 }
 		}
 		custom_effect_tooltip = finland.7.a_tt
 		effect_tooltip = {
-			SOV = { 
-				white_peace = {
-					tag = FIN 
-					message = FIN_agree_peace 
-				} 
+			SOV = {
+				white_peace = FIN
+				### TRANSFER STATES
+				#KARJALA
+				transfer_state = 146
 			}
-			every_state = {
+			#SALLA
+			if = {
 				limit = {
-					is_claimed_by = SOV
-					OR = {
-						state = 17
-					}
+					owns_state = 147
 				}
-				remove_claim_by = SOV
-			}
-			every_state = {
-				limit = {
-					OR = {
-						state = 22
-						state = 100
-						state = 77
-						state = 113
-						state = 2783
-						state = 33
-						state = 36
-						state = 2786
-						state = 105
-						state = 29
-					}
-				}
-				transfer_state_to = SOV
+				SOV = { transfer_state = 147 }
 			}
 		}
-		
+
 		set_country_flag = FIN_reached_out_to_soviets_to_surrender_flag
 	}
 
@@ -403,16 +368,15 @@ country_event = {
 				is_historical_focus_on = yes
 			}
 		}
-		
+
 		set_country_flag = FIN_available_decision_to_surrender_to_soviets_flag
 		unlock_decision_tooltip = FIN_surrender_to_the_soviet_union
 	}
 }
 
-#Soviet response to Finish surrender
+#Soviet response to Finish surrender - Event for SOV
 country_event = {
 	id = finland.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.8 FROM = [From.GetName]" }
 	title = finland.8.t
 	desc = finland.8.d
 	picture = GFX_report_event_finnish_soldiers_snow
@@ -425,32 +389,39 @@ country_event = {
 		ai_chance = {
 			base = 9
 		}
+
 		white_peace = FIN
-				every_state = {
-					limit = {
-						OR = {
-							state = 22
-							state = 100
-							state = 77
-							state = 113
-							state = 2783
-							state = 33
-							state = 36
-							state = 2786
-							state = 105
-							state = 29
-						}
-					}
-					transfer_state_to = SOV
-				}
+
+		### TRANSFER STATES ###
+		#KARJALA
+		transfer_state = 146
+
+		#SALLA
 		if = {
 			limit = {
-				17 = {   # 1.19-migration: mod state Petsamo
+				17 = {   # 1.19-migration: mod state Petsamo (was vanilla 722)
+					# 1.19-migration: off-map Salla: vanilla1194's `FROM = { owns_state = 147 } -> transfer_state = 147` block skipped
 					is_claimed_by = SOV
 				}
 			}
 			remove_state_claim = 17
 		}
+		if = {
+			limit = {
+				213 = {
+					is_owned_by = SOV
+				}
+			}
+			213 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+					province =  6117
+				}	
+			}
+		}
+
 		FIN = {
 			add_ai_strategy = {
 				type = antagonize
@@ -458,11 +429,12 @@ country_event = {
 				value = 200
 			}
 		}
+
 		if = {
 			limit = {
 				GER = {
 					is_subject = no
-					not = { is_in_faction_with = SOV}
+					not = { is_in_faction_with = SOV }
 				}
 			}
 			FIN = {
@@ -480,6 +452,7 @@ country_event = {
 				}
 			}
 		}
+
 		if = {
 			limit = {
 				SWE = {
@@ -491,7 +464,6 @@ country_event = {
 		}
 		add_political_power = 75 #Good Propaganda to win "fast"
 		SOV_paranoia_medium_decrease_effect = yes #Stalin likes this has been dealt with in a timely fashion
-		set_global_flag = FIN_surrendered_territory_to_SOV
 	}
 
 	#Take it all
@@ -508,10 +480,9 @@ country_event = {
 	}
 }
 
-#Soviet says no!
+#Soviet says no! - Event for FIN
 country_event = {
 	id = finland.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.9 FROM = [From.GetName]" }
 	title = finland.9.t
 	desc = finland.9.d
 	picture = GFX_report_event_finnish_soldiers_snow
@@ -526,7 +497,6 @@ country_event = {
 # WINTER WAR STARTS! -> (NSB Barbarossa free patch)
 country_event = {
 	id = finland.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event finland.10 FROM = [From.GetName]" }
 	title = finland.10.t
 	desc = finland.10.d
 	picture = GFX_report_event_finnish_soldiers_snow
@@ -537,7 +507,7 @@ country_event = {
 		name = finland.10.a
 
 		add_ideas = winter_war_ns
-		
+
 		custom_effect_tooltip = FIN_winter_war_push_back_tt
 	}
 }

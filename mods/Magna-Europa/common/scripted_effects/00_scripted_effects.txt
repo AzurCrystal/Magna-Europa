@@ -643,6 +643,75 @@ get_best_alliance_match_communism_effect = { #arguably a trigger, but it does st
 	}
 }
 
+# Sets the badge flag the signatory panel reads, bumping the refresh counter only when the state actually flips.
+MTG_naval_treaty_mark_over_allowance_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = MTG_over_treaty_allowance }
+			}
+			set_country_flag = MTG_over_treaty_allowance
+			add_to_variable = { global.MTG_naval_treaty_ui_version = 1 }
+		}
+	}
+}
+
+MTG_naval_treaty_clear_over_allowance_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_country_flag = MTG_over_treaty_allowance
+			}
+			clr_country_flag = MTG_over_treaty_allowance
+			add_to_variable = { global.MTG_naval_treaty_ui_version = 1 }
+		}
+	}
+}
+
+# Daily compliance check for one signatory, the benchmark selection mirrors the treaty missions rather than inventing a second rule.
+MTG_naval_treaty_sync_ui_compliance_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				has_naval_treaty_over_allowance_trigger = yes
+			}
+			MTG_naval_treaty_mark_over_allowance_effect = yes
+		}
+		else = {
+			MTG_naval_treaty_clear_over_allowance_effect = yes
+		}
+	}
+}
+
+# Keeps the signatory list behind MTG_naval_treaties_ui in step with the treaty ideas, safe to call from anywhere.
+MTG_naval_treaty_sync_ui_membership_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				exists = yes
+				has_naval_treaty_trigger = yes
+				NOT = { is_in_array = { array = global.MTG_naval_treaty_members value = THIS } }
+			}
+			add_to_array = { global.MTG_naval_treaty_members = THIS }
+			add_to_variable = { global.MTG_naval_treaty_ui_version = 1 }
+		}
+		else_if = {
+			limit = {
+				is_in_array = { array = global.MTG_naval_treaty_members value = THIS }
+				# Annexed signatories keep their idea, so existence has to be checked separately or dead tags pile up.
+				OR = {
+					NOT = { exists = yes }
+					NOT = { has_naval_treaty_trigger = yes }
+				}
+			}
+			remove_from_array = { global.MTG_naval_treaty_members = THIS }
+			add_to_variable = { global.MTG_naval_treaty_ui_version = 1 }
+			# Leaving the treaty clears the treaty-derived badge, otherwise a rejoining country shows a stale one
+			MTG_naval_treaty_clear_over_allowance_effect = yes
+		}
+	}
+}
+
 remove_naval_treaty_effect = {
 	if = {
 		limit = {
@@ -669,6 +738,8 @@ remove_naval_treaty_effect = {
 		remove_ideas = MTG_naval_treaty_cheating_reduced
 	}
 	set_country_flag = MTG_naval_treaty_abandoned
+	# The idea on_remove already syncs, this covers the case where the hook fires before the idea is actually gone.
+	MTG_naval_treaty_sync_ui_membership_effect = yes
 }
 
 civil_war_anti_exploiter_punitive_action = {
@@ -832,6 +903,7 @@ clear_sabotaged_resources_if_necesary = {
 		clear_variable = sabotaged_tungsten
 		clear_variable = sabotaged_steel
 		clear_variable = sabotaged_chromium
+		clear_variable = sabotaged_coal
 	}
 }
 
@@ -907,6 +979,7 @@ instantiate_collaboration_government = {
 }
 
 abandon_colony_tag = {
+
 	if = {
 		limit = {
 			is_subject = yes
@@ -938,6 +1011,10 @@ abandon_colony_tag = {
 		else_if = {
 			limit = {
 				original_tag = INS
+				NOT = {
+					has_cosmetic_tag = INS_HOL_FLAG
+					has_cosmetic_tag = INS_UNION
+				}
 			}
 			set_cosmetic_tag = INS_HOL
 		}
@@ -951,7 +1028,19 @@ abandon_colony_tag = {
 				}
 			}
 		}
-		else = {
+		else_if = {
+			limit = { 
+				NOT = { 
+					AND = {
+						has_dlc = "Graveyard of Empires" 
+						original_tag = RAJ 
+					}
+					AND = {
+						has_dlc = "Thunder at Our Gates"
+						original_tag = INS
+					}
+				} 
+			}
 			drop_cosmetic_tag = yes
 		}
 	}
@@ -981,6 +1070,48 @@ upgrade_economy_law = {
 			has_idea = war_economy
 		}
 		add_ideas = tot_economic_mobilisation
+	}
+	else = {
+		add_political_power = 150
+	}
+}
+
+upgrade_conscription_law = {
+	if = {
+		limit = {
+			has_idea = disarmed_nation
+		}
+		add_ideas = volunteer_only
+	}
+	else_if = {
+		limit = {
+			has_idea = volunteer_only
+		}
+		add_ideas = limited_conscription
+	}
+	else_if = {
+		limit = {
+			has_idea = limited_conscription
+		}
+		add_ideas = extensive_conscription
+	}
+	else_if = {
+		limit = {
+			has_idea = extensive_conscription
+		}
+		add_ideas = service_by_requirement
+	}
+	else_if = {
+		limit = {
+			has_idea = service_by_requirement
+		}
+		add_ideas = all_adults_serve
+	}
+	else_if = {
+		limit = {
+			has_idea = all_adults_serve
+		}
+		add_ideas = scraping_the_barrel
 	}
 	else = {
 		add_political_power = 150
@@ -1206,6 +1337,10 @@ remove_fascist_spirits_effect = {
 #Should remove any and all communist foreign influence
 remove_communist_spirits_effect = {
 	if = {
+		limit = { has_idea = communist_pressure }
+		remove_ideas = communist_pressure
+	}
+	if = {
 		limit = { has_idea = american_influence_drift_communism }
 		remove_ideas = american_influence_drift_communism
 	}
@@ -1232,6 +1367,11 @@ remove_communist_spirits_effect = {
 	if = {
 		limit = { has_idea = BALTIC_communist_militancy }
 		remove_ideas = BALTIC_communist_militancy
+	}
+
+	if = {
+		limit = { has_idea = SWE_foreign_communist_influence }
+		remove_ideas = SWE_foreign_communist_influence
 	}
 }
 
@@ -2748,7 +2888,7 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
 						fixed_auxiliary_weapon_slot_2 = small_bomb_bay
 						engine_type_slot = engine_4_2x
-						special_type_slot_1 = hmg_defense_turret_2x
+						special_type_slot_1 = hmg_defense_turret
 					}
 					icon = "GFX_USA_CAS3_medium"
 				}
@@ -4003,21 +4143,7 @@ force_peace_usa = {
 	}
 }
 
-##### RESTORED VANILLA EFFECTS (was truncated in mod copy) #####
-
-SF_PARA_combat_effect = { #When changing this, update the research tooltip
-	every_state_division = {
-		limit = { 
-			OWNER = { has_war_with = FROM }
-		}
-		set_unit_organization = 0.50
-	}
-	set_state_flag = {
-		flag = para_drop_effect
-		days = 30
-	}
-}
-
+### Paratroopers
 SF_PARA_sabotage_effect = { #When changing this, update the research tooltip
 	damage_building = {
 		type = infrastructure
@@ -4037,6 +4163,20 @@ SF_PARA_sabotage_effect = { #When changing this, update the research tooltip
 	}
 }
 
+SF_PARA_combat_effect = { #When changing this, update the research tooltip
+	every_state_division = {
+		limit = { 
+			OWNER = { has_war_with = FROM }
+		}
+		set_unit_organization = 0.50
+	}
+	set_state_flag = {
+		flag = para_drop_effect
+		days = 30
+	}
+}
+
+### Muuuurrrriiinnnnneeeeessssss
 SF_marine_demoliton_effect = { #When changing this, update the research tooltip
 	damage_building = {
 		type = radar_station
@@ -4068,65 +4208,21 @@ SF_marine_demoliton_effect = { #When changing this, update the research tooltip
 	}
 }
 
-add_potential_special_forces_tree = {
-	custom_effect_tooltip = add_potential_special_forces_tree_tt
-	if = {
-		limit = { NOT = { has_variable = sf_trees } }
-		set_variable = { sf_trees = 2 }
-	}
-	else = {
-		add_to_variable = { sf_trees = 1 }
-	}
-}
+###########################################################################################
+###########################################################################################
+###########################################################################################
 
-find_best_democratic_ally_leader = { # Finds the most suitable democratic country to lead a faction
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_democratic_ally_leader
-		scorer = democratic_faction_leader_scorer
-	}
-}
+							########    ###       ###    ######## 
+							   ##      ## ##     ## ##      ##    
+							   ##     ##   ##   ##   ##     ##    
+							   ##    ##     ## ##     ##    ##    
+							   ##    ######### #########    ##    
+							   ##    ##     ## ##     ##    ##    
+							   ##    ##     ## ##     ##    ##    
 
-find_biggest_communist = { # Finds biggest Communist
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_big_communist
-		scorer = communist_major_scorer
-	}
-}
-
-find_biggest_democrat = { # Finds biggest Democratic Nation
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_big_democratic
-		scorer = democratic_major_scorer
-	}
-}
-
-find_biggest_fascist = { # Finds Nazi Germany, or the closest to it 
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_big_fascist
-		scorer = fascist_major_scorer
-	}
-}
-
-find_biggest_fascist_bully = { # Finds the biggest and/or meanest fascist country 
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_fascist_bully
-		scorer = fascist_bully_scorer
-	}
-}
-
-find_biggest_non_aligned = { # Finds biggest... anything else
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_big_non_aligned
-		scorer = non_aligned_major_scorer
-	}
-}
-
-find_democratic_sleeping_giant = { # Finds biggest desarmed democratic nation. Expected to be USA 
-	get_highest_scored_country = {
-		var = GLOBAL.platonic_democratic_sleeping_giant
-		scorer = democratic_sleeping_giant_scorer
-	}
-}
+###########################################################################################
+###########################################################################################
+###########################################################################################
 
 find_global_platonic_countries = { # Look for the countries that meet the best criteria for the different platonic countries we expect in HoI 
 	find_biggest_fascist = yes
@@ -4139,6 +4235,57 @@ find_global_platonic_countries = { # Look for the countries that meet the best c
 	find_local_dangerous_fascist = yes 
 }
 
+
+find_biggest_fascist_bully = { # Finds the biggest and/or meanest fascist country 
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_fascist_bully
+		scorer = fascist_bully_scorer
+	}
+}
+
+find_best_democratic_ally_leader = { # Finds the most suitable democratic country to lead a faction
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_democratic_ally_leader
+		scorer = democratic_faction_leader_scorer
+	}
+}
+
+find_democratic_sleeping_giant = { # Finds biggest desarmed democratic nation. Expected to be USA 
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_democratic_sleeping_giant
+		scorer = democratic_sleeping_giant_scorer
+	}
+}
+
+find_biggest_fascist = { # Finds Nazi Germany, or the closest to it 
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_fascist
+		scorer = fascist_major_scorer
+	}
+}
+
+find_biggest_democrat = { # Finds biggest Democratic Nation
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_democratic
+		scorer = democratic_major_scorer
+	}
+}
+
+find_biggest_communist = { # Finds biggest Communist
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_communist
+		scorer = communist_major_scorer
+	}
+}
+
+find_biggest_non_aligned = { # Finds biggest... anything else
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_non_aligned
+		scorer = non_aligned_major_scorer
+	}
+}
+# There are ideology scorers for each continent. If you need more check the generic_platonic_scorers file and make a new scripted effect 
+
 find_local_dangerous_fascist = {
 	get_highest_scored_country = {
 		var = platonic_local_dangerous_fascist
@@ -4146,17 +4293,42 @@ find_local_dangerous_fascist = {
 	}
 }
 
+
+# The idea is that you can use these effects to store the party popularities (and, if desired, the ruling party) when puppeting or possibly when starting civil wars, and then use the "restore" effects to reset it after the puppeting has happened, so that you don't have to use the overlord's ideology if you don't want to. 
 get_current_ideology_popularities = {
 	set_variable = { ROOT.communist_support_before_change = ROOT.party_popularity_100@communism }
 	set_variable = { ROOT.democratic_support_before_change = ROOT.party_popularity_100@democratic }
 	set_variable = { ROOT.fascist_support_before_change = ROOT.party_popularity_100@fascism }
 	set_variable = { ROOT.neutrality_support_before_change = ROOT.party_popularity_100@neutrality }
 }
-
 get_current_ruling_party = {
 	set_variable = { ROOT.ruling_ideology_before_change = ROOT.current_party_ideology_group }
 }
+restore_ideology_popularities = {
+	hidden_effect = {
+		# Reset popluarities to what they were before puppeting 
+		set_popularities = {
+			communism = ROOT.communist_support_before_change
+			democratic = ROOT.democratic_support_before_change
+			fascism = ROOT.fascist_support_before_change
+			neutrality = ROOT.neutrality_support_before_change
+		}
+		clear_variable = ROOT.communist_support_before_change
+		clear_variable = ROOT.democratic_support_before_change
+		clear_variable = ROOT.fascist_support_before_change
+		clear_variable = ROOT.neutrality_support_before_change
+	}
+}
+restore_ruling_party = {
+	ROOT = {
+		set_politics = {
+			ruling_party = var:ROOT.ruling_ideology_before_change
+		}
+	}
+}
 
+
+#Upgrades state cat to the next valid level. Called from state scope
 increase_state_category = {
 	if = {
 		limit = {
@@ -4258,6 +4430,17 @@ increase_state_category = {
 
 }
 
+add_potential_special_forces_tree = {
+	custom_effect_tooltip = add_potential_special_forces_tree_tt
+	if = {
+		limit = { NOT = { has_variable = sf_trees } }
+		set_variable = { sf_trees = 2 }
+	}
+	else = {
+		add_to_variable = { sf_trees = 1 }
+	}
+}
+
 remove_potential_special_forces_tree = {
 	if = {
 		limit = { NOT = { has_variable = sf_trees } }
@@ -4266,36 +4449,6 @@ remove_potential_special_forces_tree = {
 	else = {
 		subtract_from_variable = { sf_trees = 1 }
 	}
-}
-
-restore_ideology_popularities = {
-	hidden_effect = {
-		# Reset popluarities to what they were before puppeting 
-		set_popularities = {
-			communism = ROOT.communist_support_before_change
-			democratic = ROOT.democratic_support_before_change
-			fascism = ROOT.fascist_support_before_change
-			neutrality = ROOT.neutrality_support_before_change
-		}
-		clear_variable = ROOT.communist_support_before_change
-		clear_variable = ROOT.democratic_support_before_change
-		clear_variable = ROOT.fascist_support_before_change
-		clear_variable = ROOT.neutrality_support_before_change
-	}
-}
-
-restore_ruling_party = {
-	ROOT = {
-		set_politics = {
-			ruling_party = var:ROOT.ruling_ideology_before_change
-		}
-	}
-}
-
-set_african_central_bank_variables = {
-	set_variable = { org_africa_central_bank_stability_factor = 0.05}
-	set_variable = { org_africa_central_bank_industrial_complex_factor = 0.1}
-	set_variable = { org_africa_central_bank_infrastructure_factor = 0.1}
 }
 
 store_core_states_on_game_start = { #Should be called from history file
@@ -4309,3 +4462,23 @@ store_core_states_on_game_start = { #Should be called from history file
 	}
 }
 
+set_african_central_bank_variables = {
+	set_variable = { org_africa_central_bank_stability_factor = 0.05}
+	set_variable = { org_africa_central_bank_industrial_complex_factor = 0.1}
+	set_variable = { org_africa_central_bank_infrastructure_factor = 0.1}
+}
+
+add_random_stat_to_general = {
+	custom_effect_tooltip = add_random_stat_to_general_tt
+	hidden_effect = {
+		random_list = {
+			log = yes  
+			seed = random 
+
+			1 = { add_attack = 1 }
+			1 = { add_defense = 1 } 
+			1 = { add_planning = 1 } 
+			1 = { add_logistics = 1 }
+		}
+	}
+}

@@ -574,7 +574,7 @@ news_event = {
 	desc = news.19.d
 	picture = GFX_news_event_romanian_soldiers
 	
-	major = yes
+	major = no
 	
 	is_triggered_only = yes
 	
@@ -606,6 +606,7 @@ news_event = {
 			is_in_faction_with = GER
 		}
 	}
+
 }
 
 # German Claims Memel - Lithuania Rejects Demands
@@ -615,7 +616,7 @@ news_event = {
 	desc = news.20.d
 	picture = GFX_news_event_german_soldiers
 	
-	major = yes
+	major = no
 	
 	is_triggered_only = yes
 	
@@ -746,12 +747,12 @@ news_event = {
 	}
 }
 
-# Reichstag Speech (The Polish Question)
+# Reichstag Speech (The Polish Question) - NOT USED
 news_event = {
 	id = news.24
 	title = news.24.t
 	desc = news.24.d
-	picture = GFX_news_event_hitler_speech
+	picture = GFX_news_event_hitler_speech2
 	
 	major = yes
 	
@@ -1047,7 +1048,20 @@ news_event = {
 news_event = {
 	id = news.32
 	title = news.32.t
-	desc = news.32.d
+	desc = {
+		text = news.32.d
+		trigger = {
+			NOT = { original_tag = FIN }
+		}
+	}
+
+	desc = {
+		text = news.32.d_finland
+		trigger = {
+			original_tag = FIN
+		}
+	}
+	
 	picture = GFX_news_event_017
 	
 	major = yes
@@ -1062,6 +1076,10 @@ news_event = {
 				TAG = SOV
 				is_in_faction_with = GER
 				is_in_faction_with = SOV
+				AND = {
+					original_tag = FIN
+					NOT = { is_in_faction_with = SOV }
+				}
 			}
 		}
 		if = {
@@ -1128,6 +1146,14 @@ news_event = {
 			}
 		}
 	}
+	option = {
+		name = news.32.f
+		trigger = { 
+			original_tag = FIN
+			NOT = { is_in_faction_with = GER }
+			NOT = { is_in_faction_with = SOV }
+		}
+	}
 }
 
 # USSR Occupies Eastern Poland
@@ -1179,7 +1205,7 @@ news_event = {
 	id = news.34
 	title = news.34.t
 	desc = news.34.d
-	picture = GFX_news_event_hitler_handshake
+	picture = [GetHitlerHandshakeNewsEventPicture]
 	
 	major = yes
 	
@@ -1690,6 +1716,7 @@ news_event = {
 
 # Hindenburg Trigger (HIDDEN)
 news_event = {
+
 	id = news.51
 	hidden = yes
 	
@@ -1727,6 +1754,7 @@ news_event = {
 	option = {
 		name = news.51.a
 	}
+	
 }
 
 # Rudolf Hess Trigger (HIDDEN)
@@ -1745,6 +1773,7 @@ news_event = {
 			NOT = { has_war_with = SOV }
 			has_government = fascism
 			has_country_leader = { ruling_only = yes character = GER_adolf_hitler }
+			NOT = { has_completed_focus = GER_rally_the_industrialists }  # WW (GOT) content - inner circle - If Hess has being improved, this event is prevented.
 		}
 		has_global_flag = fall_of_france
 		NOT = { has_global_flag = hindenburg_survives }
@@ -1762,8 +1791,10 @@ news_event = {
 			controls_state = 234
 			controls_state = 221
 			controls_state = 219
+			controls_state = 270 # was vanilla 931 (Samara); mod Kuybyshev — 1.19-migration: added by vanilla 1.19.4
 			controls_state = 180
 			controls_state = 183
+
 		}
 	}
 	
@@ -1804,6 +1835,7 @@ news_event = {
 			has_war_with = ENG 
 			NOT = { has_war_with = SOV }
 			has_government = fascism
+			NOT = { has_completed_focus = GER_rally_the_industrialists }  # WW (GOT) content - inner circle - If Hess has being improved, this event is prevented.
 		}
 		has_global_flag = fall_of_france
 		has_global_flag = hindenburg_survives
@@ -1905,8 +1937,9 @@ news_event = {
 			NOT = { is_in_faction_with = GER }
 		}
 		GER = {
-#			has_completed_focus = GER_demand_memel
-#			NOT = { has_completed_focus = GER_poland_friend }
+#			has_completed_focus = GER_reassert_eastern_claims   # 1.19-migration: vanilla renamed GER_demand_memel / GER_poland_friend
+#			NOT = { has_completed_focus = GER_befriend_poland }
+
 		}
 	}
 	
@@ -2258,8 +2291,9 @@ news_event = {
 		NOT = { has_global_flag = scw_over }
 		NOT = { has_dlc = "La Resistance" }
 		SPR = { has_civil_war = no }
-		any_other_country = {
-			original_tag = SPR
+		any_other_country_with_original_tag_of = {
+			exists = yes
+			target = {SPR}
 			has_government = fascism
 		}
 		all_country = {
@@ -2306,8 +2340,9 @@ news_event = {
 		NOT = { has_global_flag = scw_over }
 		NOT = { has_dlc = "La Resistance" }
 		SPR = { has_civil_war = no }
-		any_other_country = {
-			original_tag = SPR
+		any_other_country_with_original_tag_of = {
+			exists = yes
+			target = {SPR}
 			NOT = { has_government = fascism }
 		}
 		all_country = {
@@ -2727,6 +2762,80 @@ news_event = {
 	}
 }
 
+# The Fall of Budapest (Generic)
+news_event = {
+	id = news.400
+	title = news.400.t
+	desc = news.400.desc
+	picture = GFX_news_event_generic_fall_of_budapest
+	
+	major = yes
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	immediate = {
+		set_global_flag = fall_of_budapest_generic_flag
+	}
+	
+	option = {
+		name = news.400.a
+		trigger = {
+			NOT = {
+				TAG = HUN
+			}
+		}
+	}
+	option = {
+		name = news.400.b
+		trigger = { TAG = HUN }
+	}
+}
+
+# The Fall of Budapest (Soviets)
+news_event = {
+	id = news.401
+	title = news.401.t
+	desc = news.401.desc
+	picture = GFX_news_event_generic_soviet_occupation_of_budapest
+	
+	major = yes
+	
+	trigger = {
+		43 = { is_controlled_by = SOV }
+		43 = { is_owned_by = HUN }
+		SOV = { has_war_with = HUN }
+		NOT = { has_global_flag = fall_of_budapest_sov }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_budapest_sov
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.401.a
+		trigger = {
+			NOT = {
+				TAG = SOV
+				TAG = HUN
+			}
+		}
+	}
+	option = {
+		name = news.401.b
+		trigger = { TAG = SOV }
+	}
+	option = {
+		name = news.401.c
+		trigger = { TAG = HUN }
+	}
+}
+
 # The Fall of Leningrad
 news_event = {
 	id = news.103
@@ -2737,8 +2846,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		119 = { is_controlled_by = GER }
-		119 = { is_owned_by = SOV }
+		195 = { is_controlled_by = GER }
+		195 = { is_owned_by = SOV }
 		GER = { has_war_with = SOV }
 		NOT = { has_global_flag = fall_of_leningrad }
 	}
@@ -2780,8 +2889,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		2081 = { is_controlled_by = GER }
-		2081 = { is_owned_by = SOV }
+		202 = { is_controlled_by = GER }
+		202 = { is_owned_by = SOV }
 		SOV = { has_government = communism }
 		GER = { has_war_with = SOV }
 		NOT = { has_global_flag = fall_of_kiev }
@@ -2875,8 +2984,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		229 = { is_controlled_by = GER }
-		229 = { is_owned_by = SOV }
+		219 = { is_controlled_by = GER }
+		219 = { is_owned_by = SOV }
 		SOV = { has_war_with = GER }
 		NOT = { has_global_flag = fall_of_moscow }
 	}
@@ -2961,8 +3070,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		2292 = { is_controlled_by = GER }
-		2292 = { is_owned_by = SOV }
+		229 = { is_controlled_by = GER }
+		229 = { is_owned_by = SOV }
 		GER = { has_war_with = SOV }
 		NOT = { has_global_flag = fall_of_baku }
 	}
@@ -3005,8 +3114,20 @@ news_event = {
 	
 	trigger = {
 		1889 = { is_controlled_by = GER } # 1.19-migration: was vanilla 907 (Cairo)
-		1889 = { is_owned_by = ENG } # 1.19-migration: was vanilla 907 (Cairo)
-		GER = { has_war_with = ENG }
+		OR = {   # 1.19-migration: vanilla 1.19.4 added EGY-ownership branch
+			AND = {
+				1889 = { is_owned_by = ENG }
+				GER = { has_war_with = ENG }
+			}
+			AND = {
+				1889 = { is_owned_by = EGY }
+				EGY = {
+					is_ally_with = ENG
+				}
+				GER = { has_war_with = ENG }
+				GER = { has_war_with = EGY }
+			}
+		}
 		NOT = { has_global_flag = fall_of_cairo }
 	}
 	
@@ -3047,8 +3168,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		26 = { is_controlled_by = GER }
-		26 = { is_owned_by = USA }
+		361 = { is_controlled_by = GER }
+		361 = { is_owned_by = USA }
 		GER = { has_war_with = USA }
 		NOT = { has_global_flag = fall_of_washington }
 	}
@@ -3090,8 +3211,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		11 = { is_controlled_by = GER }
-		11 = { is_owned_by = USA }
+		358 = { is_controlled_by = GER }
+		358 = { is_owned_by = USA }
 		GER = { has_war_with = USA }
 		NOT = { has_global_flag = fall_of_new_york }
 	}
@@ -3133,8 +3254,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		882 = { is_controlled_by = GER }
-		882 = { is_owned_by = ENG }
+		118 = { is_controlled_by = GER }
+		118 = { is_owned_by = ENG }
 		GER = { has_war_with = ENG }
 		NOT = { has_global_flag = fall_of_gibraltar_ger }
 	}
@@ -3175,10 +3296,22 @@ news_event = {
 	
 	major = yes
 	
-	trigger = {
-		1889 = { is_controlled_by = ITA } # 1.19-migration: was vanilla 907 (Cairo)
-		1889 = { is_owned_by = ENG } # 1.19-migration: was vanilla 907 (Cairo)
-		ITA = { has_war_with = ENG }
+%(t)strigger = {
+	1889 = { is_controlled_by = ITA } # 1.19-migration: was vanilla 907 (Cairo)
+	OR = {   # 1.19-migration: vanilla 1.19.4 added EGY-ownership branch
+		AND = {
+			1889 = { is_owned_by = ENG }
+			ITA = { has_war_with = ENG }
+		}
+		AND = {
+			1889 = { is_owned_by = EGY }
+			EGY = {
+				is_ally_with = ENG
+			}
+			ITA = { has_war_with = ENG }
+			ITA = { has_war_with = EGY }
+		}
+	}
 		NOT = { has_global_flag = fall_of_cairo_ita }
 	}
 	
@@ -3219,8 +3352,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		571 = { is_controlled_by = ITA }
-		571 = { is_owned_by = FRA }
+		16 = { is_controlled_by = ITA }
+		16 = { is_owned_by = FRA }
 		ITA = { has_war_with = FRA }
 		NOT = { has_global_flag = fall_of_paris_ita }
 	}
@@ -3262,8 +3395,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		2475 = { is_controlled_by = ITA }
-		2475 = { is_owned_by = ENG }
+		126 = { is_controlled_by = ITA }
+		126 = { is_owned_by = ENG }
 		ITA = { has_war_with = ENG }
 		NOT = { has_global_flag = fall_of_london_ita }
 	}
@@ -3305,8 +3438,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		882 = { is_controlled_by = ITA }
-		882 = { is_owned_by = ENG }
+		118 = { is_controlled_by = ITA }
+		118 = { is_owned_by = ENG }
 		ITA = { has_war_with = ENG }
 		NOT = { has_global_flag = fall_of_gibraltar_ita }
 	}
@@ -3338,6 +3471,612 @@ news_event = {
 	}
 }
 
+# The Fall of Singapore
+news_event = {
+	id = news.117
+	title = news.117.t
+	desc = news.117.d
+	picture = GFX_news_event_038
+	
+	major = yes
+	
+	trigger = {
+		1021 = { 
+			controller = {
+				OR = {
+					original_tag = JAP
+					is_ally_with = JAP
+				}
+			}
+		}
+		OR = {
+			1021 = {
+				is_owned_by = ENG
+			}
+			MAL = {
+				is_subject_of = ENG
+				owns_state = 1021
+			}
+		}
+		JAP = { has_war_with = ENG }
+		NOT = { has_global_flag = fall_of_singapore }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_singapore
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = ENG
+				TAG = MAL
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { 
+			TAG = JAP 
+			NOT = {
+				has_government = communism
+			}
+		}
+	}
+	option = {
+		name = SEA_japan_news_events.03.a
+		trigger = { 
+			TAG = JAP 
+			has_government = communism
+		}
+	}
+	option = {
+		name = news.100.c
+		trigger = { 
+			OR = {
+				TAG = ENG 
+				TAG = MAL 
+			}
+		}
+	}
+}
+
+# The Fall of Pearl Harbor
+news_event = {
+	id = news.118
+	title = news.118.t
+	desc = news.118.d
+	picture = GFX_news_event_soldiers_marching
+	
+	major = yes
+	
+	trigger = {
+		629 = { is_controlled_by = JAP }
+		629 = { is_owned_by = USA }
+		JAP = { has_war_with = USA }
+		NOT = { has_global_flag = fall_of_pearl_harbor }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_pearl_harbor
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = USA
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = USA }
+	}
+}
+
+# The Fall of Sydney
+news_event = {
+	id = news.119
+	title = news.119.t
+	desc = news.119.d
+	picture = GFX_news_event_047
+	
+	major = yes
+	
+	trigger = {
+		285 = { is_controlled_by = JAP }
+		285 = { is_owned_by = AST }
+		JAP = { has_war_with = AST }
+		NOT = { has_global_flag = fall_of_sydney }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_sydney
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = AST
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = AST }
+	}
+}
+
+# The Fall of Los Angeles
+news_event = {
+	id = news.120
+	title = news.120.t
+	desc = news.120.d
+	picture = GFX_news_event_soldiers_marching
+	
+	major = yes
+	
+	trigger = {
+		378 = { is_controlled_by = JAP }
+		378 = { is_owned_by = USA }
+		JAP = { has_war_with = USA }
+		NOT = { has_global_flag = fall_of_los_angeles }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_los_angeles
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = USA
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = USA }
+	}
+}
+
+# The Fall of Nanjing
+news_event = {
+	id = news.121
+	title = news.121.t
+	desc = news.121.d
+	picture = GFX_news_event_048
+	
+	major = yes
+	
+	trigger = {
+		1035 = { is_controlled_by = JAP }
+		1035 = { is_owned_by = CHI }
+		JAP = { has_war_with = CHI }
+		NOT = { has_global_flag = fall_of_nanjing }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_nanjing
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = CHI
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = CHI }
+	}
+}
+
+# The Fall of Vladivostok
+news_event = {
+	id = news.122
+	title = news.122.t
+	desc = news.122.d
+	picture = GFX_news_event_050
+	
+	major = yes
+	
+	trigger = {
+		408 = { is_controlled_by = JAP }
+		408 = { is_owned_by = SOV }
+		JAP = { has_war_with = SOV }
+		NOT = { has_global_flag = fall_of_vladivostok }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_vladivostok
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = SOV
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.103.c
+		trigger = { TAG = SOV }
+	}
+}
+
+# The Fall of Hong Kong
+news_event = {
+	id = news.123
+	title = news.123.t
+	desc = news.123.d
+	picture = GFX_news_event_040
+	
+	major = yes
+	
+	trigger = {
+		326 = { 
+			controller = {
+				OR = {
+					original_tag = JAP
+					is_ally_with = JAP
+				}
+			}
+		}
+		326 = { is_owned_by = ENG }
+		JAP = { has_war_with = ENG }
+		NOT = { has_global_flag = fall_of_hong_kong }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_hong_kong
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = ENG
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { 
+			TAG = JAP 
+			NOT = {
+				has_government = communism
+			}
+		}
+	}
+	option = {
+		name = SEA_japan_news_events.03.a
+		trigger = { 
+			TAG = JAP 
+			has_government = communism
+		}
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = ENG }
+	}
+}
+
+# The Fall of Manila
+news_event = {
+	id = news.124
+	title = news.124.t
+	desc = news.124.d
+	picture = GFX_news_event_039
+	
+	major = yes
+	
+	trigger = {
+		327 = {
+			OR = {
+				is_controlled_by = JAP
+				is_controlled_by = PSR	#Japanese puppet state
+			}
+		}
+		327 = { is_owned_by = PHI }
+		JAP = { has_war_with = PHI }
+		NOT = { has_global_flag = fall_of_manila }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_manila
+		hidden_effect = {
+			if = {
+				limit = {
+					has_dlc = "No Compromise, No Surrender"
+					PHI = {
+						OR = { # A faction leader holds out until it is close to capitulating
+							is_faction_leader = no
+							surrender_progress > 0.85
+						}
+					}
+				}
+				PHI = {
+					country_event = SEA_PHI_political_events.54
+				}
+			}
+		}
+	}
+
+	show_major = {
+		NOT = {
+			AND = {
+				has_dlc = "No Compromise, No Surrender"
+				tag = PHI
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = PHI
+				TAG = USA
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { 
+			OR = {
+				TAG = PHI 
+				TAG = USA
+			}
+		}
+	}
+}
+
+# The Fall of Calcutta
+news_event = {
+	id = news.125
+	title = news.125.t
+	desc = news.125.d
+	picture = GFX_news_event_046
+	
+	major = yes
+	
+	trigger = {
+		431 = { is_controlled_by = JAP }
+		OR = {
+			431 = {
+				is_owned_by = ENG
+			}
+			431 = {
+				is_owned_by = RAJ
+			}
+		}
+		JAP = { has_war_with = ENG }
+		NOT = { has_global_flag = fall_of_calcutta }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_calcutta
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = ENG
+				TAG = RAJ
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { 
+			OR = {
+				TAG = ENG 
+				TAG = RAJ 
+			}
+		}
+	}
+}
+
+# The Fall of New Delhi
+news_event = {
+	id = news.126
+	title = news.126.t
+	desc = news.126.d
+	picture = GFX_news_event_041
+	
+	major = yes
+	
+	trigger = {
+		439 = { 
+			controller = {
+				OR = {
+					original_tag = JAP
+					is_ally_with = JAP
+				}
+			}
+		}
+		OR = {
+			439 = {
+				is_owned_by = ENG
+			}
+			439 = {
+				is_owned_by = RAJ
+			}
+		}
+		JAP = { has_war_with = ENG }
+		NOT = { has_global_flag = fall_of_new_delhi }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_new_delhi
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = ENG
+				TAG = RAJ
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { 
+			TAG = JAP 
+			NOT = {
+				has_government = communism
+			}
+		}
+	}
+	option = {
+		name = SEA_japan_news_events.03.a
+		trigger = { 
+			TAG = JAP 
+			has_government = communism
+		}
+	}
+	option = {
+		name = news.100.c
+		trigger = { 
+			OR = {
+				TAG = ENG 
+				TAG = RAJ 
+			}
+		}
+	}
+}
+
+# The Fall of the Panama Canal
+news_event = {
+	id = news.127
+	title = news.127.t
+	desc = news.127.d
+	picture = GFX_news_event_soldiers_marching
+	
+	major = yes
+	
+	trigger = {
+		685 = { is_controlled_by = JAP }
+		685 = { is_owned_by = USA }
+		JAP = { has_war_with = USA }
+		NOT = { has_global_flag = fall_of_panama }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_panama
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = JAP
+				TAG = USA
+			}
+		}
+	}
+	option = {
+		name = news.117.b
+		trigger = { TAG = JAP }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = USA }
+	}
+}
+
 # The Fall of Berlin (USA)
 news_event = {
 	id = news.128
@@ -3348,8 +4087,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		1650 = { is_controlled_by = USA }
-		1650 = { is_owned_by = GER }
+		64 = { is_controlled_by = USA }
+		64 = { is_owned_by = GER }
 		USA = { has_war_with = GER }
 		NOT = { has_global_flag = fall_of_berlin_usa }
 	}
@@ -3391,8 +4130,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		1650 = { is_controlled_by = ENG }
-		1650 = { is_owned_by = GER }
+		64 = { is_controlled_by = ENG }
+		64 = { is_owned_by = GER }
 		ENG = { has_war_with = GER }
 		NOT = { has_global_flag = fall_of_berlin_eng }
 	}
@@ -3434,8 +4173,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		1650 = { is_controlled_by = FRA }
-		1650 = { is_owned_by = GER }
+		64 = { is_controlled_by = FRA }
+		64 = { is_owned_by = GER }
 		FRA = { has_war_with = GER }
 		NOT = { has_global_flag = fall_of_berlin_fra }
 	}
@@ -3477,8 +4216,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		1650 = { is_controlled_by = POL }
-		1650 = { is_owned_by = GER }
+		64 = { is_controlled_by = POL }
+		64 = { is_owned_by = GER }
 		POL = { has_war_with = GER }
 		NOT = { has_global_flag = fall_of_berlin_pol }
 	}
@@ -3521,16 +4260,16 @@ news_event = {
 	
 	trigger = {
 		OR = {
-			876 = { is_controlled_by = ENG }
-			876 = { is_controlled_by = USA }
-			876 = { is_controlled_by = AST }
-			876 = { is_controlled_by = CAN }
-			876 = { is_controlled_by = NZL }
-			876 = { is_controlled_by = SAF }
+			2 = { is_controlled_by = ENG }
+			2 = { is_controlled_by = USA }
+			2 = { is_controlled_by = AST }
+			2 = { is_controlled_by = CAN }
+			2 = { is_controlled_by = NZL }
+			2 = { is_controlled_by = SAF }
 		}
 		OR = {
-			876 = { is_owned_by = ITA }
-			876 = { is_owned_by = GER }
+			2 = { is_owned_by = ITA }
+			2 = { is_owned_by = GER }
 		}
 		NOT = { has_global_flag = fall_of_rome_allies }
 	}
@@ -3592,8 +4331,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		876 = { is_controlled_by = FRA }
-		876 = { is_owned_by = ITA }
+		2 = { is_controlled_by = FRA }
+		2 = { is_owned_by = ITA }
 		FRA = { has_war_with = ITA }
 		NOT = { has_global_flag = fall_of_rome_fra }
 	}
@@ -3680,6 +4419,48 @@ news_event = {
 	}
 }
 
+# The Fall of Tokyo (USA)
+news_event = {
+	id = news.135
+	title = news.135.t
+	desc = news.135.d
+	picture = GFX_news_event_053
+	
+	major = yes
+	
+	trigger = {
+		282 = { is_controlled_by = USA }
+		282 = { is_owned_by = JAP }
+		USA = { has_war_with = JAP }
+		NOT = { has_global_flag = fall_of_tokyo_usa }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_tokyo_usa
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = USA
+				TAG = JAP
+			}
+		}
+	}
+	option = {
+		name = news.128.b
+		trigger = { TAG = USA }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = JAP }
+	}
+}
 
 # The Fall of Moscow (Allies)
 news_event = {
@@ -3692,13 +4473,15 @@ news_event = {
 	
 	trigger = {
 		OR = {
-			229 = { is_controlled_by = ENG }
-			229 = { is_controlled_by = USA }
-			229 = { is_controlled_by = CAN }
-			229 = { is_controlled_by = EGY }
-			229 = { is_controlled_by = FRA }
+			219 = { is_controlled_by = ENG }
+			219 = { is_controlled_by = USA }
+			219 = { is_controlled_by = AST }
+			219 = { is_controlled_by = CAN }
+			219 = { is_controlled_by = NZL }
+			219 = { is_controlled_by = SAF }
+			219 = { is_controlled_by = FRA }
 		}
-		229 = { is_owned_by = SOV }
+		219 = { is_owned_by = SOV }
 		NOT = { has_global_flag = fall_of_moscow_allies }
 	}
 	
@@ -3790,8 +4573,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		508 = { is_controlled_by = SOV }
-		508 = { is_owned_by = POL }
+		10 = { is_controlled_by = SOV }
+		10 = { is_owned_by = POL }
 		SOV = { has_war_with = POL }
 		NOT = { has_global_flag = fall_of_warsaw_sov }
 	}
@@ -3870,8 +4653,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		1650 = { is_controlled_by = SOV }
-		1650 = { is_owned_by = GER }
+		64 = { is_controlled_by = SOV }
+		64 = { is_owned_by = GER }
 		GER = { has_war_with = SOV }
 		NOT = { has_global_flag = fall_of_berlin_sov }
 	}
@@ -3914,8 +4697,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		876 = { is_controlled_by = SOV }
-		876 = { is_owned_by = ITA }
+		2 = { is_controlled_by = SOV }
+		2 = { is_owned_by = ITA }
 		SOV = { has_war_with = ITA }
 		NOT = { has_global_flag = fall_of_rome_sov }
 	}
@@ -3957,8 +4740,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		571 = { is_controlled_by = SOV }
-		571 = { is_owned_by = FRA }
+		16 = { is_controlled_by = SOV }
+		16 = { is_owned_by = FRA }
 		SOV = { has_war_with = FRA }
 		NOT = { has_global_flag = fall_of_paris_sov }
 	}
@@ -4000,13 +4783,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		571 = { is_controlled_by = SOV }
-		571 = { 
-			OR = {
-				is_owned_by = GER
-				is_owned_by = MVF
-			}
-		}
+		16 = { is_controlled_by = SOV }
+		16 = { is_owned_by = GER }
 		NOT = { has_global_flag = liberation_of_paris_sov }
 		has_global_flag = fall_of_france
 	}
@@ -4048,8 +4826,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		2475 = { is_controlled_by = SOV }
-		2475 = { is_owned_by = ENG }
+		126 = { is_controlled_by = SOV }
+		126 = { is_owned_by = ENG }
 		SOV = { has_war_with = ENG }
 		NOT = { has_global_flag = fall_of_london_sov }
 	}
@@ -4091,8 +4869,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		2475 = { is_controlled_by = SOV }
-		2475 = { is_owned_by = GER }
+		126 = { is_controlled_by = SOV }
+		126 = { is_owned_by = GER }
 		NOT = { has_global_flag = liberation_of_london_sov }
 		has_global_flag = fall_of_london_ger
 	}
@@ -4124,6 +4902,48 @@ news_event = {
 	}
 }
 
+# The Fall of Tokyo (USSR)
+news_event = {
+	id = news.146
+	title = news.135.t
+	desc = news.146.d
+	picture = GFX_news_event_072
+	
+	major = yes
+	
+	trigger = {
+		282 = { is_controlled_by = SOV }
+		282 = { is_owned_by = JAP }
+		SOV = { has_war_with = JAP }
+		NOT = { has_global_flag = fall_of_tokyo_sov }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_tokyo_sov
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = SOV
+				TAG = JAP
+			}
+		}
+	}
+	option = {
+		name = news.138.b
+		trigger = { TAG = SOV }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = JAP }
+	}
+}
 
 # The Fall of Leningrad (Finland)
 news_event = {
@@ -4135,8 +4955,8 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		119 = { is_controlled_by = FIN }
-		119 = { is_owned_by = SOV }
+		195 = { is_controlled_by = FIN }
+		195 = { is_owned_by = SOV }
 		SOV = { has_war_with = FIN }
 		NOT = { has_global_flag = fall_of_leningrad_fin }
 	}
@@ -4168,6 +4988,48 @@ news_event = {
 	}
 }
 
+# The Fall of Tokyo (China)
+news_event = {
+	id = news.148
+	title = news.135.t
+	desc = news.148.d
+	picture = GFX_news_event_chinese_soldiers_march
+	
+	major = yes
+	
+	trigger = {
+		282 = { is_controlled_by = CHI }
+		282 = { is_owned_by = JAP }
+		JAP = { has_war_with = CHI }
+		NOT = { has_global_flag = fall_of_tokyo_chi }
+	}
+	
+	immediate = {
+		set_global_flag = fall_of_tokyo_chi
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	option = {
+		name = news.145.a
+		trigger = {
+			NOT = {
+				TAG = CHI
+				TAG = JAP
+			}
+		}
+	}
+	option = {
+		name = news.132.b
+		trigger = { TAG = CHI }
+	}
+	option = {
+		name = news.100.c
+		trigger = { TAG = JAP }
+	}
+}
 
 # The Fall of Gibraltar (Spain)
 news_event = {
@@ -4179,12 +5041,13 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		any_other_country = {
-			original_tag = SPR
-			controls_state = 882
+		any_other_country_with_original_tag_of = {
+			exists = yes
+			target = {SPR}
+			controls_state = 118
 			has_war_with = ENG
 		}
-		882 = { is_owned_by = ENG }
+		118 = { is_owned_by = ENG }
 		NOT = {
 			AND = {
 				has_global_flag = spanish_civil_war
@@ -4241,8 +5104,9 @@ news_event = {
 		name = news.150.b
 		trigger = { tag = GER }
 		create_wargoal = {
-			type = annex_everything
+			type = take_state_focus
 			target = YUG
+			generator = { 107 }
 		}
 	}
 }
@@ -4252,7 +5116,7 @@ news_event = {
 	id = news.151
 	title = news.151.t
 	desc = news.151.d
-	picture = GFX_news_event_hitler_speech
+	picture = GFX_news_event_hitler_speech2
 	
 	major = yes
 	
@@ -4294,7 +5158,7 @@ news_event = {
 	id = news.152
 	title = news.151.t
 	desc = news.152.d
-	picture = GFX_news_event_hitler_speech
+	picture = GFX_news_event_hitler_speech2
 	
 	major = yes
 	
@@ -4385,7 +5249,7 @@ news_event = {
 				}
 			}
 			create_country_leader = {
-				name = "Harry Pollitt"
+				name = ENG_harry_pollitt
 				desc = "POLITICS_HARRY_POLLITT_DESC"
 				picture = GFX_portrait_Harry_Pollitt
 				expire = "1965.1.1"
@@ -4486,9 +5350,13 @@ news_event = {
 		GER = {
 			OR = {
 				has_country_flag = GER_rhineland_backed_down
-#				NOT = { has_completed_focus = GER_rhineland }
+#				NOT = { has_completed_focus = GER_remilitarize_the_rhineland }   # 1.19-migration: vanilla renamed GER_rhineland
+
 			}
 			has_offensive_war = yes
+			NOT = {
+				has_war_with = SIL
+			}
 		}
 		537 = {   # 1.19-migration: mod state Saarland
 			is_demilitarized_zone = no
@@ -4527,7 +5395,7 @@ news_event = {
 
 	trigger = {
 		tag = GER
-		has_tech = rocket_engines
+		is_special_project_completed = sp:sp_rocket_interceptor
 	}
 
 	mean_time_to_happen = {
@@ -4661,7 +5529,8 @@ news_event = {
 		GER = {
 			OR = {
 				has_country_flag = GER_rhineland_backed_down
-#				NOT = { has_completed_focus = GER_rhineland }
+#				NOT = { has_completed_focus = GER_remilitarize_the_rhineland }   # 1.19-migration: vanilla renamed GER_rhineland
+
 			}
 			has_defensive_war = yes
 			NOT = { has_civil_war = yes }
@@ -4737,12 +5606,15 @@ news_event = {
 		SPR = { has_civil_war = no }
 		NOT = { has_global_flag = scw_over }
 		NOT = { has_dlc = "La Resistance" }
-		any_other_country = {
+		any_other_country_with_original_tag_of = {
+			exists = yes
+			target = {SPR}
 			original_tag = SPR
 			has_government = fascism
 		}
-		any_other_country = {
-			original_tag = SPR
+		any_other_country_with_original_tag_of = {
+			exists = yes
+			target = {SPR}
 			NOT = { has_government = fascism }
 		}
 	}
@@ -6841,7 +7713,7 @@ news_event = {
 		}
 	}
 
-	#Peace for our time?
+	#Peace For Our Time?
 	option = {
 		name = news.200.e
 		trigger = {
@@ -7633,7 +8505,7 @@ news_event = {
 			}
 		}
 	}
-	picture = GFX_news_event_hitler_handshake
+	picture = [GetHitlerHandshakeNewsEventPicture]
 
 	major = yes
 
@@ -7852,7 +8724,7 @@ news_event = {
 			}
 		}
 	}
-	picture = GFX_news_event_hitler_handshake
+	picture = [GetHitlerHandshakeNewsEventPicture]
 
 	major = yes
 
@@ -8009,9 +8881,10 @@ news_event = {
 		OR = {
 			has_idea = war_economy
 			has_idea = tot_economic_mobilisation
+			has_idea = totaler_krieg_economy
 		}
-		any_other_country = {
-			is_major = yes
+		any_collection_element = {
+			collection = game:all_majors
 			has_war_with = ENG
 		}
 		controls_state = 2475
@@ -8741,7 +9614,17 @@ news_event = {
 	fire_for_sender = no
 
 	option = {
+		name = news.231.a
+		trigger = {
+			is_independent_china_or_warlord = yes
+		}
+	}
+
+	option = {
 		name = news.231.b
+		trigger = {
+			is_independent_china_or_warlord = no
+		}
 	}
 }
 
@@ -10430,6 +11313,9 @@ news_event = {
 	title = news.288.t
 	desc = news.288.desc
 	picture = GFX_news_event_chinese_soldiers_march
+	immediate = {
+		set_global_flag = chiang_needs_to_die
+	}
 	
 	major = yes
 	
@@ -10481,6 +11367,15 @@ news_event = {
 	major = yes
 
 	is_triggered_only = yes
+	trigger = { # Added to minimise the amount of spam non-chinese player about the United Front joining
+		FROM = { 
+			is_chinese_warlord = no
+			NOT = {
+				has_faction_template = faction_template_chinese_united_front
+				is_ally_with = event_target:WTT_current_china_leader 
+			}
+		}
+	}
 
 	#Together we will prevail.
 	option = {
@@ -10876,7 +11771,10 @@ news_event = {
 		name = news.296.c
 		trigger = { 
 			NOT = { TAG = HUN }
-			has_government = democratic
+			OR = {
+				has_government = democratic
+				has_government = neutrality
+			}
 		}
 	}
 }
@@ -10912,7 +11810,10 @@ news_event = {
 		name = news.297.c
 		trigger = { 
 			NOT = { TAG = HUN }
-			has_government = fascism
+			OR = {
+				has_government = fascism
+				has_government = neutrality
+			}
 		}
 	}
 }
@@ -11464,7 +12365,7 @@ news_event = {
 #Rome Protocols renewed
 news_event = {
 	id = news.312
-	title = news.312.t
+	title = news.312.t 
 	desc = {
 		text = news.312.desc.a
 		trigger = { 
@@ -11477,7 +12378,7 @@ news_event = {
 			NOT = { country_exists = AUS }
 		}
 	}
-	picture = GFX_news_event_generic_sign_treaty3
+	picture = GFX_news_event_HUN_alliance_with_italy
 	
 	major = yes
 	
@@ -11528,7 +12429,7 @@ news_event = {
 			NOT = { country_exists = AUS }
 		}
 	}
-	picture = GFX_news_event_generic_sign_treaty3
+	picture = GFX_news_event_HUN_alliance_with_italy
 	
 	major = yes
 	
@@ -11891,7 +12792,7 @@ news_event = {
 		}
 	}
 	option = {
-		name = news.320.e
+		name = news.320.f
 		trigger = { 
 			OR = {
 				NOT = {
@@ -12621,6 +13522,34 @@ news_event = {
 	}
 }
 
+news_event = { #Nuclear Reactor Tested
+	id = news.338
+	title = news.338.t
+	desc = news.338.desc
+	picture = GFX_news_event_journalists_speech
+
+	trigger = {
+		
+	}
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = news.338.a
+		trigger = {
+			NOT = {	TAG = FROM }
+		}
+	}
+	option = {
+		name = news.338.b
+		trigger = { 
+			TAG = FROM 
+		}
+	}
+}
+
 
 ### Country reunited
 news_event = {
@@ -12690,13 +13619,10 @@ news_event = {
 		name = news.409.c
 		trigger = {
 			NOT = {
-				OR = {
-					TAG = CHI
-					OR = {
-						TAG = JAP
-						is_in_faction_with = JAP
-					}
-				}
+				TAG = CHI
+				TAG = JAP
+				is_in_faction_with = JAP
+				is_in_faction_with = CHI
 			}
 		}
 	}

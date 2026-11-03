@@ -7,7 +7,6 @@ add_namespace = LAT_events
 # Decide who is the true enemy
 country_event = {
 	id = LAT_events.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.1 FROM = [From.GetName]" }
 	title = LAT_events.1.t
 	desc = LAT_events.1.d
 	picture = GFX_report_event_romania_parliament
@@ -41,7 +40,13 @@ country_event = {
 						is_controlled_by = SOV
 					}
 					NOT = {
-						state = 95
+						state = 231 # was vanilla 95 (Nowogródek -> Lida)
+						state = 292 # -> Baranowicze
+						state = 300 # -> Grodno
+						state = 307 # -> Słonim
+						state = 326 # -> Wołkowysk
+						state = 1225 # -> Nieśwież
+						state = 1310 # -> Brzostowica Mała
 						state = 152
 					}
 				}
@@ -224,7 +229,6 @@ country_event = {
 #Latvia demands Lithuanian annexation
 country_event = {
 	id = LAT_events.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.2 FROM = [From.GetName]" }
 	title = LAT_events.2.t
 	desc = LAT_events.2.d
 	picture = GFX_report_event_communist_leader
@@ -282,8 +286,8 @@ country_event = {
 				factor = 5 #i've got friends
 			}
 			modifier = {
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					has_guaranteed = ROOT
 				}
 				factor = 5 #i've got big friends
@@ -302,7 +306,6 @@ country_event = {
 #Lithuania says yes
 country_event = {
 	id = LAT_events.201
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.201 FROM = [From.GetName]" }
 	title = EST_events.401.t
 	desc = EST_events.401.d
 	picture = GFX_report_event_military_planning
@@ -321,7 +324,6 @@ country_event = {
 #Lithuania says no
 country_event = {
 	id = LAT_events.202
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.202 FROM = [From.GetName]" }
 	title = EST_events.402.t
 	desc = EST_events.402.d
 	picture = GFX_report_event_generic_panzer_attack
@@ -343,7 +345,6 @@ country_event = {
 #Latvia supports fascism in Baltic states, gain opinion
 country_event = {
 	id = LAT_events.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.3 FROM = [From.GetName]" }
 	title = LAT_events.3.t
 	desc = LAT_events.3.d
 	picture = GFX_report_event_generic_rally
@@ -367,7 +368,6 @@ country_event = {
 #Latvia demands puppet's annexation
 country_event = {
 	id = LAT_events.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.4 FROM = [From.GetName]" }
 	title = EST_events.4.t
 	desc = EST_events.4.d
 	picture = GFX_report_event_lithuanian_ultimatum
@@ -405,7 +405,6 @@ country_event = {
 #Latvia asks for Ostland occupation
 country_event = {
 	id = LAT_events.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.5 FROM = [From.GetName]" }
 	title = LAT_events.5.t
 	desc = LAT_events.5.d
 	picture = GFX_report_event_SOV_demands
@@ -423,14 +422,75 @@ country_event = {
 					NOT = { owner = { tag = ROOT } }
 					OR = {
 						#Lithuania States
-						is_core_of = LIT
+						state = 238 # was vanilla 814 (Sūduva -> Šakių)
+						state = 259 # -> Marijampolės
+						state = 1178 # -> Seinų
+						state = 2522 # -> Lipsk
+						state = 242 # was vanilla 11 (Kaunas -> Kauno)
+						state = 244 # -> Ukmergės
+						state = 274 # -> Alytaus
+						state = 275 # -> Trakų
+						state = 1104 # -> Prienai
+						state = 207 # was vanilla 815 (Aukštaitija -> Panevėžio)
+						state = 225 # -> Utenos
+						state = 1280 # -> Biržų
+						state = 1296 # -> Rokiškio
+						state = 1309 # -> Zarasų
+						state = 1329 # -> Ignalino
+						state = 1339 # -> Kėdainių
+						state = 2775 # -> Dvari
+						state = 101 # was vanilla 189 (Žemaitija -> Tauragės)
+						state = 107 # -> Mažeikių
+						state = 205 # -> Telšių
+						state = 206 # -> Šiaulių
+						state = 208 # -> Kretingos
+						state = 1246 # -> Raseinių
+						state = 2371 # -> Palanga
+						state = 227 # was vanilla 188 (Memel)
 						#Estonia States
-						is_core_of = EST
+						state = 146 # was vanilla 811 (Saaremaa -> Saaremaa)
+						state = 157 # -> Hiiumaa
+						state = 133 # was vanilla 812 (Harju)
+						state = 145 # was vanilla 13 (Pärnu -> Lääne)
+						state = 155 # -> Pärnu
+						state = 156 # -> Viljandi
+						state = 134 # was vanilla 813 (Virumaa -> Narva)
+						state = 137 # -> Jaanilinn
+						state = 143 # -> Järva
+						state = 2944 # -> Pechurki
+						state = 152 # was vanilla 191 (Tartu -> Tarto)
+						state = 166 # -> Valga
+						state = 173 # -> Võru
 						#Belarus/East Poland States
-						AND = {
-							is_core_of = POL
-							is_core_of = BLR
-						}
+						state = 236 # was vanilla 784 (Vilna -> Święciany)
+						state = 241 # -> Wilno
+						state = 294 # -> Druskieniki
+						state = 1135 # -> Dziewieniszki
+						state = 1304 # -> Orany
+						state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+						state = 1000 # -> Oszmiana
+						state = 1106 # -> Smorgonie
+						state = 1151 # -> Brasław
+						state = 1198 # -> Mołodeczno
+						state = 231 # was vanilla 95 (Nowogródek -> Lida)
+						state = 292 # -> Baranowicze
+						state = 300 # -> Grodno
+						state = 307 # -> Słonim
+						state = 326 # -> Wołkowysk
+						state = 1225 # -> Nieśwież
+						state = 1310 # -> Brzostowica Mała
+						state = 367 # was vanilla 94 (Polesie -> Kobryń)
+						state = 1088 # -> Kamień Koszyrski
+						state = 1132 # -> Prużana
+						state = 1153 # -> Brześć
+						state = 1163 # -> Pińsk
+						state = 1250 # -> Łuniniec
+						state = 2258 # -> Pohost Zarzeczny
+						state = 2259 # -> Dąbrowica
+						state = 2315 # -> Dywin
+						state = 2316 # -> Janów Poleski
+						state = 2317 # -> Bereza Kartuska
+						state = 2539 # -> Dawidgródek
 					}
 				}
 				LAT = { set_state_controller = PREV }
@@ -454,7 +514,6 @@ country_event = {
 #Latvia informed that they are approved to become Ostland
 country_event = {
 	id = LAT_events.501
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.501 FROM = [From.GetName]" }
 	title = LAT_events.501.t
 	desc = LAT_events.501.d
 	picture = GFX_report_event_nazis_in_danzig
@@ -472,14 +531,75 @@ country_event = {
 					NOT = { owner = { tag = ROOT } }
 					OR = {
 						#Lithuania States
-						is_core_of = LIT
+						state = 238 # was vanilla 814 (Sūduva -> Šakių)
+						state = 259 # -> Marijampolės
+						state = 1178 # -> Seinų
+						state = 2522 # -> Lipsk
+						state = 242 # was vanilla 11 (Kaunas -> Kauno)
+						state = 244 # -> Ukmergės
+						state = 274 # -> Alytaus
+						state = 275 # -> Trakų
+						state = 1104 # -> Prienai
+						state = 207 # was vanilla 815 (Aukštaitija -> Panevėžio)
+						state = 225 # -> Utenos
+						state = 1280 # -> Biržų
+						state = 1296 # -> Rokiškio
+						state = 1309 # -> Zarasų
+						state = 1329 # -> Ignalino
+						state = 1339 # -> Kėdainių
+						state = 2775 # -> Dvari
+						state = 101 # was vanilla 189 (Žemaitija -> Tauragės)
+						state = 107 # -> Mažeikių
+						state = 205 # -> Telšių
+						state = 206 # -> Šiaulių
+						state = 208 # -> Kretingos
+						state = 1246 # -> Raseinių
+						state = 2371 # -> Palanga
+						state = 227 # was vanilla 188 (Memel)
 						#Estonia States
-						is_core_of = EST
-						#Belarus/East Poland States
-						AND = {
-							is_core_of = POL
-							is_core_of = BLR
-						}
+						state = 146 # was vanilla 811 (Saaremaa -> Saaremaa)
+						state = 157 # -> Hiiumaa
+						state = 133 # was vanilla 812 (Harju)
+						state = 145 # was vanilla 13 (Pärnu -> Lääne)
+						state = 155 # -> Pärnu
+						state = 156 # -> Viljandi
+						state = 134 # was vanilla 813 (Virumaa -> Narva)
+						state = 137 # -> Jaanilinn
+						state = 143 # -> Järva
+						state = 2944 # -> Pechurki
+						state = 152 # was vanilla 191 (Tartu -> Tarto)
+						state = 166 # -> Valga
+						state = 173 # -> Võru
+						#Belarus States
+						state = 236 # was vanilla 784 (Vilna -> Święciany)
+						state = 241 # -> Wilno
+						state = 294 # -> Druskieniki
+						state = 1135 # -> Dziewieniszki
+						state = 1304 # -> Orany
+						state = 232 # was vanilla 96 (Wilejka -> Dzisna)
+						state = 1000 # -> Oszmiana
+						state = 1106 # -> Smorgonie
+						state = 1151 # -> Brasław
+						state = 1198 # -> Mołodeczno
+						state = 231 # was vanilla 95 (Nowogródek -> Lida)
+						state = 292 # -> Baranowicze
+						state = 300 # -> Grodno
+						state = 307 # -> Słonim
+						state = 326 # -> Wołkowysk
+						state = 1225 # -> Nieśwież
+						state = 1310 # -> Brzostowica Mała
+						state = 367 # was vanilla 94 (Polesie -> Kobryń)
+						state = 1088 # -> Kamień Koszyrski
+						state = 1132 # -> Prużana
+						state = 1153 # -> Brześć
+						state = 1163 # -> Pińsk
+						state = 1250 # -> Łuniniec
+						state = 2258 # -> Pohost Zarzeczny
+						state = 2259 # -> Dąbrowica
+						state = 2315 # -> Dywin
+						state = 2316 # -> Janów Poleski
+						state = 2317 # -> Bereza Kartuska
+						state = 2539 # -> Dawidgródek
 					}
 				}
 				LAT = { set_state_controller = PREV }
@@ -490,7 +610,6 @@ country_event = {
 #Latvia informed that they are not allowed to form Ostland
 country_event = {
 	id = LAT_events.502
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.502 FROM = [From.GetName]" }
 	title = LAT_events.502.t
 	desc = LAT_events.502.d
 	picture = GFX_report_event_danzig_joins_nazis
@@ -508,7 +627,6 @@ country_event = {
 #Asks faction leader to invite Baltic States to faction
 country_event = {
 	id = LAT_events.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.6 FROM = [From.GetName]" }
 	title = {
 		text = LAT_events.6.t_both
 		trigger = {
@@ -660,7 +778,6 @@ country_event = {
 #Latvia informed that the faction leader said no.
 country_event = {
 	id = LAT_events.601
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.601 FROM = [From.GetName]" }
 	title = LAT_events.601.t
 	desc = LAT_events.601.d
 	picture = GFX_report_event_generic_read_write
@@ -678,7 +795,6 @@ country_event = {
 #Latvia ignites a Fascist civil war
 country_event = {
 	id = LAT_events.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.7 FROM = [From.GetName]" }
 	title = LAT_events.7.t
 	desc = LAT_events.7.d
 	picture = GFX_report_event_generic_riot
@@ -711,7 +827,6 @@ country_event = {
 #Latvia fails to curb Perkonkrusts - civil war
 country_event = {
 	id = LAT_events.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LAT_events.8 FROM = [From.GetName]" }
 	title = LAT_events.8.t
 	desc = LAT_events.8.d
 	picture = GFX_report_event_ger_civil_war
@@ -744,7 +859,7 @@ country_event = {
 			start_civil_war = {
 				ideology = fascism
 				size = 0.2
-				capital = 174
+				capital = 282
 			}
 		}
 		else = { #Regular CW
@@ -752,7 +867,7 @@ country_event = {
 				ideology = fascism
 				size = party_popularity@fascism
 				states = {
-					174 1344 67 188 1345 91
+					190 809
 				}
 			}
 		}
@@ -815,7 +930,7 @@ country_event = {
 			ideology = neutrality
 			size = 0.45
 			states = {
-				172 95 112 2772 1347 170 185 1350 1351 1349 2541 2720 1348 2523 94 2774 87
+				808 12 810
 			}
 		}
 	}

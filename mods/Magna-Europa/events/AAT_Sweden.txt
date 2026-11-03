@@ -391,7 +391,7 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = Sweden_rearnament.4.a
+		name = Sweden_rearnament.4.desc.a
 	}
 
 }
@@ -418,7 +418,7 @@ country_event = {
 	    	}
 	    	num_planes_stationed_in_regions = {
 	    		value > 0
-	    		regions = { 116 115 120 }
+	    		regions = { 277 12 191 }
 	    	}
 	    }
 	}
@@ -1759,10 +1759,46 @@ country_event = {
 		hidden_effect = {
 			random_list = {
 				seed = random #optional. if specified, it will use this seed instead of scope seed for picking a random 
-				1 = {  
+				866 = {     # was vanilla 1 (Corsica)
 					country_event = { id = AAT_Sweden.4 days = 12 random_days = 6 }
 				}
-				99 = {
+				1422 = {     # -> Haute-Corse
+					country_event = { id = AAT_Sweden.4 days = 12 random_days = 6 }
+				}
+				15 = {   # was vanilla 99 (Jutland)
+					#set_country_flag = SWE_normal_events
+				}
+				34 = {   # -> Skanderborg
+					#set_country_flag = SWE_normal_events
+				}
+				76 = {   # -> Randers
+					#set_country_flag = SWE_normal_events
+				}
+				120 = {   # -> Ålborg
+					#set_country_flag = SWE_normal_events
+				}
+				25 = {   # -> Thisted   # was vanilla 144 (Nordland)
+					#set_country_flag = SWE_normal_events
+				}
+				2700 = {   # -> Thisted   # -> Evenskjer
+					#set_country_flag = SWE_normal_events
+				}
+				2702 = {   # -> Thisted   # -> Lofoten-Vesterålen
+					#set_country_flag = SWE_normal_events
+				}
+				2703 = {   # -> Thisted   # -> Drag
+					#set_country_flag = SWE_normal_events
+				}
+				181 = {   # -> Viborg
+					#set_country_flag = SWE_normal_events
+				}
+				197 = {   # -> Ringkøbing
+					#set_country_flag = SWE_normal_events
+				}
+				223 = {   # -> Vejle
+					#set_country_flag = SWE_normal_events
+				}
+				228 = {   # -> Ribe
 					#set_country_flag = SWE_normal_events
 				}
 			}
@@ -2109,6 +2145,10 @@ country_event = {
 	trigger = {
 		date > 1944.01.02
 		original_tag = SWE
+		NOT = {
+			is_dynamic_country = yes
+		}
+		
 		SWE = { SWE_herman_eriksson = { has_character_flag = is_hired} }
 		
 	}
@@ -2233,18 +2273,77 @@ country_event = {
 		add_political_power = 70
 		FROM = { country_event = { id = AAT_Sweden.14 days = 3 random_days = 2 }}
 		effect_tooltip = {
-			every_state = {
+			if = {
 				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					is_controlled_by = ROOT 
-					OR = {
-						region = 120
-						region = 116
+					controls_state = 25  # was vanilla 144 (Nordland -> Nordland)
+					controls_state = 2700 # -> Evenskjer
+					controls_state = 2702 # -> Lofoten-Vesterålen
+					controls_state = 2703 # -> Drag
+				}
+
+				FROM = {
+					transfer_state = 25 # was vanilla 144 (Nordland -> Nordland)
+					transfer_state = 2700 # -> Evenskjer
+					transfer_state = 2702 # -> Lofoten-Vesterålen
+					transfer_state = 2703 # -> Drag
+					25 = {   # was vanilla 144 (Nordland)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2700 = {   # -> Evenskjer
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2702 = {   # -> Lofoten-Vesterålen
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2703 = {   # -> Drag
+						set_demilitarized_zone = yes
+						add_compliance = 70
 					}
 				}
-				set_demilitarized_zone = yes
-				add_compliance = 70
-				transfer_state_to = FROM
+			}
+
+			if = {
+				limit = {
+					controls_state = 13  # was vanilla 924 (Troms)
+				}
+
+
+				FROM = {
+					transfer_state = 13 # was vanilla 924 (Troms)
+					13 = {   # was vanilla 924 (Troms)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					controls_state = 4 # was vanilla 925 (Finnmark -> Finnmark)
+					controls_state = 2701 # -> Kirkenes
+					controls_state = 2712 # -> Kautokeino
+				}
+
+				FROM = {
+					transfer_state = 4 # was vanilla 925 (Finnmark -> Finnmark)
+					transfer_state = 2701 # -> Kirkenes
+					transfer_state = 2712 # -> Kautokeino
+					4 = {   # was vanilla 925 (Finnmark)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2701 = {   # -> Kirkenes
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2712 = {   # -> Kautokeino
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+				}
 			}
 		} 
  
@@ -2269,18 +2368,72 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		hidden_effect = {
-			every_state = {
+			if = {
 				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					is_controlled_by = ROOT 
-					OR = {
-						region = 120
-						region = 116
-					}
+					FROM = { controls_state = 25 } # was vanilla 144 (Nordland -> Nordland)
+					controls_state = 2700 # -> Evenskjer
+					controls_state = 2702 # -> Lofoten-Vesterålen
+					controls_state = 2703 # -> Drag
 				}
-				set_demilitarized_zone = yes
-				add_compliance = 70
-				transfer_state_to = FROM
+
+
+				transfer_state = 25 # was vanilla 144 (Nordland -> Nordland)
+				transfer_state = 2700 # -> Evenskjer
+				transfer_state = 2702 # -> Lofoten-Vesterålen
+				transfer_state = 2703 # -> Drag
+				25 = {   # was vanilla 144 (Nordland)
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+				2700 = {   # -> Evenskjer
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+				2702 = {   # -> Lofoten-Vesterålen
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+				2703 = {   # -> Drag
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+			}
+
+			if = {
+				limit = {
+					FROM = { controls_state = 13 } # was vanilla 924 (Troms)
+				}
+
+				transfer_state = 13 # was vanilla 924 (Troms)
+				13 = {   # was vanilla 924 (Troms)
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+			}
+
+			if = {
+				limit = {
+					FROM = { controls_state = 4 } # was vanilla 925 (Finnmark -> Finnmark)
+					controls_state = 2701 # -> Kirkenes
+					controls_state = 2712 # -> Kautokeino
+				}
+
+
+				transfer_state = 4 # was vanilla 925 (Finnmark -> Finnmark)
+				transfer_state = 2701 # -> Kirkenes
+				transfer_state = 2712 # -> Kautokeino
+				4 = {   # was vanilla 925 (Finnmark)
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+				2701 = {   # -> Kirkenes
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
+				2712 = {   # -> Kautokeino
+					add_compliance = 70
+					set_demilitarized_zone = yes
+				}
 			}
 		}
 	}
@@ -2410,7 +2563,7 @@ country_event = {
 				create_wargoal = {
 					type = liberate_wargoal
 					target = PREV
-					generator = { 2703 }  
+					generator = { 25 2700 2702 2703 }     # was vanilla 144
 				}
 			}
 		}
@@ -2434,7 +2587,7 @@ country_event = {
 		create_wargoal = {
 			type = liberate_wargoal
 			target = FROM
-			generator = { 2703 }  
+			generator = { 25 2700 2702 2703 }     # was vanilla 144
 		}
 	}
 }
@@ -2470,17 +2623,32 @@ country_event = {
 			}
 		}
 		name = AAT_Sweden.18.a
-		every_state = {
-				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					is_controlled_by = ROOT 
-					OR = {
-						region = 120
-						region = 116
-					}
-				}
-				transfer_state_to = NOR
-			}
+		if = {
+			limit = { controls_state = 25 } # was vanilla 144 (Nordland -> Nordland)
+			controls_state = 2700 # -> Evenskjer
+			controls_state = 2702 # -> Lofoten-Vesterålen
+			controls_state = 2703 # -> Drag
+			NOR = { transfer_state = 25 } # was vanilla 144 (Nordland -> Nordland)
+			transfer_state = 2700 # -> Evenskjer
+			transfer_state = 2702 # -> Lofoten-Vesterålen
+			transfer_state = 2703 # -> Drag
+		}
+
+		if = {
+			limit = { controls_state = 13 } # was vanilla 924 (Troms)
+			NOR = { transfer_state = 13 } # was vanilla 924 (Troms)
+		}
+
+		if = {
+			limit = { controls_state = 4 } # was vanilla 925 (Finnmark -> Finnmark)
+			controls_state = 2701 # -> Kirkenes
+			controls_state = 2712 # -> Kautokeino
+			NOR = { transfer_state = 4 } # was vanilla 925 (Finnmark -> Finnmark)
+			transfer_state = 2701 # -> Kirkenes
+			transfer_state = 2712 # -> Kautokeino
+			
+		}
+
 		custom_effect_tooltip = AAT_Sweden.19_tt
 		set_country_flag = SWE_hero_of_narvik 
 		NOR = { country_event = { id = AAT_Sweden.19 days = 6 random_days = 5 } }
@@ -2507,7 +2675,7 @@ country_event = {
 				create_wargoal = {
 					type = liberate_wargoal
 					target = PREV
-					generator = { 25 }  
+					generator = { 25 2700 2702 2703 }     # was vanilla 144
 				}
 			}
 		}
@@ -2526,17 +2694,15 @@ country_event = {
 	
 	option = { # liberate Norway
 		name = AAT_Sweden.19.a
-		every_state = {
-				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					is_demilitarized_zone = yes 
-					OR = {
-						region = 120
-						region = 116
-					}
-				}
-				set_demilitarized_zone = no 
-			}
+		25 = { set_demilitarized_zone = no }   # was vanilla 144 (Nordland)
+		2700 = { set_demilitarized_zone = no }   # -> Evenskjer
+		2702 = { set_demilitarized_zone = no }   # -> Lofoten-Vesterålen
+		2703 = { set_demilitarized_zone = no }   # -> Drag
+		13 = { set_demilitarized_zone = no }   # was vanilla 924 (Troms)
+		4 = { set_demilitarized_zone = no }   # was vanilla 925 (Finnmark)
+		2701 = { set_demilitarized_zone = no }   # -> Kirkenes
+		2712 = { set_demilitarized_zone = no }   # -> Kautokeino
+
 	}
 }
 
@@ -2555,7 +2721,7 @@ country_event = {
 		create_wargoal = {
 			type = liberate_wargoal
 			target = SWE
-			generator = { 25 }  
+			generator = { 25 2700 2702 2703 }     # was vanilla 144
 		}
 	}
 }
@@ -3387,8 +3553,35 @@ country_event = {
 		name = AAT_Sweden.28.b
 		ai_chance = {
 			base = 1
+			modifier = {
+				original_tag = USA
+				factor = 0.1
+			}
+
+			modifier = {
+				OR = { #France is in a weak position
+					AND = {
+						country_exists = VIC
+		 				VIC = { 
+		 					NOT = { has_war_with = SWE } 
+
+	 					}
+		 				tag = VIC
+					}
+
+					AND = {
+						tag = FRA
+						VIC = { exists = yes }
+						FRA = { NOT = { has_war_with = SWE } }
+					}
+
+				}
+
+				add = 1
+			}
 			
 			modifier = {
+				NOT = { original_tag = USA } 
 				has_opinion = {
 					target = SWE
 					value  > 79 # Use < or >
@@ -3398,9 +3591,9 @@ country_event = {
 			}
 		}
 		
-#		47 = {  # vanilla 47 (Greece) hardcoded transfer; off-map
-#			transfer_state_to = SWE
-#		}
+		var:SWE_state_to_transfer = {
+			transfer_state_to = SWE
+		}
 
 		hidden_effect = {
 			if = { 
@@ -3488,7 +3681,7 @@ country_event = { #yes
 
 		name = AAT_Sweden.31.a
 		FROM = {
-			transfer_state = 164
+			transfer_state = 164 # was vanilla 910 (Bornholm)
 			country_event = { id = AAT_Sweden.32 hours = 6 }
 			set_country_flag = SWE_DEN_gave_bornholm
 		}
@@ -3519,7 +3712,7 @@ country_event = { #yes
 				create_wargoal = {
 					type = take_state_focus
 					target = PREV
-					generator = { 164 } # optional 
+					generator = { 164 }    # was vanilla 910
 				}
 			}
 		}
@@ -3556,7 +3749,7 @@ country_event = { #Bornhom is rejected
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 164 } # optional 
+			generator = { 164 }    # was vanilla 910
 		}
 	}
 }
@@ -3681,7 +3874,7 @@ country_event = { #yes
 				create_wargoal = {
 					type = take_state_focus
 					target = PREV
-					generator = { 90 } # optional 
+					# generator = { 337 101 } # optional   # 1.19-migration: off-map state in generator
 				}
 
 				create_wargoal = {
@@ -3744,7 +3937,7 @@ country_event = { #overseas is rejected
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 90 } # optional 
+			# generator = { 337 101 } # optional   # 1.19-migration: off-map state in generator
 		}
 
 		create_wargoal = {
@@ -3980,7 +4173,7 @@ country_event = { #yes
 				create_wargoal = {
 					type = take_state_focus
 					target = PREV
-					generator = { 98 } # optional 
+					generator = { 98 }    # was vanilla 145
 				}
 			}
 		}
@@ -4026,7 +4219,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 98 } # optional 
+			generator = { 98 }    # was vanilla 145
 		}
 	}
 }
@@ -4116,7 +4309,7 @@ country_event = { #yes
 				create_wargoal = {
 					type = take_state_focus
 					target = PREV
-					generator = { 98 } # optional 
+					generator = { 98 }    # was vanilla 145
 				}
 			}
 		}
@@ -4158,7 +4351,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 98 } 
+			generator = { 14 2698 2699 }    # was vanilla 148
 		}
 	}
 }
@@ -4376,17 +4569,55 @@ country_event = { #yes
 
 		}
 
-		every_state = {
-				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					is_owned_and_controlled_by = ROOT 
-					OR = {
-						region = 120
-						region = 116
-					}
+		if = {
+			limit = {
+				25 = {   # was vanilla 144 (Nordland)
+					is_owned_and_controlled_by = ROOT  
 				}
-				transfer_state_to = FROM
+				2700 = {   # -> Evenskjer
+					is_owned_and_controlled_by = ROOT  
+				}
+				2702 = {   # -> Lofoten-Vesterålen
+					is_owned_and_controlled_by = ROOT  
+				}
+				2703 = {   # -> Drag
+					is_owned_and_controlled_by = ROOT  
+				}
 			}
+
+			FROM = { transfer_state = 25 } # was vanilla 144 (Nordland -> Nordland)
+			transfer_state = 2700 # -> Evenskjer
+			transfer_state = 2702 # -> Lofoten-Vesterålen
+			transfer_state = 2703 # -> Drag
+		}
+
+		if = {
+			limit = {
+				13 = {   # was vanilla 924 (Troms)
+					is_owned_and_controlled_by = ROOT  
+				}
+			}
+
+			FROM = { transfer_state = 13 } # was vanilla 924 (Troms)
+		}
+
+		if = {
+			limit = {
+				4 = {   # was vanilla 925 (Finnmark)
+					is_owned_and_controlled_by = ROOT  
+				}
+				2701 = {   # -> Kirkenes
+					is_owned_and_controlled_by = ROOT  
+				}
+				2712 = {   # -> Kautokeino
+					is_owned_and_controlled_by = ROOT  
+				}
+			}
+
+			FROM = { transfer_state = 4 } # was vanilla 925 (Finnmark -> Finnmark)
+			transfer_state = 2701 # -> Kirkenes
+			transfer_state = 2712 # -> Kautokeino
+		}
 
 		FROM = {
 			country_event = { id = AAT_Sweden.51 hours = 6 }
@@ -4421,7 +4652,7 @@ country_event = { #yes
 				create_wargoal = {
 					type = take_state_focus
 					target = PREV
-					generator = { 25 } # optional 
+					generator = { 25 2700 2702 2703 }    # was vanilla 144
 				}
 			}
 		}
@@ -4441,16 +4672,14 @@ country_event = {
 	option = {
 		name = AAT_Sweden.51.a
 		effect_tooltip = {
-			every_state = {
-				limit = {
-					has_state_flag = NOR_INITIAL_STATE
-					OR = {
-						region = 120
-						region = 116
-					}
-				}
-				transfer_state_to = FROM
-			}
+			transfer_state = 25 # was vanilla 144 (Nordland -> Nordland)
+			transfer_state = 2700 # -> Evenskjer
+			transfer_state = 2702 # -> Lofoten-Vesterålen
+			transfer_state = 2703 # -> Drag
+			transfer_state = 13 # was vanilla 924 (Troms)
+			transfer_state = 4 # was vanilla 925 (Finnmark -> Finnmark)
+			transfer_state = 2701 # -> Kirkenes
+			transfer_state = 2712 # -> Kautokeino
 		}
 	}
 }
@@ -4468,7 +4697,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 25 } # optional 
+			generator = { 25 2700 2702 2703 }    # was vanilla 144
 		}
 	}
 }
@@ -4790,22 +5019,18 @@ country_event = {
 		start_civil_war = {
 			ideology = communism #SPLITTING TAG
 			size = party_popularity@communism
-			states = all
-			states_filter = {
-				region = 119
-				region = 124
-			}
+			states = { 918 666 917 140 139 138 917 913 }
 			hidden_effect = {
 				country_event = {
 					id = AAT_Sweden_flashpoints.55
 					days = 1
 				}
-				226 = { set_state_controller_to = SWE }
-				226 = {
+				226 = { set_state_controller_to = SWE }   # was vanilla 124 (Gotland)
+				226 = {   # was vanilla 124 (Gotland)
 					teleport_armies = { 
 						limit = { 
 							divisions_in_state = {
-								state = 226
+								state = 226 # was vanilla 124 (Gotland)
 								size > 0 
 							}
 						 }
@@ -4903,7 +5128,7 @@ country_event = {
 	    }
 	    has_country_flag = SWE_communist_revolution_started
 	    has_civil_war = yes   
-	    controls_state = 226
+	    controls_state = 226 # was vanilla 124 (Gotland)
 	}
 
 	mean_time_to_happen = {
@@ -5020,7 +5245,49 @@ country_event = {
 				}
 				random_owned_controlled_state = {
 					limit = {
-						NOT = { state = 226 }
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
+					}
+					prioritize = { 140 138 139 918 913 } #optional: to pick those states first if they fulfill the limit
+					create_unit = {
+						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
+						owner = PREV
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+
+				random_owned_controlled_state = {
+					limit = {
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
+					}
+					prioritize = { 140 138 139 918 913 } #optional: to pick those states first if they fulfill the limit
+					create_unit = {
+						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
+						owner = PREV
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+
+				random_owned_controlled_state = {
+					limit = {
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
+					}
+					prioritize = { 140 138 139 918 913 } #optional: to pick those states first if they fulfill the limit
+					create_unit = {
+						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
+						owner = PREV
+						allow_spawning_on_enemy_provs = yes
+					}
+				}
+
+				random_owned_controlled_state = {
+					limit = {
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
+					}
+					prioritize = { 140 138 139 918 } #optional: to pick those states first if they fulfill the limit
+					create_unit = {
+						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
+						owner = PREV
+						allow_spawning_on_enemy_provs = yes
 					}
 					create_unit = {
 						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
@@ -5031,8 +5298,9 @@ country_event = {
 
 				random_owned_controlled_state = {
 					limit = {
-						NOT = { state = 226 }
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
 					}
+					prioritize = { 140 138 139 918 913 } #optional: to pick those states first if they fulfill the limit
 					create_unit = {
 						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
 						owner = PREV
@@ -5042,8 +5310,20 @@ country_event = {
 
 				random_owned_controlled_state = {
 					limit = {
-						NOT = { state = 226 }
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
 					}
+					prioritize = { 140 138 139 918 } #optional: to pick those states first if they fulfill the limit
+					create_unit = {
+						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
+						owner = PREV
+					}
+				}
+
+				random_owned_controlled_state = {
+					limit = {
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
+					}
+					prioritize = { 913 140 138 139 918 } #optional: to pick those states first if they fulfill the limit
 					create_unit = {
 						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
 						owner = PREV
@@ -5053,24 +5333,9 @@ country_event = {
 
 				random_owned_controlled_state = {
 					limit = {
-						NOT = { state = 226 }
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
 					}
-					create_unit = {
-						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
-						owner = PREV
-						allow_spawning_on_enemy_provs = yes
-					}
-					create_unit = {
-						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
-						owner = PREV
-						allow_spawning_on_enemy_provs = yes
-					}
-				}
-
-				random_owned_controlled_state = {
-					limit = {
-						NOT = { state = 226 }
-					}
+					prioritize = { 913 140 138 139 918 } #optional: to pick those states first if they fulfill the limit
 					create_unit = {
 						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
 						owner = PREV
@@ -5080,40 +5345,9 @@ country_event = {
 
 				random_owned_controlled_state = {
 					limit = {
-						NOT = { state = 226 }
+						NOT = { state = 226 } # was vanilla 124 (Gotland)
 					}
-					create_unit = {
-						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
-						owner = PREV
-					}
-				}
-
-				random_owned_controlled_state = {
-					limit = {
-						NOT = { state = 226 }
-					}
-					create_unit = {
-						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
-						owner = PREV
-						allow_spawning_on_enemy_provs = yes
-					}
-				}
-
-				random_owned_controlled_state = {
-					limit = {
-						NOT = { state = 226 }
-					}
-					create_unit = {
-						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
-						owner = PREV
-						allow_spawning_on_enemy_provs = yes
-					}
-				}
-
-				random_owned_controlled_state = {
-					limit = {
-						NOT = { state = 226 }
-					}
+					prioritize = { 913 140 138 139 918 } #optional: to pick those states first if they fulfill the limit
 					create_unit = {
 						division = "name = \"Workers Militia Division\" division_template = \"Workers Militia\" start_experience_factor = 0.1 start_equipment_factor = 0.7 start_manpower_factor = 0.7"
 						owner = PREV
@@ -6661,13 +6895,195 @@ country_event = {
 				}
 
 				random_list = {
-					50 = { 
+					545 = {    # was vanilla 50 (Württemberg)
 						add_timed_unit_leader_trait = {
 							trait = SWE_wounded_in_protests
 							days = 120
 						}
 					}
-					50 = { 
+					553 = {    # -> Heilbronn
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					575 = {    # -> Rottweil
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					581 = {    # -> Ravensburg
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					602 = {    # -> Sigmaringen
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					616 = {    # -> Konstanz
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1764 = {    # -> Baden-Baden
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1767 = {    # -> Tübingen
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1768 = {    # -> Ulm
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1769 = {    # -> Salgau
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1770 = {    # -> Künzelsau
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1771 = {    # -> Stuttgart
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1780 = {    # -> Nördlingen
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					2549 = {    # -> Lindau am Bodensee
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					2582 = {    # -> Horb
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					545 = {    # was vanilla 50 (Württemberg)
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					553 = {    # -> Heilbronn
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					575 = {    # -> Rottweil
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					581 = {    # -> Ravensburg
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					602 = {    # -> Sigmaringen
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					616 = {    # -> Konstanz
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1764 = {    # -> Baden-Baden
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1767 = {    # -> Tübingen
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1768 = {    # -> Ulm
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1769 = {    # -> Salgau
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1770 = {    # -> Künzelsau
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1771 = {    # -> Stuttgart
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1780 = {    # -> Nördlingen
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					2549 = {    # -> Lindau am Bodensee
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					2582 = {    # -> Horb
 
 						add_timed_unit_leader_trait = {
 							trait = SWE_disillusioned_with_the_government
@@ -6707,13 +7123,195 @@ country_event = {
 				}
 
 				random_list = {
-					50 = { 
+					545 = {    # was vanilla 50 (Württemberg)
 						add_timed_unit_leader_trait = {
 							trait = SWE_wounded_in_protests
 							days = 120
 						}
 					}
-					50 = { 
+					553 = {    # -> Heilbronn
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					575 = {    # -> Rottweil
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					581 = {    # -> Ravensburg
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					602 = {    # -> Sigmaringen
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					616 = {    # -> Konstanz
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1764 = {    # -> Baden-Baden
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1767 = {    # -> Tübingen
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1768 = {    # -> Ulm
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1769 = {    # -> Salgau
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1770 = {    # -> Künzelsau
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1771 = {    # -> Stuttgart
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					1780 = {    # -> Nördlingen
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					2549 = {    # -> Lindau am Bodensee
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					2582 = {    # -> Horb
+						add_timed_unit_leader_trait = {
+							trait = SWE_wounded_in_protests
+							days = 120
+						}
+					}
+					545 = {    # was vanilla 50 (Württemberg)
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					553 = {    # -> Heilbronn
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					575 = {    # -> Rottweil
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					581 = {    # -> Ravensburg
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					602 = {    # -> Sigmaringen
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					616 = {    # -> Konstanz
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1764 = {    # -> Baden-Baden
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1767 = {    # -> Tübingen
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1768 = {    # -> Ulm
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1769 = {    # -> Salgau
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1770 = {    # -> Künzelsau
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1771 = {    # -> Stuttgart
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					1780 = {    # -> Nördlingen
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					2549 = {    # -> Lindau am Bodensee
+
+						add_timed_unit_leader_trait = {
+							trait = SWE_disillusioned_with_the_government
+							days = 270
+						} 
+					} 
+					2582 = {    # -> Horb
 
 						add_timed_unit_leader_trait = {
 							trait = SWE_disillusioned_with_the_government
@@ -7537,7 +8135,7 @@ country_event = {
 	id = AAT_Sweden_nordic_defense_council.1
 	title = AAT_Sweden_nordic_defense_council.1.t
 	desc = AAT_Sweden_nordic_defense_council.1.desc
-	picture = GFX_report_event_generic_panzer_attack
+	picture = GFX_report_event_SWE_defense_act
 	is_triggered_only = yes
 	immediate = {
         hidden_effect = {
@@ -7905,6 +8503,7 @@ country_event = {
 	id = AAT_Sweden_nordic_defense_council.2	
 	title = AAT_Sweden_nordic_defense_council.2.t
 	desc = AAT_Sweden_nordic_defense_council.2.desc
+	picture = GFX_report_event_SWE_defense_act
 	is_triggered_only = yes
 
 	option = {
@@ -7918,6 +8517,7 @@ country_event = {
 	id = AAT_Sweden_nordic_defense_council.3	
 	title = AAT_Sweden_nordic_defense_council.3.t
 	desc = AAT_Sweden_nordic_defense_council.3.desc
+	picture = GFX_report_event_SWE_defense_act
 	is_triggered_only = yes
 
 	option = {
@@ -7944,7 +8544,7 @@ country_event = {
 	id = AAT_Sweden_communism.2
 	title = AAT_Sweden_communism.2.t
 	desc = AAT_Sweden_communism.2.desc
-	picture = GFX_report_event_hitler_parade
+	picture = GFX_report_event_soldiers_parade
 	fire_only_once = yes
 	trigger = {
 		fascism > 0.2

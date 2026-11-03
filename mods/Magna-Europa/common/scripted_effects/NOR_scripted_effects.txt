@@ -18,7 +18,7 @@
 NOR_set_prepare_variables_historical = {
 	set_variable = { NOR_prep_his_remove_days = 50 }
 	set_variable = { NOR_prep_his_cost_convoys = 35 }
-	set_variable = { NOR_prep_his_cost_pp = 50 }
+	set_variable = { NOR_prep_his_cost_pp = 30 }
 	set_variable = { NOR_prep_his_cost_pp_remove = 0 } 
 	set_variable = { NOR_prep_his_cost_convoys_remove = 0 }
 	set_variable = { NOR_prep_his_cost_pp_trigger = -1 } 
@@ -31,10 +31,11 @@ NOR_set_prepare_variables_historical = {
 }
 
 NOR_set_variables_alt_dem = {
+	set_variable = { NOR_prep_his_remove_days = 50 }
 	set_variable = { NOR_prep_alt_dem_remove_days = 35 }
-	set_variable = { NOR_prep_alt_dem_convoy_cost = 50 }
+	set_variable = { NOR_prep_alt_dem_convoy_cost = 30 }
 	set_variable = { NOR_prep_alt_dem_convoy_cost_remove = 0 }
-	set_variable = { NOR_prep_alt_dem_pp_cost = 70 }
+	set_variable = { NOR_prep_alt_dem_pp_cost = 45 }
 	set_variable = { NOR_prep_alt_dem_pp_cost_remove = 0 }
 	set_variable = { NOR_prep_alt_dem_convoy_cost_trigger = -1 }
 	set_variable = { NOR_prep_alt_dem_pp_cost_trigger = -1 }	
@@ -47,7 +48,7 @@ NOR_set_variables_alt_dem = {
 NOR_set_prepare_variables_fascist = {
 	# Prep vars 
 	set_variable = { NOR_prep_fasc_remove_days = 45 }
-	set_variable = { NOR_prep_fasc_cost_pp = 50 }
+	set_variable = { NOR_prep_fasc_cost_pp = 25 }
 	set_variable = { NOR_prep_fasc_cost_pp_remove = 0 }
 	set_variable = { NOR_prep_fasc_cost_pp_trigger = -1 }
 	set_variable = { NOR_prep_fasc_cost_convoy = 25 }
@@ -492,6 +493,7 @@ NOR_mon_basic_prep_effects = {
 			popularity = 0.03
 		}
 		add_political_power = 20
+		add_command_power = 5 
 		add_to_variable = { 
 			var = NOR_country_preparedness 
 			value = 1
@@ -503,7 +505,18 @@ NOR_mon_basic_prep_effects = {
 
 NOR_end_state_preparation = {
 	clr_state_flag = NOR_preparing_state
-	ROOT = { clr_country_flag = NOR_active_preparation } 
+	ROOT = { 
+		if = {
+			 limit = {
+			 	NOT = {
+				 	any_owned_state = {
+				 		has_state_flag = NOR_preparing_state 
+				 	}
+			 	}
+			 }
+			clr_country_flag = NOR_active_preparation 
+		}
+	}
 }
 
 start_deploying_prep = {
@@ -664,17 +677,17 @@ NOR_spawn_militias_in_state = {
 		if = {
 			limit = {
 				ROOT = {
-					NOT = { has_template = "forsvarsmilitser" }
+					NOT = { has_template = "Forsvarsmilitser" }
 				} 
 			}
 			ROOT = {
 				division_template = { 
-					name = "forsvarsmilitser" 
+					name = "Forsvarsmilitser" 
 					force_allow_recruiting = yes
 					division_names_group = NOR_MIL_01
 					priority = 1
 					is_locked = yes					
-					template_counter = 6  
+					template_counter = 7  
 					regiments = {
 						militia = { x = 0 y = 0 }
 						militia = { x = 0 y = 1 }
@@ -687,7 +700,7 @@ NOR_spawn_militias_in_state = {
 			}
 		}	
 		create_unit = {
-			division = "division_template = \"forsvarsmilitser\" start_experience_factor = 0.1 start_equipment_factor = 0.1"
+			division = "division_template = \"Forsvarsmilitser\" start_experience_factor = 0.1 start_equipment_factor = 0.1"
 			owner = NOR
 			allow_spawning_on_enemy_provs = no 
 			count = 2 
@@ -739,7 +752,7 @@ NOR_spawn_militias_in_state = {
 				check_variable = { NOR_state_preparation = 2 }
 			}
 			create_unit = {
-				division = "name = \"våpenfolket\" division_template = \"våpenfolket\" start_experience_factor = 0.3 start_equipment_factor = 0.5"
+				division = "name = \"Våpenfolket\" division_template = \"Våpenfolket\" start_experience_factor = 0.3 start_equipment_factor = 0.5"
 				owner = NOR
 				allow_spawning_on_enemy_provs = no 
 				count = 2 
@@ -750,7 +763,7 @@ NOR_spawn_militias_in_state = {
 				check_variable = { NOR_state_preparation = 3 }
 			}
 			create_unit = {
-				division = "name = \"folkets hær\" division_template = \"folkets hær\" start_experience_factor = 0.5 start_equipment_factor = 0.7"
+				division = "name = \"Folkets Hær\" division_template = \"Folkets Hær\" start_experience_factor = 0.5 start_equipment_factor = 0.7"
 				owner = NOR
 				allow_spawning_on_enemy_provs = no 
 				count = 2 
@@ -791,6 +804,7 @@ NOR_add_mil_to_state = {
 
 NOR_reset_prep_system = {
 	clr_country_flag = NOR_active_preparation
+	clr_country_flag = NOR_ongoing_countrywide_program
 	every_controlled_state = {
 		clear_variable = NOR_state_preparation
 		clr_state_flag = NOR_preparing_state
@@ -821,6 +835,7 @@ NOR_reset_prep_system = {
 		}
 	}
 	NOR_set_prepare_variables_historical = yes 
+	set_country_flag = NOR_preps_system_has_been_reset 
 }
 
 ###################################################################################################
@@ -841,6 +856,12 @@ NOR_reset_prep_system = {
 
 
 NOR_start_fascist_civil_war = {
+	if = {
+		limit = {
+			NOT = { has_country_flag = NOR_sorted_characters }
+		}
+		NOR_character_flag_setup_for_cw = yes 
+	}
 	if = { 
 		limit = { #### This is for the Player led Civil War, Alt-History Fascist Path. 
 			has_completed_focus = NOR_lurk_in_the_shadows
@@ -896,16 +917,37 @@ NOR_fcw_effect_fascist_player = {
 		size = party_popularity@democratic 
 		states = all 
 		states_filter = {
-			 is_controlled_by = NOR 
+			 is_controlled_by = ROOT 
 			 NOT = {
-			 	state = 124
+			 	state = 124 # 1.19-migration: was vanilla 110 (Oslo)
 			 } 
-		} 
+		}
+		keep_all_characters = yes  
 
 		ROOT = {
 			hidden_effect = { add_stability = 0.30 } 
 		}
 	}
+	random_other_country = {
+		limit = {
+			original_tag = NOR 
+			NOT = { has_government = fascism }
+		}
+		set_variable = { NOR.NOR_cw_democratic_norway = THIS }
+	}
+	every_character = {
+		limit = {
+			has_character_flag = NOR_anti_fascist
+		}
+		set_nationality = var:NOR.NOR_cw_democratic_norway 
+	}
+	var:NOR.NOR_cw_democratic_norway = {
+		NOR_johan_nygaardsvold = {
+			promote_character = yes
+		}
+		NOR_spawn_democratic_militia = yes 
+	}
+
 
 	ROOT = {
 		add_popularity = {
@@ -933,7 +975,8 @@ NOR_fcw_effect_democratic_player = {
 		ruling_party = democratic 
 		ideology = fascism
 		size = party_popularity@fascism 
-		states = { 124 }
+		states = { 124 } # 1.19-migration: was vanilla 110 (Oslo)
+		keep_all_characters = yes 
 		PREV.PREV = {
 			hidden_effect = { add_stability = 0.30 } 
 		}
@@ -947,6 +990,25 @@ NOR_fcw_effect_democratic_player = {
 		}
 	}
 	set_global_flag = NOR_norwegian_fascist_cw_started	
+	random_other_country = {
+		limit = {
+			original_tag = NOR 
+			has_government = fascism
+		}
+		set_variable = { NOR.NOR_cw_fascist_norway = THIS }
+	}
+	every_character = {
+		limit = {
+			has_character_flag = NOR_anti_democratic
+		}
+		set_nationality = NOR.NOR_cw_fascist_norway 
+	}
+	var:NOR.NOR_cw_fascist_norway = {
+		NOR_vidkun_quisling = {
+			promote_character = yes  
+		}
+	}
+
 } 
 
 NOR_fcw_big_fascist_support = {
@@ -963,7 +1025,7 @@ NOR_fcw_big_fascist_support = {
 	}
 	random_country = {
 		limit = {
-			owns_state = 124 
+			original_tag = NOR 
 			has_government = fascism
 			has_civil_war = yes
 		}
@@ -1099,6 +1161,14 @@ NOR_spawn_hirden = {
 
 
 NOR_start_communist_civil_war = {
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = NOR_sorted_characters
+			}		
+		}
+		NOR_character_flag_setup_for_cw = yes 
+	}
 	start_civil_war = {
 		ruling_party = communism 
 		ideology = democratic
@@ -1107,9 +1177,53 @@ NOR_start_communist_civil_war = {
 		states_filter = {
 			 OR = {
 				 NOT = { has_variable = NOR_state_preparation }
-				 state = 124 
+				 state = 124 # 1.19-migration: was vanilla 110 (Oslo)
 			 }
-		} 
+		}
+		keep_all_characters = yes 
+	}
+	random_other_country = {
+		limit = {
+			original_tag = NOR
+			NOT = {
+				has_government = communism 
+			}
+		}
+		set_variable = { NOR.NOR_bourgeois_norway = THIS }
+	}
+	NOR = {
+		if = {
+			limit = {
+				has_completed_focus = NOR_prosecute_the_nkp
+			}
+			every_character = {
+				limit = {
+					OR = {
+						has_character_flag = NOR_anti_trostky
+						has_character_flag = NOR_anti_communist
+					}
+				}
+				set_nationality = var:NOR.NOR_bourgeois_norway 		
+			}
+		}
+		else = {
+			every_character = {
+				limit = {
+					OR = {
+						has_character_flag = NOR_anti_stalin
+						has_character_flag = NOR_anti_communist
+					}
+				}
+				set_nationality = var:NOR.NOR_bourgeois_norway 		
+			}
+		}
+	}
+	var:NOR.NOR_bourgeois_norway = {
+		uncomplete_national_focus = {
+			focus = NOR_a_resurgent_labor_movement
+			uncomplete_children = yes 
+		}
+		complete_national_focus = NOR_vote_of_no_confidence
 	}
 	NOR_create_communist_templates = yes
 	add_popularity = {
@@ -1134,7 +1248,7 @@ NOR_create_communist_templates = {
 			}
 		}
 		division_template = {    
-			name = "våpenfolket"
+			name = "Våpenfolket"
 			force_allow_recruiting = yes
 			is_locked = yes
 			priority = 1
@@ -1158,7 +1272,7 @@ NOR_create_communist_templates = {
 			}
 		}
 		division_template = {    
-			name = "folkets hær" 
+			name = "Folkets Hær" 
 			force_allow_recruiting = yes
 			priority = 1
 			is_locked = yes
@@ -1571,7 +1685,7 @@ NOR_make_militias_into_regulars = {
 		}
 	}
 	delete_unit_template_and_units = {
-		division_template = "forsvarsmilitser"
+		division_template = "Forsvarsmilitser"
 	}
 }
 

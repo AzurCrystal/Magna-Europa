@@ -7,7 +7,6 @@ add_namespace = BALTIC_events
 # Baltic nation asks Britain for Guarantees
 country_event = {
 	id = BALTIC_events.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.1 FROM = [From.GetName]" }
 	title = BALTIC_events.1.t
 	desc = BALTIC_events.1.d
 	picture = GFX_report_event_sanation_left_victory
@@ -62,7 +61,6 @@ country_event = {
 #Informed of choice
 country_event = {
 	id = BALTIC_events.101
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.101 FROM = [From.GetName]" }
 	title = BALTIC_events.101.t
 	desc = BALTIC_events.101.d
 	picture = GFX_report_event_generic_conference
@@ -79,7 +77,6 @@ country_event = {
 
 country_event = {
 	id = BALTIC_events.102
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.102 FROM = [From.GetName]" }
 	title = BALTIC_events.102.t
 	desc = BALTIC_events.102.d
 	picture = GFX_report_event_journalists_speech
@@ -100,7 +97,6 @@ country_event = {
 # Formalizing the Baltic entente
 country_event = {
 	id = BALTIC_events.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.2 FROM = [From.GetName]" }
 	title = BALTIC_events.2.t
 	desc = {
 		text = BALTIC_events.2.d_baltic
@@ -193,6 +189,12 @@ country_event = {
 				has_government = democratic 
 			}
 		}
+
+		trigger = {
+			#Lone Wolf Finland can't join any factions
+			FIN_is_lone_wolf_finland = no
+		}
+
 		if = {
 			limit = {
 				FROM = {
@@ -211,7 +213,7 @@ country_event = {
 		}
 	}
 
-	option = { #Soudns like a bad idea
+	option = { #Sounds like a bad idea
 		name = BALTIC_events.2.b
 		ai_chance = {
 			base = 10
@@ -249,6 +251,13 @@ country_event = {
 				}
 			}
 		}
+		#Lone Wolf Finland can't join any factions
+		if = {
+			limit = {	
+				FIN_is_lone_wolf_finland = yes
+			}
+			custom_effect_tooltip = FIN_the_lone_wolf_no_faction_tt
+		}
 		hidden_effect = {
 			FROM = {
 				country_event = { id = BALTIC_events.202 days = 5 }
@@ -263,7 +272,6 @@ country_event = {
 
 country_event = {
 	id = BALTIC_events.201
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.201 FROM = [From.GetName]" }
 	title = BALTIC_events.101.t
 	desc = BALTIC_events.101.d
 	picture = GFX_report_event_generic_sign_treaty3
@@ -289,7 +297,6 @@ country_event = {
 
 country_event = {
 	id = BALTIC_events.202
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.202 FROM = [From.GetName]" }
 	title = BALTIC_events.102.t
 	desc = BALTIC_events.102.d
 	picture = GFX_report_event_generic_rally
@@ -326,7 +333,6 @@ country_event = {
 #Baltic Entente is abandoned
 country_event = {
 	id = BALTIC_events.203
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.203 FROM = [From.GetName]" }
 	title = BALTIC_events.203.t
 	desc = BALTIC_events.203.d
 	picture = GFX_report_event_journalists_speech
@@ -361,7 +367,6 @@ country_event = {
 #Soviets are asked to join Baltic civil war
 country_event = {
 	id = BALTIC_events.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.3 FROM = [From.GetName]" }
 	title = BALTIC_events.3.t
 	desc = BALTIC_events.3.d
 	picture = GFX_report_event_bul_ff_troops_yugoslavia
@@ -401,7 +406,6 @@ country_event = {
 }
 country_event = {
 	id = BALTIC_events.301
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.301 FROM = [From.GetName]" }
 	title = BALTIC_events.301.t
 	desc = BALTIC_events.301.d
 	picture = GFX_report_event_generic_communist_congress
@@ -422,7 +426,6 @@ country_event = {
 #Baltic civil war
 country_event = {
 	id = BALTIC_events.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.4 FROM = [From.GetName]" }
 	title = BALTIC_events.4.t
 	desc = BALTIC_events.4.d
 	picture = GFX_report_event_long_march
@@ -482,7 +485,6 @@ country_event = {
 #Baltic state asks for control of Belarus
 country_event = {
 	id = BALTIC_events.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.5 FROM = [From.GetName]" }
 	title = BALTIC_events.5.t
 	desc = BALTIC_events.5.d
 	picture = GFX_report_event_generic_rally
@@ -511,7 +513,6 @@ country_event = {
 #Event to inform of Soviet approval
 country_event = {
 	id = BALTIC_events.501
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.501 FROM = [From.GetName]" }
 	title = BALTIC_events.501.t
 	desc = BALTIC_events.501.d
 	picture = GFX_report_event_gre_megali_conference_signing
@@ -566,7 +567,6 @@ country_event = {
 #Event to inform of Soviet rejection
 country_event = {
 	id = BALTIC_events.502
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.502 FROM = [From.GetName]" }
 	title = BALTIC_events.502.t
 	desc = BALTIC_events.502.d
 	picture = GFX_report_event_journalists_speech
@@ -582,7 +582,6 @@ country_event = {
 }
 country_event = {
 	id = BALTIC_events.503
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.503 FROM = [From.GetName]" }
 	title = BALTIC_events.503.t
 	desc = BALTIC_events.503.d
 	picture = GFX_report_event_generic_rally2
@@ -601,7 +600,6 @@ country_event = {
 #Baltic unification event, communist
 country_event = {
 	id = BALTIC_events.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.6 FROM = [From.GetName]" }
 	title = BALTIC_events.6.t
 	desc = BALTIC_events.6.d
 	picture = GFX_report_event_generic_conference
@@ -650,7 +648,6 @@ country_event = {
 #Event to inform of Baltic rejection
 country_event = {
 	id = BALTIC_events.601
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.601 FROM = [From.GetName]" }
 	title = BALTIC_events.601.t
 	desc = BALTIC_events.601.d
 	picture = GFX_report_event_communist_leader
@@ -679,7 +676,6 @@ country_event = {
 #Asks overlord to declare on FIN
 country_event = {
 	id = BALTIC_events.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.7 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_danzig_joins_nazis
@@ -716,7 +712,6 @@ country_event = {
 #Baltic state is informed of rejection
 country_event = {
 	id = BALTIC_events.701
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.701 FROM = [From.GetName]" }
 	title = BALTIC_events.701.t
 	desc = BALTIC_events.701.d
 	picture = GFX_report_event_communist_leader
@@ -734,7 +729,6 @@ country_event = {
 #Asks to declare on DEN
 country_event = {
 	id = BALTIC_events.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.8 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_military_planning
@@ -772,7 +766,6 @@ country_event = {
 #Asks to declare on SWE
 country_event = {
 	id = BALTIC_events.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.9 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_military_planning
@@ -810,7 +803,6 @@ country_event = {
 #Asks to declare on POL
 country_event = {
 	id = BALTIC_events.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.10 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_military_planning
@@ -848,7 +840,6 @@ country_event = {
 #Forest Bros rebelling against the commie government
 country_event = {
 	id = BALTIC_events.11
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.11 FROM = [From.GetName]" }
 	title = BALTIC_events.11.t
 	desc = BALTIC_events.11.d
 	picture = GFX_report_event_communists_in_riga
@@ -883,7 +874,6 @@ country_event = {
 #Forest Bros sabotaging industry
 country_event = {
 	id = BALTIC_events.12
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.12 FROM = [From.GetName]" }
 	title = BALTIC_events.12.t
 	desc = BALTIC_events.12.d
 	picture = GFX_report_event_tank_factory
@@ -964,7 +954,6 @@ country_event = {
 #Forest Bros fighting the local police
 country_event = {
 	id = BALTIC_events.13
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.13 FROM = [From.GetName]" }
 	title = BALTIC_events.13.t
 	desc = BALTIC_events.13.d
 	picture = GFX_report_event_generic_riot
@@ -1007,7 +996,6 @@ country_event = {
 #Forest Bros stealing equipment
 country_event = {
 	id = BALTIC_events.14
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.14 FROM = [From.GetName]" }
 	title = BALTIC_events.14.t
 	desc = BALTIC_events.14.d
 	picture = GFX_report_event_generic_factory
@@ -1049,7 +1037,6 @@ country_event = {
 #Asks to declare on LIT
 country_event = {
 	id = BALTIC_events.15
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.15 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_military_planning
@@ -1087,7 +1074,6 @@ country_event = {
 #Asks to declare on LAT
 country_event = {
 	id = BALTIC_events.16
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.16 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_military_planning
@@ -1125,7 +1111,6 @@ country_event = {
 #Asks to declare on EST
 country_event = {
 	id = BALTIC_events.17
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.17 FROM = [From.GetName]" }
 	title = BALTIC_events.7.t
 	desc = BALTIC_events.7.d
 	picture = GFX_report_event_military_planning
@@ -1162,7 +1147,6 @@ country_event = {
 #Gain Red Riflemen
 country_event = {
 	id = BALTIC_events.100
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.100 FROM = [From.GetName]" }
 	
 	is_triggered_only = yes
 	
@@ -1178,7 +1162,6 @@ add_namespace = BALTIC_entente_events
 # Baltic nation informed of Baltic Union idea
 country_event = {
 	id = BALTIC_entente_events.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.1 FROM = [From.GetName]" }
 	title = BALTIC_entente_events.1.t
 	desc = BALTIC_entente_events.1.d
 	picture = GFX_report_event_generic_conference
@@ -1196,7 +1179,6 @@ country_event = {
 # Baltic nation informed of ideas changing
 country_event = {
 	id = BALTIC_entente_events.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.2 FROM = [From.GetName]" }
 	title = BALTIC_entente_events.1.t
 	desc = BALTIC_entente_events.1.d
 	picture = GFX_report_event_generic_sign_treaty2
@@ -1214,7 +1196,6 @@ country_event = {
 # Baltic nation informed of ideas changing
 country_event = {
 	id = BALTIC_entente_events.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.3 FROM = [From.GetName]" }
 	title = BALTIC_entente_events.1.t
 	desc = BALTIC_entente_events.1.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -1235,7 +1216,6 @@ country_event = {
 # Baltic nation informed of ideas changing and given the option to be democratic
 country_event = {
 	id = BALTIC_entente_events.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.4 FROM = [From.GetName]" }
 	title = BALTIC_entente_events.1.t
 	desc = BALTIC_entente_events.1.d
 	picture = GFX_report_event_generic_sign_treaty3
@@ -1278,7 +1258,6 @@ country_event = {
 # Baltic nation informed of ideas changing
 country_event = {
 	id = BALTIC_entente_events.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.5 FROM = [From.GetName]" }
 	title = BALTIC_entente_events.1.t
 	desc = BALTIC_entente_events.1.d
 	picture = GFX_report_event_generic_sign_treaty3
@@ -1339,7 +1318,6 @@ country_event = {
 # Baltic nation invited to be annexed by Entente leader
 country_event = {
 	id = BALTIC_entente_events.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.6 FROM = [From.GetName]" }
 	title = BALTIC_entente_events.6.t
 	desc = BALTIC_entente_events.6.d
 	picture = GFX_report_event_generic_rally_3
@@ -1374,7 +1352,6 @@ country_event = {
 # Baltic nation invited to be annexed by Entente leader
 country_event = {
 	id = BALTIC_entente_events.601
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_entente_events.601 FROM = [From.GetName]" }
 	title = BALTIC_events.601.t
 	desc = BALTIC_events.601.d
 	picture = GFX_report_event_generic_rally_3
@@ -1402,7 +1379,6 @@ country_event = {
 }#Baltic state warned about communists influencing politics
 country_event = {
 	id = BALTIC_events.18
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.18 FROM = [From.GetName]" }
 	title = BALTIC_events.18.t
 	desc = BALTIC_events.18.d
 	picture = GFX_report_event_generic_communist_congress
@@ -1441,87 +1417,5 @@ country_event = { #This event notifies the player that they've received territor
 		clear_global_event_target = BALTIC_loose_territory_country
 		clear_global_event_target = BALTIC_country_to_transfer
 
-	}
-}
-# event for soviets to give territory to baltic-belarus country
-country_event = {
-	id = BALTIC_events.20
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.20 FROM = [From.GetName]" }
-	title = BALTIC_events.20.t
-	desc = BALTIC_events.20.d
-	picture = GFX_report_event_generic_communist_congress
-	fire_only_once = yes
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		tag = SOV
-		any_country = {
-			has_country_flag = BLT_soviets_said_yes_to_belarus_flag
-		}
-		has_global_flag = mr_honoured
-	}
-
-	option = { #Great idea!
-		name = BALTIC_events.20.a
-		ai_chance = {
-			base = 10
-		}
-		effect_tooltip = {
-			every_state = {
-				limit = {
-					is_core_of = BLR
-					is_soviet_mr = yes
-					is_owned_by = SOV
-				}
-				random_country = {
-					limit = {
-						has_country_flag = BLT_soviets_said_yes_to_belarus_flag
-					}
-					transfer_state = PREV
-				}
-			}
-		}
-		hidden_effect = {
-			random_country = {
-				limit = {
-					has_country_flag = BLT_soviets_said_yes_to_belarus_flag
-				}
-				country_event = BALTIC_events.21
-			}
-		}
-	}
-	option = { #no it's ours
-		name = BALTIC_events.20.b
-		ai_chance = {
-			base = 0
-		}
-		
-	}
-}
-# event for baltic-belarus to recieve territory
-country_event = {
-	id = BALTIC_events.21
-	immediate = { log = "[GetDateText]: [Root.GetName]: event BALTIC_events.20 FROM = [From.GetName]" }
-	title = BALTIC_events.21.t
-	desc = BALTIC_events.21.d
-	picture = GFX_report_event_generic_communist_congress
-	
-	is_triggered_only = yes
-	
-
-	option = { #Dope
-		name = BALTIC_events.21.a
-		ai_chance = {
-			base = 10
-		}
-		every_state = {
-			limit = {
-				is_core_of = BLR
-				is_soviet_mr = yes
-				is_owned_by = SOV
-			}
-			transfer_state_to = ROOT
-		}
 	}
 }

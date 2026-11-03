@@ -47,6 +47,12 @@ ITA_missiolinis_weigh_mussolini_feels_safe = {
 	surrender_progress < 0.01
 }
 
+ETH_is_in_exile = { #Add any more stuff needed here
+	ETH = {
+		is_government_in_exile = yes
+	}
+}
+
 ITA_is_italian_colony = { #State scope
 	OR = {
 		is_core_of = ERI
@@ -516,23 +522,59 @@ has_dino_grandi = {
 ITA_is_kinda_fascist = {
 	OR = {
 		has_government = fascism
-		AND = {
-			has_government = neutrality
-			has_completed_focus = ITA_utilize_the_blackshirts
+		has_government = neutrality
+		if = {
+			limit = {
+				has_dlc = "By Blood Alone"
+			}
+			custom_trigger_tooltip = {
+				tooltip = ITA_is_constitutional_monarchy_tt
+				AND = {
+					has_government = democratic
+					OR = {
+						has_completed_focus = ITA_christian_democracy
+						has_completed_focus = ITA_democratic_king
+					}
+				}
+			}
 		}
 	}
 }
 
 ITA_is_anti_fascist = {
-	OR = {
-		has_government = communism
-		has_government = democratic
-		AND = {
-			has_government = neutrality
-			has_completed_focus = ITA_disband_the_blackshirts
+	if = {
+		limit = {
+			has_dlc = "By Blood Alone"
+		}
+		NOT = { has_government = fascism }
+		NOT = { has_government = neutrality }
+		NOT = {
+			custom_trigger_tooltip = {
+				tooltip = ITA_is_not_constitutional_monarchy_tt
+				AND = {
+					has_government = democratic
+					OR = {
+						has_completed_focus = ITA_christian_democracy
+						has_completed_focus = ITA_democratic_king
+					}
+				}
+			}
+		}
+	}
+	else = {
+		OR = {
+			has_government = communism
+			has_government = democratic
 		}
 	}
 }
+ITA_hosting_exiled_ethiopia = {
+	OR = {
+		check_variable = { ETH.host_nation = ENG }
+		var:ETH.host_nation = {	is_in_faction_with = ENG }
+	}
+}
+
 
 #A.I.#
 

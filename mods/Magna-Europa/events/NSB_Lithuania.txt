@@ -7,7 +7,6 @@ add_namespace = LIT_events
 # SOV-LIT partition of Poland
 country_event = {
 	id = LIT_events.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.1 FROM = [From.GetName]" }
 	title = LIT_events.1.t
 	desc = LIT_events.1.d
 	picture = GFX_report_event_second_vienna_award_pact
@@ -109,7 +108,6 @@ country_event = {
 # Poland recieves the ultimatum
 country_event = {
 	id = LIT_events.101
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.101 FROM = [From.GetName]" }
 	title = LIT_events.101.t
 	desc = LIT_events.101.d
 	picture = GFX_report_event_lithuanian_ultimatum
@@ -122,24 +120,285 @@ country_event = {
 		ai_chance = {
 			base = 90
 		}
-		every_owned_state = {
+		if = {
 			limit = {
-				OR = {
-					is_core_of = LIT
-					is_claimed_by = LIT
+				232 = {   # was vanilla 96 (Wilejka)
+					is_controlled_by = POL
+				}
+				1000 = {   # -> Oszmiana
+					is_controlled_by = POL
+				}
+				1106 = {   # -> Smorgonie
+					is_controlled_by = POL
+				}
+				1151 = {   # -> Brasław
+					is_controlled_by = POL
+				}
+				1198 = {   # -> Mołodeczno
+					is_controlled_by = POL
 				}
 			}
-			transfer_state_to = LIT
+			SOV = { transfer_state = 232 } # was vanilla 96 (Wilejka -> Dzisna)
+			transfer_state = 1000 # -> Oszmiana
+			transfer_state = 1106 # -> Smorgonie
+			transfer_state = 1151 # -> Brasław
+			transfer_state = 1198 # -> Mołodeczno
 		}
-		every_owned_state = {
+		if = {
 			limit = {
-				is_soviet_mr = yes
-				NOT = {
-					is_core_of = LIT
-					is_claimed_by = LIT
+				231 = {   # was vanilla 95 (Nowogródek)
+					is_controlled_by = POL
+				}
+				292 = {   # -> Baranowicze
+					is_controlled_by = POL
+				}
+				300 = {   # -> Grodno
+					is_controlled_by = POL
+				}
+				307 = {   # -> Słonim
+					is_controlled_by = POL
+				}
+				326 = {   # -> Wołkowysk
+					is_controlled_by = POL
+				}
+				1225 = {   # -> Nieśwież
+					is_controlled_by = POL
+				}
+				1310 = {   # -> Brzostowica Mała
+					is_controlled_by = POL
 				}
 			}
-			transfer_state_to = SOV
+			SOV = { transfer_state = 231 } # was vanilla 95 (Nowogródek -> Lida)
+			transfer_state = 292 # -> Baranowicze
+			transfer_state = 300 # -> Grodno
+			transfer_state = 307 # -> Słonim
+			transfer_state = 326 # -> Wołkowysk
+			transfer_state = 1225 # -> Nieśwież
+			transfer_state = 1310 # -> Brzostowica Mała
+		}
+		if = {
+			limit = {
+				367 = {   # was vanilla 94 (Polesie)
+					is_controlled_by = POL
+				}
+				1088 = {   # -> Kamień Koszyrski
+					is_controlled_by = POL
+				}
+				1132 = {   # -> Prużana
+					is_controlled_by = POL
+				}
+				1153 = {   # -> Brześć
+					is_controlled_by = POL
+				}
+				1163 = {   # -> Pińsk
+					is_controlled_by = POL
+				}
+				1250 = {   # -> Łuniniec
+					is_controlled_by = POL
+				}
+				2258 = {   # -> Pohost Zarzeczny
+					is_controlled_by = POL
+				}
+				2259 = {   # -> Dąbrowica
+					is_controlled_by = POL
+				}
+				2315 = {   # -> Dywin
+					is_controlled_by = POL
+				}
+				2316 = {   # -> Janów Poleski
+					is_controlled_by = POL
+				}
+				2317 = {   # -> Bereza Kartuska
+					is_controlled_by = POL
+				}
+				2539 = {   # -> Dawidgródek
+					is_controlled_by = POL
+				}
+			}
+			SOV = { transfer_state = 367 } # was vanilla 94 (Polesie -> Kobryń)
+			transfer_state = 1088 # -> Kamień Koszyrski
+			transfer_state = 1132 # -> Prużana
+			transfer_state = 1153 # -> Brześć
+			transfer_state = 1163 # -> Pińsk
+			transfer_state = 1250 # -> Łuniniec
+			transfer_state = 2258 # -> Pohost Zarzeczny
+			transfer_state = 2259 # -> Dąbrowica
+			transfer_state = 2315 # -> Dywin
+			transfer_state = 2316 # -> Janów Poleski
+			transfer_state = 2317 # -> Bereza Kartuska
+			transfer_state = 2539 # -> Dawidgródek
+		}
+		if = {
+			limit = {
+				420 = {   # was vanilla 93 (Wołyn)
+					is_controlled_by = POL
+				}
+				434 = {   # -> Włodzimierz Wołyński
+					is_controlled_by = POL
+				}
+				459 = {   # -> Krzemieniec
+					is_controlled_by = POL
+				}
+				671 = {   # -> Równe
+					is_controlled_by = POL
+				}
+				992 = {   # -> Kowel
+					is_controlled_by = POL
+				}
+				1030 = {   # -> Łuck
+					is_controlled_by = POL
+				}
+				1110 = {   # -> Dubno
+					is_controlled_by = POL
+				}
+				1129 = {   # -> Włodzimierzec
+					is_controlled_by = POL
+				}
+				2319 = {   # -> Glinno
+					is_controlled_by = POL
+				}
+				2538 = {   # -> Kostopol
+					is_controlled_by = POL
+				}
+			}
+			SOV = { transfer_state = 420 } # was vanilla 93 (Wołyn -> Sarny)
+			transfer_state = 434 # -> Włodzimierz Wołyński
+			transfer_state = 459 # -> Krzemieniec
+			transfer_state = 671 # -> Równe
+			transfer_state = 992 # -> Kowel
+			transfer_state = 1030 # -> Łuck
+			transfer_state = 1110 # -> Dubno
+			transfer_state = 1129 # -> Włodzimierzec
+			transfer_state = 2319 # -> Glinno
+			transfer_state = 2538 # -> Kostopol
+		}
+		if = {
+			limit = {
+				502 = {   # was vanilla 91 (Lwów)
+					is_controlled_by = POL
+				}
+				1233 = {   # -> Rawa Ruska
+					is_controlled_by = POL
+				}
+				1270 = {   # -> Brzeżany
+					is_controlled_by = POL
+				}
+				1272 = {   # -> Złoczów
+					is_controlled_by = POL
+				}
+				1292 = {   # -> Lwów
+					is_controlled_by = POL
+				}
+				1293 = {   # -> Mosty Wielkie
+					is_controlled_by = POL
+				}
+				1294 = {   # -> Tarnopol
+					is_controlled_by = POL
+				}
+				2336 = {   # -> Stryj
+					is_controlled_by = POL
+				}
+				2346 = {   # -> Krystynopol
+					is_controlled_by = POL
+				}
+				2347 = {   # -> Tudorkovyczi
+					is_controlled_by = POL
+				}
+			}
+			SOV = { transfer_state = 502 } # was vanilla 91 (Lwów -> Czortków)
+			transfer_state = 1233 # -> Rawa Ruska
+			transfer_state = 1270 # -> Brzeżany
+			transfer_state = 1272 # -> Złoczów
+			transfer_state = 1292 # -> Lwów
+			transfer_state = 1293 # -> Mosty Wielkie
+			transfer_state = 1294 # -> Tarnopol
+			transfer_state = 2336 # -> Stryj
+			transfer_state = 2346 # -> Krystynopol
+			transfer_state = 2347 # -> Tudorkovyczi
+		}
+		if = {
+			limit = {
+				284 = {   # was vanilla 97 (Białystok)
+					is_controlled_by = POL
+				}
+				306 = {   # -> Augustów
+					is_controlled_by = POL
+				}
+				312 = {   # -> Łomża
+					is_controlled_by = POL
+				}
+				319 = {   # -> Bielsk
+					is_controlled_by = POL
+				}
+				1287 = {   # -> Białystok
+					is_controlled_by = POL
+				}
+				2026 = {   # -> Kolno
+					is_controlled_by = POL
+				}
+				2485 = {   # -> Ciechanowiec
+					is_controlled_by = POL
+				}
+				2766 = {   # -> Raczki
+					is_controlled_by = POL
+				}
+			}
+			SOV = { transfer_state = 284 } # was vanilla 97 (Białystok -> Suwałki)
+			transfer_state = 306 # -> Augustów
+			transfer_state = 312 # -> Łomża
+			transfer_state = 319 # -> Bielsk
+			transfer_state = 1287 # -> Białystok
+			transfer_state = 2026 # -> Kolno
+			transfer_state = 2485 # -> Ciechanowiec
+			transfer_state = 2766 # -> Raczki
+		}
+		if = {
+			limit = {
+				490 = {   # was vanilla 89 (Stanisławów)
+					is_controlled_by = POL
+				}
+				542 = {   # -> Nadwórna
+					is_controlled_by = POL
+				}
+				1143 = {   # -> Kołomyja
+					is_controlled_by = POL
+				}
+				1164 = {   # -> Stanisławów
+					is_controlled_by = POL
+				}
+				1265 = {   # -> Kałusz
+					is_controlled_by = POL
+				}
+			}
+			SOV = { transfer_state = 490 } # was vanilla 89 (Stanisławów -> Drohobycz)
+			transfer_state = 542 # -> Nadwórna
+			transfer_state = 1143 # -> Kołomyja
+			transfer_state = 1164 # -> Stanisławów
+			transfer_state = 1265 # -> Kałusz
+		}
+		if = {
+			limit = {
+				236 = {   # was vanilla 784 (Vilna)
+					is_controlled_by = POL
+				}
+				241 = {   # -> Wilno
+					is_controlled_by = POL
+				}
+				294 = {   # -> Druskieniki
+					is_controlled_by = POL
+				}
+				1135 = {   # -> Dziewieniszki
+					is_controlled_by = POL
+				}
+				1304 = {   # -> Orany
+					is_controlled_by = POL
+				}
+			}
+			LIT = { transfer_state = 236 } # was vanilla 784 (Vilna -> Święciany)
+			transfer_state = 241 # -> Wilno
+			transfer_state = 294 # -> Druskieniki
+			transfer_state = 1135 # -> Dziewieniszki
+			transfer_state = 1304 # -> Orany
 		}
 	}
 	option = { #Nah
@@ -148,8 +407,9 @@ country_event = {
 			base = 10 
 			modifier = { #I have big friends
 				add = 120
-				any_other_country = {
-					is_major = yes 
+				any_collection_element = {
+					collection = game:all_majors
+					NOT = { tag = ROOT }
 					NOT = { tag = SOV }
 					is_in_faction_with = ROOT
 				}
@@ -162,12 +422,6 @@ country_event = {
 				add = 60
 				any_other_country = { 
 					has_guaranteed = ROOT 
-					if = {
-						limit = {
-							original_tag = FRA
-						}
-						date > 1939.01.01
-					}
 				}
 			}
 			modifier = { #I could beat SOV
@@ -190,7 +444,6 @@ country_event = {
 # Soviets say yes
 country_event = {
 	id = LIT_events.102
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.102 FROM = [From.GetName]" }
 	title = LIT_events.102.t
 	desc = LIT_events.102.d
 	picture = GFX_report_event_generic_read_write
@@ -214,7 +467,6 @@ country_event = {
 # Soviets say no
 country_event = {
 	id = LIT_events.103
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.103 FROM = [From.GetName]" }
 	title = LIT_events.103.t
 	desc = LIT_events.103.d
 	picture = GFX_report_event_molotov_signing_pact
@@ -243,7 +495,6 @@ country_event = {
 # Poland refuses
 country_event = {
 	id = LIT_events.104
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.104 FROM = [From.GetName]" }
 	title = LIT_events.104.t
 	desc = LIT_events.104.d
 	picture = GFX_report_event_sanation_left_victory
@@ -284,7 +535,6 @@ country_event = {
 # Lithuania asks for peace with Poland
 country_event = {
 	id = LIT_events.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.2 FROM = [From.GetName]" }
 	title = LIT_events.2.t
 	desc = LIT_events.2.d
 	picture = GFX_report_event_generic_parliament
@@ -325,7 +575,6 @@ country_event = {
 # Poland says yes
 country_event = {
 	id = LIT_events.201
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.201 FROM = [From.GetName]" }
 	title = LIT_events.102.t
 	desc = LIT_events.201.d
 	picture = GFX_report_event_generic_sign_treaty2
@@ -356,7 +605,6 @@ country_event = {
 # Poland says no
 country_event = {
 	id = LIT_events.202
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.202 FROM = [From.GetName]" }
 	title = LIT_events.103.t
 	desc = LIT_events.202.d
 	picture = GFX_report_event_communist_leader
@@ -387,7 +635,6 @@ country_event = {
 # Lithuania asks for Vilnius peacefully
 country_event = {
 	id = LIT_events.3
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.3 FROM = [From.GetName]" }
 	title = LIT_events.3.t
 	desc = LIT_events.3.d
 	picture = GFX_report_event_lithuanian_ultimatum
@@ -432,7 +679,6 @@ country_event = {
 # Poland says yes
 country_event = {
 	id = LIT_events.301
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.301 FROM = [From.GetName]" }
 	title = LIT_events.102.t
 	desc = LIT_events.301.d
 	picture = GFX_report_event_generic_sign_treaty2
@@ -454,7 +700,6 @@ country_event = {
 # Poland says no
 country_event = {
 	id = LIT_events.302
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.302 FROM = [From.GetName]" }
 	title = LIT_events.103.t
 	desc = LIT_events.302.d
 	picture = GFX_report_event_generic_rally2
@@ -477,7 +722,6 @@ country_event = {
 # Lithuania offers basing rights to Soviets/Germany
 country_event = {
 	id = LIT_events.4
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.4 FROM = [From.GetName]" }
 	title = LIT_events.4.t
 	desc = LIT_events.4.d
 	picture = GFX_report_event_molotov_signing_pact
@@ -518,7 +762,6 @@ country_event = {
 # Soviets/Germany says no
 country_event = {
 	id = LIT_events.401
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.401 FROM = [From.GetName]" }
 	title = LIT_events.103.t
 	desc = LIT_events.401.d
 	picture = GFX_report_event_journalists_speech
@@ -533,7 +776,6 @@ country_event = {
 #Lithuania demands Vilnius
 country_event = {
 	id = LIT_events.5
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.5 FROM = [From.GetName]" }
 	title = LIT_events.5.t
 	desc = LIT_events.5.desc
 	picture = GFX_report_event_lithuanian_ultimatum
@@ -566,8 +808,8 @@ country_event = {
 			modifier = {
 				factor = 20
 				is_in_faction = yes
-				any_other_country = { #I don't want to go to war with Germany
-					is_major = yes
+				any_collection_element = { #I don't want to go to war with Germany
+					collection = game:all_majors
 					is_in_faction_with = LIT
 				}
 			}
@@ -578,11 +820,19 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			every_state = {
+			if = {
 				limit = {
-					is_vilnius = yes
+					owns_state = 236 # was vanilla 784 (Vilna -> Święciany)
+					owns_state = 241 # -> Wilno
+					owns_state = 294 # -> Druskieniki
+					owns_state = 1135 # -> Dziewieniszki
+					owns_state = 1304 # -> Orany
 				}
-				transfer_state_to = LIT
+				transfer_state = 236 # was vanilla 784 (Vilna -> Święciany)
+				transfer_state = 241 # -> Wilno
+				transfer_state = 294 # -> Druskieniki
+				transfer_state = 1135 # -> Dziewieniszki
+				transfer_state = 1304 # -> Orany
 			}
 		}
 	}
@@ -605,8 +855,9 @@ country_event = {
 				NOT = { is_in_faction_with = LIT }
 			}
 			modifier = {
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
+					NOT = { tag = ROOT }
 					is_in_faction_with = ROOT
 				}
 				factor = 50 #I'm Slovakia and I'm in the axis
@@ -618,8 +869,8 @@ country_event = {
 				factor = 5 #i've got friends
 			}
 			modifier = {
-				any_other_country = {
-					is_major = yes
+				any_collection_element = {
+					collection = game:all_majors
 					has_guaranteed = ROOT
 				}
 				factor = 5 #i've got big friends
@@ -639,7 +890,6 @@ country_event = {
 
 country_event = {
 	id = LIT_events.501
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.501 FROM = [From.GetName]" }
 	title = LIT_events.501.t
 	desc = LIT_events.501.desc
 	picture = GFX_report_event_generic_peaceful_annexation
@@ -653,19 +903,25 @@ country_event = {
 		ai_chance = {
 			base = 10
 		}
-		every_state = {
+		if = {
 			limit = {
-				is_vilnius = yes
-				is_owned_by = FROM
+				FROM = { owns_state = 236 } # was vanilla 784 (Vilna -> Święciany)
+				owns_state = 241 # -> Wilno
+				owns_state = 294 # -> Druskieniki
+				owns_state = 1135 # -> Dziewieniszki
+				owns_state = 1304 # -> Orany
 			}
-			transfer_state_to = LIT
+			transfer_state = 236 # was vanilla 784 (Vilna -> Święciany)
+			transfer_state = 241 # -> Wilno
+			transfer_state = 294 # -> Druskieniki
+			transfer_state = 1135 # -> Dziewieniszki
+			transfer_state = 1304 # -> Orany
 		}
 	}
 }
 
 country_event = {
 	id = LIT_events.502
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.502 FROM = [From.GetName]" }
 	title = LIT_events.802.t
 	desc = LIT_events.502.desc
 	picture = GFX_report_event_generic_military_parade
@@ -683,7 +939,7 @@ country_event = {
 			type = take_state_focus
 			target = POL
 			expire = 0
-			generator = { 241 }
+			generator = { 236 241 294 1135 1304 }   # was vanilla 784
 		}
 	}
 }
@@ -691,7 +947,6 @@ country_event = {
 # Polish-Lithuanian Supremacy League
 country_event = {
 	id = LIT_events.6
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.6 FROM = [From.GetName]" }
 	title = LIT_events.6.t
 	desc = LIT_events.6.d
 	picture = GFX_report_event_communist_leader
@@ -738,7 +993,6 @@ country_event = {
 #Poland says yes, form a faction
 country_event = {
 	id = LIT_events.601
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.601 FROM = [From.GetName]" }
 	title = LIT_events.601.t
 	desc = LIT_events.601.d
 	picture = GFX_report_event_generic_sign_treaty3
@@ -760,7 +1014,6 @@ country_event = {
 #Poland says no, gain a wargoal
 country_event = {
 	id = LIT_events.602
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.602 FROM = [From.GetName]" }
 	title = LIT_events.602.t
 	desc = LIT_events.602.d
 	picture = GFX_report_event_military_planning
@@ -782,7 +1035,6 @@ country_event = {
 #Lithuania asks to add Poland to the faction
 country_event = {
 	id = LIT_events.7
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.7 FROM = [From.GetName]" }
 	title = LIT_events.7.t
 	desc = LIT_events.7.d
 	picture = GFX_report_event_generic_sign_treaty1
@@ -809,7 +1061,6 @@ country_event = {
 #Lithuania is informed of faction leader's decision to not invite Poland to the faction
 country_event = {
 	id = LIT_events.701
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.701 FROM = [From.GetName]" }
 	title = LIT_events.701.t
 	desc = LIT_events.701.d
 	picture = GFX_report_event_military_planning
@@ -826,7 +1077,6 @@ country_event = {
 #Lithuania demands Poland's annexation
 country_event = {
 	id = LIT_events.8
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.8 FROM = [From.GetName]" }
 	title = LIT_events.8.t
 	desc = LIT_events.8.d
 	picture = GFX_report_event_communist_leader
@@ -893,7 +1143,6 @@ country_event = {
 #Lithuania informed of annexing Poland
 country_event = {
 	id = LIT_events.801
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.801 FROM = [From.GetName]" }
 	title = LIT_events.801.t
 	desc = LIT_events.801.d
 	picture = GFX_report_event_generic_peaceful_annexation
@@ -911,7 +1160,6 @@ country_event = {
 #Lithuania informed that Poland refuses
 country_event = {
 	id = LIT_events.802
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.802 FROM = [From.GetName]" }
 	title = LIT_events.802.t
 	desc = LIT_events.802.d
 	picture = GFX_report_event_military_planning
@@ -932,7 +1180,6 @@ country_event = {
 #Lithuania asks for occupation of Poland from all nations with a Polish occupied state
 country_event = {
 	id = LIT_events.9
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.9 FROM = [From.GetName]" }
 	title = LIT_events.9.t
 	desc = LIT_events.9.d
 	picture = GFX_report_event_journalists_speech
@@ -971,7 +1218,6 @@ country_event = {
 #Lithuania informed of prior nation's decision, hands over occupation
 country_event = {
 	id = LIT_events.901
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.901 FROM = [From.GetName]" }
 	title = LIT_events.901.t
 	desc = LIT_events.901.d
 	picture = GFX_report_event_generic_peaceful_annexation
@@ -1006,7 +1252,6 @@ country_event = {
 #Lithuania informed that prior nation refuses to hand over Polish occupation.
 country_event = {
 	id = LIT_events.902
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.902 FROM = [From.GetName]" }
 	title = LIT_events.902.t
 	desc = LIT_events.902.d
 	picture = GFX_report_event_generic_rally
@@ -1023,7 +1268,6 @@ country_event = {
 #Lithuania starts a civil war in Poland
 country_event = {
 	id = LIT_events.10
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_events.10 FROM = [From.GetName]" }
 	title = LIT_events.10.t
 	desc = EST_events.7.d
 	picture = GFX_report_event_ger_civil_war
@@ -1065,7 +1309,6 @@ add_namespace = LIT_monarchy_events
 #Lithuania and Poland both have kings
 country_event = {
 	id = LIT_monarchy_events.1
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_monarchy_events.1 FROM = [From.GetName]" }
 	title = LIT_monarchy_events.1.t
 	desc = LIT_monarchy_events.1.desc
 	picture = GFX_report_event_por_return_of_the_monarchy
@@ -1094,7 +1337,10 @@ country_event = {
 				}
 			}
 			FROM = {
-				create_faction = COMMONWEALTH_FACTION
+				create_faction_from_template = {
+					template = faction_template_POL_baltic_alliance
+					name = COMMONWEALTH_FACTION
+				}
 				add_to_faction = ROOT
 			}
 			if = {
@@ -1121,7 +1367,10 @@ country_event = {
 				POL = { country_event = { id = LIT_monarchy_events.1 days = 2 } }
 				custom_effect_tooltip = if_they_accept_tt
 				effect_tooltip = {
-					create_faction = COMMONWEALTH_FACTION
+					create_faction_from_template = {
+						template = faction_template_POL_baltic_alliance
+						name = COMMONWEALTH_FACTION
+					}
 					add_to_faction = POL
 					if = {
 						limit = {
@@ -1138,7 +1387,10 @@ country_event = {
 				LIT = { country_event = { id = LIT_monarchy_events.1 days = 2 } }
 				custom_effect_tooltip = if_they_accept_tt
 				effect_tooltip = {
-					create_faction = COMMONWEALTH_FACTION
+					create_faction_from_template = {
+						template = faction_template_POL_baltic_alliance
+						name = COMMONWEALTH_FACTION
+					}
 					add_to_faction = LIT
 					if = {
 						limit = {
@@ -1183,7 +1435,6 @@ country_event = {
 #Lithuania and Poland both have kings, one of them said no to a faction
 country_event = {
 	id = LIT_monarchy_events.101
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_monarchy_events.101 FROM = [From.GetName]" }
 	title = LIT_monarchy_events.101.t
 	desc = LIT_monarchy_events.101.desc
 	picture = GFX_report_event_royal_parade
@@ -1231,7 +1482,6 @@ country_event = {
 #Karl Gero becomes King of Lithuania
 country_event = {
 	id = LIT_monarchy_events.2
-	immediate = { log = "[GetDateText]: [Root.GetName]: event LIT_monarchy_events.2 FROM = [From.GetName]" }
 	title = LIT_monarchy_events.2.t
 	desc = LIT_monarchy_events.2.desc
 	picture = GFX_report_event_royal_parade
