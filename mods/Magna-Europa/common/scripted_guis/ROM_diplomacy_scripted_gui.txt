@@ -1,0 +1,97 @@
+scripted_gui = {
+	ROM_diplomacy_ui_container = {
+		context_type = decision_category
+		
+		window_name = "ROM_diplomacy_ui_container"
+
+		visible = {
+			is_ai = no
+		}
+		
+		ai_enabled = {
+			always = no
+		}
+
+		dynamic_lists = {
+			rom_diplomacy_list_gridbox = {
+				array = global.rom_diplomacy_partners
+				entry_container = rom_diplomacy_list_entry
+				change_scope = yes
+			}
+		}
+
+		properties = {
+			rom_diplomacy_partner_flag_icon = {
+				image = [THIS.GetFlag]
+			}
+		}
+
+		triggers = {
+			rom_diplomacy_partner_flag_icon_click_enabled = {
+				exists = yes
+				NOT = {
+					has_war_with = ROM
+				}
+				ROM = {
+					NOT = {
+						is_in_array = { blocked_diplo_countries = PREV.id }
+					}
+				}
+			}
+			rom_relation_background_visible = {
+				ROM_is_improving_relations = no
+			}
+			rom_relation_background_click_enabled = {
+				exists = yes
+				NOT = {
+					has_war_with = ROM
+				}
+				ROM = {
+					check_variable = {
+						ROM_current_improving_countries < 5
+					}
+					NOT = {
+						is_in_array = { blocked_diplo_countries = PREV.id }
+					}
+				}
+			}
+			rom_relation_background_active_visible = {
+				ROM_is_improving_relations = yes
+			}
+			rom_nearly_decreasing_relation_visible = {
+				OR = {
+					AND = {
+						check_variable = { ROM_relation_var > 1.5 }
+						check_variable = { ROM_relation_var < 1.7 }
+					}
+					AND = {
+						check_variable = { ROM_relation_var > 2.5 }
+						check_variable = { ROM_relation_var < 2.7 }
+					}
+					AND = {
+						check_variable = { ROM_relation_var > 3.5 }
+						check_variable = { ROM_relation_var < 3.7 }
+					}
+					AND = {
+						check_variable = { ROM_relation_var > 4.5 }
+						check_variable = { ROM_relation_var < 4.7 }
+					}
+				}
+			}
+		}
+		
+		effects = {
+			rom_diplomacy_partner_flag_icon_click = {
+				ROM = {
+					set_variable = { ROM_diplo_selected_country = PREV }
+				}
+			}
+			rom_relation_background_click = {
+				ROM_diplo_start_improving_tier = yes
+			}
+			rom_relation_background_active_click = {
+				ROM_diplo_stop_improving_tier = yes
+			}
+		}
+	}
+}

@@ -146,7 +146,7 @@ united_netherlands = {
 		controls_state = 444  # 1.19-migration: was vanilla 977 ( Antwerp)
 		controls_state = 2369  # 1.19-migration: was vanilla 980 ( Ardennes)
 		controls_state = 512  # 1.19-migration: was vanilla 8 (Luxemburg)
-		controls_state = 383  # 1.19-migration: was vanilla 35 (Gelderland)
+		controls_state = 2713 # eu_mapping: v35 (Brabant) -> ME 2713 ('s-Hertogenbosch)
 		controls_state = 402  # 1.19-migration: was vanilla 7 (Holland)
 		controls_state = 336  # 1.19-migration: was vanilla 36 (Friesland)
 
@@ -155,7 +155,7 @@ united_netherlands = {
 		owns_state = 444  # 1.19-migration: was vanilla 977 ( Antwerp)
 		owns_state = 2369  # 1.19-migration: was vanilla 980 ( Ardennes)
 		owns_state = 512  # 1.19-migration: was vanilla 8 (Luxemburg)
-		owns_state = 383  # 1.19-migration: was vanilla 35 (Gelderland)
+		owns_state = 2713 # eu_mapping: v35 (Brabant) -> ME 2713 ('s-Hertogenbosch)
 		owns_state = 402  # 1.19-migration: was vanilla 7 (Holland)
 		owns_state = 336  # 1.19-migration: was vanilla 36 (Friesland)
 	}
@@ -491,7 +491,7 @@ operation_sealion = {
 		controls_state = 286  # 1.19-migration: was vanilla 130 (Yorkshire)
 		controls_state = 234  # 1.19-migration: was vanilla 131 (Northern England)
 		controls_state = 126  # 1.19-migration: was vanilla 133 (Strathclyde)
-		controls_state = 126  # 1.19-migration: was vanilla 121 (Scottish Lowlands)
+		controls_state = 221 # eu_mapping: v121 (Lothian) -> ME 221 (Edinburgh)
 		controls_state = 180  # 1.19-migration: was vanilla 136 (Aberdeenshire)
 		controls_state = 183  # 1.19-migration: was vanilla 120 (Scottish Highlands)
 	}
@@ -808,7 +808,7 @@ rule_britannia = {
 		controls_state = 286  # 1.19-migration: was vanilla 130 (Yorkshire)
 		controls_state = 234  # 1.19-migration: was vanilla 131 (Northern England)
 		controls_state = 126  # 1.19-migration: was vanilla 133 (Strathclyde)
-		controls_state = 126  # 1.19-migration: was vanilla 121 (Scottish Lowlands)
+		controls_state = 221 # eu_mapping: v121 (Lothian) -> ME 221 (Edinburgh)
 		controls_state = 180  # 1.19-migration: was vanilla 136 (Aberdeenshire)
 		controls_state = 183  # 1.19-migration: was vanilla 120 (Scottish Highlands)
 	}
@@ -1144,9 +1144,16 @@ death_or_dishonor_or_cake = {
 			tooltip = achievement_carol_II_is_leader
 			has_country_leader = { id = 550 }			
 		}		
-		NOT = { has_completed_focus = ROM_force_abdication }
-		NOT = { has_completed_focus = ROM_handle_the_king }
-		NOT = { has_completed_focus = ROM_all_parties_must_end }
+		if = {
+			limit = {
+				NOT = {
+					has_dlc = "To The Bitter End"
+				}
+			}
+			NOT = { has_completed_focus = ROM_force_abdication }
+			NOT = { has_completed_focus = ROM_handle_the_king }
+			NOT = { has_completed_focus = ROM_all_parties_must_end }
+		}
 
 		any_state = {
 			is_core_of = BUL
@@ -1221,7 +1228,7 @@ the_munich_disagreement = {
 	
 	happened = {
 		has_war_with = GER
-		controls_state = 1771  # 1.19-migration: was vanilla 52 (Wuttemberg)
+		controls_state = 1790 # eu_mapping: v52 (Oberbayern) -> ME 1790 (München)
 	}
 }
 
@@ -2427,7 +2434,7 @@ play_it_again = {
 	
 	happened = {
 		network_strength = { 
-			state = 893  # 1.19-migration: was vanilla 461 (Northern Morocco)
+			state = 1838 # eu_mapping: v461 (Casablanca) -> ME 1838 (Casablanca)
 			value > 50
 		}
 	}
@@ -3018,12 +3025,12 @@ kurdish_achievement = {
 			controls_state = 1092  # 1.19-migration: was vanilla 352 (Hakkari)
 			controls_state = 1059  # 1.19-migration: was vanilla 350 (Diyarbekir)
 			controls_state = 1039  # 1.19-migration: was vanilla 800 (Van)
-			controls_state = 973  # 1.19-migration: was vanilla 353 (Erzurum)
+			controls_state = 1012 # eu_mapping: v353 (Tunceli) -> ME 1012 (Tunceli)
 			controls_state = 1066  # 1.19-migration: was vanilla 344 (Adana)
-			controls_state = 2292  # 1.19-migration: was vanilla 1000 (East Azerbaijan)
-			controls_state = 1040  # 1.19-migration: was vanilla 419 (Azerbaijan)
-			controls_state = 1059  # 1.19-migration: was vanilla 1001 (Kurdistan)
-			controls_state = 1138  # 1.19-migration: was vanilla 421 (Kurdistan)
+			controls_state = 1040 # eu_mapping: v1000 (East Azerbaijan) -> ME 1040 (Āzarbāijān-e Sharqi)
+			controls_state = 2355 # eu_mapping: v419 (West Azerbaijan) -> ME 2355 (Urmiye)
+			controls_state = 1138 # eu_mapping: v1001 (Kurdistan) -> ME 1138 (Kordestān)
+			controls_state = 1220 # eu_mapping: v421 (Ilam) -> ME 1220 (Īlām)
 			controls_State = 680
 		}
 	}
@@ -3455,7 +3462,7 @@ at_least_they_run_on_time = {
 			level = 5
 		}
 		has_railway_level = {
-			state = 1415  # 1.19-migration: was vanilla 156 (Calabria)
+			state = 1411 # eu_mapping: v156 (Calabria) -> ME 1411 (Cosenza)
 			level = 5
 		}
 		has_railway_level = {
@@ -3587,7 +3594,7 @@ this_is_going_to_be_lit = {
 			controls_state = 172 #Riga  # 1.19-migration: was vanilla 808 (Riga)
 			controls_state = 508 #Warsaw  # 1.19-migration: was vanilla 10 (Poland)
 			controls_state = 1638 #Berlin  # 1.19-migration: was vanilla 64 (Brandenburg)
-			controls_state = 274 #Kaunas  # 1.19-migration: was vanilla 11 (Kaunas)
+			controls_state = 242 # eu_mapping: v11 (Kaunas) -> ME 242 (Kauno)
 		}
 	}
 }
@@ -3614,13 +3621,13 @@ it_has_my_name_on_it = {
 		controls_state = 1706  # 1.19-migration: was vanilla 58 (Schleswig - Holstein)
 		controls_state = 1710 #New state of SCHLESWIG  # 1.19-migration: was vanilla 909 (South Schleswig)
 		controls_state = 289  # 1.19-migration: was vanilla 61 (Mecklenburg)
-		controls_state = 280  # 1.19-migration: was vanilla 63 (WestPrussen)
+		controls_state = 1631 # eu_mapping: v63 (Hinterpommern) -> ME 1631 (Stettin)
 		controls_state = 267  # 1.19-migration: was vanilla 807 (Gdynia)
 		controls_state = 280  # 1.19-migration: was vanilla 85 (Danzig)
 		controls_state = 1611  # 1.19-migration: was vanilla 5 (Germany)
 		controls_state = 2484  # 1.19-migration: was vanilla 763 (Konigsberg)
 		controls_state = 227  # 1.19-migration: was vanilla 188 (Memel)
-		controls_state = 242  # 1.19-migration: was vanilla 189 (Kaunas)
+		controls_state = 101 # eu_mapping: v189 (Žemaitija) -> ME 101 (Tauragės)
 		controls_state = 67  # 1.19-migration: was vanilla 190 (Kurzeme)
 		controls_state = 1352  # 1.19-migration: was vanilla 809 (Latgale)
 		controls_state = 172  # 1.19-migration: was vanilla 808 (Riga)
@@ -3629,10 +3636,10 @@ it_has_my_name_on_it = {
 		controls_state = 133  # 1.19-migration: was vanilla 812 (Tallinn)
 		controls_state = 146  # 1.19-migration: was vanilla 811 (Saaremaa)
 		controls_state = 134  # 1.19-migration: was vanilla 813 (Rakvere)
-		controls_state = 151  # 1.19-migration: was vanilla 208 (Pskov)
-		controls_state = 138  # 1.19-migration: was vanilla 195 (Leningrad Area)
+		controls_state = 2442 # eu_mapping: v208 (Luga) -> ME 2442 (Luga)
+		controls_state = 119 # eu_mapping: v195 (Leningrad) -> ME 119 (Leningrad)
 		controls_state = 2704  # 1.19-migration: was vanilla 666 (Norrnorrland)
-		controls_state = 141  # 1.19-migration: was vanilla 38 (Sweden)
+		controls_state = 84 # eu_mapping: v38 (Gävleborg) -> ME 84 (Gävleborg)
 		controls_state = 136  # 1.19-migration: was vanilla 141 (Sodermanland)
 		controls_state = 167  # 1.19-migration: was vanilla 139 (Smaland)
 		controls_state = 212  # 1.19-migration: was vanilla 138 (Skane)
@@ -6149,7 +6156,7 @@ reconquistadors = {
 		controls_state = 951  # 1.19-migration: was vanilla 41 (Madrid)
 		controls_state = 940  # 1.19-migration: was vanilla 793 (Guadalajara)
 		controls_state = 880  # 1.19-migration: was vanilla 166 (Western Aragon)
-		controls_state = 880  # 1.19-migration: was vanilla 794 (Eastern Aragon)
+		controls_state = 870 # eu_mapping: v794 (Eastern Aragón) -> ME 870 (Huesca)
 		controls_state = 896  # 1.19-migration: was vanilla 165 (Catalonia)
 		controls_state = 1007  # 1.19-migration: was vanilla 167 (Valencia)
 		controls_state = 1035  # 1.19-migration: was vanilla 170 (Extremadura)
@@ -6445,26 +6452,26 @@ antischluss = {
 				
 				controls_state = 1611 #ERmland-Masuren  # 1.19-migration: was vanilla 5 (Germany)
 				controls_state = 2484 #Köningsberg  # 1.19-migration: was vanilla 763 (Konigsberg)
-				controls_state = 280 #Hinterpommern  # 1.19-migration: was vanilla 63 (WestPrussen)
-				controls_state = 122 #Ostmark  # 1.19-migration: was vanilla 68 (Wartheland)
+				controls_state = 1631 # eu_mapping: v63 (Hinterpommern) -> ME 1631 (Stettin)
+				controls_state = 339 # eu_mapping: v68 (Ostmark) -> ME 339 (Crossen an der Oder)
 				controls_state = 1658 #Oberschlesien  # 1.19-migration: was vanilla 67 (Oberschlesien)
 				controls_state = 1666 #Niederschlesien  # 1.19-migration: was vanilla 66 (Niederschlesien)
 				controls_state = 411 #Sachsen  # 1.19-migration: was vanilla 65 (Sachsen)
 				controls_state = 1638 #Brandenburg  # 1.19-migration: was vanilla 64 (Brandenburg)
-				controls_state = 1631 #Vorpommern  # 1.19-migration: was vanilla 62 (Pommern)
+				controls_state = 281 # eu_mapping: v62 (Vorpommern) -> ME 281 (Stralsund)
 				controls_state = 289 #Mecklenburg  # 1.19-migration: was vanilla 61 (Mecklenburg)
 				controls_state = 1710 #schleswig  # 1.19-migration: was vanilla 909 (South Schleswig)
 				controls_state = 1706 #Holstein  # 1.19-migration: was vanilla 58 (Schleswig - Holstein)
 				controls_state = 352 #Hannover  # 1.19-migration: was vanilla 59 (Ost - Hannover)
-				controls_state = 393 #Thüringen  # 1.19-migration: was vanilla 60 (Sud-Hannover)
+				controls_state = 440 # eu_mapping: v60 (Thüringen) -> ME 440 (Erfurt)
 				controls_state = 1773 #Franken  # 1.19-migration: was vanilla 54 (Bayreuth)
 				controls_state = 1783 #Niederbayern  # 1.19-migration: was vanilla 53 (Oberbayern)
-				controls_state = 1771 #Oberbayern  # 1.19-migration: was vanilla 52 (Wuttemberg)
-				controls_state = 1764 #Württemberg  # 1.19-migration: was vanilla 50 (Baden)
+				controls_state = 1790 # eu_mapping: v52 (Oberbayern) -> ME 1790 (München)
+				controls_state = 1764 # eu_mapping: v978 (Baden) -> ME 1764 (Baden-Baden)
 				# controls_state = 978 #Baden  # 1.19-migration: off-map  Actual Baden (was vanilla 978)
-				controls_state = 431 #Moselland  # 1.19-migration: was vanilla 42 (Rhineland)
+				controls_state = 431 # eu_mapping: v51 (Rhineland) -> ME 431 (Düsseldorf)
 				controls_state = 478 #Hessen  # 1.19-migration: was vanilla 55 (Nassau)
-				controls_state = 488 #Rhineland  # 1.19-migration: was vanilla 51 (Moselland)
+				controls_state = 488 # eu_mapping: v42 (Moselland) -> ME 488 (Koblenz)
 				controls_state = 433 #Westfalen  # 1.19-migration: was vanilla 57 (Westfalen)
 				controls_state = 322 #Weser-Ems  # 1.19-migration: was vanilla 56 (Weser-Ems)
 				
@@ -6696,7 +6703,7 @@ otto-man = {
 			
 				#Czechoslovakia
 				controls_state = 1434 #North Sudetenland  # 1.19-migration: was vanilla 69 (Sudatenland)
-				controls_state = 539 #South Sudetenland  # 1.19-migration: was vanilla 972 ( South Sudetenland)
+				controls_state = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znaim)
 				controls_state = 513 #Bohemia  # 1.19-migration: was vanilla 9 (Czechoslovakia)
 				controls_state = 532 #Moravia  # 1.19-migration: was vanilla 75 (Moravia)
 				controls_state = 499 #Czeske Slezsko  # 1.19-migration: was vanilla 74 (East Sudatenland)
@@ -6713,7 +6720,7 @@ otto-man = {
 				#Croatia
 				controls_state = 762 #Istria  # 1.19-migration: was vanilla 852 (Istria)
 				controls_state = 1476 #Zara  # 1.19-migration: was vanilla 163 (Dalmatia)
-				controls_state = 1463 #Dalmatia  # 1.19-migration: was vanilla 103 (Croatia)
+				controls_state = 1563 # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
 				controls_state = 721 #Croatia  # 1.19-migration: was vanilla 109 (Eastern Croatia)
 			
 				#Lombardy-Venetia
@@ -6730,22 +6737,26 @@ otto-man = {
 				controls_state = 713 #Transylvania  # 1.19-migration: was vanilla 84 (Transylvania)
 				controls_state = 797 #Oltenia  # 1.19-migration: was vanilla 81 (Oltenia)
 				controls_state = 764 #Muntenia  # 1.19-migration: was vanilla 46 (Romania)
-				controls_state = 793 #Dobruja  # 1.19-migration: was vanilla 77 (Dobrogea)
-				# controls_state = 971 #Northern Dobruja  # 1.19-migration: off-map  Northern Dobruja (was vanilla 971)
+				controls_state = 818 # eu_mapping: v77 (Dobrudja) -> ME 818 (Bazargic)
+				controls_state = 793 # eu_mapping: v971 (Northern Dobruja) -> ME 793 (Constanța)
+				controls_state = 767 # eu_mapping: v971 (Northern Dobruja) -> ME 767 (Tulcea)
+				controls_state = 2025 # eu_mapping: v971 (Northern Dobruja) -> ME 2025 (Cogealac)
+				controls_state = 2886 # eu_mapping: v971 (Northern Dobruja) -> ME 2886 (Marasu)
+				controls_state = 2902 # eu_mapping: v971 (Northern Dobruja) -> ME 2902 (Sulina)
 				controls_state = 1594 #Moldova  # 1.19-migration: was vanilla 79 (moldovia)
 				controls_state = 590 #Bucovina  # 1.19-migration: was vanilla 80 (Bocovina)
 				controls_state = 1604 #Bessarabia  # 1.19-migration: was vanilla 78 (Bessarabia)
 				controls_state = 794 #Southern Bessarabia  # 1.19-migration: was vanilla 766 (Southern Bessarabia)
 			
 				#Poland
-				controls_state = 867 #Krakow  # 1.19-migration: was vanilla 88 (Kielce)
-				controls_state = 1157 #Stanislawow  # 1.19-migration: was vanilla 89 (Krakow)
+				controls_state = 867 # eu_mapping: v90 (Kielce) -> ME 867 (Kielce)
+				controls_state = 1164 # eu_mapping: v89 (Stanisławów) -> ME 1164 (Stanisławów)
 				controls_state = 1292 #Lwow  # 1.19-migration: was vanilla 91 (Tarnopol)
 			
 				#Bulgaria
 				controls_state = 1566 #Sofia  # 1.19-migration: was vanilla 48 (Bulgaria)
 				controls_state = 878 #Plovdiv  # 1.19-migration: was vanilla 212 (Plovdiv)
-				controls_state = 796 #Moesia  # 1.19-migration: was vanilla 801 (Moesia)
+				controls_state = 1575 # eu_mapping: v801 (Moesia) -> ME 1575 (Pleven)
 				controls_state = 868 #Burgas  # 1.19-migration: was vanilla 211 (Burgas)
 			
 				#Greece
@@ -6754,7 +6765,7 @@ otto-man = {
 				controls_state = 995 #Epirus  # 1.19-migration: was vanilla 185 (Epirus)
 				controls_state = 1074 #Attica  # 1.19-migration: was vanilla 47 (Greece)
 				controls_state = 1089 #Peloponnese  # 1.19-migration: was vanilla 186 (Peloponnese)
-				controls_state = 1554 #Aegean Islands  # 1.19-migration: was vanilla 187 (Aegean Islands)
+				controls_state = 1552 # eu_mapping: v187 (Aegean Islands) -> ME 1552 (Chíos)
 				controls_state = 1560 #Crete  # 1.19-migration: was vanilla 182 (Crete)
 			
 				#Turkiye
@@ -6770,13 +6781,13 @@ otto-man = {
 				controls_state = 1098 #Mersin  # 1.19-migration: was vanilla 345 (Mersin)
 				controls_state = 1066 #Malatya  # 1.19-migration: was vanilla 344 (Adana)
 				controls_state = 1036 #Kayseri  # 1.19-migration: was vanilla 348 (Kayseri)
-				controls_state = 963 #Amasya  # 1.19-migration: was vanilla 798 (Amasya)
+				controls_state = 1003 # eu_mapping: v798 (Amasya) -> ME 1003 (Çorum)
 				controls_state = 907 #Kastamonu  # 1.19-migration: was vanilla 356 (Sinop)
 				controls_state = 924 #Samsun  # 1.19-migration: was vanilla 355 (Samsun)
 				controls_state = 1011 #Simas  # 1.19-migration: was vanilla 349 (Silvas)
 				controls_state = 1059 #Diyarbakir  # 1.19-migration: was vanilla 350 (Diyarbekir)
 				controls_state = 1092 #Hakkari  # 1.19-migration: was vanilla 352 (Hakkari)
-				controls_state = 973 #Tunceli  # 1.19-migration: was vanilla 353 (Erzurum)
+				controls_state = 1012 # eu_mapping: v353 (Tunceli) -> ME 1012 (Tunceli)
 				controls_state = 958 #Trabzon  # 1.19-migration: was vanilla 354 (Trabzon)
 				controls_state = 1039 #Van  # 1.19-migration: was vanilla 800 (Van)
 			}
@@ -6884,7 +6895,13 @@ the_501st_legion = {
 				571 = { #Ile de France # was vanilla 16 (Rybachy Peninsula) — Paris
 					is_fully_controlled_by = BEL
 				}
-				500 = { #Luxembourg # was vanilla 8 (Nova Scotia)
+				404 = { #Luxembourg -> Dikrech # was vanilla 8
+					is_fully_controlled_by = BEL
+				}
+				427 = { # -> Gréiwemaacher
+					is_fully_controlled_by = BEL
+				}
+				512 = { # -> Lëtzebuerg
 					is_fully_controlled_by = BEL
 				}
 				402 = { #Holland # was vanilla 7 (Maine)
@@ -6965,7 +6982,7 @@ a_great_hunger = {
 				controls_state = 713  # 1.19-migration: was vanilla 84 (Transylvania)
 				controls_state = 705  # 1.19-migration: was vanilla 83 (crisana)
 				controls_state = 2668  # 1.19-migration: was vanilla 82 (Banat)
-				controls_state = 790  # 1.19-migration: was vanilla 45 (Yugoslavia)
+				controls_state = 1514 # eu_mapping: v45 (Vojvodina) -> ME 1514 (Novi Sad)
 				controls_state = 621  # 1.19-migration: was vanilla 975 ( Burgenland)
 			}
 		}
@@ -8469,14 +8486,14 @@ first_train_home = {
 			owns_state = 229		#Moscow  # 1.19-migration: was vanilla 219 (Moscow Area)
 			owns_state = 177		#Ivanovo  # 1.19-migration: was vanilla 253 (Ivanovo)
 			owns_state = 171  # 1.19-migration: was vanilla 252 (Nizhny Novogrod)
-			owns_state = 209  # 1.19-migration: was vanilla 256 (Cheboksary)
+			owns_state = 2639 # eu_mapping: v256 (Chuvashia) -> ME 2639 (Vurnary)
 			owns_state = 2646  # 1.19-migration: was vanilla 249 (Kazan)
 			owns_state = 2658  # 1.19-migration: was vanilla 399 (Izhevsk)
 			owns_state = 2636  # 1.19-migration: was vanilla 398 (Perm)
 			# owns_state = 573  # 1.19-migration: off-map Ts 15 (was vanilla 573)
 			# owns_state = 653  # 1.19-migration: off-map Sov state 7 (was vanilla 653)
 			# owns_state = 572		#The railway has 2 routes here, Im counting both  # 1.19-migration: off-map TS 14 (was vanilla 572)
-			owns_state = 632  # 1.19-migration: was vanilla 403 (Kharabali)
+			# owns_state = 403 # off-map in Magna Europa: v403 (Tyumen)
 			# owns_state = 571  # 1.19-migration: off-map TS 13 (was vanilla 571)
 			# owns_state = 570  # 1.19-migration: off-map TS 12 (was vanilla 570)
 			# owns_state = 569  # 1.19-migration: off-map TS 11 (was vanilla 569)
@@ -8939,5 +8956,1571 @@ steiner = {
 		controls_state = 571 	#paris  # 1.19-migration: was vanilla 16 (Ile de France)
 		controls_state = 2475 	#london  # 1.19-migration: was vanilla 126 (Greater London Area)
 		controls_state = 229 	#moscow  # 1.19-migration: was vanilla 219 (Moscow Area)
+	}
+}
+
+dacii = {
+	id = 295
+	possible = {
+		original_tag = ROM
+		is_ironman = yes
+		difficulty > 1
+		has_start_date < 1936.01.02
+		has_any_custom_difficulty_setting = no
+		game_rules_allow_achievements = yes
+		has_dlc = "To The Bitter End"
+	}
+
+	happened = {
+		custom_trigger_tooltip = {
+			tooltip = has_formed_dacia_tt
+			has_cosmetic_tag = ROM_DACIA
+		}
+	}
+}
+
+what_would_maniu_think = {
+	id = 296
+	possible = {
+		original_tag = ROM
+		is_ironman = yes
+		difficulty > 1
+		has_start_date < 1936.01.02
+		has_any_custom_difficulty_setting = no
+		game_rules_allow_achievements = yes
+		has_dlc = "To The Bitter End"
+	}
+
+	happened = {
+		OR = {
+			has_completed_focus = ROM_maintain_regional_stability
+			has_completed_focus = ROM_dominance_over_the_balkans
+		}
+
+		custom_trigger_tooltip = {
+			tooltip = surgical_strike_tt
+			check_variable = { ROM_countries_defeated_low_casualties > 3 }
+		}
+	}
+}
+
+before_1947 = {
+	id = 297
+	possible = {
+		original_tag = ROM
+		is_ironman = yes
+		difficulty > 1
+		has_start_date < 1936.01.02
+		has_any_custom_difficulty_setting = no
+		game_rules_allow_achievements = yes
+		has_dlc = "To The Bitter End"
+	}
+
+	happened = {
+		has_completed_focus = ROM_the_peoples_revolution
+		has_completed_focus = ROM_purge_the_prison_faction
+		has_completed_focus = ROM_reorganize_the_communist_party
+
+		SOV = {
+			is_subject_of = ROM
+		}
+	}
+}
+
+rome_mania = {
+	id = 298
+	possible = {
+		original_tag = ROM
+		is_ironman = yes
+		difficulty > 1
+		has_start_date < 1936.01.02
+		has_any_custom_difficulty_setting = no
+		game_rules_allow_achievements = yes
+		has_dlc = "To The Bitter End"
+	}
+
+	happened = {
+		932 = { # eu_mapping: v797 (Istanbul) -> ME 932 (Batı İstanbul)
+			is_owned_and_controlled_by = ROM
+		}
+		945 = { # eu_mapping: v797 (Istanbul) -> ME 945 (Doğu İstanbul)
+			is_owned_and_controlled_by = ROM
+		}
+		2770 = { # eu_mapping: v797 (Istanbul) -> ME 2770 (Silivri)
+			is_owned_and_controlled_by = ROM
+		}
+		2771 = { # eu_mapping: v797 (Istanbul) -> ME 2771 (Şile)
+			is_owned_and_controlled_by = ROM
+		}
+		229 = { # eu_mapping: v219 (Moscow) -> ME 229 (Moskva)
+			is_owned_and_controlled_by = ROM
+		}
+		195 = { # eu_mapping: v219 (Moscow) -> ME 195 (Naro-Fominsk)
+			is_owned_and_controlled_by = ROM
+		}
+		2472 = { # eu_mapping: v219 (Moscow) -> ME 2472 (Serpukhov)
+			is_owned_and_controlled_by = ROM
+		}
+		2473 = { # eu_mapping: v219 (Moscow) -> ME 2473 (Kolomna)
+			is_owned_and_controlled_by = ROM
+		}
+		2474 = { # eu_mapping: v219 (Moscow) -> ME 2474 (Sergiyev Posad)
+			is_owned_and_controlled_by = ROM
+		}
+		2479 = { # eu_mapping: v219 (Moscow) -> ME 2479 (Sever Moskva)
+			is_owned_and_controlled_by = ROM
+		}
+		2480 = { # eu_mapping: v219 (Moscow) -> ME 2480 (Zapad Moskva)
+			is_owned_and_controlled_by = ROM
+		}
+		2481 = { # eu_mapping: v219 (Moscow) -> ME 2481 (Južnaja Moskva)
+			is_owned_and_controlled_by = ROM
+		}
+		876 = { # eu_mapping: v2 (Lazio) -> ME 876 (Centro di Roma)
+			is_owned_and_controlled_by = ROM
+		}
+		920 = { # eu_mapping: v2 (Lazio) -> ME 920 (Gaeta)
+			is_owned_and_controlled_by = ROM
+		}
+		1392 = { # eu_mapping: v2 (Lazio) -> ME 1392 (Terni)
+			is_owned_and_controlled_by = ROM
+		}
+		1393 = { # eu_mapping: v2 (Lazio) -> ME 1393 (Viterbo)
+			is_owned_and_controlled_by = ROM
+		}
+		1394 = { # eu_mapping: v2 (Lazio) -> ME 1394 (Rieti)
+			is_owned_and_controlled_by = ROM
+		}
+		1395 = { # eu_mapping: v2 (Lazio) -> ME 1395 (Frosinone)
+			is_owned_and_controlled_by = ROM
+		}
+		1396 = { # eu_mapping: v2 (Lazio) -> ME 1396 (Littoria)
+			is_owned_and_controlled_by = ROM
+		}
+		2557 = { # eu_mapping: v2 (Lazio) -> ME 2557 (Cittaducale)
+			is_owned_and_controlled_by = ROM
+		}
+		2597 = { # eu_mapping: v2 (Lazio) -> ME 2597 (Civitavecchia)
+			is_owned_and_controlled_by = ROM
+		}
+		2598 = { # eu_mapping: v2 (Lazio) -> ME 2598 (Tivoli)
+			is_owned_and_controlled_by = ROM
+		}
+		2599 = { # eu_mapping: v2 (Lazio) -> ME 2599 (Anzio)
+			is_owned_and_controlled_by = ROM
+		}
+		2600 = { # eu_mapping: v2 (Lazio) -> ME 2600 (Roma Ovest)
+			is_owned_and_controlled_by = ROM
+		}
+		2601 = { # eu_mapping: v2 (Lazio) -> ME 2601 (Roma Est)
+			is_owned_and_controlled_by = ROM
+		}
+		2602 = { # eu_mapping: v2 (Lazio) -> ME 2602 (Ostia)
+			is_owned_and_controlled_by = ROM
+		}
+		2607 = { # eu_mapping: v2 (Lazio) -> ME 2607 (Roma Nord)
+			is_owned_and_controlled_by = ROM
+		}
+		2616 = { # eu_mapping: v2 (Lazio) -> ME 2616 (Civitas Vaticana)
+			is_owned_and_controlled_by = ROM
+		}
+	}
+}
+
+balkan_domination = {
+	id = 299
+	possible = {
+		original_tag = ROM
+		is_ironman = yes
+		difficulty > 1
+		has_start_date < 1936.01.02
+		has_any_custom_difficulty_setting = no
+		game_rules_allow_achievements = yes
+		has_dlc = "To The Bitter End"
+	}
+
+	happened = {
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_rom_tt
+			# Romania
+			801 = { # eu_mapping: v46 (Muntenia) -> ME 801 (Ilfov)
+				is_owned_and_controlled_by = ROOT
+			}
+			757 = { # eu_mapping: v46 (Muntenia) -> ME 757 (Buzău)
+				is_owned_and_controlled_by = ROOT
+			}
+			758 = { # eu_mapping: v46 (Muntenia) -> ME 758 (Muscel)
+				is_owned_and_controlled_by = ROOT
+			}
+			764 = { # eu_mapping: v46 (Muntenia) -> ME 764 (Prahova)
+				is_owned_and_controlled_by = ROOT
+			}
+			765 = { # eu_mapping: v46 (Muntenia) -> ME 765 (Brăila)
+				is_owned_and_controlled_by = ROOT
+			}
+			768 = { # eu_mapping: v46 (Muntenia) -> ME 768 (Dâmbovița)
+				is_owned_and_controlled_by = ROOT
+			}
+			788 = { # eu_mapping: v46 (Muntenia) -> ME 788 (Olt)
+				is_owned_and_controlled_by = ROOT
+			}
+			791 = { # eu_mapping: v46 (Muntenia) -> ME 791 (Ialomița)
+				is_owned_and_controlled_by = ROOT
+			}
+			804 = { # eu_mapping: v46 (Muntenia) -> ME 804 (Teleorman)
+				is_owned_and_controlled_by = ROOT
+			}
+			1588 = { # eu_mapping: v46 (Muntenia) -> ME 1588 (Argeș)
+				is_owned_and_controlled_by = ROOT
+			}
+			1589 = { # eu_mapping: v46 (Muntenia) -> ME 1589 (Vlașca)
+				is_owned_and_controlled_by = ROOT
+			}
+			2362 = { # eu_mapping: v46 (Muntenia) -> ME 2362 (Cheia)
+				is_owned_and_controlled_by = ROOT
+			}
+			2981 = { # eu_mapping: v46 (Muntenia) -> ME 2981 (Câineni)
+				is_owned_and_controlled_by = ROOT
+			}
+			680 = { # eu_mapping: v76 (North Transylvania) -> ME 680 (Mureș)
+				is_owned_and_controlled_by = ROOT
+			}
+			622 = { # eu_mapping: v76 (North Transylvania) -> ME 622 (Satu Mare)
+				is_owned_and_controlled_by = ROOT
+			}
+			628 = { # eu_mapping: v76 (North Transylvania) -> ME 628 (Maramureș)
+				is_owned_and_controlled_by = ROOT
+			}
+			639 = { # eu_mapping: v76 (North Transylvania) -> ME 639 (Zalău)
+				is_owned_and_controlled_by = ROOT
+			}
+			649 = { # eu_mapping: v76 (North Transylvania) -> ME 649 (Năsăud)
+				is_owned_and_controlled_by = ROOT
+			}
+			664 = { # eu_mapping: v76 (North Transylvania) -> ME 664 (Oradea)
+				is_owned_and_controlled_by = ROOT
+			}
+			665 = { # eu_mapping: v76 (North Transylvania) -> ME 665 (Cluj)
+				is_owned_and_controlled_by = ROOT
+			}
+			674 = { # eu_mapping: v76 (North Transylvania) -> ME 674 (Ciuc)
+				is_owned_and_controlled_by = ROOT
+			}
+			1582 = { # eu_mapping: v76 (North Transylvania) -> ME 1582 (Someș)
+				is_owned_and_controlled_by = ROOT
+			}
+			1586 = { # eu_mapping: v76 (North Transylvania) -> ME 1586 (Trei Scaune)
+				is_owned_and_controlled_by = ROOT
+			}
+			1587 = { # eu_mapping: v76 (North Transylvania) -> ME 1587 (Odorhei)
+				is_owned_and_controlled_by = ROOT
+			}
+			2671 = { # eu_mapping: v76 (North Transylvania) -> ME 2671 (Carei)
+				is_owned_and_controlled_by = ROOT
+			}
+			2672 = { # eu_mapping: v76 (North Transylvania) -> ME 2672 (Baia Mare)
+				is_owned_and_controlled_by = ROOT
+			}
+			2673 = { # eu_mapping: v76 (North Transylvania) -> ME 2673 (Aleşd)
+				is_owned_and_controlled_by = ROOT
+			}
+			2675 = { # eu_mapping: v76 (North Transylvania) -> ME 2675 (Negrești-Oaș)
+				is_owned_and_controlled_by = ROOT
+			}
+			2676 = { # eu_mapping: v76 (North Transylvania) -> ME 2676 (Crasna)
+				is_owned_and_controlled_by = ROOT
+			}
+			2680 = { # eu_mapping: v76 (North Transylvania) -> ME 2680 (Vișeu)
+				is_owned_and_controlled_by = ROOT
+			}
+			2859 = { # eu_mapping: v76 (North Transylvania) -> ME 2859 (Tășnad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2860 = { # eu_mapping: v76 (North Transylvania) -> ME 2860 (Recea)
+				is_owned_and_controlled_by = ROOT
+			}
+			818 = { # eu_mapping: v77 (Dobrudja) -> ME 818 (Bazargic)
+				is_owned_and_controlled_by = ROOT
+			}
+			1579 = { # eu_mapping: v77 (Dobrudja) -> ME 1579 (Durostor)
+				is_owned_and_controlled_by = ROOT
+			}
+			1604 = { # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+				is_owned_and_controlled_by = ROOT
+			}
+			592 = { # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+				is_owned_and_controlled_by = ROOT
+			}
+			600 = { # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+				is_owned_and_controlled_by = ROOT
+			}
+			1602 = { # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+				is_owned_and_controlled_by = ROOT
+			}
+			1603 = { # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+				is_owned_and_controlled_by = ROOT
+			}
+			1605 = { # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+				is_owned_and_controlled_by = ROOT
+			}
+			1606 = { # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+				is_owned_and_controlled_by = ROOT
+			}
+			2744 = { # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+				is_owned_and_controlled_by = ROOT
+			}
+			2745 = { # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+				is_owned_and_controlled_by = ROOT
+			}
+			2980 = { # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				is_owned_and_controlled_by = ROOT
+			}
+			1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+				is_owned_and_controlled_by = ROOT
+			}
+			609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+				is_owned_and_controlled_by = ROOT
+			}
+			629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+				is_owned_and_controlled_by = ROOT
+			}
+			655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+				is_owned_and_controlled_by = ROOT
+			}
+			667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+				is_owned_and_controlled_by = ROOT
+			}
+			689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+				is_owned_and_controlled_by = ROOT
+			}
+			698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+				is_owned_and_controlled_by = ROOT
+			}
+			733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+				is_owned_and_controlled_by = ROOT
+			}
+			739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+				is_owned_and_controlled_by = ROOT
+			}
+			1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+				is_owned_and_controlled_by = ROOT
+			}
+			1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+				is_owned_and_controlled_by = ROOT
+			}
+			1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+				is_owned_and_controlled_by = ROOT
+			}
+			1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+				is_owned_and_controlled_by = ROOT
+			}
+			1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+				is_owned_and_controlled_by = ROOT
+			}
+			1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+				is_owned_and_controlled_by = ROOT
+			}
+			1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+				is_owned_and_controlled_by = ROOT
+			}
+			1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+				is_owned_and_controlled_by = ROOT
+			}
+			1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+				is_owned_and_controlled_by = ROOT
+			}
+			2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+				is_owned_and_controlled_by = ROOT
+			}
+			2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+				is_owned_and_controlled_by = ROOT
+			}
+			1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+				is_owned_and_controlled_by = ROOT
+			}
+			590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+				is_owned_and_controlled_by = ROOT
+			}
+			797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+				is_owned_and_controlled_by = ROOT
+			}
+			759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+				is_owned_and_controlled_by = ROOT
+			}
+			774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+				is_owned_and_controlled_by = ROOT
+			}
+			781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+				is_owned_and_controlled_by = ROOT
+			}
+			800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+				is_owned_and_controlled_by = ROOT
+			}
+			2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+				is_owned_and_controlled_by = ROOT
+			}
+			2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+				is_owned_and_controlled_by = ROOT
+			}
+			2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+				is_owned_and_controlled_by = ROOT
+			}
+			736 = { # eu_mapping: v82 (Banat) -> ME 736 (Timișoara)
+				is_owned_and_controlled_by = ROOT
+			}
+			756 = { # eu_mapping: v82 (Banat) -> ME 756 (Reșița)
+				is_owned_and_controlled_by = ROOT
+			}
+			1581 = { # eu_mapping: v82 (Banat) -> ME 1581 (Făget)
+				is_owned_and_controlled_by = ROOT
+			}
+			2668 = { # eu_mapping: v82 (Banat) -> ME 2668 (Sânnicolau Mare)
+				is_owned_and_controlled_by = ROOT
+			}
+			2670 = { # eu_mapping: v82 (Banat) -> ME 2670 (Lipova)
+				is_owned_and_controlled_by = ROOT
+			}
+			2677 = { # eu_mapping: v82 (Banat) -> ME 2677 (Orșova)
+				is_owned_and_controlled_by = ROOT
+			}
+			705 = { # eu_mapping: v83 (Crisana) -> ME 705 (Arad)
+				is_owned_and_controlled_by = ROOT
+			}
+			686 = { # eu_mapping: v83 (Crisana) -> ME 686 (Beiuș)
+				is_owned_and_controlled_by = ROOT
+			}
+			2669 = { # eu_mapping: v83 (Crisana) -> ME 2669 (Sebiș)
+				is_owned_and_controlled_by = ROOT
+			}
+			2674 = { # eu_mapping: v83 (Crisana) -> ME 2674 (Tinca)
+				is_owned_and_controlled_by = ROOT
+			}
+			2679 = { # eu_mapping: v83 (Crisana) -> ME 2679 (Beliu)
+				is_owned_and_controlled_by = ROOT
+			}
+			737 = { # eu_mapping: v84 (Transylvania) -> ME 737 (Brașov)
+				is_owned_and_controlled_by = ROOT
+			}
+			692 = { # eu_mapping: v84 (Transylvania) -> ME 692 (Turda)
+				is_owned_and_controlled_by = ROOT
+			}
+			713 = { # eu_mapping: v84 (Transylvania) -> ME 713 (Alba Iulia)
+				is_owned_and_controlled_by = ROOT
+			}
+			727 = { # eu_mapping: v84 (Transylvania) -> ME 727 (Hunedoara)
+				is_owned_and_controlled_by = ROOT
+			}
+			730 = { # eu_mapping: v84 (Transylvania) -> ME 730 (Sibiu)
+				is_owned_and_controlled_by = ROOT
+			}
+			1583 = { # eu_mapping: v84 (Transylvania) -> ME 1583 (Târnava Mică)
+				is_owned_and_controlled_by = ROOT
+			}
+			1584 = { # eu_mapping: v84 (Transylvania) -> ME 1584 (Târnava-Mare)
+				is_owned_and_controlled_by = ROOT
+			}
+			1585 = { # eu_mapping: v84 (Transylvania) -> ME 1585 (Făgăraș)
+				is_owned_and_controlled_by = ROOT
+			}
+			2024 = { # eu_mapping: v84 (Transylvania) -> ME 2024 (Sebeș)
+				is_owned_and_controlled_by = ROOT
+			}
+			2261 = { # eu_mapping: v84 (Transylvania) -> ME 2261 (Brad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2678 = { # eu_mapping: v84 (Transylvania) -> ME 2678 (Câmpeni)
+				is_owned_and_controlled_by = ROOT
+			}
+			1601 = { # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+				is_owned_and_controlled_by = ROOT
+			}
+			794 = { # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
+				is_owned_and_controlled_by = ROOT
+			}
+			793 = { # eu_mapping: v971 (Northern Dobruja) -> ME 793 (Constanța)
+				is_owned_and_controlled_by = ROOT
+			}
+			767 = { # eu_mapping: v971 (Northern Dobruja) -> ME 767 (Tulcea)
+				is_owned_and_controlled_by = ROOT
+			}
+			2025 = { # eu_mapping: v971 (Northern Dobruja) -> ME 2025 (Cogealac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2886 = { # eu_mapping: v971 (Northern Dobruja) -> ME 2886 (Marasu)
+				is_owned_and_controlled_by = ROOT
+			}
+			2902 = { # eu_mapping: v971 (Northern Dobruja) -> ME 2902 (Sulina)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_yug_tt
+			# Yugoslavia 
+			1514 = { # eu_mapping: v45 (Vojvodina) -> ME 1514 (Novi Sad)
+				is_owned_and_controlled_by = ROOT
+			}
+			735 = { # eu_mapping: v45 (Vojvodina) -> ME 735 (Subotica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1472 = { # eu_mapping: v45 (Vojvodina) -> ME 1472 (Baranja)
+				is_owned_and_controlled_by = ROOT
+			}
+			1515 = { # eu_mapping: v45 (Vojvodina) -> ME 1515 (Sombor)
+				is_owned_and_controlled_by = ROOT
+			}
+			1516 = { # eu_mapping: v45 (Vojvodina) -> ME 1516 (Senta)
+				is_owned_and_controlled_by = ROOT
+			}
+			2856 = { # eu_mapping: v45 (Vojvodina) -> ME 2856 (Bezdan)
+				is_owned_and_controlled_by = ROOT
+			}
+			703 = { # eu_mapping: v102 (North Slovenia) -> ME 703 (Drava)
+				is_owned_and_controlled_by = ROOT
+			}
+			695 = { # eu_mapping: v102 (North Slovenia) -> ME 695 (Prekmurje)
+				is_owned_and_controlled_by = ROOT
+			}
+			712 = { # eu_mapping: v102 (North Slovenia) -> ME 712 (Međimurje)
+				is_owned_and_controlled_by = ROOT
+			}
+			714 = { # eu_mapping: v102 (North Slovenia) -> ME 714 (Gorenjska)
+				is_owned_and_controlled_by = ROOT
+			}
+			1487 = { # eu_mapping: v102 (North Slovenia) -> ME 1487 (Sava)
+				is_owned_and_controlled_by = ROOT
+			}
+			1488 = { # eu_mapping: v102 (North Slovenia) -> ME 1488 (Domžale)
+				is_owned_and_controlled_by = ROOT
+			}
+			1489 = { # eu_mapping: v102 (North Slovenia) -> ME 1489 (Savinja)
+				is_owned_and_controlled_by = ROOT
+			}
+			1490 = { # eu_mapping: v102 (North Slovenia) -> ME 1490 (Koroška)
+				is_owned_and_controlled_by = ROOT
+			}
+			2784 = { # eu_mapping: v102 (North Slovenia) -> ME 2784 (Tržič)
+				is_owned_and_controlled_by = ROOT
+			}
+			2861 = { # eu_mapping: v102 (North Slovenia) -> ME 2861 (Krško)
+				is_owned_and_controlled_by = ROOT
+			}
+			1563 = { # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+				is_owned_and_controlled_by = ROOT
+			}
+			754 = { # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+				is_owned_and_controlled_by = ROOT
+			}
+			811 = { # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+				is_owned_and_controlled_by = ROOT
+			}
+			815 = { # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+				is_owned_and_controlled_by = ROOT
+			}
+			1461 = { # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+				is_owned_and_controlled_by = ROOT
+			}
+			1462 = { # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+				is_owned_and_controlled_by = ROOT
+			}
+			1473 = { # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+				is_owned_and_controlled_by = ROOT
+			}
+			1475 = { # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+				is_owned_and_controlled_by = ROOT
+			}
+			1477 = { # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+				is_owned_and_controlled_by = ROOT
+			}
+			1478 = { # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1479 = { # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+				is_owned_and_controlled_by = ROOT
+			}
+			1480 = { # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+				is_owned_and_controlled_by = ROOT
+			}
+			1481 = { # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+				is_owned_and_controlled_by = ROOT
+			}
+			1491 = { # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+				is_owned_and_controlled_by = ROOT
+			}
+			1502 = { # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+				is_owned_and_controlled_by = ROOT
+			}
+			1988 = { # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+				is_owned_and_controlled_by = ROOT
+			}
+			1990 = { # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+				is_owned_and_controlled_by = ROOT
+			}
+			1998 = { # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+				is_owned_and_controlled_by = ROOT
+			}
+			1999 = { # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2241 = { # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2651 = { # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+				is_owned_and_controlled_by = ROOT
+			}
+			2815 = { # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+				is_owned_and_controlled_by = ROOT
+			}
+			2820 = { # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+				is_owned_and_controlled_by = ROOT
+			}
+			2825 = { # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+				is_owned_and_controlled_by = ROOT
+			}
+			2826 = { # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2827 = { # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+				is_owned_and_controlled_by = ROOT
+			}
+			2828 = { # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+				is_owned_and_controlled_by = ROOT
+			}
+			2829 = { # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2895 = { # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+				is_owned_and_controlled_by = ROOT
+			}
+			2896 = { # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+				is_owned_and_controlled_by = ROOT
+			}
+			2897 = { # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+				is_owned_and_controlled_by = ROOT
+			}
+			2911 = { # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+				is_owned_and_controlled_by = ROOT
+			}
+			2916 = { # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+				is_owned_and_controlled_by = ROOT
+			}
+			2924 = { # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+				is_owned_and_controlled_by = ROOT
+			}
+			1499 = { # eu_mapping: v104 (Bosnia) -> ME 1499 (Sarajevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			776 = { # eu_mapping: v104 (Bosnia) -> ME 776 (Usora)
+				is_owned_and_controlled_by = ROOT
+			}
+			777 = { # eu_mapping: v104 (Bosnia) -> ME 777 (Bihać)
+				is_owned_and_controlled_by = ROOT
+			}
+			792 = { # eu_mapping: v104 (Bosnia) -> ME 792 (Zenica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1492 = { # eu_mapping: v104 (Bosnia) -> ME 1492 (Jajce)
+				is_owned_and_controlled_by = ROOT
+			}
+			1493 = { # eu_mapping: v104 (Bosnia) -> ME 1493 (Prnjavor)
+				is_owned_and_controlled_by = ROOT
+			}
+			1494 = { # eu_mapping: v104 (Bosnia) -> ME 1494 (Banja Luka)
+				is_owned_and_controlled_by = ROOT
+			}
+			1496 = { # eu_mapping: v104 (Bosnia) -> ME 1496 (Brčko)
+				is_owned_and_controlled_by = ROOT
+			}
+			1497 = { # eu_mapping: v104 (Bosnia) -> ME 1497 (Tuzla)
+				is_owned_and_controlled_by = ROOT
+			}
+			1498 = { # eu_mapping: v104 (Bosnia) -> ME 1498 (Travnik)
+				is_owned_and_controlled_by = ROOT
+			}
+			1500 = { # eu_mapping: v104 (Bosnia) -> ME 1500 (Tomislavgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			1503 = { # eu_mapping: v104 (Bosnia) -> ME 1503 (Dvor)
+				is_owned_and_controlled_by = ROOT
+			}
+			1993 = { # eu_mapping: v104 (Bosnia) -> ME 1993 (Modriča)
+				is_owned_and_controlled_by = ROOT
+			}
+			2811 = { # eu_mapping: v104 (Bosnia) -> ME 2811 (Goražde)
+				is_owned_and_controlled_by = ROOT
+			}
+			2812 = { # eu_mapping: v104 (Bosnia) -> ME 2812 (Ustikolina)
+				is_owned_and_controlled_by = ROOT
+			}
+			2813 = { # eu_mapping: v104 (Bosnia) -> ME 2813 (Bijeljina)
+				is_owned_and_controlled_by = ROOT
+			}
+			2814 = { # eu_mapping: v104 (Bosnia) -> ME 2814 (Višegrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2816 = { # eu_mapping: v104 (Bosnia) -> ME 2816 (Drvar)
+				is_owned_and_controlled_by = ROOT
+			}
+			2817 = { # eu_mapping: v104 (Bosnia) -> ME 2817 (Mrkonjić Grad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2818 = { # eu_mapping: v104 (Bosnia) -> ME 2818 (Teslić)
+				is_owned_and_controlled_by = ROOT
+			}
+			2819 = { # eu_mapping: v104 (Bosnia) -> ME 2819 (Gračanica)
+				is_owned_and_controlled_by = ROOT
+			}
+			2821 = { # eu_mapping: v104 (Bosnia) -> ME 2821 (Orašje)
+				is_owned_and_controlled_by = ROOT
+			}
+			2822 = { # eu_mapping: v104 (Bosnia) -> ME 2822 (Odžak)
+				is_owned_and_controlled_by = ROOT
+			}
+			2823 = { # eu_mapping: v104 (Bosnia) -> ME 2823 (Šamac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2824 = { # eu_mapping: v104 (Bosnia) -> ME 2824 (Lopare)
+				is_owned_and_controlled_by = ROOT
+			}
+			2846 = { # eu_mapping: v104 (Bosnia) -> ME 2846 (Velika Kladuša)
+				is_owned_and_controlled_by = ROOT
+			}
+			881 = { # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+				is_owned_and_controlled_by = ROOT
+			}
+			853 = { # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+				is_owned_and_controlled_by = ROOT
+			}
+			863 = { # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+				is_owned_and_controlled_by = ROOT
+			}
+			884 = { # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+				is_owned_and_controlled_by = ROOT
+			}
+			989 = { # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+				is_owned_and_controlled_by = ROOT
+			}
+			1527 = { # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+				is_owned_and_controlled_by = ROOT
+			}
+			1986 = { # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+				is_owned_and_controlled_by = ROOT
+			}
+			2795 = { # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+				is_owned_and_controlled_by = ROOT
+			}
+			2797 = { # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+				is_owned_and_controlled_by = ROOT
+			}
+			2798 = { # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+				is_owned_and_controlled_by = ROOT
+			}
+			2799 = { # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2800 = { # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+				is_owned_and_controlled_by = ROOT
+			}
+			2801 = { # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+				is_owned_and_controlled_by = ROOT
+			}
+			2802 = { # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+				is_owned_and_controlled_by = ROOT
+			}
+			1529 = { # eu_mapping: v106 (Macedonia) -> ME 1529 (Skopje)
+				is_owned_and_controlled_by = ROOT
+			}
+			894 = { # eu_mapping: v106 (Macedonia) -> ME 894 (Veles)
+				is_owned_and_controlled_by = ROOT
+			}
+			1528 = { # eu_mapping: v106 (Macedonia) -> ME 1528 (Bitola)
+				is_owned_and_controlled_by = ROOT
+			}
+			1530 = { # eu_mapping: v106 (Macedonia) -> ME 1530 (Kumanovo)
+				is_owned_and_controlled_by = ROOT
+			}
+			1531 = { # eu_mapping: v106 (Macedonia) -> ME 1531 (Štip)
+				is_owned_and_controlled_by = ROOT
+			}
+			1532 = { # eu_mapping: v106 (Macedonia) -> ME 1532 (Strumica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1973 = { # eu_mapping: v106 (Macedonia) -> ME 1973 (Gevgelija)
+				is_owned_and_controlled_by = ROOT
+			}
+			2755 = { # eu_mapping: v106 (Macedonia) -> ME 2755 (Sveti Nikole)
+				is_owned_and_controlled_by = ROOT
+			}
+			2898 = { # eu_mapping: v106 (Macedonia) -> ME 2898 (Bogdanci)
+				is_owned_and_controlled_by = ROOT
+			}
+			2899 = { # eu_mapping: v106 (Macedonia) -> ME 2899 (Dračevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			790 = { # eu_mapping: v107 (Serbia) -> ME 790 (Beograd)
+				is_owned_and_controlled_by = ROOT
+			}
+			1504 = { # eu_mapping: v107 (Serbia) -> ME 1504 (Šabac)
+				is_owned_and_controlled_by = ROOT
+			}
+			1505 = { # eu_mapping: v107 (Serbia) -> ME 1505 (Valjevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			1506 = { # eu_mapping: v107 (Serbia) -> ME 1506 (Užice)
+				is_owned_and_controlled_by = ROOT
+			}
+			1507 = { # eu_mapping: v107 (Serbia) -> ME 1507 (Kragujevac)
+				is_owned_and_controlled_by = ROOT
+			}
+			1508 = { # eu_mapping: v107 (Serbia) -> ME 1508 (Požarevac)
+				is_owned_and_controlled_by = ROOT
+			}
+			1995 = { # eu_mapping: v107 (Serbia) -> ME 1995 (Čačak)
+				is_owned_and_controlled_by = ROOT
+			}
+			2810 = { # eu_mapping: v107 (Serbia) -> ME 2810 (Loznica)
+				is_owned_and_controlled_by = ROOT
+			}
+			2937 = { # eu_mapping: v107 (Serbia) -> ME 2937 (Smederevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			796 = { # eu_mapping: v108 (Morava) -> ME 796 (Niš)
+				is_owned_and_controlled_by = ROOT
+			}
+			785 = { # eu_mapping: v108 (Morava) -> ME 785 (Kraljevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			834 = { # eu_mapping: v108 (Morava) -> ME 834 (Ivanjica)
+				is_owned_and_controlled_by = ROOT
+			}
+			844 = { # eu_mapping: v108 (Morava) -> ME 844 (Sjenica)
+				is_owned_and_controlled_by = ROOT
+			}
+			862 = { # eu_mapping: v108 (Morava) -> ME 862 (Leskovac)
+				is_owned_and_controlled_by = ROOT
+			}
+			1509 = { # eu_mapping: v108 (Morava) -> ME 1509 (Zaječar)
+				is_owned_and_controlled_by = ROOT
+			}
+			1510 = { # eu_mapping: v108 (Morava) -> ME 1510 (Jagodina)
+				is_owned_and_controlled_by = ROOT
+			}
+			1511 = { # eu_mapping: v108 (Morava) -> ME 1511 (Kruševac)
+				is_owned_and_controlled_by = ROOT
+			}
+			1517 = { # eu_mapping: v108 (Morava) -> ME 1517 (Mitrovica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1970 = { # eu_mapping: v108 (Morava) -> ME 1970 (Timok)
+				is_owned_and_controlled_by = ROOT
+			}
+			1991 = { # eu_mapping: v108 (Morava) -> ME 1991 (Ćuprija)
+				is_owned_and_controlled_by = ROOT
+			}
+			1992 = { # eu_mapping: v108 (Morava) -> ME 1992 (Kučevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			2596 = { # eu_mapping: v108 (Morava) -> ME 2596 (Kuršumlija)
+				is_owned_and_controlled_by = ROOT
+			}
+			2803 = { # eu_mapping: v108 (Morava) -> ME 2803 (Jablanica)
+				is_owned_and_controlled_by = ROOT
+			}
+			2804 = { # eu_mapping: v108 (Morava) -> ME 2804 (Novi Pazar)
+				is_owned_and_controlled_by = ROOT
+			}
+			2806 = { # eu_mapping: v108 (Morava) -> ME 2806 (Aleksinac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2807 = { # eu_mapping: v108 (Morava) -> ME 2807 (Golija)
+				is_owned_and_controlled_by = ROOT
+			}
+			2808 = { # eu_mapping: v108 (Morava) -> ME 2808 (Bogutovac)
+				is_owned_and_controlled_by = ROOT
+			}
+			2809 = { # eu_mapping: v108 (Morava) -> ME 2809 (Vrnjačka Banja)
+				is_owned_and_controlled_by = ROOT
+			}
+			2960 = { # eu_mapping: v108 (Morava) -> ME 2960 (Golubinje)
+				is_owned_and_controlled_by = ROOT
+			}
+			1464 = { # eu_mapping: v109 (Croatia) -> ME 1464 (Prigorje)
+				is_owned_and_controlled_by = ROOT
+			}
+			721 = { # eu_mapping: v109 (Croatia) -> ME 721 (Osijek)
+				is_owned_and_controlled_by = ROOT
+			}
+			775 = { # eu_mapping: v109 (Croatia) -> ME 775 (Sremska Mitrovica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1463 = { # eu_mapping: v109 (Croatia) -> ME 1463 (Jastrebarsko)
+				is_owned_and_controlled_by = ROOT
+			}
+			1465 = { # eu_mapping: v109 (Croatia) -> ME 1465 (Glina)
+				is_owned_and_controlled_by = ROOT
+			}
+			1466 = { # eu_mapping: v109 (Croatia) -> ME 1466 (Zagorje)
+				is_owned_and_controlled_by = ROOT
+			}
+			1467 = { # eu_mapping: v109 (Croatia) -> ME 1467 (Koprivnica)
+				is_owned_and_controlled_by = ROOT
+			}
+			1468 = { # eu_mapping: v109 (Croatia) -> ME 1468 (Daruvar)
+				is_owned_and_controlled_by = ROOT
+			}
+			1469 = { # eu_mapping: v109 (Croatia) -> ME 1469 (Slavonski Brod)
+				is_owned_and_controlled_by = ROOT
+			}
+			1470 = { # eu_mapping: v109 (Croatia) -> ME 1470 (Šid)
+				is_owned_and_controlled_by = ROOT
+			}
+			1471 = { # eu_mapping: v109 (Croatia) -> ME 1471 (Vukovar)
+				is_owned_and_controlled_by = ROOT
+			}
+			2555 = { # eu_mapping: v109 (Croatia) -> ME 2555 (Zemun)
+				is_owned_and_controlled_by = ROOT
+			}
+			2830 = { # eu_mapping: v109 (Croatia) -> ME 2830 (Nova Gradiška)
+				is_owned_and_controlled_by = ROOT
+			}
+			2831 = { # eu_mapping: v109 (Croatia) -> ME 2831 (Sisak)
+				is_owned_and_controlled_by = ROOT
+			}
+			2832 = { # eu_mapping: v109 (Croatia) -> ME 2832 (Virovitica)
+				is_owned_and_controlled_by = ROOT
+			}
+			2881 = { # eu_mapping: v109 (Croatia) -> ME 2881 (Vinkovci)
+				is_owned_and_controlled_by = ROOT
+			}
+			2933 = { # eu_mapping: v764 (West Banat) -> ME 2933 (Pančevo)
+				is_owned_and_controlled_by = ROOT
+			}
+			738 = { # eu_mapping: v764 (West Banat) -> ME 738 (Srednji Banat)
+				is_owned_and_controlled_by = ROOT
+			}
+			1512 = { # eu_mapping: v764 (West Banat) -> ME 1512 (Južni Banat)
+				is_owned_and_controlled_by = ROOT
+			}
+			1513 = { # eu_mapping: v764 (West Banat) -> ME 1513 (Sjeverni Banat)
+				is_owned_and_controlled_by = ROOT
+			}
+			2554 = { # eu_mapping: v764 (West Banat) -> ME 2554 (Borča)
+				is_owned_and_controlled_by = ROOT
+			}
+			858 = { # eu_mapping: v802 (Kosovo) -> ME 858 (Pristina)
+				is_owned_and_controlled_by = ROOT
+			}
+			873 = { # eu_mapping: v802 (Kosovo) -> ME 873 (Prizren)
+				is_owned_and_controlled_by = ROOT
+			}
+			888 = { # eu_mapping: v802 (Kosovo) -> ME 888 (Kaçanik)
+				is_owned_and_controlled_by = ROOT
+			}
+			1978 = { # eu_mapping: v802 (Kosovo) -> ME 1978 (Peć)
+				is_owned_and_controlled_by = ROOT
+			}
+			1987 = { # eu_mapping: v802 (Kosovo) -> ME 1987 (Tutin)
+				is_owned_and_controlled_by = ROOT
+			}
+			1994 = { # eu_mapping: v802 (Kosovo) -> ME 1994 (Rahovec)
+				is_owned_and_controlled_by = ROOT
+			}
+			1996 = { # eu_mapping: v802 (Kosovo) -> ME 1996 (Besianë)
+				is_owned_and_controlled_by = ROOT
+			}
+			1997 = { # eu_mapping: v802 (Kosovo) -> ME 1997 (Vushtrii)
+				is_owned_and_controlled_by = ROOT
+			}
+			2007 = { # eu_mapping: v802 (Kosovo) -> ME 2007 (Draga)
+				is_owned_and_controlled_by = ROOT
+			}
+			2013 = { # eu_mapping: v802 (Kosovo) -> ME 2013 (Gjilan)
+				is_owned_and_controlled_by = ROOT
+			}
+			2243 = { # eu_mapping: v802 (Kosovo) -> ME 2243 (Dragaš)
+				is_owned_and_controlled_by = ROOT
+			}
+			846 = { # eu_mapping: v803 (Southern Serbia) -> ME 846 (Pirot)
+				is_owned_and_controlled_by = ROOT
+			}
+			865 = { # eu_mapping: v803 (Southern Serbia) -> ME 865 (Vranje)
+				is_owned_and_controlled_by = ROOT
+			}
+			1971 = { # eu_mapping: v803 (Southern Serbia) -> ME 1971 (Bosilegrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			1972 = { # eu_mapping: v803 (Southern Serbia) -> ME 1972 (Dimitrovgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2805 = { # eu_mapping: v803 (Southern Serbia) -> ME 2805 (Preševo)
+				is_owned_and_controlled_by = ROOT
+			}
+			813 = { # eu_mapping: v804 (Herzegovina) -> ME 813 (Mostar)
+				is_owned_and_controlled_by = ROOT
+			}
+			782 = { # eu_mapping: v804 (Herzegovina) -> ME 782 (Foča)
+				is_owned_and_controlled_by = ROOT
+			}
+			835 = { # eu_mapping: v804 (Herzegovina) -> ME 835 (Trebinje)
+				is_owned_and_controlled_by = ROOT
+			}
+			1495 = { # eu_mapping: v804 (Herzegovina) -> ME 1495 (Nevesinje)
+				is_owned_and_controlled_by = ROOT
+			}
+			1501 = { # eu_mapping: v804 (Herzegovina) -> ME 1501 (Čapljina)
+				is_owned_and_controlled_by = ROOT
+			}
+			743 = { # eu_mapping: v853 (Ljubljana) -> ME 743 (Ljubljana)
+				is_owned_and_controlled_by = ROOT
+			}
+			1486 = { # eu_mapping: v853 (Ljubljana) -> ME 1486 (Novo Mesto)
+				is_owned_and_controlled_by = ROOT
+			}
+			904 = { # eu_mapping: v970 (Debar) -> ME 904 (Tetovo)
+				is_owned_and_controlled_by = ROOT
+			}
+			959 = { # eu_mapping: v970 (Debar) -> ME 959 (Pretor)
+				is_owned_and_controlled_by = ROOT
+			}
+			2796 = { # eu_mapping: v970 (Debar) -> ME 2796 (Modric)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_bul_tt
+			# Bulgaria
+			1566 = { # eu_mapping: v48 (Sofia) -> ME 1566 (Sofiya)
+				is_owned_and_controlled_by = ROOT
+			}
+			816 = { # eu_mapping: v48 (Sofia) -> ME 816 (Vratsa)
+				is_owned_and_controlled_by = ROOT
+			}
+			861 = { # eu_mapping: v48 (Sofia) -> ME 861 (Samokov)
+				is_owned_and_controlled_by = ROOT
+			}
+			1564 = { # eu_mapping: v48 (Sofia) -> ME 1564 (Vidin)
+				is_owned_and_controlled_by = ROOT
+			}
+			1565 = { # eu_mapping: v48 (Sofia) -> ME 1565 (Montana)
+				is_owned_and_controlled_by = ROOT
+			}
+			1567 = { # eu_mapping: v48 (Sofia) -> ME 1567 (Pernik)
+				is_owned_and_controlled_by = ROOT
+			}
+			1568 = { # eu_mapping: v48 (Sofia) -> ME 1568 (Kyustendil)
+				is_owned_and_controlled_by = ROOT
+			}
+			2836 = { # eu_mapping: v48 (Sofia) -> ME 2836 (Ihtiman)
+				is_owned_and_controlled_by = ROOT
+			}
+			2837 = { # eu_mapping: v48 (Sofia) -> ME 2837 (Botevgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2838 = { # eu_mapping: v48 (Sofia) -> ME 2838 (Kostinbrod)
+				is_owned_and_controlled_by = ROOT
+			}
+			1580 = { # eu_mapping: v211 (Burgas) -> ME 1580 (Varna)
+				is_owned_and_controlled_by = ROOT
+			}
+			820 = { # eu_mapping: v211 (Burgas) -> ME 820 (Shumen)
+				is_owned_and_controlled_by = ROOT
+			}
+			868 = { # eu_mapping: v211 (Burgas) -> ME 868 (Burgas)
+				is_owned_and_controlled_by = ROOT
+			}
+			1572 = { # eu_mapping: v211 (Burgas) -> ME 1572 (Yambol)
+				is_owned_and_controlled_by = ROOT
+			}
+			1573 = { # eu_mapping: v211 (Burgas) -> ME 1573 (Sliven)
+				is_owned_and_controlled_by = ROOT
+			}
+			1578 = { # eu_mapping: v211 (Burgas) -> ME 1578 (Razgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2525 = { # eu_mapping: v211 (Burgas) -> ME 2525 (Strandzha)
+				is_owned_and_controlled_by = ROOT
+			}
+			878 = { # eu_mapping: v212 (Plovdiv) -> ME 878 (Plovdiv)
+				is_owned_and_controlled_by = ROOT
+			}
+			877 = { # eu_mapping: v212 (Plovdiv) -> ME 877 (Stara Zagora)
+				is_owned_and_controlled_by = ROOT
+			}
+			900 = { # eu_mapping: v212 (Plovdiv) -> ME 900 (Bansko)
+				is_owned_and_controlled_by = ROOT
+			}
+			905 = { # eu_mapping: v212 (Plovdiv) -> ME 905 (Blagoevgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			913 = { # eu_mapping: v212 (Plovdiv) -> ME 913 (Kardzhali)
+				is_owned_and_controlled_by = ROOT
+			}
+			1569 = { # eu_mapping: v212 (Plovdiv) -> ME 1569 (Smolyan)
+				is_owned_and_controlled_by = ROOT
+			}
+			1570 = { # eu_mapping: v212 (Plovdiv) -> ME 1570 (Pazardzhik)
+				is_owned_and_controlled_by = ROOT
+			}
+			1571 = { # eu_mapping: v212 (Plovdiv) -> ME 1571 (Haskovo)
+				is_owned_and_controlled_by = ROOT
+			}
+			2524 = { # eu_mapping: v212 (Plovdiv) -> ME 2524 (Gotse Delchev)
+				is_owned_and_controlled_by = ROOT
+			}
+			2752 = { # eu_mapping: v212 (Plovdiv) -> ME 2752 (Chernoochene)
+				is_owned_and_controlled_by = ROOT
+			}
+			2833 = { # eu_mapping: v212 (Plovdiv) -> ME 2833 (Momchilgrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			2834 = { # eu_mapping: v212 (Plovdiv) -> ME 2834 (Tamrash)
+				is_owned_and_controlled_by = ROOT
+			}
+			2835 = { # eu_mapping: v212 (Plovdiv) -> ME 2835 (Svilengrad)
+				is_owned_and_controlled_by = ROOT
+			}
+			1575 = { # eu_mapping: v801 (Moesia) -> ME 1575 (Pleven)
+				is_owned_and_controlled_by = ROOT
+			}
+			831 = { # eu_mapping: v801 (Moesia) -> ME 831 (Veliko Tarnovo)
+				is_owned_and_controlled_by = ROOT
+			}
+			1574 = { # eu_mapping: v801 (Moesia) -> ME 1574 (Lovech)
+				is_owned_and_controlled_by = ROOT
+			}
+			1576 = { # eu_mapping: v801 (Moesia) -> ME 1576 (Gabrovo)
+				is_owned_and_controlled_by = ROOT
+			}
+			1577 = { # eu_mapping: v801 (Moesia) -> ME 1577 (Ruse)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_hun_tt
+			# Hungary
+			633 = { # eu_mapping: v43 (Northern Hungary) -> ME 633 (Pest-Pilis)
+				is_owned_and_controlled_by = ROOT
+			}
+			596 = { # eu_mapping: v43 (Northern Hungary) -> ME 596 (Borsod)
+				is_owned_and_controlled_by = ROOT
+			}
+			601 = { # eu_mapping: v43 (Northern Hungary) -> ME 601 (Abaúj)
+				is_owned_and_controlled_by = ROOT
+			}
+			611 = { # eu_mapping: v43 (Northern Hungary) -> ME 611 (Nógrád)
+				is_owned_and_controlled_by = ROOT
+			}
+			619 = { # eu_mapping: v43 (Northern Hungary) -> ME 619 (Heves)
+				is_owned_and_controlled_by = ROOT
+			}
+			748 = { # eu_mapping: v43 (Northern Hungary) -> ME 748 (Zemplén)
+				is_owned_and_controlled_by = ROOT
+			}
+			2314 = { # eu_mapping: v43 (Northern Hungary) -> ME 2314 (Jászság)
+				is_owned_and_controlled_by = ROOT
+			}
+			2526 = { # eu_mapping: v43 (Northern Hungary) -> ME 2526 (Cegléd)
+				is_owned_and_controlled_by = ROOT
+			}
+			631 = { # eu_mapping: v154 (Transtisza) -> ME 631 (Hajdú)
+				is_owned_and_controlled_by = ROOT
+			}
+			603 = { # eu_mapping: v154 (Transtisza) -> ME 603 (Szabolcs)
+				is_owned_and_controlled_by = ROOT
+			}
+			608 = { # eu_mapping: v154 (Transtisza) -> ME 608 (Mátészalka)
+				is_owned_and_controlled_by = ROOT
+			}
+			646 = { # eu_mapping: v154 (Transtisza) -> ME 646 (Nagykun-Szolnok)
+				is_owned_and_controlled_by = ROOT
+			}
+			662 = { # eu_mapping: v154 (Transtisza) -> ME 662 (Berettyóújfalu)
+				is_owned_and_controlled_by = ROOT
+			}
+			677 = { # eu_mapping: v154 (Transtisza) -> ME 677 (Békés)
+				is_owned_and_controlled_by = ROOT
+			}
+			711 = { # eu_mapping: v154 (Transtisza) -> ME 711 (Csanád, Arad és Torontál)
+				is_owned_and_controlled_by = ROOT
+			}
+			1989 = { # eu_mapping: v154 (Transtisza) -> ME 1989 (Deszk)
+				is_owned_and_controlled_by = ROOT
+			}
+			2244 = { # eu_mapping: v154 (Transtisza) -> ME 2244 (Makó)
+				is_owned_and_controlled_by = ROOT
+			}
+			2245 = { # eu_mapping: v154 (Transtisza) -> ME 2245 (Szentes)
+				is_owned_and_controlled_by = ROOT
+			}
+			624 = { # eu_mapping: v155 (North Transdanubia) -> ME 624 (Győr és Pozsony)
+				is_owned_and_controlled_by = ROOT
+			}
+			636 = { # eu_mapping: v155 (North Transdanubia) -> ME 636 (Esztergom)
+				is_owned_and_controlled_by = ROOT
+			}
+			641 = { # eu_mapping: v155 (North Transdanubia) -> ME 641 (Sopron)
+				is_owned_and_controlled_by = ROOT
+			}
+			648 = { # eu_mapping: v155 (North Transdanubia) -> ME 648 (Fejér)
+				is_owned_and_controlled_by = ROOT
+			}
+			659 = { # eu_mapping: v155 (North Transdanubia) -> ME 659 (Veszprém)
+				is_owned_and_controlled_by = ROOT
+			}
+			663 = { # eu_mapping: v155 (North Transdanubia) -> ME 663 (Vas)
+				is_owned_and_controlled_by = ROOT
+			}
+			676 = { # eu_mapping: v155 (North Transdanubia) -> ME 676 (Zala)
+				is_owned_and_controlled_by = ROOT
+			}
+			1819 = { # eu_mapping: v155 (North Transdanubia) -> ME 1819 (Balatonfüred)
+				is_owned_and_controlled_by = ROOT
+			}
+			2527 = { # eu_mapping: v155 (North Transdanubia) -> ME 2527 (Kapuvár)
+				is_owned_and_controlled_by = ROOT
+			}
+			2954 = { # eu_mapping: v155 (North Transdanubia) -> ME 2954 (Buda)
+				is_owned_and_controlled_by = ROOT
+			}
+			2955 = { # eu_mapping: v155 (North Transdanubia) -> ME 2955 (Moson)
+				is_owned_and_controlled_by = ROOT
+			}
+			700 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 700 (Szeged)
+				is_owned_and_controlled_by = ROOT
+			}
+			726 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 726 (Bácsalmás)
+				is_owned_and_controlled_by = ROOT
+			}
+			1821 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 1821 (Solt-Kiskun)
+				is_owned_and_controlled_by = ROOT
+			}
+			2857 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 2857 (Baja)
+				is_owned_and_controlled_by = ROOT
+			}
+			2858 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 2858 (Jánoshalma)
+				is_owned_and_controlled_by = ROOT
+			}
+			2882 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 2882 (Mórahalom)
+				is_owned_and_controlled_by = ROOT
+			}
+			722 = { # eu_mapping: v974 (South Transdanubia) -> ME 722 (Pécs)
+				is_owned_and_controlled_by = ROOT
+			}
+			690 = { # eu_mapping: v974 (South Transdanubia) -> ME 690 (Somogy)
+				is_owned_and_controlled_by = ROOT
+			}
+			697 = { # eu_mapping: v974 (South Transdanubia) -> ME 697 (Tolna)
+				is_owned_and_controlled_by = ROOT
+			}
+			1820 = { # eu_mapping: v974 (South Transdanubia) -> ME 1820 (Siófok)
+				is_owned_and_controlled_by = ROOT
+			}
+			2022 = { # eu_mapping: v974 (South Transdanubia) -> ME 2022 (Barcs)
+				is_owned_and_controlled_by = ROOT
+			}
+			2023 = { # eu_mapping: v974 (South Transdanubia) -> ME 2023 (Komló)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_alb_tt
+			# Albania
+			1521 = { # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+				is_owned_and_controlled_by = ROOT
+			}
+			1522 = { # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+				is_owned_and_controlled_by = ROOT
+			}
+			1523 = { # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+				is_owned_and_controlled_by = ROOT
+			}
+			1524 = { # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+				is_owned_and_controlled_by = ROOT
+			}
+			1525 = { # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+				is_owned_and_controlled_by = ROOT
+			}
+			2372 = { # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
+				is_owned_and_controlled_by = ROOT
+			}
+			885 = { # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+				is_owned_and_controlled_by = ROOT
+			}
+			1526 = { # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+				is_owned_and_controlled_by = ROOT
+			}
+			2373 = { # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+				is_owned_and_controlled_by = ROOT
+			}
+			1519 = { # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
+				is_owned_and_controlled_by = ROOT
+			}
+			1518 = { # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
+				is_owned_and_controlled_by = ROOT
+			}
+			1520 = { # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
+				is_owned_and_controlled_by = ROOT
+			}
+			2242 = { # eu_mapping: v934 (Shkodër) -> ME 2242 (Puka)
+				is_owned_and_controlled_by = ROOT
+			}
+			2696 = { # eu_mapping: v934 (Shkodër) -> ME 2696 (Bajram Curri)
+				is_owned_and_controlled_by = ROOT
+			}
+			2749 = { # eu_mapping: v934 (Shkodër) -> ME 2749 (Burrel)
+				is_owned_and_controlled_by = ROOT
+			}
+			2750 = { # eu_mapping: v934 (Shkodër) -> ME 2750 (Shupenzë)
+				is_owned_and_controlled_by = ROOT
+			}
+			2938 = { # eu_mapping: v934 (Shkodër) -> ME 2938 (Has)
+				is_owned_and_controlled_by = ROOT
+			}
+			2939 = { # eu_mapping: v934 (Shkodër) -> ME 2939 (Vau i Dejës)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_gre_tt
+			# Greece
+			633 = { # eu_mapping: v43 (Northern Hungary) -> ME 633 (Pest-Pilis)
+				is_owned_and_controlled_by = ROOT
+			}
+			596 = { # eu_mapping: v43 (Northern Hungary) -> ME 596 (Borsod)
+				is_owned_and_controlled_by = ROOT
+			}
+			601 = { # eu_mapping: v43 (Northern Hungary) -> ME 601 (Abaúj)
+				is_owned_and_controlled_by = ROOT
+			}
+			611 = { # eu_mapping: v43 (Northern Hungary) -> ME 611 (Nógrád)
+				is_owned_and_controlled_by = ROOT
+			}
+			619 = { # eu_mapping: v43 (Northern Hungary) -> ME 619 (Heves)
+				is_owned_and_controlled_by = ROOT
+			}
+			748 = { # eu_mapping: v43 (Northern Hungary) -> ME 748 (Zemplén)
+				is_owned_and_controlled_by = ROOT
+			}
+			2314 = { # eu_mapping: v43 (Northern Hungary) -> ME 2314 (Jászság)
+				is_owned_and_controlled_by = ROOT
+			}
+			2526 = { # eu_mapping: v43 (Northern Hungary) -> ME 2526 (Cegléd)
+				is_owned_and_controlled_by = ROOT
+			}
+			1558 = { # eu_mapping: v182 (Crete) -> ME 1558 (Khaniá)
+				is_owned_and_controlled_by = ROOT
+			}
+			1173 = { # eu_mapping: v182 (Crete) -> ME 1173 (Lasíthi)
+				is_owned_and_controlled_by = ROOT
+			}
+			1559 = { # eu_mapping: v182 (Crete) -> ME 1559 (Réthimno)
+				is_owned_and_controlled_by = ROOT
+			}
+			1560 = { # eu_mapping: v182 (Crete) -> ME 1560 (Irákleio)
+				is_owned_and_controlled_by = ROOT
+			}
+			1548 = { # eu_mapping: v184 (Thrace) -> ME 1548 (Kavala)
+				is_owned_and_controlled_by = ROOT
+			}
+			910 = { # eu_mapping: v184 (Thrace) -> ME 910 (Alexandroupoli)
+				is_owned_and_controlled_by = ROOT
+			}
+			929 = { # eu_mapping: v184 (Thrace) -> ME 929 (Drama)
+				is_owned_and_controlled_by = ROOT
+			}
+			937 = { # eu_mapping: v184 (Thrace) -> ME 937 (Rhodope)
+				is_owned_and_controlled_by = ROOT
+			}
+			1969 = { # eu_mapping: v184 (Thrace) -> ME 1969 (Didymoteicho)
+				is_owned_and_controlled_by = ROOT
+			}
+			2005 = { # eu_mapping: v184 (Thrace) -> ME 2005 (Feres)
+				is_owned_and_controlled_by = ROOT
+			}
+			2006 = { # eu_mapping: v184 (Thrace) -> ME 2006 (Petrota)
+				is_owned_and_controlled_by = ROOT
+			}
+			2016 = { # eu_mapping: v184 (Thrace) -> ME 2016 (Katafigio)
+				is_owned_and_controlled_by = ROOT
+			}
+			2751 = { # eu_mapping: v184 (Thrace) -> ME 2751 (Xanthi)
+				is_owned_and_controlled_by = ROOT
+			}
+			2756 = { # eu_mapping: v184 (Thrace) -> ME 2756 (Thasos)
+				is_owned_and_controlled_by = ROOT
+			}
+			2840 = { # eu_mapping: v184 (Thrace) -> ME 2840 (Skaloti)
+				is_owned_and_controlled_by = ROOT
+			}
+			995 = { # eu_mapping: v185 (Epirus) -> ME 995 (Ioannina)
+				is_owned_and_controlled_by = ROOT
+			}
+			969 = { # eu_mapping: v185 (Epirus) -> ME 969 (Florina)
+				is_owned_and_controlled_by = ROOT
+			}
+			1044 = { # eu_mapping: v185 (Epirus) -> ME 1044 (Aitoloakarnanía)
+				is_owned_and_controlled_by = ROOT
+			}
+			1061 = { # eu_mapping: v185 (Epirus) -> ME 1061 (Zakynthos)
+				is_owned_and_controlled_by = ROOT
+			}
+			1540 = { # eu_mapping: v185 (Epirus) -> ME 1540 (Trikala)
+				is_owned_and_controlled_by = ROOT
+			}
+			1541 = { # eu_mapping: v185 (Epirus) -> ME 1541 (Arta)
+				is_owned_and_controlled_by = ROOT
+			}
+			1542 = { # eu_mapping: v185 (Epirus) -> ME 1542 (Preveza)
+				is_owned_and_controlled_by = ROOT
+			}
+			1543 = { # eu_mapping: v185 (Epirus) -> ME 1543 (Thesprotia)
+				is_owned_and_controlled_by = ROOT
+			}
+			1550 = { # eu_mapping: v185 (Epirus) -> ME 1550 (Kerkyra)
+				is_owned_and_controlled_by = ROOT
+			}
+			1551 = { # eu_mapping: v185 (Epirus) -> ME 1551 (Kefalonia)
+				is_owned_and_controlled_by = ROOT
+			}
+			1561 = { # eu_mapping: v185 (Epirus) -> ME 1561 (Lefkada)
+				is_owned_and_controlled_by = ROOT
+			}
+			2001 = { # eu_mapping: v185 (Epirus) -> ME 2001 (Grevena)
+				is_owned_and_controlled_by = ROOT
+			}
+			2002 = { # eu_mapping: v185 (Epirus) -> ME 2002 (Kastoria)
+				is_owned_and_controlled_by = ROOT
+			}
+			2015 = { # eu_mapping: v185 (Epirus) -> ME 2015 (Kardista)
+				is_owned_and_controlled_by = ROOT
+			}
+			2021 = { # eu_mapping: v185 (Epirus) -> ME 2021 (Evrytania)
+				is_owned_and_controlled_by = ROOT
+			}
+			2922 = { # eu_mapping: v185 (Epirus) -> ME 2922 (Prespa)
+				is_owned_and_controlled_by = ROOT
+			}
+			1536 = { # eu_mapping: v186 (Peloponnese) -> ME 1536 (Messinía)
+				is_owned_and_controlled_by = ROOT
+			}
+			1073 = { # eu_mapping: v186 (Peloponnese) -> ME 1073 (Argolis-Corinthia)
+				is_owned_and_controlled_by = ROOT
+			}
+			1089 = { # eu_mapping: v186 (Peloponnese) -> ME 1089 (Lakonía)
+				is_owned_and_controlled_by = ROOT
+			}
+			1537 = { # eu_mapping: v186 (Peloponnese) -> ME 1537 (Ileia)
+				is_owned_and_controlled_by = ROOT
+			}
+			1538 = { # eu_mapping: v186 (Peloponnese) -> ME 1538 (Arkadía)
+				is_owned_and_controlled_by = ROOT
+			}
+			1539 = { # eu_mapping: v186 (Peloponnese) -> ME 1539 (Akhaïa)
+				is_owned_and_controlled_by = ROOT
+			}
+			1562 = { # eu_mapping: v186 (Peloponnese) -> ME 1562 (Kythira)
+				is_owned_and_controlled_by = ROOT
+			}
+			1552 = { # eu_mapping: v187 (Aegean Islands) -> ME 1552 (Lesbos)
+				is_owned_and_controlled_by = ROOT
+			}
+			1553 = { # eu_mapping: v187 (Aegean Islands) -> ME 1553 (Samos)
+				is_owned_and_controlled_by = ROOT
+			}
+			1555 = { # eu_mapping: v187 (Aegean Islands) -> ME 1555 (Kyklades)
+				is_owned_and_controlled_by = ROOT
+			}
+			1556 = { # eu_mapping: v187 (Aegean Islands) -> ME 1556 (Chíos)
+				is_owned_and_controlled_by = ROOT
+			}
+			2004 = { # eu_mapping: v187 (Aegean Islands) -> ME 2004 (Milos)
+				is_owned_and_controlled_by = ROOT
+			}
+			2564 = { # eu_mapping: v187 (Aegean Islands) -> ME 2564 (Samothraki)
+				is_owned_and_controlled_by = ROOT
+			}
+			2839 = { # eu_mapping: v187 (Aegean Islands) -> ME 2839 (Ikaria)
+				is_owned_and_controlled_by = ROOT
+			}
+			2949 = { # eu_mapping: v187 (Aegean Islands) -> ME 2949 (Limnos)
+				is_owned_and_controlled_by = ROOT
+			}
+			941 = { # eu_mapping: v731 (Central Macedonia) -> ME 941 (Thessaloniki)
+				is_owned_and_controlled_by = ROOT
+			}
+			1544 = { # eu_mapping: v731 (Central Macedonia) -> ME 1544 (Kozani)
+				is_owned_and_controlled_by = ROOT
+			}
+			1545 = { # eu_mapping: v731 (Central Macedonia) -> ME 1545 (Pella)
+				is_owned_and_controlled_by = ROOT
+			}
+			1546 = { # eu_mapping: v731 (Central Macedonia) -> ME 1546 (Kilkis)
+				is_owned_and_controlled_by = ROOT
+			}
+			1547 = { # eu_mapping: v731 (Central Macedonia) -> ME 1547 (Chalkidiki)
+				is_owned_and_controlled_by = ROOT
+			}
+			1549 = { # eu_mapping: v731 (Central Macedonia) -> ME 1549 (Serres)
+				is_owned_and_controlled_by = ROOT
+			}
+			1557 = { # eu_mapping: v731 (Central Macedonia) -> ME 1557 (Oros Athos)
+				is_owned_and_controlled_by = ROOT
+			}
+			2000 = { # eu_mapping: v731 (Central Macedonia) -> ME 2000 (Stavros)
+				is_owned_and_controlled_by = ROOT
+			}
+			2020 = { # eu_mapping: v731 (Central Macedonia) -> ME 2020 (Pieria)
+				is_owned_and_controlled_by = ROOT
+			}
+			2748 = { # eu_mapping: v731 (Central Macedonia) -> ME 2748 (Koufalia)
+				is_owned_and_controlled_by = ROOT
+			}
+			2923 = { # eu_mapping: v731 (Central Macedonia) -> ME 2923 (Veria)
+				is_owned_and_controlled_by = ROOT
+			}
+			2940 = { # eu_mapping: v731 (Central Macedonia) -> ME 2940 (Lefkochori)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = united_balkans_tur_tt
+			# Turkey
+			928 = { # eu_mapping: v341 (Edirne) -> ME 928 (Edirne)
+				is_owned_and_controlled_by = ROOT
+			}
+			906 = { # eu_mapping: v341 (Edirne) -> ME 906 (Kırklareli)
+				is_owned_and_controlled_by = ROOT
+			}
+			1933 = { # eu_mapping: v341 (Edirne) -> ME 1933 (Tekirdağ)
+				is_owned_and_controlled_by = ROOT
+			}
+			1934 = { # eu_mapping: v341 (Edirne) -> ME 1934 (Gelibolu)
+				is_owned_and_controlled_by = ROOT
+			}
+			1938 = { # eu_mapping: v341 (Edirne) -> ME 1938 (Hayrabolu)
+				is_owned_and_controlled_by = ROOT
+			}
+			2753 = { # eu_mapping: v341 (Edirne) -> ME 2753 (İğneada)
+				is_owned_and_controlled_by = ROOT
+			}
+			2754 = { # eu_mapping: v341 (Edirne) -> ME 2754 (İbriktepe)
+				is_owned_and_controlled_by = ROOT
+			}
+			2757 = { # eu_mapping: v341 (Edirne) -> ME 2757 (İmroz)
+				is_owned_and_controlled_by = ROOT
+			}
+			932 = { # eu_mapping: v797 (Istanbul) -> ME 932 (Batı İstanbul)
+				is_owned_and_controlled_by = ROOT
+			}
+			945 = { # eu_mapping: v797 (Istanbul) -> ME 945 (Doğu İstanbul)
+				is_owned_and_controlled_by = ROOT
+			}
+			2770 = { # eu_mapping: v797 (Istanbul) -> ME 2770 (Silivri)
+				is_owned_and_controlled_by = ROOT
+			}
+			2771 = { # eu_mapping: v797 (Istanbul) -> ME 2771 (Şile)
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+		
 	}
 }

@@ -451,20 +451,37 @@ units = {
 
 ### Starting Production ###
 instant_effect = {
-	add_equipment_production = {
-		equipment = {
-			type = infantry_equipment_1
-			creator = "ROM"
+	if = {
+		limit = {
+			has_dlc = "To The Bitter End"
 		}
-		requested_factories = 2
-		progress = 0.87
-		efficiency = 100
-		industrial_manufacturer = mio:ROM_cugir_organization
+		add_equipment_production = {
+			equipment = {
+				type = infantry_equipment_1
+				creator = ROM
+			}
+			requested_factories = 2
+			progress = 0.87
+			efficiency = 100
+			industrial_manufacturer = mio:ROM_cugir_organization_ba
+		}
+	}
+	else = {
+		add_equipment_production = {
+			equipment = {
+				type = infantry_equipment_1
+				creator = ROM
+			}
+			requested_factories = 2
+			progress = 0.87
+			efficiency = 100
+			industrial_manufacturer = mio:ROM_cugir_organization
+		}
 	}
 	add_equipment_production = {
 		equipment = {
 			type = support_equipment_1
-			creator = "ROM"
+			creator = ROM
 		}
 		requested_factories = 1
 		progress = 0.19
@@ -473,12 +490,21 @@ instant_effect = {
 	add_equipment_production = {
 		equipment = {
 			type = artillery_equipment_1
-			creator = "ROM"
+			creator = ROM
 		}
 		requested_factories = 1
 		progress = 0.24
 		efficiency = 100
 		industrial_manufacturer = mio:ROM_resita_works_organization
 	}
-
+	add_equipment_production = {
+		equipment = {
+			type = train_equipment_1
+			creator = ROM
+		}
+		requested_factories = 2
+		progress = 0.5
+		efficiency = 100
+		industrial_manufacturer = mio:ROM_malaxa_organization_ba
+	}
 }

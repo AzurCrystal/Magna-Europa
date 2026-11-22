@@ -1,0 +1,26 @@
+# Scripted cost modifiers for peace actions.
+# See documentation.info file for more detailed scripting information.
+# 1.19-migration: ETH_agreed_state_peace_cost_modifier dropped — it required the dynamic modifier
+# ETH_arranged_expansion_modifier, which ME does not define (ETH focus tree cut).
+
+peace_action_modifiers = {
+
+    ETH_end_of_civil_war_cost_modifier_low = {
+        category = treaties_or_conferences
+        peace_action_type = take_states
+
+        enable = {
+            FROM = {
+                tag = ETH
+                has_civil_war = yes
+            }
+            FROM.FROM.FROM = {
+                is_core_of = ETH
+                NOT = { has_state_flag = ETH_cede_state_flag }
+            }
+        }
+
+        cost_multiplier = 0.2
+    }
+
+}

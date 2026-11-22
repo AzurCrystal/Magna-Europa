@@ -24,7 +24,7 @@ focus_tree = {
 		}
 	}
 	continuous_focus_position = { x = 50 y = 1600 }
-	shared_focus = ABDA_abdacom
+	#shared_focus = ABDA_abdacom   # 1.19-migration: dead tag ABDA
 	default = no
 #	focus = {
 #		id = USA_
@@ -797,6 +797,7 @@ focus_tree = {
 		mutually_exclusive = { focus = USA_unholy_alliance }
 		relative_position_id = USA_reach_out_to_the_ware_group
 		cost = 10
+		allow_branch = { has_global_flag = NEVER }
 
 		ai_will_do = {
 			factor = 1
@@ -925,10 +926,11 @@ focus_tree = {
 			if = {
 				limit = {
 					#JAP = {   # 1.19-migration: dead tag JAP
-						not = { has_government = communism }
-						not = { has_government = democratic }
-						not = { is_in_faction_with = ROOT }
-					}
+						#not = { has_government = communism }
+						#not = { has_government = democratic }
+						#not = { is_in_faction_with = ROOT }
+					#}
+					always = no
 				}
 				create_wargoal = {
 					#target = JAP   # 1.19-migration: dead tag JAP
@@ -940,8 +942,9 @@ focus_tree = {
 				limit = {
 					#MAN = {   # 1.19-migration: dead tag MAN
 						#has_completed_focus = MAN_imperial_divinity   # 1.19-migration: dead tag MAN
-						not = { is_in_faction_with = ROOT }
-					}
+						#not = { is_in_faction_with = ROOT }
+					#}
+					always = no
 				}
 				create_wargoal = {
 					#target = MAN   # 1.19-migration: dead tag MAN
@@ -1716,6 +1719,7 @@ focus_tree = {
 		}
 
 		cost = 10
+		allow_branch = { has_global_flag = NEVER }
 
 		ai_will_do = {
 			factor = 1
@@ -3715,43 +3719,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = USA_eliminate_the_southern_threat
-		icon = GFX_goal_generic_military_sphere
-		x = -1
-		y = 2
-		prerequisite = { focus = USA_seize_cuba }
-		relative_position_id = USA_war_powers_act
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-
-		}
-		
-		bypass = {
-			#MEX = {   # 1.19-migration: dead tag MEX
-				OR = {
-					is_subject_of = ROOT
-					exists = no
-					has_War_with = ROOT
-				}
-			}
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			#MEX = {   # 1.19-migration: dead tag MEX
-				country_event = mtg_usa_southern_threat.1
-			}
-		}
-	}
-	focus = {
 		id = USA_the_canadian_corridor
 		icon = GFX_goal_generic_position_armies
 		x = 1
@@ -3833,7 +3800,7 @@ focus_tree = {
 		x = 0
 		y = 3
 		prerequisite = { focus = USA_the_canadian_corridor }
-		prerequisite = { focus = USA_eliminate_the_southern_threat }
+		#prerequisite = { focus = USA_eliminate_the_southern_threat }   # 1.19-migration: focus absent in ME (dead MEX/CUB content); matches ME 1.18
 		relative_position_id = USA_war_powers_act
 		cost = 10
 
@@ -3848,33 +3815,33 @@ focus_tree = {
 		bypass = {
 
 				#CUB = {   # 1.19-migration: dead tag CUB
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#HAI = {   # 1.19-migration: dead tag HAI
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#DOM = {   # 1.19-migration: dead tag DOM
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#GUA = {   # 1.19-migration: dead tag GUA
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				CAN = {
 					OR = {
 						exists = no
@@ -3883,47 +3850,48 @@ focus_tree = {
 					}
 				}
 				#MEX = {   # 1.19-migration: dead tag MEX
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#HON = {   # 1.19-migration: dead tag HON
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#NIC = {   # 1.19-migration: dead tag NIC
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#PAN = {   # 1.19-migration: dead tag PAN
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#COS = {   # 1.19-migration: dead tag COS
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
 				#ELS = {   # 1.19-migration: dead tag ELS
-					OR = {
-						exists = no
-						has_war_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
+					#OR = {
+						#exists = no
+						#has_war_with = ROOT
+						#is_subject_of = ROOT
+					#}
+				#}
+			always = no
 		}
 
 		cancel_if_invalid = yes
@@ -4043,8 +4011,9 @@ focus_tree = {
 		icon = GFX_focus_generic_diplomatic_treaty
 		x = 0
 		y = 6
-		prerequisite = { focus = USA_secure_asia }
-		prerequisite = { focus = USA_protect_south_america }
+		#prerequisite = { focus = USA_secure_asia }   # 1.19-migration: focus absent in ME (Asia cut)
+		#prerequisite = { focus = USA_protect_south_america }   # 1.19-migration: focus absent in ME (South America cut)
+		prerequisite = { focus = USA_strategic_interests }
 		relative_position_id = USA_war_powers_act
 		cost = 10
 
@@ -4228,35 +4197,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = USA_war_plan_green
-		icon = GFX_focus_attack_mexico
-		x = -1
-		y = 1
-		prerequisite = { focus = USA_intervention_in_the_americas }
-		relative_position_id = USA_intervention_in_the_americas
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			unlock_decision_tooltip = { decision = USA_execute_war_plan_green show_effect_tooltip = yes show_modifiers = yes }
-		}
-	}
-	focus = {
 		id = USA_war_plan_crimson
 		icon = GFX_focus_attack_canada
 		x = 1
@@ -4388,10 +4328,7 @@ focus_tree = {
 				limit = {
 					is_in_faction = no
 				}
-				create_faction_from_template = {
-					template = faction_template_pan_american
-					name = USA_hemisphere_defense_faction
-				}
+				create_faction = USA_hemisphere_defense_faction   # 1.19-migration: restored ME behavior; faction_template_pan_american is cut in ME (common/factions/templates/generic_factions.txt:442)
 			}
 			if = {
 				limit = {
@@ -4699,64 +4636,6 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = USA_war_plan_ruby
-		icon = GFX_focus_attack_india
-		x = 4
-		y = 3
-		prerequisite = { focus = USA_war_plan_red }
-		relative_position_id = USA_intervention_in_europe
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			unlock_decision_tooltip = { decision = USA_execute_war_plan_ruby show_effect_tooltip = yes show_modifiers = yes }
-		}
-	}
-	focus = {
-		id = USA_war_plan_scarlet_garnet
-		icon = GFX_focus_attack_australia
-		x = 6
-		y = 3
-		prerequisite = { focus = USA_war_plan_red }
-		relative_position_id = USA_intervention_in_europe
-		cost = 10
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		available = {
-
-		}
-		
-		bypass = {
-
-		}
-
-		cancel_if_invalid = yes
-		continue_if_invalid = no
-		available_if_capitulated = no
-
-		completion_reward = {
-			unlock_decision_tooltip = { decision = USA_execute_war_plan_scarlet_garnet show_effect_tooltip = yes show_modifiers = yes }
-		}
-	}
-	focus = {
 		id = USA_intervention_in_asia
 		icon = GFX_goal_generic_major_war
 		x = 6
@@ -4764,6 +4643,7 @@ focus_tree = {
 		prerequisite = { focus = USA_war_plans_division }
 		relative_position_id = USA_war_plans_division
 		cost = 10
+		allow_branch = { has_global_flag = NEVER }
 
 		ai_will_do = {
 			factor = 1

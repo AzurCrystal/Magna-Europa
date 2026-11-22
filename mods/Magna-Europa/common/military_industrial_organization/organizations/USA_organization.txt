@@ -53,6 +53,10 @@ USA_chrysler_organization = {
 				has_dlc = "Man the Guns"
 			}
 			NOR_AAT = yes 
+			AND = {
+				original_tag = ROM
+				has_dlc = "To The Bitter End"
+			}
 		}
 	}
 
@@ -99,6 +103,14 @@ USA_chrysler_organization = {
 			}
 			FROM = { 
 				has_completed_focus = NOR_invite_transnational_manufacturers
+			}
+		}
+		else_if = {
+			limit = {
+				FROM = { tag = ROM }
+			}
+			FROM = { 
+				has_completed_focus = ROM_expand_american_cooperation
 			}
 		}
 	}
@@ -1420,11 +1432,30 @@ USA_ford_motor_company_organization = {
 			limit = {
 				FROM = { NOT = { original_tag = USA } }
 			}
-			FROM = { NOT = { has_war_with = USA } }
+			FROM = {
+				if = {
+					limit = {
+						original_tag = ROM
+						has_dlc = "To The Bitter End"
+					}
+					OR = {
+						NOT = { has_war_with = USA }
+						has_completed_focus = ROM_seize_ford_romania
+					}
+				}
+				else = {
+					NOT = { has_war_with = USA }
+				}
+			}
 		}
 
 		IF = {
-			limit = { FROM = { original_tag = ROM } }
+			limit = {
+				FROM = { original_tag = ROM }
+				NOT = {
+					has_dlc = "To The Bitter End"
+				}
+			}
 			FROM = { has_country_flag = USA_mot_chosen }
 		}
 		if = {
@@ -1537,6 +1568,37 @@ USA_ford_motor_company_organization = {
 		equipment_bonus = {
 			fuel_consumption = -0.10
 			reliability = -0.05
+		}
+
+		ai_will_do = {
+			base = 2
+		}
+	}
+
+	add_trait = {
+		token = ROM_mio_trait_american_advisors
+		name = ROM_mio_trait_american_advisors
+		icon = GFX_generic_mio_trait_icon_build_cost_ic
+		special_trait_background = yes
+
+		position = { x = 9 y = 0 }  
+		
+		visible = {
+			FROM = { original_tag = ROM }
+		}
+
+		available = {
+			FROM = {
+				has_completed_focus = ROM_expand_american_cooperation
+			}
+		}
+
+		on_complete = {
+		}
+
+		production_bonus = {
+			production_cost_factor = -0.1
+			production_capacity_factor = 0.05
 		}
 
 		ai_will_do = {

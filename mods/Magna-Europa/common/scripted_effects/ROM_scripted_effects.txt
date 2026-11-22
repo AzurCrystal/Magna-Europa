@@ -70,3 +70,3257 @@ calculate_claimant_effect = {
 		clr_state_flag = strongest_claimant_ROM
 	}
 }
+ROM_clear_diplo_variables = {
+	#all variables EXCEPT political power cost from ROM_international_relations dynamic modifier
+	clear_variable = ROM_diplo_army_armor_speed_factor
+	clear_variable = ROM_diplo_air_attack_factor
+	clear_variable = ROM_diplo_dig_in_speed_factor
+	clear_variable = ROM_diplo_decryption_factor
+	clear_variable = ROM_diplo_decryption_power_factor
+	clear_variable = ROM_diplo_command_power_gain
+	clear_variable = ROM_diplo_compliance_gain
+	clear_variable = ROM_diplo_subversive_activites_upkeep
+	clear_variable = ROM_diplo_war_support_factor
+	clear_variable = ROM_diplo_resistance_target
+	clear_variable = ROM_diplo_generate_wargoal_tension
+	clear_variable = ROM_diplo_army_org_regain
+	clear_variable = ROM_diplo_production_speed_arms_factory_factor
+
+	#shared
+	clear_variable = ROM_diplo_resistance_growth_on_our_occupied_states
+	clear_variable = ROM_diplo_command_abilities_cost_factor
+	clear_variable = ROM_diplo_stability_factor
+	clear_variable = ROM_diplo_mountaineers_special_forces_contribution_factor
+	clear_variable = ROM_diplo_army_claim_attack_factor
+	clear_variable = ROM_diplo_supply_consumption_factor
+	clear_variable = ROM_diplo_winter_attrition
+
+	#added in rebalance
+	clear_variable = ROM_diplo_production_factory_start_efficiency_factor
+	clear_variable = ROM_diplo_production_factory_max_efficiency_factor
+	clear_variable = ROM_diplo_production_factory_efficiency_gain_factor
+	clear_variable = ROM_diplo_local_resources_factor
+	clear_variable = ROM_diplo_industrial_capacity_factory
+	clear_variable = ROM_diplo_production_speed_industrial_complex_factor
+	clear_variable = ROM_diplo_production_lack_of_resource_penalty_factor
+	#clear_variable = ROM_diplo_line_change_production_efficiency_factor	#currently unused, would be a good candidate if something else is unbalanced
+}
+ROM_update_foreign_relations_dynamic_modifier = {			#ran by on-action if any relation changed
+	ROM_clear_diplo_variables = yes
+	for_each_scope_loop = {
+		array = global.rom_diplomacy_partners
+		if = {
+			limit = {
+				check_variable = { ROM_relation_var > 4.5 }
+			}
+			ROM_add_country_tier_5_buff = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { ROM_relation_var > 3.5 }
+			}
+			ROM_add_country_tier_4_buff = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { ROM_relation_var > 2.5 }
+			}
+			#ROM_add_country_tier_3_buff = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { ROM_relation_var > 1.5 }
+			}
+			ROM_add_country_tier_2_buff = yes
+		}
+		if = {	#tier 3 bonus stacks with the stats of 4 OR 5
+			limit = {
+				check_variable = { ROM_relation_var > 2.5 }
+			}
+			ROM_add_country_tier_3_buff = yes
+		}
+	}
+	force_update_dynamic_modifier = yes
+}
+ROM_add_country_tier_2_buff = {
+	if = {
+		limit = {
+			original_tag = GER
+		}
+		add_to_variable = {
+			ROM_diplo_supply_consumption_factor = -0.03
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_command_abilities_cost_factor = -0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ENG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_command_abilities_cost_factor = -0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_stability_factor = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = SOV
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_supply_consumption_factor = -0.03
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_winter_attrition = -0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = FRA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_growth_on_our_occupied_states = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = CZE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_stability_factor = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = POL
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_winter_attrition = -0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_growth_on_our_occupied_states = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ITA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_mountaineers_special_forces_contribution_factor = -0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = YUG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_growth_on_our_occupied_states = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = TUR
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_stability_factor = 0.02
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = GRE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_mountaineers_special_forces_contribution_factor = -0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = BUL
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_claim_attack_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = HUN
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_claim_attack_factor = 0.03
+		}
+	}
+}
+ROM_add_country_tier_3_buff = {
+	if = {
+		limit = {
+			original_tag = GER
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_command_abilities_cost_factor = -0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_supply_consumption_factor = -0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ENG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_command_abilities_cost_factor = -0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_stability_factor = 0.04
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = SOV
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_supply_consumption_factor = -0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_winter_attrition = -0.1
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = FRA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_growth_on_our_occupied_states = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = CZE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_stability_factor = 0.04
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = POL
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_winter_attrition = -0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_growth_on_our_occupied_states = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ITA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_mountaineers_special_forces_contribution_factor = -0.1
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = YUG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_growth_on_our_occupied_states = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = TUR
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_stability_factor = 0.04
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = GRE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_mountaineers_special_forces_contribution_factor = -0.1
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = BUL
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_claim_attack_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = HUN
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_claim_attack_factor = 0.05
+		}
+	}
+}
+ROM_add_country_tier_4_buff = {
+	if = {
+		limit = {
+			original_tag = GER
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_armor_speed_factor = 0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_lack_of_resource_penalty_factor = -0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ENG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_air_attack_factor = 0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_speed_industrial_complex_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = SOV
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_org_regain = 0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_max_efficiency_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = FRA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_dig_in_speed_factor = 0.15
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_efficiency_gain_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = CZE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_speed_arms_factory_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = POL
+		}
+		if = {
+			limit = {
+				has_dlc = "La Resistance"
+			}
+			add_to_variable = {
+				ROM.ROM_diplo_decryption_power_factor = 0.15
+			}
+			else = {
+				add_to_variable = {
+					ROM.ROM_diplo_decryption_factor = 0.15
+					tooltip = decryption_factor_tt
+				}
+			}
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_industrial_capacity_factory = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ITA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_command_power_gain = 0.1
+			tooltip = command_power_gain_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_start_efficiency_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = YUG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_compliance_gain = 0.03
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_start_efficiency_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = TUR
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_subversive_activites_upkeep = -0.3
+			tooltip = subversive_activites_upkeep_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_local_resources_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = GRE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_war_support_factor = 0.1
+			tooltip = war_support_factor_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_efficiency_gain_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = BUL
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_target = -0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_local_resources_factor = 0.03
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = HUN
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_generate_wargoal_tension = -0.15
+			tooltip = generate_wargoal_tension_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_max_efficiency_factor = 0.03
+		}
+	}
+}
+ROM_add_country_tier_5_buff = {
+	if = {
+		limit = {
+			original_tag = GER
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_armor_speed_factor = 0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_lack_of_resource_penalty_factor = -0.1
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ENG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_air_attack_factor = 0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_speed_industrial_complex_factor = 0.07
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = SOV
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_army_org_regain = 0.1
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_max_efficiency_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = FRA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_dig_in_speed_factor = 0.15
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_efficiency_gain_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = CZE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_speed_arms_factory_factor = 0.07
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = POL
+		}
+		if = {
+			limit = {
+				has_dlc = "La Resistance"
+			}
+			add_to_variable = {
+				ROM.ROM_diplo_decryption_power_factor = 0.2
+			}
+			else = {
+				add_to_variable = {
+					ROM.ROM_diplo_decryption_factor = 0.25
+					tooltip = decryption_factor_tt
+				}
+			}
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_industrial_capacity_factory = 0.07
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = ITA
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_command_power_gain = 0.15
+			tooltip = command_power_gain_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_start_efficiency_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = YUG
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_compliance_gain = 0.05
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_start_efficiency_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = TUR
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_subversive_activites_upkeep = -0.5
+			tooltip = subversive_activites_upkeep_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_local_resources_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = GRE
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_war_support_factor = 0.15
+			tooltip = war_support_factor_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_efficiency_gain_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = BUL
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_resistance_target = -0.15
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_local_resources_factor = 0.05
+		}
+	}
+	else_if = {
+		limit = {
+			original_tag = HUN
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_generate_wargoal_tension = -0.3
+			tooltip = generate_wargoal_tension_tt
+		}
+		add_to_variable = {
+			ROM.ROM_diplo_production_factory_max_efficiency_factor = 0.05
+		}
+	}
+}
+ROM_recalculate_foreign_relations_political_power_cost = {
+	set_variable = {
+		ROM_international_relations_political_power_cost = 0
+	}
+	for_each_scope_loop = {
+		array = global.rom_diplomacy_partners
+		if = {
+			limit = {
+				has_country_flag = ROM_improving_relations
+			}
+			ROM = {
+				add_to_variable = {
+					ROM_international_relations_political_power_cost = ROM_one_country_relations_boosting_cost
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = ROM_maintaining_relations_high
+			}
+			ROM = {
+				add_to_variable = {
+					ROM_international_relations_political_power_cost = ROM_one_country_relations_boosting_cost
+				}
+			}
+		}
+	}
+}
+ROM_update_arms_industry_modifier_cosmetics = {
+	hidden_effect = {
+		if = {
+			limit = {
+				count_triggers = {
+					amount = 2
+					has_completed_focus = ROM_invest_in_galati_shipyards
+					has_completed_focus = ROM_diversify_malaxa
+					has_completed_focus = ROM_domestic_tank_designs
+					has_completed_focus = ROM_invest_in_the_resita_group
+				}
+			}
+			if = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = ROM_underdeveloped_arms_industry_no_navy
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				remove_dynamic_modifier = {
+					modifier = ROM_underdeveloped_arms_industry_no_navy
+				}
+				add_dynamic_modifier = {
+					modifier = ROM_developing_arms_industry_no_navy
+				}
+			}
+			if = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = ROM_underdeveloped_arms_industry
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				remove_dynamic_modifier = {
+					modifier = ROM_underdeveloped_arms_industry
+				}
+				add_dynamic_modifier = {
+					modifier = ROM_developing_arms_industry
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_completed_focus = ROM_invest_in_galati_shipyards
+				count_triggers = {
+					amount = 2
+					has_completed_focus = ROM_diversify_malaxa
+					has_completed_focus = ROM_domestic_tank_designs
+					has_completed_focus = ROM_invest_in_the_resita_group
+				}
+				OR = {
+					has_dynamic_modifier = {
+						modifier = ROM_developing_arms_industry_no_navy
+					}
+					has_dynamic_modifier = {
+						modifier = ROM_developing_arms_industry
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = ROM_developing_arms_industry_no_navy
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				remove_dynamic_modifier = {
+					modifier = ROM_developing_arms_industry_no_navy
+				}
+			}
+			if = {
+				limit = {
+					has_dynamic_modifier = {
+						modifier = ROM_developing_arms_industry
+					}
+				}
+				custom_effect_tooltip = generic_skip_one_line_tt
+				remove_dynamic_modifier = {
+					modifier = ROM_developing_arms_industry
+				}
+			}
+			add_dynamic_modifier = {
+				modifier = ROM_developed_arms_industry
+			}
+		}
+	}
+}
+ROM_start_diplo_mechanic = {
+	set_country_flag = ROM_diplomacy_enabled
+	every_other_country = {
+		limit = {
+			OR = {
+				has_opinion_modifier = BFTB_balkan_pact_enemy
+				has_opinion_modifier = BFTB_balkan_pact_ally
+				has_guaranteed = ROOT
+				is_guaranteed_by = ROOT
+				original_tag = GER
+				original_tag = POL
+				original_tag = HUN
+				original_tag = ENG
+				original_tag = SOV
+				original_tag = BUL
+				original_tag = ITA
+			}
+		}
+
+		#used in localisation, so generate even before its first used
+		set_variable = { decay_multiplier = opinion@ROM }	#range: -100 - +100
+		multiply_variable = { decay_multiplier = -0.005 }	#range: +0.5 - -0.5
+		add_to_variable = { decay_multiplier = 1 }			#range: +1.5 - +0.5
+
+		add_to_array = {
+			global.rom_diplomacy_partners = THIS.id
+		}
+		set_variable = { ROM_relation_var = 1 } 
+	}
+	if = {
+		limit = {
+			has_start_date < 1937.1.1
+		}
+		FRA = { set_variable = { ROM_relation_var = 4 } }
+		POL = {
+			set_variable = { ROM_relation_var = 4 }
+		}
+		CZE = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 3 }
+			}
+		}
+		YUG = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 2 }
+			}
+		}
+		GRE = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 2 }
+			}
+		}
+		TUR = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 2 }
+			}
+		}
+	}
+	else = {
+		GER = { set_variable = { ROM_relation_var = 4 } }	#moving towards axis alliance
+		ITA = { set_variable = { ROM_relation_var = 4 } }	#moving towards axis alliance
+		FRA = { set_variable = { ROM_relation_var = 2 } }	#losing trust, but still guaranteed
+		POL = { set_variable = { ROM_relation_var = 3 } }	#arranged british guarantee, recent politics slightly damaged relation
+		ENG = { set_variable = { ROM_relation_var = 2 } }	#guaranteed irl, currently isnt represented in-game
+		YUG = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 3 }
+			}
+		}
+		GRE = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 3 }
+			}
+		}
+		TUR = {
+			if = {
+				limit = {
+					is_guaranteed_by = ROOT
+				}
+				set_variable = { ROM_relation_var = 3 }
+			}
+		}
+	}
+	SOV = { add_to_array = { ROM.blocked_diplo_countries = THIS.id } }
+	HUN = { add_to_array = { ROM.blocked_diplo_countries = THIS.id } }
+	BUL = { add_to_array = { ROM.blocked_diplo_countries = THIS.id } }
+	add_dynamic_modifier = {
+		modifier = ROM_international_relations
+	}
+	set_variable = { ROM_one_country_relations_boosting_cost = 0.25 }
+	set_variable = { ROM_one_country_relations_maintain_cost = 0.08 }
+
+	ROM_update_foreign_relations_dynamic_modifier = yes
+}
+ROM_setup_civil_war = {
+	hidden_effect = {	#Civil war setup
+		remove_ideas = ROM_king_carol_ii_ba
+		create_dynamic_country = {
+			original_tag = ROOT
+			reserve_dynamic_country = yes
+			set_country_flag = ROM_container_country
+			save_global_event_target_as = temp_ROM
+		}
+		create_dynamic_country = {
+			original_tag = ROOT
+			reserve_dynamic_country = yes
+			set_country_flag = ROM_status_quo_opposition
+			save_global_event_target_as = authoritarian_ROM
+		}
+		if = {
+			limit = {
+				#has_completed_focus = ROM_demand_legalization	#no longer available to democrats, makes it ever so slightly easier to debug this way
+			}
+			create_dynamic_country = {
+				original_tag = ROOT
+				reserve_dynamic_country = yes
+				set_country_flag = ROM_democratic_opposition
+				save_global_event_target_as = democratic_ROM
+			}
+			set_country_flag = ROM_communist_opposition
+			save_global_event_target_as = communist_ROM
+		}
+		# else = {
+		# 	create_dynamic_country = {
+		# 		original_tag = ROOT
+		# 		reserve_dynamic_country = yes
+		# 		set_country_flag = ROM_communist_opposition
+		# 		save_global_event_target_as = communist_ROM
+		# 	}
+		# 	set_country_flag = ROM_democratic_opposition
+		# 	save_global_event_target_as = democratic_ROM
+		# }
+		event_target:temp_ROM = {
+			ROOT = {
+				random_owned_state = {
+					transfer_state_to = PREV
+				}
+				every_character = {
+					if = {
+						limit = {
+							NOT = {
+								AND = {
+									ROOT = {
+										has_country_flag = ROM_communist_opposition
+									}
+									has_character_flag = ROM_is_communist_char
+								}
+								AND = {
+									ROOT = {
+										has_country_flag = ROM_democratic_opposition
+									}
+									has_character_flag = ROM_is_democratic_char
+								}
+							}
+						}
+						set_nationality = PREV.PREV
+					}
+				}
+			}
+			annex_country = {
+				target = PREV
+				transfer_troops = yes
+			}
+			every_owned_state = {
+				limit = {
+					is_core_of = ROM
+				}
+				teleport_armies = {
+					limit = {
+						tag = PREV
+					}
+					to_state = 46	#teleport out of enemies lands
+				}
+			}
+			1601 = { # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+				}
+			}
+			794 = { # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+				}
+			}
+			1604 = { # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			592 = { # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			600 = { # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			1602 = { # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			1603 = { # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			1605 = { # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			1606 = { # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			2744 = { # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			2745 = { # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			2980 = { # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:communist_ROM
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+				else = {
+					1594 = { # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+						transfer_state_to = event_target:communist_ROM
+					}
+					609 = { # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+						transfer_state_to = event_target:communist_ROM
+					}
+					629 = { # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+						transfer_state_to = event_target:communist_ROM
+					}
+					655 = { # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					667 = { # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+						transfer_state_to = event_target:communist_ROM
+					}
+					689 = { # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+						transfer_state_to = event_target:communist_ROM
+					}
+					698 = { # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					733 = { # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+						transfer_state_to = event_target:communist_ROM
+					}
+					739 = { # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1590 = { # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1591 = { # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1592 = { # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1593 = { # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1595 = { # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1596 = { # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1597 = { # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1598 = { # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1600 = { # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2360 = { # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+						transfer_state_to = event_target:communist_ROM
+					}
+					2361 = { # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+						transfer_state_to = event_target:communist_ROM
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						if = {
+							limit = {
+								is_owned_by = PREV.PREV
+							}
+							transfer_state_to = event_target:communist_ROM
+						}
+					}
+				}
+			}
+			737 = { # eu_mapping: v84 (Transylvania) -> ME 737 (Brașov)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			692 = { # eu_mapping: v84 (Transylvania) -> ME 692 (Turda)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			713 = { # eu_mapping: v84 (Transylvania) -> ME 713 (Alba Iulia)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			727 = { # eu_mapping: v84 (Transylvania) -> ME 727 (Hunedoara)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			730 = { # eu_mapping: v84 (Transylvania) -> ME 730 (Sibiu)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			1583 = { # eu_mapping: v84 (Transylvania) -> ME 1583 (Târnava Mică)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			1584 = { # eu_mapping: v84 (Transylvania) -> ME 1584 (Târnava-Mare)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			1585 = { # eu_mapping: v84 (Transylvania) -> ME 1585 (Făgăraș)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			2024 = { # eu_mapping: v84 (Transylvania) -> ME 2024 (Sebeș)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			2261 = { # eu_mapping: v84 (Transylvania) -> ME 2261 (Brad)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			2678 = { # eu_mapping: v84 (Transylvania) -> ME 2678 (Câmpeni)
+				if = {
+					limit = {
+						is_owned_by = PREV
+					}
+					transfer_state_to = event_target:democratic_ROM
+				}
+				else = {
+					797 = { # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					759 = { # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					774 = { # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					781 = { # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					800 = { # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2359 = { # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2363 = { # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+						transfer_state_to = event_target:democratic_ROM
+					}
+					2364 = { # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+						transfer_state_to = event_target:democratic_ROM
+					}
+				}
+			}
+			every_owned_state = {
+				limit = {
+					OR = {
+						region = 27
+						state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+					}
+				}
+				transfer_state_to = event_target:democratic_ROM
+			}
+			#every remaining character/state/unit goes to the monarchists
+			every_character = {
+				set_nationality = event_target:authoritarian_ROM
+			}
+			transfer_units_fraction= {
+				target = event_target:communist_ROM
+				size = 0.2
+				stockpile_ratio = 0.2
+				army_ratio = 0.13		#improvised value based on previous civil war-making
+				navy_ratio = 0.2		#they do have a port, let a few captains defect
+				air_ratio = 0.08		#based on airforce in their region
+				keep_unit_leaders_trigger = {
+					always = yes
+				}
+			}
+			transfer_units_fraction= {
+				target = event_target:democratic_ROM
+				size = 0.5
+				stockpile_ratio = 0.45	#doesnt have most defense industry
+				army_ratio = 0.55		#little bit to compensate
+				navy_ratio = 0			#doesnt spawn coastal
+				air_ratio = 0.6			#lots of planes in their region
+				keep_unit_leaders_trigger = {
+					always = yes
+				}
+			}
+			event_target:authoritarian_ROM = {
+				annex_country = {
+					target = PREV
+					transfer_troops = yes
+				}
+			}
+			reserve_dynamic_country = no
+			clear_global_event_target = temp_ROM
+		}
+		event_target:communist_ROM = {
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			remove_ideas = ROM_a_flawed_democracy
+			add_ideas = {
+				extensive_conscription
+				war_economy
+			}
+			event_target:authoritarian_ROM = {
+				every_character = {
+					limit = {
+						has_character_flag = ROM_is_communist_char
+					}
+					set_nationality = PREV.PREV
+				}
+			}
+			add_offsite_building = { type = arms_factory level = 2 }
+			create_corps_commander = {
+				traits = { JAP_communist_sympathizer politically_connected }
+				attack_skill = 2
+				defense_skill = 2
+				planning_skill = 2
+				logistics_skill = 1
+				skill = 2
+			}
+			set_variable = {
+				var = ROM_soviet_influence
+				value = 0
+			}
+			add_equipment_to_stockpile = { #buff to compensate for lack of industry, 4 divisions worth
+				type = infantry_equipment
+				amount = 3000	#nerfed from 4k since it was too easy
+				producer = ROM
+			}
+			division_template = {
+				name = "Militia Muncitorilor"
+				#is_locked = yes
+
+				division_names_group = ROM_Inf_01
+
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			set_temp_variable = {
+				unit_count_target = 8	#nerfed from 11 since it was too easy
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						unit_count_target > 0
+					}
+				}
+				every_controlled_state = {
+					if = {
+						limit = {
+							check_variable = {
+								unit_count_target > 0
+							}
+						}
+						subtract_from_temp_variable = { unit_count_target = 1 }
+						create_unit = {
+							division = "name = \"Militia Muncitorilor\" division_template = \"Militia Muncitorilor\" start_experience_factor = 0.05"
+							owner = PREV
+						}
+					}
+				}
+			}
+			promote_character = ROM_petru_groza
+			set_popularities = {
+				democratic = 20
+				neutrality = 5
+				fascism = 0
+				communism = 75
+			}
+			if = {
+				limit = {
+					owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+					owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
+				}
+				set_capital = {
+					state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+				}
+			}
+			else_if = {
+				limit = {
+					owns_state = 1594 # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+					owns_state = 609 # eu_mapping: v79 (Moldova) -> ME 609 (Botoșani)
+					owns_state = 629 # eu_mapping: v79 (Moldova) -> ME 629 (Câmpulung)
+					owns_state = 655 # eu_mapping: v79 (Moldova) -> ME 655 (Vaslui)
+					owns_state = 667 # eu_mapping: v79 (Moldova) -> ME 667 (Neamț)
+					owns_state = 689 # eu_mapping: v79 (Moldova) -> ME 689 (Tutova)
+					owns_state = 698 # eu_mapping: v79 (Moldova) -> ME 698 (Bacău)
+					owns_state = 733 # eu_mapping: v79 (Moldova) -> ME 733 (Putna)
+					owns_state = 739 # eu_mapping: v79 (Moldova) -> ME 739 (Covurlui)
+					owns_state = 1590 # eu_mapping: v79 (Moldova) -> ME 1590 (Tecuci)
+					owns_state = 1591 # eu_mapping: v79 (Moldova) -> ME 1591 (Râmnicu Sărat)
+					owns_state = 1592 # eu_mapping: v79 (Moldova) -> ME 1592 (Fălciu)
+					owns_state = 1593 # eu_mapping: v79 (Moldova) -> ME 1593 (Roman)
+					owns_state = 1595 # eu_mapping: v79 (Moldova) -> ME 1595 (Baia)
+					owns_state = 1596 # eu_mapping: v79 (Moldova) -> ME 1596 (Dorohoi)
+					owns_state = 1597 # eu_mapping: v79 (Moldova) -> ME 1597 (Suceava)
+					owns_state = 1598 # eu_mapping: v79 (Moldova) -> ME 1598 (Rădăuți)
+					owns_state = 1600 # eu_mapping: v79 (Moldova) -> ME 1600 (Herța)
+					owns_state = 2360 # eu_mapping: v79 (Moldova) -> ME 2360 (Ceahlău)
+					owns_state = 2361 # eu_mapping: v79 (Moldova) -> ME 2361 (Ghimeș-Făget)
+				}
+				add_victory_points = {
+					province = 13814 # eu_mapping: v_prov 9716 -> Iași VP (ME 1594)
+					value = 1
+				}
+				set_capital = {
+					state = 1594 # eu_mapping: v79 (Moldova) -> ME 1594 (Iași)
+				}
+			}
+		}
+		event_target:democratic_ROM = {
+			set_country_flag = CZE_remove_cores
+			set_politics = {
+				ruling_party = democratic
+				elections_allowed = yes
+			}
+			add_ideas = {
+				limited_conscription
+				partial_economic_mobilisation
+			}
+			event_target:authoritarian_ROM = {
+				every_character = {
+					limit = {
+						has_character_flag = ROM_is_democratic_char
+					}
+					set_nationality = PREV.PREV
+				}
+			}
+			set_country_flag = ROM_recalled_radescu
+			promote_character = ROM_constantin_bratianu
+			set_popularities = {
+				democratic = 70
+				neutrality = 15
+				fascism = 10
+				communism = 5
+			}
+			division_template = {
+				name = "Brigada de Aparare Civila"
+				is_locked = yes
+
+				division_names_group = ROM_Inf_01
+
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			set_temp_variable = {
+				unit_count_target = 8
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						unit_count_target > 0
+					}
+				}
+				every_controlled_state = {
+					if = {
+						limit = {
+							check_variable = {
+								unit_count_target > 0
+							}
+						}
+						subtract_from_temp_variable = { unit_count_target = 1 }
+						create_unit = {
+							division = "name = \"Brigada de Aparare Civila\" division_template = \"Brigada de Aparare Civila\" start_experience_factor = 0.05"
+							owner = PREV
+							allow_spawning_on_enemy_provs = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					owns_state = 680 # eu_mapping: v76 (North Transylvania) -> ME 680 (Mureș)
+					owns_state = 622 # eu_mapping: v76 (North Transylvania) -> ME 622 (Satu Mare)
+					owns_state = 628 # eu_mapping: v76 (North Transylvania) -> ME 628 (Maramureș)
+					owns_state = 639 # eu_mapping: v76 (North Transylvania) -> ME 639 (Zalău)
+					owns_state = 649 # eu_mapping: v76 (North Transylvania) -> ME 649 (Năsăud)
+					owns_state = 664 # eu_mapping: v76 (North Transylvania) -> ME 664 (Oradea)
+					owns_state = 665 # eu_mapping: v76 (North Transylvania) -> ME 665 (Cluj)
+					owns_state = 674 # eu_mapping: v76 (North Transylvania) -> ME 674 (Ciuc)
+					owns_state = 1582 # eu_mapping: v76 (North Transylvania) -> ME 1582 (Someș)
+					owns_state = 1586 # eu_mapping: v76 (North Transylvania) -> ME 1586 (Trei Scaune)
+					owns_state = 1587 # eu_mapping: v76 (North Transylvania) -> ME 1587 (Odorhei)
+					owns_state = 2671 # eu_mapping: v76 (North Transylvania) -> ME 2671 (Carei)
+					owns_state = 2672 # eu_mapping: v76 (North Transylvania) -> ME 2672 (Baia Mare)
+					owns_state = 2673 # eu_mapping: v76 (North Transylvania) -> ME 2673 (Aleşd)
+					owns_state = 2675 # eu_mapping: v76 (North Transylvania) -> ME 2675 (Negrești-Oaș)
+					owns_state = 2676 # eu_mapping: v76 (North Transylvania) -> ME 2676 (Crasna)
+					owns_state = 2680 # eu_mapping: v76 (North Transylvania) -> ME 2680 (Vișeu)
+					owns_state = 2859 # eu_mapping: v76 (North Transylvania) -> ME 2859 (Tășnad)
+					owns_state = 2860 # eu_mapping: v76 (North Transylvania) -> ME 2860 (Recea)
+				}
+				set_capital = {
+					state = 680 # eu_mapping: v76 (North Transylvania) -> ME 680 (Mureș)
+				}
+			}
+			else_if = {
+				limit = {
+					owns_state = 797 # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+					owns_state = 759 # eu_mapping: v81 (Oltenia) -> ME 759 (Vâlcea)
+					owns_state = 774 # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+					owns_state = 781 # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinți)
+					owns_state = 800 # eu_mapping: v81 (Oltenia) -> ME 800 (Romanați)
+					owns_state = 2359 # eu_mapping: v81 (Oltenia) -> ME 2359 (Obârşia Lotrului)
+					owns_state = 2363 # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+					owns_state = 2364 # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled-Valea)
+				}
+				set_capital = {
+					state = 797 # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+				}
+			}
+		}
+		event_target:authoritarian_ROM = {
+			set_country_flag = CZE_remove_cores
+			set_politics = {
+				ruling_party = neutrality
+				elections_allowed = no
+			}
+			add_ideas = {
+				limited_conscription
+				partial_economic_mobilisation
+			}
+			add_ideas = ROM_king_carol_ii_ba
+			promote_character = ROM_carol_ii
+			division_template = {
+				name = "Militia Regala"
+				is_locked = yes
+
+				division_names_group = ROM_Inf_01
+
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 0 y = 2 }
+					infantry = { x = 0 y = 3 }
+				}
+				support = {
+					engineer = { x = 0 y = 0 }
+				}
+			}
+			set_temp_variable = {
+				unit_count_target = 8
+			}
+			while_loop_effect = {
+				limit = {
+					check_variable = {
+						unit_count_target > 0
+					}
+				}
+				every_controlled_state = {
+					if = {
+						limit = {
+							check_variable = {
+								unit_count_target > 0
+							}
+						}
+						subtract_from_temp_variable = { unit_count_target = 1 }
+						create_unit = {
+							division = "name = \"Militia Regala\" division_template = \"Militia Regala\" start_experience_factor = 0.05"
+							owner = PREV
+							allow_spawning_on_enemy_provs = yes
+						}
+					}
+				}
+			}
+			set_popularities = {
+				democratic = 5
+				neutrality = 60
+				fascism = 35
+				communism = 0
+			}
+			set_capital = {
+				state = 801 # eu_mapping: v46 (Muntenia) -> ME 801 (Ilfov)
+			}
+			civil_war_anti_exploiter_punitive_action = yes
+			if = {
+				limit = {
+					ROOT = {
+						NOT = {
+							has_completed_focus = ROM_modernize_the_land_forces
+						}
+					}
+				}
+				ROM_grigore_georgescu = {
+					set_nationality = ROOT
+				}
+				ROM_gheorghe_avramescu = {
+					set_nationality = ROOT
+				}
+				ROM_ioan_mihail_racovita = {
+					set_nationality = ROOT
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						NOT = {
+							has_completed_focus = ROM_funding_for_the_academies
+						}
+					}
+				}
+				ROM_constantin_atanasescu = {
+					set_nationality = ROOT
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						NOT = {
+							has_completed_focus = ROM_look_to_the_past
+						}
+					}
+				}
+				ROM_constantin_prezan = {
+					set_nationality = ROOT
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						NOT = {
+							has_completed_focus = ROM_found_the_ministry_of_air_and_navy
+						}
+					}
+				}
+				ROM_petre_barbureanu = {
+					set_nationality = ROOT
+				}
+			}
+		}
+		every_country_with_original_tag = {
+			original_tag_to_check = ROM
+			every_country_with_original_tag = {
+				original_tag_to_check = ROM
+				limit = {
+					NOT = {
+						tag = PREV
+						has_war_with = PREV
+					}
+				}
+				declare_war_on = {
+					target = PREV
+					type = civil_war
+				}
+				add_civil_war_target = PREV
+			}
+		}
+	}
+}
+ROM_diplo_stop_improving_tier = {
+	if = {
+		limit = {
+			NOT = {
+				has_country_flag = ROM_maintaining_relations_high
+			}
+		}
+		subtract_from_variable = {
+			ROM.ROM_international_relations_political_power_cost = ROM.ROM_one_country_relations_boosting_cost
+		}
+	}
+	else = {
+		subtract_from_variable = {
+			ROM.ROM_international_relations_political_power_cost = ROM.ROM_one_country_relations_maintain_cost
+		}
+	}
+	clr_country_flag = ROM_improving_relations
+	clr_country_flag = ROM_maintaining_relations_high
+	subtract_from_variable = {
+		ROM.ROM_current_improving_countries = 1
+	}
+}
+ROM_diplo_start_improving_tier = {
+	set_country_flag = ROM_improving_relations
+	ROM = {
+		add_to_variable = {
+			ROM_international_relations_political_power_cost = ROM_one_country_relations_boosting_cost
+		}
+		add_to_variable = {
+			ROM_current_improving_countries = 1
+		}
+	}
+}
+ROM_update_ralea = {
+	ROM_mihail_ralea = {
+		if = {
+			limit = {
+				has_trait = turncoat_journalist_dem
+			}
+			remove_trait = {
+				slot = political_advisor
+				trait = turncoat_journalist_dem
+			}
+		}
+		else_if = {
+			limit = {
+				has_trait = turncoat_journalist_neutrality
+			}
+			remove_trait = {
+				slot = political_advisor
+				trait = turncoat_journalist_neutrality
+			}
+		}
+		else_if = {
+			limit = {
+				has_trait = turncoat_journalist_com
+			}
+			remove_trait = {
+				slot = political_advisor
+				trait = turncoat_journalist_com
+			}
+		}
+		#readd trait
+		if = {
+			limit = {
+				ROOT = {
+					has_government = democratic
+				}
+			}
+			add_trait = {
+				slot = political_advisor
+				trait = turncoat_journalist_dem
+			}
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					has_government = neutrality
+				}
+			}
+			add_trait = {
+				slot = political_advisor
+				trait = turncoat_journalist_neutrality
+			}
+		}
+		else_if = {
+			limit = {
+				ROOT = {
+					has_government = communism
+				}
+			}
+			add_trait = {
+				slot = political_advisor
+				trait = turncoat_journalist_com
+			}
+		}
+	}
+}

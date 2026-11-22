@@ -29,36 +29,14 @@ country_event = {
 		trigger = {
 			has_government = FROM
 		}
-		if = {
-			limit = {
-				FROM = {
-					tag = ENG
-					has_completed_focus = uk_china_focus
-				}
-				tag = event_target:WTT_current_china_leader
-			}
-			effect_tooltip = {
-				add_offsite_building = { type = arms_factory level = 2 }
-			}
-		}
+		# 1.19-migration: offsite factory for ENG's China focus dropped (uk_china_focus absent in ME)
 	}
 	option = {
 		name = generic.1.b
 		trigger = {
 			NOT = { has_government = FROM }
 		}
-		if = {
-			limit = {
-				FROM = {
-					tag = ENG
-					has_completed_focus = uk_china_focus
-				}
-				tag = event_target:WTT_current_china_leader
-			}
-			effect_tooltip = {
-				add_offsite_building = { type = arms_factory level = 2 }
-			}
-		}
+		# 1.19-migration: offsite factory for ENG's China focus dropped (uk_china_focus absent in ME)
 	}
 }
 
@@ -239,23 +217,7 @@ country_event = {
 		}
 		add_to_faction = FROM
 		FROM = { country_event = { id = generic.3 hours = 6 } }
-		IF = {
-			limit = {
-				has_dlc = "No Compromise, No Surrender"
-				ROOT = {
-					original_tag = SOV
-				}
-				FROM = {
-					original_tag = SIK
-					has_completed_focus = SIK_reaffirm_soviet_connections
-				}
-			}
-			SIK = {
-				every_enemy_country = {
-					white_peace = SIK
-				}
-			}
-		}
+		# 1.19-migration: SIK white-peace on alliance join dropped (SIK_reaffirm_soviet_connections absent in ME)
 		hidden_effect = {
 			set_country_flag = alliance_inviter@ROOT
 			FROM = { 
@@ -420,36 +382,7 @@ country_event = {
 					has_completed_focus = wuw_HUN_join_the_comintern
 				}
 			}
-
-			modifier = { # It ruins the entire path if SOV says no so just don't
-				factor = 0
-				FROM = {
-					original_tag = SIA
-					OR = {
-						has_completed_focus = SIA_join_the_allies
-						has_completed_focus = SIA_unseat_the_government
-					}
-				}
-			}
-
-			modifier = {
-				FROM = {
-					original_tag = RAJ
-					has_completed_focus = RAJ_tryst_with_destiny
-				}
-				factor = 0
-			}
-
-			modifier = { # It ruins the entire path if ENG says no so just don't
-				factor = 0
-				FROM = {
-					original_tag = JAP
-					OR = {
-						has_completed_focus = JAP_sea_rekindle_the_old_alliance
-						has_completed_focus = JAP_rekindle_the_old_alliance
-					}
-				}
-			}
+			# 1.19-migration: dead ai_chance modifiers for SIA / RAJ / JAP dropped (dead tags + missing focus trees)
 		}
 		FROM = { 
 			country_event = { id = generic.4 hours = 6 }

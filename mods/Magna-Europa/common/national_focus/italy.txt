@@ -65,9 +65,9 @@ focus_tree = {
 	focus = {
 		id = ITA_italian_highways_bba
 		icon = GFX_focus_generic_truck
-		x = 6
+		# 1.19-migration: restored as tree root; vanilla hung this at x=6 off the removed off-map ITA_ethiopian_war_logistics_bba (2,0)
+		x = 8
 		y = 0
-		relative_position_id = ITA_ethiopian_war_logistics_bba
 		cost = 5
 		available = {
 			OR = {
@@ -140,7 +140,7 @@ focus_tree = {
 		id = ITA_ministry_of_italian_africa
 		icon = GFX_focus_ITA_ministry_of_italian_africa
 		prerequisite = { focus = ITA_italian_highways_bba }
-		prerequisite = { focus = ITA_ethiopian_war_logistics_bba }
+		# 1.19-migration: off-map second prerequisite ITA_ethiopian_war_logistics_bba dropped; ME pre-sync flow required highways only
 
 		x = -5
 		y = 1
@@ -1398,7 +1398,7 @@ focus_tree = {
 						is_core_of = LBA
 						is_fully_controlled_by = ROOT
 					}
-					prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                    prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 					custom_effect_tooltip = ITA_strengthen_ascari_corps_libya_tt
 					hidden_effect = {
 						create_unit = {
@@ -1436,7 +1436,7 @@ focus_tree = {
 							is_core_of = LBA
 							is_fully_controlled_by = PREV
 						}
-						prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                        prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 						custom_effect_tooltip = ITA_strengthen_ascari_corps_libya_tt
 						hidden_effect = {
 							create_unit = {
@@ -1598,7 +1598,7 @@ focus_tree = {
 							is_core_of = LBA
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                    prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 						#Regular Camelry Eritrean
 						create_unit = {
 							division = "division_template = \"Reggimento Meharista\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
@@ -1629,7 +1629,7 @@ focus_tree = {
 								is_core_of = LBA
 								is_fully_controlled_by = PREV
 							}
-							prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                            prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 							#Regular Camelry Eritrean
 							create_unit = {
 								division = "division_template = \"Reggimento Meharista\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
@@ -1904,7 +1904,7 @@ focus_tree = {
 						is_core_of = LBA
 						is_fully_controlled_by = ROOT
 					}
-					prioritize = { 448 } # TRIPOLI (In case at some point this gets split or tag gets more cores)
+                    prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 					custom_effect_tooltip = ITA_comandante_diavolo_libya_tt
 					hidden_effect = {
 						create_unit = {
@@ -1942,7 +1942,7 @@ focus_tree = {
 							is_core_of = LBA
 							is_fully_controlled_by = PREV
 						}
-						prioritize = { 448 } # TRIPOLI (In case at some point this gets split or tag gets more cores)
+                        prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 						custom_effect_tooltip = ITA_comandante_diavolo_libya_tt
 						hidden_effect = {
 							create_unit = {
@@ -2423,6 +2423,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = ITA_industria_della_gomma_sintetica
+		mutually_exclusive = { focus = ITA_strengthen_northern_industry }
 		cost = 10
 		available = {
 		}
@@ -8096,15 +8097,15 @@ focus_tree = {
 				popularity = 0.05
 			}
 
-			unlock_decision_tooltip = ITA_discredit_haile_selassie
+			#unlock_decision_tooltip = ITA_discredit_haile_selassie   # 1.19-migration: decision pruned (off-map ETH)
 
 			if = {
 				limit = {
 					#country_exists = ETH   # 1.19-migration: dead tag ETH
 				}
 				#ETH = {   # 1.19-migration: dead tag ETH
-					add_legitimacy = -10
-				}
+					#add_legitimacy = -10
+				#}
 			}
 
 			every_controlled_state = {
@@ -8877,13 +8878,97 @@ focus_tree = {
 		}
 
 		bypass = {
-			1108 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 458 (Tunisia); mod Bizerte
-			1215 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 665 (Gabès); mod Gabès
-			1534 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
-			881 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 105 (Montenegro); mod Kolašin
-			1521 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 44 (Central Albania); mod Tirana
-			2372 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 805 (Northern Epirus); mod Korçë
-			1519 = { is_claimed_by = ROOT }   # 1.19-migration: was vanilla 934 (Shkodër); mod Shkodër
+			1109 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
+			1101 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+			1108 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+			1113 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+			1116 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+			1127 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+			1140 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+			1142 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+			1152 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+			1165 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+			1166 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+			1180 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+			1187 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+			1869 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+			1870 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+			1871 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+			1872 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+			1873 = { is_claimed_by = ROOT } # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir)
+			1215 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+			1203 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+			1208 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+			1217 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+			1224 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+			1231 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+			2537 = { is_claimed_by = ROOT } # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+			1563 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+			754 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+			811 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+			815 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+			1461 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+			1462 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+			1473 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+			1475 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+			1477 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+			1478 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+			1479 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+			1480 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+			1481 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+			1491 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+			1502 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+			1988 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+			1990 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+			1998 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+			1999 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+			2241 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+			2651 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+			2815 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+			2820 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+			2825 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+			2826 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+			2827 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+			2828 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+			2829 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+			2895 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+			2896 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+			2897 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+			2911 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+			2916 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+			2924 = { is_claimed_by = ROOT } # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+			881 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+			853 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+			863 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+			884 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+			989 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+			1527 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+			1986 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+			2795 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+			2797 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+			2798 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+			2799 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+			2800 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+			2801 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+			2802 = { is_claimed_by = ROOT } # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+			1521 = { is_claimed_by = ROOT } # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+			1522 = { is_claimed_by = ROOT } # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+			1523 = { is_claimed_by = ROOT } # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+			1524 = { is_claimed_by = ROOT } # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+			1525 = { is_claimed_by = ROOT } # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+			2372 = { is_claimed_by = ROOT } # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
+			885 = { is_claimed_by = ROOT } # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+			1526 = { is_claimed_by = ROOT } # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+			2373 = { is_claimed_by = ROOT } # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+			1519 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
+			1518 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
+			1520 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
+			2242 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 2242 (Puka)
+			2696 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 2696 (Bajram Curri)
+			2749 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 2749 (Burrel)
+			2750 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 2750 (Shupenzë)
+			2938 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 2938 (Has)
+			2939 = { is_claimed_by = ROOT } # eu_mapping: v934 (Shkodër) -> ME 2939 (Vau i Dejës)
 		}
 
 		available = {
@@ -8898,12 +8983,182 @@ focus_tree = {
 			#CLAIMS IN TUNISIA
 			if = {
 				limit = {
-					1108 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 458 (Tunisia); mod Bizerte
+					1109 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
+					1101 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+					1108 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+					1113 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+					1116 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+					1127 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+					1140 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+					1142 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+					1152 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+					1165 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+					1166 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+					1180 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+					1187 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+					1869 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+					1870 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+					1871 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+					1872 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+					1873 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir)
 				}
-				add_state_claim = 1108 #TUNISIA   # 1.19-migration: was vanilla 458 (Tunisia)
+				add_state_claim = 1109 # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
+				add_state_claim = 1101 # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+				add_state_claim = 1108 # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+				add_state_claim = 1113 # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+				add_state_claim = 1116 # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+				add_state_claim = 1127 # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+				add_state_claim = 1140 # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+				add_state_claim = 1142 # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+				add_state_claim = 1152 # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+				add_state_claim = 1165 # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+				add_state_claim = 1166 # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+				add_state_claim = 1180 # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+				add_state_claim = 1187 # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+				add_state_claim = 1869 # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+				add_state_claim = 1870 # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+				add_state_claim = 1871 # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+				add_state_claim = 1872 # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+				add_state_claim = 1873 # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir) #TUNISIA
 				if = {
 					limit = {
-						1108 = {   # 1.19-migration: was vanilla 458 (Tunisia); mod Bizerte
+						1109 = { # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1101 = { # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1108 = { # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1113 = { # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1116 = { # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1127 = { # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1140 = { # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1142 = { # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1152 = { # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1165 = { # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1166 = { # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1180 = { # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1187 = { # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1869 = { # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1870 = { # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1871 = { # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1872 = { # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1873 = { # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir)
 							controller = {
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
@@ -8914,37 +9169,460 @@ focus_tree = {
 					}
 					if = { #Same controller for both Tunisian states
 						limit = {
-							1108 = {   # 1.19-migration: was vanilla 458 (Tunisia); mod Bizerte
+							1109 = { # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
 								controller = {
-									controls_state = 1215   # 1.19-migration: was vanilla 665 (Gabès)
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1101 = { # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1108 = { # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1113 = { # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1116 = { # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1127 = { # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1140 = { # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1142 = { # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1152 = { # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1165 = { # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1166 = { # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1180 = { # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1187 = { # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1869 = { # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1870 = { # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1871 = { # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1872 = { # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+								}
+							}
+							1873 = { # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir)
+								controller = {
+									controls_state = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+									controls_state = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+									controls_state = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+									controls_state = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+									controls_state = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+									controls_state = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+									controls_state = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
 								}
 							}
 						}
 						create_wargoal = {
 							type = take_state_focus
 							target = 458.controller
-							generator = { 458 665 }
+							generator = {
+								1109 # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
+								1101 # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+								1108 # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+								1113 # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+								1116 # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+								1127 # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+								1140 # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+								1142 # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+								1152 # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+								1165 # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+								1166 # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+								1180 # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+								1187 # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+								1869 # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+								1870 # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+								1871 # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+								1872 # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+								1873 # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir)
+								1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+								1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+								1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+								1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+								1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+								1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+								2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+							}
 						}
 					}
 					else = { #Each Tunisian states have different controllers
 						create_wargoal = {
 							type = take_state_focus
 							target = 458.controller
-							generator = { 458 }
+							generator = {
+								1109 # eu_mapping: v458 (Tunisia) -> ME 1109 (Tunis)
+								1101 # eu_mapping: v458 (Tunisia) -> ME 1101 (Bizerte)
+								1108 # eu_mapping: v458 (Tunisia) -> ME 1108 (Jendouba)
+								1113 # eu_mapping: v458 (Tunisia) -> ME 1113 (Nabeul)
+								1116 # eu_mapping: v458 (Tunisia) -> ME 1116 (Le Kef)
+								1127 # eu_mapping: v458 (Tunisia) -> ME 1127 (Zaghouan)
+								1140 # eu_mapping: v458 (Tunisia) -> ME 1140 (Siliana)
+								1142 # eu_mapping: v458 (Tunisia) -> ME 1142 (Sousse)
+								1152 # eu_mapping: v458 (Tunisia) -> ME 1152 (Kairouan)
+								1165 # eu_mapping: v458 (Tunisia) -> ME 1165 (Kassérine)
+								1166 # eu_mapping: v458 (Tunisia) -> ME 1166 (Mahdia)
+								1180 # eu_mapping: v458 (Tunisia) -> ME 1180 (Sidi Bou Zid)
+								1187 # eu_mapping: v458 (Tunisia) -> ME 1187 (Sfax)
+								1869 # eu_mapping: v458 (Tunisia) -> ME 1869 (Béja)
+								1870 # eu_mapping: v458 (Tunisia) -> ME 1870 (Manubah)
+								1871 # eu_mapping: v458 (Tunisia) -> ME 1871 (Ariana)
+								1872 # eu_mapping: v458 (Tunisia) -> ME 1872 (Ben Arous)
+								1873 # eu_mapping: v458 (Tunisia) -> ME 1873 (Monastir)
+							}
 						}
 					}
 				}
 			}
 			if = {
 				limit = {
-					1215 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 665 (Gabès); mod Gabès
+					1215 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+					1203 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+					1208 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+					1217 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+					1224 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+					1231 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+					2537 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
 				}
-				add_state_claim = 1215 #GABÈS   # 1.19-migration: was vanilla 665 (Gabès)
+				add_state_claim = 1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+				add_state_claim = 1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+				add_state_claim = 1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+				add_state_claim = 1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+				add_state_claim = 1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+				add_state_claim = 1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+				add_state_claim = 2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara) #GABÈS
 				if = {
 					limit = {
-						1215 = {   # 1.19-migration: was vanilla 665 (Gabès); mod Gabès
+						1215 = { # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
 							controller = {
-								NOT = { controls_state = 1108 } #Otherwise already received the wargoal above   # 1.19-migration: was vanilla 458 (Tunisia)
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1203 = { # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+							controller = {
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1208 = { # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+							controller = {
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1217 = { # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+							controller = {
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1224 = { # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+							controller = {
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1231 = { # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+							controller = {
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2537 = { # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+							controller = {
+								NOT = { controls_state = 1109
+								controls_state = 1101
+								controls_state = 1108
+								controls_state = 1113
+								controls_state = 1116
+								controls_state = 1127
+								controls_state = 1140
+								controls_state = 1142
+								controls_state = 1152
+								controls_state = 1165
+								controls_state = 1166
+								controls_state = 1180
+								controls_state = 1187
+								controls_state = 1869
+								controls_state = 1870
+								controls_state = 1871
+								controls_state = 1872
+								controls_state = 1873 } #Otherwise already received the wargoal above
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
 								NOT = { has_non_aggression_pact_with = ROOT }
@@ -8955,7 +9633,15 @@ focus_tree = {
 					create_wargoal = {
 						type = take_state_focus
 						target = 665.controller
-						generator = { 665 }
+						generator = {
+							1215 # eu_mapping: v665 (Gabès) -> ME 1215 (Gabès)
+							1203 # eu_mapping: v665 (Gabès) -> ME 1203 (Gafsa)
+							1208 # eu_mapping: v665 (Gabès) -> ME 1208 (Tozeur)
+							1217 # eu_mapping: v665 (Gabès) -> ME 1217 (Kebili)
+							1224 # eu_mapping: v665 (Gabès) -> ME 1224 (Médénine)
+							1231 # eu_mapping: v665 (Gabès) -> ME 1231 (Tataouine)
+							2537 # eu_mapping: v665 (Gabès) -> ME 2537 (Zouara)
+						}
 					}
 				}
 			}
@@ -8963,12 +9649,342 @@ focus_tree = {
 			#CLAIMS IN DALMATIAN COAST (Yugoslavia)
 			if = {
 				limit = {
-					1534 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
+					1563 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+					754 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+					811 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+					815 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+					1461 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+					1462 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+					1473 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+					1475 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+					1477 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+					1478 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+					1479 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+					1480 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+					1481 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+					1491 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+					1502 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+					1988 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+					1990 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+					1998 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+					1999 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+					2241 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+					2651 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+					2815 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+					2820 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+					2825 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+					2826 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+					2827 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+					2828 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+					2829 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+					2895 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+					2896 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+					2897 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+					2911 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+					2916 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+					2924 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
 				}
-				add_state_claim = 1534 #DALMATIA   # 1.19-migration: was vanilla 103 (Dalmatia)
+				add_state_claim = 1563 # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+				add_state_claim = 754 # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+				add_state_claim = 811 # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+				add_state_claim = 815 # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+				add_state_claim = 1461 # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+				add_state_claim = 1462 # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+				add_state_claim = 1473 # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+				add_state_claim = 1475 # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+				add_state_claim = 1477 # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+				add_state_claim = 1478 # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+				add_state_claim = 1479 # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+				add_state_claim = 1480 # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+				add_state_claim = 1481 # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+				add_state_claim = 1491 # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+				add_state_claim = 1502 # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+				add_state_claim = 1988 # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+				add_state_claim = 1990 # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+				add_state_claim = 1998 # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+				add_state_claim = 1999 # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+				add_state_claim = 2241 # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+				add_state_claim = 2651 # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+				add_state_claim = 2815 # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+				add_state_claim = 2820 # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+				add_state_claim = 2825 # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+				add_state_claim = 2826 # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+				add_state_claim = 2827 # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+				add_state_claim = 2828 # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+				add_state_claim = 2829 # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+				add_state_claim = 2895 # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+				add_state_claim = 2896 # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+				add_state_claim = 2897 # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+				add_state_claim = 2911 # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+				add_state_claim = 2916 # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+				add_state_claim = 2924 # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag) #DALMATIA
 				if = {
 					limit = {
-						1534 = {   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
+						1563 = { # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						754 = { # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						811 = { # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						815 = { # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1461 = { # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1462 = { # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1473 = { # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1475 = { # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1477 = { # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1478 = { # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1479 = { # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1480 = { # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1481 = { # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1491 = { # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1502 = { # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1988 = { # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1990 = { # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1998 = { # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1999 = { # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2241 = { # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2651 = { # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2815 = { # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2820 = { # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2825 = { # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2826 = { # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2827 = { # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2828 = { # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2829 = { # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2895 = { # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2896 = { # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2897 = { # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2911 = { # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2916 = { # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2924 = { # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
 							controller = {
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
@@ -8979,23 +9995,714 @@ focus_tree = {
 					}
 					if = { #Same controller for both Yugoslavian states
 						limit = {
-							1534 = {   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
+							1563 = { # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
 								controller = {
-									controls_state = 881   # 1.19-migration: was vanilla 105 (Montenegro)
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							754 = { # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							811 = { # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							815 = { # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1461 = { # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1462 = { # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1473 = { # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1475 = { # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1477 = { # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1478 = { # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1479 = { # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1480 = { # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1481 = { # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1491 = { # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1502 = { # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1988 = { # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1990 = { # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1998 = { # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							1999 = { # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2241 = { # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2651 = { # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2815 = { # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2820 = { # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2825 = { # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2826 = { # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2827 = { # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2828 = { # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2829 = { # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2895 = { # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2896 = { # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2897 = { # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2911 = { # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2916 = { # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+								}
+							}
+							2924 = { # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+								controller = {
+									controls_state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+									controls_state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+									controls_state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+									controls_state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+									controls_state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+									controls_state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+									controls_state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+									controls_state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+									controls_state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+									controls_state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+									controls_state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+									controls_state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+									controls_state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+									controls_state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
 								}
 							}
 						}
 						create_wargoal = {
 							type = take_state_focus
 							target = 103.controller
-							generator = { 103 105 }
+							generator = {
+								1563 # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+								754 # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+								811 # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+								815 # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+								1461 # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+								1462 # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+								1473 # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+								1475 # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+								1477 # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+								1478 # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+								1479 # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+								1480 # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+								1481 # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+								1491 # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+								1502 # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+								1988 # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+								1990 # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+								1998 # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+								1999 # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+								2241 # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+								2651 # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+								2815 # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+								2820 # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+								2825 # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+								2826 # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+								2827 # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+								2828 # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+								2829 # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+								2895 # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+								2896 # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+								2897 # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+								2911 # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+								2916 # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+								2924 # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+								881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+								853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+								863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+								884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+								989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+								1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+								1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+								2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+								2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+								2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+								2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+								2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+								2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+								2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+							}
 						}
 					}
 					else = { #Each Yugoslavian states have different controllers
 						create_wargoal = {
 							type = take_state_focus
 							target = 103.controller
-							generator = { 103 }
+							generator = {
+								1563 # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+								754 # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+								811 # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+								815 # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+								1461 # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+								1462 # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+								1473 # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+								1475 # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+								1477 # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+								1478 # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+								1479 # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+								1480 # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+								1481 # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+								1491 # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+								1502 # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+								1988 # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+								1990 # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+								1998 # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+								1999 # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+								2241 # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+								2651 # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+								2815 # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+								2820 # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+								2825 # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+								2826 # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+								2827 # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+								2828 # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+								2829 # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+								2895 # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+								2896 # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+								2897 # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+								2911 # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+								2916 # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+								2924 # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+							}
 						}
 					}
 					
@@ -9003,14 +10710,619 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					881 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 105 (Montenegro); mod Kolašin
+					881 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+					853 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+					863 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+					884 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+					989 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+					1527 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+					1986 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+					2795 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+					2797 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+					2798 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+					2799 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+					2800 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+					2801 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+					2802 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
 				}
-				add_state_claim = 881 #MONTENEGRO   # 1.19-migration: was vanilla 105 (Montenegro)
+				add_state_claim = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+				add_state_claim = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+				add_state_claim = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+				add_state_claim = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+				add_state_claim = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+				add_state_claim = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+				add_state_claim = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+				add_state_claim = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+				add_state_claim = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+				add_state_claim = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+				add_state_claim = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+				add_state_claim = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+				add_state_claim = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+				add_state_claim = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo) #MONTENEGRO
 				if = {
 					limit = {
-						881 = {   # 1.19-migration: was vanilla 105 (Montenegro); mod Kolašin
+						881 = { # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
 							controller = {
-								NOT = { controls_state = 1534 } #Otherwise already received the wargoal above   # 1.19-migration: was vanilla 103 (Dalmatia)
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						853 = { # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						863 = { # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						884 = { # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						989 = { # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1527 = { # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1986 = { # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2795 = { # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2797 = { # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2798 = { # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2799 = { # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2800 = { # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2801 = { # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2802 = { # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+							controller = {
+								NOT = { controls_state = 1563
+								controls_state = 754
+								controls_state = 811
+								controls_state = 815
+								controls_state = 1461
+								controls_state = 1462
+								controls_state = 1473
+								controls_state = 1475
+								controls_state = 1477
+								controls_state = 1478
+								controls_state = 1479
+								controls_state = 1480
+								controls_state = 1481
+								controls_state = 1491
+								controls_state = 1502
+								controls_state = 1988
+								controls_state = 1990
+								controls_state = 1998
+								controls_state = 1999
+								controls_state = 2241
+								controls_state = 2651
+								controls_state = 2815
+								controls_state = 2820
+								controls_state = 2825
+								controls_state = 2826
+								controls_state = 2827
+								controls_state = 2828
+								controls_state = 2829
+								controls_state = 2895
+								controls_state = 2896
+								controls_state = 2897
+								controls_state = 2911
+								controls_state = 2916
+								controls_state = 2924 } #Otherwise already received the wargoal above
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
 								NOT = { has_non_aggression_pact_with = ROOT }
@@ -9021,7 +11333,22 @@ focus_tree = {
 					create_wargoal = {
 						type = take_state_focus
 						target = 105.controller
-						generator = { 105 }
+						generator = {
+							881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+							853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+							863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+							884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+							989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+							1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+							1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+							2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+							2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+							2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+							2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+							2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+							2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+							2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+						}
 					}
 				}
 			}
@@ -9029,12 +11356,62 @@ focus_tree = {
 			#CLAIMS IN ALBANIA
 			if = {
 				limit = {
-					1521 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 44 (Central Albania); mod Tirana
+					1521 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+					1522 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+					1523 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+					1524 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+					1525 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+					2372 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
 				}
-				add_state_claim = 1521 #ALBANIA   # 1.19-migration: was vanilla 44 (Central Albania)
+				add_state_claim = 1521 # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+				add_state_claim = 1522 # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+				add_state_claim = 1523 # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+				add_state_claim = 1524 # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+				add_state_claim = 1525 # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+				add_state_claim = 2372 # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec) #ALBANIA
 				if = {
 					limit = {
-						1521 = {   # 1.19-migration: was vanilla 44 (Central Albania); mod Tirana
+						1521 = { # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1522 = { # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1523 = { # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1524 = { # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1525 = { # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+							controller = {
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2372 = { # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
 							controller = {
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
@@ -9045,23 +11422,77 @@ focus_tree = {
 					}
 					if = { #Same controller for both Albanian states
 						limit = {
-							1521 = {   # 1.19-migration: was vanilla 44 (Central Albania); mod Tirana
+							1521 = { # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
 								controller = {
-									controls_state = 2372   # 1.19-migration: was vanilla 805 (Northern Epirus)
+									controls_state = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+									controls_state = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+									controls_state = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+								}
+							}
+							1522 = { # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+								controller = {
+									controls_state = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+									controls_state = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+									controls_state = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+								}
+							}
+							1523 = { # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+								controller = {
+									controls_state = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+									controls_state = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+									controls_state = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+								}
+							}
+							1524 = { # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+								controller = {
+									controls_state = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+									controls_state = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+									controls_state = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+								}
+							}
+							1525 = { # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+								controller = {
+									controls_state = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+									controls_state = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+									controls_state = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+								}
+							}
+							2372 = { # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
+								controller = {
+									controls_state = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+									controls_state = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+									controls_state = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
 								}
 							}
 						}
 						create_wargoal = {
 							type = take_state_focus
 							target = 44.controller
-							generator = { 44 805 }
+							generator = {
+								1521 # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+								1522 # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+								1523 # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+								1524 # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+								1525 # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+								2372 # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
+								885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+								1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+								2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+							}
 						}
 					}
 					else = { #Each Albanian states have different controllers
 						create_wargoal = {
 							type = take_state_focus
 							target = 44.controller
-							generator = { 44 }
+							generator = {
+								1521 # eu_mapping: v44 (Central Albania) -> ME 1521 (Tirana)
+								1522 # eu_mapping: v44 (Central Albania) -> ME 1522 (Durrës)
+								1523 # eu_mapping: v44 (Central Albania) -> ME 1523 (Elbasan)
+								1524 # eu_mapping: v44 (Central Albania) -> ME 1524 (Berat)
+								1525 # eu_mapping: v44 (Central Albania) -> ME 1525 (Vlorë)
+								2372 # eu_mapping: v44 (Central Albania) -> ME 2372 (Pogradec)
+							}
 						}
 					}
 					
@@ -9069,14 +11500,51 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					2372 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 805 (Northern Epirus); mod Korçë
+					885 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+					1526 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+					2373 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
 				}
-				add_state_claim = 2372 #NORTHERN EPIRUS   # 1.19-migration: was vanilla 805 (Northern Epirus)
+				add_state_claim = 885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+				add_state_claim = 1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+				add_state_claim = 2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë) #NORTHERN EPIRUS
 				if = {
 					limit = {
-						2372 = {   # 1.19-migration: was vanilla 805 (Northern Epirus); mod Korçë
+						885 = { # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
 							controller = {
-								NOT = { controls_state = 1521 } #Otherwise already received the wargoal above   # 1.19-migration: was vanilla 44 (Central Albania)
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1526 = { # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2373 = { # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
 								NOT = { has_non_aggression_pact_with = ROOT }
@@ -9087,22 +11555,185 @@ focus_tree = {
 					create_wargoal = {
 						type = take_state_focus
 						target = 805.controller
-						generator = { 805 }
+						generator = {
+							885 # eu_mapping: v805 (Northern Epirus) -> ME 885 (Korçë)
+							1526 # eu_mapping: v805 (Northern Epirus) -> ME 1526 (Gjirokastër)
+							2373 # eu_mapping: v805 (Northern Epirus) -> ME 2373 (Ersekë)
+						}
 					}
 				}
 			}
 
 			if = {
 				limit = {
-					1519 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 934 (Shkodër); mod Shkodër
+					1519 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
+					1518 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
+					1520 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
+					2242 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 2242 (Puka)
+					2696 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 2696 (Bajram Curri)
+					2749 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 2749 (Burrel)
+					2750 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 2750 (Shupenzë)
+					2938 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 2938 (Has)
+					2939 = { NOT = { is_claimed_by = ROOT } } # eu_mapping: v934 (Shkodër) -> ME 2939 (Vau i Dejës)
 				}
-				add_state_claim = 1519 #SHKÖDER   # 1.19-migration: was vanilla 934 (Shkodër)
+				add_state_claim = 1519 # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
+				add_state_claim = 1518 # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
+				add_state_claim = 1520 # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
+				add_state_claim = 2242 # eu_mapping: v934 (Shkodër) -> ME 2242 (Puka)
+				add_state_claim = 2696 # eu_mapping: v934 (Shkodër) -> ME 2696 (Bajram Curri)
+				add_state_claim = 2749 # eu_mapping: v934 (Shkodër) -> ME 2749 (Burrel)
+				add_state_claim = 2750 # eu_mapping: v934 (Shkodër) -> ME 2750 (Shupenzë)
+				add_state_claim = 2938 # eu_mapping: v934 (Shkodër) -> ME 2938 (Has)
+				add_state_claim = 2939 # eu_mapping: v934 (Shkodër) -> ME 2939 (Vau i Dejës) #SHKÖDER
 				if = {
 					limit = {
-						1519 = {   # 1.19-migration: was vanilla 934 (Shkodër); mod Shkodër
+						1519 = { # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
 							controller = {
-								NOT = { controls_state = 1521 } #Otherwise already received the wargoal above   # 1.19-migration: was vanilla 44 (Central Albania)
-								NOT = { controls_state = 2372 } #Otherwise already received the wargoal above   # 1.19-migration: was vanilla 805 (Northern Epirus)
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1518 = { # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						1520 = { # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2242 = { # eu_mapping: v934 (Shkodër) -> ME 2242 (Puka)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2696 = { # eu_mapping: v934 (Shkodër) -> ME 2696 (Bajram Curri)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2749 = { # eu_mapping: v934 (Shkodër) -> ME 2749 (Burrel)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2750 = { # eu_mapping: v934 (Shkodër) -> ME 2750 (Shupenzë)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2938 = { # eu_mapping: v934 (Shkodër) -> ME 2938 (Has)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
+								NOT = { has_war_with = ROOT }
+								NOT = { is_in_faction_with = ROOT }
+								NOT = { has_non_aggression_pact_with = ROOT }
+								NOT = { is_guaranteed_by = ROOT }
+							}
+						}
+						2939 = { # eu_mapping: v934 (Shkodër) -> ME 2939 (Vau i Dejës)
+							controller = {
+								NOT = { controls_state = 1521
+								controls_state = 1522
+								controls_state = 1523
+								controls_state = 1524
+								controls_state = 1525
+								controls_state = 2372 } #Otherwise already received the wargoal above
+								NOT = { controls_state = 885
+								controls_state = 1526
+								controls_state = 2373 } #Otherwise already received the wargoal above
 								NOT = { has_war_with = ROOT }
 								NOT = { is_in_faction_with = ROOT }
 								NOT = { has_non_aggression_pact_with = ROOT }
@@ -9113,7 +11744,17 @@ focus_tree = {
 					create_wargoal = {
 						type = take_state_focus
 						target = 934.controller
-						generator = { 934 }
+						generator = {
+							1519 # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
+							1518 # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
+							1520 # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
+							2242 # eu_mapping: v934 (Shkodër) -> ME 2242 (Puka)
+							2696 # eu_mapping: v934 (Shkodër) -> ME 2696 (Bajram Curri)
+							2749 # eu_mapping: v934 (Shkodër) -> ME 2749 (Burrel)
+							2750 # eu_mapping: v934 (Shkodër) -> ME 2750 (Shupenzë)
+							2938 # eu_mapping: v934 (Shkodër) -> ME 2938 (Has)
+							2939 # eu_mapping: v934 (Shkodër) -> ME 2939 (Vau i Dejës)
+						}
 					}
 				}
 			}
@@ -9580,7 +12221,7 @@ focus_tree = {
 						limit = {
 							882 = {   # 1.19-migration: was vanilla 118 (Gibraltar); mod Gibraltar
 								controller = {
-									controls_state = 1299   # 1.19-migration: was vanilla 446 (Suez)
+									controls_state = 1285 # eu_mapping: v446 (Suez) -> ME 1285 (As Suways)
 								}
 							}
 						}
@@ -9604,7 +12245,7 @@ focus_tree = {
 				limit = {
 					1299 = { NOT = { is_claimed_by = ROOT } }   # 1.19-migration: was vanilla 446 (Suez); mod As Suways
 				}
-				add_state_claim = 1299 #CAIRO (Suez Canal)   # 1.19-migration: was vanilla 446 (Suez)
+				add_state_claim = 1299 # eu_mapping: v457 (Eastern Desert) -> ME 1299 ('Ataqah)
 				if = {
 					limit = {
 						1299 = {   # 1.19-migration: was vanilla 446 (Suez); mod As Suways
@@ -14036,17 +16677,119 @@ focus_tree = {
 		search_filters = {}
 
 		completion_reward = {
-			add_state_claim = 1490 #NORTH SLOVENIA   # 1.19-migration: was vanilla 102 (North Slovenia)
-			add_state_claim = 743 #LJUBLJANA   # 1.19-migration: was vanilla 853 (Ljubljana)
-			add_state_claim = 1534 #DALMATIA   # 1.19-migration: was vanilla 103 (Dalmatia)
-			add_state_claim = 881 #MONTENEGRO   # 1.19-migration: was vanilla 105 (Montenegro)
+			add_state_claim = 703 # eu_mapping: v102 (North Slovenia) -> ME 703 (Drava)
+			add_state_claim = 695 # eu_mapping: v102 (North Slovenia) -> ME 695 (Prekmurje)
+			add_state_claim = 712 # eu_mapping: v102 (North Slovenia) -> ME 712 (Međimurje)
+			add_state_claim = 714 # eu_mapping: v102 (North Slovenia) -> ME 714 (Gorenjska)
+			add_state_claim = 1487 # eu_mapping: v102 (North Slovenia) -> ME 1487 (Sava)
+			add_state_claim = 1488 # eu_mapping: v102 (North Slovenia) -> ME 1488 (Domžale)
+			add_state_claim = 1489 # eu_mapping: v102 (North Slovenia) -> ME 1489 (Savinja)
+			add_state_claim = 1490 # eu_mapping: v102 (North Slovenia) -> ME 1490 (Koroška)
+			add_state_claim = 2784 # eu_mapping: v102 (North Slovenia) -> ME 2784 (Tržič)
+			add_state_claim = 2861 # eu_mapping: v102 (North Slovenia) -> ME 2861 (Krško) #NORTH SLOVENIA
+			add_state_claim = 743 # eu_mapping: v853 (Ljubljana) -> ME 743 (Ljubljana)
+			add_state_claim = 1486 # eu_mapping: v853 (Ljubljana) -> ME 1486 (Novo Mesto) #LJUBLJANA
+			add_state_claim = 1563 # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+			add_state_claim = 754 # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+			add_state_claim = 811 # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+			add_state_claim = 815 # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+			add_state_claim = 1461 # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+			add_state_claim = 1462 # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+			add_state_claim = 1473 # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+			add_state_claim = 1475 # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+			add_state_claim = 1477 # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+			add_state_claim = 1478 # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+			add_state_claim = 1479 # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+			add_state_claim = 1480 # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+			add_state_claim = 1481 # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+			add_state_claim = 1491 # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+			add_state_claim = 1502 # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+			add_state_claim = 1988 # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+			add_state_claim = 1990 # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+			add_state_claim = 1998 # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+			add_state_claim = 1999 # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+			add_state_claim = 2241 # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+			add_state_claim = 2651 # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+			add_state_claim = 2815 # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+			add_state_claim = 2820 # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+			add_state_claim = 2825 # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+			add_state_claim = 2826 # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+			add_state_claim = 2827 # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+			add_state_claim = 2828 # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+			add_state_claim = 2829 # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+			add_state_claim = 2895 # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+			add_state_claim = 2896 # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+			add_state_claim = 2897 # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+			add_state_claim = 2911 # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+			add_state_claim = 2916 # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+			add_state_claim = 2924 # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag) #DALMATIA
+			add_state_claim = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+			add_state_claim = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+			add_state_claim = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+			add_state_claim = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+			add_state_claim = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+			add_state_claim = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+			add_state_claim = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+			add_state_claim = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+			add_state_claim = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+			add_state_claim = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+			add_state_claim = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+			add_state_claim = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+			add_state_claim = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+			add_state_claim = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo) #MONTENEGRO
 
 			if = {
 				limit = {
 					country_exists = CRO
 					OR = {
-						1534 = { is_fully_controlled_by = CRO }   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
-						881 = { is_fully_controlled_by = CRO }   # 1.19-migration: was vanilla 105 (Montenegro); mod Kolašin
+						1563 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+						754 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+						811 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+						815 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+						1461 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+						1462 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+						1473 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+						1475 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+						1477 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+						1478 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+						1479 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+						1480 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+						1481 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+						1491 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+						1502 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+						1988 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+						1990 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+						1998 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+						1999 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+						2241 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+						2651 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+						2815 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+						2820 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+						2825 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+						2826 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+						2827 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+						2828 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+						2829 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+						2895 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+						2896 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+						2897 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+						2911 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+						2916 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+						2924 = { is_fully_controlled_by = CRO } # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+						881 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+						853 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+						863 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+						884 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+						989 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+						1527 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+						1986 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+						2795 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+						2797 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+						2798 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+						2799 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+						2800 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+						2801 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+						2802 = { is_fully_controlled_by = CRO } # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
 					}
 				}
 				activate_targeted_decision = { target = CRO decision = ITA_send_ultimatum_to_country_balkan }
@@ -14055,8 +16798,54 @@ focus_tree = {
 				limit = {
 					country_exists = MNT
 					OR = {
-						1534 = { is_fully_controlled_by = MNT }   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
-						881 = { is_fully_controlled_by = MNT }   # 1.19-migration: was vanilla 105 (Montenegro); mod Kolašin
+						1563 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+						754 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+						811 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+						815 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+						1461 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+						1462 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+						1473 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+						1475 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+						1477 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+						1478 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+						1479 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+						1480 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+						1481 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+						1491 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+						1502 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+						1988 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+						1990 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+						1998 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+						1999 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+						2241 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+						2651 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+						2815 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+						2820 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+						2825 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+						2826 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+						2827 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+						2828 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+						2829 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+						2895 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+						2896 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+						2897 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+						2911 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+						2916 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+						2924 = { is_fully_controlled_by = MNT } # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+						881 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+						853 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+						863 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+						884 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+						989 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+						1527 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+						1986 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+						2795 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+						2797 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+						2798 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+						2799 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+						2800 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+						2801 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+						2802 = { is_fully_controlled_by = MNT } # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
 					}
 				}
 				activate_targeted_decision = { target = MNT decision = ITA_send_ultimatum_to_country_balkan }
@@ -14065,8 +16854,54 @@ focus_tree = {
 				limit = {
 					country_exists = YUG
 					OR = {
-						1534 = { is_fully_controlled_by = YUG }   # 1.19-migration: was vanilla 103 (Dalmatia); mod Gospić
-						881 = { is_fully_controlled_by = YUG }   # 1.19-migration: was vanilla 105 (Montenegro); mod Kolašin
+						1563 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+						754 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+						811 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+						815 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+						1461 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+						1462 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+						1473 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+						1475 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+						1477 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+						1478 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+						1479 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+						1480 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+						1481 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+						1491 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+						1502 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+						1988 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+						1990 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+						1998 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+						1999 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+						2241 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+						2651 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+						2815 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+						2820 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+						2825 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+						2826 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+						2827 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+						2828 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+						2829 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+						2895 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+						2896 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+						2897 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+						2911 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+						2916 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+						2924 = { is_fully_controlled_by = YUG } # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+						881 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+						853 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+						863 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+						884 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+						989 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+						1527 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+						1986 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+						2795 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+						2797 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+						2798 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+						2799 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+						2800 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+						2801 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+						2802 = { is_fully_controlled_by = YUG } # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
 					}
 				}
 				activate_targeted_decision = { target = YUG decision = ITA_send_ultimatum_to_country_balkan }
@@ -15140,26 +17975,26 @@ focus_tree = {
 		available = {
 			#country_exists = JAP   # 1.19-migration: dead tag JAP
 			#JAP = {   # 1.19-migration: dead tag JAP
-				is_in_faction = no
-				has_government = ROOT
-			}
+				#is_in_faction = no
+				#has_government = ROOT
+			#}
 		}
 
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 
 		completion_reward = {
-			add_relation_modifier = {
-				#target = JAP   # 1.19-migration: dead tag JAP
-				modifier = ITA_military_agreements
-			}
+			#add_relation_modifier = {
+			#	#target = JAP   # 1.19-migration: dead tag JAP
+			#	modifier = ITA_military_agreements
+			#}
 			#JAP = {   # 1.19-migration: dead tag JAP
-				add_relation_modifier = {
-					target = ROOT
-					modifier = ITA_military_agreements
-				}
+				#add_relation_modifier = {
+				#	target = ROOT
+				#	modifier = ITA_military_agreements
+				#}
 
-				add_opinion_modifier = { target = ITA modifier = ita_diplomacy_focus }
-			}
+				#add_opinion_modifier = { target = ITA modifier = ita_diplomacy_focus }
+			#}
 		}
 	}
 
@@ -16015,9 +18850,10 @@ focus_tree = {
 	focus = {
 		id = ITA_the_italian_liberation_war
 		icon = GFX_focus_generic_anti_fascist_diplomacy
-		x = -6
+		# 1.19-migration: anchored to highways as in ME pre-sync; x -12 keeps absolute -4
+		x = -12
 		y = 0
-		relative_position_id = ITA_ethiopian_war_logistics_bba
+		relative_position_id = ITA_italian_highways_bba
 		cost = 5
 		
 		allow_branch = {
@@ -16214,13 +19050,13 @@ focus_tree = {
 					hidden_effect = {
 						create_unit = {
 							division = "division_template = \"Divisione di Fanteria\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
-							prioritize_location = 9904
+							prioritize_location = 20009 # Roma VP (ME 876)
 							owner = ROOT
 							count = 2
 						}
 						create_unit = {
 							division = "division_template = \"Divisione Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
-							prioritize_location = 9904
+							prioritize_location = 20009 # Roma VP (ME 876)
 							owner = ROOT
 							count = 2
 						}
@@ -16231,14 +19067,14 @@ focus_tree = {
 					hidden_effect = {
 						create_unit = {
 							division = "division_template = \"Divisione di Fanteria\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
-							prioritize_location = 9904
+							prioritize_location = 20009 # Roma VP (ME 876)
 							allow_spawning_on_enemy_provs = yes
 							owner = ROOT
 							count = 1
 						}
 						create_unit = {
 							division = "division_template = \"Divisione Partigiana\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
-							prioritize_location = 9904
+							prioritize_location = 20009 # Roma VP (ME 876)
 							allow_spawning_on_enemy_provs = yes
 							owner = ROOT
 							count = 1
@@ -16767,9 +19603,10 @@ focus_tree = {
  	focus = {
 		id = ITA_the_italian_social_republic
 		icon = GFX_goal_support_fascism
-		x = -6
+		# 1.19-migration: anchored to highways as in ME pre-sync; x -12 keeps absolute -4
+		x = -12
 		y = 0
-		relative_position_id = ITA_ethiopian_war_logistics_bba
+		relative_position_id = ITA_italian_highways_bba
 		cost = 5
 		
 		allow_branch = {
@@ -17159,7 +19996,7 @@ focus_tree = {
 						is_core_of = LBA
 						is_fully_controlled_by = ROOT
 					}
-					prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                    prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 					custom_effect_tooltip = ITA_integrate_polizia_dell_africa_italiana_libya_tt
 					hidden_effect = {
 						create_unit = {
@@ -17197,7 +20034,7 @@ focus_tree = {
 							is_core_of = LBA
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                        prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 						custom_effect_tooltip = ITA_integrate_polizia_dell_africa_italiana_libya_tt
 						hidden_effect = {
 							create_unit = {
@@ -17349,7 +20186,7 @@ focus_tree = {
 							is_core_of = LBA
 							is_fully_controlled_by = ROOT
 						}
-						prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                        prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 						#Regular Camelry Eritrean
 						create_unit = {
 							division = "division_template = \"Reggimento Meharista\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
@@ -17380,7 +20217,7 @@ focus_tree = {
 								is_core_of = LBA
 								is_fully_controlled_by = ROOT
 							}
-							prioritize = { 448 } #TRIPOLI (In case at some point this gets split or tag gets more cores)
+                            prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 							#Regular Camelry Eritrean
 							create_unit = {
 								division = "division_template = \"Reggimento Meharista\" start_experience_factor = 0.2 start_equipment_factor = 1.0"
@@ -20706,13 +23543,13 @@ focus_tree = {
 
 		bypass = {
 			#ETH = {   # 1.19-migration: dead tag ETH
-				OR = {
-					exists = no
-					is_subject = yes
-					is_in_faction = yes
-					has_capitulated = yes
-				}
-			}
+				#OR = {
+				#	exists = no
+				#	is_subject = yes
+				#	is_in_faction = yes
+				#	has_capitulated = yes
+				#}
+			#}
 		}
 
 		available = {
@@ -21349,27 +24186,27 @@ focus_tree = {
 							NOT = { has_state_flag = ITA_irregulars_raised_flag }
 						}
 						prioritize = { 550 559 448 450 271 } # ERITREA / SOMALILAND / TRIPOLI / BENGHASI / ADDIS ABABA
+						#if = {
+						#	limit = {
+						#		#is_core_of = ERI   # 1.19-migration: dead tag ERI
+						#	}
+						#	create_unit = {
+						#		division = "division_template = \"Banda Irregolare Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#		owner = ROOT
+						#		count = 1
+						#	}
+						#}
+						#else_if = {
+						#	limit = {
+						#		#is_core_of = SOM   # 1.19-migration: dead tag SOM
+						#	}
+						#	create_unit = {
+						#		division = "division_template = \"Banda Irregolare Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#		owner = ROOT
+						#		count = 1
+						#	}
+						#}
 						if = {
-							limit = {
-								#is_core_of = ERI   # 1.19-migration: dead tag ERI
-							}
-							create_unit = {
-								division = "division_template = \"Banda Irregolare Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-								owner = ROOT
-								count = 1
-							}
-						}
-						else_if = {
-							limit = {
-								#is_core_of = SOM   # 1.19-migration: dead tag SOM
-							}
-							create_unit = {
-								division = "division_template = \"Banda Irregolare Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-								owner = ROOT
-								count = 1
-							}
-						}
-						else_if = {
 							limit = {
 								is_core_of = LBA
 							}
@@ -21392,29 +24229,29 @@ focus_tree = {
 								}
 							}
 						}
-						else_if = {
-							limit = {
-								#is_core_of = ETH   # 1.19-migration: dead tag ETH
-							}
-							if = {
-								limit = {
-									check_variable = { ROOT.ITA_cavalry_raised < 3 }
-								}
-								create_unit = {
-									division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-								add_to_variable = { ROOT.ITA_cavalry_raised = 1 }
-							}
-							else = {
-								create_unit = {
-									division = "division_template = \"Banda Indigena Irregolare\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-							}
-						}
+						#else_if = {
+						#	limit = {
+						#		#is_core_of = ETH   # 1.19-migration: dead tag ETH
+						#	}
+						#	if = {
+						#		limit = {
+						#			check_variable = { ROOT.ITA_cavalry_raised < 3 }
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#		add_to_variable = { ROOT.ITA_cavalry_raised = 1 }
+						#	}
+						#	else = {
+						#		create_unit = {
+						#			division = "division_template = \"Banda Indigena Irregolare\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#	}
+						#}
 						else = {
 							create_unit = {
 								division = "division_template = \"Banda Indigena Irregolare\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
@@ -21451,49 +24288,49 @@ focus_tree = {
 								is_on_continent = africa
 							}
 						}
-						if = { #Puppet is ERI
-							limit = {
-								#original_tag = ERI   # 1.19-migration: dead tag ERI
-							}
-							random_controlled_state = {
-								limit = {
-									is_on_continent = africa
-								}
-								prioritize = { 550 }
-								create_unit = {
-									division = "division_template = \"Banda Irregolare Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-								create_unit = {
-									division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 2
-								}
-							}
-						}
-						else_if = { #Puppet is SOM
-							limit = {
-								#original_tag = SOM   # 1.19-migration: dead tag SOM
-							}
-							random_controlled_state = {
-								limit = {
-									is_on_continent = africa
-								}
-								prioritize = { 559 }
-								create_unit = {
-									division = "division_template = \"Banda Irregolare Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 2
-								}
-								create_unit = {
-									division = "division_template = \"Truppe Irregolari di Cammelli\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-							}
-						}
-						else_if = { #Puppet is LBA
+						#if = { #Puppet is ERI
+						#	limit = {
+						#		#original_tag = ERI   # 1.19-migration: dead tag ERI
+						#	}
+						#	random_controlled_state = {
+						#		limit = {
+						#			is_on_continent = africa
+						#		}
+						#		prioritize = { 550 }
+						#		create_unit = {
+						#			division = "division_template = \"Banda Irregolare Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 2
+						#		}
+						#	}
+						#}
+						#else_if = { #Puppet is SOM
+						#	limit = {
+						#		#original_tag = SOM   # 1.19-migration: dead tag SOM
+						#	}
+						#	random_controlled_state = {
+						#		limit = {
+						#			is_on_continent = africa
+						#		}
+						#		prioritize = { 559 }
+						#		create_unit = {
+						#			division = "division_template = \"Banda Irregolare Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 2
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Truppe Irregolari di Cammelli\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#	}
+						#}
+						if = { #Puppet is LBA
 							limit = {
 								original_tag = LBA
 							}
@@ -21501,7 +24338,7 @@ focus_tree = {
 								limit = {
 									is_on_continent = africa
 								}
-								prioritize = { 448 }
+                                prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 								create_unit = {
 									division = "division_template = \"Banda Irregolare Libica\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
 									owner = ROOT
@@ -21519,27 +24356,27 @@ focus_tree = {
 								}
 							}
 						}
-						else_if = { #Puppet is ETH
-							limit = {
-								#original_tag = ETH   # 1.19-migration: dead tag ETH
-							}
-							random_controlled_state = {
-								limit = {
-									is_on_continent = africa
-								}
-								prioritize = { 271 }
-								create_unit = {
-									division = "division_template = \"Banda Indigena Irregolare\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 2
-								}
-								create_unit = {
-									division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-							}
-						}
+						#else_if = { #Puppet is ETH
+						#	limit = {
+						#		#original_tag = ETH   # 1.19-migration: dead tag ETH
+						#	}
+						#	random_controlled_state = {
+						#		limit = {
+						#			is_on_continent = africa
+						#		}
+						#		prioritize = { 271 }
+						#		create_unit = {
+						#			division = "division_template = \"Banda Indigena Irregolare\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 2
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Truppe Irregolari a Cavallo\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#	}
+						#}
 						else = {
 							random_controlled_state = {
 								limit = {
@@ -21973,27 +24810,27 @@ focus_tree = {
 							NOT = { has_state_flag = ITA_ascari_raised_flag }
 						}
 						prioritize = { 550 559 448 450 271 } # ERITREA / SOMALILAND / TRIPOLI / BENGHASI / ADDIS ABABA
+						#if = {
+						#	limit = {
+						#		#is_core_of = ERI   # 1.19-migration: dead tag ERI
+						#	}
+						#	create_unit = {
+						#		division = "division_template = \"Divisione Ascari Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#		owner = ROOT
+						#		count = 1
+						#	}
+						#}
+						#else_if = {
+						#	limit = {
+						#		#is_core_of = SOM   # 1.19-migration: dead tag SOM
+						#	}
+						#	create_unit = {
+						#		division = "division_template = \"Divisione Ascari Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#		owner = ROOT
+						#		count = 1
+						#	}
+						#}
 						if = {
-							limit = {
-								#is_core_of = ERI   # 1.19-migration: dead tag ERI
-							}
-							create_unit = {
-								division = "division_template = \"Divisione Ascari Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-								owner = ROOT
-								count = 1
-							}
-						}
-						else_if = {
-							limit = {
-								#is_core_of = SOM   # 1.19-migration: dead tag SOM
-							}
-							create_unit = {
-								division = "division_template = \"Divisione Ascari Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-								owner = ROOT
-								count = 1
-							}
-						}
-						else_if = {
 							limit = {
 								is_core_of = LBA
 							}
@@ -22016,29 +24853,29 @@ focus_tree = {
 								}
 							}
 						}
-						else_if = {
-							limit = {
-								#is_core_of = ETH   # 1.19-migration: dead tag ETH
-							}
-							if = {
-								limit = {
-									check_variable = { ROOT.ITA_cavalry_raised < 3 }
-								}
-								create_unit = {
-									division = "division_template = \"Cavalleria Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-								add_to_variable = { ROOT.ITA_cavalry_raised = 1 }
-							}
-							else = {
-								create_unit = {
-									division = "division_template = \"Divisione Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-							}
-						}
+						#else_if = {
+						#	limit = {
+						#		#is_core_of = ETH   # 1.19-migration: dead tag ETH
+						#	}
+						#	if = {
+						#		limit = {
+						#			check_variable = { ROOT.ITA_cavalry_raised < 3 }
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Cavalleria Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#		add_to_variable = { ROOT.ITA_cavalry_raised = 1 }
+						#	}
+						#	else = {
+						#		create_unit = {
+						#			division = "division_template = \"Divisione Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#	}
+						#}
 						else = {
 							create_unit = {
 								division = "division_template = \"Divisione Coloniale\" start_experience_factor = 0.1 start_equipment_factor = 1.0"
@@ -22075,49 +24912,49 @@ focus_tree = {
 								is_on_continent = africa
 							}
 						}
-						if = { #Puppet is ERI
-							limit = {
-								#original_tag = ERI   # 1.19-migration: dead tag ERI
-							}
-							random_controlled_state = {
-								limit = {
-									is_on_continent = africa
-								}
-								prioritize = { 550 }
-								create_unit = {
-									division = "division_template = \"Divisione Ascari Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-								create_unit = {
-									division = "division_template = \"Cavalleria Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 2
-								}
-							}
-						}
-						else_if = { #Puppet is SOM
-							limit = {
-								#original_tag = SOM   # 1.19-migration: dead tag SOM
-							}
-							random_controlled_state = {
-								limit = {
-									is_on_continent = africa
-								}
-								prioritize = { 559 }
-								create_unit = {
-									division = "division_template = \"Divisione Ascari Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 2
-								}
-								create_unit = {
-									division = "division_template = \"Reggimento Meharista\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-							}
-						}
-						else_if = { #Puppet is LBA
+						#if = { #Puppet is ERI
+						#	limit = {
+						#		#original_tag = ERI   # 1.19-migration: dead tag ERI
+						#	}
+						#	random_controlled_state = {
+						#		limit = {
+						#			is_on_continent = africa
+						#		}
+						#		prioritize = { 550 }
+						#		create_unit = {
+						#			division = "division_template = \"Divisione Ascari Eritrea\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Cavalleria Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 2
+						#		}
+						#	}
+						#}
+						#else_if = { #Puppet is SOM
+						#	limit = {
+						#		#original_tag = SOM   # 1.19-migration: dead tag SOM
+						#	}
+						#	random_controlled_state = {
+						#		limit = {
+						#			is_on_continent = africa
+						#		}
+						#		prioritize = { 559 }
+						#		create_unit = {
+						#			division = "division_template = \"Divisione Ascari Somala\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 2
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Reggimento Meharista\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#	}
+						#}
+						if = { #Puppet is LBA
 							limit = {
 								original_tag = LBA
 							}
@@ -22125,7 +24962,7 @@ focus_tree = {
 								limit = {
 									is_on_continent = africa
 								}
-								prioritize = { 448 }
+                                prioritize = { 1241 } # 1.19-migration: was vanilla 448 (Tripoli); mod Tripoli
 								create_unit = {
 									division = "division_template = \"Divisione Ascari Libica\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
 									owner = ROOT
@@ -22143,27 +24980,27 @@ focus_tree = {
 								}
 							}
 						}
-						else_if = { #Puppet is ETH
-							limit = {
-								#original_tag = ETH   # 1.19-migration: dead tag ETH
-							}
-							random_controlled_state = {
-								limit = {
-									is_on_continent = africa
-								}
-								prioritize = { 271 }
-								create_unit = {
-									division = "division_template = \"Divisione Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 2
-								}
-								create_unit = {
-									division = "division_template = \"Cavalleria Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
-									owner = ROOT
-									count = 1
-								}
-							}
-						}
+						#else_if = { #Puppet is ETH
+						#	limit = {
+						#		#original_tag = ETH   # 1.19-migration: dead tag ETH
+						#	}
+						#	random_controlled_state = {
+						#		limit = {
+						#			is_on_continent = africa
+						#		}
+						#		prioritize = { 271 }
+						#		create_unit = {
+						#			division = "division_template = \"Divisione Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 2
+						#		}
+						#		create_unit = {
+						#			division = "division_template = \"Cavalleria Coloniale\" start_experience_factor = 0.15 start_equipment_factor = 1.0"
+						#			owner = ROOT
+						#			count = 1
+						#		}
+						#	}
+						#}
 						else = {
 							random_controlled_state = {
 								limit = {

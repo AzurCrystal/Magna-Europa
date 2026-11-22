@@ -1539,18 +1539,18 @@ focus_tree = {
 			}
 
 			#VAASA
-			73 = { # was vanilla 69 (VAASA)
+			69 = { # eu_mapping: v149 (Vaasa) -> ME 69 (Pohjanmaa)
 				add_building_construction = { #Coastal Bunker in Vaasa
 					type = coastal_bunker
 					level = 4
 					instant_build = yes
-					province = 526  # was vanilla 19665
+					province = 19665 # eu_mapping: v_prov 3122 -> Vaasa coastal VP/hub (ME 69)
 				}
 				add_building_construction = { #Bunker in Vaasa
 					type = bunker
 					level = 4
 					instant_build = yes
-					province = 3879  # was vanilla 19665
+					province = 19665 # eu_mapping: v_prov 3122 -> Vaasa coastal VP/hub (ME 69)
 				}
 				if = {
 					limit = {
@@ -2253,7 +2253,7 @@ focus_tree = {
 
 			any_country_of = {
 				exists = yes
-				#target = {SWE NOR DEN ICE SMI}   # 1.19-migration: dead tag SMI
+				target = {SWE NOR DEN ICE SAP}
 				FIN_country_can_be_invited_into_faction_socialist = yes
 			}
 		}
@@ -2275,7 +2275,7 @@ focus_tree = {
 						original_tag = NOR
 						original_tag = DEN
 						original_tag = ICE
-						#original_tag = SMI   # 1.19-migration: dead tag SMI
+						original_tag = SAP
 					}
 					FIN_country_can_be_invited_into_faction_socialist = yes
 				}
@@ -2395,11 +2395,11 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						#SMI = {   # 1.19-migration: dead tag SMI
+						SAP = {
 							FIN_country_can_be_invited_into_faction_socialist = yes
 						}
 					}
-					#SMI = {   # 1.19-migration: dead tag SMI
+					SAP = {
 						hidden_effect = {
 							ROOT = {
 								add_ai_strategy = {
@@ -2417,8 +2417,8 @@ focus_tree = {
 						}
 						custom_effect_tooltip = FIN_northern_defense_front_faction_tt
 					}
-					#activate_targeted_decision = { target = SMI decision = FIN_pressure_country_government_nordic }   # 1.19-migration: dead tag SMI
-					#activate_targeted_decision = { target = SMI decision = FIN_promote_ideology_rallies_nordic }   # 1.19-migration: dead tag SMI
+					activate_targeted_decision = { target = SAP decision = FIN_pressure_country_government_nordic }
+					activate_targeted_decision = { target = SAP decision = FIN_promote_ideology_rallies_nordic }
 				}
 			}
 		}
@@ -3255,9 +3255,20 @@ focus_tree = {
 			all_core_state = {
 				is_controlled_by = ROOT
 			}
-			controls_state = 19 #MURMANSK
-			controls_state = 52 #SEGEZHA
-			controls_state = 57 #OLONETS
+			controls_state = 19 # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk)
+			controls_state = 16 # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula)
+			controls_state = 2709 # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma)
+			controls_state = 2785 # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha) #MURMANSK
+			controls_state = 38 # eu_mapping: v215 (Onega) -> ME 38 (Ukhta)
+			controls_state = 30 # eu_mapping: v215 (Onega) -> ME 30 (Medvezhyegorsk)
+			controls_state = 39 # eu_mapping: v215 (Onega) -> ME 39 (Belomorsk)
+			controls_state = 52 # eu_mapping: v215 (Onega) -> ME 52 (Segezha)
+			controls_state = 62 # eu_mapping: v215 (Onega) -> ME 62 (Repola)
+			controls_state = 74 # eu_mapping: v215 (Onega) -> ME 74 (Porajärvi) #ONEGA
+			controls_state = 24 # eu_mapping: v216 (Olonets) -> ME 24 (Petrozavodsk)
+			controls_state = 57 # eu_mapping: v216 (Olonets) -> ME 57 (Olonets)
+			controls_state = 59 # eu_mapping: v216 (Olonets) -> ME 59 (Suoyarvi)
+			controls_state = 2437 # eu_mapping: v216 (Olonets) -> ME 2437 (Podporozhye) #OLONETS
 		}
 
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_INDUSTRY }
@@ -3265,19 +3276,67 @@ focus_tree = {
 		completion_reward = {
 			set_cosmetic_tag = FIN_red_finland
 
-			19 = { #MURMANSK   # 1.19-migration: was vanilla 213 (Murmansk); mod Murmansk
+			19 = { # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk) #MURMANSK
 				add_core_of = ROOT
 			}
-			2458 = { #ONEGA   # 1.19-migration: was vanilla 215 (Onega); mod Onega
+			16 = { # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula) #MURMANSK
 				add_core_of = ROOT
 			}
-			57 = { #OLONETS   # 1.19-migration: was vanilla 216 (Olonets); mod Olonets
+			2709 = { # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma) #MURMANSK
 				add_core_of = ROOT
 			}
-			23 = { #NORRBOTTEN   # 1.19-migration: was vanilla 666 (Norrbotten); mod Norrbotten
+			2785 = { # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha) #MURMANSK
 				add_core_of = ROOT
 			}
-			4 = { #FINNMARK   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+			38 = { # eu_mapping: v215 (Onega) -> ME 38 (Ukhta) #ONEGA
+				add_core_of = ROOT
+			}
+			30 = { # eu_mapping: v215 (Onega) -> ME 30 (Medvezhyegorsk) #ONEGA
+				add_core_of = ROOT
+			}
+			39 = { # eu_mapping: v215 (Onega) -> ME 39 (Belomorsk) #ONEGA
+				add_core_of = ROOT
+			}
+			52 = { # eu_mapping: v215 (Onega) -> ME 52 (Segezha) #ONEGA
+				add_core_of = ROOT
+			}
+			62 = { # eu_mapping: v215 (Onega) -> ME 62 (Repola) #ONEGA
+				add_core_of = ROOT
+			}
+			74 = { # eu_mapping: v215 (Onega) -> ME 74 (Porajärvi) #ONEGA
+				add_core_of = ROOT
+			}
+			24 = { # eu_mapping: v216 (Olonets) -> ME 24 (Petrozavodsk) #OLONETS
+				add_core_of = ROOT
+			}
+			57 = { # eu_mapping: v216 (Olonets) -> ME 57 (Olonets) #OLONETS
+				add_core_of = ROOT
+			}
+			59 = { # eu_mapping: v216 (Olonets) -> ME 59 (Suoyarvi) #OLONETS
+				add_core_of = ROOT
+			}
+			2437 = { # eu_mapping: v216 (Olonets) -> ME 2437 (Podporozhye) #OLONETS
+				add_core_of = ROOT
+			}
+			2705 = { # eu_mapping: v666 (Norrbotten) -> ME 2705 (Haparanda) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			23 = { # eu_mapping: v666 (Norrbotten) -> ME 23 (Norrbotten) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			2704 = { # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			2711 = { # eu_mapping: v666 (Norrbotten) -> ME 2711 (Gällivare) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			2701 = { # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes) #FINNMARK
+				add_core_of = ROOT
+			}
+			4 = { # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark) #FINNMARK
+				add_core_of = ROOT
+			}
+			2712 = { # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino) #FINNMARK
 				add_core_of = ROOT
 			}
 
@@ -3818,7 +3877,7 @@ focus_tree = {
 		cost = 10
 		available = {
 			is_subject = no
-			#SMI = {   # 1.19-migration: dead tag SMI
+			SAP = {
 				any_core_state = {
 					NOT = { is_core_of = ROOT }
 					NOT = { controller = { has_war_with = ROOT } }
@@ -3835,7 +3894,7 @@ focus_tree = {
 					any_other_country = {
 						NOT = { has_war_with = ROOT }
 						any_controlled_state = {
-							#is_core_of = SMI   # 1.19-migration: dead tag SMI
+							is_core_of = SAP
 						}
 					}
 				}
@@ -3844,7 +3903,7 @@ focus_tree = {
 					limit = {
 						NOT = { has_war_with = ROOT }
 						any_controlled_state = {
-							#is_core_of = SMI   # 1.19-migration: dead tag SMI
+							is_core_of = SAP
 						}
 					}
 					country_event = { id = AAT_finland_diplomacy.05 hours = 8 random_hours = 6 }
@@ -3855,14 +3914,14 @@ focus_tree = {
 			if = {
 				limit = {
 					any_controlled_state = {
-						#is_core_of = SMI   # 1.19-migration: dead tag SMI
+						is_core_of = SAP
 						NOT = { is_core_of = FIN }
 					}
 				}
 				custom_effect_tooltip = generic_current_effects
 				every_controlled_state = {
 					limit = {
-						#is_core_of = SMI   # 1.19-migration: dead tag SMI
+						is_core_of = SAP
 						NOT = { is_core_of = FIN }
 					}
 					add_core_of = ROOT
@@ -4340,19 +4399,49 @@ focus_tree = {
 			is_subject = no
 			count_triggers = {
 				amount = 6
-				controls_state = 23 #NORRBOTTEN   # 1.19-migration: was vanilla 666 (Norrbotten)
-				controls_state = 45 #VÄSTERBOTTEN   # 1.19-migration: was vanilla 918 (Västerbotten)
-				controls_state = 25 #NORDLAND   # 1.19-migration: was vanilla 144 (Nordland)
-				controls_state = 13 #TROMS   # 1.19-migration: was vanilla 924 (Troms)
-				controls_state = 4 #FINNMARK   # 1.19-migration: was vanilla 925 (Finnmark)
-				controls_state = 19 #MURMANSK   # 1.19-migration: was vanilla 213 (Murmansk)
-				controls_state = 2458 #ONEGA   # 1.19-migration: was vanilla 215 (Onega)
-				controls_state = 57 #OLONETS   # 1.19-migration: was vanilla 216 (Olonets)
-				controls_state = 133 #HARJU   # 1.19-migration: was vanilla 812 (Harju)
-				controls_state = 134 #VIRUMAA   # 1.19-migration: was vanilla 813 (Virumaa)
-				controls_state = 146 #SAAREMAA   # 1.19-migration: was vanilla 811 (Saaremaa)
-				controls_state = 155 #PÄRNU   # 1.19-migration: was vanilla 13 (Pärnu)
-				controls_state = 152 #TARTU   # 1.19-migration: was vanilla 191 (Tartu)
+				controls_state = 2705 # eu_mapping: v666 (Norrbotten) -> ME 2705 (Haparanda)
+				controls_state = 23 # eu_mapping: v666 (Norrbotten) -> ME 23 (Norrbotten)
+				controls_state = 2704 # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna)
+				controls_state = 2711 # eu_mapping: v666 (Norrbotten) -> ME 2711 (Gällivare) #NORRBOTTEN
+				controls_state = 45 # eu_mapping: v918 (Västerbotten) -> ME 45 (Västerbotten)
+				controls_state = 2706 # eu_mapping: v918 (Västerbotten) -> ME 2706 (Piteå)
+				controls_state = 2707 # eu_mapping: v918 (Västerbotten) -> ME 2707 (Kittelfjäll)
+				controls_state = 2710 # eu_mapping: v918 (Västerbotten) -> ME 2710 (Arjeplog) #VÄSTERBOTTEN
+				controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+				controls_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen) #NORDLAND
+				controls_state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+				controls_state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer) #TROMS
+				controls_state = 2701 # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes)
+				controls_state = 4 # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark)
+				controls_state = 2712 # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino) #FINNMARK
+				controls_state = 19 # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk)
+				controls_state = 16 # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula)
+				controls_state = 2709 # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma)
+				controls_state = 2785 # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha) #MURMANSK
+				controls_state = 38 # eu_mapping: v215 (Onega) -> ME 38 (Ukhta)
+				controls_state = 30 # eu_mapping: v215 (Onega) -> ME 30 (Medvezhyegorsk)
+				controls_state = 39 # eu_mapping: v215 (Onega) -> ME 39 (Belomorsk)
+				controls_state = 52 # eu_mapping: v215 (Onega) -> ME 52 (Segezha)
+				controls_state = 62 # eu_mapping: v215 (Onega) -> ME 62 (Repola)
+				controls_state = 74 # eu_mapping: v215 (Onega) -> ME 74 (Porajärvi) #ONEGA
+				controls_state = 24 # eu_mapping: v216 (Olonets) -> ME 24 (Petrozavodsk)
+				controls_state = 57 # eu_mapping: v216 (Olonets) -> ME 57 (Olonets)
+				controls_state = 59 # eu_mapping: v216 (Olonets) -> ME 59 (Suoyarvi)
+				controls_state = 2437 # eu_mapping: v216 (Olonets) -> ME 2437 (Podporozhye) #OLONETS
+				controls_state = 133 # eu_mapping: v812 (Harju) -> ME 133 (Harju) #HARJU
+				controls_state = 134 # eu_mapping: v813 (Virumaa) -> ME 134 (Narva)
+				controls_state = 137 # eu_mapping: v813 (Virumaa) -> ME 137 (Jaanilinn)
+				controls_state = 143 # eu_mapping: v813 (Virumaa) -> ME 143 (Järva) #VIRUMAA
+				controls_state = 146 # eu_mapping: v811 (Saaremaa) -> ME 146 (Saaremaa)
+				controls_state = 157 # eu_mapping: v811 (Saaremaa) -> ME 157 (Hiiumaa) #SAAREMAA
+				controls_state = 155 # eu_mapping: v13 (Pärnu) -> ME 155 (Pärnu)
+				controls_state = 145 # eu_mapping: v13 (Pärnu) -> ME 145 (Lääne)
+				controls_state = 156 # eu_mapping: v13 (Pärnu) -> ME 156 (Viljandi) #PÄRNU
+				controls_state = 152 # eu_mapping: v191 (Tartu) -> ME 152 (Tarto)
+				controls_state = 165 # eu_mapping: v191 (Tartu) -> ME 165 (Petseri)
+				controls_state = 166 # eu_mapping: v191 (Tartu) -> ME 166 (Valga)
+				controls_state = 173 # eu_mapping: v191 (Tartu) -> ME 173 (Võru)
+				controls_state = 2791 # eu_mapping: v191 (Tartu) -> ME 2791 (Pededze) #TARTU
 			}
 		}
 
@@ -4361,19 +4450,67 @@ focus_tree = {
 		completion_reward = {
 			set_cosmetic_tag = FIN_grand_finnish_federation
 
-			19 = { #MURMANSK   # 1.19-migration: was vanilla 213 (Murmansk); mod Murmansk
+			19 = { # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk) #MURMANSK
 				add_core_of = ROOT
 			}
-			2458 = { #ONEGA   # 1.19-migration: was vanilla 215 (Onega); mod Onega
+			16 = { # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula) #MURMANSK
 				add_core_of = ROOT
 			}
-			57 = { #OLONETS   # 1.19-migration: was vanilla 216 (Olonets); mod Olonets
+			2709 = { # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma) #MURMANSK
 				add_core_of = ROOT
 			}
-			23 = { #NORRBOTTEN   # 1.19-migration: was vanilla 666 (Norrbotten); mod Norrbotten
+			2785 = { # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha) #MURMANSK
 				add_core_of = ROOT
 			}
-			4 = { #FINNMARK   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+			38 = { # eu_mapping: v215 (Onega) -> ME 38 (Ukhta) #ONEGA
+				add_core_of = ROOT
+			}
+			30 = { # eu_mapping: v215 (Onega) -> ME 30 (Medvezhyegorsk) #ONEGA
+				add_core_of = ROOT
+			}
+			39 = { # eu_mapping: v215 (Onega) -> ME 39 (Belomorsk) #ONEGA
+				add_core_of = ROOT
+			}
+			52 = { # eu_mapping: v215 (Onega) -> ME 52 (Segezha) #ONEGA
+				add_core_of = ROOT
+			}
+			62 = { # eu_mapping: v215 (Onega) -> ME 62 (Repola) #ONEGA
+				add_core_of = ROOT
+			}
+			74 = { # eu_mapping: v215 (Onega) -> ME 74 (Porajärvi) #ONEGA
+				add_core_of = ROOT
+			}
+			24 = { # eu_mapping: v216 (Olonets) -> ME 24 (Petrozavodsk) #OLONETS
+				add_core_of = ROOT
+			}
+			57 = { # eu_mapping: v216 (Olonets) -> ME 57 (Olonets) #OLONETS
+				add_core_of = ROOT
+			}
+			59 = { # eu_mapping: v216 (Olonets) -> ME 59 (Suoyarvi) #OLONETS
+				add_core_of = ROOT
+			}
+			2437 = { # eu_mapping: v216 (Olonets) -> ME 2437 (Podporozhye) #OLONETS
+				add_core_of = ROOT
+			}
+			2705 = { # eu_mapping: v666 (Norrbotten) -> ME 2705 (Haparanda) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			23 = { # eu_mapping: v666 (Norrbotten) -> ME 23 (Norrbotten) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			2704 = { # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			2711 = { # eu_mapping: v666 (Norrbotten) -> ME 2711 (Gällivare) #NORRBOTTEN
+				add_core_of = ROOT
+			}
+			2701 = { # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes) #FINNMARK
+				add_core_of = ROOT
+			}
+			4 = { # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark) #FINNMARK
+				add_core_of = ROOT
+			}
+			2712 = { # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino) #FINNMARK
 				add_core_of = ROOT
 			}
 
@@ -4381,19 +4518,49 @@ focus_tree = {
 				limit = {
 					any_controlled_state = {
 						OR = {
-							state = 23   # 1.19-migration: was vanilla 666 (Norrbotten)
-							state = 45   # 1.19-migration: was vanilla 918 (Västerbotten)
-							state = 25   # 1.19-migration: was vanilla 144 (Nordland)
-							state = 13   # 1.19-migration: was vanilla 924 (Troms)
-							state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
-							state = 19   # 1.19-migration: was vanilla 213 (Murmansk)
-							state = 2458   # 1.19-migration: was vanilla 215 (Onega)
-							state = 57   # 1.19-migration: was vanilla 216 (Olonets)
-							state = 133   # 1.19-migration: was vanilla 812 (Harju)
-							state = 134   # 1.19-migration: was vanilla 813 (Virumaa)
-							state = 146   # 1.19-migration: was vanilla 811 (Saaremaa)
-							state = 155   # 1.19-migration: was vanilla 13 (Pärnu)
-							state = 152   # 1.19-migration: was vanilla 191 (Tartu)
+							state = 2705 # eu_mapping: v666 (Norrbotten) -> ME 2705 (Haparanda)
+							state = 23 # eu_mapping: v666 (Norrbotten) -> ME 23 (Norrbotten)
+							state = 2704 # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna)
+							state = 2711 # eu_mapping: v666 (Norrbotten) -> ME 2711 (Gällivare)
+							state = 45 # eu_mapping: v918 (Västerbotten) -> ME 45 (Västerbotten)
+							state = 2706 # eu_mapping: v918 (Västerbotten) -> ME 2706 (Piteå)
+							state = 2707 # eu_mapping: v918 (Västerbotten) -> ME 2707 (Kittelfjäll)
+							state = 2710 # eu_mapping: v918 (Västerbotten) -> ME 2710 (Arjeplog)
+							state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+							state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+							state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+							state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
+							state = 2701 # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes)
+							state = 4 # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark)
+							state = 2712 # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino)
+							state = 19 # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk)
+							state = 16 # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula)
+							state = 2709 # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma)
+							state = 2785 # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha)
+							state = 38 # eu_mapping: v215 (Onega) -> ME 38 (Ukhta)
+							state = 30 # eu_mapping: v215 (Onega) -> ME 30 (Medvezhyegorsk)
+							state = 39 # eu_mapping: v215 (Onega) -> ME 39 (Belomorsk)
+							state = 52 # eu_mapping: v215 (Onega) -> ME 52 (Segezha)
+							state = 62 # eu_mapping: v215 (Onega) -> ME 62 (Repola)
+							state = 74 # eu_mapping: v215 (Onega) -> ME 74 (Porajärvi)
+							state = 24 # eu_mapping: v216 (Olonets) -> ME 24 (Petrozavodsk)
+							state = 57 # eu_mapping: v216 (Olonets) -> ME 57 (Olonets)
+							state = 59 # eu_mapping: v216 (Olonets) -> ME 59 (Suoyarvi)
+							state = 2437 # eu_mapping: v216 (Olonets) -> ME 2437 (Podporozhye)
+							state = 133 # eu_mapping: v812 (Harju) -> ME 133 (Harju)
+							state = 134 # eu_mapping: v813 (Virumaa) -> ME 134 (Narva)
+							state = 137 # eu_mapping: v813 (Virumaa) -> ME 137 (Jaanilinn)
+							state = 143 # eu_mapping: v813 (Virumaa) -> ME 143 (Järva)
+							state = 146 # eu_mapping: v811 (Saaremaa) -> ME 146 (Saaremaa)
+							state = 157 # eu_mapping: v811 (Saaremaa) -> ME 157 (Hiiumaa)
+							state = 155 # eu_mapping: v13 (Pärnu) -> ME 155 (Pärnu)
+							state = 145 # eu_mapping: v13 (Pärnu) -> ME 145 (Lääne)
+							state = 156 # eu_mapping: v13 (Pärnu) -> ME 156 (Viljandi)
+							state = 152 # eu_mapping: v191 (Tartu) -> ME 152 (Tarto)
+							state = 165 # eu_mapping: v191 (Tartu) -> ME 165 (Petseri)
+							state = 166 # eu_mapping: v191 (Tartu) -> ME 166 (Valga)
+							state = 173 # eu_mapping: v191 (Tartu) -> ME 173 (Võru)
+							state = 2791 # eu_mapping: v191 (Tartu) -> ME 2791 (Pededze)
 						}
 						has_resistance = yes
 					}
@@ -4401,19 +4568,49 @@ focus_tree = {
 				every_controlled_state = {
 					limit = {
 						OR = {
-							state = 23   # 1.19-migration: was vanilla 666 (Norrbotten)
-							state = 45   # 1.19-migration: was vanilla 918 (Västerbotten)
-							state = 25   # 1.19-migration: was vanilla 144 (Nordland)
-							state = 13   # 1.19-migration: was vanilla 924 (Troms)
-							state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
-							state = 19   # 1.19-migration: was vanilla 213 (Murmansk)
-							state = 2458   # 1.19-migration: was vanilla 215 (Onega)
-							state = 57   # 1.19-migration: was vanilla 216 (Olonets)
-							state = 133   # 1.19-migration: was vanilla 812 (Harju)
-							state = 134   # 1.19-migration: was vanilla 813 (Virumaa)
-							state = 146   # 1.19-migration: was vanilla 811 (Saaremaa)
-							state = 155   # 1.19-migration: was vanilla 13 (Pärnu)
-							state = 152   # 1.19-migration: was vanilla 191 (Tartu)
+							state = 2705 # eu_mapping: v666 (Norrbotten) -> ME 2705 (Haparanda)
+							state = 23 # eu_mapping: v666 (Norrbotten) -> ME 23 (Norrbotten)
+							state = 2704 # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna)
+							state = 2711 # eu_mapping: v666 (Norrbotten) -> ME 2711 (Gällivare)
+							state = 45 # eu_mapping: v918 (Västerbotten) -> ME 45 (Västerbotten)
+							state = 2706 # eu_mapping: v918 (Västerbotten) -> ME 2706 (Piteå)
+							state = 2707 # eu_mapping: v918 (Västerbotten) -> ME 2707 (Kittelfjäll)
+							state = 2710 # eu_mapping: v918 (Västerbotten) -> ME 2710 (Arjeplog)
+							state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+							state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+							state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+							state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
+							state = 2701 # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes)
+							state = 4 # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark)
+							state = 2712 # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino)
+							state = 19 # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk)
+							state = 16 # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula)
+							state = 2709 # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma)
+							state = 2785 # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha)
+							state = 38 # eu_mapping: v215 (Onega) -> ME 38 (Ukhta)
+							state = 30 # eu_mapping: v215 (Onega) -> ME 30 (Medvezhyegorsk)
+							state = 39 # eu_mapping: v215 (Onega) -> ME 39 (Belomorsk)
+							state = 52 # eu_mapping: v215 (Onega) -> ME 52 (Segezha)
+							state = 62 # eu_mapping: v215 (Onega) -> ME 62 (Repola)
+							state = 74 # eu_mapping: v215 (Onega) -> ME 74 (Porajärvi)
+							state = 24 # eu_mapping: v216 (Olonets) -> ME 24 (Petrozavodsk)
+							state = 57 # eu_mapping: v216 (Olonets) -> ME 57 (Olonets)
+							state = 59 # eu_mapping: v216 (Olonets) -> ME 59 (Suoyarvi)
+							state = 2437 # eu_mapping: v216 (Olonets) -> ME 2437 (Podporozhye)
+							state = 133 # eu_mapping: v812 (Harju) -> ME 133 (Harju)
+							state = 134 # eu_mapping: v813 (Virumaa) -> ME 134 (Narva)
+							state = 137 # eu_mapping: v813 (Virumaa) -> ME 137 (Jaanilinn)
+							state = 143 # eu_mapping: v813 (Virumaa) -> ME 143 (Järva)
+							state = 146 # eu_mapping: v811 (Saaremaa) -> ME 146 (Saaremaa)
+							state = 157 # eu_mapping: v811 (Saaremaa) -> ME 157 (Hiiumaa)
+							state = 155 # eu_mapping: v13 (Pärnu) -> ME 155 (Pärnu)
+							state = 145 # eu_mapping: v13 (Pärnu) -> ME 145 (Lääne)
+							state = 156 # eu_mapping: v13 (Pärnu) -> ME 156 (Viljandi)
+							state = 152 # eu_mapping: v191 (Tartu) -> ME 152 (Tarto)
+							state = 165 # eu_mapping: v191 (Tartu) -> ME 165 (Petseri)
+							state = 166 # eu_mapping: v191 (Tartu) -> ME 166 (Valga)
+							state = 173 # eu_mapping: v191 (Tartu) -> ME 173 (Võru)
+							state = 2791 # eu_mapping: v191 (Tartu) -> ME 2791 (Pededze)
 						}
 						has_resistance = yes
 					}
@@ -4426,47 +4623,103 @@ focus_tree = {
 
 			if = {
 				limit = {
-					2442 = {   # 1.19-migration: was vanilla 208 (Luga); mod Luga
+					2442 = { # eu_mapping: v208 (Luga) -> ME 2442 (Luga)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					127 = { # eu_mapping: v208 (Luga) -> ME 127 (Sosnovy Bor)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2435 = { # eu_mapping: v208 (Luga) -> ME 2435 (Kingissepp)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2794 = { # eu_mapping: v208 (Luga) -> ME 2794 (Gostilitsy)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2944 = { # eu_mapping: v208 (Luga) -> ME 2944 (Pechurki)
 						NOT = {
 							is_controlled_by = ROOT
 							is_claimed_by = ROOT
 						}
 					}
 				}
-				add_state_claim = 2442 #LUGA   # 1.19-migration: was vanilla 208 (Luga)
+				add_state_claim = 2442 # eu_mapping: v208 (Luga) -> ME 2442 (Luga)
+				add_state_claim = 127 # eu_mapping: v208 (Luga) -> ME 127 (Sosnovy Bor)
+				add_state_claim = 2435 # eu_mapping: v208 (Luga) -> ME 2435 (Kingissepp)
+				add_state_claim = 2794 # eu_mapping: v208 (Luga) -> ME 2794 (Gostilitsy)
+				add_state_claim = 2944 # eu_mapping: v208 (Luga) -> ME 2944 (Pechurki) #LUGA
 			}
 			if = {
 				limit = {
-					119 = {   # 1.19-migration: was vanilla 195 (Leningrad); mod Leningrad
+					119 = { # eu_mapping: v195 (Leningrad) -> ME 119 (Leningrad)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2787 = { # eu_mapping: v195 (Leningrad) -> ME 2787 (Toksovo)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2792 = { # eu_mapping: v195 (Leningrad) -> ME 2792 (Admiralteysky)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2793 = { # eu_mapping: v195 (Leningrad) -> ME 2793 (Kommunar)
 						NOT = {
 							is_controlled_by = ROOT
 							is_claimed_by = ROOT
 						}
 					}
 				}
-				add_state_claim = 119 #LENINGRAD   # 1.19-migration: was vanilla 195 (Leningrad)
+				add_state_claim = 119 # eu_mapping: v195 (Leningrad) -> ME 119 (Leningrad)
+				add_state_claim = 2787 # eu_mapping: v195 (Leningrad) -> ME 2787 (Toksovo)
+				add_state_claim = 2792 # eu_mapping: v195 (Leningrad) -> ME 2792 (Admiralteysky)
+				add_state_claim = 2793 # eu_mapping: v195 (Leningrad) -> ME 2793 (Kommunar) #LENINGRAD
 			}
 			if = {
 				limit = {
-					102 = {   # 1.19-migration: was vanilla 244 (Volkhov); mod Volkhov
+					102 = { # eu_mapping: v244 (Volkhov) -> ME 102 (Volkhov)
 						NOT = {
 							is_controlled_by = ROOT
 							is_claimed_by = ROOT
 						}
 					}
 				}
-				add_state_claim = 102 #VOLKHOV   # 1.19-migration: was vanilla 244 (Volkhov)
+				add_state_claim = 102 # eu_mapping: v244 (Volkhov) -> ME 102 (Volkhov) #VOLKHOV
 			}
 			if = {
 				limit = {
-					2941 = {   # 1.19-migration: was vanilla 264 (Tikhvin); mod Borovichi
+					142 = { # eu_mapping: v264 (Tikhvin) -> ME 142 (Borovichi)
+						NOT = {
+							is_controlled_by = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+					2941 = { # eu_mapping: v264 (Tikhvin) -> ME 2941 (Lodeynoye Pole)
 						NOT = {
 							is_controlled_by = ROOT
 							is_claimed_by = ROOT
 						}
 					}
 				}
-				add_state_claim = 2941 #TIKHVIN   # 1.19-migration: was vanilla 264 (Tikhvin)
+				add_state_claim = 142 # eu_mapping: v264 (Tikhvin) -> ME 142 (Borovichi)
+				add_state_claim = 2941 # eu_mapping: v264 (Tikhvin) -> ME 2941 (Lodeynoye Pole) #TIKHVIN
 			}
 
 			FIN_bop_medium_increase_effect = yes
@@ -4487,7 +4740,7 @@ focus_tree = {
 			is_subject = no
 			controls_state = 23 #NORRBOTTEN   # 1.19-migration: was vanilla 666 (Norrbotten)
 			controls_state = 45 #VÄSTERBOTTEN   # 1.19-migration: was vanilla 918 (Västerbotten)
-			controls_state = 25 #NORDLAND   # 1.19-migration: was vanilla 144 (Nordland)
+			controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
 			controls_state = 13 #TROMS   # 1.19-migration: was vanilla 924 (Troms)
 			controls_state = 4 #FINNMARK   # 1.19-migration: was vanilla 925 (Finnmark)
 		}
@@ -8223,7 +8476,7 @@ focus_tree = {
 						OR = {
 							is_baltic_country = yes
 							NORDIC_is_nordic = yes
-							#tag = SMI   # 1.19-migration: dead tag SMI
+							tag = SAP
 						}
 						has_government = fascism
 						NOT = { has_war_with = ROOT }
@@ -8238,7 +8491,7 @@ focus_tree = {
 					OR = {
 						is_baltic_country = yes
 						NORDIC_is_nordic = yes
-						#tag = SMI   # 1.19-migration: dead tag SMI
+						tag = SAP
 					}
 					has_government = fascism
 					NOT = { has_war_with = ROOT }
@@ -8274,7 +8527,7 @@ focus_tree = {
 						OR = {
 							is_baltic_country = yes
 							NORDIC_is_nordic = yes
-							#tag = SMI   # 1.19-migration: dead tag SMI
+							tag = SAP
 						}
 						NOT = { has_government = fascism }
 						NOT = { has_war_with = ROOT }
@@ -8289,7 +8542,7 @@ focus_tree = {
 						OR = {
 							is_baltic_country = yes
 							NORDIC_is_nordic = yes
-							#tag = SMI   # 1.19-migration: dead tag SMI
+							tag = SAP
 						}
 						NOT = { has_government = fascism }
 						NOT = { has_war_with = ROOT }
@@ -8611,21 +8864,21 @@ focus_tree = {
 
 				if = { #Finnish puppet or independent ally - Annexation
 					limit = {
-						#SMI = {   # 1.19-migration: dead tag SMI
+						SAP = {
 							FIN_is_valid_root_puppet_or_independent_ally = yes
 						}
 					}
-					#SMI = {   # 1.19-migration: dead tag SMI
+					SAP = {
 						country_event = { id = AAT_finland_diplomacy.14 hours = 1 }
 					}
 				}
 				else_if = { #Ally's puppet and AI - Request puppet transfer
 					limit = {
-						#SMI = {   # 1.19-migration: dead tag SMI
+						SAP = {
 							FIN_is_valid_allied_puppet_ai = yes
 						}
 					}
-					#SMI = {   # 1.19-migration: dead tag SMI
+					SAP = {
 						overlord = {
 							if = {
 								limit = {
@@ -8640,8 +8893,8 @@ focus_tree = {
 										limit = {
 											OR = {
 												AND = {
-													#is_core_of = SMI   # 1.19-migration: dead tag SMI
-													#is_owned_by = SMI   # 1.19-migration: dead tag SMI
+													is_core_of = SAP
+													is_owned_by = SAP
 												}
 												AND = {
 													is_core_of = KAR
@@ -8668,7 +8921,7 @@ focus_tree = {
 				}
 				else_if = { #Neutral/enemy - Claims and wargoal
 					limit = {
-						#SMI = {   # 1.19-migration: dead tag SMI
+						SAP = {
 							OR = {
 								FIN_is_valid_neutral_or_enemy = yes
 								has_civil_war = yes
@@ -8676,7 +8929,7 @@ focus_tree = {
 						}
 					}
 
-					#SMI = {   # 1.19-migration: dead tag SMI
+					SAP = {
 						every_core_state = {
 							limit = {
 								controller = {
@@ -8749,8 +9002,8 @@ focus_tree = {
 										limit = {
 											OR = {
 												AND = {
-													#is_core_of = SMI   # 1.19-migration: dead tag SMI
-													#is_owned_by = SMI   # 1.19-migration: dead tag SMI
+													is_core_of = SAP
+													is_owned_by = SAP
 												}
 												AND = {
 													is_core_of = KAR
@@ -8858,8 +9111,8 @@ focus_tree = {
 										limit = {
 											OR = {
 												AND = {
-													#is_core_of = SMI   # 1.19-migration: dead tag SMI
-													#is_owned_by = SMI   # 1.19-migration: dead tag SMI
+													is_core_of = SAP
+													is_owned_by = SAP
 												}
 												AND = {
 													is_core_of = KAR
@@ -8994,8 +9247,8 @@ focus_tree = {
 										limit = {
 											OR = {
 												AND = {
-													#is_core_of = SMI   # 1.19-migration: dead tag SMI
-													#is_owned_by = SMI   # 1.19-migration: dead tag SMI
+													is_core_of = SAP
+													is_owned_by = SAP
 												}
 												AND = {
 													is_core_of = KAR
@@ -9134,8 +9387,8 @@ focus_tree = {
 										limit = {
 											OR = {
 												AND = {
-													#is_core_of = SMI   # 1.19-migration: dead tag SMI
-													#is_owned_by = SMI   # 1.19-migration: dead tag SMI
+													is_core_of = SAP
+													is_owned_by = SAP
 												}
 												AND = {
 													is_core_of = KAR
@@ -9274,8 +9527,8 @@ focus_tree = {
 										limit = {
 											OR = {
 												AND = {
-													#is_core_of = SMI   # 1.19-migration: dead tag SMI
-													#is_owned_by = SMI   # 1.19-migration: dead tag SMI
+													is_core_of = SAP
+													is_owned_by = SAP
 												}
 												AND = {
 													is_core_of = KAR
@@ -15124,21 +15377,21 @@ focus_tree = {
 				
 			if = {
 				limit = {
-					has_full_control_of_state = 73 # MEPORT: was stale 69; VAASA -> 73 (matches reward scope)
+					has_full_control_of_state = 69 # eu_mapping: v149 (Vaasa) -> ME 69 (Pohjanmaa)
 				}
 				#VAASA
-				73 = { # was vanilla 69 (VAASA)
+				69 = { # eu_mapping: v149 (Vaasa) -> ME 69 (Pohjanmaa)
 					add_building_construction = {
 						type = naval_base
 						level = 2
 						instant_build = yes
-						province = 526  # was vanilla 19665
+						province = 19665 # eu_mapping: v_prov 3122 -> Vaasa coastal VP/hub (ME 69)
 					}
 					add_building_construction = {
 						type = coastal_bunker
 						level = 2
 						instant_build = yes
-						province = 526  # was vanilla 19665
+						province = 19665 # eu_mapping: v_prov 3122 -> Vaasa coastal VP/hub (ME 69)
 					}
 				}
 			}

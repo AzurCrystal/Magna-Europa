@@ -759,10 +759,21 @@ focus_tree = {
 			every_owned_state = {
 				limit = {
 					or = {
-						state = 455 # was vanilla 6
-						state = 451 # was vanilla 977 (Zeeland)
-						state = 482 # was vanilla 34 (Wallonie)
-						state = 500 # was vanilla 8
+						state = 2969 # eu_mapping: v6 (Flanders) -> ME 2969 (Bruxelles)
+						state = 454 # eu_mapping: v6 (Flanders) -> ME 454 (West-Vlaanderen)
+						state = 455 # eu_mapping: v6 (Flanders) -> ME 455 (Oost-Vlaanderen)
+						state = 470 # eu_mapping: v977 (Antwerp) -> ME 470 (Vlaams-Brabant)
+						state = 444 # eu_mapping: v977 (Antwerp) -> ME 444 (Antwerpen)
+						state = 456 # eu_mapping: v977 (Antwerp) -> ME 456 (Vlaams-Limburg)
+						state = 480 # eu_mapping: v34 (Wallonia) -> ME 480 (Liége)
+						state = 422 # eu_mapping: v34 (Wallonia) -> ME 422 (Brabant wallon)
+						state = 482 # eu_mapping: v34 (Wallonia) -> ME 482 (Hainaut)
+						state = 487 # eu_mapping: v34 (Wallonia) -> ME 487 (Namur)
+						state = 2368 # eu_mapping: v980 (Ardennes) -> ME 2368 (Arlon)
+						state = 485 # eu_mapping: v980 (Ardennes) -> ME 485 (Eupen-Malmedy)
+						state = 500 # eu_mapping: v980 (Ardennes) -> ME 500 (Luxembourg)
+						state = 2369 # eu_mapping: v980 (Ardennes) -> ME 2369 (Rochefort)
+						state = 2370 # eu_mapping: v980 (Ardennes) -> ME 2370 (Verviers)
 					}
 				}
 				add_dynamic_modifier = {
@@ -3156,7 +3167,9 @@ focus_tree = {
 				    expire = 0
 				}
 			}
-			500 = { add_core_of = ROOT }   # 1.19-migration: was vanilla 8 (Luxembourg); mod Luxembourg
+			404 = { add_core_of = ROOT }   # 1.19-migration: was vanilla 8 (Luxembourg -> Dikrech)
+			427 = { add_core_of = ROOT }   # -> Gréiwemaacher
+			512 = { add_core_of = ROOT }   # -> Lëtzebuerg
 		}
 	}
 
@@ -3249,7 +3262,7 @@ focus_tree = {
 
 		available = {
 			fascism > 0.9
-			980 = {
+			500 = { # ME-custom layout (1.18.3): Luxembourg Belge seat, not a 5-state region gate
 				is_owned_and_controlled_by = BEL
 			}
 		}
@@ -3259,7 +3272,7 @@ focus_tree = {
 				limit = {
 					is_core_of = BEL
 					is_fully_controlled_by = BEL
-					NOT = { state = 980 }
+					NOT = { state = 500 }   # ME-custom layout (1.18.3)
 					free_building_slots = {
 						building = industrial_complex
 						size > 1
@@ -3277,7 +3290,7 @@ focus_tree = {
 				limit = {
 					is_core_of = BEL
 					is_fully_controlled_by = BEL
-					NOT = { state = 980 }
+					NOT = { state = 500 }   # ME-custom layout (1.18.3)
 					free_building_slots = {
 						building = arms_factory
 						size > 1
@@ -3293,7 +3306,7 @@ focus_tree = {
 			}
 			IF = {
 				limit = {
-					980 = {
+					500 = { # 1.19-migration: was vanilla 980 (Ardennes -> ME 500 Luxembourg Belge, VP seat)
 						is_core_of = ROOT
 						is_fully_controlled_by = ROOT
 						free_building_slots = {
@@ -3303,7 +3316,7 @@ focus_tree = {
 						}	
 					}
 				}
-				980 = {
+				500 = {
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = industrial_complex
@@ -3314,7 +3327,7 @@ focus_tree = {
 			}
 			IF = {
 				limit = {
-					980 = {
+					500 = { # 1.19-migration: was vanilla 980 (Ardennes -> ME 500 Luxembourg Belge, VP seat)
 						is_core_of = ROOT
 						is_fully_controlled_by = ROOT
 						free_building_slots = {
@@ -3324,7 +3337,7 @@ focus_tree = {
 						}	
 					}
 				}
-				980 = {
+				500 = {
 					add_extra_state_shared_building_slots = 2
 					add_building_construction = {
 						type = arms_factory
@@ -3333,7 +3346,7 @@ focus_tree = {
 					}	
 				}
 			}
-			980 = {
+			500 = { # 1.19-migration: was vanilla 980 (Ardennes -> ME 500 Luxembourg Belge, VP seat)
 				increase_state_category = yes
 			}
 		}
@@ -3433,7 +3446,7 @@ focus = {
 				create_wargoal = {
 					type = take_state_focus
 					target = LUX
-					generator = { 500 } # was vanilla 8
+					generator = { 404 427 512 } # was vanilla 8 (Luxembourg)
 				}
 			}
 
@@ -3977,7 +3990,9 @@ focus = {
 		}
 	
 		completion_reward = {
-			500 = { add_core_of = ROOT } # was vanilla 8
+			404 = { add_core_of = ROOT } # was vanilla 8 (Luxembourg -> Dikrech)
+			427 = { add_core_of = ROOT } # -> Gréiwemaacher
+			512 = { add_core_of = ROOT } # -> Lëtzebuerg
 			# Netherlands
 			custom_effect_tooltip = form_eu_netherlands_coring_states_tt
 			hidden_effect = {
@@ -4202,17 +4217,114 @@ focus = {
 		}
 	
 		completion_reward = {
-			add_state_claim = 466 # was vanilla 29
-			add_state_claim = 442 # was vanilla 785
-			add_state_claim = 552 # was vanilla 18
-			add_state_claim = 2747 # was vanilla 28
-			add_state_claim = 627 # was vanilla 17
-			add_state_claim = 2614 # was vanilla 27
+			add_state_claim = 472 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 472 (Calais)
+			add_state_claim = 448 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 448 (Abbeville)
+			add_state_claim = 466 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 466 (Hainaut Français)
+			add_state_claim = 1324 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 1324 (Artois)
+			add_state_claim = 1342 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 1342 (Flandre Wallonne)
+			add_state_claim = 2333 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 2333 (Flandre Maritime)
+			add_state_claim = 2874 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 2874 (Boulogne-sur-Mer)
+			add_state_claim = 505 # eu_mapping: v785 (Picardy) -> ME 505 (Amiens)
+			add_state_claim = 442 # eu_mapping: v785 (Picardy) -> ME 442 (Laon)
+			add_state_claim = 519 # eu_mapping: v785 (Picardy) -> ME 519 (Soissons)
+			add_state_claim = 531 # eu_mapping: v785 (Picardy) -> ME 531 (Oise)
+			add_state_claim = 2365 # eu_mapping: v785 (Picardy) -> ME 2365 (Vervins)
+			add_state_claim = 2615 # eu_mapping: v785 (Picardy) -> ME 2615 (Saint-Quentin)
+			add_state_claim = 584 # eu_mapping: v18 (Champagne) -> ME 584 (Aube)
+			add_state_claim = 515 # eu_mapping: v18 (Champagne) -> ME 515 (Sedan)
+			add_state_claim = 525 # eu_mapping: v18 (Champagne) -> ME 525 (Mézières)
+			add_state_claim = 538 # eu_mapping: v18 (Champagne) -> ME 538 (Verdun)
+			add_state_claim = 543 # eu_mapping: v18 (Champagne) -> ME 543 (Bar-le-Duc)
+			add_state_claim = 544 # eu_mapping: v18 (Champagne) -> ME 544 (Briey)
+			add_state_claim = 552 # eu_mapping: v18 (Champagne) -> ME 552 (Marne)
+			add_state_claim = 588 # eu_mapping: v18 (Champagne) -> ME 588 (Chaumont)
+			add_state_claim = 734 # eu_mapping: v18 (Champagne) -> ME 734 (Bassigny)
+			add_state_claim = 2374 # eu_mapping: v18 (Champagne) -> ME 2374 (Buzancy)
+			add_state_claim = 2574 # eu_mapping: v18 (Champagne) -> ME 2574 (Thierville-sur-Meuse)
+			add_state_claim = 2575 # eu_mapping: v18 (Champagne) -> ME 2575 (Rethel)
+			add_state_claim = 2973 # eu_mapping: v18 (Champagne) -> ME 2973 (Commercy)
+			add_state_claim = 2608 # eu_mapping: v28 (Alsace-Lorraine) -> ME 2608 (Metz)
+			add_state_claim = 547 # eu_mapping: v28 (Alsace-Lorraine) -> ME 547 (Moselle)
+			add_state_claim = 566 # eu_mapping: v28 (Alsace-Lorraine) -> ME 566 (Bas-Rhin)
+			add_state_claim = 606 # eu_mapping: v28 (Alsace-Lorraine) -> ME 606 (Haut-Rhin)
+			add_state_claim = 2746 # eu_mapping: v28 (Alsace-Lorraine) -> ME 2746 (Schirmeck)
+			add_state_claim = 2747 # eu_mapping: v28 (Alsace-Lorraine) -> ME 2747 (Sarrebourg)
+			add_state_claim = 658 # eu_mapping: v17 (Franche-Comte) -> ME 658 (Doubs)
+			add_state_claim = 570 # eu_mapping: v17 (Franche-Comte) -> ME 570 (Nancy)
+			add_state_claim = 597 # eu_mapping: v17 (Franche-Comte) -> ME 597 (Épinal)
+			add_state_claim = 598 # eu_mapping: v17 (Franche-Comte) -> ME 598 (Saint-Dié)
+			add_state_claim = 627 # eu_mapping: v17 (Franche-Comte) -> ME 627 (Haute-Saône)
+			add_state_claim = 638 # eu_mapping: v17 (Franche-Comte) -> ME 638 (Belfort)
+			add_state_claim = 668 # eu_mapping: v17 (Franche-Comte) -> ME 668 (Dole)
+			add_state_claim = 2366 # eu_mapping: v17 (Franche-Comte) -> ME 2366 (Toul)
+			add_state_claim = 2367 # eu_mapping: v17 (Franche-Comte) -> ME 2367 (Bussang)
+			add_state_claim = 2610 # eu_mapping: v17 (Franche-Comte) -> ME 2610 (Vittel)
+			add_state_claim = 2611 # eu_mapping: v17 (Franche-Comte) -> ME 2611 (Lure)
+			add_state_claim = 2613 # eu_mapping: v17 (Franche-Comte) -> ME 2613 (Montbéliard)
+			add_state_claim = 626 # eu_mapping: v27 (Bourgogne) -> ME 626 (Côte-d'Or)
+			add_state_claim = 604 # eu_mapping: v27 (Bourgogne) -> ME 604 (Auxerre)
+			add_state_claim = 653 # eu_mapping: v27 (Bourgogne) -> ME 653 (Nièvre)
+			add_state_claim = 678 # eu_mapping: v27 (Bourgogne) -> ME 678 (Chalon-sur-Saône)
+			add_state_claim = 702 # eu_mapping: v27 (Bourgogne) -> ME 702 (Chevagnes)
+			add_state_claim = 802 # eu_mapping: v27 (Bourgogne) -> ME 802 (Avallon)
+			add_state_claim = 2612 # eu_mapping: v27 (Bourgogne) -> ME 2612 (Tavaux)
 			create_wargoal = {
 				type = take_claimed_state
 				target = FRA
 				expire = 0
-				generator = { 466 442 552 2747 627 2614 } # was vanilla 29,785,18,28,17,27
+				generator = {
+					472 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 472 (Calais)
+					448 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 448 (Abbeville)
+					466 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 466 (Hainaut Français)
+					1324 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 1324 (Artois)
+					1342 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 1342 (Flandre Wallonne)
+					2333 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 2333 (Flandre Maritime)
+					2874 # eu_mapping: v29 (Nord-Pas-de-Calais) -> ME 2874 (Boulogne-sur-Mer)
+					505 # eu_mapping: v785 (Picardy) -> ME 505 (Amiens)
+					442 # eu_mapping: v785 (Picardy) -> ME 442 (Laon)
+					519 # eu_mapping: v785 (Picardy) -> ME 519 (Soissons)
+					531 # eu_mapping: v785 (Picardy) -> ME 531 (Oise)
+					2365 # eu_mapping: v785 (Picardy) -> ME 2365 (Vervins)
+					2615 # eu_mapping: v785 (Picardy) -> ME 2615 (Saint-Quentin)
+					584 # eu_mapping: v18 (Champagne) -> ME 584 (Aube)
+					515 # eu_mapping: v18 (Champagne) -> ME 515 (Sedan)
+					525 # eu_mapping: v18 (Champagne) -> ME 525 (Mézières)
+					538 # eu_mapping: v18 (Champagne) -> ME 538 (Verdun)
+					543 # eu_mapping: v18 (Champagne) -> ME 543 (Bar-le-Duc)
+					544 # eu_mapping: v18 (Champagne) -> ME 544 (Briey)
+					552 # eu_mapping: v18 (Champagne) -> ME 552 (Marne)
+					588 # eu_mapping: v18 (Champagne) -> ME 588 (Chaumont)
+					734 # eu_mapping: v18 (Champagne) -> ME 734 (Bassigny)
+					2374 # eu_mapping: v18 (Champagne) -> ME 2374 (Buzancy)
+					2574 # eu_mapping: v18 (Champagne) -> ME 2574 (Thierville-sur-Meuse)
+					2575 # eu_mapping: v18 (Champagne) -> ME 2575 (Rethel)
+					2973 # eu_mapping: v18 (Champagne) -> ME 2973 (Commercy)
+					2608 # eu_mapping: v28 (Alsace-Lorraine) -> ME 2608 (Metz)
+					547 # eu_mapping: v28 (Alsace-Lorraine) -> ME 547 (Moselle)
+					566 # eu_mapping: v28 (Alsace-Lorraine) -> ME 566 (Bas-Rhin)
+					606 # eu_mapping: v28 (Alsace-Lorraine) -> ME 606 (Haut-Rhin)
+					2746 # eu_mapping: v28 (Alsace-Lorraine) -> ME 2746 (Schirmeck)
+					2747 # eu_mapping: v28 (Alsace-Lorraine) -> ME 2747 (Sarrebourg)
+					658 # eu_mapping: v17 (Franche-Comte) -> ME 658 (Doubs)
+					570 # eu_mapping: v17 (Franche-Comte) -> ME 570 (Nancy)
+					597 # eu_mapping: v17 (Franche-Comte) -> ME 597 (Épinal)
+					598 # eu_mapping: v17 (Franche-Comte) -> ME 598 (Saint-Dié)
+					627 # eu_mapping: v17 (Franche-Comte) -> ME 627 (Haute-Saône)
+					638 # eu_mapping: v17 (Franche-Comte) -> ME 638 (Belfort)
+					668 # eu_mapping: v17 (Franche-Comte) -> ME 668 (Dole)
+					2366 # eu_mapping: v17 (Franche-Comte) -> ME 2366 (Toul)
+					2367 # eu_mapping: v17 (Franche-Comte) -> ME 2367 (Bussang)
+					2610 # eu_mapping: v17 (Franche-Comte) -> ME 2610 (Vittel)
+					2611 # eu_mapping: v17 (Franche-Comte) -> ME 2611 (Lure)
+					2613 # eu_mapping: v17 (Franche-Comte) -> ME 2613 (Montbéliard)
+					626 # eu_mapping: v27 (Bourgogne) -> ME 626 (Côte-d'Or)
+					604 # eu_mapping: v27 (Bourgogne) -> ME 604 (Auxerre)
+					653 # eu_mapping: v27 (Bourgogne) -> ME 653 (Nièvre)
+					678 # eu_mapping: v27 (Bourgogne) -> ME 678 (Chalon-sur-Saône)
+					702 # eu_mapping: v27 (Bourgogne) -> ME 702 (Chevagnes)
+					802 # eu_mapping: v27 (Bourgogne) -> ME 802 (Avallon)
+					2612 # eu_mapping: v27 (Bourgogne) -> ME 2612 (Tavaux)
+				}
 			}
 
 			custom_effect_tooltip = generic_skip_one_line_tt
@@ -4861,38 +4973,48 @@ focus = {
 			custom_effect_tooltip = BEL_belgian_maginot_tt
 
 			hidden_effect = {
-				980 = {
+				500 = { # 1.19-migration: was vanilla 980 (Ardennes -> ME 500 Luxembourg Belge)
 					add_building_construction = {
 						type = bunker
 						level = 3
 						instant_build = yes
 						province = {
-							id = 3488
-							id = 6537
+							id = 2929   # was vanilla 3488
+							id = 7944   # was vanilla 6537
 						}
 					}
 				}
 				
-				487 = {   # 1.19-migration: was vanilla 34 (Wallonia); mod Brabant wallon
+				482 = {   # 1.19-migration: was vanilla 34 (Wallonia -> ME 482 Hainaut)
 					add_building_construction = {
 						type = bunker
 						level = 3
 						instant_build = yes
 						province = {
-							id = 11519
+							id = 5375   # was vanilla 11519
 						}
 					}
 				}
 
-				977 = {
+				456 = {   # 1.19-migration: was vanilla 977 (Antwerp -> ME 456 Vlaams-Limburg)
 					add_building_construction = {
 						type = bunker
 						level = 3
 						instant_build = yes
 						province = {
-							id = 9574
-							id = 11419
-							id = 6598
+							id = 12354   # was vanilla 9574
+						}
+					}
+				}
+
+				444 = {   # 1.19-migration: was vanilla 977 (Antwerp -> ME 444 Antwerpen)
+					add_building_construction = {
+						type = bunker
+						level = 3
+						instant_build = yes
+						province = {
+							id = 3980   # was vanilla 11419
+							id = 12205   # was vanilla 6598
 						}
 					}
 				}
@@ -4903,7 +5025,7 @@ focus = {
 						level = 3
 						instant_build = yes
 						province = {
-							id = 6560
+							id = 8883   # was vanilla 6560
 						}
 					}
 				}
@@ -6711,10 +6833,21 @@ focus = {
 			every_owned_state = {
 				limit = {
 					or = {
-						state = 455 # was vanilla 6
-						state = 451 # was vanilla 977 (Zeeland)
-						state = 482 # was vanilla 34 (Wallonie)
-						state = 500 # was vanilla 8
+						state = 2969 # eu_mapping: v6 (Flanders) -> ME 2969 (Bruxelles)
+						state = 454 # eu_mapping: v6 (Flanders) -> ME 454 (West-Vlaanderen)
+						state = 455 # eu_mapping: v6 (Flanders) -> ME 455 (Oost-Vlaanderen)
+						state = 470 # eu_mapping: v977 (Antwerp) -> ME 470 (Vlaams-Brabant)
+						state = 444 # eu_mapping: v977 (Antwerp) -> ME 444 (Antwerpen)
+						state = 456 # eu_mapping: v977 (Antwerp) -> ME 456 (Vlaams-Limburg)
+						state = 480 # eu_mapping: v34 (Wallonia) -> ME 480 (Liége)
+						state = 422 # eu_mapping: v34 (Wallonia) -> ME 422 (Brabant wallon)
+						state = 482 # eu_mapping: v34 (Wallonia) -> ME 482 (Hainaut)
+						state = 487 # eu_mapping: v34 (Wallonia) -> ME 487 (Namur)
+						state = 2368 # eu_mapping: v980 (Ardennes) -> ME 2368 (Arlon)
+						state = 485 # eu_mapping: v980 (Ardennes) -> ME 485 (Eupen-Malmedy)
+						state = 500 # eu_mapping: v980 (Ardennes) -> ME 500 (Luxembourg)
+						state = 2369 # eu_mapping: v980 (Ardennes) -> ME 2369 (Rochefort)
+						state = 2370 # eu_mapping: v980 (Ardennes) -> ME 2370 (Verviers)
 					}
 				}
 				add_dynamic_modifier = {
@@ -6726,10 +6859,21 @@ focus = {
 			every_other_country = {
 				limit = {
 					OR = {
-						controls_state = 455 # was vanilla 6
-						controls_state = 451 # was vanilla 977 (Zeeland)
-						controls_state = 482 # was vanilla 34 (Wallonie)
-						controls_state = 500 # was vanilla 8
+						controls_state = 2969 # eu_mapping: v6 (Flanders) -> ME 2969 (Bruxelles)
+						controls_state = 454 # eu_mapping: v6 (Flanders) -> ME 454 (West-Vlaanderen)
+						controls_state = 455 # eu_mapping: v6 (Flanders) -> ME 455 (Oost-Vlaanderen)
+						controls_state = 470 # eu_mapping: v977 (Antwerp) -> ME 470 (Vlaams-Brabant)
+						controls_state = 444 # eu_mapping: v977 (Antwerp) -> ME 444 (Antwerpen)
+						controls_state = 456 # eu_mapping: v977 (Antwerp) -> ME 456 (Vlaams-Limburg)
+						controls_state = 480 # eu_mapping: v34 (Wallonia) -> ME 480 (Liége)
+						controls_state = 422 # eu_mapping: v34 (Wallonia) -> ME 422 (Brabant wallon)
+						controls_state = 482 # eu_mapping: v34 (Wallonia) -> ME 482 (Hainaut)
+						controls_state = 487 # eu_mapping: v34 (Wallonia) -> ME 487 (Namur)
+						controls_state = 2368 # eu_mapping: v980 (Ardennes) -> ME 2368 (Arlon)
+						controls_state = 485 # eu_mapping: v980 (Ardennes) -> ME 485 (Eupen-Malmedy)
+						controls_state = 500 # eu_mapping: v980 (Ardennes) -> ME 500 (Luxembourg)
+						controls_state = 2369 # eu_mapping: v980 (Ardennes) -> ME 2369 (Rochefort)
+						controls_state = 2370 # eu_mapping: v980 (Ardennes) -> ME 2370 (Verviers)
 					}
 				}
 				country_event = {
@@ -8499,7 +8643,7 @@ focus = {
 		}
 	
 		completion_reward = {
-			977 = {
+			444 = { # vanilla 977 (Antwerp) -> ME 444 Antwerpen (VP seat)
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
@@ -8560,7 +8704,7 @@ focus = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			977 = {
+			444 = { # vanilla 977 (Antwerp) -> ME 444 Antwerpen (VP seat)
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard

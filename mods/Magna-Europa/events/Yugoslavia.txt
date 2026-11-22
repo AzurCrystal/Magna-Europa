@@ -163,6 +163,17 @@ country_event = {
 			}
 			if = {
 				limit = {
+					PREV = {
+						OR = {
+							has_completed_focus = YUG_safeguard_bosnia
+							has_completed_focus = YUG_divide_bosnia
+						}
+					}
+				}
+				puppet = BOS
+			}
+			if = {
+				limit = {
 					PREV = { has_completed_focus = YUG_divide_bosnia }
 				}
 				puppet = HRZ
@@ -509,10 +520,8 @@ country_event = {
 		trigger = { 
 			YUG = { 
 				OR = { 
-					owns_state = 103
-					owns_state = 104
-					owns_state = 109
-					owns_state = 804
+					owns_state = 1563
+					owns_state = 1464
 				} 
 			} 
 		}
@@ -521,24 +530,6 @@ country_event = {
 			add_political_power = -25
 			add_named_threat = { threat = 3 name = GER_fate_of_yugoslavia }
 			
-			CRO = {
-				if = {
-					limit = { YUG = { owns_state = 103 } }
-					transfer_state = 103
-				}
-				if = {
-					limit = { YUG = { owns_state = 104 } }
-					transfer_state = 104
-				}
-				if = {
-					limit = { YUG = { owns_state = 109 } }
-					transfer_state = 109
-				}	
-				if = {
-					limit = { YUG = { owns_state = 804 } }
-					transfer_state = 804
-				}
-			}
 			if = {
 				limit = {
 					is_in_faction_with = ALB
@@ -705,23 +696,25 @@ country_event = {
 
 			add_named_threat = { threat = 2 name = GER_fate_of_yugoslavia }
 			
-			CRO = {
-				if = {
-					limit = { YUG = { owns_state = 103 } }
-					transfer_state = 103
+			YUG = {
+				every_owned_state = {
+					limit = {
+						OR = {
+							is_core_of = CRO
+							is_core_of = BOS
+							state = 1470
+							state = 775
+							state = 2555
+						}
+						NOT = {
+							state = 1472
+							is_core_of = ITA
+							is_core_of = HUN
+						}
+					}
+					transfer_state_to = CRO
+					add_claim_by = CRO
 				}
-				if = {
-					limit = { YUG = { owns_state = 104 } }
-					transfer_state = 104
-				}
-				if = {
-					limit = { YUG = { owns_state = 109 } }
-					transfer_state = 109
-				}
-				if = {
-					limit = { YUG = { owns_state = 804 } }
-					transfer_state = 804
-				}				
 			}
 			puppet = CRO
 			puppet = YUG

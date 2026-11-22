@@ -3293,19 +3293,26 @@ ITA_anti_fascist_civil_war_deal_with_fascist_side = {
 		}
 		if = {
 			limit = {
+				controls_state = 1414 # MESSINA
+			}
+			1414 = { # eu_mapping: v115 (Sicily) -> ME 1414 (Messina)
+				create_unit = {
+					division = "division_template = \"Camicie Nere\" start_experience_factor = 0.15 start_equipment_factor = 0.8"
+					owner = PREV
+					prioritize_location = 15350 #Messina (ME 1414 VP)
+					count = 1
+				}
+			}
+		}
+		if = {
+			limit = {
 				controls_state = 1415 # SICILIA
 			}
 			1415 = { # was vanilla 115 (Kymenlaakso) — Sicily (Catania)
 				create_unit = {
 					division = "division_template = \"Camicie Nere\" start_experience_factor = 0.15 start_equipment_factor = 0.8"
 					owner = PREV
-					prioritize_location = 4159 #Messina
-					count = 1
-				}
-				create_unit = {
-					division = "division_template = \"Camicie Nere\" start_experience_factor = 0.15 start_equipment_factor = 0.8"
-					owner = PREV
-					prioritize_location = 4014 #Catania
+					prioritize_location = 20020 #Catania (ME 1415 VP)
 					count = 1
 				}
 			}
@@ -5558,6 +5565,26 @@ ITA_add_basic_light_flamethrower_template = {
 		}
 		icon = "GFX_ITA_basic_light_tank_medium"
 		model = "ITA_light_tank_destroyer_brigade_1_entity"
+	}
+}
+
+ITA_add_basic_light_tank_destroyer_template = {
+	#L3 cc
+	create_equipment_variant = {
+		name = "L3 cc"
+		type = light_tank_destroyer_chassis_1
+		parent_version = 0
+		modules = {
+			main_armament_slot = tank_high_velocity_cannon
+			turret_type_slot = tank_light_fixed_superstructure_turret
+			suspension_type_slot = tank_bogie_suspension
+			armor_type_slot = tank_riveted_armor
+			engine_type_slot = tank_gasoline_engine
+		}
+		upgrades = {
+			tank_nsb_engine_upgrade = 1
+			tank_nsb_armor_upgrade = 1
+		}
 	}
 }
 

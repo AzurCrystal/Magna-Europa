@@ -1237,31 +1237,32 @@ on_actions = {
 							hours = 1
 						}
 					}
-					else_if = {
-						limit = {
-							NOR = {	 
-								has_completed_focus = NOR_continue_nygaardsvold_government 
-								NOT = { has_completed_focus = NOR_arrest_quisling }
-								is_subject = no
-							}
-						}
-						complete_national_focus = NOR_fascist_invasion_of_norway
-						var:NOR.NOR_cw_fascist_attacker = {
-							country_event = {
-								id = AAT_norway.14
-								hours = 1 
-							}
-						}
-					}
-					else_if = {
-						limit = {
-							NOR = {
-								has_completed_focus = NOR_continue_nygaardsvold_government 
-								is_subject = no
-							}
-						}
-						complete_national_focus = NOR_fascist_invasion_of_norway
-					}
+					# 1.19-migration: NOR_arrest_quisling focus removed (matches vanilla 1.19.4); Quisling branches dropped
+					#else_if = {
+					#	limit = {
+					#		NOR = {	 
+					#			has_completed_focus = NOR_continue_nygaardsvold_government 
+					#			NOT = { has_completed_focus = NOR_arrest_quisling }
+					#			is_subject = no
+					#		}
+					#	}
+					#	complete_national_focus = NOR_fascist_invasion_of_norway
+					#	var:NOR.NOR_cw_fascist_attacker = {
+					#		country_event = {
+					#			id = AAT_norway.14
+					#			hours = 1 
+					#		}
+					#	}
+					#}
+					#else_if = {
+					#	limit = {
+					#		NOR = {
+					#			has_completed_focus = NOR_continue_nygaardsvold_government 
+					#			is_subject = no
+					#		}
+					#	}
+					#	complete_national_focus = NOR_fascist_invasion_of_norway
+					#}
 				}
 			}
 		}

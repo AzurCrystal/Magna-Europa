@@ -1495,6 +1495,16 @@ DIPLOMACY_LEAVE_FACTION_ENABLE_TRIGGER = {
 			always = no
 		}
 	}
+	if = {
+		limit = {
+			tag = ROM
+			has_idea = ROM_treaty_of_moscow
+		}
+		custom_trigger_tooltip = {
+			tooltip = ROM_treaty_of_moscow_tt
+			always = no
+		}
+	}
 }
  DIPLOMACY_ASSUME_FACTION_LEADERSHIP_ENABLE_TRIGGER = {
 	if = {
@@ -1554,14 +1564,6 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 					tag = SPC
 					has_completed_focus = SPR_regional_defense_council_of_aragon
 				}
-				NOT = { 
-					AND = {
-						tag = ETH 
-						ETH = {
-							has_completed_focus = ETH_support_spain
-						}
-					}
-				}
 			}
 			custom_trigger_tooltip = {
 				tooltip = RULE_VOLUNTEERS_NOT_ANARCHISTS_TT
@@ -1585,14 +1587,6 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 				FROM = {
 					tag = SPC
 					has_completed_focus = SPR_regional_defense_council_of_aragon
-				}
-				NOT = { 
-					AND = {
-						tag = ETH 
-						ETH = {
-							has_completed_focus = ETH_support_spain
-						}
-					}
 				}
 			}
 			custom_trigger_tooltip = {
@@ -1695,33 +1689,11 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 			}
 			custom_trigger_tooltip = {
 				tooltip = RULE_VOLUNTEERS_SOVIET_CHINA_SUPPORT_CHOSEN_ONE_TT
-				OR = {
-					has_completed_focus = SOV_the_gobi_gambit
-					has_completed_focus = SOV_two_red_flags
-					has_completed_focus = SOV_support_the_kuomintang
-					FROM = {
-						tag = SIK
-						has_war_with = KHM
-						has_idea = SIK_battle_for_sinkiang
-					}
-				}
-				NOT = {
-					AND = {
-						has_completed_focus = SOV_the_gobi_gambit
-						FROM = { NOT = { tag = SIK } }
-					}
-				}
-				NOT = {
-					AND = {
-						has_completed_focus = SOV_two_red_flags
-						FROM = { NOT = { tag = PRC } }
-					}
-				}
-				NOT = {
-					AND = {
-						has_completed_focus = SOV_support_the_kuomintang
-						FROM = { NOT = { tag = CHI } }
-					}
+				# 1.19-migration: SOV_the_gobi_gambit / SOV_two_red_flags / SOV_support_the_kuomintang absent in ME (off-map China branch cut)
+				FROM = {
+					tag = SIK
+					has_war_with = KHM
+					has_idea = SIK_battle_for_sinkiang
 				}
 			}
 		}
@@ -1907,14 +1879,6 @@ DIPLOMACY_SEND_VOLUNTEERS_ENABLE_TRIGGER = {
 		if = {
 			limit = {
 				NOT = { tag = SPC }
-				NOT = { 
-					AND = {
-						tag = ETH 
-						ETH = {
-							has_completed_focus = ETH_support_spain
-						}
-					}
-				}
 				FROM = {
 					tag = SPC
 					has_completed_focus = SPR_regional_defense_council_of_aragon

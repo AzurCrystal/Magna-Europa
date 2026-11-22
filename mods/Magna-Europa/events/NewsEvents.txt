@@ -1791,7 +1791,8 @@ news_event = {
 			controls_state = 234
 			controls_state = 221
 			controls_state = 219
-			controls_state = 270 # was vanilla 931 (Samara); mod Kuybyshev — 1.19-migration: added by vanilla 1.19.4
+			controls_state = 256 # eu_mapping: v931 (Cumbria) -> ME 256 (Cumberland)
+			controls_state = 269 # eu_mapping: v931 (Cumbria) -> ME 269 (Westmorland)
 			controls_state = 180
 			controls_state = 183
 
@@ -3296,22 +3297,22 @@ news_event = {
 	
 	major = yes
 	
-%(t)strigger = {
-	1889 = { is_controlled_by = ITA } # 1.19-migration: was vanilla 907 (Cairo)
-	OR = {   # 1.19-migration: vanilla 1.19.4 added EGY-ownership branch
-		AND = {
-			1889 = { is_owned_by = ENG }
-			ITA = { has_war_with = ENG }
-		}
-		AND = {
-			1889 = { is_owned_by = EGY }
-			EGY = {
-				is_ally_with = ENG
+	trigger = {
+		1889 = { is_controlled_by = ITA } # 1.19-migration: was vanilla 907 (Cairo)
+		OR = {   # 1.19-migration: vanilla 1.19.4 added EGY-ownership branch
+			AND = {
+				1889 = { is_owned_by = ENG }
+				ITA = { has_war_with = ENG }
 			}
-			ITA = { has_war_with = ENG }
-			ITA = { has_war_with = EGY }
+			AND = {
+				1889 = { is_owned_by = EGY }
+				EGY = {
+					is_ally_with = ENG
+				}
+				ITA = { has_war_with = ENG }
+				ITA = { has_war_with = EGY }
+			}
 		}
-	}
 		NOT = { has_global_flag = fall_of_cairo_ita }
 	}
 	
@@ -11367,11 +11368,14 @@ news_event = {
 	major = yes
 
 	is_triggered_only = yes
-	trigger = { # Added to minimise the amount of spam non-chinese player about the United Front joining
+	# 1.19-migration: dropped the undefined clause has_faction_template = faction_template_chinese_united_front
+	# (this mod replace_path's common/factions/templates and does not ship that template). NOT is NOR, so keeping
+	# NOT = { is_ally_with = event_target:WTT_current_china_leader } preserves vanilla's effective filter: FROM
+	# must not be allied with the current China leader.
+	trigger = {
 		FROM = { 
 			is_chinese_warlord = no
 			NOT = {
-				has_faction_template = faction_template_chinese_united_front
 				is_ally_with = event_target:WTT_current_china_leader 
 			}
 		}
@@ -13633,35 +13637,4 @@ news_event = {
 
 
 
-# === 1.19-migration: merged from vanilla NewsEvents.txt — restored missing defs ===
-
-news_event = {
-	id = news.400
-	title = news.400.t
-	desc = news.400.desc
-	picture = GFX_news_event_generic_fall_of_budapest
-	
-	major = yes
-
-	is_triggered_only = yes
-
-	fire_only_once = no
-	
-	immediate = {
-		set_global_flag = fall_of_budapest_generic_flag
-	}
-	
-	option = {
-		name = news.400.a
-		trigger = {
-			NOT = {
-				TAG = HUN
-			}
-		}
-	}
-	option = {
-		name = news.400.b
-		trigger = { TAG = HUN }
-	}
-}
 

@@ -781,7 +781,19 @@ on_actions = {
 				limit = {
 					tag = GER
 				}
-				500 = { # was vanilla 8
+				404 = { # was vanilla 8 (Luxembourg -> Dikrech)
+					if = {
+						limit = { is_core_of = ROOT }
+						remove_core_of = ROOT
+					}
+				}
+				427 = { # -> Gréiwemaacher
+					if = {
+						limit = { is_core_of = ROOT }
+						remove_core_of = ROOT
+					}
+				}
+				512 = { # -> Lëtzebuerg
 					if = {
 						limit = { is_core_of = ROOT }
 						remove_core_of = ROOT
@@ -2046,6 +2058,28 @@ on_actions = {
 							}
 							set_country_flag = ROM_AI_RANDOM_COMMUNIST
 							set_add_communist_weight_small = yes
+						}
+						25 = {
+							modifier = {
+								factor = 0
+								NOT = {
+									has_dlc = "To The Bitter End"
+								}
+							}
+							modifier = {
+								factor = 0.25
+								game_weight_can_add_fascist = no
+							}
+							set_country_flag = ROM_AI_RANDOM_FASCIST_CODREANU
+						}
+						25 = {
+							modifier = {
+								factor = 0
+								NOT = {
+									has_dlc = "To The Bitter End"
+								}
+							}
+							set_country_flag = ROM_AI_RANDOM_MONARCHIST_RELAX
 						}
 					}
 				}
@@ -4924,7 +4958,11 @@ on_actions = {
 					trait = sick
 					days = 30
 				}
-				unit_leader_event = { id = generic.17 }
+				set_unit_leader_flag = {
+					flag = recently_sick
+					value = 1
+					days = 180
+				}
 			}
 		}
 	}
@@ -4945,7 +4983,6 @@ on_actions = {
 					trait = wounded
 					days = 90
 				}
-				unit_leader_event = { id = generic.18 }
 			}
 		}
 	}
@@ -4966,7 +5003,6 @@ on_actions = {
 					trait = wounded
 					days = 90
 				}
-				unit_leader_event = { id = generic.18 }
 			}
 		}
 	}
@@ -4976,6 +5012,63 @@ on_actions = {
 			add_timed_unit_leader_trait = {
 				trait = recently_promoted
 				days = 100
+			}
+		}
+	}
+
+	on_deployed_leader_defeated = {
+		effect = {
+			if = {
+				limit = { can_be_captured = yes }
+				# TODO TAOG: a percentage chance to be captured? Other effects otherwise?
+
+				# is_in_state requires the leader to still be deployed, so check before capture_by
+				if = {
+					limit = {
+						is_in_state = 2183 # 1.19-migration: was vanilla 224 (Bryansk); ME 224 is Berwick
+						FROM = { is_ai = no }
+					}
+					FROM = {
+						set_country_flag = achievement_captured_general_in_bryansk
+					}
+				}
+
+				capture_by = FROM
+				FROM = {
+					if = {
+						limit = { is_ai = no }
+						set_country_flag = achievement_captured_a_general
+					}
+				}
+				if = {
+					limit = {
+						is_field_marshal = yes
+						FROM = { is_ai = no }
+					}
+					FROM = {
+						set_country_flag = achievement_captured_a_field_marshal
+					}
+				}
+				if = {
+					limit = {
+						tag = GER
+						FROM = { is_ai = no }
+					}
+					if = {
+						limit = { is_character = GER_erwin_rommel }
+						FROM = { set_country_flag = achievement_captured_rommel }
+					}
+				}
+			}
+			else = {
+				# uncapturable leaders (e.g. country leaders) get wounded instead
+				if = {
+					limit = { NOT = { has_trait = wounded } }
+					add_timed_unit_leader_trait = {
+						trait = wounded
+						days = 90
+					}
+				}
 			}
 		}
 	}

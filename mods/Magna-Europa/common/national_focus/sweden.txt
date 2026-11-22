@@ -4003,7 +4003,7 @@ focus_tree = {
 					has_dlc = "Man the Guns"
 					#MEX = {   # 1.19-migration: dead tag MEX
 						#has_completed_focus = MEX_focus_liberalize_the_banking_sector   # 1.19-migration: dead tag MEX
-					}
+					#}
 				}
 				#MEX = { MEX_vicente_lombardo = { set_nationality = ROOT } }   # 1.19-migration: dead tag MEX
 			}
@@ -4228,17 +4228,17 @@ focus_tree = {
 				limit = {
 					has_dlc = "By Blood Alone"
 					#ETH = {   # 1.19-migration: dead tag ETH
-						OR = {
-							#has_completed_focus = ETH_soviet_aid   # 1.19-migration: dead tag ETH
-							#has_completed_focus = ETH_reach_out_to_the_italians   # 1.19-migration: dead tag ETH
-							#has_completed_focus = ETH_rally_around_the_emperor   # 1.19-migration: dead tag ETH
-						}
-					}
+						#OR = {
+						#	#has_completed_focus = ETH_soviet_aid   # 1.19-migration: dead tag ETH
+						#	#has_completed_focus = ETH_reach_out_to_the_italians   # 1.19-migration: dead tag ETH
+						#	#has_completed_focus = ETH_rally_around_the_emperor   # 1.19-migration: dead tag ETH
+						#}
+					#}
 				}
 				#ETH = {   # 1.19-migration: dead tag ETH
-					IA_emma_goldman = { set_nationality = ROOT }
-					IA_sakutaro_iwasa = { set_nationality = ROOT }
-				}
+					#IA_emma_goldman = { set_nationality = ROOT }
+					#IA_sakutaro_iwasa = { set_nationality = ROOT }
+				#}
 			}
 			custom_effect_tooltip = available_political_advisor
 			show_ideas_tooltip = SWE_exiled_revolutionaries
@@ -4995,7 +4995,25 @@ focus_tree = {
 				has_war_with = NOR
 			}
 			OR = {
-				25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+				2703 = { # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					controller = { 
+						OR = {
+							NOT = { original_tag = NOR }
+							AND = {
+								original_tag = NOR
+								OR = {
+									is_subject = yes
+									NOT = {
+										has_government = democratic
+										has_government = neutrality
+									}
+								}
+							}
+							
+						}
+					}
+				}
+				2702 = { # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
 					controller = { 
 						OR = {
 							NOT = { original_tag = NOR }
@@ -5014,7 +5032,25 @@ focus_tree = {
 					}
 				}
 
-				13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+				13 = { # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+					controller = { 
+						OR = {
+							NOT = { original_tag = NOR }
+							AND = {
+								original_tag = NOR
+								OR = {
+									is_subject = yes
+									NOT = {
+										has_government = democratic
+										has_government = neutrality
+									}
+								}
+							}
+							
+						}
+					}
+				}
+				2700 = { # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
 					controller = { 
 						OR = {
 							NOT = { original_tag = NOR }
@@ -5033,7 +5069,43 @@ focus_tree = {
 					}
 				}
 
-				4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+				2701 = { # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes)
+					controller = { 
+						OR = {
+							NOT = { original_tag = NOR }
+							AND = {
+								original_tag = NOR
+								OR = {
+									is_subject = yes
+									NOT = {
+										has_government = democratic
+										has_government = neutrality
+									}
+								}
+							}
+							
+						}
+					}
+				}
+				4 = { # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark)
+					controller = { 
+						OR = {
+							NOT = { original_tag = NOR }
+							AND = {
+								original_tag = NOR
+								OR = {
+									is_subject = yes
+									NOT = {
+										has_government = democratic
+										has_government = neutrality
+									}
+								}
+							}
+							
+						}
+					}
+				}
+				2712 = { # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino)
 					controller = { 
 						OR = {
 							NOT = { original_tag = NOR }
@@ -5085,7 +5157,14 @@ focus_tree = {
 
 			if = {
 				limit = {
-					25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+					2703 = { # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+						controller = {
+							NOT = {
+								original_tag = SWE
+							}
+						}
+					}
+					2702 = { # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
 						controller = {
 							NOT = {
 								original_tag = SWE
@@ -5094,7 +5173,37 @@ focus_tree = {
 					}
 				}
 
-				25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+				2703 = { # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					controller = {
+						if = {
+							limit = { 
+								original_tag = NOR 
+								is_subject = no
+							}
+							 country_event = { id = AAT_Sweden.13 hours = 2 } 
+						}
+						else_if = {
+							limit = {
+								original_tag = NOR
+								is_subject = yes
+								is_ai = no
+								OVERLORD = { is_ai = yes }
+							}
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } } 
+						}
+						else_if = {
+							limit = {
+								is_subject = yes
+								OVERLORD = { is_ai = no }
+							}
+							OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else = {
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+					}
+				}
+				2702 = { # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
 					controller = {
 						if = {
 							limit = { 
@@ -5128,17 +5237,57 @@ focus_tree = {
 
 			if = {
 				limit = {
-					 13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+					 13 = { # eu_mapping: v924 (Troms) -> ME 13 (Troms) 
 					 	controller = {
 					 		NOT = { 
-					 			controls_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
+					 			controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					 			controls_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+					 			original_tag = SWE
+					 		}
+					 	}
+					 }
+					 2700 = { # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer) 
+					 	controller = {
+					 		NOT = { 
+					 			controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					 			controls_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
 					 			original_tag = SWE
 					 		}
 					 	}
 					 }
 				}
 
-				13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+				13 = { # eu_mapping: v924 (Troms) -> ME 13 (Troms) 
+					controller = {
+						if = {
+							limit = { 
+								original_tag = NOR 
+								is_subject = no
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								original_tag = NOR
+								is_subject = yes
+								is_ai = no
+								OVERLORD = { is_ai = yes }
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								is_subject = yes
+								OVERLORD = { is_ai = no }
+							}
+							OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else = {
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+					}
+				}
+				2700 = { # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer) 
 					controller = {
 						if = {
 							limit = { 
@@ -5172,19 +5321,107 @@ focus_tree = {
 
 			if = {
 				limit = {
-					 4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+					 2701 = { # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes) 
 					 	controller = {
 					 		NOT = { 
 					 			OR = {
-					 				controls_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
-					 				controls_state = 13   # 1.19-migration: was vanilla 924 (Troms)
+					 				controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					 				controls_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+					 				controls_state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+					 				controls_state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
+					 			}
+					 			original_tag = SWE
+					 		}
+					 	}
+					 }
+					 4 = { # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark) 
+					 	controller = {
+					 		NOT = { 
+					 			OR = {
+					 				controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					 				controls_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+					 				controls_state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+					 				controls_state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
+					 			}
+					 			original_tag = SWE
+					 		}
+					 	}
+					 }
+					 2712 = { # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino) 
+					 	controller = {
+					 		NOT = { 
+					 			OR = {
+					 				controls_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					 				controls_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+					 				controls_state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+					 				controls_state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
 					 			}
 					 			original_tag = SWE
 					 		}
 					 	}
 					 }
 				}
-				4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+				2701 = { # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes) 
+					controller = {
+						if = {
+							limit = { 
+								original_tag = NOR 
+								is_subject = no
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								original_tag = NOR
+								is_subject = yes
+								is_ai = no
+								OVERLORD = { is_ai = yes }
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								is_subject = yes
+								OVERLORD = { is_ai = no }
+							}
+							OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else = {
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+					}
+				}
+				4 = { # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark) 
+					controller = {
+						if = {
+							limit = { 
+								original_tag = NOR 
+								is_subject = no
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								original_tag = NOR
+								is_subject = yes
+								is_ai = no
+								OVERLORD = { is_ai = yes }
+							}
+							NOR = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else_if = {
+							limit = {
+								is_subject = yes
+								OVERLORD = { is_ai = no }
+							}
+							OVERLORD = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+						else = {
+							controller = { country_event = { id = AAT_Sweden.13 hours = 2 } }
+						}
+					}
+				}
+				2712 = { # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino) 
 					controller = {
 						if = {
 							limit = { 
@@ -5222,20 +5459,40 @@ focus_tree = {
 			custom_effect_tooltip = if_they_accept
 			effect_tooltip = {
 				ROOT = {
-					transfer_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
-					25 = {   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
+					transfer_state = 2703 # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+					transfer_state = 2702 # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
+					2703 = { # eu_mapping: v144 (Nordland) -> ME 2703 (Drag)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2702 = { # eu_mapping: v144 (Nordland) -> ME 2702 (Lofoten-Vesterålen)
 						set_demilitarized_zone = yes
 						add_compliance = 70
 					}
 
-					transfer_state = 13   # 1.19-migration: was vanilla 924 (Troms)
-					13 = {   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+					transfer_state = 13 # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+					transfer_state = 2700 # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
+					13 = { # eu_mapping: v924 (Troms) -> ME 13 (Troms)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2700 = { # eu_mapping: v924 (Troms) -> ME 2700 (Evenskjer)
 						set_demilitarized_zone = yes
 						add_compliance = 70
 					}
 
-					transfer_state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
-					4 = {   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
+					transfer_state = 2701 # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes)
+					transfer_state = 4 # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark)
+					transfer_state = 2712 # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino)
+					2701 = { # eu_mapping: v925 (Finnmark) -> ME 2701 (Kirkenes)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					4 = { # eu_mapping: v925 (Finnmark) -> ME 4 (Finnmark)
+						set_demilitarized_zone = yes
+						add_compliance = 70
+					}
+					2712 = { # eu_mapping: v925 (Finnmark) -> ME 2712 (Kautokeino)
 						set_demilitarized_zone = yes
 						add_compliance = 70
 					}
@@ -9223,9 +9480,14 @@ focus_tree = {
 			has_war_support > 0.4
 			has_army_manpower = { size > 80000 }
 			OR = {
-				25 = { is_fully_controlled_by = NOR }   # 1.19-migration: was vanilla 144 (Nordland); mod Nordland
-				4 = { is_fully_controlled_by =  NOR }   # 1.19-migration: was vanilla 925 (Finnmark); mod Finnmark
-				13 = { is_fully_controlled_by =  NOR }   # 1.19-migration: was vanilla 924 (Troms); mod Troms
+				25 = { is_fully_controlled_by = NOR }
+				2703 = { is_fully_controlled_by =  NOR }
+				2702 = { is_fully_controlled_by =  NOR }
+				2700 = { is_fully_controlled_by =  NOR }
+				13 = { is_fully_controlled_by =  NOR }
+				2712 = { is_fully_controlled_by =  NOR }
+				4 = { is_fully_controlled_by =  NOR }
+				2701 = { is_fully_controlled_by =  NOR }
 			}
 		}
 
@@ -9251,9 +9513,14 @@ focus_tree = {
 			custom_effect_tooltip = if_they_accept_tt
 			effect_tooltip = {
 
-				transfer_state = 25   # 1.19-migration: was vanilla 144 (Nordland)
-				transfer_state = 13   # 1.19-migration: was vanilla 924 (Troms)
-				transfer_state = 4   # 1.19-migration: was vanilla 925 (Finnmark)
+				transfer_state = 25
+				transfer_state = 2703
+				transfer_state = 2702
+				transfer_state =  2700
+				transfer_state = 13
+				transfer_state = 2712
+				transfer_state = 2701
+				transfer_state = 4
 				
 			}
 
@@ -9792,11 +10059,40 @@ focus_tree = {
 						region = 131 #Ukraine
 						region = 130 #Belarus
 						region = 132 #Novgorod
-						state = 134 #Virumaa   # 1.19-migration: was vanilla 813 (Virumaa)
-						state = 696   # 1.19-migration: was vanilla 234 (Krasnodar)
-						state = 457 #Stalingrad   # 1.19-migration: was vanilla 217 (Stalingrad)
+						state = 134 # eu_mapping: v813 (Virumaa) -> ME 134 (Narva)
+						state = 137 # eu_mapping: v813 (Virumaa) -> ME 137 (Jaanilinn)
+						state = 143 # eu_mapping: v813 (Virumaa) -> ME 143 (Järva) #Virumaa
+						state = 696 # eu_mapping: v234 (Krasnodar) -> ME 696 (Krasnodar)
+						state = 2398 # eu_mapping: v234 (Krasnodar) -> ME 2398 (Maykop)
+						state = 2405 # eu_mapping: v234 (Krasnodar) -> ME 2405 (Armavir)
+						state = 2406 # eu_mapping: v234 (Krasnodar) -> ME 2406 (Tuapse)
+						state = 2407 # eu_mapping: v234 (Krasnodar) -> ME 2407 (Novorossiysk)
+						state = 2408 # eu_mapping: v234 (Krasnodar) -> ME 2408 (Kropotkin)
+						state = 2493 # eu_mapping: v234 (Krasnodar) -> ME 2493 (Slavyansk)
+						state = 2499 # eu_mapping: v234 (Krasnodar) -> ME 2499 (Labinsk)
+						state = 2500 # eu_mapping: v234 (Krasnodar) -> ME 2500 (Timashyovsk)
+						state = 2501 # eu_mapping: v234 (Krasnodar) -> ME 2501 (Kanevskaya)
+						state = 2502 # eu_mapping: v234 (Krasnodar) -> ME 2502 (Tikhoretsk)
+						state = 2693 # eu_mapping: v234 (Krasnodar) -> ME 2693 (Yablonovsky)
+						state = 2694 # eu_mapping: v234 (Krasnodar) -> ME 2694 (Belorechensk)
+						state = 2695 # eu_mapping: v234 (Krasnodar) -> ME 2695 (Krymsk)
+						state = 2862 # eu_mapping: v234 (Krasnodar) -> ME 2862 (Shabelskoe)
+						state = 2863 # eu_mapping: v234 (Krasnodar) -> ME 2863 (Krasnoye)
+						state = 2865 # eu_mapping: v234 (Krasnodar) -> ME 2865 (Belaya Glina)
+						state = 457 # eu_mapping: v217 (Stalingrad) -> ME 457 (Stalingrad)
+						state = 2520 # eu_mapping: v217 (Stalingrad) -> ME 2520 (Kotelnikovo)
+						state = 2521 # eu_mapping: v217 (Stalingrad) -> ME 2521 (Kalach-na-Donu)
+						state = 2721 # eu_mapping: v217 (Stalingrad) -> ME 2721 (Volzhskiy)
+						state = 2726 # eu_mapping: v217 (Stalingrad) -> ME 2726 (Pallasovka) #Stalingrad
 					}
-					NOT = { state = 769 } #Crimea   # 1.19-migration: was vanilla 137 (Crimea)
+					NOT = { state = 2044
+					state = 769
+					state = 2125
+					state = 2126
+					state = 2127
+					state = 2128
+					state = 2129
+					state = 2130 } #Crimea
 				} 
 				add_claim_by = ROOT
 			}

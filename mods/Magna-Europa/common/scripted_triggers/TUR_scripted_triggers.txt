@@ -693,7 +693,15 @@ TUR_is_friend_for_bosphorus = { #Scripted Trigger for handling the Bosphorus acc
 					has_country_flag = TUR_strait_compromise_set
 				}
 				NOT = { has_war_with = TUR }  	
-				TUR_owns_state_in_black_sea = yes
+				OR = {
+					TUR_owns_state_in_black_sea = yes
+					AND = {
+						TUR = {
+							has_country_flag = ROM_agreed_to_allow_ROM_allies
+						}
+						is_ally_with = ROM
+					}
+				}
 			}
 			932 = { #This so countries allied to the controller of the Bosphorus can cross it. 
 				controller = {
@@ -729,7 +737,15 @@ TUR_is_friend_for_dardanelles = { #Scripted Trigger for handling the Dardanelles
 					has_country_flag = TUR_strait_compromise_set
 				}
 				NOT = { has_war_with = TUR }  	
-				TUR_owns_state_in_black_sea = yes 
+				OR = {
+					TUR_owns_state_in_black_sea = yes
+					AND = {
+						TUR = {
+							has_country_flag = ROM_agreed_to_allow_ROM_allies
+						}
+						is_ally_with = ROM
+					}
+				}
 			}
 			932 = { #This so countries allied to the controller of the Dardanelles can cross them. 
 				controller = { 
@@ -753,8 +769,9 @@ TUR_owns_state_in_black_sea = {
 	OR = {
 		owns_state = 928
 		owns_state = 868
-		owns_state = 793
-		owns_state = 767
+		owns_state = 793 # eu_mapping: v971 (Northern Dobruja) -> ME 793 (Constanța)
+		owns_state = 767 # eu_mapping: v971 (Northern Dobruja) -> ME 767 (Tulcea)
+		owns_state = 2902 # eu_mapping: v971 (Northern Dobruja) -> ME 2902 (Sulina)
 		owns_state = 1601
 		owns_state = 2045
 		owns_state = 614

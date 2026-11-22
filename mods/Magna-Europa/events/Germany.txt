@@ -22,37 +22,37 @@ country_event = {
 
 	option = {
 		name = germany.4.a
-		4 = {
+		1802 = {   # 1.19-migration: was vanilla 4 (Lower Austria)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
 			}
 		}
-		152 = {
+		1800 = {   # 1.19-migration: was vanilla 152 (Upper Austria)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
 			}
 		}
-		153 = {
+		1793 = {   # 1.19-migration: was vanilla 153 (Tyrol)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
 			}
 		}
-		848 = {
+		654 = {   # 1.19-migration: was vanilla 848 (Vorarlberg)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
 			}
 		}
-		975 = {
+		621 = {   # 1.19-migration: was vanilla 975 (Burgenland)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
 			}
 		}
-		976 = {
+		681 = {   # 1.19-migration: was vanilla 976 (Styria)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
@@ -167,25 +167,7 @@ country_event = {
 					}
 				}
 			}
-			modifier = {
-				factor = 0
-				tag = JAP
-				OR = {
-					has_completed_focus = JAP_the_unthinkable_option
-					has_completed_focus = JAP_return_of_the_manchukuo_exiles
-				}
-			}
-			modifier = {
-				factor = 0
-				is_literally_china = yes
-				JAP = { has_completed_focus = JAP_sea_purge_the_kodoha_faction }
-			}
-			modifier = {
-				factor = 0
-				tag = JAP
-				has_completed_focus = JAP_sea_purge_the_kodoha_faction
-				date > 1938.1.1
-			}
+			# 1.19-migration: dead ai_chance modifiers for JAP dropped (JAP focus tree absent in ME)
 		}
 		set_country_flag = anti_comintern_member
 		GER = { add_opinion_modifier = { target = ROOT modifier = anti_comintern_pact_opinion } }
@@ -264,11 +246,12 @@ country_event = {
 		}
 		add_opinion_modifier = { target = GER modifier = MR_pact }# pact
 		custom_effect_tooltip = germany.11.a.tt
-		if = {
+		every_state = { # eu_mapping: v146 (Karjala)
 			limit = {
-				NOT = { owns_state = 146 }
+				OR = { state = 77 state = 100 state = 113 state = 2783 }
+				NOT = { is_owned_by = ROOT }
 			}
-			add_state_claim = 146 #KARELIA (FIN)
+			add_claim_by = ROOT
 		}
 		#if = { #Removed with AAT (Makes no sense really)
 		#	limit = {
@@ -859,11 +842,12 @@ country_event = {
 			active = no
 		}
 		SOU = {
-			if = {
+			every_state = { # eu_mapping: v146 (Karjala)
 				limit = {
-					NOT = { owns_state = 146 }
+					OR = { state = 77 state = 100 state = 113 state = 2783 }
+					NOT = { is_owned_by = ROOT }
 				}
-				add_state_claim = 146 #KARELIA (FIN)
+				add_claim_by = ROOT
 			}
 			#if = { #Removed with AAT (Makes no sense really)
 			#	limit = {
@@ -1139,11 +1123,12 @@ country_event = {
 			}
 		}
 		SOU = {
-			if = {
+			every_state = { # eu_mapping: v146 (Karjala)
 				limit = {
-					NOT = { owns_state = 146 }
+					OR = { state = 77 state = 100 state = 113 state = 2783 }
+					NOT = { is_owned_by = ROOT }
 				}
-				add_state_claim = 146 #KARELIA (FIN)
+				add_claim_by = ROOT
 			}
 			#if = { #Removed with AAT (Makes no sense really)
 			#	limit = {
@@ -1340,11 +1325,12 @@ country_event = {
 				}
 			}
 			SOU = {
-				if = {
+				every_state = { # eu_mapping: v146 (Karjala)
 					limit = {
-						NOT = { owns_state = 146 }
+						OR = { state = 77 state = 100 state = 113 state = 2783 }
+						NOT = { is_owned_by = ROOT }
 					}
-					add_state_claim = 146 #KARELIA (FIN)
+					add_claim_by = ROOT
 				}
 				#if = { #Removed with AAT (Makes no sense really)
 				#	limit = {
@@ -1733,7 +1719,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = ROM
-			generator = { 76 }
+			generator = { 2680 }   # 1.19-migration: was vanilla 76 (North Transylvania)
 		}
 
 	}
@@ -1752,8 +1738,8 @@ country_event = {
 		name = germany.22.a
 
 		GER = {
-			transfer_state = 188
-			add_state_core = 188
+			transfer_state = 227   # 1.19-migration: was vanilla 188 (Memel)
+			add_state_core = 227   # 1.19-migration: was vanilla 188 (Memel)
 		}
 
 		#hidden_effect = {
@@ -1788,7 +1774,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = FROM
-			generator = { 188 }
+			generator = { 227 }   # 1.19-migration: was vanilla 188 (Memel)
 		}
 
 		hidden_effect = {
@@ -2204,19 +2190,86 @@ country_event = {
 
 		custom_effect_tooltip = generic_skip_one_line_tt
 
-		add_state_claim = 4
-		add_state_claim = 152
-		add_state_claim = 153
-		add_state_claim = 848
-		add_state_claim = 975
-		add_state_claim = 976
+		add_state_claim = 1817 # eu_mapping: v4 (Lower Austria) -> ME 1817 (Nord-Wien)
+		add_state_claim = 568 # eu_mapping: v4 (Lower Austria) -> ME 568 (Baden)
+		add_state_claim = 1799 # eu_mapping: v4 (Lower Austria) -> ME 1799 (Rohrbach)
+		add_state_claim = 1801 # eu_mapping: v4 (Lower Austria) -> ME 1801 (Kremz)
+		add_state_claim = 1802 # eu_mapping: v4 (Lower Austria) -> ME 1802 (Horn)
+		add_state_claim = 1803 # eu_mapping: v4 (Lower Austria) -> ME 1803 (Hollabrun)
+		add_state_claim = 1804 # eu_mapping: v4 (Lower Austria) -> ME 1804 (Gänserndorf)
+		add_state_claim = 1811 # eu_mapping: v4 (Lower Austria) -> ME 1811 (Amstetten)
+		add_state_claim = 1812 # eu_mapping: v4 (Lower Austria) -> ME 1812 (Sankt Pölten)
+		add_state_claim = 1813 # eu_mapping: v4 (Lower Austria) -> ME 1813 (Wiener Neustadt)
+		add_state_claim = 1814 # eu_mapping: v4 (Lower Austria) -> ME 1814 (Ost-Wien)
+		add_state_claim = 1815 # eu_mapping: v4 (Lower Austria) -> ME 1815 (Süd-West-Wien)
+		add_state_claim = 1816 # eu_mapping: v4 (Lower Austria) -> ME 1816 (Süd-Wien)
+		add_state_claim = 1818 # eu_mapping: v4 (Lower Austria) -> ME 1818 (West-Wien)
+		add_state_claim = 1795 # eu_mapping: v152 (Upper Austria) -> ME 1795 (Salzburg)
+		add_state_claim = 582 # eu_mapping: v152 (Upper Austria) -> ME 582 (Linz)
+		add_state_claim = 1798 # eu_mapping: v152 (Upper Austria) -> ME 1798 (Schärding)
+		add_state_claim = 1800 # eu_mapping: v152 (Upper Austria) -> ME 1800 (Steyz)
+		add_state_claim = 1809 # eu_mapping: v152 (Upper Austria) -> ME 1809 (Liezen)
+		add_state_claim = 644 # eu_mapping: v153 (Tyrol) -> ME 644 (Innsbruck)
+		add_state_claim = 625 # eu_mapping: v153 (Tyrol) -> ME 625 (Bischofshofen)
+		add_state_claim = 679 # eu_mapping: v153 (Tyrol) -> ME 679 (Lienz)
+		add_state_claim = 1792 # eu_mapping: v153 (Tyrol) -> ME 1792 (Landeck)
+		add_state_claim = 1793 # eu_mapping: v153 (Tyrol) -> ME 1793 (Kitzbühel)
+		add_state_claim = 1794 # eu_mapping: v153 (Tyrol) -> ME 1794 (Zell am See)
+		add_state_claim = 1797 # eu_mapping: v153 (Tyrol) -> ME 1797 (Villach)
+		add_state_claim = 654 # eu_mapping: v848 (Vorarlberg) -> ME 654 (Voralberg)
+		add_state_claim = 621 # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
+		add_state_claim = 1805 # eu_mapping: v975 (Burgenland) -> ME 1805 (Oberwart)
+		add_state_claim = 1810 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1810 (Graz)
+		add_state_claim = 635 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 635 (Murtal und Murau)
+		add_state_claim = 681 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 681 (Klagenfurt)
+		add_state_claim = 1796 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1796 (Völkermarkt)
+		add_state_claim = 1806 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1806 (Leibnitz)
+		add_state_claim = 1807 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1807 (Hartberg)
+		add_state_claim = 1808 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1808 (Mürzzuschlag)
 		
 		custom_effect_tooltip = generic_skip_one_line_tt
 
 		create_wargoal = {
 			type = take_state_focus
 			target = AUS
-			generator = { 4 152 153 848 975 976 }
+			generator = {
+				1817 # eu_mapping: v4 (Lower Austria) -> ME 1817 (Nord-Wien)
+				568 # eu_mapping: v4 (Lower Austria) -> ME 568 (Baden)
+				1799 # eu_mapping: v4 (Lower Austria) -> ME 1799 (Rohrbach)
+				1801 # eu_mapping: v4 (Lower Austria) -> ME 1801 (Kremz)
+				1802 # eu_mapping: v4 (Lower Austria) -> ME 1802 (Horn)
+				1803 # eu_mapping: v4 (Lower Austria) -> ME 1803 (Hollabrun)
+				1804 # eu_mapping: v4 (Lower Austria) -> ME 1804 (Gänserndorf)
+				1811 # eu_mapping: v4 (Lower Austria) -> ME 1811 (Amstetten)
+				1812 # eu_mapping: v4 (Lower Austria) -> ME 1812 (Sankt Pölten)
+				1813 # eu_mapping: v4 (Lower Austria) -> ME 1813 (Wiener Neustadt)
+				1814 # eu_mapping: v4 (Lower Austria) -> ME 1814 (Ost-Wien)
+				1815 # eu_mapping: v4 (Lower Austria) -> ME 1815 (Süd-West-Wien)
+				1816 # eu_mapping: v4 (Lower Austria) -> ME 1816 (Süd-Wien)
+				1818 # eu_mapping: v4 (Lower Austria) -> ME 1818 (West-Wien)
+				1795 # eu_mapping: v152 (Upper Austria) -> ME 1795 (Salzburg)
+				582 # eu_mapping: v152 (Upper Austria) -> ME 582 (Linz)
+				1798 # eu_mapping: v152 (Upper Austria) -> ME 1798 (Schärding)
+				1800 # eu_mapping: v152 (Upper Austria) -> ME 1800 (Steyz)
+				1809 # eu_mapping: v152 (Upper Austria) -> ME 1809 (Liezen)
+				644 # eu_mapping: v153 (Tyrol) -> ME 644 (Innsbruck)
+				625 # eu_mapping: v153 (Tyrol) -> ME 625 (Bischofshofen)
+				679 # eu_mapping: v153 (Tyrol) -> ME 679 (Lienz)
+				1792 # eu_mapping: v153 (Tyrol) -> ME 1792 (Landeck)
+				1793 # eu_mapping: v153 (Tyrol) -> ME 1793 (Kitzbühel)
+				1794 # eu_mapping: v153 (Tyrol) -> ME 1794 (Zell am See)
+				1797 # eu_mapping: v153 (Tyrol) -> ME 1797 (Villach)
+				654 # eu_mapping: v848 (Vorarlberg) -> ME 654 (Voralberg)
+				621 # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
+				1805 # eu_mapping: v975 (Burgenland) -> ME 1805 (Oberwart)
+				1810 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1810 (Graz)
+				635 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 635 (Murtal und Murau)
+				681 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 681 (Klagenfurt)
+				1796 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1796 (Völkermarkt)
+				1806 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1806 (Leibnitz)
+				1807 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1807 (Hartberg)
+				1808 # eu_mapping: v976 (Steiermark-Kärnten) -> ME 1808 (Mürzzuschlag)
+			}
 		}
 
 		hidden_effect = {
@@ -2470,6 +2523,18 @@ country_event = {
 							CZE = {
 								has_completed_focus = CZE_supply_fighters_for_allies
 							}
+							ROM = {
+								has_completed_focus = ROM_back_czechoslovakia
+								OR = {
+									has_equipment = {
+										small_plane_airframe > 99
+									}
+									has_deployed_air_force_size = {
+										size > 99
+										type = fighter
+									}
+								}
+							}
 							has_war_with = GER
 						}
 					}
@@ -2581,7 +2646,7 @@ country_event = {
 					create_wargoal = {
 						type = take_state_focus
 						target = CZE
-						generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+						generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 					}
 				}
 			}
@@ -2610,7 +2675,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = CZE
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -2806,6 +2871,34 @@ country_event = {
 							CZE = {		#PfOT
 								has_completed_focus = CZE_supply_fighters_for_allies
 							}
+							ROM = {		#TTBE
+								has_completed_focus = ROM_back_czechoslovakia
+								OR = {
+									has_equipment = {
+										small_plane_airframe > 99
+									}
+									has_deployed_air_force_size = {
+										size > 99
+										type = fighter
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			#TTBE
+			modifier = {
+				add = 1.75
+				ROM = {
+					has_completed_focus = ROM_back_czechoslovakia
+					OR = {
+						has_equipment = {
+							small_plane_airframe > 99
+						}
+						has_deployed_air_force_size = {
+							size > 99
+							type = fighter
 						}
 					}
 				}
@@ -2862,7 +2955,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = CZE
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -3070,7 +3163,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = CZE
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -3149,7 +3242,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = CZE
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -3192,7 +3285,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = ROOT
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -3217,7 +3310,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = ROOT
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -3371,7 +3464,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = CZE
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -3403,10 +3496,10 @@ country_event = {
 			target = CZE
 			generator = CZE.sudetenland_states_for_wargoal
 		}
-		add_state_claim = 1433 # was vanilla 69/74 (Sudetenland set)
-		add_state_claim = 1432 # was vanilla 69/74 (Sudetenland set)
-		add_state_claim = 1431 # was vanilla 69/74 (Sudetenland set)
-		add_state_claim = 1430 # was vanilla 69/74 (Sudetenland set)
+		add_state_claim = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+		add_state_claim = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+		add_state_claim = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+		add_state_claim = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
 		add_state_claim = 522 # was vanilla 69/74 (Sudetenland set)
 		add_state_claim = 498 # was vanilla 69/74 (Sudetenland set)
 		add_state_claim = 1434 # was vanilla 69/74 (Sudetenland set)
@@ -3454,10 +3547,10 @@ country_event = {
 			target = CZE
 			generator = CZE.sudetenland_states_for_wargoal
 		}
-		add_state_claim = 1433 # was vanilla 69/74 (Sudetenland set)
-		add_state_claim = 1432 # was vanilla 69/74 (Sudetenland set)
-		add_state_claim = 1431 # was vanilla 69/74 (Sudetenland set)
-		add_state_claim = 1430 # was vanilla 69/74 (Sudetenland set)
+		add_state_claim = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+		add_state_claim = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+		add_state_claim = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+		add_state_claim = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
 		add_state_claim = 522 # was vanilla 69/74 (Sudetenland set)
 		add_state_claim = 498 # was vanilla 69/74 (Sudetenland set)
 		add_state_claim = 1434 # was vanilla 69/74 (Sudetenland set)
@@ -3537,27 +3630,84 @@ country_event = {
 	option = {
 		name = germany.50.a
 
-
-		if = {
-			limit = {
-				FROM = { controls_state = 69 }
+		custom_effect_tooltip = mer_GER_core_all_of_sudetenland
+		custom_effect_tooltip = mer_GER_transfer_all_of_sudetenland
+		hidden_effect = {
+			if = {
+				limit = { FROM = { controls_state = 1433 } }
+				add_state_core = 1433
+				transfer_state = 1433
 			}
-			add_state_core = 69
-			transfer_state = 69
-		}
-		if = {
-			limit = {
-				FROM = { controls_state = 972 }
+			if = {
+				limit = { FROM = { controls_state = 1432 } }
+				add_state_core = 1432
+				transfer_state = 1432
 			}
-			add_state_core = 972
-			transfer_state = 972
-		}
-		if = {
-			limit = {
-				FROM = { controls_state = 74 }
+			if = {
+				limit = { FROM = { controls_state = 1431 } }
+				add_state_core = 1431
+				transfer_state = 1431
 			}
-			add_state_core = 74
-			transfer_state = 74
+			if = {
+				limit = { FROM = { controls_state = 1430 } }
+				add_state_core = 1430
+				transfer_state = 1430
+			}
+			if = {
+				limit = { FROM = { controls_state = 522 } }
+				add_state_core = 522
+				transfer_state = 522
+			}
+			if = {
+				limit = { FROM = { controls_state = 498 } }
+				add_state_core = 498
+				transfer_state = 498
+			}
+			if = {
+				limit = { FROM = { controls_state = 1434 } }
+				add_state_core = 1434
+				transfer_state = 1434
+			}
+			if = {
+				limit = { FROM = { controls_state = 471 } }
+				add_state_core = 471
+				transfer_state = 471
+			}
+			if = {
+				limit = { FROM = { controls_state = 473 } }
+				add_state_core = 473
+				transfer_state = 473
+			}
+			if = {
+				limit = { FROM = { controls_state = 1435 } }
+				add_state_core = 1435
+				transfer_state = 1435
+			}
+			if = {
+				limit = { FROM = { controls_state = 504 } }
+				add_state_core = 504
+				transfer_state = 504
+			}
+			if = {
+				limit = { FROM = { controls_state = 499 } }
+				add_state_core = 499
+				transfer_state = 499
+			}
+			if = {
+				limit = { FROM = { controls_state = 1428 } }
+				add_state_core = 1428
+				transfer_state = 1428
+			}
+			if = {
+				limit = { FROM = { controls_state = 507 } }
+				add_state_core = 507
+				transfer_state = 507
+			}
+			if = {
+				limit = { FROM = { controls_state = 1977 } }
+				add_state_core = 1977
+				transfer_state = 1977
+			}
 		}
 
 		set_country_flag = sudetenland_acquired #Unused flag for now
@@ -3572,11 +3722,13 @@ country_event = {
 
 		if = {
 			limit = {
-				88 = {
-					is_owned_by = POL
-					is_fully_controlled_by = POL
+				OR = {
+					1975 = { is_owned_by = POL }
+					2329 = { is_owned_by = POL }
 				}
-				72 = { is_controlled_by = CZE }
+				NOT = {
+					526 = { is_owned_by = POL }
+				}
 			}
 			POL = {
 				country_event = { hours = 6 id = germany.52 }
@@ -3616,37 +3768,20 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-			if = {
-				limit = {
-					CZE = { controls_state = 664 }
-				}
-				CZE = {
-					country_event = germany.59
-				}
-			}
-			else_if = {
-				limit = {
-					SLO = {
-						controls_state = 664
-						is_subject_of = CZE
-					}
-				}
-				SLO = {
-					country_event = germany.59
-				}
-				CZE = {
-					country_event = germany.59
-				}
-			}
-		}
-	}
-
 	option = {
 		name = germany.51.a
-			
-		transfer_state = 664
+
+		custom_effect_tooltip = mer_first_vienna_award_transfer_southern_slovakia
+		hidden_effect = {
+			transfer_state = 610
+			transfer_state = 580
+			transfer_state = 1439
+			transfer_state = 1438
+			transfer_state = 1442
+			transfer_state = 2930
+			transfer_state = 593
+			transfer_state = 2246
+		}
 		add_opinion_modifier = { target = GER modifier = GER_first_vienna_award_GER }
 		set_country_flag = GER_first_vienna_award_flag
 	}
@@ -3666,23 +3801,23 @@ country_event = {
 
 		IF = {
 			limit = {
-				72 = {
+				526 = {
 					NOT = {
 						is_owned_by = ROOT
 					}
 				}
 			}
-			transfer_state = 72
+			transfer_state = 526
 		}
 		IF = {
 			limit = {
-				72 = {
+				526 = {
 					NOT = {
 						is_core_of = ROOT
 					}
 				}
 			}
-			add_state_core = 72
+			add_state_core = 526
 		}
 		
 	}
@@ -4068,7 +4203,6 @@ country_event = {
 			type = annex_everything
 			target = CZE
 		}
-	}
 		if = {   # 1.19-migration: vanilla 1.19.4 added
 			limit = {
 				SLO = {
@@ -4105,6 +4239,7 @@ country_event = {
 				value = 100
 			}
 		}
+	}
 }
 
 country_event = {
@@ -4131,12 +4266,16 @@ country_event = {
 			}
 			CZE = {
 				all_state = {   # 1.19-migration: vanilla has_full_control_of_state 9 (Bohemia) -> mod members
-					limit = { OR = { state = 486 state = 489 state = 513 state = 514 state = 523 state = 528 state = 529 state = 535 state = 1425 state = 1426 state = 1427 } }
-					is_fully_controlled_by = PREV
+					OR = {
+						NOT = { OR = { state = 486 state = 489 state = 513 state = 514 state = 523 state = 528 state = 529 state = 535 state = 1425 state = 1426 state = 1427 } }
+						is_fully_controlled_by = PREV
+					}
 				}
 				all_state = {   # 1.19-migration: vanilla has_full_control_of_state 75 (Moravia) -> mod members
-					limit = { OR = { state = 536 state = 532 } }
-					is_fully_controlled_by = PREV
+					OR = {
+						NOT = { OR = { state = 536 state = 532 } }
+						is_fully_controlled_by = PREV
+					}
 				}
 				has_war = no
 			}
@@ -4209,7 +4348,7 @@ country_event = {
 		if = {
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 70 (Western Slovakia) -> mod member states
-					limit = { OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 } }
+					OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 }
 					OR = { #check controller instead
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4224,7 +4363,7 @@ country_event = {
 		else_if = { #Don't transfer ownership of the state if it's controlled by an ally
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 70 (Western Slovakia) -> mod member states
-					limit = { OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 } }
+					OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4240,7 +4379,7 @@ country_event = {
 		if = {
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 71 (Eastern Slovakia) -> mod member states
-					limit = { OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 } }
+					OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 }
 					OR = {
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4255,7 +4394,7 @@ country_event = {
 		else_if = { #Don't transfer ownership of the state if it's controlled by an ally
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 71 (Eastern Slovakia) -> mod member states
-					limit = { OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 } }
+					OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4271,7 +4410,7 @@ country_event = {
 		if = {
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-					limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+					OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					OR = {
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4287,14 +4426,14 @@ country_event = {
 			limit = {
 				NOT = { has_country_flag = GER_first_vienna_award_flag }
 				any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-					limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+					OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					OR = {
 						is_owned_by = CZE
 						is_owned_by = GER
 					}
 				}
 				any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-					limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+					OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4311,14 +4450,14 @@ country_event = {
 			limit = {
 				country_exists = HUN
 				any_state = {   # 1.19-migration: vanilla 154 (Transtisza) -> mod member states
-					limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+					OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 }
 						is_controlled_by = HUN
 				}
 				HUN = {
 					is_friend_or_potential_friend_of_GER = yes
 				}
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					NOT = { is_controlled_by = HUN }
 					OR = {
 						is_controlled_by = CZE
@@ -4335,14 +4474,14 @@ country_event = {
 			limit = {
 				country_exists = HUN
 				any_state = {   # 1.19-migration: vanilla 154 (Transtisza) -> mod member states
-					limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+					OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 }
 						is_controlled_by = HUN
 				}
 				HUN = {
 					is_friend_or_potential_friend_of_GER = yes
 				}
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					NOT = { is_controlled_by = HUN }
 					is_controlled_by_ROOT_or_ally = no
 				}
@@ -4357,14 +4496,14 @@ country_event = {
 				OR = {
 					NOT = {   # 1.19-migration: vanilla 154 (Transtisza) -> mod member states
 						any_state = {
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+							OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 }
 							is_controlled_by = HUN
 						}
 					}
 					HUN = { is_friend_or_potential_friend_of_GER = no }
 				}
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					OR = {
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4379,7 +4518,7 @@ country_event = {
 		else_if = { #Don't transfer ownership of the state if it's controlled by an ally
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4409,37 +4548,46 @@ country_event = {
 			effect_tooltip = {
 				puppet = RKH
 			}
-			hidden_effect = {
-				activate_decision = GER_reichsprotektorat_bohemia_moravia #the part that's different 
-			}
 
 			if = {
 				limit = {
 					all_state = {   # 1.19-migration: vanilla has_full_control_of_state 75 (Moravia) -> mod members
-						limit = { OR = { state = 536 state = 532 } }
-						is_fully_controlled_by = PREV
+						OR = {
+							NOT = { OR = { state = 536 state = 532 } }
+							is_fully_controlled_by = PREV
+						}
 					}
 				}
 				RKH = {
 					every_state = {   # 1.19-migration: vanilla 75 (Moravia) -> mod member states
 						limit = { OR = { state = 536 state = 532 } }
-						transfer_state = PREV
+						transfer_state_to = RKH
 					}
 				}
 			}
 			if = {
 				limit = {
 					all_state = {   # 1.19-migration: vanilla has_full_control_of_state 9 (Bohemia) -> mod members
-						limit = { OR = { state = 486 state = 489 state = 513 state = 514 state = 523 state = 528 state = 529 state = 535 state = 1425 state = 1426 state = 1427 } }
-						is_fully_controlled_by = PREV
+						OR = {
+							NOT = { OR = { state = 486 state = 489 state = 513 state = 514 state = 523 state = 528 state = 529 state = 535 state = 1425 state = 1426 state = 1427 } }
+							is_fully_controlled_by = PREV
+						}
 					}
 				}
 				RKH = {
 					every_state = {   # 1.19-migration: vanilla 9 (Bohemia) -> mod member states
 						limit = { OR = { state = 486 state = 489 state = 513 state = 514 state = 523 state = 528 state = 529 state = 535 state = 1425 state = 1426 state = 1427 } }
-						transfer_state = PREV
+						transfer_state_to = RKH
 					}
 				}
+			}
+			set_autonomy = {
+				target = RKH
+				autonomy_state = autonomy_reichsprotectorate
+			}
+			country_event = {
+				id = wuw_GER_reichskommissariats.13
+				hours = 0
 			}
 			add_political_power = 10
 			add_war_support = 0.1
@@ -4539,8 +4687,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -4554,8 +4704,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -4584,8 +4736,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -4600,8 +4754,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -4623,8 +4779,10 @@ country_event = {
 							exists = yes
 							is_neighbor_of = RUT
 							all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-								limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-								is_controlled_by = PREV
+								OR = {
+									NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+									is_controlled_by = PREV
+								}
 							}
 							has_war = no
 							is_subject = no
@@ -4683,8 +4841,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 10 (Warsaw) -> mod member states
-							limit = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
-							is_fully_controlled_by = POL
+							OR = {
+								NOT = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
+								is_fully_controlled_by = POL
+							}
 						}
 						POL = {
 							exists = yes
@@ -4717,8 +4877,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 16 (Ile de France) -> mod member states
-							limit = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
-							is_fully_controlled_by = FRA
+							OR = {
+								NOT = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
+								is_fully_controlled_by = FRA
+							}
 						}
 						FRA = {
 							exists = yes
@@ -4744,8 +4906,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 126 (Greater London Area) -> mod member states
-							limit = { OR = { state = 405 state = 435 state = 2475 } }
-							is_fully_controlled_by = ENG
+							OR = {
+								NOT = { OR = { state = 405 state = 435 state = 2475 } }
+								is_fully_controlled_by = ENG
+							}
 						}
 						ENG = {
 							exists = yes
@@ -4770,8 +4934,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 219 (Moscow) -> mod member states
-							limit = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
-							is_fully_controlled_by = SOV
+							OR = {
+								NOT = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
+								is_fully_controlled_by = SOV
+							}
 						}
 						SOV = {
 							exists = yes
@@ -4864,7 +5030,7 @@ country_event = {
 		if = {
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 70 (Western Slovakia) -> mod member states
-					limit = { OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 } }
+					OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 }
 					OR = { #check controller instead
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4879,7 +5045,7 @@ country_event = {
 		else_if = { #Don't transfer ownership of the state if it's controlled by an ally
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 70 (Western Slovakia) -> mod member states
-					limit = { OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 } }
+					OR = { state = 555 state = 577 state = 586 state = 591 state = 1437 state = 2662 state = 2663 state = 2978 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4895,7 +5061,7 @@ country_event = {
 		if = {
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 71 (Eastern Slovakia) -> mod member states
-					limit = { OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 } }
+					OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 }
 					OR = {
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4910,7 +5076,7 @@ country_event = {
 		else_if = { #Don't transfer ownership of the state if it's controlled by an ally
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 71 (Eastern Slovakia) -> mod member states
-					limit = { OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 } }
+					OR = { state = 541 state = 550 state = 562 state = 569 state = 574 state = 748 state = 2660 state = 2661 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4926,7 +5092,7 @@ country_event = {
 		if = {
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-					limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+					OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					OR = {
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -4942,14 +5108,14 @@ country_event = {
 			limit = {
 				NOT = { has_country_flag = GER_first_vienna_award_flag }
 				any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-					limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+					OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					OR = {
 						is_owned_by = CZE
 						is_owned_by = GER
 					}
 				}
 				any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-					limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+					OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -4966,14 +5132,14 @@ country_event = {
 			limit = {
 				country_exists = HUN
 				any_state = {   # 1.19-migration: vanilla 154 (Transtisza) -> mod member states
-					limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+					OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 }
 						is_controlled_by = HUN
 				}
 				HUN = {
 					is_friend_or_potential_friend_of_GER = yes
 				}
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					NOT = { is_controlled_by = HUN }
 					OR = {
 						is_controlled_by = CZE
@@ -4990,14 +5156,14 @@ country_event = {
 			limit = {
 				country_exists = HUN
 				any_state = {   # 1.19-migration: vanilla 154 (Transtisza) -> mod member states
-					limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+					OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 }
 						is_controlled_by = HUN
 				}
 				HUN = {
 					is_friend_or_potential_friend_of_GER = yes
 				}
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					NOT = { is_controlled_by = HUN }
 					is_controlled_by_ROOT_or_ally = no
 				}
@@ -5012,14 +5178,14 @@ country_event = {
 				OR = {
 					NOT = {   # 1.19-migration: vanilla 154 (Transtisza) -> mod member states
 						any_state = {
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+							OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 }
 							is_controlled_by = HUN
 						}
 					}
 					HUN = { is_friend_or_potential_friend_of_GER = no }
 				}
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					OR = {
 						is_controlled_by = CZE
 						is_controlled_by = GER
@@ -5034,7 +5200,7 @@ country_event = {
 		else_if = { #Don't transfer ownership of the state if it's controlled by an ally
 			limit = {
 				any_state = {   # 1.19-migration: vanilla 73 (Carpathian Ruthenia) -> mod member states
-					limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+					OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 }
 					is_controlled_by_ROOT_or_ally = no
 				}
 			}
@@ -5159,8 +5325,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -5174,8 +5342,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -5204,8 +5374,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -5220,8 +5392,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -5242,8 +5416,10 @@ country_event = {
 							exists = yes
 							is_neighbor_of = RUT
 							all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-								limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-								is_controlled_by = PREV
+								OR = {
+									NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+									is_controlled_by = PREV
+								}
 							}
 							has_war = no
 							is_subject = no
@@ -5301,8 +5477,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 10 (Warsaw) -> mod member states
-							limit = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
-							is_fully_controlled_by = POL
+							OR = {
+								NOT = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
+								is_fully_controlled_by = POL
+							}
 						}
 						POL = {
 							exists = yes
@@ -5335,8 +5513,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 16 (Ile de France) -> mod member states
-							limit = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
-							is_fully_controlled_by = FRA
+							OR = {
+								NOT = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
+								is_fully_controlled_by = FRA
+							}
 						}
 						FRA = {
 							exists = yes
@@ -5362,8 +5542,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 126 (Greater London Area) -> mod member states
-							limit = { OR = { state = 405 state = 435 state = 2475 } }
-							is_fully_controlled_by = ENG
+							OR = {
+								NOT = { OR = { state = 405 state = 435 state = 2475 } }
+								is_fully_controlled_by = ENG
+							}
 						}
 						ENG = {
 							exists = yes
@@ -5388,8 +5570,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 219 (Moscow) -> mod member states
-							limit = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
-							is_fully_controlled_by = SOV
+							OR = {
+								NOT = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
+								is_fully_controlled_by = SOV
+							}
 						}
 						SOV = {
 							exists = yes
@@ -5433,7 +5617,7 @@ country_event = {
 		}
 		trigger = {
 			any_state = {   # 1.19-migration: vanilla 664 (Southern Slovakia) -> mod member states
-				limit = { OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 } }
+				OR = { state = 580 state = 610 state = 1438 state = 1439 state = 1442 state = 2930 }
 					is_controlled_by = HUN
 			}
 			HUN = {
@@ -5501,8 +5685,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -5516,8 +5702,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -5543,8 +5731,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -5559,8 +5749,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -5581,8 +5773,10 @@ country_event = {
 							exists = yes
 							is_neighbor_of = RUT
 							all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-								limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-								is_controlled_by = PREV
+								OR = {
+									NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+									is_controlled_by = PREV
+								}
 							}
 							has_war = no
 							is_subject = no
@@ -5626,8 +5820,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 10 (Warsaw) -> mod member states
-							limit = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
-							is_fully_controlled_by = POL
+							OR = {
+								NOT = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
+								is_fully_controlled_by = POL
+							}
 						}
 						POL = {
 							exists = yes
@@ -5660,8 +5856,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 16 (Ile de France) -> mod member states
-							limit = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
-							is_fully_controlled_by = FRA
+							OR = {
+								NOT = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
+								is_fully_controlled_by = FRA
+							}
 						}
 						FRA = {
 							exists = yes
@@ -5687,8 +5885,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 126 (Greater London Area) -> mod member states
-							limit = { OR = { state = 405 state = 435 state = 2475 } }
-							is_fully_controlled_by = ENG
+							OR = {
+								NOT = { OR = { state = 405 state = 435 state = 2475 } }
+								is_fully_controlled_by = ENG
+							}
 						}
 						ENG = {
 							exists = yes
@@ -5713,8 +5913,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 219 (Moscow) -> mod member states
-							limit = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
-							is_fully_controlled_by = SOV
+							OR = {
+								NOT = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
+								is_fully_controlled_by = SOV
+							}
 						}
 						SOV = {
 							exists = yes
@@ -5877,8 +6079,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -5892,8 +6096,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -5922,8 +6128,10 @@ country_event = {
 						exists = yes
 						is_neighbor_of = RUT
 						all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-							limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+								is_controlled_by = PREV
+							}
 						}
 						has_war_with_major = no
 						is_subject = no
@@ -5938,8 +6146,10 @@ country_event = {
 					}
 					RUT = {
 						all_state = {   # 1.19-migration: vanilla controls_state 73 (Carpathian Ruthenia) -> mod members
-							limit = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
-							is_controlled_by = PREV
+							OR = {
+								NOT = { OR = { state = 564 state = 593 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } }
+								is_controlled_by = PREV
+							}
 						}
 						is_subject = no
 						is_in_faction = no
@@ -5960,8 +6170,10 @@ country_event = {
 							exists = yes
 							is_neighbor_of = RUT
 							all_state = {   # 1.19-migration: vanilla controls_state 154 (Transtisza) -> mod members
-								limit = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
-								is_controlled_by = PREV
+								OR = {
+									NOT = { OR = { state = 603 state = 608 state = 631 state = 646 state = 662 state = 677 state = 711 state = 726 state = 1821 state = 1989 state = 2244 state = 2245 state = 2882 } }
+									is_controlled_by = PREV
+								}
 							}
 							has_war = no
 							is_subject = no
@@ -6005,8 +6217,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 10 (Warsaw) -> mod member states
-							limit = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
-							is_fully_controlled_by = POL
+							OR = {
+								NOT = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
+								is_fully_controlled_by = POL
+							}
 						}
 						POL = {
 							exists = yes
@@ -6039,8 +6253,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 16 (Ile de France) -> mod member states
-							limit = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
-							is_fully_controlled_by = FRA
+							OR = {
+								NOT = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
+								is_fully_controlled_by = FRA
+							}
 						}
 						FRA = {
 							exists = yes
@@ -6066,8 +6282,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 126 (Greater London Area) -> mod member states
-							limit = { OR = { state = 405 state = 435 state = 2475 } }
-							is_fully_controlled_by = ENG
+							OR = {
+								NOT = { OR = { state = 405 state = 435 state = 2475 } }
+								is_fully_controlled_by = ENG
+							}
 						}
 						ENG = {
 							exists = yes
@@ -6092,8 +6310,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 219 (Moscow) -> mod member states
-							limit = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
-							is_fully_controlled_by = SOV
+							OR = {
+								NOT = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
+								is_fully_controlled_by = SOV
+							}
 						}
 						SOV = {
 							exists = yes
@@ -6160,8 +6380,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 10 (Warsaw) -> mod member states
-							limit = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
-							is_fully_controlled_by = POL
+							OR = {
+								NOT = { OR = { state = 5 state = 351 state = 370 state = 407 state = 508 state = 982 state = 1981 state = 2927 state = 2928 } }
+								is_fully_controlled_by = POL
+							}
 						}
 						POL = {
 							exists = yes
@@ -6194,8 +6416,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 16 (Ile de France) -> mod member states
-							limit = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
-							is_fully_controlled_by = FRA
+							OR = {
+								NOT = { OR = { state = 37 state = 58 state = 385 state = 452 state = 558 state = 563 state = 571 state = 701 state = 789 } }
+								is_fully_controlled_by = FRA
+							}
 						}
 						FRA = {
 							exists = yes
@@ -6221,8 +6445,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 126 (Greater London Area) -> mod member states
-							limit = { OR = { state = 405 state = 435 state = 2475 } }
-							is_fully_controlled_by = ENG
+							OR = {
+								NOT = { OR = { state = 405 state = 435 state = 2475 } }
+								is_fully_controlled_by = ENG
+							}
 						}
 						ENG = {
 							exists = yes
@@ -6247,8 +6473,10 @@ country_event = {
 				if = {
 					limit = {
 						all_state = {   # 1.19-migration: vanilla 219 (Moscow) -> mod member states
-							limit = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
-							is_fully_controlled_by = SOV
+							OR = {
+								NOT = { OR = { state = 195 state = 229 state = 2472 state = 2473 state = 2474 state = 2479 state = 2480 state = 2481 } }
+								is_fully_controlled_by = SOV
+							}
 						}
 						SOV = {
 							exists = yes
@@ -6310,12 +6538,32 @@ country_event = {
 	option = {
 		name = germany.56.a
 		ai_chance = { factor = 100 }
+		custom_effect_tooltip = mer_transfer_slovakia
+		custom_effect_tooltip = mer_transfer_transcarpathia
 		every_state = {
 			limit = {
 				OR = {
-					state = 70
-					state = 71
-					state = 73
+					state = 1437
+					state = 591
+					state = 555
+					state = 2978
+					state = 2662
+					state = 586
+					state = 2663
+					state = 577
+					state = 541
+					state = 574
+					state = 2660
+					state = 2661
+					state = 569
+					state = 550
+					state = 2313
+					state = 562
+					state = 2929
+					state = 1607
+					state = 1608
+					state = 2247
+					state = 564
 				}
 				OR = {
 					is_fully_controlled_by = FROM
@@ -6382,32 +6630,200 @@ country_event = {
 		name = germany.57.a
 		add_political_power = -20
 		ai_chance = { factor = 60 }
+		custom_effect_tooltip = mer_release_slovakia
+		hidden_effect = {
+			if = {
+				limit = {
+					1437 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 1437 }
+			}
+			if = {
+				limit = {
+					591 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 591 }
+			}
+			if = {
+				limit = {
+					555 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 555 }
+			}
+			if = {
+				limit = {
+					2978 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 2978 }
+			}
+			if = {
+				limit = {
+					2662 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 2662 }
+			}
+			if = {
+				limit = {
+					586 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 586 }
+			}
+			if = {
+				limit = {
+					2663 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 2663 }
+			}
+			if = {
+				limit = {
+					577 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 577 }
+			}
+			if = {
+				limit = {
+					541 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 541 }
+			}
+			if = {
+				limit = {
+					574 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 574 }
+			}
+			if = {
+				limit = {
+					2660 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 2660 }
+			}
+			if = {
+				limit = {
+					2661 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 2661 }
+			}
+			if = {
+				limit = {
+					569 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 569 }
+			}
+			if = {
+				limit = {
+					550 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 550 }
+			}
+			if = {
+				limit = {
+					2313 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = { transfer_state = 2313 }
+			}
+		}
 		if = {
 			limit = {
-				70 = {
+				1442 = {
 					OR = {
 						is_owned_by = CZE
 						is_owned_by = GER
 					}
 				}
 			}
-			SLO = { transfer_state = 70 }
-		}
-		if = {
-			limit = {
-				71 = {
-					OR = {
-						is_owned_by = CZE
-						is_owned_by = GER
-					}
+			SLO = {
+				custom_effect_tooltip = mer_first_vienna_award_transfer_southern_slovakia
+				hidden_effect = {
+					transfer_state = 610
+					transfer_state = 580
+					transfer_state = 1439
+					transfer_state = 1438
+					transfer_state = 1442
+					transfer_state = 2930
+					transfer_state = 593
+					transfer_state = 2246
 				}
 			}
-			SLO = { transfer_state = 71 }
 		}
 		if = {
 			limit = {
-				154 = { is_owned_by = HUN }
-				73 = {
+				564 = {
 					OR = {
 						is_owned_by = CZE
 						is_owned_by = GER
@@ -6422,38 +6838,17 @@ country_event = {
 					}
 				}
 			}
-			HUN = { transfer_state = 73 }
-		}
-		if = {
-			limit = {
-				NOT = { 154 = { is_owned_by = HUN } }
-				73 = {
-					OR = {
-						is_owned_by = CZE
-						is_owned_by = GER
-						if = {
-							limit = {
-								RUT = {
-									is_subject_of = CZE
-								}
-							}
-							is_owned_by = RUT
-						}
-					}
+			SLO = {
+				custom_effect_tooltip = mer_transfer_transcarpathia
+				hidden_effect = {
+					transfer_state = 562
+					transfer_state = 2929
+					transfer_state = 1607
+					transfer_state = 1608
+					transfer_state = 2247
+					transfer_state = 564
 				}
 			}
-			SLO = { transfer_state = 73 }
-		}
-		if = {
-			limit = {
-				664 = {
-					OR = {
-						is_owned_by = CZE
-						is_owned_by = GER
-					}
-				}
-			}
-			SLO = { transfer_state = 664 }
 		}
 		if = {
 			limit = { country_exists = CZE }
@@ -6469,14 +6864,14 @@ country_event = {
 		}
 		if = {
 			limit = {
-				72 = {
+				526 = {
 					OR = {
 						is_owned_by = CZE
 						is_owned_by = GER
 					}
 				}
 			}
-			POL = { transfer_state = 72 } # Give Poland Zaolzie
+			POL = { transfer_state = 526 } # Give Poland Zaolzie
 		}
 		hidden_effect = {
 			country_event = { hours = 6 id = news.60 }
@@ -6958,7 +7353,7 @@ country_event = {
 			declare_war_on = {
 				target = GER
 				type = take_state_focus
-				generator = { 42 51 978 }
+				generator = { 423 424 431 460 465 469 474 475 477 483 488 503 506 516 521 524 537 556 589 1730 1744 1745 1746 1747 1748 1749 1750 1751 1752 1753 1756 1757 1758 1760 1763 1764 1765 1766 2337 2338 2339 2340 2343 2580 2583 2584 2718 2719 } # eu_mapping: all 48 GER Rhineland DMZ states
 			}
 			country_event = {
 				id = germany.92
@@ -7018,9 +7413,54 @@ country_event = {
 
 		set_country_flag = GER_rhineland_backed_down
 
-		42 = { set_demilitarized_zone = yes }
-		51 = { set_demilitarized_zone = yes }
-		978 = { set_demilitarized_zone = yes }
+		423 = { set_demilitarized_zone = yes }
+		424 = { set_demilitarized_zone = yes }
+		431 = { set_demilitarized_zone = yes }
+		460 = { set_demilitarized_zone = yes }
+		465 = { set_demilitarized_zone = yes }
+		469 = { set_demilitarized_zone = yes }
+		474 = { set_demilitarized_zone = yes }
+		475 = { set_demilitarized_zone = yes }
+		477 = { set_demilitarized_zone = yes }
+		483 = { set_demilitarized_zone = yes }
+		488 = { set_demilitarized_zone = yes }
+		503 = { set_demilitarized_zone = yes }
+		506 = { set_demilitarized_zone = yes }
+		516 = { set_demilitarized_zone = yes }
+		521 = { set_demilitarized_zone = yes }
+		524 = { set_demilitarized_zone = yes }
+		537 = { set_demilitarized_zone = yes }
+		556 = { set_demilitarized_zone = yes }
+		589 = { set_demilitarized_zone = yes }
+		1730 = { set_demilitarized_zone = yes }
+		1744 = { set_demilitarized_zone = yes }
+		1745 = { set_demilitarized_zone = yes }
+		1746 = { set_demilitarized_zone = yes }
+		1747 = { set_demilitarized_zone = yes }
+		1748 = { set_demilitarized_zone = yes }
+		1749 = { set_demilitarized_zone = yes }
+		1750 = { set_demilitarized_zone = yes }
+		1751 = { set_demilitarized_zone = yes }
+		1752 = { set_demilitarized_zone = yes }
+		1753 = { set_demilitarized_zone = yes }
+		1756 = { set_demilitarized_zone = yes }
+		1757 = { set_demilitarized_zone = yes }
+		1758 = { set_demilitarized_zone = yes }
+		1760 = { set_demilitarized_zone = yes }
+		1763 = { set_demilitarized_zone = yes }
+		1764 = { set_demilitarized_zone = yes }
+		1765 = { set_demilitarized_zone = yes }
+		1766 = { set_demilitarized_zone = yes }
+		2337 = { set_demilitarized_zone = yes }
+		2338 = { set_demilitarized_zone = yes }
+		2339 = { set_demilitarized_zone = yes }
+		2340 = { set_demilitarized_zone = yes }
+		2343 = { set_demilitarized_zone = yes }
+		2580 = { set_demilitarized_zone = yes }
+		2583 = { set_demilitarized_zone = yes }
+		2584 = { set_demilitarized_zone = yes }
+		2718 = { set_demilitarized_zone = yes }
+		2719 = { set_demilitarized_zone = yes } # eu_mapping: all 48 GER Rhineland DMZ states
 
 		add_timed_idea = {
 			idea = rhineland_challenge_met
@@ -7071,7 +7511,7 @@ country_event = {
 			declare_war_on = {
 				target = GER
 				type = take_state_focus
-				generator = { 42 51 }
+				generator = { 423 424 431 460 465 469 474 475 477 483 488 503 506 516 521 524 537 556 589 1730 1744 1745 1746 1747 1748 1749 1750 1751 1752 1753 1756 1757 1758 1760 1763 1764 1765 1766 2337 2338 2339 2340 2343 2580 2583 2584 2718 2719 } # eu_mapping: all 48 GER Rhineland DMZ states
 			}
 			country_event = {
 				id = germany.92
@@ -7121,9 +7561,54 @@ country_event = {
 
 		add_war_support = -0.2 #That was scary for a moment there!
 
-		42 = { set_demilitarized_zone = yes }
-		51 = { set_demilitarized_zone = yes }
-		978 = { set_demilitarized_zone = yes }
+		423 = { set_demilitarized_zone = yes }
+		424 = { set_demilitarized_zone = yes }
+		431 = { set_demilitarized_zone = yes }
+		460 = { set_demilitarized_zone = yes }
+		465 = { set_demilitarized_zone = yes }
+		469 = { set_demilitarized_zone = yes }
+		474 = { set_demilitarized_zone = yes }
+		475 = { set_demilitarized_zone = yes }
+		477 = { set_demilitarized_zone = yes }
+		483 = { set_demilitarized_zone = yes }
+		488 = { set_demilitarized_zone = yes }
+		503 = { set_demilitarized_zone = yes }
+		506 = { set_demilitarized_zone = yes }
+		516 = { set_demilitarized_zone = yes }
+		521 = { set_demilitarized_zone = yes }
+		524 = { set_demilitarized_zone = yes }
+		537 = { set_demilitarized_zone = yes }
+		556 = { set_demilitarized_zone = yes }
+		589 = { set_demilitarized_zone = yes }
+		1730 = { set_demilitarized_zone = yes }
+		1744 = { set_demilitarized_zone = yes }
+		1745 = { set_demilitarized_zone = yes }
+		1746 = { set_demilitarized_zone = yes }
+		1747 = { set_demilitarized_zone = yes }
+		1748 = { set_demilitarized_zone = yes }
+		1749 = { set_demilitarized_zone = yes }
+		1750 = { set_demilitarized_zone = yes }
+		1751 = { set_demilitarized_zone = yes }
+		1752 = { set_demilitarized_zone = yes }
+		1753 = { set_demilitarized_zone = yes }
+		1756 = { set_demilitarized_zone = yes }
+		1757 = { set_demilitarized_zone = yes }
+		1758 = { set_demilitarized_zone = yes }
+		1760 = { set_demilitarized_zone = yes }
+		1763 = { set_demilitarized_zone = yes }
+		1764 = { set_demilitarized_zone = yes }
+		1765 = { set_demilitarized_zone = yes }
+		1766 = { set_demilitarized_zone = yes }
+		2337 = { set_demilitarized_zone = yes }
+		2338 = { set_demilitarized_zone = yes }
+		2339 = { set_demilitarized_zone = yes }
+		2340 = { set_demilitarized_zone = yes }
+		2343 = { set_demilitarized_zone = yes }
+		2580 = { set_demilitarized_zone = yes }
+		2583 = { set_demilitarized_zone = yes }
+		2584 = { set_demilitarized_zone = yes }
+		2718 = { set_demilitarized_zone = yes }
+		2719 = { set_demilitarized_zone = yes } # eu_mapping: all 48 GER Rhineland DMZ states
 
 		add_timed_idea = {
 			idea = rhineland_challenge_met
@@ -8624,38 +9109,154 @@ country_event = {
 			#TRABZON
 			if = {
 				limit = {
-					354 = {
+					958 = { # eu_mapping: v354 (Trabzon) -> ME 958 (Trabzon)
+						is_controlled_by = TUR
+					}
+					925 = { # eu_mapping: v354 (Trabzon) -> ME 925 (Ardahan)
+						is_controlled_by = TUR
+					}
+					933 = { # eu_mapping: v354 (Trabzon) -> ME 933 (Artvin)
+						is_controlled_by = TUR
+					}
+					938 = { # eu_mapping: v354 (Trabzon) -> ME 938 (Rize)
+						is_controlled_by = TUR
+					}
+					949 = { # eu_mapping: v354 (Trabzon) -> ME 949 (Sarıkamış)
+						is_controlled_by = TUR
+					}
+					953 = { # eu_mapping: v354 (Trabzon) -> ME 953 (Kars)
+						is_controlled_by = TUR
+					}
+					965 = { # eu_mapping: v354 (Trabzon) -> ME 965 (Yusufeli)
+						is_controlled_by = TUR
+					}
+					971 = { # eu_mapping: v354 (Trabzon) -> ME 971 (Oltu)
+						is_controlled_by = TUR
+					}
+					973 = { # eu_mapping: v354 (Trabzon) -> ME 973 (Erzurum)
+						is_controlled_by = TUR
+					}
+					975 = { # eu_mapping: v354 (Trabzon) -> ME 975 (Gümüşhane)
+						is_controlled_by = TUR
+					}
+					984 = { # eu_mapping: v354 (Trabzon) -> ME 984 (Bayburt)
+						is_controlled_by = TUR
+					}
+					1961 = { # eu_mapping: v354 (Trabzon) -> ME 1961 (İspir)
+						is_controlled_by = TUR
+					}
+					2255 = { # eu_mapping: v354 (Trabzon) -> ME 2255 (Kelkit)
+						is_controlled_by = TUR
+					}
+					2256 = { # eu_mapping: v354 (Trabzon) -> ME 2256 (Sarıkamış)
 						is_controlled_by = TUR
 					}
 				}
-				transfer_state = 354
+				transfer_state = 958 # eu_mapping: v354 (Trabzon) -> ME 958 (Trabzon)
+				transfer_state = 925 # eu_mapping: v354 (Trabzon) -> ME 925 (Ardahan)
+				transfer_state = 933 # eu_mapping: v354 (Trabzon) -> ME 933 (Artvin)
+				transfer_state = 938 # eu_mapping: v354 (Trabzon) -> ME 938 (Rize)
+				transfer_state = 949 # eu_mapping: v354 (Trabzon) -> ME 949 (Sarıkamış)
+				transfer_state = 953 # eu_mapping: v354 (Trabzon) -> ME 953 (Kars)
+				transfer_state = 965 # eu_mapping: v354 (Trabzon) -> ME 965 (Yusufeli)
+				transfer_state = 971 # eu_mapping: v354 (Trabzon) -> ME 971 (Oltu)
+				transfer_state = 973 # eu_mapping: v354 (Trabzon) -> ME 973 (Erzurum)
+				transfer_state = 975 # eu_mapping: v354 (Trabzon) -> ME 975 (Gümüşhane)
+				transfer_state = 984 # eu_mapping: v354 (Trabzon) -> ME 984 (Bayburt)
+				transfer_state = 1961 # eu_mapping: v354 (Trabzon) -> ME 1961 (İspir)
+				transfer_state = 2255 # eu_mapping: v354 (Trabzon) -> ME 2255 (Kelkit)
+				transfer_state = 2256 # eu_mapping: v354 (Trabzon) -> ME 2256 (Sarıkamış)
 			}
 			#HAKKARI
 			if = {
 				limit = {
-					353 = {
+					1012 = { # eu_mapping: v353 (Tunceli) -> ME 1012 (Tunceli)
+						is_controlled_by = TUR
+					}
+					1027 = { # eu_mapping: v353 (Tunceli) -> ME 1027 (Erzincan)
+						is_controlled_by = TUR
+					}
+					1031 = { # eu_mapping: v353 (Tunceli) -> ME 1031 (Bingöl)
+						is_controlled_by = TUR
+					}
+					1047 = { # eu_mapping: v353 (Tunceli) -> ME 1047 (Elâzığ)
+						is_controlled_by = TUR
+					}
+					1958 = { # eu_mapping: v353 (Tunceli) -> ME 1958 (Karlıova)
+						is_controlled_by = TUR
+					}
+					1959 = { # eu_mapping: v353 (Tunceli) -> ME 1959 (Kemaliye)
 						is_controlled_by = TUR
 					}
 				}
-				transfer_state = 353
+				transfer_state = 1012 # eu_mapping: v353 (Tunceli) -> ME 1012 (Tunceli)
+				transfer_state = 1027 # eu_mapping: v353 (Tunceli) -> ME 1027 (Erzincan)
+				transfer_state = 1031 # eu_mapping: v353 (Tunceli) -> ME 1031 (Bingöl)
+				transfer_state = 1047 # eu_mapping: v353 (Tunceli) -> ME 1047 (Elâzığ)
+				transfer_state = 1958 # eu_mapping: v353 (Tunceli) -> ME 1958 (Karlıova)
+				transfer_state = 1959 # eu_mapping: v353 (Tunceli) -> ME 1959 (Kemaliye)
 			}
 			#TUNCELI
 			if = {
 				limit = {
-					352 = {
+					1092 = { # eu_mapping: v352 (Hakkari) -> ME 1092 (Hakkâri)
+						is_controlled_by = TUR
+					}
+					1051 = { # eu_mapping: v352 (Hakkari) -> ME 1051 (Bitlis)
+						is_controlled_by = TUR
+					}
+					1062 = { # eu_mapping: v352 (Hakkari) -> ME 1062 (Batman)
+						is_controlled_by = TUR
+					}
+					1071 = { # eu_mapping: v352 (Hakkari) -> ME 1071 (Başkale)
+						is_controlled_by = TUR
+					}
+					1077 = { # eu_mapping: v352 (Hakkari) -> ME 1077 (Şırnak)
+						is_controlled_by = TUR
+					}
+					1957 = { # eu_mapping: v352 (Hakkari) -> ME 1957 (Siirt)
 						is_controlled_by = TUR
 					}
 				}
-				transfer_state = 352
+				transfer_state = 1092 # eu_mapping: v352 (Hakkari) -> ME 1092 (Hakkâri)
+				transfer_state = 1051 # eu_mapping: v352 (Hakkari) -> ME 1051 (Bitlis)
+				transfer_state = 1062 # eu_mapping: v352 (Hakkari) -> ME 1062 (Batman)
+				transfer_state = 1071 # eu_mapping: v352 (Hakkari) -> ME 1071 (Başkale)
+				transfer_state = 1077 # eu_mapping: v352 (Hakkari) -> ME 1077 (Şırnak)
+				transfer_state = 1957 # eu_mapping: v352 (Hakkari) -> ME 1957 (Siirt)
 			}
 			#VAN
 			if = {
 				limit = {
-					800 = {
+					1039 = { # eu_mapping: v800 (Van) -> ME 1039 (Van)
+						is_controlled_by = TUR
+					}
+					1001 = { # eu_mapping: v800 (Van) -> ME 1001 (Iğdır)
+						is_controlled_by = TUR
+					}
+					1004 = { # eu_mapping: v800 (Van) -> ME 1004 (Doğubayazıt)
+						is_controlled_by = TUR
+					}
+					1013 = { # eu_mapping: v800 (Van) -> ME 1013 (Ağrı)
+						is_controlled_by = TUR
+					}
+					1018 = { # eu_mapping: v800 (Van) -> ME 1018 (Karayazı)
+						is_controlled_by = TUR
+					}
+					1033 = { # eu_mapping: v800 (Van) -> ME 1033 (Muş)
+						is_controlled_by = TUR
+					}
+					2248 = { # eu_mapping: v800 (Van) -> ME 2248 (Tarlabaşı)
 						is_controlled_by = TUR
 					}
 				}
-				transfer_state = 800
+				transfer_state = 1039 # eu_mapping: v800 (Van) -> ME 1039 (Van)
+				transfer_state = 1001 # eu_mapping: v800 (Van) -> ME 1001 (Iğdır)
+				transfer_state = 1004 # eu_mapping: v800 (Van) -> ME 1004 (Doğubayazıt)
+				transfer_state = 1013 # eu_mapping: v800 (Van) -> ME 1013 (Ağrı)
+				transfer_state = 1018 # eu_mapping: v800 (Van) -> ME 1018 (Karayazı)
+				transfer_state = 1033 # eu_mapping: v800 (Van) -> ME 1033 (Muş)
+				transfer_state = 2248 # eu_mapping: v800 (Van) -> ME 2248 (Tarlabaşı)
 			}
 		}
 		hidden_effect = {
@@ -8790,34 +9391,34 @@ country_event = {
 
 		GER = { country_event = { id = germany.81 days = 1 } }
 		effect_tooltip = {
+			custom_effect_tooltip = mer_transfer_slovakia
 			if = {
-				limit = { SLO = { exists = yes } }
-				annex_country = { target = SLO }
+				limit = {
+					1442 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				SLO = {
+					custom_effect_tooltip = mer_first_vienna_award_transfer_southern_slovakia
+				}
 			}
 			if = {
-				limit = { GER = { owns_state = 70 } }
-				transfer_state = 70
+				limit = {
+					564 = {
+						OR = {
+							is_owned_by = CZE
+							is_owned_by = GER
+						}
+					}
+				}
+				custom_effect_tooltip = mer_transfer_transcarpathia
 			}
-			if = {
-				limit = { GER = { owns_state = 71 } }
-				transfer_state = 71
-			}
-			if = {
-				limit = { GER = { owns_state = 73 } }
-				transfer_state = 73
-			}
-			if = {
-				limit = { GER = { owns_state = 664 } }
-				transfer_state = 664
-			}
-			if = {
-				limit = { GER = { owns_state = 72 } }
-				transfer_state = 72
-			}
-			GER = { transfer_state = 85 }
-			GER = { transfer_state = 807 }
-			807 = { add_core_of = GER }
-			85 = { add_core_of = GER }
+			280 = { transfer_state_to = GER } # danzig
+			2729 = { transfer_state_to = GER }
+			custom_effect_tooltip = mer_GER_claims_on_danzig_corridor_tt
 		}
 	}
 
@@ -9028,84 +9629,30 @@ country_event = {
 					is_owned_by = GER
 				}
 			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state_focus
-					target = POL
-					generator = { 85 }
+			POL = {
+				custom_effect_tooltip = mer_transfer_transcarpathia
+				hidden_effect = {
+					transfer_state = 562
+					transfer_state = 2929
+					transfer_state = 1607
+					transfer_state = 1608
+					transfer_state = 2247
+					transfer_state = 564
 				}
 			}
 		}
-	}
-}
-
-# Poland Accepts, Cedes Danzig
-country_event = {
-	id = germany.81
-	title = germany.81.t
-	desc = germany.81.d
-	picture = GFX_report_event_german_polish_border
-
-	is_triggered_only = yes
-
-	option = {
-		name = germany.81.a
-		if = {
-			limit = { SLO = { exists = yes } }
-			POL = { annex_country = { target = SLO } }
-		}
-		if = {
-			limit = { owns_state = 70 }
-			POL = { transfer_state = 70 }
-		}
-		if = {
-			limit = { owns_state = 71 }
-			POL = { transfer_state = 71 }
-		}
-		if = {
-			limit = { owns_state = 73 }
-			POL = { transfer_state = 73 }
-		}
-		if = {
-			limit = { owns_state = 664 }
-			POL = { transfer_state = 664 }
-		}
-		if = {
-			limit = { owns_state = 72 }
-			POL = { transfer_state = 72 }
-		}
-		transfer_state = 85
-		transfer_state = 807
-		807 = { add_core_of = GER }
-		85 = { add_core_of = GER }
-		if = {
-			limit = {
-				ENG = {
-					NOT = {
-						is_in_faction_with = GER
-					}
-				}
-			}
-			ENG = {
-				add_war_support = -0.1 #dodged a bullet there
-			}
-		}
-		if = {
-			limit = {
-				FRA = {
-					NOT = {
-						is_in_faction_with = GER
-					}
-				}
-			}
-			FRA = {
-				add_war_support = -0.1 #dodged a bullet there
-			}
-		}
-
+		280 = { transfer_state_to = GER } # danzig
+		hidden_effect = { 2729 = { transfer_state_to = GER } } #other danzig state, tooltip unnecessary
+		custom_effect_tooltip = mer_GER_claims_on_danzig_corridor_tt
 		hidden_effect = {
-			news_event = { hours= 6 id = news.202 }
-			set_global_flag = poland_swap_danzig
+			287 = { transfer_state_to = GER }
+			310 = { transfer_state_to = GER }
+			2567 = { transfer_state_to = GER }
+			546 = { transfer_state_to = GER }
+			2341 = { transfer_state_to = GER }
+			264 = { transfer_state_to = GER }
+			267 = { transfer_state_to = GER }
+			1979 = { transfer_state_to = GER }
 		}
 	}
 }
@@ -9124,7 +9671,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = POL
-			generator = { 85 }
+			generator = { 287 310 2567 546 2341 264 267 }
 		}
 	}
 }
@@ -9316,12 +9863,7 @@ country_event = {
 		GER = { country_event = { id = germany.87 days = 1 } }
 		effect_tooltip = {
 			GER = {
-				transfer_state = 85
-				add_state_core = 85
-				transfer_state = 807
-				add_state_core = 807
-				remove_state_claim = 86
-				remove_state_claim = 762
+				custom_effect_tooltip = mer_GER_danzig_or_war_approved_transfer_tt
 			}
 		}
 		country_event = { id = poland.1 days = 7 }
@@ -9401,7 +9943,7 @@ country_event = {
 				declare_war_on = {
 					target = POL
 					type = take_state
-					generator = { 85 }
+					generator = { 287 310 2567 546 2341 264 267 }
 				}
 			}
 		}
@@ -9419,12 +9961,38 @@ country_event = {
 
 	option = {
 		name = germany.87.a
-		transfer_state = 85
-		add_state_core = 85
-		transfer_state = 807
-		add_state_core = 807
-		remove_state_claim = 86
-		remove_state_claim = 762
+		custom_effect_tooltip = mer_GER_danzig_or_war_approved_transfer_tt
+		hidden_effect = {
+			# transfer west prussia
+			transfer_state = 287
+			transfer_state = 310
+			transfer_state = 2567
+			transfer_state = 546
+			transfer_state = 2341
+			transfer_state = 264
+			transfer_state = 267
+			# core west prussia
+			add_state_core = 287
+			add_state_core = 310
+			add_state_core = 2567
+			add_state_core = 546
+			add_state_core = 2341
+			add_state_core = 264
+			add_state_core = 267
+			# lose posnan claims
+			remove_state_claim = 80
+			remove_state_claim = 335
+			remove_state_claim = 243
+			remove_state_claim = 79
+			remove_state_claim = 122
+			remove_state_claim = 99
+			remove_state_claim = 82
+			remove_state_claim = 549
+			# lose katowice claims
+			remove_state_claim = 2329
+			remove_state_claim = 481
+			remove_state_claim = 2262
+		}
 		if = {
 			limit = {
 				ENG = {
@@ -9507,11 +10075,19 @@ country_event = {
 		}
 		create_wargoal = {
 			type = take_state
-			generator = { 85 807 }
+			generator = { 287 310 2567 546 2341 264 267 }
 			target = POL
 		}
-		add_state_core = 85
-		add_state_core = 807
+		custom_effect_tooltip = mer_GER_danzig_or_war_cores_on_west_prussia
+		hidden_effect = {
+			add_state_core = 287
+			add_state_core = 310
+			add_state_core = 2567
+			add_state_core = 546
+			add_state_core = 2341
+			add_state_core = 264
+			add_state_core = 267
+		}
 		if = {
 			limit = {
 				ENG = {
@@ -9798,8 +10374,18 @@ country_event = {
 	option = {
 		name = germany.94.a
 		GER = {
-			transfer_state = 102
-			transfer_state = 853
+			transfer_state = 703 # eu_mapping: v102 (North Slovenia) -> ME 703 (Drava)
+			transfer_state = 695 # eu_mapping: v102 (North Slovenia) -> ME 695 (Prekmurje)
+			transfer_state = 712 # eu_mapping: v102 (North Slovenia) -> ME 712 (Međimurje)
+			transfer_state = 714 # eu_mapping: v102 (North Slovenia) -> ME 714 (Gorenjska)
+			transfer_state = 1487 # eu_mapping: v102 (North Slovenia) -> ME 1487 (Sava)
+			transfer_state = 1488 # eu_mapping: v102 (North Slovenia) -> ME 1488 (Domžale)
+			transfer_state = 1489 # eu_mapping: v102 (North Slovenia) -> ME 1489 (Savinja)
+			transfer_state = 1490 # eu_mapping: v102 (North Slovenia) -> ME 1490 (Koroška)
+			transfer_state = 2784 # eu_mapping: v102 (North Slovenia) -> ME 2784 (Tržič)
+			transfer_state = 2861 # eu_mapping: v102 (North Slovenia) -> ME 2861 (Krško)
+			transfer_state = 743 # eu_mapping: v853 (Ljubljana) -> ME 743 (Ljubljana)
+			transfer_state = 1486 # eu_mapping: v853 (Ljubljana) -> ME 1486 (Novo Mesto)
 		}
 		set_country_flag = slovenia_acquired
 		hidden_effect = {
@@ -9948,10 +10534,9 @@ country_event = {
 		trigger = {
 			YUG = {
 				OR = {
-					owns_state = 103
-					owns_state = 104
-					owns_state = 109
-					owns_state = 804
+					owns_state = 1499
+					owns_state = 1563
+					owns_state = 1464
 				}
 			}
 		}
@@ -9961,24 +10546,14 @@ country_event = {
 		effect_tooltip = {
 			add_political_power = -25
 			add_named_threat = { threat = 3 name = GER_fate_of_yugoslavia }
-			CRO = {
-				if = {
-					limit = { YUG = { owns_state = 103 } }
-					transfer_state = 103
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = CRO
+						is_core_of = BOS
+					}
 				}
-				if = {   # 1.19-migration: vanilla 1.19.4 added Bosnia transfer to CRO
-					limit = { YUG = { owns_state = 2821 } }
-					transfer_state = 2821 # was vanilla 104 (Bosnia)
-
-				}
-				if = {
-					limit = { YUG = { owns_state = 109 } }
-					transfer_state = 109
-				}
-				if = {
-					limit = { YUG = { owns_state = 804 } }
-					transfer_state = 804
-				}
+				transfer_state_to = CRO
 			}
 			puppet = CRO
 			annex_country = { target = YUG transfer_troops = no }
@@ -9996,23 +10571,14 @@ country_event = {
 		effect_tooltip = {
 			add_named_threat = { threat = 2 name = GER_fate_of_yugoslavia }
 
-			CRO = {
-				if = {
-					limit = { YUG = { owns_state = 103 } }
-					transfer_state = 103
+			every_state = {
+				limit = {
+					OR = {
+						is_core_of = CRO
+						is_core_of = BOS
+					}
 				}
-				if = {
-					limit = { YUG = { owns_state = 104 } }
-					transfer_state = 104
-				}
-				if = {
-					limit = { YUG = { owns_state = 109 } }
-					transfer_state = 109
-				}
-				if = {
-					limit = { YUG = { owns_state = 804 } }
-					transfer_state = 804
-				}
+				transfer_state_to = CRO
 			}
 			puppet = CRO
 			puppet = YUG
@@ -10897,7 +11463,7 @@ country_event = {
 				declare_war_on = {
 					target = POL
 					type = take_state
-					generator = { 85 }
+					generator = { 287 310 2567 546 2341 264 267 }
 				}
 			}
 		}
@@ -10915,8 +11481,20 @@ country_event = {
 
 	option = {
 		name = germany.115.a
-		transfer_state = 85
-		remove_state_claim = 86
+		transfer_state = 287
+		transfer_state = 310
+		transfer_state = 2567
+		transfer_state = 546
+		transfer_state = 2341
+		transfer_state = 264
+		transfer_state = 267
+		remove_state_claim = 287
+		remove_state_claim = 310
+		remove_state_claim = 2567
+		remove_state_claim = 546
+		remove_state_claim = 2341
+		remove_state_claim = 264
+		remove_state_claim = 267
 	}
 }
 
@@ -10938,7 +11516,7 @@ country_event = {
 		declare_war_on = {
 			target = POL
 			type = take_state
-			generator = { 85 }
+			generator = { 287 310 2567 546 2341 264 267 }
 		}
 	}
 
@@ -11212,7 +11790,7 @@ country_event = {
 		#WGR = {
 			42 = { set_state_flag = yalta_wgr }
 			50 = { set_state_flag = yalta_wgr }
-			978 = { set_state_flag = yalta_wgr }
+			556 = { set_state_flag = yalta_wgr }   # 1.19-migration: was vanilla 978 (Baden)
 			51 = { set_state_flag = yalta_wgr }
 			52 = { set_state_flag = yalta_wgr }
 			53 = { set_state_flag = yalta_wgr }
@@ -11282,18 +11860,18 @@ country_event = {
 
 		ELSE = {
 			AUS = {
-				848 = { set_state_flag = yalta_aus }
-				153 = { set_state_flag = yalta_aus }
-				976 = { set_state_flag = yalta_aus }
-				152 = { set_state_flag = yalta_aus }
-				4 = { set_state_flag = yalta_aus }
-				975 = { set_state_flag = yalta_aus }
-				add_state_core = 848
-				add_state_core = 153
-				add_state_core = 152
-				add_state_core = 976
-				add_state_core = 4
-				add_state_core = 975
+				654 = { set_state_flag = yalta_aus }   # 1.19-migration: was vanilla 848 (Vorarlberg)
+				1793 = { set_state_flag = yalta_aus }   # 1.19-migration: was vanilla 153 (Tyrol)
+				681 = { set_state_flag = yalta_aus }   # 1.19-migration: was vanilla 976 (Styria)
+				1800 = { set_state_flag = yalta_aus }   # 1.19-migration: was vanilla 152 (Upper Austria)
+				1802 = { set_state_flag = yalta_aus }   # 1.19-migration: was vanilla 4 (Lower Austria)
+				621 = { set_state_flag = yalta_aus }   # 1.19-migration: was vanilla 975 (Burgenland)
+				add_state_core = 654   # 1.19-migration: was vanilla 848
+				add_state_core = 1793   # 1.19-migration: was vanilla 153
+				add_state_core = 1800   # 1.19-migration: was vanilla 152
+				add_state_core = 681   # 1.19-migration: was vanilla 976
+				add_state_core = 1802   # 1.19-migration: was vanilla 4
+				add_state_core = 621   # 1.19-migration: was vanilla 975
 			}
 		}
 
@@ -11382,7 +11960,7 @@ country_event = {
 		#SGS
 			54 = { set_state_flag = morgenthau_south_german } 
 			50 = { set_state_flag = morgenthau_south_german }
-			978 = { set_state_flag = morgenthau_south_german }
+			556 = { set_state_flag = morgenthau_south_german }   # 1.19-migration: was vanilla 978 (Baden)
 			52 = { set_state_flag = morgenthau_south_german } 
 			53 = { set_state_flag = morgenthau_south_german } 		
 		
@@ -11919,7 +12497,7 @@ country_event = {
 				create_wargoal = {
 					type = take_state_focus
 					target = CZE #Regardless of event triggered to CZE or overlord, the wargoal will always target CZE
-					generator = { 69 } #Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+					generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, CZE is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 				}
 			}
 		}
@@ -11989,29 +12567,29 @@ country_event = {
 		effect_tooltip = {
 			if = {
 				limit = {
-					CZE = { controls_state = 69 }
+					CZE = { controls_state = 1434 }   # 1.19-migration: was vanilla 69 (North Sudetenland)
 				}
 				FROM = {
-					add_state_core = 69
-					transfer_state = 69
+					add_state_core = 1434   # 1.19-migration: was vanilla 69
+					transfer_state = 1434   # 1.19-migration: was vanilla 69
 				}
 			}
 			if = {
 				limit = {
-					CZE = { controls_state = 972 }
+					CZE = { controls_state = 1433 }   # 1.19-migration: was vanilla 972 (South Sudetenland)
 				}
 				FROM = {
-					add_state_core = 972
-					transfer_state = 972
+					add_state_core = 1433   # 1.19-migration: was vanilla 972
+					transfer_state = 1433   # 1.19-migration: was vanilla 972
 				}
 			}
 			if = {
 				limit = {
-					CZE = { controls_state = 74 }
+					CZE = { controls_state = 507 }   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
 				}
 				FROM = {
-					add_state_core = 74
-					transfer_state = 74
+					add_state_core = 507   # 1.19-migration: was vanilla 74
+					transfer_state = 507   # 1.19-migration: was vanilla 74
 				}
 			}
 		}
@@ -12047,29 +12625,29 @@ country_event = {
 		effect_tooltip = {
 			if = {
 				limit = {
-					controls_state = 69
+					controls_state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
 				}
 				FROM = {
-					add_state_core = 69
-					transfer_state = 69
+					add_state_core = 1434   # 1.19-migration: was vanilla 69
+					transfer_state = 1434   # 1.19-migration: was vanilla 69
 				}
 			}
 			if = {
 				limit = {
-					controls_state = 972
+					controls_state = 1433   # 1.19-migration: was vanilla 972 (South Sudetenland)
 				}
 				FROM = {
-					add_state_core = 972
-					transfer_state = 972
+					add_state_core = 1433   # 1.19-migration: was vanilla 972
+					transfer_state = 1433   # 1.19-migration: was vanilla 972
 				}
 			}
 			if = {
 				limit = {
-					controls_state = 74
+					controls_state = 507   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
 				}
 				FROM = {
-					add_state_core = 74
-					transfer_state = 74
+					add_state_core = 507   # 1.19-migration: was vanilla 74
+					transfer_state = 507   # 1.19-migration: was vanilla 74
 				}
 			}
 		}
@@ -12140,36 +12718,65 @@ country_event = {
 		
 		if = {
 			limit = {
-				CZE = { controls_state = 69 }
+				CZE = { controls_state = 473
+				controls_state = 471
+				controls_state = 498
+				controls_state = 522
+				controls_state = 1434
+				controls_state = 1435 }
 			}
 			ROOT = {
-				add_state_core = 69
-				transfer_state = 69
-			}
-		}
-		471 = {   # 1.19-migration: mod state Aussig
-			controller = {
-				GER = {
-					transfer_state = 471
-				}
-			}
-		}
-		if = {   # 1.19-migration: vanilla 1.19.4 adds 972/74 transfers + machinery + germany.125
-			limit = {
-				CZE = { controls_state = 972 }
-			}
-			ROOT = {
-				add_state_core = 972
-				transfer_state = 972
+				add_state_core = 473 # eu_mapping: v69 (North Sudetenland) -> ME 473 (Liberec)
+				add_state_core = 471 # eu_mapping: v69 (North Sudetenland) -> ME 471 (Ústí nad Labem)
+				add_state_core = 498 # eu_mapping: v69 (North Sudetenland) -> ME 498 (Cheb)
+				add_state_core = 522 # eu_mapping: v69 (North Sudetenland) -> ME 522 (Tachov)
+				add_state_core = 1434 # eu_mapping: v69 (North Sudetenland) -> ME 1434 (Karlovy Vary)
+				add_state_core = 1435 # eu_mapping: v69 (North Sudetenland) -> ME 1435 (Trutnov)
+				transfer_state = 473 # eu_mapping: v69 (North Sudetenland) -> ME 473 (Liberec)
+				transfer_state = 471 # eu_mapping: v69 (North Sudetenland) -> ME 471 (Ústí nad Labem)
+				transfer_state = 498 # eu_mapping: v69 (North Sudetenland) -> ME 498 (Cheb)
+				transfer_state = 522 # eu_mapping: v69 (North Sudetenland) -> ME 522 (Tachov)
+				transfer_state = 1434 # eu_mapping: v69 (North Sudetenland) -> ME 1434 (Karlovy Vary)
+				transfer_state = 1435 # eu_mapping: v69 (North Sudetenland) -> ME 1435 (Trutnov)
 			}
 		}
 		if = {
 			limit = {
-				CZE = { controls_state = 74 }
+				CZE = { controls_state = 1433
+				controls_state = 1430
+				controls_state = 1431
+				controls_state = 1432 }
 			}
 			ROOT = {
-				add_state_core = 74
-				transfer_state = 74
+				add_state_core = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+				add_state_core = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
+				add_state_core = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+				add_state_core = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+				transfer_state = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+				transfer_state = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
+				transfer_state = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+				transfer_state = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+			}
+		}
+		if = {
+			limit = {
+				CZE = { controls_state = 507
+				controls_state = 499
+				controls_state = 504
+				controls_state = 1428
+				controls_state = 1977 }
+			}
+			ROOT = {
+				add_state_core = 507 # eu_mapping: v74 (Sudeten Silesia) -> ME 507 (Opava)
+				add_state_core = 499 # eu_mapping: v74 (Sudeten Silesia) -> ME 499 (Šternberk)
+				add_state_core = 504 # eu_mapping: v74 (Sudeten Silesia) -> ME 504 (Svitavy)
+				add_state_core = 1428 # eu_mapping: v74 (Sudeten Silesia) -> ME 1428 (Krnov)
+				add_state_core = 1977 # eu_mapping: v74 (Sudeten Silesia) -> ME 1977 (Hlučín)
+				transfer_state = 507 # eu_mapping: v74 (Sudeten Silesia) -> ME 507 (Opava)
+				transfer_state = 499 # eu_mapping: v74 (Sudeten Silesia) -> ME 499 (Šternberk)
+				transfer_state = 504 # eu_mapping: v74 (Sudeten Silesia) -> ME 504 (Svitavy)
+				transfer_state = 1428 # eu_mapping: v74 (Sudeten Silesia) -> ME 1428 (Krnov)
+				transfer_state = 1977 # eu_mapping: v74 (Sudeten Silesia) -> ME 1977 (Hlučín)
 			}
 		}
 
@@ -12201,32 +12808,32 @@ country_event = {
 
 			IF = {
 				limit = {
-					controls_state = 69
+					controls_state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
 				}
 				GER = {
-					add_state_core = 69
-					transfer_state = 69
+					add_state_core = 1434   # 1.19-migration: was vanilla 69
+					transfer_state = 1434   # 1.19-migration: was vanilla 69
 				}
 			}
 
 			IF = {
 				limit = {
-					controls_state = 972
+					controls_state = 1433   # 1.19-migration: was vanilla 972 (South Sudetenland)
 				}
 				GER = {
-					add_state_core = 972
-					transfer_state = 972
+					add_state_core = 1433   # 1.19-migration: was vanilla 972
+					transfer_state = 1433   # 1.19-migration: was vanilla 972
 				}
 			}
 
 			IF = {
 				limit = {
-					controls_state = 74
+					controls_state = 507   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
 				}
 
 				GER = {
-					add_state_core = 74
-					transfer_state = 74
+					add_state_core = 507   # 1.19-migration: was vanilla 74
+					transfer_state = 507   # 1.19-migration: was vanilla 74
 				}
 			}
 		}
@@ -12781,7 +13388,7 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 		effect_tooltip = {
 			if = {
 				limit = {
-					69 = {
+					1434 = {   # 1.19-migration: was vanilla 69 (North Sudetenland)
 						OR = {
 							is_controlled_by = ROOT
 							controller = {
@@ -12791,13 +13398,13 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 					}
 				}
 				FROM = {
-					add_state_core = 69
-					transfer_state = 69
+					add_state_core = 1434   # 1.19-migration: was vanilla 69
+					transfer_state = 1434   # 1.19-migration: was vanilla 69
 				}
 			}
 			if = {
 				limit = {
-					972 = {
+					1433 = {   # 1.19-migration: was vanilla 972 (South Sudetenland)
 						OR = {
 							is_controlled_by = ROOT
 							controller = {
@@ -12807,13 +13414,13 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 					}
 				}
 				FROM = {
-					add_state_core = 972
-					transfer_state = 972
+					add_state_core = 1433   # 1.19-migration: was vanilla 972
+					transfer_state = 1433   # 1.19-migration: was vanilla 972
 				}
 			}
 			if = {
 				limit = {
-					74 = {
+					507 = {   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
 						OR = {
 							is_controlled_by = ROOT
 							controller = {
@@ -12823,8 +13430,8 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 					}
 				}
 				FROM = {
-					add_state_core = 74
-					transfer_state = 74
+					add_state_core = 507   # 1.19-migration: was vanilla 74
+					transfer_state = 507   # 1.19-migration: was vanilla 74
 				}
 			}
 		}
@@ -12864,9 +13471,9 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 				if = { # STATES CONTROLLED BY ROOT
 					limit = {
 						OR = {
-							controls_state = 69
-							controls_state = 972
-							controls_state = 74
+							controls_state = 1434   # 1.19-migration: was vanilla 69
+							controls_state = 1433   # 1.19-migration: was vanilla 972
+							controls_state = 507   # 1.19-migration: was vanilla 74
 						}
 					}
 					FROM = {
@@ -12874,7 +13481,7 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 							type = take_state_focus
 							target = ROOT
 							expire = 0
-							generator = { 69 } #Doesn't matter the exact state, country is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+							generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, country is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 						}
 					}
 				}
@@ -12882,18 +13489,18 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 					limit = {
 						any_subject_country = {
 							OR = {	
-								controls_state = 69	
-								controls_state = 972
-								controls_state = 74	
+								controls_state = 1434   # 1.19-migration: was vanilla 69
+								controls_state = 1433   # 1.19-migration: was vanilla 972
+								controls_state = 507   # 1.19-migration: was vanilla 74
 							}
 						}	
 					}
 					every_subject_country = {
 						limit = {
 							OR = {	
-								controls_state = 69	
-								controls_state = 972
-								controls_state = 74	
+								controls_state = 1434   # 1.19-migration: was vanilla 69
+								controls_state = 1433   # 1.19-migration: was vanilla 972
+								controls_state = 507   # 1.19-migration: was vanilla 74
 							}
 						}
 						FROM = {
@@ -12901,7 +13508,7 @@ country_event = { #Hand over sudetenland even if we're not czech - Event for con
 								type = take_state_focus
 								target = PREV
 								expire = 0
-								generator = { 69 } #Doesn't matter the exact state, country is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
+								generator = { 1434 } # 1.19-migration: was vanilla 69 — Doesn't matter the exact state, country is guaranteed to control at least 1 Sudetenland state, and the generators don't show up in tooltips.
 							}
 						}
 					}
@@ -12962,8 +13569,8 @@ country_event = { #Handed Over - Event for GER
 					}
 				}
 			}
-			add_state_core = 69
-			transfer_state = 69
+			add_state_core = 1434   # 1.19-migration: was vanilla 69
+			transfer_state = 1434   # 1.19-migration: was vanilla 69
 		}
 		custom_effect_tooltip = mer_GER_transfer_east_sudetenland
 		hidden_effect = {
@@ -12978,8 +13585,8 @@ country_event = { #Handed Over - Event for GER
 					}
 				}
 			}
-			add_state_core = 74
-			transfer_state = 74
+			add_state_core = 507   # 1.19-migration: was vanilla 74
+			transfer_state = 507   # 1.19-migration: was vanilla 74
 		}
 
 		set_country_flag = sudetenland_acquired #Unused flag for now
@@ -13014,9 +13621,9 @@ country_event = { #Handed Over.. NOT - Event for GER
 				if = {
 					limit = {
 						OR = {	
-							controls_state = 69	
-							controls_state = 972
-							controls_state = 74	
+							controls_state = 1434   # 1.19-migration: was vanilla 69
+							controls_state = 1433   # 1.19-migration: was vanilla 972
+							controls_state = 507   # 1.19-migration: was vanilla 74
 						}
 					}
 					GER_set_array_of_sudetenland_targeted_states = yes
@@ -13026,18 +13633,18 @@ country_event = { #Handed Over.. NOT - Event for GER
 					limit = {
 						any_subject_country = {
 							OR = {	
-								controls_state = 69	
-								controls_state = 972
-								controls_state = 74	
+								controls_state = 1434   # 1.19-migration: was vanilla 69
+								controls_state = 1433   # 1.19-migration: was vanilla 972
+								controls_state = 507   # 1.19-migration: was vanilla 74
 							}
 						}
 					}
 					every_subject_country = {
 						limit = {
 							OR = {	
-								controls_state = 69	
-								controls_state = 972
-								controls_state = 74	
+								controls_state = 1434   # 1.19-migration: was vanilla 69
+								controls_state = 1433   # 1.19-migration: was vanilla 972
+								controls_state = 507   # 1.19-migration: was vanilla 74
 							}
 						}
 						GER_set_array_of_sudetenland_targeted_states = yes
@@ -13058,9 +13665,9 @@ country_event = { #Handed Over.. NOT - Event for GER
 				if = {
 					limit = {
 						OR = {	
-							controls_state = 69	
-							controls_state = 972
-							controls_state = 74	
+							controls_state = 1434   # 1.19-migration: was vanilla 69
+							controls_state = 1433   # 1.19-migration: was vanilla 972
+							controls_state = 507   # 1.19-migration: was vanilla 74
 						}
 					}
 					ROOT = {
@@ -13075,18 +13682,18 @@ country_event = { #Handed Over.. NOT - Event for GER
 					limit = {
 						any_subject_country = {
 							OR = {	
-								controls_state = 69	
-								controls_state = 972
-								controls_state = 74	
+								controls_state = 1434   # 1.19-migration: was vanilla 69
+								controls_state = 1433   # 1.19-migration: was vanilla 972
+								controls_state = 507   # 1.19-migration: was vanilla 74
 							}
 						}
 					}
 					every_subject_country = {
 						limit = {
 							OR = {	
-								controls_state = 69	
-								controls_state = 972
-								controls_state = 74	
+								controls_state = 1434   # 1.19-migration: was vanilla 69
+								controls_state = 1433   # 1.19-migration: was vanilla 972
+								controls_state = 507   # 1.19-migration: was vanilla 74
 							}
 						}
 						ROOT = {
@@ -13219,7 +13826,7 @@ country_event = { #Rejects deal
 			type = take_state_focus
 			target = FROM
 			expire = 0
-			generator = { 918 666 }
+			generator = { 45 2711 }
 		}
 	}
 }
@@ -13256,7 +13863,7 @@ country_event = { #Accepts deal
 
 				give_resource_rights = {
 					receiver = PREV 
-					state = 918 #Västerbotten 
+					state = 2704 #Kiruna (mirrors live AAT_germany.1.b grant)
 				}
 				add_opinion_modifier = {
 					target = PREV # target of the relation

@@ -2867,6 +2867,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = SOV_expand_the_red_fleet
+		allow_branch = { has_global_flag = NEVER }
 		cost = 5
 
 		available = {
@@ -4277,7 +4278,7 @@ focus_tree = {
 			
 			if = { # 2 Mils in Chelyabinsk
 				limit = {
-					has_full_control_of_state = 2387   # 1.19-migration: was vanilla 572 (Chelyabinsk)
+					has_full_control_of_state = 2387 # eu_mapping: v651 (Ufa) -> ME 2387 (Oktyabrsky) (Ural proxy for Chelyabinsk)
 					2387 = {   # 1.19-migration: was vanilla 572 (Chelyabinsk); mod Oktyabrsky
 						free_building_slots = {
 							building = arms_factory
@@ -5100,7 +5101,8 @@ focus_tree = {
 				has_full_control_of_state = 992   # 1.19-migration: was vanilla 93 (Wołyn)
 				has_full_control_of_state = 1292   # 1.19-migration: was vanilla 91 (Lwów)
 				has_full_control_of_state = 1164   # 1.19-migration: was vanilla 89 (Stanisławów)
-				has_full_control_of_state = 629   # 1.19-migration: was vanilla 80 (Bucovina)
+				has_full_control_of_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+				has_full_control_of_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
 				has_full_control_of_state = 592   # 1.19-migration: was vanilla 78 (Bessarabia)
 				has_full_control_of_state = 1601   # 1.19-migration: was vanilla 766 (Southern Bessarabia)
 			}
@@ -5857,6 +5859,104 @@ focus_tree = {
 			add_to_variable = { SOV_the_red_army_acclimatization_hot_climate_gain_factor = 0.15 }
 			add_to_variable = { SOV_the_red_army_terrain_trait_xp_gain_factor = 0.15 }
 			custom_effect_tooltip = SOV_an_adaptable_army_ns_tt
+		}
+	}
+
+	focus = {
+		id = SOV_lessons_of_war
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = SOV_rehabilitated_military }
+		prerequisite = { focus = SOV_desperate_measures }
+		x = 0
+		y = 1
+		relative_position_id = SOV_desperate_measures
+		cost = 5
+
+		available = {
+			NOT = { has_idea = SOV_desperate_measures_ns }
+		}
+		
+		search_filters = {FOCUS_FILTER_ARMY_XP}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SOV_lessons_of_war"
+			add_to_variable = { SOV_the_red_army_army_org_factor = 0.05 }
+			set_variable = { SOV_the_red_army_experience_gain_army_factor = 0 }
+			set_variable = { SOV_the_red_army_experience_loss_factor = 0 }
+			set_variable = { SOV_the_red_army_mastery_loss_factor = 0 }
+
+			custom_effect_tooltip = SOV_lessons_of_war_ns_tt
+			effect_tooltip = {
+				#this should be the positive of whatever the negative mastery loss is, only used for tooltip
+				add_to_variable = { SOV_the_red_army_mastery_loss_factor = SOV_the_red_army_mastery_loss_factor_inverted tooltip = land_mastery_gain_factor_tt }
+			}
+
+			unlock_decision_tooltip = SOV_order_227
+			custom_effect_tooltip = SOV_lessons_of_war_unlock_military_operations_tt
+
+			custom_effect_tooltip = SOV_lessons_of_war_cowed_trait_tt
+			hidden_effect = {
+				every_army_leader = {
+					limit = {
+						has_trait = trait_SOV_cowed_by_stalin_army
+					}
+					remove_unit_leader_trait =  trait_SOV_cowed_by_stalin_army
+				}
+				every_navy_leader = {
+					limit = {
+						has_trait = trait_SOV_cowed_by_stalin_navy
+					}
+					remove_unit_leader_trait =  trait_SOV_cowed_by_stalin_navy
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SOV_penal_battalions
+		icon = GFX_focus_SOV_penal_battalions
+		prerequisite = { focus = SOV_desperate_measures }
+		x = 2
+		y = 1
+		relative_position_id = SOV_desperate_measures
+		cost = 5
+
+		available = {
+			has_war = yes
+		}
+		
+		search_filters = {}
+
+		completion_reward = {
+			log = "[GetDateText]: [Root.GetName]: Focus SOV_penal_battalions"
+			#Spawn Penal divisions
+			custom_effect_tooltip = SOV_penal_battalions_spawn_tt
+			hidden_effect = {
+				#set_technology = { penal_infantry = 1 popup = no }
+
+				division_template = {
+					name = "Shtrafnaya Chast"
+					division_names_group = SOV_PEN_01
+					is_locked = yes
+
+					regiments = {
+						penal_battalion = { x = 0 y = 0 }
+						penal_battalion = { x = 0 y = 1 }
+						penal_battalion = { x = 0 y = 2 }
+						penal_battalion = { x = 1 y = 0 }
+						penal_battalion = { x = 1 y = 1 }
+						penal_battalion = { x = 1 y = 2 }
+						penal_battalion = { x = 2 y = 0 }
+						penal_battalion = { x = 2 y = 1 }
+						penal_battalion = { x = 2 y = 2 }
+					}
+					support = {
+						artillery = { x = 0 y = 0 }
+					}
+				}
+
+				SOV_spawn_penal_divisions_effect = yes
+			}
 		}
 	}
 
@@ -8062,7 +8162,7 @@ focus_tree = {
 							state = 2636   # 1.19-migration: was vanilla 398 (Perm)
 							state = 108   # 1.19-migration: was vanilla 400 (Kirov)
 							state = 561   # 1.19-migration: was vanilla 406 (Guryev)
-							state = 2516   # 1.19-migration: was vanilla 402 (Akhtubinsk)
+							state = 464 # eu_mapping: v402 (Akhtubinsk) -> ME 464 (Aqtobe)
 							state = 430   # 1.19-migration: was vanilla 407 (Ural'sk)
 						}
 						#NOT = { has_state_flag = SOV_left_opposition_state }
@@ -8079,7 +8179,7 @@ focus_tree = {
 							state = 2636   # 1.19-migration: was vanilla 398 (Perm)
 							state = 108   # 1.19-migration: was vanilla 400 (Kirov)
 							state = 561   # 1.19-migration: was vanilla 406 (Guryev)
-							state = 2516   # 1.19-migration: was vanilla 402 (Akhtubinsk)
+							state = 464 # eu_mapping: v402 (Akhtubinsk) -> ME 464 (Aqtobe)
 							state = 430   # 1.19-migration: was vanilla 407 (Ural'sk)
 						}
 						#NOT = { has_state_flag = SOV_left_opposition_state }
@@ -11443,6 +11543,7 @@ focus_tree = {
 		x = -5
 		y = 1
 		relative_position_id = SOV_the_comintern
+		allow_branch = { has_global_flag = NEVER }
 		cost = 5
 
 		ai_will_do = {
@@ -12510,6 +12611,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_anti_capitalist_policies
+		allow_branch = { has_global_flag = NEVER }
 		cost = 10
 
 		ai_will_do = {
@@ -13571,17 +13673,160 @@ focus_tree = {
 		available = {
 			NOT = { has_country_flag = SOV_paranoia_system_active_flag }
 			is_subject = no
-			592 = {   # 1.19-migration: was vanilla 78 (Bessarabia); mod Hotin
+			1604 = { # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
 				owner = {
-					controls_state = 592   # 1.19-migration: was vanilla 78 (Bessarabia)
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			592 = { # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			600 = { # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			1602 = { # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			1603 = { # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			1605 = { # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			1606 = { # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			2744 = { # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			2745 = { # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				}
+			}
+			2980 = { # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+				owner = {
+					controls_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+					controls_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+					controls_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+					controls_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+					controls_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+					controls_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+					controls_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+					controls_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+					controls_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+					controls_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
 				}
 			}
 		}
 
 		bypass = {
 			OR = {
+				NOT = {		#primarily for TTBE content but might fix some rare weird situations as well
+					owns_state = 2038 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2038 (Balta)
+					owns_state = 617 # eu_mapping: v834 (Balta-Tiraspol) -> ME 617 (Tiraspol')
+					owns_state = 2046 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2046 (Radzel'naya)
+					owns_state = 2681 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2681 (Ribnitsa)
+					owns_state = 2682 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2682 (Ananov)
+					owns_state = 2683 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2683 (Savran)
+				}
 				AND = {
-					592 = { #Bessarabia   # 1.19-migration: was vanilla 78 (Bessarabia); mod Hotin
+					1604 = { # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna) #Bessarabia
 						owner = {
 							OR = {
 								tag = ROOT
@@ -13592,7 +13837,7 @@ focus_tree = {
 							}
 						}
 					}
-					629 = { #Bucovina   # 1.19-migration: was vanilla 80 (Bucovina); mod Storojineț
+					592 = { # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin) #Bessarabia
 						owner = {
 							OR = {
 								tag = ROOT
@@ -13603,7 +13848,128 @@ focus_tree = {
 							}
 						}
 					}
-					1601 = { #Southern Bessarabia   # 1.19-migration: was vanilla 766 (Southern Bessarabia); mod Ismail
+					600 = { # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					1602 = { # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					1603 = { # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					1605 = { # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					1606 = { # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					2744 = { # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					2745 = { # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					2980 = { # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți) #Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți) #Bucovina
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					1601 = { # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă) #Southern Bessarabia
+						owner = {
+							OR = {
+								tag = ROOT
+								AND = {
+									is_in_faction_with = ROOT
+									NOT = { tag = ROOT}
+								}
+							}
+						}
+					}
+					794 = { # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
 						owner = {
 							OR = {
 								tag = ROOT
@@ -13615,10 +13981,93 @@ focus_tree = {
 						}
 					}
 				}
-				592 = { #Besserabia   # 1.19-migration: was vanilla 78 (Bessarabia); mod Hotin
+				1604 = { # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna) #Besserabia
 					owner = {
-						owns_state = 629 #Bucovina   # 1.19-migration: was vanilla 80 (Bucovina)
-						owns_state = 1601 #Southern Bessarabia   # 1.19-migration: was vanilla 766 (Southern Bessarabia)
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				592 = { # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				600 = { # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				1602 = { # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				1603 = { # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				1605 = { # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				1606 = { # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				2744 = { # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				2745 = { # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
+						has_war_with = ROOT
+					}
+				}
+				2980 = { # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți) #Besserabia
+					owner = {
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) #Bucovina
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail) #Southern Bessarabia
 						has_war_with = ROOT
 					}
 				}
@@ -13630,20 +14079,51 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = { #This is now generic and will target any potential (multiple) controllers for these states.
 			if = {
-				limit = { 78 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } }
-				add_state_claim = 592   # 1.19-migration: was vanilla 78 (Bessarabia)
+				limit = { 1604 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+				592 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+				600 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+				1602 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+				1603 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+				1605 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+				1606 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+				2744 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+				2745 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+				2980 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } }
+				add_state_claim = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+				add_state_claim = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+				add_state_claim = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+				add_state_claim = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+				add_state_claim = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+				add_state_claim = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+				add_state_claim = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+				add_state_claim = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+				add_state_claim = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+				add_state_claim = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
 			}
 			if = {
-				limit = { 766 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } }
-				add_state_claim = 1601   # 1.19-migration: was vanilla 766 (Southern Bessarabia)
+				limit = { 1601 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+				794 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } }
+				add_state_claim = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+				add_state_claim = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
 			}
 			if = {
-				limit = { 80 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } }
-				add_state_claim = 629   # 1.19-migration: was vanilla 80 (Bucovina)
+				limit = { 1599 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+				590 = { OWNER = { NOT = { is_in_faction_with = ROOT} } } }
+				add_state_claim = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+				add_state_claim = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
 			}
 			add_named_threat = { threat = 1 name = SOV_claim_on_bessarabia }
 			random_other_country = {
-				limit = { owns_state = 592 }   # 1.19-migration: was vanilla 78 (Bessarabia)
+				limit = { owns_state = 1604
+				owns_state = 592
+				owns_state = 600
+				owns_state = 1602
+				owns_state = 1603
+				owns_state = 1605
+				owns_state = 1606
+				owns_state = 2744
+				owns_state = 2745
+				owns_state = 2980 }
 				add_opinion_modifier = { target = SOV modifier = claimed_bessarabia }
 				set_country_flag = SOV_added_claimed_bessarabia
 				country_event = { id = romania.1 hours = 16 random_hours = 8 }
@@ -13651,13 +14131,24 @@ focus_tree = {
 			if = { #Done like this to prevent disgusting tooltip issues, but I hate it ok?
 				limit = {
 					any_other_country = {
-						owns_state = 592   # 1.19-migration: was vanilla 78 (Bessarabia)
-						NOT = {	owns_state = 629 }   # 1.19-migration: was vanilla 80 (Bucovina)
+						owns_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+						owns_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+						owns_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+						owns_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+						owns_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+						owns_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+						owns_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+						owns_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+						owns_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+						owns_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+						NOT = {	owns_state = 1599
+						owns_state = 590 }
 					}
 				}
 				random_other_country = {
 					limit = { 
-						owns_state = 629   # 1.19-migration: was vanilla 80 (Bucovina)
+						owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț) 
 						NOT = { has_country_flag = SOV_added_claimed_bessarabia }
 					}
 					add_opinion_modifier = { target = SOV modifier = claimed_bucovina }
@@ -13668,18 +14159,31 @@ focus_tree = {
 				limit = {
 					AND = {
 						any_other_country = {
-							owns_state = 592   # 1.19-migration: was vanilla 78 (Bessarabia)
-							NOT = {	owns_state = 1601 }   # 1.19-migration: was vanilla 766 (Southern Bessarabia)
+							owns_state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+							owns_state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+							owns_state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+							owns_state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+							owns_state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+							owns_state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+							owns_state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+							owns_state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+							owns_state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+							owns_state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+							NOT = {	owns_state = 1601
+							owns_state = 794 }
 						}
 						any_other_country = {
-							owns_state = 629   # 1.19-migration: was vanilla 80 (Bucovina)
-							NOT = {	owns_state = 1601 }   # 1.19-migration: was vanilla 766 (Southern Bessarabia)
+							owns_state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+							owns_state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+							NOT = {	owns_state = 1601
+							owns_state = 794 }
 						}
 					}
 				}
 				random_other_country = {
 					limit = { 
-						owns_state = 1601   # 1.19-migration: was vanilla 766 (Southern Bessarabia)
+						owns_state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						owns_state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
 						NOT = { has_country_flag = SOV_added_claimed_bessarabia }
 					}
 					add_opinion_modifier = { target = SOV modifier = claimed_bucovina }
@@ -13882,22 +14386,22 @@ ai_will_do = {
 					#country_exists = AFG   # 1.19-migration: dead tag AFG
 				}
 				#AFG = {   # 1.19-migration: dead tag AFG
-					if = {
-						limit = { ROOT = { has_government = fascism } }
-						add_timed_idea = { idea = fascist_influence_weak days = 1095 }
-					}
-					if = {
-						limit = { ROOT = { has_government = democratic } }
-						add_timed_idea = { idea = democratic_influence_weak days = 1095 }
-					}
-					if = {
-						limit = { ROOT = { has_government = communism } }
-						add_timed_idea = { idea = communist_influence_weak days = 1095 }
-					}
-					hidden_effect = {
-						country_event = { id = generic.1 }
-					}
-				}
+					#if = {
+					#	limit = { ROOT = { has_government = fascism } }
+					#	add_timed_idea = { idea = fascist_influence_weak days = 1095 }
+					#}
+					#if = {
+					#	limit = { ROOT = { has_government = democratic } }
+					#	add_timed_idea = { idea = democratic_influence_weak days = 1095 }
+					#}
+					#if = {
+					#	limit = { ROOT = { has_government = communism } }
+					#	add_timed_idea = { idea = communist_influence_weak days = 1095 }
+					#}
+					#hidden_effect = {
+					#	country_event = { id = generic.1 }
+					#}
+				#}
 			}
 			if = {
 				limit = {
@@ -13931,6 +14435,7 @@ ai_will_do = {
 		x = -1
 		y = 1
 		relative_position_id = SOV_middle_east_diplomacy
+		allow_branch = { has_global_flag = NEVER }
 		cost = 10
 
 		ai_will_do = {
@@ -14045,6 +14550,7 @@ ai_will_do = {
 		x = 1
 		y = 1
 		relative_position_id = SOV_middle_east_diplomacy
+		allow_branch = { has_global_flag = NEVER }
 		cost = 5
 
 		ai_will_do = {
@@ -14809,6 +15315,7 @@ ai_will_do = {
 		x = 0
 		y = 1
 		relative_position_id = SOV_call_for_aid
+		allow_branch = { has_global_flag = NEVER }
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -15965,21 +16472,21 @@ ai_will_do = {
 		available = {
 			is_subject = no
 			#MON = {   # 1.19-migration: dead tag MON
-				exists = yes
-				NOT = {
-					OR = {
-						is_in_faction_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
+				#exists = yes
+				#NOT = {
+				#	OR = {
+				#		is_in_faction_with = ROOT
+				#		is_subject_of = ROOT
+				#	}
+				#}
+			#}
 		}
 
 		completion_reward = {
-			create_wargoal = { 
-				type = annex_everything 
-				#target = MON   # 1.19-migration: dead tag MON
-			}		
+			#create_wargoal = { 
+			#	type = annex_everything 
+			#	#target = MON   # 1.19-migration: dead tag MON
+			#}		
 		}
 	}
 
@@ -16010,21 +16517,21 @@ ai_will_do = {
 		available = {
 			is_subject = no
 			#TAN = {   # 1.19-migration: dead tag TAN
-				exists = yes
-				NOT = {
-					OR = {
-						is_in_faction_with = ROOT
-						is_subject_of = ROOT
-					}
-				}
-			}
+				#exists = yes
+				#NOT = {
+				#	OR = {
+				#		is_in_faction_with = ROOT
+				#		is_subject_of = ROOT
+				#	}
+				#}
+			#}
 		}
 
 		completion_reward = {
-			create_wargoal = { 
-				type = annex_everything 
-				#target = TAN   # 1.19-migration: dead tag TAN
-			}		
+			#create_wargoal = { 
+			#	type = annex_everything 
+			#	#target = TAN   # 1.19-migration: dead tag TAN
+			#}		
 		}
 	}
 
@@ -16609,55 +17116,431 @@ ai_will_do = {
     			every_state = {
 					limit = { 
 						OR = {
-							state = 513   # 1.19-migration: was vanilla 9 (Bohemia)
-							state = 1434   # 1.19-migration: was vanilla 69 (North Sudetenland)
-							state = 972
-							state = 2662   # 1.19-migration: was vanilla 70 (Western Slovakia)
-							state = 574   # 1.19-migration: was vanilla 71 (Eastern Slovakia)
-							state = 526   # 1.19-migration: was vanilla 72 (Trans-Olza)
-							state = 2246   # 1.19-migration: was vanilla 73 (Carpathian Ruthenia)
-							state = 507   # 1.19-migration: was vanilla 74 (Sudeten Silesia)
-							state = 536   # 1.19-migration: was vanilla 75 (Moravia)
-							state = 1439   # 1.19-migration: was vanilla 664 (Southern Slovakia)
-							state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
-							state = 868   # 1.19-migration: was vanilla 211 (Burgas)
-							state = 878   # 1.19-migration: was vanilla 212 (Plovdiv)
-							state = 1575   # 1.19-migration: was vanilla 801 (Moesia)
-							state = 1287   # 1.19-migration: was vanilla 97 (Białystok)
-							state = 280   # 1.19-migration: was vanilla 85 (Danzig)
-							state = 481   # 1.19-migration: was vanilla 762 (Katowice)
-							state = 867   # 1.19-migration: was vanilla 90 (Kielce)
-							state = 1157   # 1.19-migration: was vanilla 88 (Kraków)
-							state = 377   # 1.19-migration: was vanilla 92 (Lublin)
-							state = 1292   # 1.19-migration: was vanilla 91 (Lwów)
-							state = 307   # 1.19-migration: was vanilla 95 (Nowogródek)
-							state = 1153   # 1.19-migration: was vanilla 94 (Polesie)
-							state = 122   # 1.19-migration: was vanilla 86 (Poznań)
-							state = 311   # 1.19-migration: was vanilla 98 (Płock)
-							state = 1164   # 1.19-migration: was vanilla 89 (Stanisławów)
-							state = 508   # 1.19-migration: was vanilla 10 (Warsaw)
-							state = 1198   # 1.19-migration: was vanilla 96 (Wilejka)
-							state = 236   # 1.19-migration: was vanilla 784 (Vilna)
-							state = 992   # 1.19-migration: was vanilla 93 (Wołyn)
-							state = 381   # 1.19-migration: was vanilla 87 (Łódz)
-							state = 2821   # 1.19-migration: was vanilla 104 (Bosnia)
-							state = 721   # 1.19-migration: was vanilla 109 (Croatia)
-							state = 1534   # 1.19-migration: was vanilla 103 (Dalmatia)
-							state = 835   # 1.19-migration: was vanilla 804 (Herzegovina)
-							state = 888   # 1.19-migration: was vanilla 802 (Kosovo)
-							state = 1530   # 1.19-migration: was vanilla 106 (Macedonia)
-							state = 970
-							state = 881   # 1.19-migration: was vanilla 105 (Montenegro)
-							state = 796   # 1.19-migration: was vanilla 108 (Morava)
-							state = 1504   # 1.19-migration: was vanilla 107 (Serbia)
-							state = 1490   # 1.19-migration: was vanilla 102 (North Slovenia)
-							state = 743   # 1.19-migration: was vanilla 853 (Ljubljana)
-							state = 894   # 1.19-migration: was vanilla 803 (Southern Serbia)
-							state = 1514   # 1.19-migration: was vanilla 45 (Vojvodina)
-							state = 1512   # 1.19-migration: was vanilla 764 (West Banat)
-							state = 744   # 1.19-migration: was vanilla 736 (Litorale)
-							state = 762   # 1.19-migration: was vanilla 852 (Istria)
-							state = 2827   # 1.19-migration: was vanilla 163 (Zadar)
+							state = 513 # eu_mapping: v9 (Bohemia) -> ME 513 (Praha)
+							state = 486 # eu_mapping: v9 (Bohemia) -> ME 486 (Hradec Králové)
+							state = 489 # eu_mapping: v9 (Bohemia) -> ME 489 (Kladno)
+							state = 514 # eu_mapping: v9 (Bohemia) -> ME 514 (Pardubice)
+							state = 523 # eu_mapping: v9 (Bohemia) -> ME 523 (Plzeň)
+							state = 529 # eu_mapping: v9 (Bohemia) -> ME 529 (Jičín)
+							state = 539 # eu_mapping: v9 (Bohemia) -> ME 539 (Budějovice)
+							state = 1425 # eu_mapping: v9 (Bohemia) -> ME 1425 (Klatovy)
+							state = 1426 # eu_mapping: v9 (Bohemia) -> ME 1426 (Tábor)
+							state = 1427 # eu_mapping: v9 (Bohemia) -> ME 1427 (Kolín)
+							state = 473 # eu_mapping: v69 (North Sudetenland) -> ME 473 (Liberec)
+							state = 471 # eu_mapping: v69 (North Sudetenland) -> ME 471 (Ústí nad Labem)
+							state = 498 # eu_mapping: v69 (North Sudetenland) -> ME 498 (Cheb)
+							state = 522 # eu_mapping: v69 (North Sudetenland) -> ME 522 (Tachov)
+							state = 1434 # eu_mapping: v69 (North Sudetenland) -> ME 1434 (Karlovy Vary)
+							state = 1435 # eu_mapping: v69 (North Sudetenland) -> ME 1435 (Trutnov)
+							state = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+							state = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
+							state = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+							state = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+							state = 1437 # eu_mapping: v70 (Western Slovakia) -> ME 1437 (Bratislava)
+							state = 555 # eu_mapping: v70 (Western Slovakia) -> ME 555 (Trenčín)
+							state = 574 # eu_mapping: v70 (Western Slovakia) -> ME 574 (Hron)
+							state = 577 # eu_mapping: v70 (Western Slovakia) -> ME 577 (Žilina)
+							state = 586 # eu_mapping: v70 (Western Slovakia) -> ME 586 (Nitra)
+							state = 591 # eu_mapping: v70 (Western Slovakia) -> ME 591 (Malacky)
+							state = 2662 # eu_mapping: v70 (Western Slovakia) -> ME 2662 (Piešťany)
+							state = 2663 # eu_mapping: v70 (Western Slovakia) -> ME 2663 (Čadca)
+							state = 2978 # eu_mapping: v70 (Western Slovakia) -> ME 2978 (Trnava)
+							state = 550 # eu_mapping: v71 (Eastern Slovakia) -> ME 550 (Prešov)
+							state = 541 # eu_mapping: v71 (Eastern Slovakia) -> ME 541 (Tatry)
+							state = 562 # eu_mapping: v71 (Eastern Slovakia) -> ME 562 (Sobrance)
+							state = 569 # eu_mapping: v71 (Eastern Slovakia) -> ME 569 (Levoča)
+							state = 2313 # eu_mapping: v71 (Eastern Slovakia) -> ME 2313 (Bardejov)
+							state = 2660 # eu_mapping: v71 (Eastern Slovakia) -> ME 2660 (Námestovo)
+							state = 2661 # eu_mapping: v71 (Eastern Slovakia) -> ME 2661 (Kezmarok)
+							state = 526 # eu_mapping: v72 (Trans-Olza) -> ME 526 (Záolží)
+							state = 593 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+							state = 564 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+							state = 1607 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+							state = 1608 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+							state = 2246 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+							state = 2247 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+							state = 2929 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+							state = 507 # eu_mapping: v74 (Sudeten Silesia) -> ME 507 (Opava)
+							state = 499 # eu_mapping: v74 (Sudeten Silesia) -> ME 499 (Šternberk)
+							state = 504 # eu_mapping: v74 (Sudeten Silesia) -> ME 504 (Svitavy)
+							state = 1428 # eu_mapping: v74 (Sudeten Silesia) -> ME 1428 (Krnov)
+							state = 1977 # eu_mapping: v74 (Sudeten Silesia) -> ME 1977 (Hlučín)
+							state = 536 # eu_mapping: v75 (Moravia) -> ME 536 (Brno)
+							state = 528 # eu_mapping: v75 (Moravia) -> ME 528 (Zlín)
+							state = 532 # eu_mapping: v75 (Moravia) -> ME 532 (Olomouc)
+							state = 535 # eu_mapping: v75 (Moravia) -> ME 535 (Jihlava)
+							state = 1429 # eu_mapping: v75 (Moravia) -> ME 1429 (Ostrava)
+							state = 1442 # eu_mapping: v664 (Southern Slovakia) -> ME 1442 (Košice)
+							state = 580 # eu_mapping: v664 (Southern Slovakia) -> ME 580 (Nové Zámky)
+							state = 610 # eu_mapping: v664 (Southern Slovakia) -> ME 610 (Komárno)
+							state = 1438 # eu_mapping: v664 (Southern Slovakia) -> ME 1438 (Gemer a Malohont)
+							state = 1439 # eu_mapping: v664 (Southern Slovakia) -> ME 1439 (Tekov a Hontianska)
+							state = 2930 # eu_mapping: v664 (Southern Slovakia) -> ME 2930 (Čop)
+							state = 1566 # eu_mapping: v48 (Sofia) -> ME 1566 (Sofiya)
+							state = 816 # eu_mapping: v48 (Sofia) -> ME 816 (Vratsa)
+							state = 861 # eu_mapping: v48 (Sofia) -> ME 861 (Samokov)
+							state = 1564 # eu_mapping: v48 (Sofia) -> ME 1564 (Vidin)
+							state = 1565 # eu_mapping: v48 (Sofia) -> ME 1565 (Montana)
+							state = 1567 # eu_mapping: v48 (Sofia) -> ME 1567 (Pernik)
+							state = 1568 # eu_mapping: v48 (Sofia) -> ME 1568 (Kyustendil)
+							state = 2836 # eu_mapping: v48 (Sofia) -> ME 2836 (Ihtiman)
+							state = 2837 # eu_mapping: v48 (Sofia) -> ME 2837 (Botevgrad)
+							state = 2838 # eu_mapping: v48 (Sofia) -> ME 2838 (Kostinbrod)
+							state = 1580 # eu_mapping: v211 (Burgas) -> ME 1580 (Varna)
+							state = 820 # eu_mapping: v211 (Burgas) -> ME 820 (Shumen)
+							state = 868 # eu_mapping: v211 (Burgas) -> ME 868 (Burgas)
+							state = 1572 # eu_mapping: v211 (Burgas) -> ME 1572 (Yambol)
+							state = 1573 # eu_mapping: v211 (Burgas) -> ME 1573 (Sliven)
+							state = 1578 # eu_mapping: v211 (Burgas) -> ME 1578 (Razgrad)
+							state = 2525 # eu_mapping: v211 (Burgas) -> ME 2525 (Strandzha)
+							state = 878 # eu_mapping: v212 (Plovdiv) -> ME 878 (Plovdiv)
+							state = 877 # eu_mapping: v212 (Plovdiv) -> ME 877 (Stara Zagora)
+							state = 900 # eu_mapping: v212 (Plovdiv) -> ME 900 (Bansko)
+							state = 905 # eu_mapping: v212 (Plovdiv) -> ME 905 (Blagoevgrad)
+							state = 913 # eu_mapping: v212 (Plovdiv) -> ME 913 (Kardzhali)
+							state = 1569 # eu_mapping: v212 (Plovdiv) -> ME 1569 (Smolyan)
+							state = 1570 # eu_mapping: v212 (Plovdiv) -> ME 1570 (Pazardzhik)
+							state = 1571 # eu_mapping: v212 (Plovdiv) -> ME 1571 (Haskovo)
+							state = 2524 # eu_mapping: v212 (Plovdiv) -> ME 2524 (Gotse Delchev)
+							state = 2752 # eu_mapping: v212 (Plovdiv) -> ME 2752 (Chernoochene)
+							state = 2833 # eu_mapping: v212 (Plovdiv) -> ME 2833 (Momchilgrad)
+							state = 2834 # eu_mapping: v212 (Plovdiv) -> ME 2834 (Tamrash)
+							state = 2835 # eu_mapping: v212 (Plovdiv) -> ME 2835 (Svilengrad)
+							state = 1575 # eu_mapping: v801 (Moesia) -> ME 1575 (Pleven)
+							state = 831 # eu_mapping: v801 (Moesia) -> ME 831 (Veliko Tarnovo)
+							state = 1574 # eu_mapping: v801 (Moesia) -> ME 1574 (Lovech)
+							state = 1576 # eu_mapping: v801 (Moesia) -> ME 1576 (Gabrovo)
+							state = 1577 # eu_mapping: v801 (Moesia) -> ME 1577 (Ruse)
+							state = 1287 # eu_mapping: v97 (Białystok) -> ME 1287 (Białystok)
+							state = 284 # eu_mapping: v97 (Białystok) -> ME 284 (Suwałki)
+							state = 306 # eu_mapping: v97 (Białystok) -> ME 306 (Augustów)
+							state = 312 # eu_mapping: v97 (Białystok) -> ME 312 (Łomża)
+							state = 319 # eu_mapping: v97 (Białystok) -> ME 319 (Bielsk)
+							state = 2026 # eu_mapping: v97 (Białystok) -> ME 2026 (Kolno)
+							state = 2485 # eu_mapping: v97 (Białystok) -> ME 2485 (Ciechanowiec)
+							state = 2522 # eu_mapping: v97 (Białystok) -> ME 2522 (Lipsk)
+							state = 2766 # eu_mapping: v97 (Białystok) -> ME 2766 (Raczki)
+							state = 280 # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+							state = 2729 # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
+							state = 481 # eu_mapping: v762 (Katowice) -> ME 481 (Katowice)
+							state = 467 # eu_mapping: v762 (Katowice) -> ME 467 (Sosnowiec)
+							state = 2262 # eu_mapping: v762 (Katowice) -> ME 2262 (Tarnowskie Góry)
+							state = 827 # eu_mapping: v90 (Kielce) -> ME 827 (Radom)
+							state = 429 # eu_mapping: v90 (Kielce) -> ME 429 (Jędrzejów)
+							state = 867 # eu_mapping: v90 (Kielce) -> ME 867 (Kielce)
+							state = 902 # eu_mapping: v90 (Kielce) -> ME 902 (Opatów)
+							state = 1080 # eu_mapping: v90 (Kielce) -> ME 1080 (Miechów)
+							state = 1119 # eu_mapping: v90 (Kielce) -> ME 1119 (Częstochowa)
+							state = 1157 # eu_mapping: v88 (Kraków) -> ME 1157 (Kraków)
+							state = 484 # eu_mapping: v88 (Kraków) -> ME 484 (Nisko)
+							state = 496 # eu_mapping: v88 (Kraków) -> ME 496 (Tarnów)
+							state = 501 # eu_mapping: v88 (Kraków) -> ME 501 (Lubaczów)
+							state = 509 # eu_mapping: v88 (Kraków) -> ME 509 (Biała)
+							state = 836 # eu_mapping: v88 (Kraków) -> ME 836 (Rzeszów)
+							state = 923 # eu_mapping: v88 (Kraków) -> ME 923 (Sanok)
+							state = 1162 # eu_mapping: v88 (Kraków) -> ME 1162 (Nowy Sącz)
+							state = 1219 # eu_mapping: v88 (Kraków) -> ME 1219 (Nowy Targ)
+							state = 1223 # eu_mapping: v88 (Kraków) -> ME 1223 (Bochnia)
+							state = 1258 # eu_mapping: v88 (Kraków) -> ME 1258 (Przemyśl)
+							state = 1440 # eu_mapping: v88 (Kraków) -> ME 1440 (Jabłonka)
+							state = 1441 # eu_mapping: v88 (Kraków) -> ME 1441 (Nowa Biała)
+							state = 1975 # eu_mapping: v88 (Kraków) -> ME 1975 (Cieszyn)
+							state = 2312 # eu_mapping: v88 (Kraków) -> ME 2312 (Krynica)
+							state = 2318 # eu_mapping: v88 (Kraków) -> ME 2318 (Jarosław)
+							state = 2329 # eu_mapping: v88 (Kraków) -> ME 2329 (Rybnik)
+							state = 2345 # eu_mapping: v88 (Kraków) -> ME 2345 (Ustrzyki Dolne)
+							state = 2692 # eu_mapping: v88 (Kraków) -> ME 2692 (Pysznica)
+							state = 2880 # eu_mapping: v88 (Kraków) -> ME 2880 (Żurawica)
+							state = 2931 # eu_mapping: v88 (Kraków) -> ME 2931 (Wieliczka)
+							state = 2932 # eu_mapping: v88 (Kraków) -> ME 2932 (Chrzanów)
+							state = 377 # eu_mapping: v92 (Lublin) -> ME 377 (Lublin)
+							state = 46 # eu_mapping: v92 (Lublin) -> ME 46 (Krasnystaw)
+							state = 491 # eu_mapping: v92 (Lublin) -> ME 491 (Zamość)
+							state = 1002 # eu_mapping: v92 (Lublin) -> ME 1002 (Chełm)
+							state = 1070 # eu_mapping: v92 (Lublin) -> ME 1070 (Garwolin)
+							state = 1131 # eu_mapping: v92 (Lublin) -> ME 1131 (Konstantynów)
+							state = 1292 # eu_mapping: v91 (Lwów) -> ME 1292 (Lwów)
+							state = 502 # eu_mapping: v91 (Lwów) -> ME 502 (Czortków)
+							state = 1233 # eu_mapping: v91 (Lwów) -> ME 1233 (Rawa Ruska)
+							state = 1270 # eu_mapping: v91 (Lwów) -> ME 1270 (Brzeżany)
+							state = 1272 # eu_mapping: v91 (Lwów) -> ME 1272 (Złoczów)
+							state = 1293 # eu_mapping: v91 (Lwów) -> ME 1293 (Mosty Wielkie)
+							state = 1294 # eu_mapping: v91 (Lwów) -> ME 1294 (Tarnopol)
+							state = 2346 # eu_mapping: v91 (Lwów) -> ME 2346 (Krystynopol)
+							state = 300 # eu_mapping: v95 (Nowogródek) -> ME 300 (Grodno)
+							state = 231 # eu_mapping: v95 (Nowogródek) -> ME 231 (Lida)
+							state = 292 # eu_mapping: v95 (Nowogródek) -> ME 292 (Baranowicze)
+							state = 307 # eu_mapping: v95 (Nowogródek) -> ME 307 (Słonim)
+							state = 326 # eu_mapping: v95 (Nowogródek) -> ME 326 (Wołkowysk)
+							state = 1225 # eu_mapping: v95 (Nowogródek) -> ME 1225 (Nieśwież)
+							state = 1310 # eu_mapping: v95 (Nowogródek) -> ME 1310 (Brzostowica Mała)
+							state = 1163 # eu_mapping: v94 (Polesie) -> ME 1163 (Pińsk)
+							state = 367 # eu_mapping: v94 (Polesie) -> ME 367 (Kobryń)
+							state = 1088 # eu_mapping: v94 (Polesie) -> ME 1088 (Kamień Koszyrski)
+							state = 1129 # eu_mapping: v94 (Polesie) -> ME 1129 (Włodzimierzec)
+							state = 1132 # eu_mapping: v94 (Polesie) -> ME 1132 (Prużana)
+							state = 1153 # eu_mapping: v94 (Polesie) -> ME 1153 (Brześć)
+							state = 1250 # eu_mapping: v94 (Polesie) -> ME 1250 (Łuniniec)
+							state = 2258 # eu_mapping: v94 (Polesie) -> ME 2258 (Pohost Zarzeczny)
+							state = 2259 # eu_mapping: v94 (Polesie) -> ME 2259 (Dąbrowica)
+							state = 2315 # eu_mapping: v94 (Polesie) -> ME 2315 (Dywin)
+							state = 2316 # eu_mapping: v94 (Polesie) -> ME 2316 (Janów Poleski)
+							state = 2317 # eu_mapping: v94 (Polesie) -> ME 2317 (Bereza Kartuska)
+							state = 2319 # eu_mapping: v94 (Polesie) -> ME 2319 (Glinno)
+							state = 2539 # eu_mapping: v94 (Polesie) -> ME 2539 (Dawidgródek)
+							state = 122 # eu_mapping: v86 (Poznań) -> ME 122 (Poznań)
+							state = 79 # eu_mapping: v86 (Poznań) -> ME 79 (Nowy Tomyśl)
+							state = 80 # eu_mapping: v86 (Poznań) -> ME 80 (Ostrów Wielkopolski)
+							state = 82 # eu_mapping: v86 (Poznań) -> ME 82 (Chodzież)
+							state = 99 # eu_mapping: v86 (Poznań) -> ME 99 (Gniezno)
+							state = 243 # eu_mapping: v86 (Poznań) -> ME 243 (Śrem)
+							state = 335 # eu_mapping: v86 (Poznań) -> ME 335 (Kościan)
+							state = 311 # eu_mapping: v98 (Płock) -> ME 311 (Płock)
+							state = 5 # eu_mapping: v98 (Płock) -> ME 5 (Pułtusk)
+							state = 329 # eu_mapping: v98 (Płock) -> ME 329 (Gostynin)
+							state = 351 # eu_mapping: v98 (Płock) -> ME 351 (Ostrów Mazowiecka)
+							state = 376 # eu_mapping: v98 (Płock) -> ME 376 (Mława)
+							state = 387 # eu_mapping: v98 (Płock) -> ME 387 (Myszyniec)
+							state = 651 # eu_mapping: v98 (Płock) -> ME 651 (Mława)
+							state = 752 # eu_mapping: v98 (Płock) -> ME 752 (Włocławek)
+							state = 1982 # eu_mapping: v98 (Płock) -> ME 1982 (Ostrołęka)
+							state = 2927 # eu_mapping: v98 (Płock) -> ME 2927 (Wyszkow)
+							state = 1164 # eu_mapping: v89 (Stanisławów) -> ME 1164 (Stanisławów)
+							state = 490 # eu_mapping: v89 (Stanisławów) -> ME 490 (Drohobycz)
+							state = 542 # eu_mapping: v89 (Stanisławów) -> ME 542 (Nadwórna)
+							state = 1143 # eu_mapping: v89 (Stanisławów) -> ME 1143 (Kołomyja)
+							state = 1265 # eu_mapping: v89 (Stanisławów) -> ME 1265 (Kałusz)
+							state = 2336 # eu_mapping: v89 (Stanisławów) -> ME 2336 (Stryj)
+							state = 508 # eu_mapping: v10 (Warsaw) -> ME 508 (Warszawa)
+							state = 370 # eu_mapping: v10 (Warsaw) -> ME 370 (Pruszków)
+							state = 407 # eu_mapping: v10 (Warsaw) -> ME 407 (Sochaczew)
+							state = 982 # eu_mapping: v10 (Warsaw) -> ME 982 (Siedlce)
+							state = 1981 # eu_mapping: v10 (Warsaw) -> ME 1981 (Legionowo)
+							state = 2928 # eu_mapping: v10 (Warsaw) -> ME 2928 (Kosów Lacki)
+							state = 1198 # eu_mapping: v96 (Wilejka) -> ME 1198 (Mołodeczno)
+							state = 232 # eu_mapping: v96 (Wilejka) -> ME 232 (Dzisna)
+							state = 1000 # eu_mapping: v96 (Wilejka) -> ME 1000 (Oszmiana)
+							state = 1106 # eu_mapping: v96 (Wilejka) -> ME 1106 (Smorgonie)
+							state = 1151 # eu_mapping: v96 (Wilejka) -> ME 1151 (Brasław)
+							state = 241 # eu_mapping: v784 (Vilna) -> ME 241 (Wilno)
+							state = 236 # eu_mapping: v784 (Vilna) -> ME 236 (Święciany)
+							state = 294 # eu_mapping: v784 (Vilna) -> ME 294 (Druskieniki)
+							state = 1135 # eu_mapping: v784 (Vilna) -> ME 1135 (Dziewieniszki)
+							state = 1304 # eu_mapping: v784 (Vilna) -> ME 1304 (Orany)
+							state = 1329 # eu_mapping: v784 (Vilna) -> ME 1329 (Ignalino)
+							state = 992 # eu_mapping: v93 (Wołyn) -> ME 992 (Kowel)
+							state = 420 # eu_mapping: v93 (Wołyn) -> ME 420 (Sarny)
+							state = 434 # eu_mapping: v93 (Wołyn) -> ME 434 (Włodzimierz Wołyński)
+							state = 459 # eu_mapping: v93 (Wołyn) -> ME 459 (Krzemieniec)
+							state = 671 # eu_mapping: v93 (Wołyn) -> ME 671 (Równe)
+							state = 1030 # eu_mapping: v93 (Wołyn) -> ME 1030 (Łuck)
+							state = 1041 # eu_mapping: v93 (Wołyn) -> ME 1041 (Luboml)
+							state = 1110 # eu_mapping: v93 (Wołyn) -> ME 1110 (Dubno)
+							state = 2347 # eu_mapping: v93 (Wołyn) -> ME 2347 (Tudorkovyczi)
+							state = 2538 # eu_mapping: v93 (Wołyn) -> ME 2538 (Kostopol)
+							state = 381 # eu_mapping: v87 (Łódz) -> ME 381 (Łódź)
+							state = 421 # eu_mapping: v87 (Łódz) -> ME 421 (Piotrków Trybunalski)
+							state = 594 # eu_mapping: v87 (Łódz) -> ME 594 (Kalisz)
+							state = 612 # eu_mapping: v87 (Łódz) -> ME 612 (Wieluń)
+							state = 656 # eu_mapping: v87 (Łódz) -> ME 656 (Sieradz)
+							state = 687 # eu_mapping: v87 (Łódz) -> ME 687 (Konin)
+							state = 693 # eu_mapping: v87 (Łódz) -> ME 693 (Łęczyca)
+							state = 1499 # eu_mapping: v104 (Bosnia) -> ME 1499 (Sarajevo)
+							state = 776 # eu_mapping: v104 (Bosnia) -> ME 776 (Usora)
+							state = 777 # eu_mapping: v104 (Bosnia) -> ME 777 (Bihać)
+							state = 792 # eu_mapping: v104 (Bosnia) -> ME 792 (Zenica)
+							state = 1492 # eu_mapping: v104 (Bosnia) -> ME 1492 (Jajce)
+							state = 1493 # eu_mapping: v104 (Bosnia) -> ME 1493 (Prnjavor)
+							state = 1494 # eu_mapping: v104 (Bosnia) -> ME 1494 (Banja Luka)
+							state = 1496 # eu_mapping: v104 (Bosnia) -> ME 1496 (Brčko)
+							state = 1497 # eu_mapping: v104 (Bosnia) -> ME 1497 (Tuzla)
+							state = 1498 # eu_mapping: v104 (Bosnia) -> ME 1498 (Travnik)
+							state = 1500 # eu_mapping: v104 (Bosnia) -> ME 1500 (Tomislavgrad)
+							state = 1503 # eu_mapping: v104 (Bosnia) -> ME 1503 (Dvor)
+							state = 1993 # eu_mapping: v104 (Bosnia) -> ME 1993 (Modriča)
+							state = 2811 # eu_mapping: v104 (Bosnia) -> ME 2811 (Goražde)
+							state = 2812 # eu_mapping: v104 (Bosnia) -> ME 2812 (Ustikolina)
+							state = 2813 # eu_mapping: v104 (Bosnia) -> ME 2813 (Bijeljina)
+							state = 2814 # eu_mapping: v104 (Bosnia) -> ME 2814 (Višegrad)
+							state = 2816 # eu_mapping: v104 (Bosnia) -> ME 2816 (Drvar)
+							state = 2817 # eu_mapping: v104 (Bosnia) -> ME 2817 (Mrkonjić Grad)
+							state = 2818 # eu_mapping: v104 (Bosnia) -> ME 2818 (Teslić)
+							state = 2819 # eu_mapping: v104 (Bosnia) -> ME 2819 (Gračanica)
+							state = 2821 # eu_mapping: v104 (Bosnia) -> ME 2821 (Orašje)
+							state = 2822 # eu_mapping: v104 (Bosnia) -> ME 2822 (Odžak)
+							state = 2823 # eu_mapping: v104 (Bosnia) -> ME 2823 (Šamac)
+							state = 2824 # eu_mapping: v104 (Bosnia) -> ME 2824 (Lopare)
+							state = 2846 # eu_mapping: v104 (Bosnia) -> ME 2846 (Velika Kladuša)
+							state = 1464 # eu_mapping: v109 (Croatia) -> ME 1464 (Prigorje)
+							state = 721 # eu_mapping: v109 (Croatia) -> ME 721 (Osijek)
+							state = 775 # eu_mapping: v109 (Croatia) -> ME 775 (Sremska Mitrovica)
+							state = 1463 # eu_mapping: v109 (Croatia) -> ME 1463 (Jastrebarsko)
+							state = 1465 # eu_mapping: v109 (Croatia) -> ME 1465 (Glina)
+							state = 1466 # eu_mapping: v109 (Croatia) -> ME 1466 (Zagorje)
+							state = 1467 # eu_mapping: v109 (Croatia) -> ME 1467 (Koprivnica)
+							state = 1468 # eu_mapping: v109 (Croatia) -> ME 1468 (Daruvar)
+							state = 1469 # eu_mapping: v109 (Croatia) -> ME 1469 (Slavonski Brod)
+							state = 1470 # eu_mapping: v109 (Croatia) -> ME 1470 (Šid)
+							state = 1471 # eu_mapping: v109 (Croatia) -> ME 1471 (Vukovar)
+							state = 2555 # eu_mapping: v109 (Croatia) -> ME 2555 (Zemun)
+							state = 2830 # eu_mapping: v109 (Croatia) -> ME 2830 (Nova Gradiška)
+							state = 2831 # eu_mapping: v109 (Croatia) -> ME 2831 (Sisak)
+							state = 2832 # eu_mapping: v109 (Croatia) -> ME 2832 (Virovitica)
+							state = 2881 # eu_mapping: v109 (Croatia) -> ME 2881 (Vinkovci)
+							state = 1563 # eu_mapping: v103 (Dalmatia) -> ME 1563 (Split)
+							state = 754 # eu_mapping: v103 (Dalmatia) -> ME 754 (Gospić)
+							state = 811 # eu_mapping: v103 (Dalmatia) -> ME 811 (Šibenik)
+							state = 815 # eu_mapping: v103 (Dalmatia) -> ME 815 (Cetina)
+							state = 1461 # eu_mapping: v103 (Dalmatia) -> ME 1461 (Modruš)
+							state = 1462 # eu_mapping: v103 (Dalmatia) -> ME 1462 (Karlovac)
+							state = 1473 # eu_mapping: v103 (Dalmatia) -> ME 1473 (Sušak)
+							state = 1475 # eu_mapping: v103 (Dalmatia) -> ME 1475 (Preko)
+							state = 1477 # eu_mapping: v103 (Dalmatia) -> ME 1477 (Senj)
+							state = 1478 # eu_mapping: v103 (Dalmatia) -> ME 1478 (Korenica)
+							state = 1479 # eu_mapping: v103 (Dalmatia) -> ME 1479 (Bribir-Sidraga)
+							state = 1480 # eu_mapping: v103 (Dalmatia) -> ME 1480 (Korčula)
+							state = 1481 # eu_mapping: v103 (Dalmatia) -> ME 1481 (Dubrovnik)
+							state = 1491 # eu_mapping: v103 (Dalmatia) -> ME 1491 (Brač)
+							state = 1502 # eu_mapping: v103 (Dalmatia) -> ME 1502 (Neum)
+							state = 1988 # eu_mapping: v103 (Dalmatia) -> ME 1988 (Biograd na Moru)
+							state = 1990 # eu_mapping: v103 (Dalmatia) -> ME 1990 (Gruda)
+							state = 1998 # eu_mapping: v103 (Dalmatia) -> ME 1998 (Pag)
+							state = 1999 # eu_mapping: v103 (Dalmatia) -> ME 1999 (Starigrad)
+							state = 2241 # eu_mapping: v103 (Dalmatia) -> ME 2241 (Pelješac)
+							state = 2651 # eu_mapping: v103 (Dalmatia) -> ME 2651 (Krk)
+							state = 2815 # eu_mapping: v103 (Dalmatia) -> ME 2815 (Hutovo)
+							state = 2820 # eu_mapping: v103 (Dalmatia) -> ME 2820 (Zavala)
+							state = 2825 # eu_mapping: v103 (Dalmatia) -> ME 2825 (Novi Kot)
+							state = 2826 # eu_mapping: v103 (Dalmatia) -> ME 2826 (Benkovac)
+							state = 2827 # eu_mapping: v103 (Dalmatia) -> ME 2827 (Nin)
+							state = 2828 # eu_mapping: v103 (Dalmatia) -> ME 2828 (Jasenice)
+							state = 2829 # eu_mapping: v103 (Dalmatia) -> ME 2829 (Lovinac)
+							state = 2895 # eu_mapping: v103 (Dalmatia) -> ME 2895 (Rab)
+							state = 2896 # eu_mapping: v103 (Dalmatia) -> ME 2896 (Hvar)
+							state = 2897 # eu_mapping: v103 (Dalmatia) -> ME 2897 (Mljet)
+							state = 2911 # eu_mapping: v103 (Dalmatia) -> ME 2911 (Crikvenica)
+							state = 2916 # eu_mapping: v103 (Dalmatia) -> ME 2916 (Vis)
+							state = 2924 # eu_mapping: v103 (Dalmatia) -> ME 2924 (Karlobag)
+							state = 813 # eu_mapping: v804 (Herzegovina) -> ME 813 (Mostar)
+							state = 782 # eu_mapping: v804 (Herzegovina) -> ME 782 (Foča)
+							state = 835 # eu_mapping: v804 (Herzegovina) -> ME 835 (Trebinje)
+							state = 1495 # eu_mapping: v804 (Herzegovina) -> ME 1495 (Nevesinje)
+							state = 1501 # eu_mapping: v804 (Herzegovina) -> ME 1501 (Čapljina)
+							state = 858 # eu_mapping: v802 (Kosovo) -> ME 858 (Pristina)
+							state = 873 # eu_mapping: v802 (Kosovo) -> ME 873 (Prizren)
+							state = 888 # eu_mapping: v802 (Kosovo) -> ME 888 (Kaçanik)
+							state = 1978 # eu_mapping: v802 (Kosovo) -> ME 1978 (Peć)
+							state = 1987 # eu_mapping: v802 (Kosovo) -> ME 1987 (Tutin)
+							state = 1994 # eu_mapping: v802 (Kosovo) -> ME 1994 (Rahovec)
+							state = 1996 # eu_mapping: v802 (Kosovo) -> ME 1996 (Besianë)
+							state = 1997 # eu_mapping: v802 (Kosovo) -> ME 1997 (Vushtrii)
+							state = 2007 # eu_mapping: v802 (Kosovo) -> ME 2007 (Draga)
+							state = 2013 # eu_mapping: v802 (Kosovo) -> ME 2013 (Gjilan)
+							state = 2243 # eu_mapping: v802 (Kosovo) -> ME 2243 (Dragaš)
+							state = 1529 # eu_mapping: v106 (Macedonia) -> ME 1529 (Skopje)
+							state = 894 # eu_mapping: v106 (Macedonia) -> ME 894 (Veles)
+							state = 1528 # eu_mapping: v106 (Macedonia) -> ME 1528 (Bitola)
+							state = 1530 # eu_mapping: v106 (Macedonia) -> ME 1530 (Kumanovo)
+							state = 1531 # eu_mapping: v106 (Macedonia) -> ME 1531 (Štip)
+							state = 1532 # eu_mapping: v106 (Macedonia) -> ME 1532 (Strumica)
+							state = 1973 # eu_mapping: v106 (Macedonia) -> ME 1973 (Gevgelija)
+							state = 2755 # eu_mapping: v106 (Macedonia) -> ME 2755 (Sveti Nikole)
+							state = 2898 # eu_mapping: v106 (Macedonia) -> ME 2898 (Bogdanci)
+							state = 2899 # eu_mapping: v106 (Macedonia) -> ME 2899 (Dračevo)
+							state = 904 # eu_mapping: v970 (Debar) -> ME 904 (Tetovo)
+							state = 959 # eu_mapping: v970 (Debar) -> ME 959 (Pretor)
+							state = 2796 # eu_mapping: v970 (Debar) -> ME 2796 (Modric)
+							state = 881 # eu_mapping: v105 (Montenegro) -> ME 881 (Podgorica)
+							state = 853 # eu_mapping: v105 (Montenegro) -> ME 853 (Kolašin)
+							state = 863 # eu_mapping: v105 (Montenegro) -> ME 863 (Nikšić)
+							state = 884 # eu_mapping: v105 (Montenegro) -> ME 884 (Kotor)
+							state = 989 # eu_mapping: v105 (Montenegro) -> ME 989 (Kruse)
+							state = 1527 # eu_mapping: v105 (Montenegro) -> ME 1527 (Sandžak)
+							state = 1986 # eu_mapping: v105 (Montenegro) -> ME 1986 (Plav)
+							state = 2795 # eu_mapping: v105 (Montenegro) -> ME 2795 (Ulcinj)
+							state = 2797 # eu_mapping: v105 (Montenegro) -> ME 2797 (Budva)
+							state = 2798 # eu_mapping: v105 (Montenegro) -> ME 2798 (Cetinje)
+							state = 2799 # eu_mapping: v105 (Montenegro) -> ME 2799 (Danilovgrad)
+							state = 2800 # eu_mapping: v105 (Montenegro) -> ME 2800 (Andrijevica)
+							state = 2801 # eu_mapping: v105 (Montenegro) -> ME 2801 (Gornje Luge)
+							state = 2802 # eu_mapping: v105 (Montenegro) -> ME 2802 (Brodarivo)
+							state = 796 # eu_mapping: v108 (Morava) -> ME 796 (Niš)
+							state = 785 # eu_mapping: v108 (Morava) -> ME 785 (Kraljevo)
+							state = 834 # eu_mapping: v108 (Morava) -> ME 834 (Ivanjica)
+							state = 844 # eu_mapping: v108 (Morava) -> ME 844 (Sjenica)
+							state = 862 # eu_mapping: v108 (Morava) -> ME 862 (Leskovac)
+							state = 1509 # eu_mapping: v108 (Morava) -> ME 1509 (Zaječar)
+							state = 1510 # eu_mapping: v108 (Morava) -> ME 1510 (Jagodina)
+							state = 1511 # eu_mapping: v108 (Morava) -> ME 1511 (Kruševac)
+							state = 1517 # eu_mapping: v108 (Morava) -> ME 1517 (Mitrovica)
+							state = 1970 # eu_mapping: v108 (Morava) -> ME 1970 (Timok)
+							state = 1991 # eu_mapping: v108 (Morava) -> ME 1991 (Ćuprija)
+							state = 1992 # eu_mapping: v108 (Morava) -> ME 1992 (Kučevo)
+							state = 2596 # eu_mapping: v108 (Morava) -> ME 2596 (Kuršumlija)
+							state = 2803 # eu_mapping: v108 (Morava) -> ME 2803 (Jablanica)
+							state = 2804 # eu_mapping: v108 (Morava) -> ME 2804 (Novi Pazar)
+							state = 2806 # eu_mapping: v108 (Morava) -> ME 2806 (Aleksinac)
+							state = 2807 # eu_mapping: v108 (Morava) -> ME 2807 (Golija)
+							state = 2808 # eu_mapping: v108 (Morava) -> ME 2808 (Bogutovac)
+							state = 2809 # eu_mapping: v108 (Morava) -> ME 2809 (Vrnjačka Banja)
+							state = 2960 # eu_mapping: v108 (Morava) -> ME 2960 (Golubinje)
+							state = 790 # eu_mapping: v107 (Serbia) -> ME 790 (Beograd)
+							state = 1504 # eu_mapping: v107 (Serbia) -> ME 1504 (Šabac)
+							state = 1505 # eu_mapping: v107 (Serbia) -> ME 1505 (Valjevo)
+							state = 1506 # eu_mapping: v107 (Serbia) -> ME 1506 (Užice)
+							state = 1507 # eu_mapping: v107 (Serbia) -> ME 1507 (Kragujevac)
+							state = 1508 # eu_mapping: v107 (Serbia) -> ME 1508 (Požarevac)
+							state = 1995 # eu_mapping: v107 (Serbia) -> ME 1995 (Čačak)
+							state = 2810 # eu_mapping: v107 (Serbia) -> ME 2810 (Loznica)
+							state = 2937 # eu_mapping: v107 (Serbia) -> ME 2937 (Smederevo)
+							state = 703 # eu_mapping: v102 (North Slovenia) -> ME 703 (Drava)
+							state = 695 # eu_mapping: v102 (North Slovenia) -> ME 695 (Prekmurje)
+							state = 712 # eu_mapping: v102 (North Slovenia) -> ME 712 (Međimurje)
+							state = 714 # eu_mapping: v102 (North Slovenia) -> ME 714 (Gorenjska)
+							state = 1487 # eu_mapping: v102 (North Slovenia) -> ME 1487 (Sava)
+							state = 1488 # eu_mapping: v102 (North Slovenia) -> ME 1488 (Domžale)
+							state = 1489 # eu_mapping: v102 (North Slovenia) -> ME 1489 (Savinja)
+							state = 1490 # eu_mapping: v102 (North Slovenia) -> ME 1490 (Koroška)
+							state = 2784 # eu_mapping: v102 (North Slovenia) -> ME 2784 (Tržič)
+							state = 2861 # eu_mapping: v102 (North Slovenia) -> ME 2861 (Krško)
+							state = 743 # eu_mapping: v853 (Ljubljana) -> ME 743 (Ljubljana)
+							state = 1486 # eu_mapping: v853 (Ljubljana) -> ME 1486 (Novo Mesto)
+							state = 846 # eu_mapping: v803 (Southern Serbia) -> ME 846 (Pirot)
+							state = 865 # eu_mapping: v803 (Southern Serbia) -> ME 865 (Vranje)
+							state = 1971 # eu_mapping: v803 (Southern Serbia) -> ME 1971 (Bosilegrad)
+							state = 1972 # eu_mapping: v803 (Southern Serbia) -> ME 1972 (Dimitrovgrad)
+							state = 2805 # eu_mapping: v803 (Southern Serbia) -> ME 2805 (Preševo)
+							state = 1514 # eu_mapping: v45 (Vojvodina) -> ME 1514 (Novi Sad)
+							state = 735 # eu_mapping: v45 (Vojvodina) -> ME 735 (Subotica)
+							state = 1472 # eu_mapping: v45 (Vojvodina) -> ME 1472 (Baranja)
+							state = 1515 # eu_mapping: v45 (Vojvodina) -> ME 1515 (Sombor)
+							state = 1516 # eu_mapping: v45 (Vojvodina) -> ME 1516 (Senta)
+							state = 2856 # eu_mapping: v45 (Vojvodina) -> ME 2856 (Bezdan)
+							state = 2933 # eu_mapping: v764 (West Banat) -> ME 2933 (Pančevo)
+							state = 738 # eu_mapping: v764 (West Banat) -> ME 738 (Srednji Banat)
+							state = 1512 # eu_mapping: v764 (West Banat) -> ME 1512 (Južni Banat)
+							state = 1513 # eu_mapping: v764 (West Banat) -> ME 1513 (Sjeverni Banat)
+							state = 2554 # eu_mapping: v764 (West Banat) -> ME 2554 (Borča)
+							state = 744 # eu_mapping: v736 (Litorale) -> ME 744 (Trieste)
+							state = 720 # eu_mapping: v736 (Litorale) -> ME 720 (Canale)
+							state = 1482 # eu_mapping: v736 (Litorale) -> ME 1482 (Umago)
+							state = 1483 # eu_mapping: v736 (Litorale) -> ME 1483 (Capodistria)
+							state = 1484 # eu_mapping: v736 (Litorale) -> ME 1484 (Tolmino)
+							state = 1485 # eu_mapping: v736 (Litorale) -> ME 1485 (Postumia)
+							state = 1533 # eu_mapping: v736 (Litorale) -> ME 1533 (Gorizia)
+							state = 1616 # eu_mapping: v736 (Litorale) -> ME 1616 (Val Canale)
+							state = 2900 # eu_mapping: v736 (Litorale) -> ME 2900 (Matteria)
+							state = 2901 # eu_mapping: v736 (Litorale) -> ME 2901 (Circhina)
+							state = 2907 # eu_mapping: v736 (Litorale) -> ME 2907 (San Pietro al Natisone)
+							state = 2972 # eu_mapping: v736 (Litorale) -> ME 2972 (Castelnuovo)
+							state = 755 # eu_mapping: v852 (Istria) -> ME 755 (Fiume)
+							state = 762 # eu_mapping: v852 (Istria) -> ME 762 (Pola)
+							state = 1474 # eu_mapping: v852 (Istria) -> ME 1474 (Cherso)
+							state = 2330 # eu_mapping: v852 (Istria) -> ME 2330 (Abbazia)
+							state = 2908 # eu_mapping: v852 (Istria) -> ME 2908 (Albona)
+							state = 2971 # eu_mapping: v852 (Istria) -> ME 2971 (Pisino)
+							state = 1476 # eu_mapping: v163 (Zadar) -> ME 1476 (Zara)
+							state = 1534 # eu_mapping: v163 (Zadar) -> ME 1534 (Lagosta)
 						}
 					}
 					ROOT = { add_state_claim = PREV } 
@@ -16708,6 +17591,7 @@ ai_will_do = {
 		x = -1
 		y = 1
 		relative_position_id = SOV_dismantle_the_zemsky_sobor
+		allow_branch = { has_global_flag = NEVER }
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -16893,6 +17777,7 @@ ai_will_do = {
 		x = 1
 		y = 1
 		relative_position_id = SOV_eastern_expansion
+		allow_branch = { has_global_flag = NEVER }
 		mutually_exclusive = { focus = SOV_into_central_asia }
 		cost = 10
 		ai_will_do = {
@@ -17020,10 +17905,10 @@ ai_will_do = {
 		}
 
 		completion_reward = {
-			create_wargoal = { 
-				type = annex_everything
-				#target = AFG   # 1.19-migration: dead tag AFG
-			}
+			#create_wargoal = { 
+			#	type = annex_everything
+			#	#target = AFG   # 1.19-migration: dead tag AFG
+			#}
 			create_wargoal = { 
 				type = annex_everything
 				target = PER
@@ -17082,15 +17967,15 @@ ai_will_do = {
 				limit = {
 					#country_exists = PAK   # 1.19-migration: dead tag PAK
 				}
-				create_wargoal = { 
-					type = annex_everything
-					#target = PAK   # 1.19-migration: dead tag PAK
-				}
+				#create_wargoal = { 
+				#	type = annex_everything
+				#	#target = PAK   # 1.19-migration: dead tag PAK
+				#}
 			}
-			create_wargoal = { 
-				type = annex_everything
-				#target = RAJ   # 1.19-migration: dead tag RAJ
-			}
+			#create_wargoal = { 
+			#	type = annex_everything
+			#	#target = RAJ   # 1.19-migration: dead tag RAJ
+			#}
 		}
 	}
 
@@ -17256,7 +18141,7 @@ ai_will_do = {
 		id = SOV_japanese_overtures
 		icon = GFX_SOV_japanese_overtures_ccp_2d_sov_compatibility
 		prerequisite = { focus = SOV_the_berlin_moscow_axis }
-		mutually_exclusive = { focus = SOV_memories_of_1905 }
+		#mutually_exclusive = { focus = SOV_memories_of_1905 }   # 1.19-migration: focus not imported (off-map Vladivostok branch)
 		x = 0
 		y = 1
 		relative_position_id = SOV_the_berlin_moscow_axis
@@ -17273,9 +18158,9 @@ ai_will_do = {
 			is_in_faction_with = GER
 			GER = { is_faction_leader = yes }
 			#JAP = {   # 1.19-migration: dead tag JAP
-				is_in_faction = no
-				has_government = fascism
-			}
+				#is_in_faction = no
+				#has_government = fascism
+			#}
 		}
 
 		completion_reward = {

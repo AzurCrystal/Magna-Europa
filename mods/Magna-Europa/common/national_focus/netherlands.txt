@@ -44,6 +44,7 @@ focus_tree = {
 		id = HOL_obtain_foreign_colonial_investments #NON-TAOG
 
 		allow_branch = {
+			has_country_flag = NEVER
 			NOT = {
 				has_dlc = "Thunder at Our Gates"
 			}
@@ -723,14 +724,14 @@ focus_tree = {
 				days = 545
 			}
 			#INS = {   # 1.19-migration: dead tag INS
-				add_timed_idea = {
-					idea = HOL_curtail_colonial_autonomy_subject
-					days = 545
-				}
-				hidden_effect = {
-					country_event = { id = mtg_netherlands.21 hours = 6 }
-				}
-			}
+				#add_timed_idea = {
+					#idea = HOL_curtail_colonial_autonomy_subject
+					#days = 545
+				#}
+				#hidden_effect = {
+					#country_event = { id = mtg_netherlands.21 hours = 6 }
+				#}
+			#}
 		}
 	}
 
@@ -1394,7 +1395,7 @@ focus_tree = {
 			has_full_control_of_state = 402   # 1.19-migration: was vanilla 7 (Holland)
 			has_full_control_of_state = 336   # 1.19-migration: was vanilla 36 (Friesland)
 		}
-		mutually_exclusive = { focus = HOL_curtail_colonial_autonomy focus = HOL_curtail_colonial_autonomy_taog }
+		mutually_exclusive = { focus = HOL_curtail_colonial_autonomy }   # 1.19-migration: dropped HOL_curtail_colonial_autonomy_taog (focus absent in ME)
 		prerequisite = { focus = HOL_expand_the_artillerieinrichtingen }
 		icon = GFX_focus_hol_the_zuiderzee_works
 		x = -1
@@ -1420,15 +1421,17 @@ focus_tree = {
 			modifier = {
 				factor = 0.1
 				#INS = {   # 1.19-migration: dead tag INS
-					has_autonomy_state = autonomy_integrated_puppet
-				}
+					#has_autonomy_state = autonomy_integrated_puppet
+				#}
+				always = no
 			}
 
 			modifier = {
 				factor = 0.3
 				#INS = {   # 1.19-migration: dead tag INS
-					has_autonomy_state = autonomy_puppet
-				}
+					#has_autonomy_state = autonomy_puppet
+				#}
+				always = no
 			}
 		}
 
@@ -1448,7 +1451,8 @@ focus_tree = {
 			trigger = {
 				#INS = {   # 1.19-migration: dead tag INS
 					#has_completed_focus = INS_underground_revolution   # 1.19-migration: dead tag INS
-				}
+				#}
+				always = no
 			}
 		}
 
@@ -1925,7 +1929,7 @@ focus_tree = {
 
 	focus = {
 		id = HOL_domestic_innovation
-		prerequisite = { focus = HOL_the_east_indies_war_machine focus = HOL_fokker focus = HOL_daf focus = HOL_the_east_indies_war_machine_taog }
+		prerequisite = { focus = HOL_the_east_indies_war_machine focus = HOL_fokker focus = HOL_daf }   # 1.19-migration: dropped HOL_the_east_indies_war_machine_taog (focus absent in ME)
 		available = {
 			num_of_factories > 50
 		}
@@ -2996,15 +3000,9 @@ focus_tree = {
 				NOT = { controls_state = 2713 }   # 1.19-migration: was vanilla 35 (Brabant)
 				NOT = { controls_state = 336 }   # 1.19-migration: was vanilla 36 (Friesland)
 			}
-			NOT = {
-				focus_progress = {
-					focus = HOL_protect_the_colonies
-					progress > 0
-				}
-			}
+			# 1.19-migration: dropped focus_progress HOL_protect_the_colonies (focus absent in ME; the dead clause made bypass always true)
 		}
 		prerequisite = { focus = HOL_expand_the_mld }
-		mutually_exclusive = { focus = HOL_protect_the_colonies }
 		icon = GFX_goal_generic_air_fighter
 		x = -1
 		y = 1
@@ -3026,7 +3024,7 @@ focus_tree = {
 
 	focus = {
 		id = HOL_modernize_the_air_fleet
-		prerequisite = { focus = HOL_protect_the_mainland focus = HOL_protect_the_colonies }
+		prerequisite = { focus = HOL_protect_the_mainland }   # 1.19-migration: dropped HOL_protect_the_colonies (focus absent in ME)
 		icon = GFX_goal_generic_air_production
 		x = 1
 		y = 1
@@ -4289,6 +4287,7 @@ focus_tree = {
 
 	focus = {
 		id = HOL_placate_the_japanese
+		allow_branch = { has_country_flag = NEVER }
 		available = {
 			#JAP = { has_government = fascism }
 			#NOT = { has_war_with = JAP }
@@ -4589,7 +4588,9 @@ focus_tree = {
 		bypass = {
 			has_full_control_of_state = 455 # was vanilla 6
 			has_full_control_of_state = 422 # was vanilla 34
-			has_full_control_of_state = 500 # was vanilla 8
+			has_full_control_of_state = 404 # was vanilla 8 (Luxembourg -> Dikrech)
+			has_full_control_of_state = 427 # -> Gréiwemaacher
+			has_full_control_of_state = 512 # -> Lëtzebuerg
 		}
 
 		prerequisite = { focus = HOL_join_germany focus = HOL_the_netherlands_first }
@@ -5327,7 +5328,9 @@ focus_tree = {
 		bypass = {
 			has_full_control_of_state = 455 # was vanilla 6
 			has_full_control_of_state = 422 # was vanilla 34
-			has_full_control_of_state = 500 # was vanilla 8
+			has_full_control_of_state = 404 # was vanilla 8 (Luxembourg -> Dikrech)
+			has_full_control_of_state = 427 # -> Gréiwemaacher
+			has_full_control_of_state = 512 # -> Lëtzebuerg
 		}
 		prerequisite = { focus = HOL_bastion_of_true_communism focus = HOL_join_the_french focus = HOL_affirm_loyalty_to_moscow }
 		will_lead_to_war_with = BEL
@@ -5816,11 +5819,10 @@ focus_tree = {
 	focus = {
 		id = HOL_develop_the_south
 		available = {
-			has_full_control_of_state = 455   # 1.19-migration: was vanilla 6 (Flanders)
-			has_full_control_of_state = 487   # 1.19-migration: was vanilla 34 (Wallonia)
-			has_full_control_of_state = 977
-			has_full_control_of_state = 980
-			has_full_control_of_state = 500   # 1.19-migration: was vanilla 8 (Luxembourg)
+			# ME-custom layout restored (1.18.3 ME gate; 470/482/454 province+VP geometry unchanged)
+			has_full_control_of_state = 470   # Vlaams-Brabant
+			has_full_control_of_state = 482   # Hainaut
+			has_full_control_of_state = 454   # West-Vlaanderen
 		}
 		cancel_if_invalid = yes
 		prerequisite = { focus = HOL_revive_the_buffer_state_proposal }
@@ -5834,10 +5836,10 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			
-			977 = {
+			454 = {   # ME-custom (1.18.3 layout): 2 civ in West-Vlaanderen
 				if = {
 					limit = {
-						977 = {
+						454 = {   # ME-custom (1.18.3 layout)
 							free_building_slots = {
 								building = industrial_complex
 								size > 1
@@ -5853,10 +5855,10 @@ focus_tree = {
 					}
 				}
 			}
-			487 = {   # 1.19-migration: was vanilla 34 (Wallonia); mod Brabant wallon
+			482 = {   # ME-custom (1.18.3 layout): arms in Hainaut
 				if = {
 					limit = {
-						487 = {   # 1.19-migration: was vanilla 34 (Wallonia); mod Brabant wallon
+						482 = {   # ME-custom (1.18.3 layout)
 							free_building_slots = {
 								building = arms_factory
 								size > 0
@@ -5877,10 +5879,10 @@ focus_tree = {
 					}
 				}
 			}
-			500 = {   # 1.19-migration: was vanilla 8 (Luxembourg); mod Luxembourg
+			470 = {   # ME-custom (1.18.3 layout): civ in Vlaams-Brabant
 				if = {
 					limit = {
-						500 = {   # 1.19-migration: was vanilla 8 (Luxembourg); mod Luxembourg
+						470 = {   # ME-custom (1.18.3 layout)
 							free_building_slots = {
 								building = industrial_complex
 								size > 0

@@ -18,7 +18,7 @@ focus_tree = {
 		}
 	}
 	default = no
-	shared_focus = ABDA_abdacom
+	#shared_focus = ABDA_abdacom   # 1.19-migration: dead tag ABDA
 	continuous_focus_position = { x = 50 y = 1120 }
 
 	focus = {
@@ -1147,6 +1147,70 @@ focus_tree = {
 				uses = 2
 				category = industry
 			}
+		}
+	}
+
+	focus = {
+		id = ENG_vickers_experimental_facility_focus 
+
+		prerequisite = { focus = uk_industrial_focus }
+
+		dynamic = yes
+
+		available = {
+			2478 = { # eu_mapping: v126 (Greater London Area) -> ME 2478 (Surrey)
+				is_fully_controlled_by = ROOT
+			}
+		} 
+
+		icon = GFX_focus_generic_aircraft_production
+
+		x = 1
+		y = 2
+		
+		relative_position_id = uk_industrial_focus
+
+		cost = 5
+
+		available_if_capitulated = no
+
+		completion_reward = {
+
+			add_breakthrough_progress = {
+				specialization = specialization_air
+				value = 0.5
+			}
+			add_breakthrough_progress = {
+				specialization = specialization_land
+				value = 0.5
+			}
+
+			custom_effect_tooltip = generic_skip_one_line_tt
+			
+			custom_effect_tooltip = ENG_vickers_experimental_facility_focus_tt
+			hidden_effect = {
+				IF = {
+					limit = { 
+						2478 = { # eu_mapping: v126 (Greater London Area) -> ME 2478 (Surrey)
+							is_fully_controlled_by = ROOT
+							air_facility < 1
+							land_facility < 1
+							naval_facility < 1
+							nuclear_facility < 1
+						}
+					}
+
+					2478 = { # eu_mapping: v126 (Greater London Area) -> ME 2478 (Surrey)
+						add_building_construction = {
+							type = air_facility
+							level = 1
+							instant_build = yes
+							province = 4569 # eu_mapping: v_prov 11333 (South London) -> ME 4569 (in ME 2478)
+						}
+					}
+				}
+			}
+
 		}
 	}
 
@@ -3295,60 +3359,60 @@ focus_tree = {
 				}
 			}
 			#SAF = {   # 1.19-migration: dead tag SAF
-				if = {
-					limit = {
-						is_subject_of = ENG
-					}
-					add_stability = 0.05
-					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
-					add_ideas = ENG_guided_by_britain_1
-					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+					#}
+					#add_stability = 0.05
+					#add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					#add_ideas = ENG_guided_by_britain_1
+					#hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				#}
+			#}
 			#AST = {   # 1.19-migration: dead tag AST
-				if = {
-					limit = {
-						is_subject_of = ENG
-					}
-					add_stability = 0.05
-					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
-					add_ideas = ENG_guided_by_britain_1
-					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+					#}
+					#add_stability = 0.05
+					#add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					#add_ideas = ENG_guided_by_britain_1
+					#hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				#}
+			#}
 			#NZL = {   # 1.19-migration: dead tag NZL
-				if = {
-					limit = {
-						is_subject_of = ENG
-					}
-					add_stability = 0.05
-					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
-					add_ideas = ENG_guided_by_britain_1
-					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+					#}
+					#add_stability = 0.05
+					#add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					#add_ideas = ENG_guided_by_britain_1
+					#hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				#}
+			#}
 			#MAL = {   # 1.19-migration: dead tag MAL
-				if = {
-					limit = {
-						is_subject_of = ENG
-					}
-					add_stability = 0.05
-					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
-					add_ideas = ENG_guided_by_britain_2
-					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+					#}
+					#add_stability = 0.05
+					#add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					#add_ideas = ENG_guided_by_britain_2
+					#hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				#}
+			#}
 			#BRM = {   # 1.19-migration: dead tag BRM
-				if = {
-					limit = {
-						is_subject_of = ENG
-					}
-					add_stability = 0.05
-					add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
-					add_ideas = ENG_guided_by_britain_2
-					hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+					#}
+					#add_stability = 0.05
+					#add_opinion_modifier = { target = ENG modifier = ENG_guiding_the_colonies }
+					#add_ideas = ENG_guided_by_britain_2
+					#hidden_effect = { country_event = { id =  mtg_britain.17 hours = 6 } }
+				#}
+			#}
 		}
 	}
 
@@ -3404,44 +3468,44 @@ focus_tree = {
 				}
 			}
 			#SAF = {   # 1.19-migration: dead tag SAF
-				if = {
-					limit = {
-						is_subject_of = ENG
-						has_idea = ENG_guided_by_britain_1
-					}
-					swap_ideas = {
-						remove_idea = ENG_guided_by_britain_1
-						add_idea = ENG_guided_by_britain_2
-					}
-					hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+						#has_idea = ENG_guided_by_britain_1
+					#}
+					#swap_ideas = {
+						#remove_idea = ENG_guided_by_britain_1
+						#add_idea = ENG_guided_by_britain_2
+					#}
+					#hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
+				#}
+			#}
 			#AST = {   # 1.19-migration: dead tag AST
-				if = {
-					limit = {
-						is_subject_of = ENG
-						has_idea = ENG_guided_by_britain_1
-					}
-					swap_ideas = {
-						remove_idea = ENG_guided_by_britain_1
-						add_idea = ENG_guided_by_britain_2
-					}
-					hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+						#has_idea = ENG_guided_by_britain_1
+					#}
+					#swap_ideas = {
+						#remove_idea = ENG_guided_by_britain_1
+						#add_idea = ENG_guided_by_britain_2
+					#}
+					#hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
+				#}
+			#}
 			#NZL = {   # 1.19-migration: dead tag NZL
-				if = {
-					limit = {
-						is_subject_of = ENG
-						has_idea = ENG_guided_by_britain_1
-					}
-					swap_ideas = {
-						remove_idea = ENG_guided_by_britain_1
-						add_idea = ENG_guided_by_britain_2
-					}
-					hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ENG
+						#has_idea = ENG_guided_by_britain_1
+					#}
+					#swap_ideas = {
+						#remove_idea = ENG_guided_by_britain_1
+						#add_idea = ENG_guided_by_britain_2
+					#}
+					#hidden_effect = { country_event = { id =  mtg_britain.18 hours = 6 } }
+				#}
+			#}
 		}
 	}
 
@@ -4022,8 +4086,8 @@ focus_tree = {
 	focus = {
 		id = ENG_decolonization
 		prerequisite = { focus = ENG_self_government_for_africa }
-		prerequisite = { focus = ENG_self_government_for_asia }
-		prerequisite = { focus = ENG_towards_indian_independence }
+		#prerequisite = { focus = ENG_self_government_for_asia }   # 1.19-migration: focus absent in ME (Europe-only cut)
+		#prerequisite = { focus = ENG_towards_indian_independence }   # 1.19-migration: focus absent in ME (Europe-only cut)
 		available = { 
 			is_subject = no
 		}
@@ -4088,6 +4152,7 @@ focus_tree = {
 									NOT = {
 										#original_tag = RAJ   # 1.19-migration: dead tag RAJ
 										#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+										always = no
 									}
 								}
 								white_peace = PREV
@@ -4149,6 +4214,7 @@ focus_tree = {
 									NOT = {
 										#original_tag = RAJ   # 1.19-migration: dead tag RAJ
 										#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+										always = no
 									}
 								}
 								white_peace = PREV
@@ -4164,21 +4230,7 @@ focus_tree = {
 						}
 					}
 				}
-				hidden_effect = {
-					if = {
-						limit = {
-							has_dlc = "Together for Victory"
-							ENG = { has_completed_focus = ENG_the_three_nation_solution }
-							OR = {
-								#has_idea = RAJ_marginalized_muslim_community   # 1.19-migration: dead tag RAJ
-								#has_idea = RAJ_marginalized_muslim_community_angry   # 1.19-migration: dead tag RAJ
-							}
-						}
-						#remove_ideas = RAJ_marginalized_muslim_community   # 1.19-migration: dead tag RAJ
-						#remove_ideas = RAJ_marginalized_muslim_community_angry   # 1.19-migration: dead tag RAJ
-						#add_ideas = RAJ_marginalized_muslim_community_happy   # 1.19-migration: dead tag RAJ
-					}
-				}
+				# 1.19-migration: dropped dead RAJ idea swap; ENG_the_three_nation_solution absent in ME and all RAJ ideas are dead tags
 			}
 			every_other_country = {
 				limit = {
@@ -4226,6 +4278,7 @@ focus_tree = {
 								NOT = {
 									#original_tag = RAJ   # 1.19-migration: dead tag RAJ
 									#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+									always = no
 								}
 							}
 							white_peace = PREV
@@ -4288,6 +4341,7 @@ focus_tree = {
 								NOT = {
 									#original_tag = RAJ   # 1.19-migration: dead tag RAJ
 									#RAJ = { NOT = { has_country_flag = RAJ_mughal_uprising } }   # 1.19-migration: dead tag RAJ
+									always = no
 								}
 							}
 							white_peace = PREV
@@ -4334,62 +4388,66 @@ focus_tree = {
 				else_if = {
 					limit = {
 						#AST = {   # 1.19-migration: dead tag AST
-							has_war_together_with = ENG
-							has_country_flag = ENG_decolonization_left_faction
-						}
+							#has_war_together_with = ENG
+							#has_country_flag = ENG_decolonization_left_faction
+						#}
+						always = no
 					}
 					#AST = {   # 1.19-migration: dead tag AST
-						create_faction_from_template = {
-							template = faction_template_allies
-							name = ENG_coalition_of_free_commonwealth_states
-							icon = GFX_faction_logo_generic_2
-						}
-					}
+						#create_faction_from_template = {
+							#template = faction_template_allies
+							#name = ENG_coalition_of_free_commonwealth_states
+							#icon = GFX_faction_logo_generic_2
+						#}
+					#}
 				}
 				else_if = {
 					limit = {
 						#RAJ = {   # 1.19-migration: dead tag RAJ
-							has_war_together_with = ENG
-							has_country_flag = ENG_decolonization_left_faction
-						}
+							#has_war_together_with = ENG
+							#has_country_flag = ENG_decolonization_left_faction
+						#}
+						always = no
 					}
 					#RAJ = {   # 1.19-migration: dead tag RAJ
-						create_faction_from_template = {
-							template = faction_template_allies
-							name = ENG_coalition_of_free_commonwealth_states
-							icon = GFX_faction_logo_generic_2
-						}
-					}
+						#create_faction_from_template = {
+							#template = faction_template_allies
+							#name = ENG_coalition_of_free_commonwealth_states
+							#icon = GFX_faction_logo_generic_2
+						#}
+					#}
 				}
 				else_if = {
 					limit = {
 						#SAF = {   # 1.19-migration: dead tag SAF
-							has_war_together_with = ENG
-							has_country_flag = ENG_decolonization_left_faction
-						}
+							#has_war_together_with = ENG
+							#has_country_flag = ENG_decolonization_left_faction
+						#}
+						always = no
 					}
 					#SAF = {   # 1.19-migration: dead tag SAF
-						create_faction_from_template = {
-							template = faction_template_allies
-							name = ENG_coalition_of_free_commonwealth_states
-							icon = GFX_faction_logo_generic_2
-						}
-					}
+						#create_faction_from_template = {
+							#template = faction_template_allies
+							#name = ENG_coalition_of_free_commonwealth_states
+							#icon = GFX_faction_logo_generic_2
+						#}
+					#}
 				}
 				else_if = {
 					limit = {
 						#NZL = {   # 1.19-migration: dead tag NZL
-							has_war_together_with = ENG
-							has_country_flag = ENG_decolonization_left_faction
-						}
+							#has_war_together_with = ENG
+							#has_country_flag = ENG_decolonization_left_faction
+						#}
+						always = no
 					}
 					#NZL = {   # 1.19-migration: dead tag NZL
-						create_faction_from_template = {
-							template = faction_template_allies
-							name = ENG_coalition_of_free_commonwealth_states
-							icon = GFX_faction_logo_generic_2
-						}
-					}
+						#create_faction_from_template = {
+							#template = faction_template_allies
+							#name = ENG_coalition_of_free_commonwealth_states
+							#icon = GFX_faction_logo_generic_2
+						#}
+					#}
 				}
 				else_if = {
 					limit = {
@@ -4401,27 +4459,31 @@ focus_tree = {
 						}
 						NOT = {
 							#AST = {   # 1.19-migration: dead tag AST
-								has_war_together_with = ENG
-								has_country_flag = ENG_decolonization_left_faction
-							}
+								#has_war_together_with = ENG
+								#has_country_flag = ENG_decolonization_left_faction
+							#}
+							always = no
 						}
 						NOT = {
 							#RAJ = {   # 1.19-migration: dead tag RAJ
-								has_war_together_with = ENG
-								has_country_flag = ENG_decolonization_left_faction
-							}
+								#has_war_together_with = ENG
+								#has_country_flag = ENG_decolonization_left_faction
+							#}
+							always = no
 						}
 						NOT = {
 							#SAF = {   # 1.19-migration: dead tag SAF
-								has_war_together_with = ENG
-								has_country_flag = ENG_decolonization_left_faction
-							}
+								#has_war_together_with = ENG
+								#has_country_flag = ENG_decolonization_left_faction
+							#}
+							always = no
 						}
 						NOT = {
 							#NZL = {   # 1.19-migration: dead tag NZL
-								has_war_together_with = ENG
-								has_country_flag = ENG_decolonization_left_faction
-							}
+								#has_war_together_with = ENG
+								#has_country_flag = ENG_decolonization_left_faction
+							#}
+							always = no
 						}
 					}
 					random_other_country = {
@@ -4556,7 +4618,7 @@ focus_tree = {
 		available = {
 			any_country_with_original_tag_of = {
 				exists = yes
-				#target = {NZL SAF RAJ AST CAN MAL PAL JOR KUW BRM}   # 1.19-migration: dead tag AST/BRM/MAL/NZL/RAJ/SAF
+				target = {CAN PAL JOR KUW}   # 1.19-migration: was {NZL SAF RAJ AST CAN MAL PAL JOR KUW BRM}; AST/BRM/MAL/NZL/RAJ/SAF are off-map in ME
 				is_in_faction_with = ROOT
 			}
 		}
@@ -4566,20 +4628,20 @@ focus_tree = {
 				exists = no
 			}
 			#SAF = {   # 1.19-migration: dead tag SAF
-				exists = no
-			}
+				#exists = no
+			#}
 			#RAJ = {   # 1.19-migration: dead tag RAJ
-				exists = no
-			}
+				#exists = no
+			#}
 			#AST = {   # 1.19-migration: dead tag AST
-				exists = no
-			}
+				#exists = no
+			#}
 			#NZL = {   # 1.19-migration: dead tag NZL
-				exists = no
-			}
+				#exists = no
+			#}
 			#MAL = {   # 1.19-migration: dead tag MAL
-				exists = no
-			}
+				#exists = no
+			#}
 			PAL = {
 				exists = no
 			}
@@ -4590,8 +4652,9 @@ focus_tree = {
 				exists = no
 			}
 			#BRM = {   # 1.19-migration: dead tag BRM
-				exists = no
-			}
+				#exists = no
+			#}
+			always = no
 			NOT = {
 				any_state = {
 					OR = {
@@ -4753,13 +4816,13 @@ focus_tree = {
 				add_ideas = ENG_british_commonwealth_air_training_plan
 			}
 			#SAF = {   # 1.19-migration: dead tag SAF
-				if = {
-					limit = {
-						is_subject_of = ROOT
-					}
-					add_ideas = ENG_joint_air_training_scheme
-				}
-			}
+				#if = {
+					#limit = {
+						#is_subject_of = ROOT
+					#}
+					#add_ideas = ENG_joint_air_training_scheme
+				#}
+			#}
 		}
 	}
 
@@ -4783,17 +4846,18 @@ focus_tree = {
 
 		bypass = {
 			#RAJ = {   # 1.19-migration: dead tag RAJ
-				custom_trigger_tooltip = {
-					tooltip = construction_effort_tt
-					all_owned_state = {
-						free_building_slots = {
-							building = industrial_complex
-							size < 1
-							include_locked = yes
-						}
-					}
-				}
-			}
+				#custom_trigger_tooltip = {
+					#tooltip = construction_effort_tt
+					#all_owned_state = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size < 1
+							#include_locked = yes
+						#}
+					#}
+				#}
+			#}
+			always = no
 		}
 
 		complete_tooltip = {
@@ -4825,57 +4889,57 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			#RAJ = {   # 1.19-migration: dead tag RAJ
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_india_focus_2IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_india_focus_2IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_india_focus_1IC
-				}
-				ENG_viceroy_reduce_autonomy_effect = yes
-			}
+				#add_opinion_modifier = { target = ENG modifier = aided_industry }
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 1
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 2
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 2
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_india_focus_2IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 1
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 2
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 2
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_india_focus_2IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_india_focus_1IC
+				#}
+				#ENG_viceroy_reduce_autonomy_effect = yes
+			#}
 		}
 	}
 	
@@ -4890,24 +4954,26 @@ focus_tree = {
 					AND = {
 						date > 1943.10.01
 						#RAJ = {   # 1.19-migration: dead tag RAJ
-							is_subject_of = ENG
-							has_war = no
-						}
+							#is_subject_of = ENG
+							#has_war = no
+						#}
+						always = no
 					}
 					AND = {
 						NOT = { has_government = democratic }
 						#RAJ = {   # 1.19-migration: dead tag RAJ
-							is_subject_of = ENG
-							has_war = no
-						}
+							#is_subject_of = ENG
+							#has_war = no
+						#}
+						always = no
 					}
 				}
 				else = {				
 					has_global_flag = indian_national_army_setup
 					has_government = democratic
 					#RAJ = {   # 1.19-migration: dead tag RAJ
-						is_puppet_of = ENG
-					}
+						#is_puppet_of = ENG
+					#}
 				}
 			}
 		} #counters JAP's indian army focus
@@ -4940,7 +5006,7 @@ focus_tree = {
 					add_timed_idea = { idea = indian_independence_promised_idea days = 1460 }
 					#RAJ = {   # 1.19-migration: dead tag RAJ
 						#remove_ideas = RAJ_azad_hind   # 1.19-migration: dead tag RAJ
-					}				
+					#}				
 				}
 			}
 		}
@@ -4962,27 +5028,28 @@ focus_tree = {
 			OR = {
 				#AST = { exists = no }   # 1.19-migration: dead tag AST
 				#AST = {   # 1.19-migration: dead tag AST
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-								include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-								include_locked = yes
-							}
-						}
-					}
-				}
+					#custom_trigger_tooltip = {
+						#tooltip = construction_effort_tt
+						#all_owned_state = {
+							#free_building_slots = {
+								#building = industrial_complex
+								#size < 1
+								#include_locked = yes
+							#}
+						#}
+					#}
+					#custom_trigger_tooltip = {
+						#tooltip = naval_effort_tt
+						#all_owned_state = {
+							#free_building_slots = {
+								#building = dockyard
+								#size < 1
+								#include_locked = yes
+							#}
+						#}
+					#}
+				#}
+				always = no
 			}
 		}
 		icon = GFX_goal_generic_construct_civilian
@@ -5033,78 +5100,78 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			#AST = {   # 1.19-migration: dead tag AST
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_australia_focus_1IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_australia_focus_1IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_australia_focus_2dockyards
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_australia_focus_1dockyard
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_australia_focus
-				}
-			}
+				#add_opinion_modifier = { target = ENG modifier = aided_industry }
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_australia_focus_1IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_australia_focus_1IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#is_coastal = yes
+						#free_building_slots = {
+							#building = dockyard
+							#size > 1
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 2
+					#add_building_construction = {
+						#type = dockyard
+						#level = 2
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_australia_focus_2dockyards
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#is_coastal = yes
+						#free_building_slots = {
+							#building = dockyard
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = dockyard
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_australia_focus_1dockyard
+				#}
+				#add_autonomy_ratio = {
+					#value = -0.05
+					#localization = uk_australia_focus
+				#}
+			#}
 		}
 	}
 
@@ -5123,27 +5190,28 @@ focus_tree = {
 			OR = {
 				#NZL = { exists = no }   # 1.19-migration: dead tag NZL
 				#NZL = {   # 1.19-migration: dead tag NZL
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-								include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-								include_locked = yes
-							}
-						}
-					}
-				}
+					#custom_trigger_tooltip = {
+						#tooltip = construction_effort_tt
+						#all_owned_state = {
+							#free_building_slots = {
+								#building = industrial_complex
+								#size < 1
+								#include_locked = yes
+							#}
+						#}
+					#}
+					#custom_trigger_tooltip = {
+						#tooltip = naval_effort_tt
+						#all_owned_state = {
+							#free_building_slots = {
+								#building = dockyard
+								#size < 1
+								#include_locked = yes
+							#}
+						#}
+					#}
+				#}
+				always = no
 			}
 		}
 		icon = GFX_goal_generic_construction
@@ -5194,78 +5262,78 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			#NZL = {   # 1.19-migration: dead tag NZL
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_new_zealand_focus_1IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_new_zealand_focus_1IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = dockyard
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_new_zealand_focus_2dockyards
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_new_zealand_focus_1dockyard
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_new_zealand_focus
-				}
-			}
+				#add_opinion_modifier = { target = ENG modifier = aided_industry }
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_new_zealand_focus_1IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_new_zealand_focus_1IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#is_coastal = yes
+						#free_building_slots = {
+							#building = dockyard
+							#size > 1
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 2
+					#add_building_construction = {
+						#type = dockyard
+						#level = 2
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_new_zealand_focus_2dockyards
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#is_coastal = yes
+						#free_building_slots = {
+							#building = dockyard
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = dockyard
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_new_zealand_focus_1dockyard
+				#}
+				#add_autonomy_ratio = {
+					#value = -0.05
+					#localization = uk_new_zealand_focus
+				#}
+			#}
 		}
 	}
 
@@ -5444,27 +5512,28 @@ focus_tree = {
 			OR = {
 				#SAF = { exists = no }   # 1.19-migration: dead tag SAF
 				#SAF = {   # 1.19-migration: dead tag SAF
-					custom_trigger_tooltip = {
-						tooltip = construction_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = industrial_complex
-								size < 1
-								include_locked = yes
-							}
-						}
-					}
-					custom_trigger_tooltip = {
-						tooltip = naval_effort_tt
-						all_owned_state = {
-							free_building_slots = {
-								building = dockyard
-								size < 1
-								include_locked = yes
-							}
-						}
-					}
-				}
+					#custom_trigger_tooltip = {
+						#tooltip = construction_effort_tt
+						#all_owned_state = {
+							#free_building_slots = {
+								#building = industrial_complex
+								#size < 1
+								#include_locked = yes
+							#}
+						#}
+					#}
+					#custom_trigger_tooltip = {
+						#tooltip = naval_effort_tt
+						#all_owned_state = {
+							#free_building_slots = {
+								#building = dockyard
+								#size < 1
+								#include_locked = yes
+							#}
+						#}
+					#}
+				#}
+				always = no
 			}
 		}
 		icon = GFX_goal_generic_construct_civ_factory
@@ -5515,78 +5584,78 @@ focus_tree = {
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			#SAF = {   # 1.19-migration: dead tag SAF
-				add_opinion_modifier = { target = ENG modifier = aided_industry }
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 2
-					add_building_construction = {
-						type = industrial_complex
-						level = 2
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_south_africa_focus_2IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = industrial_complex
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_south_africa_focus_1IC
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_south_africa_focus_1dockyard
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-					set_state_flag = ENG_uk_south_africa_focus_1dockyard
-				}
-				add_autonomy_ratio = {
-					value = -0.05
-					localization = uk_south_africa_focus
-				}
-			}
+				#add_opinion_modifier = { target = ENG modifier = aided_industry }
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 1
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 2
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 2
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_south_africa_focus_2IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#free_building_slots = {
+							#building = industrial_complex
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = industrial_complex
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_south_africa_focus_1IC
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#is_coastal = yes
+						#free_building_slots = {
+							#building = dockyard
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = dockyard
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_south_africa_focus_1dockyard
+				#}
+				#random_owned_controlled_state = {
+					#limit = {
+						#is_coastal = yes
+						#free_building_slots = {
+							#building = dockyard
+							#size > 0
+							#include_locked = yes
+						#}
+					#}
+					#add_extra_state_shared_building_slots = 1
+					#add_building_construction = {
+						#type = dockyard
+						#level = 1
+						#instant_build = yes
+					#}
+					#set_state_flag = ENG_uk_south_africa_focus_1dockyard
+				#}
+				#add_autonomy_ratio = {
+					#value = -0.05
+					#localization = uk_south_africa_focus
+				#}
+			#}
 		}
 	}
 
@@ -5612,8 +5681,9 @@ focus_tree = {
 
 		available = { 	
 			#RAJ = {   # 1.19-migration: dead tag RAJ
-				is_subject_of = ENG
-			}
+				#is_subject_of = ENG
+			#}
+			always = no
 		}
 
 		continue_if_invalid = no
@@ -5674,32 +5744,33 @@ focus_tree = {
 				}
 			}
 			#SAF = {   # 1.19-migration: dead tag SAF
-				OR = {
-					AND = {
-						is_subject_of = ENG
-						has_government = ROOT
-					}
-					exists = no
-				}
-			}
+				#OR = {
+					#AND = {
+						#is_subject_of = ENG
+						#has_government = ROOT
+					#}
+					#exists = no
+				#}
+			#}
 			#AST = {   # 1.19-migration: dead tag AST
-				OR = {
-					AND = {
-						is_subject_of = ENG
-						has_government = ROOT
-					}
-					exists = no
-				}
-			}
+				#OR = {
+					#AND = {
+						#is_subject_of = ENG
+						#has_government = ROOT
+					#}
+					#exists = no
+				#}
+			#}
 			#NZL = {   # 1.19-migration: dead tag NZL
-				OR = {
-					AND = {
-						is_subject_of = ENG
-						has_government = ROOT
-					}
-					exists = no
-				}
-			}
+				#OR = {
+					#AND = {
+						#is_subject_of = ENG
+						#has_government = ROOT
+					#}
+					#exists = no
+				#}
+			#}
+			always = no
 			NOT = {
 				any_state = {
 					OR = {
@@ -5731,20 +5802,21 @@ focus_tree = {
 				exists = no
 			}
 			#SAF = {   # 1.19-migration: dead tag SAF
-				exists = no
-			}
+				#exists = no
+			#}
 			#RAJ = {   # 1.19-migration: dead tag RAJ
-				OR = {
-					exists = no
-					NOT = { is_subject_of = ENG }
-				}
-			}
+				#OR = {
+					#exists = no
+					#NOT = { is_subject_of = ENG }
+				#}
+			#}
 			#AST = {   # 1.19-migration: dead tag AST
-				exists = no
-			}
+				#exists = no
+			#}
 			#NZL = {   # 1.19-migration: dead tag NZL
-				exists = no
-			}
+				#exists = no
+			#}
+			always = no
 			NOT = {
 				any_state = {
 					OR = {
@@ -6640,29 +6712,29 @@ focus_tree = {
 					}
 				}
 				#AST = {   # 1.19-migration: dead tag AST
-					if = {
-						limit = { is_in_faction_with = ENG }
-						add_ideas = ENG_maintaining_imperial_integrity_idea
-					}
-				}
+					#if = {
+						#limit = { is_in_faction_with = ENG }
+						#add_ideas = ENG_maintaining_imperial_integrity_idea
+					#}
+				#}
 				#NZL = {   # 1.19-migration: dead tag NZL
-					if = {
-						limit = { is_in_faction_with = ENG }
-						add_ideas = ENG_maintaining_imperial_integrity_idea
-					}
-				}
+					#if = {
+						#limit = { is_in_faction_with = ENG }
+						#add_ideas = ENG_maintaining_imperial_integrity_idea
+					#}
+				#}
 				#SAF = {   # 1.19-migration: dead tag SAF
-					if = {
-						limit = { is_in_faction_with = ENG }
-						add_ideas = ENG_maintaining_imperial_integrity_idea
-					}
-				}
+					#if = {
+						#limit = { is_in_faction_with = ENG }
+						#add_ideas = ENG_maintaining_imperial_integrity_idea
+					#}
+				#}
 				#RAJ = {   # 1.19-migration: dead tag RAJ
-					if = {
-						limit = { is_in_faction_with = ENG }
-						add_ideas = ENG_maintaining_imperial_integrity_idea
-					}
-				}
+					#if = {
+						#limit = { is_in_faction_with = ENG }
+						#add_ideas = ENG_maintaining_imperial_integrity_idea
+					#}
+				#}
 			}
 			FRA = {
 				if = {
@@ -8860,9 +8932,9 @@ focus_tree = {
 		}
 		will_lead_to_war_with = SOU
 		icon = GFX_focus_attack_soviet
-		x = -2
-		y = 1
-		relative_position_id = ENG_imperial_conscription
+		x = -3   # 1.19-migration: re-anchored from ENG_imperial_conscription (-2) to ENG_god_save_the_king; absolute grid cell (70,3) preserved
+		y = 2
+		relative_position_id = ENG_god_save_the_king
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -8894,6 +8966,7 @@ focus_tree = {
 				AND = {
 					#country_exists = AFG   # 1.19-migration: dead tag AFG
 					#NOT = { is_in_faction_with = AFG }   # 1.19-migration: dead tag AFG
+					always = no
 				}
 			}
 		}
@@ -8919,14 +8992,14 @@ focus_tree = {
 				} 	
 			}
 			#AFG = {   # 1.19-migration: dead tag AFG
-				if = {
-					limit = {
-						exists = yes
-						NOT = { is_in_faction_with = ENG }
-					}
-					country_event = { id = mtg_britain.79 hours = 6 }
-				} 
-			}
+				#if = {
+					#limit = {
+						#exists = yes
+						#NOT = { is_in_faction_with = ENG }
+					#}
+					#country_event = { id = mtg_britain.79 hours = 6 }
+				#} 
+			#}
 		}
 	}
 
@@ -9081,25 +9154,26 @@ focus_tree = {
 					}
 					#is_in_faction_with = SAF   # 1.19-migration: dead tag SAF
 					#SAF = {   # 1.19-migration: dead tag SAF
-						OR = {
-							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
-							has_country_flag = britain_enforced_our_loyalty
-						}
-					}
+						#OR = {
+							#has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							#has_country_flag = britain_enforced_our_loyalty
+						#}
+					#}
 					#is_in_faction_with = AST   # 1.19-migration: dead tag AST
 					#AST = {   # 1.19-migration: dead tag AST
-						OR = {
-							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
-							has_country_flag = britain_enforced_our_loyalty
-						}
-					}
+						#OR = {
+							#has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							#has_country_flag = britain_enforced_our_loyalty
+						#}
+					#}
 					#is_in_faction_with = NZL   # 1.19-migration: dead tag NZL
 					#NZL = {   # 1.19-migration: dead tag NZL
-						OR = {
-							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
-							has_country_flag = britain_enforced_our_loyalty
-						}
-					}
+						#OR = {
+							#has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							#has_country_flag = britain_enforced_our_loyalty
+						#}
+					#}
+					always = no
 				}
 				NOT = {
 					country_exists = CAN
@@ -9148,25 +9222,26 @@ focus_tree = {
 					}
 					#is_in_faction_with = SAF   # 1.19-migration: dead tag SAF
 					#SAF = {   # 1.19-migration: dead tag SAF
-						OR = {
-							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
-							has_country_flag = britain_enforced_our_loyalty
-						}
-					}
+						#OR = {
+							#has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							#has_country_flag = britain_enforced_our_loyalty
+						#}
+					#}
 					#is_in_faction_with = AST   # 1.19-migration: dead tag AST
 					#AST = {   # 1.19-migration: dead tag AST
-						OR = {
-							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
-							has_country_flag = britain_enforced_our_loyalty
-						}
-					}
+						#OR = {
+							#has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							#has_country_flag = britain_enforced_our_loyalty
+						#}
+					#}
 					#is_in_faction_with = NZL   # 1.19-migration: dead tag NZL
 					#NZL = {   # 1.19-migration: dead tag NZL
-						OR = {
-							has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
-							has_country_flag = britain_enforced_our_loyalty
-						}
-					}
+						#OR = {
+							#has_country_flag = ENG_dominions_stayed_with_fascist_britain_flag
+							#has_country_flag = britain_enforced_our_loyalty
+						#}
+					#}
+					always = no
 				}
 				has_completed_focus = ENG_towards_dominion_independence
 			}
@@ -9202,57 +9277,57 @@ focus_tree = {
 					expire = 0
 				}
 			}
-			if = {
-				limit = {
-					#NOT = { is_in_faction_with = SAF }   # 1.19-migration: dead tag SAF
-					is_ai = no
-				}
-				every_state = {
-					limit = {
-						#is_core_of = SAF   # 1.19-migration: dead tag SAF
-					}
-					add_claim_by = ENG
-				}
-				create_wargoal = {
-					type = annex_everything
-					#target = SAF   # 1.19-migration: dead tag SAF
-					expire = 0
-				}
-			}
-			if = {
-				limit = {
-					#NOT = { is_in_faction_with = AST }   # 1.19-migration: dead tag AST
-					is_ai = no
-				}
-				every_state = {
-					limit = {
-						#is_core_of = AST   # 1.19-migration: dead tag AST
-					}
-					add_claim_by = ENG
-				}
-				create_wargoal = {
-					type = annex_everything
-					#target = AST   # 1.19-migration: dead tag AST
-					expire = 0
-				}
-			}
-			if = {
-				limit = {
-					#NOT = { is_in_faction_with = NZL }   # 1.19-migration: dead tag NZL
-					is_ai = no
-				}
-				every_state = {
-					limit = {
-						#is_core_of = NZL   # 1.19-migration: dead tag NZL
-					}
-					add_claim_by = ENG
-				}
-				create_wargoal = {
-					type = annex_everything
-					#target = NZL   # 1.19-migration: dead tag NZL
-					expire = 0
-				}
-			}
+			#if = {   # 1.19-migration: dead tag SAF - block disabled (SAF removed; empty every_state limit would claim every state and create_wargoal has no target)
+			#	limit = {
+			#		#NOT = { is_in_faction_with = SAF }   # 1.19-migration: dead tag SAF
+			#		is_ai = no
+			#	}
+			#	every_state = {
+			#		limit = {
+			#			#is_core_of = SAF   # 1.19-migration: dead tag SAF
+			#		}
+			#		add_claim_by = ENG
+			#	}
+			#	create_wargoal = {
+			#		type = annex_everything
+			#		#target = SAF   # 1.19-migration: dead tag SAF
+			#		expire = 0
+			#	}
+			#}
+			#if = {   # 1.19-migration: dead tag AST - block disabled (AST removed; empty every_state limit would claim every state and create_wargoal has no target)
+			#	limit = {
+			#		#NOT = { is_in_faction_with = AST }   # 1.19-migration: dead tag AST
+			#		is_ai = no
+			#	}
+			#	every_state = {
+			#		limit = {
+			#			#is_core_of = AST   # 1.19-migration: dead tag AST
+			#		}
+			#		add_claim_by = ENG
+			#	}
+			#	create_wargoal = {
+			#		type = annex_everything
+			#		#target = AST   # 1.19-migration: dead tag AST
+			#		expire = 0
+			#	}
+			#}
+			#if = {   # 1.19-migration: dead tag NZL - block disabled (NZL removed; empty every_state limit would claim every state and create_wargoal has no target)
+			#	limit = {
+			#		#NOT = { is_in_faction_with = NZL }   # 1.19-migration: dead tag NZL
+			#		is_ai = no
+			#	}
+			#	every_state = {
+			#		limit = {
+			#			#is_core_of = NZL   # 1.19-migration: dead tag NZL
+			#		}
+			#		add_claim_by = ENG
+			#	}
+			#	create_wargoal = {
+			#		type = annex_everything
+			#		#target = NZL   # 1.19-migration: dead tag NZL
+			#		expire = 0
+			#	}
+			#}
 			custom_effect_tooltip = ENG_bring_the_dominions_back_into_the_fold_tt
 		}
 	}
@@ -9404,51 +9479,51 @@ focus_tree = {
 			custom_effect_tooltip = ENG_concessions_to_the_trade_unions_tt_2
 			hidden_effect = {
 				random_list = {
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						random_list = {
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_1 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_2 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_3 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_4 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_5 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_6 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_7 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_8 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_9 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_10 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_11 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_12 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_13 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_14 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
-							455 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_15 }   # 1.19-migration: was vanilla 6 (Flanders); mod West-Vlaanderen
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_1 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_2 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_3 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_4 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_5 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_6 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_7 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_8 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_9 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_10 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_11 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_12 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_13 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_14 }
+							6 = { set_country_flag = ENG_trade_unions_demand_minister_appointment_15 }
 						}
 						activate_mission = ENG_trade_unions_demand_minister_appointment_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_legislation_amendment
 						activate_mission = ENG_trade_unions_demand_legislation_amendment_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_conscription_limitations
 						activate_mission = ENG_trade_unions_demand_conscription_limitations_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_workplace_safety_legislation
 						activate_mission = ENG_trade_unions_demand_workplace_safety_legislation_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_increase_in_paid_leave
 						activate_mission = ENG_trade_unions_demand_increase_in_paid_leave_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_minimum_pay_increase
 						activate_mission = ENG_trade_unions_demand_minimum_pay_increase_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_construction_safety_legislation
 						activate_mission = ENG_trade_unions_demand_construction_safety_legislation_mission
 					}
-					508 = {   # 1.19-migration: was vanilla 10 (Warsaw); mod Pułtusk
+					10 = {
 						set_country_flag = ENG_trade_unions_demand_mandatory_union_days
 						activate_mission = ENG_trade_unions_demand_mandatory_union_days_mission
 					}
@@ -9524,32 +9599,36 @@ focus_tree = {
 			if = {
 				limit = {
 					#SAF = {   # 1.19-migration: dead tag SAF
-						is_subject_of = ENG
-					}
+						#is_subject_of = ENG
+					#}
+					always = no
 				}
 				#SAF = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag SAF
 			}
 			if = {
 				limit = {
 					#RAJ = {   # 1.19-migration: dead tag RAJ
-						is_subject_of = ENG
-					}
+						#is_subject_of = ENG
+					#}
+					always = no
 				}
 				#RAJ = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag RAJ
 			}
 			if = {
 				limit = {
 					#AST = {   # 1.19-migration: dead tag AST
-						is_subject_of = ENG
-					}
+						#is_subject_of = ENG
+					#}
+					always = no
 				}
 				#AST = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag AST
 			}
 			if = {
 				limit = {
 					#NZL = {   # 1.19-migration: dead tag NZL
-						is_subject_of = ENG
-					}
+						#is_subject_of = ENG
+					#}
+					always = no
 				}
 				#NZL = { country_event = { id = mtg_britain.62 hours = 6 } }   # 1.19-migration: dead tag NZL
 			}

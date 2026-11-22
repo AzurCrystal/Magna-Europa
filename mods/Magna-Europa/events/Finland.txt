@@ -37,7 +37,10 @@ country_event = {
 		FROM = {
 			country_event = { days = 5 id = soviet.12 }
 			effect_tooltip = {
-				transfer_state = 146
+				transfer_state = 77 # eu_mapping: v146 (Karjala) -> ME 77 (Viipuri)
+				transfer_state = 100 # eu_mapping: v146 (Karjala) -> ME 100 (Sortavala)
+				transfer_state = 113 # eu_mapping: v146 (Karjala) -> ME 113 (Koivisto)
+				transfer_state = 2783 # eu_mapping: v146 (Karjala) -> ME 2783 (Terijoki)
 				if = {
 					limit = {
 						ROOT = {
@@ -81,7 +84,12 @@ country_event = {
 				create_wargoal = {
 					type = take_state
 					target = ROOT
-					generator = { 146 }
+					generator = {
+						77 # eu_mapping: v146 (Karjala) -> ME 77 (Viipuri)
+						100 # eu_mapping: v146 (Karjala) -> ME 100 (Sortavala)
+						113 # eu_mapping: v146 (Karjala) -> ME 113 (Koivisto)
+						2783 # eu_mapping: v146 (Karjala) -> ME 2783 (Terijoki)
+					}
 				}
 			}
 		}
@@ -344,14 +352,19 @@ country_event = {
 				white_peace = FIN
 				### TRANSFER STATES
 				#KARJALA
-				transfer_state = 146
+				transfer_state = 77 # eu_mapping: v146 (Karjala) -> ME 77 (Viipuri)
+				transfer_state = 100 # eu_mapping: v146 (Karjala) -> ME 100 (Sortavala)
+				transfer_state = 113 # eu_mapping: v146 (Karjala) -> ME 113 (Koivisto)
+				transfer_state = 2783 # eu_mapping: v146 (Karjala) -> ME 2783 (Terijoki)
 			}
 			#SALLA
 			if = {
 				limit = {
-					owns_state = 147
+					owns_state = 2786 # eu_mapping: v147 (Salla) -> ME 2786 (Kayraly)
+					owns_state = 33 # eu_mapping: v147 (Salla) -> ME 33 (Paanajärvi)
 				}
-				SOV = { transfer_state = 147 }
+				SOV = { transfer_state = 2786
+				transfer_state = 33 }
 			}
 		}
 
@@ -394,30 +407,55 @@ country_event = {
 
 		### TRANSFER STATES ###
 		#KARJALA
-		transfer_state = 146
+		transfer_state = 77 # eu_mapping: v146 (Karjala) -> ME 77 (Viipuri)
+		transfer_state = 100 # eu_mapping: v146 (Karjala) -> ME 100 (Sortavala)
+		transfer_state = 113 # eu_mapping: v146 (Karjala) -> ME 113 (Koivisto)
+		transfer_state = 2783 # eu_mapping: v146 (Karjala) -> ME 2783 (Terijoki)
 
 		#SALLA
 		if = {
 			limit = {
-				17 = {   # 1.19-migration: mod state Petsamo (was vanilla 722)
-					# 1.19-migration: off-map Salla: vanilla1194's `FROM = { owns_state = 147 } -> transfer_state = 147` block skipped
+				FROM = { owns_state = 2786
+				owns_state = 33 }
+			}
+			transfer_state = 2786 # eu_mapping: v147 (Salla) -> ME 2786 (Kayraly)
+			transfer_state = 33 # eu_mapping: v147 (Salla) -> ME 33 (Paanajärvi)
+		}
+
+		# JA
+		if = {
+			limit = {
+				17 = { # eu_mapping: v722 (Petsamo) -> ME 17 (Petsamo)
+					is_claimed_by = SOV
+				}
+				22 = { # eu_mapping: v722 (Petsamo) -> ME 22 (Kalastajasaarento)
 					is_claimed_by = SOV
 				}
 			}
-			remove_state_claim = 17
+			remove_state_claim = 17 # eu_mapping: v722 (Petsamo) -> ME 17 (Petsamo)
+			remove_state_claim = 22 # eu_mapping: v722 (Petsamo) -> ME 22 (Kalastajasaarento)
 		}
 		if = {
 			limit = {
-				213 = {
+				19 = { # eu_mapping: v213 (Murmansk) -> ME 19 (Murmansk)
+					is_owned_by = SOV
+				}
+				16 = { # eu_mapping: v213 (Murmansk) -> ME 16 (Rybachy Peninsula)
+					is_owned_by = SOV
+				}
+				2709 = { # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma)
+					is_owned_by = SOV
+				}
+				2785 = { # eu_mapping: v213 (Murmansk) -> ME 2785 (Kandalaksha)
 					is_owned_by = SOV
 				}
 			}
-			213 = {
+			2709 = { # eu_mapping: v213 (Murmansk) -> ME 2709 (Tuloma)
 				add_building_construction = {
 					type = naval_base
 					level = 2
 					instant_build = yes
-					province =  6117
+					province = 19673 # eu_mapping: v_prov 6117 (in ME 2709)
 				}	
 			}
 		}

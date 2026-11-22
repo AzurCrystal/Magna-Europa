@@ -2088,7 +2088,7 @@ faction_goal_develop_lappland_metals = {
 			add = 1 # State owners should care more
 			OR = {
 				controls_state = 2704   # 1.19-migration: was vanilla 666 (Norrnorrland)
-				controls_state = 2711   # 1.19-migration: was vanilla 918 (Vasterbotten)
+				controls_state = 2711 # eu_mapping: v666 (Norrbotten) -> ME 2711 (Gällivare)
 			}
 		}
 		modifier = {
@@ -2275,7 +2275,7 @@ faction_goal_develop_baku_oil_fields = {
 			every_state = {
 				limit = {
 					OR = {
-						state = 821   # 1.19-migration: was vanilla 232 (Grozny)
+						state = 821 # eu_mapping: v821 (Chechnya-Ingushetia) -> ME 821 (Grozny)
 						state = 2491   # 1.19-migration: was vanilla 821 (?)
 					}
 				}
@@ -2296,7 +2296,7 @@ faction_goal_develop_baku_oil_fields = {
 		base = 1 # Everyone should always kiiiinda care about oil
 		modifier = {
 			add = 1 # State owners should care more
-			controls_state = 2292   # 1.19-migration: was vanilla 46 (Romania)
+			controls_state = 2292 # eu_mapping: v229 (Azerbaijan) -> ME 2292 (Baku)
 		}
 		modifier = {
 			add = -1 # If the alliance is doing well with fuel avoid taking this...
@@ -2385,7 +2385,7 @@ faction_goal_develop_iraqi_oil = {
 		base = 1 # Everyone should always kiiiinda care about oil
 		modifier = {
 			add = 1 # State owners should care more
-			controls_state = 2210   # 1.19-migration: was vanilla 46 (Romania)
+			controls_state = 2210 # eu_mapping: v291 (Baghdad) -> ME 2210 (Baghdad)
 		}
 		modifier = {
 			add = -1 # If the alliance is doing well with fuel avoid taking this...
@@ -2474,7 +2474,7 @@ faction_goal_develop_persian_oil = {
 		base = 1 # Everyone should always kiiiinda care about oil
 		modifier = {
 			add = 1 # State owners should care more
-			controls_state = 1238   # 1.19-migration: was vanilla 46 (Romania)
+			controls_state = 1238 # eu_mapping: v413 (Khuzestan) -> ME 1238 (Khūzestān)
 		}
 		modifier = {
 			add = -1 # If the alliance is doing well with fuel avoid taking this...
@@ -5064,28 +5064,28 @@ faction_goal_fortify_strait_of_hormuz = {
 	}
 	visible = {
 		OR = {
-			1274 = { is_controlled_by_ROOT_or_ally = yes }   # 1.19-migration: was vanilla 412 (Fars)
+			1314 = { is_controlled_by_ROOT_or_ally = yes }   # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 			2300 = { is_controlled_by_ROOT_or_ally = yes }   # 1.19-migration: was vanilla 1013 (?)
 		}
 	}
 	available = {
-		1274 = { is_controlled_by_ROOT_or_ally = yes }   # 1.19-migration: was vanilla 412 (Fars)
+		1314 = { is_controlled_by_ROOT_or_ally = yes }   # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 		2300 = { is_controlled_by_ROOT_or_ally = yes }   # 1.19-migration: was vanilla 1013 (?)
 	}
 	completed = {
 		custom_trigger_tooltip = {
             tooltip = fortify_strait_of_hormuz_tooltip
-			1274 = {   # 1.19-migration: was vanilla 412 (Fars)
+			1314 = {   # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 				any_province_building_level = {
 					province = {
-						id = 18937   # 1.19-migration: was vanilla province 7982
+						id = 6585   # eu_mapping: v_prov 7982 -> Bandar Abbas coastal VP/port (ME 1314)
 					}
 					building = coastal_bunker
 					level > 0
 				}
 				any_province_building_level = {
 					province = {
-						id = 18937   # 1.19-migration: was vanilla province 7982
+						id = 6585   # eu_mapping: v_prov 7982 -> Bandar Abbas coastal VP/port (ME 1314)
 					}
 					building = bunker
 					level > 0
@@ -5109,11 +5109,11 @@ faction_goal_fortify_strait_of_hormuz = {
 			}
 			OR = {
 				AND = {
-					divisions_in_state = { state = 1274 size > 0 }  # 1.19-migration: was vanilla 412 (Fars)
+					divisions_in_state = { state = 1314 size > 0 }  # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 					divisions_in_state = { state = 2300 size > 0 }  # 1.19-migration: was vanilla 1013 (?)
 				}
 				any_allied_country = {
-					divisions_in_state = { state = 1274 size > 0 }  # 1.19-migration: was vanilla 412 (Fars)
+					divisions_in_state = { state = 1314 size > 0 }  # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 					divisions_in_state = { state = 2300 size > 0 }  # 1.19-migration: was vanilla 1013 (?)
 				}
 			}
@@ -5127,13 +5127,13 @@ faction_goal_fortify_strait_of_hormuz = {
 			visible_when_empty = yes
 			limit = {
 				OR = {
-					controls_state = 1274   # 1.19-migration: was vanilla 412 (Fars)
+					controls_state = 1314   # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 					controls_state = 2300   # 1.19-migration: was vanilla 1013 (?)
 				}
 			}
 			add_faction_initiative = 1
 		}
-		1274 = {   # 1.19-migration: was vanilla 412 (Fars)
+		1314 = {   # eu_mapping: v412 (Fars) -> ME 1314 (Hormozgan)
 			add_building_construction = {
 				type = anti_air_building
 				level = 1
@@ -5142,13 +5142,13 @@ faction_goal_fortify_strait_of_hormuz = {
 			add_building_construction = {
 				type = coastal_bunker
 				level = 1
-				province = 18937   # 1.19-migration: was vanilla province 7982
+				province = 6585   # eu_mapping: v_prov 7982 -> Bandar Abbas coastal VP/port (ME 1314)
 				instant_build = yes
 			}
 			add_building_construction = {
 				type = bunker
 				level = 1
-				province = 18937   # 1.19-migration: was vanilla province 7982
+				province = 6585   # eu_mapping: v_prov 7982 -> Bandar Abbas coastal VP/port (ME 1314)
 				instant_build = yes
 			}
 		}

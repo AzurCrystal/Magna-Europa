@@ -181,22 +181,23 @@ shared_focus = {
 		else_if = {
 			limit = {
 				#JAP = {   # 1.19-migration: dead tag JAP
-					exists = yes
-					has_capitulated = no
-					has_government = fascism
-					NOT = { has_war_with = ROOT }
-				}
+					#exists = yes
+					#has_capitulated = no
+					#has_government = fascism
+					#NOT = { has_war_with = ROOT }
+				#}
+				always = no
 			}
 			#JAP = {   # 1.19-migration: dead tag JAP
-				add_opinion_modifier = {
-					target = PREV
-					modifier = BALTIC_investments
-				}
-				reverse_add_opinion_modifier = {
-					target = PREV
-					modifier = BALTIC_investments
-				}
-			}
+				#add_opinion_modifier = {
+					#target = PREV
+					#modifier = BALTIC_investments
+				#}
+				#reverse_add_opinion_modifier = {
+					#target = PREV
+					#modifier = BALTIC_investments
+				#}
+			#}
 		}
 		else_if = {
 			limit = {suitable_fascist_major_in_europe = yes }
@@ -781,29 +782,6 @@ shared_focus = {
 					cic = 500
 					equipment_type = light_tank_chassis
 					seller_trigger = is_fascist_seller_trigger
-				}
-			}
-		}
-		else_if = { 
-			limit = {
-				#JAP = {   # 1.19-migration: dead tag JAP
-					exists = yes
-					has_capitulated = no
-					has_government = fascism
-					NOT = { has_war_with = ROOT }
-				}
-			}
-			#JAP = {   # 1.19-migration: dead tag JAP
-				give_fascist_tank_licences = yes
-			}
-			if = {
-				limit = {
-					has_dlc = "Arms Against Tyranny"
-				}
-				add_equipment_subsidy = {
-					cic = 500
-					equipment_type = light_tank_chassis
-					#seller_tags  = { JAP }   # 1.19-migration: dead tag JAP
 				}
 			}
 		}
@@ -1778,7 +1756,7 @@ shared_focus = {
 		OR = {
 			AND = {
 				original_tag = LIT
-				controls_state = 274   # 1.19-migration: was vanilla 11 (Kaunas)
+				controls_state = 242 # eu_mapping: v11 (Kaunas) -> ME 242 (Kauno)
 			}
 			AND = {
 				original_tag = LAT

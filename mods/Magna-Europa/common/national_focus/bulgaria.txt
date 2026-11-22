@@ -534,13 +534,13 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			controls_state = 1566   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
 			add_stability = 0.05
-			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
+			1566 = {   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = industrial_complex
@@ -563,12 +563,12 @@ focus_tree = {
 		cost = 5
 
 		available = {
-			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			controls_state = 1566   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY}
 		completion_reward = {
-			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
+			1566 = {   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 				add_resource = {
 					type = aluminium
 					amount = 8 #At least one factory's worth
@@ -588,7 +588,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			controls_state = 1566   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
@@ -629,7 +629,7 @@ focus_tree = {
 		available = {
 			has_tech = excavation2
 			OR = {
-				controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+				controls_state = 1566   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 				controls_state = 878   # 1.19-migration: was vanilla 212 (Plovdiv)
 			}
 		}
@@ -661,17 +661,34 @@ focus_tree = {
 
 		available = {
 			has_tech = excavation3
-			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			controls_state = 1566   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 		}
 		
 		search_filters = {FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH}
 		completion_reward = {
 			log = "[GetDateText]: [Root.GetName]: Focus BUL_uranium_prospecting"   # 1.19-migration: closed unterminated log string
-			add_tech_bonus = {
-				name = BUL_uranium_prospecting
-			    bonus = 2.0
-			    uses = 2
-			    category = nuclear
+			IF = {
+				limit = {
+					NOT = {
+						has_tech = atomic_research
+					}
+				}
+				add_tech_bonus = {
+					name = BUL_uranium_prospecting
+					bonus = 1.0
+					uses = 1
+					category = nuclear
+				}
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 0.8
+				}
+			}
+			ELSE = {
+				add_breakthrough_progress = {
+					specialization = specialization_nuclear
+					value = 1
+				}
 			}
 			add_ideas = BUL_buhovo_uranium_mines
 			if = { 
@@ -881,7 +898,7 @@ focus_tree = {
 		mutually_exclusive = { focus = BUL_foreign_aircraft_designers }
 
 		available = {
-			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
+			1566 = {   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 				is_owned_by = BUL
 			}
 		}
@@ -1319,7 +1336,7 @@ focus_tree = {
 		cost = 10
 
 		available = {
-			controls_state = 1565   # 1.19-migration: was vanilla 48 (Sofia)
+			controls_state = 1566   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 			controls_state = 878   # 1.19-migration: was vanilla 212 (Plovdiv)
 			controls_state = 868   # 1.19-migration: was vanilla 211 (Burgas)
 			controls_state = 1575   # 1.19-migration: was vanilla 801 (Moesia)
@@ -1437,7 +1454,7 @@ focus_tree = {
 		mutually_exclusive = { focus = BUL_reinforce_naval_bases }
 
 		available = {
-			1565 = {   # 1.19-migration: was vanilla 48 (Sofia); mod Vratsa
+			1566 = {   # MEPORT: vanilla 48 (Sofia) -> ME 1566 (Sofiya)
 				is_owned_by = BUL
 			}
 		}

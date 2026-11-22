@@ -2142,7 +2142,7 @@ country_event = {
 ##       ##     ## ##    ##  ##        ##  ##    ##  ##   ###    ##        ##     ## ##        ##     ##     ##  ##    ## ##    ## 
 ##        #######  ##     ## ######## ####  ######   ##    ##    ##         #######  ######## ####    ##    ####  ######   ######  
 
-# SOV is pressuring our government - Event for Targeted country ### (ITA uses this too)
+# SOV is pressuring our government - Event for Targeted country ### (ITA&CZE&ROM&FIN use this too)
 country_event = {
 	id = NSB_soviet_foreign_politics_events.1
 	title = NSB_soviet_foreign_politics_events.1.t
@@ -2156,11 +2156,14 @@ country_event = {
 		trigger = {
 			FROM = {
 				is_faction_leader = yes
+				NOT = {	#we're not interested in that
+					original_tag = ROM
+				}
 			}
 		}
 
 		ai_chance = {
-			base = 10
+			base = 20
 			modifier = {
 				factor = 2
 				strength_ratio = {
@@ -2244,23 +2247,60 @@ country_event = {
 		ai_chance = {
 			base = 10
 			modifier = {
-				factor = 5
+				factor = 2
 				OR = {
 					FROM = {
 						has_government = communism
-						communism > 0.5
+						ROOT = {
+							communism > 0.5
+						}
 					}
 					FROM = {
 						has_government = democratic
-						democratic > 0.5
+						ROOT = {
+							democratic > 0.5
+						}
 					}
 					FROM = {
 						has_government = fascism
-						fascism > 0.5
+						ROOT = {
+							fascism > 0.5
+						}
 					}
 					FROM = {
 						has_government = neutrality
-						neutrality > 0.5
+						ROOT = {
+							neutrality > 0.5
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					FROM = {
+						has_government = communism
+						ROOT = {
+							communism > 0.25
+						}
+					}
+					FROM = {
+						has_government = democratic
+						ROOT = {
+							democratic > 0.25
+						}
+					}
+					FROM = {
+						has_government = fascism
+						ROOT = {
+							fascism > 0.25
+						}
+					}
+					FROM = {
+						has_government = neutrality
+						ROOT = {
+							neutrality > 0.25
+						}
 					}
 				}
 			}
@@ -2269,6 +2309,20 @@ country_event = {
 				has_opinion = {
 					target = FROM
 					value > 75
+				}
+			}
+			modifier = {
+				factor = 1.5
+				strength_ratio = {
+					tag = FROM
+					ratio < 0.75
+				}
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = {
+					tag = FROM
+					ratio < 0.5
 				}
 			}
 			modifier = { #Appropriate PC for Foreign Affairs
@@ -2303,11 +2357,10 @@ country_event = {
 		}
 
 		set_politics = { ruling_party = FROM }
-		if = { #TODO should prob do this with all other ideologies and contexts. Limiting this just for Czechs for now. - Logan
+		if = { #Logan: PFOT addition, prevents communists in charge with 0% support
 			limit = {
 				FROM = {
 					has_government = communism
-					original_tag = CZE
 				}
 			}
 			if = {
@@ -2319,7 +2372,7 @@ country_event = {
     				popularity = 0.15
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					communism < 0.31
 				}
@@ -2328,7 +2381,7 @@ country_event = {
     				popularity = 0.10
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					communism < 0.41
 				}
@@ -2337,7 +2390,7 @@ country_event = {
     				popularity = 0.05
 				}
 			}
-			if = {
+			else_if = {
 				limit = {
 					communism < 0.51
 				}
@@ -3206,25 +3259,25 @@ country_event = {
 			transfer_state = 1146 # -> Alborz
 			transfer_state = 2354 # -> Talesh
 			transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-			transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+			transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 			transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 			transfer_state = 2546 # -> Khoy
 			transfer_state = 2547 # -> Salmas
 			transfer_state = 1076 #North Khorasan # was vanilla 1004 (North Khorasan)
 			PER = {
 				give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-				state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-				state = 1314 # -> Hormozgān
+				give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+				give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 				give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-				state = 1274 # -> Fārs
-				state = 1300 # -> Būshehr
-				state = 2349 # -> Kangan
+				give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+				give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+				give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 				give_resource_rights = { receiver = SOV state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-				state = 2350 # -> Landeh
-				state = 2351 # -> Izeh
-				state = 2394 # -> Masjed Soleimān
-				state = 2395 # -> Hoseyniyeh
-				state = 2548 # -> Khorramshahr
+				give_resource_rights = { receiver = SOV state = 2350 } # -> Landeh
+				give_resource_rights = { receiver = SOV state = 2351 } # -> Izeh
+				give_resource_rights = { receiver = SOV state = 2394 } # -> Masjed Soleimān
+				give_resource_rights = { receiver = SOV state = 2395 } # -> Hoseyniyeh
+				give_resource_rights = { receiver = SOV state = 2548 } # -> Khorramshahr
 			}
 		}
 	}
@@ -3299,7 +3352,7 @@ country_event = {
 				transfer_state = 1146 # -> Alborz
 				transfer_state = 2354 # -> Talesh
 				transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-				transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+				transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 				transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 				transfer_state = 2546 # -> Khoy
 				transfer_state = 2547 # -> Salmas
@@ -3307,18 +3360,18 @@ country_event = {
 			}
 			PER = {
 				give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-				state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-				state = 1314 # -> Hormozgān
+				give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+				give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 				give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-				state = 1274 # -> Fārs
-				state = 1300 # -> Būshehr
-				state = 2349 # -> Kangan
+				give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+				give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+				give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 				give_resource_rights = { receiver = ENG state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-				state = 2350 # -> Landeh
-				state = 2351 # -> Izeh
-				state = 2394 # -> Masjed Soleimān
-				state = 2395 # -> Hoseyniyeh
-				state = 2548 # -> Khorramshahr
+				give_resource_rights = { receiver = ENG state = 2350 } # -> Landeh
+				give_resource_rights = { receiver = ENG state = 2351 } # -> Izeh
+				give_resource_rights = { receiver = ENG state = 2394 } # -> Masjed Soleimān
+				give_resource_rights = { receiver = ENG state = 2395 } # -> Hoseyniyeh
+				give_resource_rights = { receiver = ENG state = 2548 } # -> Khorramshahr
 				give_military_access = SOV
 			}
 
@@ -3335,25 +3388,25 @@ country_event = {
 			transfer_state = 1146 # -> Alborz
 			transfer_state = 2354 # -> Talesh
 			transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-			transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+			transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 			transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 			transfer_state = 2546 # -> Khoy
 			transfer_state = 2547 # -> Salmas
 			transfer_state = 1076 #North Khorasan # was vanilla 1004 (North Khorasan)
 			PER = {
 				give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-				state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-				state = 1314 # -> Hormozgān
+				give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+				give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 				give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-				state = 1274 # -> Fārs
-				state = 1300 # -> Būshehr
-				state = 2349 # -> Kangan
+				give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+				give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+				give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 				give_resource_rights = { receiver = SOV state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-				state = 2350 # -> Landeh
-				state = 2351 # -> Izeh
-				state = 2394 # -> Masjed Soleimān
-				state = 2395 # -> Hoseyniyeh
-				state = 2548 # -> Khorramshahr
+				give_resource_rights = { receiver = SOV state = 2350 } # -> Landeh
+				give_resource_rights = { receiver = SOV state = 2351 } # -> Izeh
+				give_resource_rights = { receiver = SOV state = 2394 } # -> Masjed Soleimān
+				give_resource_rights = { receiver = SOV state = 2395 } # -> Hoseyniyeh
+				give_resource_rights = { receiver = SOV state = 2548 } # -> Khorramshahr
 			}
 		}
 	}
@@ -3443,7 +3496,7 @@ country_event = {
 				transfer_state = 1146 # -> Alborz
 				transfer_state = 2354 # -> Talesh
 				transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-				transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+				transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 				transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 				transfer_state = 2546 # -> Khoy
 				transfer_state = 2547 # -> Salmas
@@ -3451,18 +3504,18 @@ country_event = {
 			}
 			PER = {
 				give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-				state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-				state = 1314 # -> Hormozgān
+				give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+				give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 				give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-				state = 1274 # -> Fārs
-				state = 1300 # -> Būshehr
-				state = 2349 # -> Kangan
+				give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+				give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+				give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 				give_resource_rights = { receiver = ENG state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-				state = 2350 # -> Landeh
-				state = 2351 # -> Izeh
-				state = 2394 # -> Masjed Soleimān
-				state = 2395 # -> Hoseyniyeh
-				state = 2548 # -> Khorramshahr
+				give_resource_rights = { receiver = ENG state = 2350 } # -> Landeh
+				give_resource_rights = { receiver = ENG state = 2351 } # -> Izeh
+				give_resource_rights = { receiver = ENG state = 2394 } # -> Masjed Soleimān
+				give_resource_rights = { receiver = ENG state = 2395 } # -> Hoseyniyeh
+				give_resource_rights = { receiver = ENG state = 2548 } # -> Khorramshahr
 				give_military_access = SOV
 			}
 		}
@@ -3515,25 +3568,25 @@ country_event = {
 			transfer_state = 1146 # -> Alborz
 			transfer_state = 2354 # -> Talesh
 			transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-			transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+			transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 			transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 			transfer_state = 2546 # -> Khoy
 			transfer_state = 2547 # -> Salmas
 			transfer_state = 1076 #North Khorasan # was vanilla 1004 (North Khorasan)
 			PER = {
 				give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-				state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-				state = 1314 # -> Hormozgān
+				give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+				give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 				give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-				state = 1274 # -> Fārs
-				state = 1300 # -> Būshehr
-				state = 2349 # -> Kangan
+				give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+				give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+				give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 				give_resource_rights = { receiver = ENG state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-				state = 2350 # -> Landeh
-				state = 2351 # -> Izeh
-				state = 2394 # -> Masjed Soleimān
-				state = 2395 # -> Hoseyniyeh
-				state = 2548 # -> Khorramshahr
+				give_resource_rights = { receiver = ENG state = 2350 } # -> Landeh
+				give_resource_rights = { receiver = ENG state = 2351 } # -> Izeh
+				give_resource_rights = { receiver = ENG state = 2394 } # -> Masjed Soleimān
+				give_resource_rights = { receiver = ENG state = 2395 } # -> Hoseyniyeh
+				give_resource_rights = { receiver = ENG state = 2548 } # -> Khorramshahr
 				give_military_access = SOV
 			}
 		}
@@ -3574,25 +3627,25 @@ country_event = {
 			transfer_state = 1146 # -> Alborz
 			transfer_state = 2354 # -> Talesh
 			transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-			transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+			transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 			transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 			transfer_state = 2546 # -> Khoy
 			transfer_state = 2547 # -> Salmas
 			transfer_state = 1076 #North Khorasan # was vanilla 1004 (North Khorasan)
 			PER = {
 				give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-				state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-				state = 1314 # -> Hormozgān
+				give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+				give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 				give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-				state = 1274 # -> Fārs
-				state = 1300 # -> Būshehr
-				state = 2349 # -> Kangan
+				give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+				give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+				give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 				give_resource_rights = { receiver = SOV state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-				state = 2350 # -> Landeh
-				state = 2351 # -> Izeh
-				state = 2394 # -> Masjed Soleimān
-				state = 2395 # -> Hoseyniyeh
-				state = 2548 # -> Khorramshahr
+				give_resource_rights = { receiver = SOV state = 2350 } # -> Landeh
+				give_resource_rights = { receiver = SOV state = 2351 } # -> Izeh
+				give_resource_rights = { receiver = SOV state = 2394 } # -> Masjed Soleimān
+				give_resource_rights = { receiver = SOV state = 2395 } # -> Hoseyniyeh
+				give_resource_rights = { receiver = SOV state = 2548 } # -> Khorramshahr
 			}
 		}
 	}
@@ -3616,25 +3669,25 @@ country_event = {
 		transfer_state = 1146 # -> Alborz
 		transfer_state = 2354 # -> Talesh
 		transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-		transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+		transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 		transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 		transfer_state = 2546 # -> Khoy
 		transfer_state = 2547 # -> Salmas
 		transfer_state = 1076 #North Khorasan # was vanilla 1004 (North Khorasan)
 		PER = {
 			give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-			state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-			state = 1314 # -> Hormozgān
+			give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+			give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 			give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-			state = 1274 # -> Fārs
-			state = 1300 # -> Būshehr
-			state = 2349 # -> Kangan
+			give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+			give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+			give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 			give_resource_rights = { receiver = SOV state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-			state = 2350 # -> Landeh
-			state = 2351 # -> Izeh
-			state = 2394 # -> Masjed Soleimān
-			state = 2395 # -> Hoseyniyeh
-			state = 2548 # -> Khorramshahr
+			give_resource_rights = { receiver = SOV state = 2350 } # -> Landeh
+			give_resource_rights = { receiver = SOV state = 2351 } # -> Izeh
+			give_resource_rights = { receiver = SOV state = 2394 } # -> Masjed Soleimān
+			give_resource_rights = { receiver = SOV state = 2395 } # -> Hoseyniyeh
+			give_resource_rights = { receiver = SOV state = 2548 } # -> Khorramshahr
 		}
 		1206 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }   # was vanilla 411 (Isfahan)
 		1283 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }   # -> Kohgīlūye va Būyer-Ahmad
@@ -3670,25 +3723,25 @@ country_event = {
 		transfer_state = 1146 # -> Alborz
 		transfer_state = 2354 # -> Talesh
 		transfer_state = 1087 #Khorasan # was vanilla 416 (Khorasan)
-		transfer_state = 1024 #East Azerbaijan # was vanilla 1000 (East Azerbaijan -> Āzarbāyjān-e Gharbī)
+		transfer_state = 1024 # eu_mapping: v419 (West Azerbaijan) -> ME 1024 (Āzarbāyjān-e Gharbī)
 		transfer_state = 1040 # -> Āzarbāijān-e Sharqi
 		transfer_state = 2546 # -> Khoy
 		transfer_state = 2547 # -> Salmas
 		transfer_state = 1076 #North Khorasan # was vanilla 1004 (North Khorasan)
 		PER = {
 			give_resource_rights = { receiver = SOV state = 1206 } # was vanilla 411 (Isfahan -> Isfahan)
-			state = 1283 # -> Kohgīlūye va Būyer-Ahmad
-			state = 1314 # -> Hormozgān
+			give_resource_rights = { receiver = SOV state = 1283 } # -> Kohgīlūye va Būyer-Ahmad
+			give_resource_rights = { receiver = SOV state = 1314 } # -> Hormozgān
 			give_resource_rights = { receiver = SOV state = 1252 } # was vanilla 412 (Fars -> Chahār-Mahāl-o Bakhtiyārī)
-			state = 1274 # -> Fārs
-			state = 1300 # -> Būshehr
-			state = 2349 # -> Kangan
+			give_resource_rights = { receiver = SOV state = 1274 } # -> Fārs
+			give_resource_rights = { receiver = SOV state = 1300 } # -> Būshehr
+			give_resource_rights = { receiver = SOV state = 2349 } # -> Kangan
 			give_resource_rights = { receiver = ENG state = 1238 } # was vanilla 413 (Khuzestan -> Khūzestān)
-			state = 2350 # -> Landeh
-			state = 2351 # -> Izeh
-			state = 2394 # -> Masjed Soleimān
-			state = 2395 # -> Hoseyniyeh
-			state = 2548 # -> Khorramshahr
+			give_resource_rights = { receiver = ENG state = 2350 } # -> Landeh
+			give_resource_rights = { receiver = ENG state = 2351 } # -> Izeh
+			give_resource_rights = { receiver = ENG state = 2394 } # -> Masjed Soleimān
+			give_resource_rights = { receiver = ENG state = 2395 } # -> Hoseyniyeh
+			give_resource_rights = { receiver = ENG state = 2548 } # -> Khorramshahr
 			give_military_access = ROOT
 		}
 		1206 = { set_state_flag = SOV_soviet_resource_rights_iran_flag }   # was vanilla 411 (Isfahan)
@@ -4452,10 +4505,6 @@ country_event = {
 				factor = 2
 				SOV = { has_idea = SOV_maksim_litvinov }
 			}
-			modifier = { #Is going non-aligned (kill SOV in focus branch)
-				factor = 0
-				has_completed_focus = JAP_support_the_kodoha_faction
-			}
 		}
 
 		add_opinion_modifier = { target = SOV modifier = border_conflict_reconciled }
@@ -4482,14 +4531,6 @@ country_event = {
 				has_opinion = {
 					target = FROM
 					value < -50
-				}
-			}
-			modifier = { #Is going commie or historical
-				factor = 0
-				OR = {
-					has_completed_focus = JAP_the_unthinkable_option
-					has_completed_focus = JAP_return_of_the_manchukuo_exiles
-					has_completed_focus = JAP_sea_purge_the_kodoha_faction
 				}
 			}
 		}
@@ -5068,7 +5109,6 @@ country_event = {
 
 		hidden_effect = {
 			FROM = { country_event = { id = NSB_soviet_foreign_politics_events.274 hours = 1 } }
-			activate_mission = SOV_sinkiang_mineral_prospection_mission_dummy
 		}
 	}
 
@@ -5350,7 +5390,6 @@ country_event = {
 
 		hidden_effect = {
 			FROM = { country_event = { id = NSB_soviet_foreign_politics_events.277 hours = 1 } }
-			activate_mission = SOV_sinkiang_oil_prospection_mission_dummy
 		}
 	}
 
@@ -5618,7 +5657,6 @@ country_event = {
 
 		hidden_effect = {
 			FROM = { country_event = { id = NSB_soviet_foreign_politics_events.279 hours = 1 } }
-			activate_mission = SOV_sinkiang_military_aid_mission_dummy
 		}
 	}
 
@@ -5955,7 +5993,6 @@ country_event = {
 
 		hidden_effect = {
 			FROM = { country_event = { id = NSB_soviet_foreign_politics_events.281 hours = 1 } }
-			activate_mission = SOV_sinkiang_support_expansion_mission_dummy
 		}
 	}
 
@@ -6306,7 +6343,7 @@ country_event = {
 			is_subject_of = SOV
 		}
 		SOV = {
-			has_completed_focus = SOV_the_gobi_gambit
+			# 1.19-migration: SOV_the_gobi_gambit absent in ME (off-map Vladivostok branch cut)
 			surrender_progress > 0.5
 		}
 		OR = {
@@ -8507,109 +8544,19 @@ country_event = {
 		}
 		hidden_effect = {
 			random_list = {
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = stout_defender }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = devoted_trotskyist }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = devoted_trotskyist }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = devoted_trotskyist }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = devoted_trotskyist }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = devoted_trotskyist }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = devoted_trotskyist }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = devoted_trotskyist }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = cornered_fox }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = cornered_fox }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = cornered_fox }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = cornered_fox }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = cornered_fox }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = cornered_fox }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = cornered_fox }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = permanent_revolutionary }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = permanent_revolutionary }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = permanent_revolutionary }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = permanent_revolutionary }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = permanent_revolutionary }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = permanent_revolutionary }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = permanent_revolutionary }
-				}
-				691 = {   # was vanilla 20 (Rhone)
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				2983 = {   # -> Haut-Allier
+				20 = {
 					SOV = { add_country_leader_trait = indecisive }
 				}
 			}
@@ -8788,109 +8735,19 @@ country_event = {
 		}
 		hidden_effect = {
 			random_list = {
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = stout_defender }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = empire_builder }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = railroad_enthusiast }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = rearmer }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = rearmer }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = rearmer }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = rearmer }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = rearmer }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = rearmer }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = rearmer }
-				}
-				691 = {   # was vanilla 20 (Rhone)
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				2983 = {   # -> Haut-Allier
+				20 = {
 					SOV = { add_country_leader_trait = indecisive }
 				}
 			}
@@ -9074,109 +8931,19 @@ country_event = {
 		}
 		hidden_effect = {
 			random_list = {
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = stout_defender }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = stout_defender }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = empire_builder }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = empire_builder }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = railroad_enthusiast }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = railroad_enthusiast }
-				}
-				691 = {   # was vanilla 20 (Rhone)
+				20 = {
 					SOV = { add_country_leader_trait = anti_democrat }
 				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = anti_democrat }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = anti_democrat }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = anti_democrat }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = anti_democrat }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = anti_democrat }
-				}
-				2983 = {   # -> Haut-Allier
-					SOV = { add_country_leader_trait = anti_democrat }
-				}
-				691 = {   # was vanilla 20 (Rhone)
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				715 = {   # -> Ain
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				728 = {   # -> Rhône
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				747 = {   # -> Lyon
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				770 = {   # -> Haute-Loire
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				772 = {   # -> Ardèche
-					SOV = { add_country_leader_trait = indecisive }
-				}
-				2983 = {   # -> Haut-Allier
+				20 = {
 					SOV = { add_country_leader_trait = indecisive }
 				}
 			}
@@ -9406,7 +9173,7 @@ country_event = {
 		var:SOV_uprising_state = { SOV_set_civil_war_state = yes }
 		
 		random_list = {
-			540 = {   # was vanilla 25 (Limousin)
+			25 = {
 				SOV_paranoia_medium_increase_effect = yes 
 				IF = {
 					limit = {
@@ -9427,298 +9194,18 @@ country_event = {
 					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
 				}
 			}
-			585 = {   # -> Réolais et Bastide
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			640 = {   # -> Montaigne et Gurson
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			723 = {   # -> Haute-Vienne
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			751 = {   # -> Corrèze
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			753 = {   # -> Dordogne
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			783 = {   # -> Lot
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			795 = {   # -> Lot-et-Garonne
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			2982 = {   # -> Basse-Marche
-				SOV_paranoia_medium_increase_effect = yes 
-				IF = {
-					limit = {
-						var:SOV_uprising_state = { dockyard  > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = dockyard  damage = 0.75 }	}
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { arms_factory > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = arms_factory damage = 0.75 } }
-				}
-				ELSE_IF = {
-					limit = {
-						var:SOV_uprising_state = { industrial_complex > 0 }
-					}
-					var:SOV_uprising_state = { damage_building = { type = industrial_complex damage = 0.75 } }
-				}
-			}
-			540 = {   # was vanilla 25 (Limousin)
+			25 = {
 				SOV_paranoia_low_increase_effect = yes 
 				add_stability = -0.05	
 			}
-			585 = {   # -> Réolais et Bastide
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			640 = {   # -> Montaigne et Gurson
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			723 = {   # -> Haute-Vienne
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			751 = {   # -> Corrèze
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			753 = {   # -> Dordogne
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			783 = {   # -> Lot
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			795 = {   # -> Lot-et-Garonne
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			2982 = {   # -> Basse-Marche
-				SOV_paranoia_low_increase_effect = yes 
-				add_stability = -0.05	
-			}
-			540 = {   # was vanilla 25 (Limousin)
+			25 = {
 				SOV_paranoia_low_increase_effect = yes 
 				add_popularity = {
 					ideology = democratic
 					popularity = 0.02
 				}
 			}
-			585 = {   # -> Réolais et Bastide
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			640 = {   # -> Montaigne et Gurson
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			723 = {   # -> Haute-Vienne
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			751 = {   # -> Corrèze
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			753 = {   # -> Dordogne
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			783 = {   # -> Lot
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			795 = {   # -> Lot-et-Garonne
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			2982 = {   # -> Basse-Marche
-				SOV_paranoia_low_increase_effect = yes 
-				add_popularity = {
-					ideology = democratic
-					popularity = 0.02
-				}
-			}
-			540 = {   # was vanilla 25 (Limousin)
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			585 = {   # -> Réolais et Bastide
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			640 = {   # -> Montaigne et Gurson
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			723 = {   # -> Haute-Vienne
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			751 = {   # -> Corrèze
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			753 = {   # -> Dordogne
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			783 = {   # -> Lot
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			795 = {   # -> Lot-et-Garonne
-				SOV_paranoia_very_low_increase_effect = yes 
-			}	
-			2982 = {   # -> Basse-Marche
+			25 = {
 				SOV_paranoia_very_low_increase_effect = yes 
 			}	
 		}
@@ -10260,10 +9747,6 @@ country_event = {
 			NOT = { SOV_is_exiles = yes }
 		}
 		set_capital = { state = 119 } # was vanilla 195 (Leningrad -> Leningrad)
-		state = 127 # -> Sosnovy Bor
-		state = 2787 # -> Toksovo
-		state = 2792 # -> Admiralteysky
-		state = 2793 # -> Kommunar
 	}
 	# Petrograd
 	option = {
@@ -10304,14 +9787,10 @@ country_event = {
 		2792 = { set_state_name = SOV_petrograd }   # -> Admiralteysky
 		2793 = { set_state_name = SOV_petrograd }   # -> Kommunar
 		set_province_name = {
-			id = 3151
+			id = 9985 # was vanilla 3151
 			name = SOV_petrograd
 		}
 		set_capital = { state = 119 } # was vanilla 195 (Leningrad -> Leningrad)
-		state = 127 # -> Sosnovy Bor
-		state = 2787 # -> Toksovo
-		state = 2792 # -> Admiralteysky
-		state = 2793 # -> Kommunar
 	}
 	# Keep the one we have
 	option = {
@@ -10374,14 +9853,10 @@ country_event = {
 		2792 = { set_state_name = SOV_StPetersburg }   # -> Admiralteysky
 		2793 = { set_state_name = SOV_StPetersburg }   # -> Kommunar
 		set_province_name = {
-			id = 3151
+			id = 9985 # was vanilla 3151
 			name = SOV_StPetersburg
 		}
 		set_capital = { state = 119 } # was vanilla 195 (Leningrad -> Leningrad)
-		state = 127 # -> Sosnovy Bor
-		state = 2787 # -> Toksovo
-		state = 2792 # -> Admiralteysky
-		state = 2793 # -> Kommunar
 	}
 }
 
@@ -10446,7 +9921,7 @@ country_event = {
 			}
 			random_list = {
 				# Secure loyalty of a General
-				5 = {   # was vanilla 10 (Warsaw)
+				10 = {
 					random_army_leader = {
 						limit = {
 							NOT = { has_trait = trait_SOV_stalinist }
@@ -10459,215 +9934,7 @@ country_event = {
 					}
 					activate_mission = SOV_align_general_stalin
 				}
-				351 = {   # -> Ostrów Mazowiecka
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				370 = {   # -> Pruszków
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				407 = {   # -> Sochaczew
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				508 = {   # -> Warszawa
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				982 = {   # -> Siedlce
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				1981 = {   # -> Legionowo
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				2927 = {   # -> Wyszkow
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				2928 = {   # -> Kosów Lacki
-					random_army_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_general_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_general_stalin
-				}
-				5 = {   # was vanilla 10 (Warsaw)
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				351 = {   # -> Ostrów Mazowiecka
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				370 = {   # -> Pruszków
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				407 = {   # -> Sochaczew
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				508 = {   # -> Warszawa
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				982 = {   # -> Siedlce
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				1981 = {   # -> Legionowo
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				2927 = {   # -> Wyszkow
-					random_navy_leader = {
-						limit = {
-							NOT = { has_trait = trait_SOV_stalinist }
-							NOT = { has_trait = trait_SOV_bukharinist }
-							NOT = { has_trait = trait_SOV_trotskyist }
-							NOT = { has_trait = trait_SOV_monarchist_sympathizer }
-						}
-						set_variable = { SOV.SOV_selected_admiral_stalin = THIS }
-
-					}
-					activate_mission = SOV_align_admiral_stalin
-				}
-				2928 = {   # -> Kosów Lacki
+				10 = {
 					random_navy_leader = {
 						limit = {
 							NOT = { has_trait = trait_SOV_stalinist }
@@ -10796,30 +10063,27 @@ country_event = {
 		}
 		# Stalingrad
 		set_province_name = {
-			id = 3529
+			id = 13216 # was vanilla 3529
 			name = SOV_Volgograd
 		}
-		hidden_effect = { 217 = { set_state_name = SOV_Volgograd } }
+		hidden_effect = { 457 = { set_state_name = SOV_Volgograd } }   # was vanilla 217
 		# Stalino / Donetsk / Yuzovka / Trotsk 
 		set_province_name = {
-			id = 6474
+			id = 1709 # was vanilla 6474
 			name = SOV_Donetsk
 		}
-		hidden_effect = { 227 = { set_state_name = SOV_Donetsk } }
+		hidden_effect = { 557 = { set_state_name = SOV_Donetsk } }   # was vanilla 227
 		# Stalinabad / Dushanbe
-		set_province_name = {
-			id = 1384
-			name = SOV_Dushanbe
-		}
-		hidden_effect = { 742 = { set_state_name = SOV_Dushanbe set_state_flag = dushanbe_flag } }
+		# set_province_name = { id = 1384 name = SOV_Dushanbe }   # 1.19-migration: off-map vanilla province 1384 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such province
+		# hidden_effect = { 742 = { set_state_name = SOV_Dushanbe set_state_flag = dushanbe_flag } }   # 1.19-migration: off-map vanilla state 742 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such state
 		# Kalinin / Tver
 		IF = {
 			limit = { NOT = { has_character = SOV_mikhail_kalinin } }
 			set_province_name = {
-				id = 6245
+				id = 10472 # was vanilla 6245
 				name = SOV_Tver
 			}
-			hidden_effect = { 247 = { set_state_name = SOV_Tver } }
+			hidden_effect = { 154 = { set_state_name = SOV_Tver } }   # was vanilla 247
 		}
 		# Leningrad / Petrograd / St. Petersburg
 		IF = {
@@ -10832,10 +10096,14 @@ country_event = {
 				SOV_is_exiles = yes 
 			}
 			set_province_name = {
-				id = 3151
+				id = 9985 # was vanilla 3151
 				name = SOV_StPetersburg
 			}
-			hidden_effect = { 195 = { set_state_name = SOV_StPetersburg } }
+			hidden_effect = { 119 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 127 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 2787 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 2792 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 2793 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
 		}
 		# Engels / Pokrovsk / Kosakenstadt + Marksshtadt / Yekaterinograd / Baronsk
 		IF = {
@@ -10843,35 +10111,35 @@ country_event = {
 				SOV_is_exiles = yes 
 			}
 			set_province_name = {
-				id = 11523
+				id = 12105 # was vanilla 11523
 				name = SOV_Pokrovsk
 			}
 			set_province_name = {
-				id = 9432
+				id = 6937 # was vanilla 9432
 				name = SOV_Baronsk
 			}
-			hidden_effect = { 829 = { set_state_name = SOV_Pokrovsk } }
+			hidden_effect = { 2589 = { set_state_name = SOV_Pokrovsk } }   # was vanilla 829
 		}
 		# Kirov / Vyatka
 		set_province_name = {
-			id = 6124
+			id = 10142 # was vanilla 6124
 			name = SOV_Vyatka
 		}
-		hidden_effect = { 400 = { set_state_name = SOV_Vyatka } }
+		hidden_effect = { 108 = { set_state_name = SOV_Vyatka } }   # was vanilla 400
 
 
 		# Gorky / Nizhny Novgorod
 		set_province_name = {
-			id = 11375
+			id = 10482 # was vanilla 11375
 			name = SOV_Nizhny_Novgorod
 		}
-		hidden_effect = { 252 = { set_state_name = SOV_Nizhny_Novgorod } }
+		hidden_effect = { 171 = { set_state_name = SOV_Nizhny_Novgorod } }   # was vanilla 252
 
 		# Ordzhonikidze / Vladikavkaz
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 9628
+				id = 8187 # was vanilla 9628
 				name = SOV_Vladikavkaz
 			}
 		}
@@ -10879,32 +10147,26 @@ country_event = {
 		# Frunze / Bishkek / Bishkek
 		IF = {
 			limit = { SOV_is_exiles = yes }
-			set_province_name = {
-				id = 12583
-				name = SOV_Bishkek
-			}
+			# set_province_name = { id = 12583 name = SOV_Bishkek }   # 1.19-migration: off-map vanilla province 12583 - Bishkek / Pamir (Kyrgyzstan); the ME map has no such province
 		}
 		# Yoshkar-Ola / Tsaryovokokshaysk / Krasnokokshaysk
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 9402
+				id = 10418 # was vanilla 9402
 				name = SOV_Krasnokokshaysk
 			}
 		}
 		# Kyzil / Belotsarsk / Khem-Beldir
 		IF = {
 			limit = { SOV_is_exiles = yes }
-			set_province_name = {
-				id = 10627
-				name = SOV_Khem-Beldir
-			}
+			# set_province_name = { id = 10627 name = SOV_Khem-Beldir }   # 1.19-migration: off-map vanilla province 10627 - Kyzyl / Tannu Tuva; the ME map has no such province
 		}
 		# Makhachkala / Petrovskoye / Petrovsk-Port
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 6701
+				id = 608 # was vanilla 6701
 				name = SOV_Petrovsk-Port
 			}
 		}
@@ -10913,60 +10175,60 @@ country_event = {
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 1821
+				id = 13499 # was vanilla 1821
 				name = SOV_Yekaterinburg
 			}
-			hidden_effect = { 653 = { set_state_name = SOV_Yekaterinburg } }
+			hidden_effect = { 2309 = { set_state_name = SOV_Yekaterinburg } }   # was vanilla 653
 		}
 
 		# Dnipropetrovsk / Dnipro / Yekaterinoslav
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 11437
+				id = 13406 # was vanilla 11437
 				name = SOV_Dnipro
 			}
-			hidden_effect = { 226 = { set_state_name = SOV_Dnipro } }
+			hidden_effect = { 2079 = { set_state_name = SOV_Dnipro } }   # was vanilla 226
 		}
 
 		# Voroshilovgrad / Luhansk / Luhansk
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 9461
+				id = 8565 # was vanilla 9461
 				name = SOV_Luhansk
 			}
-			hidden_effect = { 228 = { set_state_name = SOV_Luhansk } }
+			hidden_effect = { 518 = { set_state_name = SOV_Luhansk } }   # was vanilla 228
 		}
 
 		# Krasnodar / Yekaterinodar / Yekaterinodar
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 3734
+				id = 14386 # was vanilla 3734
 				name = SOV_Yekaterinodar
 			}
-			hidden_effect = { 234 = { set_state_name = SOV_Yekaterinodar } }
+			hidden_effect = { 696 = { set_state_name = SOV_Yekaterinodar } }   # was vanilla 234
 		}
 
 		# Kuybyshev / Samara / Samara
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 11225
+				id = 11357 # was vanilla 11225
 				name = SOV_Samara
 			}
-			hidden_effect = { 251 = { set_state_name = SOV_Samara } }
+			hidden_effect = { 270 = { set_state_name = SOV_Samara } }   # was vanilla 251
 		}
 
 		# Ulyanovsk / Simbirsk / Simbirsk
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 392
+				id = 18528 # was vanilla 392
 				name = SOV_Simbirsk
 			}
-			hidden_effect = { 250 = { set_state_name = SOV_Simbirsk } }
+			hidden_effect = { 261 = { set_state_name = SOV_Simbirsk } }   # was vanilla 250
 		}
 
 	}
@@ -10982,29 +10244,26 @@ country_event = {
 		}
 		# Stalingrad
 		set_province_name = {
-			id = 3529
+			id = 13216 # was vanilla 3529
 			name = SOV_Tsaritsyn
 		}
-		hidden_effect = { 217 = { set_state_name = SOV_Tsaritsyn } }
+		hidden_effect = { 457 = { set_state_name = SOV_Tsaritsyn } }   # was vanilla 217
 		# Stalino / Donetsk / Yuzovka / Trotsk 
 		set_province_name = {
-			id = 6474
+			id = 1709 # was vanilla 6474
 			name = SOV_Yuzovka
 		}
-		hidden_effect = { 227 = { set_state_name = SOV_Yuzovka } }
+		hidden_effect = { 557 = { set_state_name = SOV_Yuzovka } }   # was vanilla 227
 		# Stalinabad / Dushanbe
-		set_province_name = {
-			id = 1384
-			name = SOV_Dushanbe
-		}
-		hidden_effect = { 742 = { set_state_name = SOV_Dushanbe set_state_flag = dushanbe_flag } }
+		# set_province_name = { id = 1384 name = SOV_Dushanbe }   # 1.19-migration: off-map vanilla province 1384 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such province
+		# hidden_effect = { 742 = { set_state_name = SOV_Dushanbe set_state_flag = dushanbe_flag } }   # 1.19-migration: off-map vanilla state 742 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such state
 		# Kalinin / Tver
 		IF = {
 			set_province_name = {
-				id = 6245
+				id = 10472 # was vanilla 6245
 				name = SOV_Tver
 			}
-			hidden_effect = { 247 = { set_state_name = SOV_Tver } }
+			hidden_effect = { 154 = { set_state_name = SOV_Tver } }   # was vanilla 247
 		}
 		# Leningrad / Petrograd / St. Petersburg
 		IF = {
@@ -11017,10 +10276,14 @@ country_event = {
 				SOV_is_exiles = yes 
 			}
 			set_province_name = {
-				id = 3151
+				id = 9985 # was vanilla 3151
 				name = SOV_StPetersburg
 			}
-			hidden_effect = { 195 = { set_state_name = SOV_StPetersburg } }
+			hidden_effect = { 119 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 127 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 2787 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 2792 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
+			hidden_effect = { 2793 = { set_state_name = SOV_StPetersburg } }   # was vanilla 195
 		}
 		# Engels / Pokrovsk / Kosakenstadt + Marksshtadt / Yekaterinograd / Baronsk
 		IF = {
@@ -11028,34 +10291,34 @@ country_event = {
 				SOV_is_exiles = yes 
 			}
 			set_province_name = {
-				id = 11523
+				id = 12105 # was vanilla 11523
 				name = SOV_Kosakenstadt
 			}
 			set_province_name = {
-				id = 9432
+				id = 6937 # was vanilla 9432
 				name = SOV_Yekaterinograd
 			}
-			hidden_effect = { 829 = { set_state_name = SOV_Yekaterinograd } }
+			hidden_effect = { 2589 = { set_state_name = SOV_Yekaterinograd } }   # was vanilla 829
 		}
 		# Kirov / Vyatka
 		set_province_name = {
-			id = 6124
+			id = 10142 # was vanilla 6124
 			name = SOV_Vyatka
 		}
-		hidden_effect = { 400 = { set_state_name = SOV_Vyatka } }
+		hidden_effect = { 108 = { set_state_name = SOV_Vyatka } }   # was vanilla 400
 
 		# Gorky / Nizhny Novgorod
 		set_province_name = {
-			id = 11375
+			id = 10482 # was vanilla 11375
 			name = SOV_Nizhny_Novgorod
 		}
-		hidden_effect = { 252 = { set_state_name = SOV_Nizhny_Novgorod } }
+		hidden_effect = { 171 = { set_state_name = SOV_Nizhny_Novgorod } }   # was vanilla 252
 
 		# Ordzhonikidze / Vladikavkaz
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 9628
+				id = 8187 # was vanilla 9628
 				name = SOV_Vladikavkaz
 			}
 		}
@@ -11063,102 +10326,93 @@ country_event = {
 		# Frunze / Bishkek / Bishkek
 		IF = {
 			limit = { SOV_is_exiles = yes }
-			set_province_name = {
-				id = 12583
-				name = SOV_Bishkek
-			}
+			# set_province_name = { id = 12583 name = SOV_Bishkek }   # 1.19-migration: off-map vanilla province 12583 - Bishkek / Pamir (Kyrgyzstan); the ME map has no such province
 		}
 		# Yoshkar-Ola / Tsaryovokokshaysk / Krasnokokshaysk
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 9402
+				id = 10418 # was vanilla 9402
 				name = SOV_Tsaryovokokshaysk
 			}
 		}
 		# Kyzil / Belotsarsk / Khem-Beldir
 		IF = {
 			limit = { SOV_is_exiles = yes }
-			set_province_name = {
-				id = 10627
-				name = SOV_Belotsarsk
-			}
+			# set_province_name = { id = 10627 name = SOV_Belotsarsk }   # 1.19-migration: off-map vanilla province 10627 - Kyzyl / Tannu Tuva; the ME map has no such province
 		}
 		# Makhachkala / Petrovskoye / Petrovsk-Port
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 6701
+				id = 608 # was vanilla 6701
 				name = SOV_Petrovskoye
 			}
 		}
 		# Anadyr / Novo-Mariinsk /
 		IF = {
 			limit = { SOV_is_exiles = yes }
-			set_province_name = {
-				id = 13063
-				name = SOV_Novo-Mariinsk
-			}
+			# set_province_name = { id = 13063 name = SOV_Novo-Mariinsk }   # 1.19-migration: off-map vanilla province 13063 - Novo-Mariinsk / Chukotka; the ME map has no such province
 		}
 
 		# Sverdlovsk / Yekaterinburg /  
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 1821
+				id = 13499 # was vanilla 1821
 				name = SOV_Yekaterinburg
 			}
-			hidden_effect = { 653 = { set_state_name = SOV_Yekaterinburg } }
+			hidden_effect = { 2309 = { set_state_name = SOV_Yekaterinburg } }   # was vanilla 653
 		}
 
 		# Dnipropetrovsk / Dnipro / Yekaterinoslav
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 11437
+				id = 13406 # was vanilla 11437
 				name = SOV_Yekaterinoslav
 			}
-			hidden_effect = { 226 = { set_state_name = SOV_Yekaterinoslav } }
+			hidden_effect = { 2079 = { set_state_name = SOV_Yekaterinoslav } }   # was vanilla 226
 		}
 
 		# Voroshilovgrad / Luhansk / Luhansk
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 9461
+				id = 8565 # was vanilla 9461
 				name = SOV_Luhansk
 			}
-			hidden_effect = { 228 = { set_state_name = SOV_Luhansk } }
+			hidden_effect = { 518 = { set_state_name = SOV_Luhansk } }   # was vanilla 228
 		}
 
 		# Krasnodar / Yekaterinodar / Yekaterinodar
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 3734
+				id = 14386 # was vanilla 3734
 				name = SOV_Yekaterinodar
 			}
-			hidden_effect = { 234 = { set_state_name = SOV_Yekaterinodar } }
+			hidden_effect = { 696 = { set_state_name = SOV_Yekaterinodar } }   # was vanilla 234
 		}
 
 		# Kuybyshev / Samara / Samara
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 11225
+				id = 11357 # was vanilla 11225
 				name = SOV_Samara
 			}
-			hidden_effect = { 251 = { set_state_name = SOV_Samara } }
+			hidden_effect = { 270 = { set_state_name = SOV_Samara } }   # was vanilla 251
 		}
 
 		# Ulyanovsk / Simbirsk / Simbirsk
 		IF = {
 			limit = { SOV_is_exiles = yes }
 			set_province_name = {
-				id = 392
+				id = 18528 # was vanilla 392
 				name = SOV_Simbirsk
 			}
-			hidden_effect = { 250 = { set_state_name = SOV_Simbirsk } }
+			hidden_effect = { 261 = { set_state_name = SOV_Simbirsk } }   # was vanilla 250
 		}
 	
 		
@@ -11176,55 +10430,52 @@ country_event = {
 		
 		# Stalingrad
 		set_province_name = {
-			id = 3529
+			id = 13216 # was vanilla 3529
 			name = SOV_Trotskygrad
 		}
-		hidden_effect = { 217 = { set_state_name = SOV_Trotskygrad } }
+		hidden_effect = { 457 = { set_state_name = SOV_Trotskygrad } }   # was vanilla 217
 		
 		# Stalino / Donetsk / Yuzovka / Trotsk 
 		set_province_name = {
-			id = 6474
+			id = 1709 # was vanilla 6474
 			name = SOV_Trotsk
 		}
-		hidden_effect = { 227 = { set_state_name = SOV_Trotsk } }
+		hidden_effect = { 557 = { set_state_name = SOV_Trotsk } }   # was vanilla 227
 		# Stalinabad / Dushanbe
-		set_province_name = {
-			id = 1384
-			name = SOV_Smirnovabad
-		}
-		hidden_effect = { 742 = { set_state_name = SOV_Smirnovabad } }
+		# set_province_name = { id = 1384 name = SOV_Smirnovabad }   # 1.19-migration: off-map vanilla province 1384 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such province
+		# hidden_effect = { 742 = { set_state_name = SOV_Smirnovabad } }   # 1.19-migration: off-map vanilla state 742 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such state
 		# Kalinin / Tver
 		IF = {
 			limit = { NOT = { has_character = SOV_mikhail_kalinin } }
 			IF = {
 				limit = { has_character = SOV_grigory_zinovyev}
 				set_province_name = {
-					id = 6245
+					id = 10472 # was vanilla 6245
 					name = SOV_zinovyev
 				}
-				hidden_effect = { 247 = { set_state_name = SOV_zinovyev } }
+				hidden_effect = { 154 = { set_state_name = SOV_zinovyev } }   # was vanilla 247
 			}
 			ELSE = {
 				set_province_name = {
-					id = 6245
+					id = 10472 # was vanilla 6245
 					name = SOV_Tver
 				}
-				hidden_effect = { 247 = { set_state_name = SOV_Tver } }
+				hidden_effect = { 154 = { set_state_name = SOV_Tver } }   # was vanilla 247
 			}
 		}
 		# Kirov / Vyatka
 		set_province_name = {
-			id = 6124
+			id = 10142 # was vanilla 6124
 			name = SOV_Vyatka
 		}
-		hidden_effect = { 400 = { set_state_name = SOV_Vyatka } }
+		hidden_effect = { 108 = { set_state_name = SOV_Vyatka } }   # was vanilla 400
 
 		# Gorky / Nizhny Novgorod
 		set_province_name = {
-			id = 11375
+			id = 10482 # was vanilla 11375
 			name = SOV_Nizhny_Novgorod
 		}
-		hidden_effect = { 252 = { set_state_name = SOV_Nizhny_Novgorod } }
+		hidden_effect = { 171 = { set_state_name = SOV_Nizhny_Novgorod } }   # was vanilla 252
 		
 	}
 	# Bukharino - Only if Right opposition, but Bukharin has been killed
@@ -11240,44 +10491,41 @@ country_event = {
 		}
 		# Stalingrad
 		set_province_name = {
-			id = 3529
+			id = 13216 # was vanilla 3529
 			name = SOV_Bukharino
 		}
-		hidden_effect = { 217 = { set_state_name = SOV_Bukharino } }
+		hidden_effect = { 457 = { set_state_name = SOV_Bukharino } }   # was vanilla 217
 		# Stalino / Donetsk / Yuzovka / Trotsk 
 		set_province_name = {
-			id = 6474
+			id = 1709 # was vanilla 6474
 			name = SOV_Donetsk
 		}
-		hidden_effect = { 227 = { set_state_name = SOV_Donetsk }}
+		hidden_effect = { 557 = { set_state_name = SOV_Donetsk }}   # was vanilla 227
 		# Stalinabad / Dushanbe
-		set_province_name = {
-			id = 1384
-			name = SOV_Dushanbe
-		}
-		hidden_effect = { 742 = { set_state_name = SOV_Dushanbe set_state_flag = dushanbe_flag } }
+		# set_province_name = { id = 1384 name = SOV_Dushanbe }   # 1.19-migration: off-map vanilla province 1384 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such province
+		# hidden_effect = { 742 = { set_state_name = SOV_Dushanbe set_state_flag = dushanbe_flag } }   # 1.19-migration: off-map vanilla state 742 - Stalinabad/Dushanbe (Tajikistan); the ME map has no such state
 		# Kalinin / Tver
 		IF = {
 			limit = { NOT = { has_character = SOV_mikhail_kalinin } }
 			set_province_name = {
-				id = 6245
+				id = 10472 # was vanilla 6245
 				name = SOV_Rykovgrad
 			}
-			hidden_effect = { 247 = { set_state_name = SOV_Rykovgrad } }
+			hidden_effect = { 154 = { set_state_name = SOV_Rykovgrad } }   # was vanilla 247
 		}
 		# Kirov / Vyatka
 		set_province_name = {
-			id = 6124
+			id = 10142 # was vanilla 6124
 			name = SOV_Vyatka
 		}
-		hidden_effect = { 400 = { set_state_name = SOV_Vyatka } }		
+		hidden_effect = { 108 = { set_state_name = SOV_Vyatka } }   # was vanilla 400
 
 		# Gorky / Nizhny Novgorod
 		set_province_name = {
-			id = 11375
+			id = 10482 # was vanilla 11375
 			name = SOV_Nizhny_Novgorod
 		}
-		hidden_effect = { 252 = { set_state_name = SOV_Nizhny_Novgorod } }
+		hidden_effect = { 171 = { set_state_name = SOV_Nizhny_Novgorod } }   # was vanilla 252
 	}
 }
 
@@ -12900,18 +12148,9 @@ country_event = {
 		IF = {
 			limit = { has_global_flag =  SOV_soviet_civil_war } # No point in kicking off if war has ended already
 			random_list = {
-				432 = { } # Nothing happens    # was vanilla 35 (Brabant)
-				474 = { } # Nothing happens    # -> Limburg
-				479 = { } # Nothing happens    # -> Oost Noord-Brabant
-				1317 = { } # Nothing happens    # -> Achterhoek
-				2331 = { } # Nothing happens    # -> Rivierenland
-				2332 = { } # Nothing happens    # -> Onderrijnmond
-				2344 = { } # Nothing happens    # -> Zuid Overmaas
-				2713 = { } # Nothing happens    # -> West Noord-Brabant
-				2717 = { } # Nothing happens    # -> Noord Overmaas
-				2845 = { } # Nothing happens    # -> 's-Hertogenbosch
+				35 = { } # Nothing happens
 				# the "Western" Front
-				454 = { # Ukrainian uprising   # was vanilla 6 (Flanders)
+				6 = { # Ukrainian uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -12931,47 +12170,7 @@ country_event = {
 					set_country_flag = ukr_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				455 = { # Ukrainian uprising   # -> Oost-Vlaanderen
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a ukrainian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = { 
-							has_country_flag = ukr_uprising_flag
-							UKR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = UKR }
-					set_country_flag = ukr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2969 = { # Ukrainian uprising   # -> Bruxelles
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a ukrainian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = { 
-							has_country_flag = ukr_uprising_flag
-							UKR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = UKR }
-					set_country_flag = ukr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				876 = { # Belarussan uprising   # was vanilla 2 (Lazio)
+				2 = { # Belarussan uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -12987,231 +12186,7 @@ country_event = {
 					set_country_flag = blr_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1384 = { # Belarussan uprising   # -> Grosseto
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1392 = { # Belarussan uprising   # -> Terni
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1393 = { # Belarussan uprising   # -> Viterbo
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1394 = { # Belarussan uprising   # -> Rieti
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1395 = { # Belarussan uprising   # -> Frosinone
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1396 = { # Belarussan uprising   # -> Littoria
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2597 = { # Belarussan uprising   # -> Civitavecchia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2598 = { # Belarussan uprising   # -> Tivoli
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2599 = { # Belarussan uprising   # -> Anzio
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2600 = { # Belarussan uprising   # -> Roma Ovest
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2601 = { # Belarussan uprising   # -> Roma Est
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2602 = { # Belarussan uprising   # -> Ostia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2607 = { # Belarussan uprising   # -> Roma Nord
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2616 = { # Belarussan uprising   # -> Civitas Vaticana
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = blr_uprising_flag
-							BLR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BLR }
-					set_country_flag = blr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # CRI uprising   # was vanilla 1 (Corsica)
+				1 = { # CRI uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -13234,30 +12209,7 @@ country_event = {
 					set_country_flag = CRI_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # CRI uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = CRI
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = CRI_uprising_flag
-							CRI = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = CRI }
-					set_country_flag = CRI_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # KAR uprising   # was vanilla 1 (Corsica)
+				1 = { # KAR uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -13308,110 +12260,7 @@ country_event = {
 
 						KAR = {
 							set_capital = {
-								state = 30 # was vanilla 215 (Onega -> Medvezhyegorsk)
-								state = 33 # -> Paanajärvi
-								state = 38 # -> Ukhta
-								state = 39 # -> Belomorsk
-								state = 52 # -> Segezha
-								state = 62 # -> Repola
-								state = 74 # -> Porajärvi
-								state = 2458 # -> Onega
-							}
-
-							division_template = {
-							    name = "Karjalan Metsäsissit"
-								is_locked = yes
-								priority = 1
-								template_counter = 27
-								regiments = {
-									infantry = { x = 0 y = 0 }
-									infantry = { x = 0 y = 1 }
-									infantry = { x = 0 y = 2 }
-									infantry = { x = 1 y = 0 }
-									infantry = { x = 1 y = 1 }
-								}
-							}
-							every_owned_state = {
-								limit = { is_core_of = KAR }
-								create_unit = { 
-									division = "name = \"Karjalan Metsäsissit\" division_template = \"Karjalan Metsäsissit\" start_experience_factor = 0.05 start_equipment_factor = 0.95"
-									owner = KAR
-									count = 1
-								}
-							}
-							# Add extra country leader trait to the possible leaders (fascist & non-aligned)
-							KAR_ukki_vainamoinen = {
-								add_country_leader_trait = {
-								 	ideology = fascism_ideology
-								 	trait = veteran_guerrilla_fighter
-								 }
-							}
-							KAR_jalmari_takkinen = {
-								add_country_leader_trait = veteran_guerrilla_fighter
-							}
-						}
-					}
-					
-				}
-				1422 = { # KAR uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = KAR
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAR_uprising_flag
-							KAR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAR }
-					set_country_flag = KAR_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-					IF = {
-						limit = {
-							FIN = {
-								exists = yes
-								NOT = {
-									has_government = communism
-								}
-							}
-						}
-						FIN = { country_event = AAT_finland_kinship_war.06 }
-					}
-					hidden_effect = {
-						#Add Repola and Uhtua VPs
-						add_victory_points = {
-							province = 6098 #Repola
-							value = 1
-						}
-						add_victory_points = {
-							province = 3067 #Uhtua
-							value = 1
-						}
-						#Add Porajärvi VP
-						add_victory_points = {
-							province = 2998 #Porajärvi
-							value = 1
-						}
-
-						KAR = {
-							set_capital = {
-								state = 30 # was vanilla 215 (Onega -> Medvezhyegorsk)
-								state = 33 # -> Paanajärvi
-								state = 38 # -> Ukhta
-								state = 39 # -> Belomorsk
-								state = 52 # -> Segezha
-								state = 62 # -> Repola
-								state = 74 # -> Porajärvi
-								state = 2458 # -> Onega
+								state = 2458 # was vanilla 215 (Onega -> Onega)
 							}
 
 							division_template = {
@@ -13450,7 +12299,7 @@ country_event = {
 					
 				}
 				# The Caucasus 
-				643 = { # Georgian uprising   # was vanilla 3 (Swiss Plateau)
+				3 = { # Georgian uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -13470,247 +12319,7 @@ country_event = {
 					set_country_flag = geo_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				647 = { # Georgian uprising   # -> Zürich
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				661 = { # Georgian uprising   # -> Bern
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				669 = { # Georgian uprising   # -> Luzern
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1445 = { # Georgian uprising   # -> Freiburg
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1450 = { # Georgian uprising   # -> Obwalden
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1454 = { # Georgian uprising   # -> Appenzell Innerhoden
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1455 = { # Georgian uprising   # -> Appenzell Ausserrhoden
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1456 = { # Georgian uprising   # -> Thurgau
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1457 = { # Georgian uprising   # -> Schaffhausen
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1458 = { # Georgian uprising   # -> Zug
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1459 = { # Georgian uprising   # -> Uri
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2348 = { # Georgian uprising   # -> Monthey
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 1.5 # To keep a georgian uprising always slightly more likely than the others
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = geo_uprising_flag
-							GEO = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = GEO }
-					set_country_flag = geo_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				876 = { # Armenian uprising   # was vanilla 2 (Lazio)
+				2 = { # Armenian uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -13726,231 +12335,7 @@ country_event = {
 					set_country_flag = arm_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1384 = { # Armenian uprising   # -> Grosseto
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1392 = { # Armenian uprising   # -> Terni
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1393 = { # Armenian uprising   # -> Viterbo
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1394 = { # Armenian uprising   # -> Rieti
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1395 = { # Armenian uprising   # -> Frosinone
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1396 = { # Armenian uprising   # -> Littoria
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2597 = { # Armenian uprising   # -> Civitavecchia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2598 = { # Armenian uprising   # -> Tivoli
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2599 = { # Armenian uprising   # -> Anzio
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2600 = { # Armenian uprising   # -> Roma Ovest
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2601 = { # Armenian uprising   # -> Roma Est
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2602 = { # Armenian uprising   # -> Ostia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2607 = { # Armenian uprising   # -> Roma Nord
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2616 = { # Armenian uprising   # -> Civitas Vaticana
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = arm_uprising_flag
-							ARM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ARM }
-					set_country_flag = arm_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				876 = { # Azer uprising   # was vanilla 2 (Lazio)
+				2 = { # Azer uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -13966,231 +12351,7 @@ country_event = {
 					set_country_flag = azr_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1384 = { # Azer uprising   # -> Grosseto
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1392 = { # Azer uprising   # -> Terni
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1393 = { # Azer uprising   # -> Viterbo
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1394 = { # Azer uprising   # -> Rieti
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1395 = { # Azer uprising   # -> Frosinone
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1396 = { # Azer uprising   # -> Littoria
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2597 = { # Azer uprising   # -> Civitavecchia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2598 = { # Azer uprising   # -> Tivoli
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2599 = { # Azer uprising   # -> Anzio
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2600 = { # Azer uprising   # -> Roma Ovest
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2601 = { # Azer uprising   # -> Roma Est
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2602 = { # Azer uprising   # -> Ostia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2607 = { # Azer uprising   # -> Roma Nord
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2616 = { # Azer uprising   # -> Civitas Vaticana
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = azr_uprising_flag
-							AZR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = AZR }
-					set_country_flag = azr_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				876 = { # Kalmyk uprising   # was vanilla 2 (Lazio)
+				2 = { # Kalmyk uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14206,231 +12367,7 @@ country_event = {
 					set_country_flag = KAL_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1384 = { # Kalmyk uprising   # -> Grosseto
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1392 = { # Kalmyk uprising   # -> Terni
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1393 = { # Kalmyk uprising   # -> Viterbo
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1394 = { # Kalmyk uprising   # -> Rieti
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1395 = { # Kalmyk uprising   # -> Frosinone
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1396 = { # Kalmyk uprising   # -> Littoria
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2597 = { # Kalmyk uprising   # -> Civitavecchia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2598 = { # Kalmyk uprising   # -> Tivoli
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2599 = { # Kalmyk uprising   # -> Anzio
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2600 = { # Kalmyk uprising   # -> Roma Ovest
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2601 = { # Kalmyk uprising   # -> Roma Est
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2602 = { # Kalmyk uprising   # -> Ostia
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2607 = { # Kalmyk uprising   # -> Roma Nord
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				2616 = { # Kalmyk uprising   # -> Civitas Vaticana
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KAL_uprising_flag
-							KAL = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAL }
-					set_country_flag = KAL_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # DAG uprising   # was vanilla 1 (Corsica)
+				1 = { # DAG uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14453,30 +12390,7 @@ country_event = {
 					set_country_flag = DAG_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # DAG uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = DAG
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = DAG_uprising_flag
-							DAG = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = DAG }
-					set_country_flag = DAG_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # CIN uprising   # was vanilla 1 (Corsica)
+				1 = { # CIN uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14499,53 +12413,7 @@ country_event = {
 					set_country_flag = CIN_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # CIN uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = CIN
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = CIN_uprising_flag
-							CIN = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = CIN }
-					set_country_flag = CIN_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # ABK uprising   # was vanilla 1 (Corsica)
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = ABK
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = ABK_uprising_flag
-							ABK = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = ABK }
-					set_country_flag = ABK_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1422 = { # ABK uprising   # -> Haute-Corse
+				1 = { # ABK uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14570,7 +12438,7 @@ country_event = {
 				}
 
 				# The Urals
-				866 = { # KOM uprising   # was vanilla 1 (Corsica)
+				1 = { # KOM uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14593,53 +12461,7 @@ country_event = {
 					set_country_flag = KOM_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # KOM uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = KOM
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KOM_uprising_flag
-							KOM = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KOM }
-					set_country_flag = KOM_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # NEN uprising   # was vanilla 1 (Corsica)
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = NEN
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = NEN_uprising_flag
-							NEN = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = NEN }
-					set_country_flag = NEN_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1422 = { # NEN uprising   # -> Haute-Corse
+				1 = { # NEN uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14664,7 +12486,7 @@ country_event = {
 				}
 
 				# Central Asia
-				866 = { # Khivan uprising   # was vanilla 1 (Corsica)
+				1 = { # Khivan uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14687,30 +12509,7 @@ country_event = {
 					set_country_flag = khi_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # Khivan uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = KHI
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = khi_uprising_flag
-							KHI = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KHI }
-					set_country_flag = khi_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # Bukharan uprising   # was vanilla 1 (Corsica)
+				1 = { # Bukharan uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14733,30 +12532,7 @@ country_event = {
 					set_country_flag = buk_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # Bukharan uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = BUK
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = buk_uprising_flag
-							BUK = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BUK }
-					set_country_flag = buk_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # Kazakh uprising   # was vanilla 1 (Corsica)
+				1 = { # Kazakh uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14779,30 +12555,7 @@ country_event = {
 					set_country_flag = kaz_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # Kazakh uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						any_state = {
-							is_core_of = KAZ
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = kaz_uprising_flag
-							KAZ = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KAZ }
-					set_country_flag = kaz_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # UZB uprising   # was vanilla 1 (Corsica)
+				1 = { # UZB uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14825,30 +12578,7 @@ country_event = {
 					set_country_flag = uzb_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # UZB uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0
-						any_state = {
-							is_core_of = UZB
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = uzb_uprising_flag
-							UZB = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = UZB }
-					set_country_flag = uzb_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # KKP uprising   # was vanilla 1 (Corsica)
+				1 = { # KKP uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14871,30 +12601,7 @@ country_event = {
 					set_country_flag = kkp_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # KKP uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = KKP
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = kkp_uprising_flag
-							KKP = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KKP }
-					set_country_flag = kkp_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # TMS uprising   # was vanilla 1 (Corsica)
+				1 = { # TMS uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14917,30 +12624,7 @@ country_event = {
 					set_country_flag = tms_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # TMS uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = TMS
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = tms_uprising_flag
-							TMS = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = TMS }
-					set_country_flag = tms_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # KYR uprising   # was vanilla 1 (Corsica)
+				1 = { # KYR uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -14963,53 +12647,7 @@ country_event = {
 					set_country_flag = KYR_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1422 = { # KYR uprising   # -> Haute-Corse
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = KYR
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KYR_uprising_flag
-							KYR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KYR }
-					set_country_flag = KYR_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				866 = { # TAJ uprising   # was vanilla 1 (Corsica)
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = TAJ
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = TAJ_uprising_flag
-							TAJ = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = TAJ }
-					set_country_flag = TAJ_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1422 = { # TAJ uprising   # -> Haute-Corse
+				1 = { # TAJ uprising
 					modifier = {
 						add = SOV_civil_war_months
 						always = yes
@@ -15123,15 +12761,12 @@ country_event = {
 			# Renaming of cities where apropriate 
 			IF = {
 				limit = { var:SOV.SOV_nationalist_country = { tag = KYR }}
-				set_province_name = {
-					id = 12583
-					name = SOV_Bishkek
-				}
+				# set_province_name = { id = 12583 name = SOV_Bishkek }   # 1.19-migration: off-map vanilla province 12583 - Bishkek / Pamir (Kyrgyzstan); the ME map has no such province
 			}
 			ELSE_IF = {
 				limit = { var:SOV.SOV_nationalist_country = { tag = MEL }}
 				set_province_name = {
-					id = 9402
+					id = 10418 # was vanilla 9402
 					name = SOV_Krasnokokshaysk
 				}
 			}
@@ -15736,31 +13371,7 @@ country_event = {
 	}
 }
 
-# Event for Japan: Russia's digging up the past
-country_event = {
-	id = NSB_soviet_fascist_tsarist.12
-	title = NSB_soviet_fascist_tsarist.12.t
-	desc = NSB_soviet_fascist_tsarist.12.desc
-	picture = GFX_report_event_fascist_speech
-
-	trigger = {
-		original_tag = SOV
-		NOT = { has_completed_focus = SOV_memories_of_1905 }
-		focus_progress = {
-			focus = SOV_memories_of_1905
-			progress > 0.33
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 2
-	}
-
-	# They're coming for us!
-	option = {
-		name = NSB_soviet_fascist_tsarist.12.a
-	}
-}
+# 1.19-migration: NSB_soviet_fascist_tsarist.12 dropped (SOV_memories_of_1905 absent in ME; trigger can never fire)
 
 # Event for USA: Russia's building military infrastructure facing Alaska
 country_event = {

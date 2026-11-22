@@ -1,0 +1,323 @@
+#	Example:
+#
+#	example_dynamic_modifier = {
+#		icon = "GFX_idea_unknown" # optional, will show up in guis if icon is specified
+#		enable = { always = yes } #optional, the modifier won't apply if not enabled
+#		remove_trigger = { always = no } #optional, will remove the modifier if true
+#       attacker_modifier = no  # if yes this modifier will also be read in combat for
+#                               # people engaging in the combat even if not in the state
+#
+#		# list of modifiers
+#		fuel_cost = 321
+#		max_fuel = var_max_fuel # will be taken from a variable
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		add_dynamic_modifier = {
+#			modifier = example_dynamic_modifier
+#			scope = GER # optional, if you specify this your dynamic modifier scoped to this scope (root is the effect scope)
+#			days = 14 # optional, will be removed after this many days passes
+#		}
+#	}
+#
+#	can be added to countries, states or unit leaders
+#	will only updated daily, unless forced by force_update_dynamic_modifier effect
+
+
+###### COUNTRY MODIFIERS
+
+# Army Modifiers
+
+ROM_underdeveloped_arms_industry = { #NATIONAL SPIRIT
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_underdeveloped_arms_industry_01
+
+	conversion_cost_civ_to_mil_factor = ROM_arms_industry_conversion_cost_civ_to_mil_factor
+	production_speed_arms_factory_factor = ROM_arms_industry_production_speed_arms_factory_factor
+	production_factory_efficiency_gain_factor = ROM_arms_industry_production_factory_efficiency_gain_factor
+	sp_tag_jet_speed_factor = ROM_arms_industry_sp_tag_jet_speed_factor
+	license_production_speed = ROM_license_production_speed
+
+	custom_modifier_tooltip = ROM_fake_naval_modifiers
+}
+ROM_underdeveloped_arms_industry_no_navy = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_underdeveloped_arms_industry_01
+
+	conversion_cost_civ_to_mil_factor = ROM_arms_industry_conversion_cost_civ_to_mil_factor
+	production_speed_arms_factory_factor = ROM_arms_industry_production_speed_arms_factory_factor
+	production_factory_efficiency_gain_factor = ROM_arms_industry_production_factory_efficiency_gain_factor
+	sp_tag_jet_speed_factor = ROM_arms_industry_sp_tag_jet_speed_factor
+	license_production_speed = ROM_license_production_speed
+}
+ROM_developing_arms_industry = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_underdeveloped_arms_industry_02
+
+	conversion_cost_civ_to_mil_factor = ROM_arms_industry_conversion_cost_civ_to_mil_factor
+	production_speed_arms_factory_factor = ROM_arms_industry_production_speed_arms_factory_factor
+	production_factory_efficiency_gain_factor = ROM_arms_industry_production_factory_efficiency_gain_factor
+	sp_tag_jet_speed_factor = ROM_arms_industry_sp_tag_jet_speed_factor
+	license_production_speed = ROM_license_production_speed
+
+	custom_modifier_tooltip = ROM_fake_naval_modifiers
+}
+ROM_developing_arms_industry_no_navy = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_underdeveloped_arms_industry_02
+
+	conversion_cost_civ_to_mil_factor = ROM_arms_industry_conversion_cost_civ_to_mil_factor
+	production_speed_arms_factory_factor = ROM_arms_industry_production_speed_arms_factory_factor
+	production_factory_efficiency_gain_factor = ROM_arms_industry_production_factory_efficiency_gain_factor
+	sp_tag_jet_speed_factor = ROM_arms_industry_sp_tag_jet_speed_factor
+	license_production_speed = ROM_license_production_speed
+}
+ROM_developed_arms_industry = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_underdeveloped_arms_industry_03
+
+	conversion_cost_civ_to_mil_factor = ROM_arms_industry_conversion_cost_civ_to_mil_factor
+	production_speed_arms_factory_factor = ROM_arms_industry_production_speed_arms_factory_factor
+	production_factory_efficiency_gain_factor = ROM_arms_industry_production_factory_efficiency_gain_factor
+	sp_tag_jet_speed_factor = ROM_arms_industry_sp_tag_jet_speed_factor
+	license_production_speed = ROM_license_production_speed
+}
+
+ROM_armed_forces = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_armed_forces
+
+	special_forces_cap = ROM_resistance_special_forces_cap
+	army_speed_factor = ROM_army_speed_factor
+	supply_consumption_factor = ROM_supply_consumption_factor
+	no_supply_grace = ROM_supply_consumption_factor
+	equipment_capture = ROM_equipment_capture
+	army_leader_start_attack_level = ROM_army_leader_start_attack_level
+	army_leader_start_planning_level = ROM_army_leader_start_planning_level
+	army_leader_start_defense_level = ROM_army_leader_start_defense_level
+	field_officer_promotion_penalty = ROM_field_officer_promotion_penalty
+	air_bombing_targetting = ROM_air_bombing_targetting
+	air_cas_efficiency = ROM_air_cas_efficiency
+	breakthrough_factor = ROM_breakthrough_factor
+	planning_speed = ROM_planning_speed
+	army_org_factor = ROM_army_org_factor
+	org_loss_when_moving = ROM_org_loss_when_moving
+	army_core_defence_factor = 0.1		#Static
+	conscription = ROM_conscription
+	conscription_factor = ROM_conscription_factor
+	coordination_bonus = ROM_coordination_bonus
+	air_cas_present_factor = ROM_air_cas_present_factor
+	weekly_casualties_war_support = ROM_weekly_casualties_war_support
+	land_mastery_gain_factor = ROM_land_mastery_gain_factor
+	theorist_cost_factor = ROM_theorist_cost_factor
+	max_planning_factor = ROM_max_planning_factor
+	air_ace_generation_chance_factor = ROM_air_ace_generation_chance_factor
+	#avoid adding more stats, we're now roughly at the amount Finland has as well
+}
+
+ROM_democratic_constitution_dm = {
+	enable = { always = yes }
+
+	icon = GFX_idea_generic_constitutional_guarantees
+
+	industrial_capacity_factory = ROM_constitution_industrial_capacity_factory
+	stability_factor = ROM_constitution_stability_factor
+	economy_cost_factor = -0.25
+	mobilization_laws_cost_factor = -0.25
+	political_power_factor = 0.05
+	drift_defence_factor = 0.2
+	democratic_drift = ROM_constitution_democratic_drift
+	research_speed_factor = ROM_constitution_research_speed_factor
+}
+
+ROM_flawed_democracy_dm = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_king_carol_ii_hedonist
+
+	political_power_factor = ROM_democracy_political_power_factor
+	military_leader_cost_factor = ROM_democracy_military_leader_cost_factor
+	unit_leader_as_advisor_cp_cost_factor = ROM_democracy_unit_leader_as_advisor_cp_cost_factor
+	generate_wargoal_tension = ROM_democracy_generate_wargoal_tension
+	political_advisor_cost_factor = ROM_democracy_political_advisor_cost_factor
+	consumer_goods_factor = ROM_democracy_consumer_goods_factor
+	stability_factor = ROM_democracy_stability_factor
+}
+
+ROM_international_relations = {
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_international_relations
+
+	political_power_cost = ROM_international_relations_political_power_cost
+
+	army_armor_speed_factor = ROM_diplo_army_armor_speed_factor 		#Germany
+	air_attack_factor = ROM_diplo_air_attack_factor 					#UK
+	dig_in_speed_factor = ROM_diplo_dig_in_speed_factor					#France
+	decryption_power_factor = ROM_diplo_decryption_power_factor 		#Poland - LaR
+	decryption_factor = ROM_diplo_decryption_factor						#Poland - non-LaR
+	command_power_gain = ROM_diplo_command_power_gain					#Italy
+	compliance_gain = ROM_diplo_compliance_gain							#Yugoslavia
+	subversive_activites_upkeep = ROM_diplo_subversive_activites_upkeep	#Turkey
+	war_support_factor = ROM_diplo_war_support_factor					#Greece
+	resistance_target = ROM_diplo_resistance_target						#Bulgaria
+	generate_wargoal_tension = ROM_diplo_generate_wargoal_tension		#Hungary
+	army_org_regain = ROM_diplo_army_org_regain							#USSR
+	production_speed_arms_factory_factor = ROM_diplo_production_speed_arms_factory_factor #CZE
+
+	#shared ones
+	resistance_growth_on_our_occupied_states = ROM_diplo_resistance_growth_on_our_occupied_states					#POL/YUG/FRA
+	command_abilities_cost_factor = ROM_diplo_command_abilities_cost_factor											#GER/ENG
+	stability_factor = ROM_diplo_stability_factor																	#TUR/ENG/CZE
+	mountaineers_special_forces_contribution_factor = ROM_diplo_mountaineers_special_forces_contribution_factor		#GRE/ITA
+	army_claim_attack_factor = ROM_diplo_army_claim_attack_factor													#HUN/BUL
+	supply_consumption_factor = ROM_diplo_supply_consumption_factor													#SOV/GER
+	winter_attrition = ROM_diplo_winter_attrition																	#SOV/POL
+
+	#new ones rebalance pass
+	production_factory_start_efficiency_factor = ROM_diplo_production_factory_start_efficiency_factor				#YUG/ITA
+	production_factory_max_efficiency_factor = ROM_diplo_production_factory_max_efficiency_factor					#HUN/SOV
+	production_factory_efficiency_gain_factor = ROM_diplo_production_factory_efficiency_gain_factor					#GRE/FRA
+	local_resources_factor = ROM_diplo_local_resources_factor														#BUL/TUR
+	industrial_capacity_factory = ROM_diplo_industrial_capacity_factory												#POL
+	production_speed_industrial_complex_factor = ROM_diplo_production_speed_industrial_complex_factor				#ENG
+	production_lack_of_resource_penalty_factor = ROM_diplo_production_lack_of_resource_penalty_factor				#GER
+	#line_change_production_efficiency_factor = ROM_diplo_line_change_production_efficiency_factor					#an option if rebalancing necessary, perhaps?
+}
+
+ROM_reservists_deployed = {
+	enable = { always = yes }
+
+	icon = GFX_idea_citizen_militia_1
+
+	industrial_capacity_factory = ROM_reservists_mil_output
+	industrial_capacity_dockyard = ROM_reservists_dock_output
+	consumer_goods_factor = ROM_reservists_civ_output_inverse
+}
+
+# Industry
+
+ROM_breadbasket_of_europe_idea_modifier = { #NATIONAL SPIRIT
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_breadbasket_of_europe
+
+	production_speed_arms_factory_factor = ROM_breadbasket_of_europe_production_speed_arms_factory_factor
+	production_speed_infrastructure_factor = ROM_breadbasket_of_europe_production_speed_infrastructure_factor
+	production_speed_rail_way_factor = ROM_breadbasket_of_europe_production_speed_rail_way_factor
+	production_speed_industrial_complex_factor = ROM_breadbasket_of_europe_production_speed_industrial_complex_factor
+	consumer_goods_factor =	ROM_breadbasket_of_europe_consumer_goods_factor
+	monthly_population = ROM_breadbasket_of_europe_monthly_population
+	conscription_factor = ROM_breadbasket_of_europe_conscription_factor
+	resource_trade_cost_bonus_per_factory = ROM_breadbasket_of_europe_resource_trade_cost_bonus_per_factory 
+	
+}
+
+ROM_balkan_industry = { #NATIONAL SPIRIT
+	enable = { always = yes }
+
+	icon = GFX_idea_ROM_balkan_industry
+
+	production_speed_arms_factory_factor = ROM_balkan_industry_production_speed_arms_factory_factor
+	production_speed_buildings_factor = ROM_balkan_industry_production_speed_buildings_factor
+	production_speed_infrastructure_factor = ROM_balkan_industry_production_speed_infrastructure_factor
+	production_speed_rail_way_factor = ROM_balkan_industry_production_speed_rail_way_factor
+	production_speed_industrial_complex_factor = ROM_balkan_industry_production_speed_industrial_complex_factor
+	research_speed_factor = ROM_balkan_industry_research_speed_factor
+	production_factory_efficiency_gain_factor = ROM_balkan_industry_production_factory_efficiency_gain_factor
+	consumer_goods_factor =	ROM_balkan_industry_consumer_goods_factor
+	production_factory_max_efficiency_factor = ROM_balkan_industry_production_factory_max_efficiency_factor
+	energy_gain_factor = ROM_balkan_industry_energy_gain_factor
+	production_speed_energy_infrastructure_factor = ROM_balkan_industry_production_speed_energy_infrastructure_factor
+	conversion_cost_civ_to_mil_factor = ROM_balkan_industry_conversion_cost_civ_to_mil_factor
+				
+}
+
+ROM_border_infrastructure = {	#STATE MODIFIER
+	icon = GFX_modifiers_ETH_state_development
+
+	state_production_speed_buildings_factor = 0.15
+	state_production_speed_infrastructure_factor = 0.25
+	state_production_speed_rail_way_factor = 0.25	
+}
+
+ROM_infrastructure_investment = {	#STATE MODIFIER
+	enable = { always = yes }
+	remove_trigger = {
+		ROOT = {
+			NOT = { 
+				controller = { 
+					original_tag = ROM 
+				} 
+			}
+		}
+	}
+
+	icon = GFX_modifiers_generic_railways
+
+	state_production_speed_infrastructure_factor = 0.15
+	state_production_speed_rail_way_factor = 0.15
+	state_production_speed_supply_node_factor = 0.25
+	state_production_speed_buildings_factor = 0.05
+}
+
+ROM_housing_investment = {	#STATE MODIFIER
+	enable = { always = yes }
+	remove_trigger = {
+		ROOT = {
+			NOT = { 
+				controller = { 
+					original_tag = ROM 
+				} 
+			}
+		}
+	}
+
+	icon = GFX_modifiers_CZE_industrial_subsidies
+
+	state_production_speed_buildings_factor = 0.1
+}
+
+ROM_agitated_farmers = {
+	remove_trigger = {
+		ROOT = {
+			controller = { 
+				has_government = communism
+			}
+		}
+	}
+	
+	icon = GFX_modifiers_INS_state_militia_activity_2	#GFX_modifiers_PRC_rural_development is a cute tractor, maybe add some flames behind it?
+
+	local_factories = -0.2
+	enemy_army_speed_factor = -0.2
+	enemy_local_supplies = -0.2
+}
+
+ROM_regional_autonomy = {
+	remove_trigger = {
+		ROOT = {
+			controller = { 
+				NOT = {
+					original_tag = ROM
+				}
+			}
+		}
+	}
+
+	icon = GFX_modifiers_PRC_infiltrated_state_1
+
+	recruitable_population_factor = -0.1
+	state_production_speed_buildings_factor = 0.05
+	#local_resources = 0.1	#There are none here
+	local_supplies = 0.1
+}

@@ -1068,6 +1068,19 @@ country_event = {
 			}
 			add_stability = 0.01
 		}
+		if = {
+			limit = {
+				has_dlc = "To The Bitter End"
+			}
+			custom_effect_tooltip = {
+				localization_key = ROM_modify_relation
+				TARGET = CZE
+				AMOUNT = -2
+			}
+			CZE = {
+				add_to_variable = { ROM_relation_var = -2 }
+			}
+		}
 
 		diplomatic_relation = {
 			country = CZE
@@ -1951,15 +1964,31 @@ country_event = {	#Czechoslovakia pressures Romania with USSR
 		if = {
 			limit = {	#sanity check: do they border Romania?
 				SOV = {
-					owns_state = 2038
+					owns_state = 2038 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2038 (Balta)
+					owns_state = 617 # eu_mapping: v834 (Balta-Tiraspol) -> ME 617 (Tiraspol')
+					owns_state = 2046 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2046 (Radzel'naya)
+					owns_state = 2681 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2681 (Ribnitsa)
+					owns_state = 2682 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2682 (Ananov)
+					owns_state = 2683 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2683 (Savran)
 				}
 			}
 			every_state = {
 				limit = {
 					OR = {
-						state = 78
-						state = 80
-						state = 766
+						state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+						state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+						state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+						state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+						state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+						state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+						state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+						state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+						state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+						state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+						state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
 					}
 					is_owned_by = ROM
 					NOT = {
@@ -1980,15 +2009,31 @@ country_event = {	#Czechoslovakia pressures Romania with USSR
 		if = {
 			limit = {	#sanity check: do they border Romania?
 				SOV = {
-					owns_state = 2038
+					owns_state = 2038 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2038 (Balta)
+					owns_state = 617 # eu_mapping: v834 (Balta-Tiraspol) -> ME 617 (Tiraspol')
+					owns_state = 2046 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2046 (Radzel'naya)
+					owns_state = 2681 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2681 (Ribnitsa)
+					owns_state = 2682 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2682 (Ananov)
+					owns_state = 2683 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2683 (Savran)
 				}
 			}
 			every_state = {
 				limit = {
 					OR = {
-						state = 78
-						state = 80
-						state = 766
+						state = 1604 # eu_mapping: v78 (Bessarabia) -> ME 1604 (Lăpușna)
+						state = 592 # eu_mapping: v78 (Bessarabia) -> ME 592 (Hotin)
+						state = 600 # eu_mapping: v78 (Bessarabia) -> ME 600 (Bălți)
+						state = 1602 # eu_mapping: v78 (Bessarabia) -> ME 1602 (Cahul)
+						state = 1603 # eu_mapping: v78 (Bessarabia) -> ME 1603 (Tighina)
+						state = 1605 # eu_mapping: v78 (Bessarabia) -> ME 1605 (Orhei)
+						state = 1606 # eu_mapping: v78 (Bessarabia) -> ME 1606 (Soroca)
+						state = 2744 # eu_mapping: v78 (Bessarabia) -> ME 2744 (Gagauzia)
+						state = 2745 # eu_mapping: v78 (Bessarabia) -> ME 2745 (Ștefan Vodă)
+						state = 2980 # eu_mapping: v78 (Bessarabia) -> ME 2980 (Chelmenți)
+						state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+						state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
+						state = 1601 # eu_mapping: v766 (Southern Bessarabia) -> ME 1601 (Cetatea Albă)
+						state = 794 # eu_mapping: v766 (Southern Bessarabia) -> ME 794 (Ismail)
 					}
 					is_owned_by = ROM
 					NOT = {
@@ -2775,6 +2820,21 @@ country_event = {	#restoration of the Austro-Hungarian customs union
 			}
 		}
 		set_country_flag = CZE_trade_agreement
+		hidden_effect = {
+			if = {
+				limit = {
+					original_tag = ROM
+				}
+				if = {
+					limit = {
+						FROM = {
+							has_idea = ROM_trade_agreement
+						}
+					}
+					remove_ideas = ROM_trade_agreement
+				}
+			}
+		}
 		if = {
 			limit = {
 				NOT = {
@@ -5515,10 +5575,52 @@ country_event = { #The government is on its last legs
 			if = {
 				limit = {
 					OR = {
-						70 = {
+						1437 = { # eu_mapping: v70 (Western Slovakia) -> ME 1437 (Bratislava)
 							is_owned_and_controlled_by = ROOT
 						}
-						71 = {
+						555 = { # eu_mapping: v70 (Western Slovakia) -> ME 555 (Trenčín)
+							is_owned_and_controlled_by = ROOT
+						}
+						574 = { # eu_mapping: v70 (Western Slovakia) -> ME 574 (Hron)
+							is_owned_and_controlled_by = ROOT
+						}
+						577 = { # eu_mapping: v70 (Western Slovakia) -> ME 577 (Žilina)
+							is_owned_and_controlled_by = ROOT
+						}
+						586 = { # eu_mapping: v70 (Western Slovakia) -> ME 586 (Nitra)
+							is_owned_and_controlled_by = ROOT
+						}
+						591 = { # eu_mapping: v70 (Western Slovakia) -> ME 591 (Malacky)
+							is_owned_and_controlled_by = ROOT
+						}
+						2662 = { # eu_mapping: v70 (Western Slovakia) -> ME 2662 (Piešťany)
+							is_owned_and_controlled_by = ROOT
+						}
+						2663 = { # eu_mapping: v70 (Western Slovakia) -> ME 2663 (Čadca)
+							is_owned_and_controlled_by = ROOT
+						}
+						2978 = { # eu_mapping: v70 (Western Slovakia) -> ME 2978 (Trnava)
+							is_owned_and_controlled_by = ROOT
+						}
+						550 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 550 (Prešov)
+							is_owned_and_controlled_by = ROOT
+						}
+						541 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 541 (Tatry)
+							is_owned_and_controlled_by = ROOT
+						}
+						562 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 562 (Sobrance)
+							is_owned_and_controlled_by = ROOT
+						}
+						569 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 569 (Levoča)
+							is_owned_and_controlled_by = ROOT
+						}
+						2313 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 2313 (Bardejov)
+							is_owned_and_controlled_by = ROOT
+						}
+						2660 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 2660 (Námestovo)
+							is_owned_and_controlled_by = ROOT
+						}
+						2661 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 2661 (Kezmarok)
 							is_owned_and_controlled_by = ROOT
 						}
 					}
@@ -5533,15 +5635,75 @@ country_event = { #The government is on its last legs
 			}
 			else_if = {
 				limit = { #if we somehow own 73 while SLO is a thing we skip to the next event in line
-					73 = {
+					593 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+						is_owned_and_controlled_by = ROOT
+					}
+					564 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+						is_owned_and_controlled_by = ROOT
+					}
+					1607 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+						is_owned_and_controlled_by = ROOT
+					}
+					1608 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+						is_owned_and_controlled_by = ROOT
+					}
+					2246 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+						is_owned_and_controlled_by = ROOT
+					}
+					2247 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+						is_owned_and_controlled_by = ROOT
+					}
+					2929 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
 						is_owned_and_controlled_by = ROOT
 					}
 					NOT = {
 						OR = {
-							70 = {
+							1437 = { # eu_mapping: v70 (Western Slovakia) -> ME 1437 (Bratislava)
 								is_owned_and_controlled_by = ROOT
 							}
-							71 = {
+							555 = { # eu_mapping: v70 (Western Slovakia) -> ME 555 (Trenčín)
+								is_owned_and_controlled_by = ROOT
+							}
+							574 = { # eu_mapping: v70 (Western Slovakia) -> ME 574 (Hron)
+								is_owned_and_controlled_by = ROOT
+							}
+							577 = { # eu_mapping: v70 (Western Slovakia) -> ME 577 (Žilina)
+								is_owned_and_controlled_by = ROOT
+							}
+							586 = { # eu_mapping: v70 (Western Slovakia) -> ME 586 (Nitra)
+								is_owned_and_controlled_by = ROOT
+							}
+							591 = { # eu_mapping: v70 (Western Slovakia) -> ME 591 (Malacky)
+								is_owned_and_controlled_by = ROOT
+							}
+							2662 = { # eu_mapping: v70 (Western Slovakia) -> ME 2662 (Piešťany)
+								is_owned_and_controlled_by = ROOT
+							}
+							2663 = { # eu_mapping: v70 (Western Slovakia) -> ME 2663 (Čadca)
+								is_owned_and_controlled_by = ROOT
+							}
+							2978 = { # eu_mapping: v70 (Western Slovakia) -> ME 2978 (Trnava)
+								is_owned_and_controlled_by = ROOT
+							}
+							550 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 550 (Prešov)
+								is_owned_and_controlled_by = ROOT
+							}
+							541 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 541 (Tatry)
+								is_owned_and_controlled_by = ROOT
+							}
+							562 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 562 (Sobrance)
+								is_owned_and_controlled_by = ROOT
+							}
+							569 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 569 (Levoča)
+								is_owned_and_controlled_by = ROOT
+							}
+							2313 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 2313 (Bardejov)
+								is_owned_and_controlled_by = ROOT
+							}
+							2660 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 2660 (Námestovo)
+								is_owned_and_controlled_by = ROOT
+							}
+							2661 = { # eu_mapping: v71 (Eastern Slovakia) -> ME 2661 (Kezmarok)
 								is_owned_and_controlled_by = ROOT
 							}
 						}

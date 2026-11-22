@@ -421,15 +421,32 @@ units = {
 
 ### Starting Production ###
 instant_effect = {
-	add_equipment_production = {
-		equipment = {
-			type = infantry_equipment_1
-			creator = ROM
+	if = {
+		limit = {
+			has_dlc = "To The Bitter End"
 		}
-		requested_factories = 2
-		progress = 0.44
-		efficiency = 100
-		industrial_manufacturer = mio:ROM_cugir_organization
+		add_equipment_production = {
+			equipment = {
+				type = infantry_equipment_1
+				creator = ROM
+			}
+			requested_factories = 2
+			progress = 0.44
+			efficiency = 100
+			industrial_manufacturer = mio:ROM_cugir_organization_ba
+		}
+	}
+	else = {
+		add_equipment_production = {
+			equipment = {
+				type = infantry_equipment_1
+				creator = ROM
+			}
+			requested_factories = 2
+			progress = 0.44
+			efficiency = 100
+			industrial_manufacturer = mio:ROM_cugir_organization
+		}
 	}
 	add_equipment_production = {
 		equipment = {
@@ -450,14 +467,30 @@ instant_effect = {
 		efficiency = 100
 		industrial_manufacturer = mio:ROM_resita_works_organization
 	}
-	add_equipment_production = {
-		equipment = {
-			type = motorized_equipment_1
-			creator = ROM 
+	if = {
+		limit = {	#DoD tree can access this MIO but hasnt done the focus yet in 1939
+			has_dlc = "To The Bitter End"
 		}
-		requested_factories = 1
-		progress = 0.4
-		efficiency = 100
-		industrial_manufacturer = mio:ROM_malaxa_organization
+		add_equipment_production = {
+			equipment = {
+				type = motorized_equipment_1
+				creator = ROM 
+			}
+			requested_factories = 1
+			progress = 0.4
+			efficiency = 100
+			industrial_manufacturer = mio:USA_ford_motor_company_organization
+		}
+	}
+	else = {
+		add_equipment_production = {
+			equipment = {
+				type = motorized_equipment_1
+				creator = ROM 
+			}
+			requested_factories = 1
+			progress = 0.4
+			efficiency = 100
+		}
 	}
 }

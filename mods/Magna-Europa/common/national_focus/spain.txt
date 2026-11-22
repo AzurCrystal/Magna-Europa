@@ -1979,7 +1979,7 @@ focus_tree = {
 	focus = {
 		id = SPA_the_will_to_empire
 		available = {
-			has_full_control_of_state = 1335   # was vanilla 290 (Spanish Africa)
+			has_full_control_of_state = 893 # eu_mapping: v290 (Spanish Africa) -> ME 893 (Ceuta)
 			has_country_leader = {
 				character = SPA_jose_antonio_primo_de_rivera
 				ruling_only = yes
@@ -2148,62 +2148,62 @@ focus_tree = {
 				add_core_of = ROOT
 			}
 
-			if = {
-				limit = {
-					#country_exists = BRA   # 1.19-migration: dead tag BRA
-					#BRA = {   # 1.19-migration: dead tag BRA
-						NOT = { is_subject_of = ROOT }
-						NOT = { is_in_faction_with = ROOT }
-					}
-				}
-				create_wargoal = {
-				    type = annex_everything
-				    #target = BRA   # 1.19-migration: dead tag BRA
-				    expire = 0
-				}
-			}
-			if = {
-				limit = {
-					#country_exists = MZB   # 1.19-migration: dead tag MZB
-					#MZB = {   # 1.19-migration: dead tag MZB
-						NOT = { is_subject_of = ROOT }
-						NOT = { is_in_faction_with = ROOT }
-					}
-				}
-				create_wargoal = {
-				    type = annex_everything
-				    #target = MZB   # 1.19-migration: dead tag MZB
-				    expire = 0
-				}
-			}
-			if = {
-				limit = {
-					#country_exists = ANG   # 1.19-migration: dead tag ANG
-					#ANG = {   # 1.19-migration: dead tag ANG
-						NOT = { is_subject_of = ROOT }
-						NOT = { is_in_faction_with = ROOT }
-					}
-				}
-				create_wargoal = {
-				    type = annex_everything
-				    #target = ANG   # 1.19-migration: dead tag ANG
-				    expire = 0
-				}
-			}
-			if = {
-				limit = {
-					#country_exists = GNB   # 1.19-migration: dead tag GNB
-					#GNB = {   # 1.19-migration: dead tag GNB
-						NOT = { is_subject_of = ROOT }
-						NOT = { is_in_faction_with = ROOT }
-					}
-				}
-				create_wargoal = {
-				    type = annex_everything
-				    #target = GNB   # 1.19-migration: dead tag GNB
-				    expire = 0
-				}
-			}
+			#if = {
+			#	limit = {
+			#		#country_exists = BRA   # 1.19-migration: dead tag BRA
+			#		#BRA = {   # 1.19-migration: dead tag BRA
+			#			NOT = { is_subject_of = ROOT }
+			#			NOT = { is_in_faction_with = ROOT }
+			#		}
+			#	}
+			#	create_wargoal = {
+			#	    type = annex_everything
+			#	    #target = BRA   # 1.19-migration: dead tag BRA
+			#	    expire = 0
+			#	}
+			#}
+			#if = {
+			#	limit = {
+			#		#country_exists = MZB   # 1.19-migration: dead tag MZB
+			#		#MZB = {   # 1.19-migration: dead tag MZB
+			#			NOT = { is_subject_of = ROOT }
+			#			NOT = { is_in_faction_with = ROOT }
+			#		}
+			#	}
+			#	create_wargoal = {
+			#	    type = annex_everything
+			#	    #target = MZB   # 1.19-migration: dead tag MZB
+			#	    expire = 0
+			#	}
+			#}
+			#if = {
+			#	limit = {
+			#		#country_exists = ANG   # 1.19-migration: dead tag ANG
+			#		#ANG = {   # 1.19-migration: dead tag ANG
+			#			NOT = { is_subject_of = ROOT }
+			#			NOT = { is_in_faction_with = ROOT }
+			#		}
+			#	}
+			#	create_wargoal = {
+			#	    type = annex_everything
+			#	    #target = ANG   # 1.19-migration: dead tag ANG
+			#	    expire = 0
+			#	}
+			#}
+			#if = {
+			#	limit = {
+			#		#country_exists = GNB   # 1.19-migration: dead tag GNB
+			#		#GNB = {   # 1.19-migration: dead tag GNB
+			#			NOT = { is_subject_of = ROOT }
+			#			NOT = { is_in_faction_with = ROOT }
+			#		}
+			#	}
+			#	create_wargoal = {
+			#	    type = annex_everything
+			#	    #target = GNB   # 1.19-migration: dead tag GNB
+			#	    expire = 0
+			#	}
+			#}
 
 		}
 	}
@@ -2238,7 +2238,7 @@ focus_tree = {
 			add_state_claim = 912   # 1.19-migration: was vanilla 849 (Puglia)
 			add_state_claim = 934   # 1.19-migration: was vanilla 117 (Campania)
 			add_state_claim = 1241   # 1.19-migration: was vanilla 448 (Tripoli)
-			add_state_claim = 1879   # 1.19-migration: was vanilla 449 (El Agheila)
+			add_state_claim = 1289 # eu_mapping: v449 (El Agheila) -> ME 1289 (Ajdabiya)
 			add_state_claim = 1251   # 1.19-migration: was vanilla 450 (Benghasi)
 			add_state_claim = 1240   # 1.19-migration: was vanilla 451 (Derna)
 			add_state_claim = 1255   # 1.19-migration: was vanilla 661 (Tripolitania)
@@ -2296,6 +2296,7 @@ focus_tree = {
 		bypass = {
 		}
 		prerequisite = { focus = SPA_the_will_to_empire }
+		allow_branch = { has_global_flag = NEVER }
 		
 		icon = GFX_goal_generic_political_pressure
 		x = 1
@@ -5744,14 +5745,24 @@ focus_tree = {
 			}
 			837 = {   # 1.19-migration: was vanilla 790 (Asturias); mod Asturias
 				clr_state_flag = SPR_unplanned_offensive_flag
-				remove_dynamic_modifier = {
-					modifier = unplanned_offensive
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = unplanned_offensive }
+					}
+					remove_dynamic_modifier = {
+						modifier = unplanned_offensive
+					}
 				}
 			}
 			851 = {   # 1.19-migration: was vanilla 792 (País Vasco); mod Vizcaya
 				clr_state_flag = SPR_unplanned_offensive_flag
-				remove_dynamic_modifier = {
-					modifier = unplanned_offensive
+				if = {
+					limit = {
+						has_dynamic_modifier = { modifier = unplanned_offensive }
+					}
+					remove_dynamic_modifier = {
+						modifier = unplanned_offensive
+					}
 				}
 			}
 		}
@@ -10947,7 +10958,7 @@ focus_tree = {
 			SOV = { has_government = communism }
 			has_full_control_of_state = 854   # 1.19-migration: was vanilla 172 (Navarra)
 			has_full_control_of_state = 880   # 1.19-migration: was vanilla 166 (Western Aragón)
-			has_full_control_of_state = 927   # 1.19-migration: was vanilla 794 (Eastern Aragón)
+			has_full_control_of_state = 870 # eu_mapping: v794 (Eastern Aragón) -> ME 870 (Huesca)
 			NOT = {
 				any_state = {
 					is_core_of = ROOT

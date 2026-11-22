@@ -1159,6 +1159,54 @@ NOR_spawn_hirden = {
 	}
 }
 
+NOR_spawn_democratic_militia = { # Only when player goes fascist
+	if = {
+		limit = {
+			has_template = "Norsk Milits"
+		}
+		delete_unit_template_and_units = {
+			division_template = "Norsk Milits"
+			disband = no #if yes, will refund equipment/manpower.
+		}
+	}
+
+	division_template = {
+		name = "Norsk Milits"
+		is_locked = yes
+		regiments = {
+			militia = { x = 0 y = 0 }
+			militia = { x = 0 y = 1 }
+			militia = { x = 1 y = 0 }
+			militia = { x = 1 y = 1 }
+			militia = { x = 2 y = 0 }
+			militia = { x = 2 y = 1 }
+		}
+		support = {
+		}
+		#override_model = NOR_militia_alt_1_entity
+	}
+	# MER: same spawn-tick rule as NOR_spawn_hirden — at the civil-war tick the
+	# rebel owns the states but has not taken province control yet, so vanilla's
+	# is_controlled_by limit spawns zero divisions. Gate on ownership instead and
+	# hand the units to the rebel tag (PREV) that owns the template.
+	var:NOR.NOR_cw_democratic_norway = {
+		every_owned_state = {
+			limit = {
+				is_island_state = no
+				is_owned_by = PREV
+				is_core_of = PREV
+			}
+
+			create_unit = {
+				division = "name = \"Loyalist Militia\" division_template = \"Norsk Milits\" start_experience_factor = 0.2 start_equipment_factor = 0.7 start_manpower_factor = 1"
+				owner = PREV
+				allow_spawning_on_enemy_provs = no
+				count = 3
+			}
+		}
+	}
+}
+
 
 NOR_start_communist_civil_war = {
 	if = {
