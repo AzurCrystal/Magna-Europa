@@ -291,6 +291,7 @@ ITA_dont_overcommit_to_greece = {
 		original_tag = ITA
 	}
 	enable = {
+		always = no # MER: disabled — -40 request starved the Epirus front and permanently stalled ITA vs GRE
 		has_war_with = GRE
 		has_war_with = ENG
 	}
@@ -857,6 +858,7 @@ ITA_share_borders_with_GER_against_SOV = {
 		original_tag = ITA
 	}
 	enable = {
+		always = no # MER: disabled — stopped ITA from dumping 100+ divs into Ukraine (488k casualties) and abandoning North Africa/Balkans
 		is_in_faction_with = GER
 		GER = {
 			going_war_with_SOV = yes
@@ -1120,8 +1122,8 @@ ITA_push_towards_alexandria = {
 	# Push along the coast toward Alexandria
 	ai_strategy = {
 		type = front_control
-		state = 1277 # Matrouh  # 1.19-migration: was vanilla 452 (Marsa Matruh)
-		ratio = 0.3
+		state = 1893 # Matrouh coastal highway (MER: was 1277 Siwah deep desert)
+		ratio = 0.45
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -1131,7 +1133,7 @@ ITA_push_towards_alexandria = {
 	ai_strategy = {
 		type = front_control
 		state = 1895 # Alexandria  # 1.19-migration: was vanilla 447 (Alexandria)
-		ratio = 0.3
+		ratio = 0.45
 		priority = 80
 		ordertype = front
 		execution_type = rush_weak
@@ -1141,13 +1143,25 @@ ITA_push_towards_alexandria = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = ENG
-		value = 20
+		value = 25
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = EGY # MER: Egypt is a separate tag holding the frontier in ME
+		value = 40
 	}
 
 	ai_strategy = {
 		type = front_armor_score
 		id = ENG
 		value = 200
+	}
+
+	ai_strategy = {
+		type = front_armor_score
+		id = EGY # MER: commit Italian armor spearhead against Egyptian frontier
+		value = 250
 	}
 }
 

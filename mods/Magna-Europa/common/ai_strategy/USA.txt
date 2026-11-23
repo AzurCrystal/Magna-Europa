@@ -323,7 +323,7 @@ USA_unit_buffer_for_europe = {
 			1282 # Libyan Coast (Sirte) (was vanilla 449)
 			1251 # Benghasi (Hizam al Akhdar) (was vanilla 450)
 			1239 # Derna (Jabal al Akhdar) (was vanilla 451)
-			1277 # Marsa Matruh (Siwah) (was vanilla 452)
+			1893 # Matrouh coastal highway (MER: was 1277 Siwah deep desert)
 			1895 # Alexandria (was vanilla 447)
 		}
 
@@ -380,7 +380,7 @@ USA_unit_buffer_for_africa = {
 			1282 # Libyan Coast (Sirte) (was vanilla 449)
 			1251 # Benghasi (Hizam al Akhdar) (was vanilla 450)
 			1239 # Derna (Jabal al Akhdar) (was vanilla 451)
-			1277 # Marsa Matruh (Siwah) (was vanilla 452)
+			1893 # Matrouh coastal highway (MER: was 1277 Siwah deep desert)
 			1895 # Alexandria (was vanilla 447)
 		}
 
@@ -535,6 +535,7 @@ USA_take_out_italy_boost = {
 	}
 	enable = {
 		date > 1942.6.1
+		date < 1944.1.1 # MER: don't permanently penalize Normandy (-100) in 1944 if Husky runs slow
 		ITA = {
 			surrender_progress < 0.2
 		}
@@ -579,14 +580,17 @@ USA_d_day_boost = {
 	}
 	enable = {
 		has_war_with = GER
-		date > 1943.9.1
-		ITA = {
-			surrender_progress > 0.2
+		date > 1944.2.1 # MER: aligned with Spring/Summer 1944 historical Overlord window (was 1943.9.1)
+		OR = {
+			ITA = {
+				surrender_progress > 0.2
+			}
+			date > 1944.1.1 # MER: unblock Overlord in 1944 even if Italian campaign hasn't reached 20% surrender yet
 		}
 	}
 	abort = {
 		OR = {
-			date > 1944.9.1 # if we haven't succeeded by now, kill Japan instead
+			date > 1946.1.1 # MER: extended from 1944.9.1 (no Pacific theater on ME map)
 			AND = {
 				571 = { is_controlled_by_ROOT_or_ally = yes } # was vanilla 16 (Ile de France) # Paris has been liberated
 				is_historical_focus_on = yes

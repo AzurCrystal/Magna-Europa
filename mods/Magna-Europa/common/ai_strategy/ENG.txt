@@ -2255,7 +2255,7 @@ ENG_unit_buffer_for_african_defense = {
 		states = {  # was vanilla 446 447 452
 			1889 # Cairo (was vanilla 446)
 			1895 # Alexandria (was vanilla 447)
-			1277 # Marsa Matruh (Siwah) (was vanilla 452)
+			1893 # Matrouh coastal highway (MER: was 1277 Siwah deep desert)
 		}
 
 		area = suez
@@ -2460,6 +2460,7 @@ ENG_USA_take_italys_spaghetti = {
 	}
 	enable = {
 		date > 1942.6.1
+		date < 1944.1.1 # MER: don't permanently penalize Normandy (-100) in 1944 if Husky runs slow
 		ITA = {
 			surrender_progress < 0.2
 		}
@@ -2654,7 +2655,7 @@ ENG_USA_d_day = {
 		is_historical_focus_on = yes
 	}
 	enable = {
-		date > 1943.9.1
+		date > 1944.2.1 # MER: aligned with Spring/Summer 1944 historical Overlord window (was 1943.9.1)
 	}
 	abort_when_not_enabled = yes
 
@@ -3030,8 +3031,8 @@ ENG_to_tobruk = {
 
 	ai_strategy = {
 		type = front_control
-		state = 1277 #matrouh  # 1.19-migration: was vanilla 452 (Marsa Matruh)
-		ratio = 0.1
+		state = 1893 # Matrouh coastal highway (MER: was 1277 Siwah deep desert)
+		ratio = 0.25
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -3415,14 +3416,12 @@ ENG_med_invasion_phase = {
 		original_tag = ENG
 	}
 
-	# Phase 2: N. Africa cleared — pivot to the Med invasion corridor for landings on Italy itself.
+	# Phase 2: N. Africa cleared (by ENG, USA, EGY, or any Ally) — pivot to the Med invasion corridor for landings on Italy.
 	enable = {
 		has_war_with = ITA
-		ENG = {
-			controls_state = 1241 # Tripoli  # 1.19-migration: was vanilla 448
-			controls_state = 1251 # Benghazi  # 1.19-migration: was vanilla 450 (Benghasi)
-			controls_state = 1239 # eu_mapping: v663 (Cyrenaica) -> ME 1239 (Jabal al Akhdar)
-		}
+		1241 = { is_controlled_by_ROOT_or_ally = yes } # Tripoli  # MER: fixed ENG-only check
+		1251 = { is_controlled_by_ROOT_or_ally = yes } # Benghazi # MER: fixed ENG-only check
+		1239 = { is_controlled_by_ROOT_or_ally = yes } # Cyrenaica # MER: fixed ENG-only check
 	}
 
 	abort_when_not_enabled = yes

@@ -1,0 +1,662 @@
+# Magna Europa: Reforged — Base-Mod AI Combat Discipline & Coalition Hygiene
+# Goals:
+#   1. Use HOI4 1.20 native `stockpile_fuel` so mechanized/air powers build operational pulses
+#      instead of grinding dry on zero fuel.
+#   2. Suppress wasteful `manual_attack` / suicidal pushes when rifle stocks collapse or during
+#      historical holding phases — always subordinate (priority 15-20) to scripted offensives (100+).
+#   3. Reduce coalition supply deathstacks ("合唱团") via clean theater-level ally border rules.
+#   4. Nudge 1.20 Air XP spending toward aircraft variant upgrades once modern airframes unlock.
+#   5. All blocks yield cleanly if a future standalone EAI submod sets global flag `MER_EAI_enabled`.
+
+###############################################################################
+# 1. FUEL-AWARE OPERATIONAL RHYTHM (HOI4 1.20 NATIVE)
+###############################################################################
+
+MER_axis_fuel_discipline = {
+	allowed = {
+		OR = {
+			original_tag = GER
+			original_tag = ITA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = stockpile_fuel
+		start_below = 25
+		stop_above = 65
+	}
+}
+
+MER_major_fuel_discipline = {
+	allowed = {
+		OR = {
+			original_tag = SOV
+			original_tag = ENG
+			original_tag = FRA
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = stockpile_fuel
+		start_below = 20
+		stop_above = 55
+	}
+}
+
+###############################################################################
+# 2. MEASURED FRONTLINE CONSERVATION (SUBORDINATE TO PRIORITY 100 CAMPAIGNS)
+###############################################################################
+
+# When fielded infantry equipment drops under 70%, stop mindless manual pokes until resupplied.
+# Priority 15 yields to all scripted historical offensives (Fall Weiss / Fall Gelb / Barbarossa = 100+).
+MER_conserve_when_rifles_starved = {
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		NOT = { original_tag = MAP }
+		has_war = yes
+		stockpile_ratio = {
+			archetype = infantry_equipment
+			ratio < 0.70
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		area = europe
+		area = north_africa
+		area = middle_east
+		ratio = 0.25
+		priority = 15
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+# Historical 1941 Red Army defensive discipline: once initial border shocks push Soviet
+# surrender progress past 15%, avoid suicidal counterattacks so SOV holds coherently in depth
+# around Smolensk-Dnepr-Moscow-Leningrad until winter.
+MER_SOV_barbarossa_defensive_discipline = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war_with = GER
+		surrender_progress > 0.15
+		OR = {
+			GER = { has_idea = GER_barbarossa }
+			date < 1941.12.15
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.25
+		priority = 20
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+###############################################################################
+# 2B. GERMANY — HISTORICAL CAMPAIGN PACING & CONTINENTAL ENGINE SPEARHEADS
+###############################################################################
+
+# Prevent premature winter 1940 Benelux wars when focus prerequisites fall through;
+# hold Fall Gelb until late March 1940 (or after Poland capitulates).
+MER_GER_benelux_historical_date_gate = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		NOT = { has_war_with = HOL }
+		NOT = { has_war_with = BEL }
+		OR = {
+			date < 1940.3.20
+			AND = {
+				has_war_with = POL
+				POL = { has_capitulated = no }
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = declare_war id = HOL value = -2000 }
+	ai_strategy = { type = declare_war id = BEL value = -2000 }
+	ai_strategy = { type = declare_war id = LUX value = -2000 }
+}
+
+# While Poland is still fighting, keep extra divisions off neutral Benelux borders
+# so Fall Weiss concentrates maximum punch in the east (West Wall stays held vs FRA).
+MER_GER_poland_first_west_economy = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war_with = POL
+		POL = { has_capitulated = no }
+		NOT = { has_war_with = HOL }
+		NOT = { has_war_with = BEL }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = HOL value = -40 }
+	ai_strategy = { type = front_unit_request tag = BEL value = -40 }
+	ai_strategy = { type = front_unit_request tag = LUX value = -40 }
+}
+
+# Continental Engine: concentrate German armor & offensive weight on historical Barbarossa axes
+# (Riga -> Leningrad, Minsk -> Smolensk, Kiev -> Kharkov) across the full Eastern Front.
+MER_GER_barbarossa_spearhead_engine = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date < 1942.6.1
+		SOV = { has_capitulated = no }
+		OR = {
+			focus_progress = {
+				focus = GER_war_with_the_ussr
+				progress > 0.05
+			}
+			has_war_with = SOV
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_armor_score
+		id = SOV
+		value = 300
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = SOV
+		value = 80
+	}
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 172  # Riga
+		state = 151  # Pskov
+		state = 2135 # Minsk
+		state = 2189 # Smolensk
+		state = 2027 # Kiev
+		state = 2045 # Odessa
+		state = 497  # Kharkov
+		value = 55
+	}
+}
+
+###############################################################################
+# 2C. ITALY — MEDITERRANEAN, NORTH AFRICA & BALKAN SPEARHEADS (OFF EASTERN FRONT)
+###############################################################################
+
+# Keep Italy out of the Soviet front so Germany commands Army Group South cleanly without
+# 15-div Italian supply deathstacks in Ukraine, leaving Italy's full strength for Africa & Balkans.
+MER_ITA_stay_off_eastern_front = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_in_faction_with = GER
+		OR = {
+			has_war_with = SOV
+			GER = { has_war_with = SOV }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = GER value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = ROM value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HUN value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = SLO value = 100 }
+	ai_strategy = { type = front_unit_request tag = SOV value = -180 }
+}
+
+# North Africa Spearhead: reinforce Cyrenaica/Egypt push along Matrouh -> Alexandria -> Cairo.
+MER_ITA_north_africa_spearhead = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war_with = ENG
+		date > 1940.6.1
+		date < 1943.1.1
+		any_controlled_state = {
+			OR = {
+				region = 38 # Tripolitania
+				region = 39 # Cyrenaica
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = egypt_front value = 60 }
+	ai_strategy = { type = area_priority id = libya value = 40 }
+	ai_strategy = { type = front_unit_request area = egypt_front value = 35 }
+	ai_strategy = { type = front_unit_request tag = EGY value = 45 }
+	ai_strategy = { type = front_armor_score id = EGY value = 250 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 1893 # Matrouh
+		state = 1895 # Alexandria
+		state = 1889 # Cairo (Al Qahirah)
+		value = 40
+	}
+	ai_strategy = {
+		type = front_control
+		tag = EGY
+		ratio = 0.45
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+# Balkan & Greece Spearhead: pre-position in Albania, commit armor + air superiority/CAS,
+# and push decisively into Epirus -> Thessaly -> Athens & Belgrade instead of stalling on the border.
+MER_ITA_balkan_greece_spearhead = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		OR = {
+			AND = {
+				GRE = {
+					exists = yes
+					has_capitulated = no
+					NOT = { is_in_faction_with = ITA }
+				}
+				OR = {
+					has_war_with = GRE
+					has_completed_focus = ITA_war_with_greece
+					focus_progress = { focus = ITA_war_with_greece progress > 0.1 }
+				}
+			}
+			AND = {
+				YUG = {
+					exists = yes
+					has_capitulated = no
+					NOT = { is_in_faction_with = ITA }
+				}
+				has_war_with = YUG
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = greater_balkans value = 80 }
+	ai_strategy = { type = area_priority id = albania value = 60 }
+	ai_strategy = { type = front_unit_request tag = GRE value = 65 }
+	ai_strategy = { type = front_unit_request tag = YUG value = 45 }
+	ai_strategy = { type = front_armor_score id = GRE value = 150 }
+	ai_strategy = { type = front_armor_score id = YUG value = 150 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 995  # Ioannina
+		state = 1015 # Larissa
+		state = 941  # Thessaloniki
+		state = 2019 # Attica (Athens)
+		state = 790  # Beograd
+		value = 45
+	}
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = {
+		type = front_control
+		tag = YUG
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 20 value = 4000 } # Albania
+	ai_strategy = { type = strategic_air_importance id = 34 value = 5000 } # Greece
+	ai_strategy = { type = strategic_air_importance id = 33 value = 3500 } # Macedonia
+	ai_strategy = { type = strategic_air_importance id = 22 value = 3000 } # Serbia
+}
+
+###############################################################################
+# 2D. 1942-1944 ALLIED COUNTEROFFENSIVES: MEDITERRANEAN, ITALY, D-DAY & AIR WAR
+###############################################################################
+
+# 1942-1943 Phase 1: Allies contest Mediterranean sea control & clear North African coast (Torch + El Alamein).
+MER_allies_med_control_and_north_africa = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date > 1942.5.1
+		has_war_with = ITA
+		ITA = { has_capitulated = no }
+		OR = {
+			1241 = { NOT = { is_controlled_by_ROOT_or_ally = yes } } # Tripoli
+			1251 = { NOT = { is_controlled_by_ROOT_or_ally = yes } } # Benghazi
+			1109 = { NOT = { is_controlled_by_ROOT_or_ally = yes } } # Tunis
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = central_med_lifeline value = 160 }
+	ai_strategy = { type = naval_dominance id = western_med_control_zone value = 90 }
+	ai_strategy = { type = naval_dominance id = eastern_med_control_zone value = 90 }
+	ai_strategy = { type = area_priority id = north_africa value = 120 }
+	ai_strategy = { type = front_unit_request area = north_africa value = 45 }
+	ai_strategy = { type = front_armor_score id = ITA value = 180 }
+	ai_strategy = {
+		type = front_control
+		area = north_africa
+		ratio = 0.50
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 38 value = 4000 }  # Tripolitania
+	ai_strategy = { type = strategic_air_importance id = 39 value = 4000 }  # Cyrenaica
+	ai_strategy = { type = strategic_air_importance id = 65 value = 4000 }  # Tunisia
+	ai_strategy = { type = strategic_air_importance id = 200 value = 4000 } # Strait of Sicily
+}
+
+# 1942-1943 Phase 2: Mediterranean secured -> launch ME-scaled Sicily & Italian mainland invasion (Husky / Avalanche).
+MER_allies_husky_avalanche_italy = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date > 1942.9.1
+		has_war_with = ITA
+		ITA = { has_capitulated = no }
+		OR = {
+			AND = {
+				1241 = { is_controlled_by_ROOT_or_ally = yes } # Tripoli
+				1251 = { is_controlled_by_ROOT_or_ally = yes } # Benghazi
+			}
+			date > 1943.5.1 # fallback so Italy campaign doesn't stall indefinitely on a single desert state
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = med_invasion_zone value = 200 }
+	ai_strategy = { type = naval_dominance id = central_med_lifeline value = 140 }
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = invade id = ITA value = 140 }
+	ai_strategy = { type = naval_invasion_focus value = 35 }
+	ai_strategy = { type = area_priority id = italy value = 320 }
+	ai_strategy = { type = invasion_unit_request area = italy value = 24 }
+	ai_strategy = { type = front_unit_request area = italy value = 50 }
+	ai_strategy = {
+		type = front_control
+		area = italy
+		ratio = 0.55
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 18 value = 6500 }  # Sicily
+	ai_strategy = { type = strategic_air_importance id = 17 value = 5500 }  # Mezzogiorno
+	ai_strategy = { type = strategic_air_importance id = 25 value = 5000 }  # Central Italy
+	ai_strategy = { type = strategic_air_importance id = 195 value = 4500 } # Tyrrhenian Sea
+	ai_strategy = { type = strategic_air_importance id = 200 value = 4500 } # Strait of Sicily
+}
+
+# 1942.10-1944: Stage large US ground & naval staging force in Southern England bridgehead for Overlord.
+MER_USA_uk_bridgehead_buildup = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date > 1942.10.1
+		has_war_with = GER
+		is_in_faction_with = ENG
+		571 = { NOT = { is_controlled_by_ROOT_or_ally = yes } } # Paris not yet liberated
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 3
+		states = {
+			356  # Norfolk
+			2475 # London
+			446  # Kent
+			344  # Staffordshire
+			357  # Leicestershire
+			410  # Gloucestershire
+			458  # Cornwall
+			426  # Glamorganshire
+		}
+		ratio = 0.25
+		area = europe
+		subtract_invasions_from_need = yes
+	}
+	ai_strategy = { type = naval_dominance id = 209 value = 160 } # English Channel
+}
+
+# 1944 Operation Overlord: ME-scaled multi-corps landings from UK bridgehead + aggressive beachhead breakout.
+MER_allies_overlord_dday = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date > 1944.2.1
+		has_war_with = GER
+		FRA = { has_capitulated = yes }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = 209 value = 220 } # English Channel
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = invade id = GER value = 180 }
+	ai_strategy = { type = naval_invasion_focus value = 50 }
+	ai_strategy = { type = area_priority id = normandy_landing_zone value = 480 }
+	ai_strategy = { type = area_priority id = atlantik_wall_zone value = 220 }
+	ai_strategy = { type = invasion_unit_request area = normandy_landing_zone value = 32 }
+	ai_strategy = { type = front_unit_request area = normandy_landing_zone value = 65 }
+	ai_strategy = { type = front_armor_score id = GER value = 220 }
+	ai_strategy = {
+		type = front_control
+		area = normandy_landing_zone
+		ratio = 0.55
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+# 1943-1944 Western Air Offensive: RAF + USAAF commit fighter & bomber armadas to win Western European skies.
+MER_allies_western_air_offensive = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date > 1943.1.1
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = strategic_air_importance id = 209 value = 7000 } # English Channel
+	ai_strategy = { type = strategic_air_importance id = 62  value = 9000 } # Normandy
+	ai_strategy = { type = strategic_air_importance id = 89  value = 9000 } # Northern France
+	ai_strategy = { type = strategic_air_importance id = 5   value = 6500 } # Belgium
+	ai_strategy = { type = strategic_air_importance id = 4   value = 6500 } # Netherlands
+	ai_strategy = { type = strategic_air_importance id = 36  value = 7000 } # Rhineland
+	ai_strategy = { type = strategic_air_importance id = 64  value = 6000 } # Northern Germany
+}
+
+# 1943-1944 Defense of the Reich: Luftwaffe contests Channel/Normandy/Rhineland skies fiercely against RAF+USAAF.
+MER_GER_western_air_defense = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		date > 1943.1.1
+		FRA = { has_capitulated = yes }
+		OR = {
+			has_war_with = ENG
+			has_war_with = USA
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = strategic_air_importance id = 62  value = 6500 } # Normandy
+	ai_strategy = { type = strategic_air_importance id = 89  value = 6500 } # Northern France
+	ai_strategy = { type = strategic_air_importance id = 209 value = 4500 } # English Channel
+	ai_strategy = { type = strategic_air_importance id = 5   value = 5500 } # Belgium
+	ai_strategy = { type = strategic_air_importance id = 4   value = 5500 } # Netherlands
+	ai_strategy = { type = strategic_air_importance id = 36  value = 8000 } # Rhineland
+	ai_strategy = { type = strategic_air_importance id = 64  value = 7000 } # Northern Germany
+}
+
+# Prevent Italy from bleeding out all infantry equipment against Alpine forts before northern France breaks.
+MER_ITA_alpine_conservation = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war_with = FRA
+		FRA = {
+			has_capitulated = no
+			surrender_progress < 0.20
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.25
+		priority = 20
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+###############################################################################
+# 3. COALITION ANTI-DEATHSTACK (THEATER BOUNDARIES FOR MINOR ALLIES)
+###############################################################################
+
+# Balkan / Central Axis minors focus on Balkans & Eastern Front rather than clogging Italy/Atlantic Wall/Scandinavia.
+MER_axis_minors_stay_in_theater = {
+	allowed = {
+		OR = {
+			original_tag = HUN
+			original_tag = ROM
+			original_tag = BUL
+			original_tag = SLO
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_in_faction_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = ITA value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = FRA value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HOL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = BEL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = NOR value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = DEN value = 100 }
+}
+
+# Middle Eastern Allied subjects stay in Africa / Levant rather than flooding European ports & starving supply hubs.
+MER_middle_east_allies_no_europe_flood = {
+	allowed = {
+		OR = {
+			original_tag = EGY
+			original_tag = PAL
+			original_tag = JOR
+			original_tag = IRQ
+			original_tag = SYR
+			original_tag = LEB
+			original_tag = KUW
+			original_tag = QAT
+			original_tag = BHR
+			original_tag = UAE
+			original_tag = OMA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_in_faction_with = ENG
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = ENG value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = FRA value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = BEL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HOL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = NOR value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = DEN value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = POL value = 100 }
+}
+
+###############################################################################
+# 4. 1.20 AIR XP UPGRADE NUDGE (REDUCES 500-XP CAPPING ON UNUPGRADED AIRFRAMES)
+###############################################################################
+
+MER_major_air_xp_upgrade_nudge = {
+	allowed = {
+		OR = {
+			original_tag = GER
+			original_tag = ENG
+			original_tag = SOV
+			original_tag = ITA
+			original_tag = FRA
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_air_experience > 60
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = air_xp_spend_priority
+		id = equipment_variant
+		value = 100
+	}
+}

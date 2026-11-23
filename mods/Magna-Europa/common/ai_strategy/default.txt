@@ -329,38 +329,9 @@ default_surplus_management = {
 		id = convoy
 		value = 5
 	}
-	ai_strategy = { # MER: supply rework — trucks attrit x3.3, trains needed x2
-		type = wanted_supply_trucks
-		value = 3
-	}
-
-	ai_strategy = {
-		type = min_wanted_supply_trucks
-		value = 2
-	}
-
-	ai_strategy = {
-		type = wanted_supply_trains
-		value = 2
-	}
-
-	ai_strategy = {
-		type = min_wanted_supply_trains
-		value = 1
-	}
-
-	ai_strategy = {
-		type = equipment_production_min_factories_archetype
-		id = motorized_equipment # trucks (not armored cars)
-		value = 1
-	}
-
-	ai_strategy = {
-		type = equipment_production_min_factories_archetype
-		id = train_equipment
-		value = 1
-	}
-
+	# MER: unconditional train/truck floors removed — broke <10 MIL minors (e.g. SCW)
+	# and double-stacked majors. Stock-gated train floor lives in MER_economy_pacing.txt;
+	# vanilla default_produce_some_trucks_for_buffer already handles trucks.
 }
 
 bba_air_prod_1 = {

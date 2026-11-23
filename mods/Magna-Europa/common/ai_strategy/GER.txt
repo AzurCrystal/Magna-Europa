@@ -130,7 +130,7 @@ GER_unit_production = {
 	ai_strategy = { #Germany struggles with manual management of this in an endless loop
 		type = equipment_production_min_factories_archetype
 		id = motorized_equipment
-		value = 2 # MER: raised from 1 — truck attrition x3.3 under ME supply rework
+		value = 1 # MER: reverted 2->1 (stacked with default_produce_some_trucks_for_buffer + GER:5286 = 3, causing 3.5k truck surplus & starving fighters)
 	}
 
 	ai_strategy = { #added to railway gun define (set to 0 by default, increased in default strategies)
@@ -166,32 +166,18 @@ GER_rearmament_to_war = {
 	}
 }
 
-# ME: ME supply rework makes trucks/trains critical — keep logistic equipment flowing
+# MER: ME supply rework makes trains critical — stock-gated so GER never hoards 700+ trains while starving fighters
 GER_supply_logistics = {
 	allowed = {
 		original_tag = GER
 	}
 	enable = {
-		always = yes
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 20
+		has_equipment = { train_equipment < 200 }
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = {
-		type = wanted_supply_trucks
-		value = 3
-	}
-	ai_strategy = {
-		type = min_wanted_supply_trucks
-		value = 2
-	}
-	ai_strategy = {
-		type = wanted_supply_trains
-		value = 2
-	}
-	ai_strategy = {
-		type = min_wanted_supply_trains
-		value = 1
-	}
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = train_equipment
@@ -844,13 +830,13 @@ GER_blitzkrieg_poland = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = POL
-		value = 50
+		value = 90 # MER: raised 50->90 so Fall Weiss finishes decisively in autumn 1939
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = POL
-		ratio = 0.25
+		ratio = 0.55 # MER: raised 0.25->0.55 for full-front Blitzkrieg punch
 		priority = 100
 		ordertype = front
 		execution_type = rush
@@ -2770,6 +2756,7 @@ GER_share_borders_with_ITA_against_SOV = {
 		original_tag = GER
 	}
 	enable = {
+		always = no # MER: disabled — handing Army Group South (ROM/HUN/SLO) to ITA crammed 500+ GER divs into Poland & bled ITA dry in Ukraine
 		is_in_faction_with = ITA
 		going_war_with_SOV = yes
 
@@ -4040,7 +4027,7 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 	}
 
 	enable = {
-		date < 1941.9.1
+		date < 1941.9.15 # MER: ~130 days summer-autumn breakthrough window (rush_weak + >0 rifle floor prevents 1.5M bleed)
 		OR = {
 			focus_progress = {
 				focus = GER_war_with_the_ussr
@@ -4048,7 +4035,7 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 			}
 			has_war_with = SOV
 		}
-		has_equipment = { infantry_equipment > 15000 } #WE NEED GUNS
+		has_equipment = { infantry_equipment > 0 } # MER: require positive rifle stock (prevents -19k rifle bleed)
 	}
 
 	abort_when_not_enabled = yes
@@ -4062,7 +4049,7 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 
 		priority = 100
 		ordertype = front
-		execution_type = rush
+		execution_type = rush_weak # MER: rush_weak exploits breakthroughs without 1.5M infantry meatgrinder into fortified rivers
 		execute_order = yes
 	}
 	ai_strategy = {
@@ -4543,7 +4530,7 @@ GER_blitzkrieg_russia_soft  = { #Rolling incursions
 			has_idea = GER_barbarossa
 			SOV = { has_idea = SOV_desperate_measures_ns }
 		}
-		has_equipment = { infantry_equipment > 15000 } #WE NEED GUNS
+		has_equipment = { infantry_equipment > 0 } # MER: positive rifle floor prevents rifle collapse while unblocking rolling attacks
 		set_temp_variable = { days = global.num_days }
 		modulo_temp_variable = { days = 40 }
 		check_variable = { days < 20 }
@@ -4637,6 +4624,40 @@ GER_blitzkrieg_russia_soft  = { #Rolling incursions
 	}
 }
 
+# MER: restored from vanilla 1.20 — first Russian winter recovery so Wehrmacht regains org/rifles before Case Blue 1942
+GER_careful_in_russian_winter = {
+	allowed = {
+		original_tag = GER
+	}
+
+	enable = {
+		has_war_with = SOV
+		# Only the first winter, from 1942/43 on Germany keeps attacking and pays for it
+		date > 1941.11.9
+		date < 1942.3.15
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+
+		tag = SOV
+
+		ratio = 0.65
+
+		priority = 200 # beats the 100 of GER_blitzkrieg_russia_soft
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+	}
+
+	ai_strategy = {
+		type = force_concentration_factor
+		value = -40
+	}
+}
+
 GER_normandy_buffer = {
 	allowed = {
 		original_tag = GER
@@ -4657,7 +4678,7 @@ GER_normandy_buffer = {
 			578
 			587
 			534
-			581
+			551 # Calvados (MER: fixed stale 581 Ravensburg Bavaria)
 			517
 			505
 			448
@@ -4697,14 +4718,25 @@ GER_invasion_buffer = {
 	ai_strategy = {
 		type = put_unit_buffers
 		states = {
-			545
-			444
-			2985
-			684
-			760
+			# MER: fixed stale 545 Heidenheim (Bavaria) & populated real 1943+ Atlantic Wall coast
+			583 # Finistere
+			578 # Cotes-du-Nord
+			587 # Ille-et-Vilaine
+			534 # Manche (Cherbourg)
+			551 # Calvados (Caen)
+			517 # Seine-Inferieure
+			505 # Amiens
+			448 # Abbeville
+			2874 # Boulogne-sur-Mer
+			472 # Calais
+			2333 # Flandre Maritime
+			444 # Antwerpen
+			2985 # La Rochelle
+			684 # Vendee
+			760 # Gironde
 		}
-		ratio = 0.20
-		area = normandy_landing_zone
+		ratio = 0.18
+		area = atlantik_wall_zone
 		subtract_invasions_from_need = no
 		subtract_fronts_from_need = yes
 	}

@@ -98,6 +98,7 @@ NDefines.NOperatives.INTEL_NETWORK_OPERATIVE_GAIN_STACKING_FACTOR = 0.9			-- Whe
 
 NDefines.NMilitary.CORPS_COMMANDER_DIVISIONS_CAP = 48	-- How many divisions a corps commander is limited to. 0 = inf, < 0 = blocked
 NDefines.NMilitary.FIELD_MARSHAL_DIVISIONS_CAP = 72	-- How many divisions a field marshall is limited to. 0 = inf, < 0 = blocked
+NDefines.NMilitary.FIELD_MARSHAL_ARMIES_CAP = 8		-- VANILLA: 5. Lets one Field Marshal cover fragmented European multi-border armies
 
 NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.6 --Reduced from 0.75
 
@@ -133,26 +134,44 @@ NDefines.NAI.AIFC_UPDATE_FREQUENCY_DAYS = 7					-- VANILLA: 5. Offsets CPU evalu
 
 -- Area defense scaling: ME splits Germany/USSR into ~5x more land Strategic Regions
 -- than vanilla (19 GER / 25 SOV SRs), causing vanilla per-SR caps & interior weights
--- to lock ~46-51% of frontline armies into landlocked rear garrisons. Keep coastal
--- weights at vanilla defaults so ports/coastlines stay guarded.
-NDefines.NAI.AREA_DEFENSE_MINCAP_MAX_CAPITAL_DEFENSE = 15			-- VANILLA: 100
+-- to lock ~46-74% of armies into landlocked 1-2 div rear garrisons. Zero interior VP/base
+-- floors while keeping coastal/port/capital weights so coastlines & capitals stay guarded.
+NDefines.NAI.AREA_DEFENSE_MINCAP_MAX_CAPITAL_DEFENSE = 12			-- VANILLA: 100
 NDefines.NAI.AREA_DEFENSE_MINCAP_DESIRED_CAPITAL_DEFENSE = 2		-- VANILLA: 5
-NDefines.NAI.AREA_DEFENSE_MINCAP_MAX_HOME_AREA = 3					-- VANILLA: 10
-NDefines.NAI.AREA_DEFENSE_MINCAP_DESIRED_HOME_AREA = 1				-- VANILLA: 3
+NDefines.NAI.AREA_DEFENSE_MINCAP_MAX_HOME_AREA = 0					-- VANILLA: 10 (was 3; stops 30+ landlocked 1-2 div SR garrison armies)
+NDefines.NAI.AREA_DEFENSE_MINCAP_DESIRED_HOME_AREA = 0				-- VANILLA: 3 (was 1)
 NDefines.NAI.AREA_DEFENSE_CAPITAL_VP_WEIGHT = { 0.0, 0.25, 0.5 }	-- VANILLA: { 0.0, 1.0, 2.0 }
-NDefines.NAI.AREA_DEFENSE_HOME_VP_WEIGHT = { 0.0, 0.1, 0.25 }		-- VANILLA: { 0.0, 0.5, 1.0 }
-NDefines.NAI.AREA_DEFENSE_OTHER_VP_WEIGHT = { 0.0, 0.0, 0.2 }		-- VANILLA: { 0.0, 0.0, 1.0 }
+NDefines.NAI.AREA_DEFENSE_HOME_VP_WEIGHT = { 0.0, 0.0, 0.0 }		-- VANILLA: { 0.0, 0.5, 1.0 }
+NDefines.NAI.AREA_DEFENSE_OTHER_VP_WEIGHT = { 0.0, 0.0, 0.0 }		-- VANILLA: { 0.0, 0.0, 1.0 }
 NDefines.NAI.AREA_DEFENSE_CAPITAL_BASE_WEIGHT = { 0.1, 0.25, 0.4 }	-- VANILLA: { 0.5, 1.0, 1.5 }
-NDefines.NAI.AREA_DEFENSE_HOME_BASE_WEIGHT = { 0.05, 0.15, 0.3 }		-- VANILLA: { 0.5, 1.0, 1.0 }
-NDefines.NAI.AREA_DEFENSE_OTHER_BASE_WEIGHT = { 0.05, 0.1, 0.2 }		-- VANILLA: { 0.5, 0.5, 1.0 }
+NDefines.NAI.AREA_DEFENSE_HOME_BASE_WEIGHT = { 0.0, 0.0, 0.0 }		-- VANILLA: { 0.5, 1.0, 1.0 }
+NDefines.NAI.AREA_DEFENSE_OTHER_BASE_WEIGHT = { 0.0, 0.0, 0.0 }		-- VANILLA: { 0.5, 0.5, 1.0 }
 NDefines.NAI.AREA_DEFENSE_BASE_IMPORTANCE = 12						-- VANILLA: 30
 NDefines.NAI.AREA_DEFENSE_IMPORTANCE_FACTOR = 0.35					-- VANILLA: 1.0
+NDefines.NAI.MAX_UNITS_FACTOR_AREA_ORDER = 0.50						-- VANILLA: 0.75
+NDefines.NAI.MIN_UNITS_FACTOR_AREA_ORDER = 0.50						-- VANILLA: 1.0
+
+-- Leader stickiness & front stability: stop generals shuffling into 15-day reassignment cooldowns
+-- and stop top generals from being wasted on 1-2 division micro-armies.
+NDefines.NAI.ARMY_LEADER_ASSIGN_KEEP_CURRENT_LEADER_FACTOR = 2.5	-- VANILLA: 1.2
+NDefines.NAI.ARMY_LEADER_ASSIGN_DONT_STEAL_OTHER_FACTOR = 0.25		-- VANILLA: 0.75
+NDefines.NAI.ARMY_LEADER_ASSIGN_EMPTYNESS_MALUS = 0.85				-- VANILLA: 0.2
+NDefines.NAI.ARMY_LEADER_ASSIGN_WITHDRAW_DAYS = 21					-- VANILLA: 7
+NDefines.NAI.ARMY_LEADER_MIN_DIVISIONS_FOR_HQ = 18					-- VANILLA: 10 (scaled for ME 2x divisions)
+NDefines.NAI.REASSIGN_TO_ANOTHER_FRONT_FACTOR = 0.20				-- VANILLA: 0.5
+NDefines.NAI.REASSIGN_TO_ANOTHER_FRONT_IF_IN_COMBAT_FACTOR = 0.05	-- VANILLA: 0.2
 
 -- Naval AI scaling for ME's ~3x finer sea-SR grid (pure-script fix, no sea-zone merging)
 NDefines.NAI.PATROL_FLEETS_PER_INVASION_REGION_ON_PATH = 1	-- VANILLA: 2. Multi-SR corridors (Weserubung 3 SRs, Med) otherwise demand 6 patrol TFs simultaneously
 NDefines.NAI.AI_MIN_DOMINANCE_MARGIN = 120					-- VANILLA: 200. Prevent smaller navies from over-stacking 1 zone at the expense of adjacent corridor zones
 NDefines.NAI.MAX_DISTANCE_NAVAL_INVASION = 400.0			-- VANILLA: 200.0. Scaled for ME enlarged map pixel distances (MAP_SCALE_PIXEL_TO_KM 7.114->1.74)
 NDefines.NAI.NAVAL_MISSION_DISTANCE_BASE = 6500				-- VANILLA: 3500. Scaled for ME enlarged map pixel distances
+
+-- Naval invasion & special forces cap scaling for ME's 2-2.5x division scale (HOI4 1.19/1.20 cap model)
+NDefines.NNavy.BASE_NAVAL_INVASION_DIVISION_CAP = 10		-- VANILLA: 4 (2.5x; pairs with scaled landing craft techs -> 14/24/36 divs/plan)
+NDefines.NNavy.NAVAL_INVASION_PLAN_CAP = 2					-- VANILLA: 1 (2x)
+NDefines.NAI.MAX_INVASION_SIZE = 48							-- VANILLA: 24 (matches CORPS_COMMANDER_DIVISIONS_CAP = 48)
+NDefines.NCountry.SPECIAL_FORCES_CAP_MIN = 48				-- VANILLA: 24 (2x floor; 5% base ratio auto-scales with 2x army size)
 
 -- AI supply awareness: vanilla values assume the old organic-supply economy
 NDefines.NAI.CONSTRUCTION_PRIO_SUPPLY_BUILDING = 1.5		-- VANILLA: 1.10. Boosted for ME supply economy but kept below factories after x2 core factor (3.0 vs CIV 1.6/MIL 1.4 is enough)
@@ -164,7 +183,8 @@ NDefines.NAI.AI_FRONT_DIVISIONS_PER_SUPPLY_POINT = 1.0	-- VANILLA: 1.0. 0.5 halv
 NDefines.NAI.MAX_SUPPLY_DIVISOR = 2.0						-- VANILLA: 1.75. Higher = AI assumes less supply per unit, builds/conserves more carefully
 NDefines.NAI.AI_THEATRE_SUPPLY_CRISIS_LIMIT = 0.15		-- VANILLA: 0.1. Bail out of starved areas earlier
 
-NDefines.NAITheatre.AI_THEATRE_DISTRIBUTION_MAX_PERCENT_UNMET_DEMAND_PER_FRONT = 0.35	-- VANILLA: 0.5. Less unit ping-pong between fronts
+NDefines.NAITheatre.AI_THEATRE_DISTRIBUTION_MAX_PERCENT_UNMET_DEMAND_PER_FRONT = 0.20	-- VANILLA: 0.5 (was 0.35). Less unit ping-pong between fronts
+NDefines.NAITheatre.AI_THEATRE_DISTRIBUTION_SAME_THEATRE_SCORE_MODIFIER = 1.8			-- VANILLA: 1.0. Prefer keeping units inside their current theatre
 -- Volunteer scale: battalions cost half manpower so a 1-div volunteer force is
 -- half the personnel of vanilla — double both caps and the source-side shares,
 -- halve the sender's minimum-army prerequisite to keep the same manpower gate.

@@ -1,0 +1,497 @@
+# Magna Europa: Reforged — Base-Mod AI Economy & Production Pacing
+# Goals:
+#   1. Smooth civilian->military construction rhythm without touching historical focus order or tech queues.
+#   2. Stock-gated logistics/production floors so majors neither starve key lines (fighters/tanks/support)
+#      nor over-produce trains/trucks/rifles, and minors are never broken by unconditional floors.
+#   3. All blocks yield cleanly if a future standalone EAI submod sets global flag `MER_EAI_enabled`.
+
+###############################################################################
+# 1. GLOBAL STOCK-GATED LOGISTICS & SURPLUS REBALANCING
+###############################################################################
+
+MER_global_supply_trains_floor = {
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		NOT = { original_tag = MAP }
+		num_of_military_factories > 14
+		has_equipment = { train_equipment < 150 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = train_equipment
+		value = 1
+	}
+}
+
+# Stop majors from pouring 45-55% of MILs into infinite rifles once a healthy 20k surplus exists;
+# automatically turns back off the moment wartime losses dip rifles below 20k.
+MER_major_rifle_surplus_rebalance = {
+	allowed = {
+		OR = {
+			original_tag = GER
+			original_tag = SOV
+			original_tag = ENG
+			original_tag = FRA
+			original_tag = ITA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 40
+		has_equipment = { infantry_equipment > 20000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = -30
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = 15
+	}
+}
+
+###############################################################################
+# 2. SOVIET UNION — HISTORICAL REARMAMENT & SUPPORT/AIR RECOVERY
+###############################################################################
+
+# Fixes 1939 0-MIL support starvation and 1940 TRN=1 training stall (support=147).
+MER_SOV_early_support_floor = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 20
+		has_equipment = { support_equipment < 1500 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = support_equipment
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = support
+		value = 30
+	}
+}
+
+# Vanilla SOV_wants_civ ends at 1938.9.1 with no MIL transition; hand off smoothly from autumn 1938
+# so USSR enters summer 1941 vulnerable (~80-90 MILs, healthy support/air) then surges on war declaration.
+MER_SOV_mil_transition_1938 = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1938.9.1
+		date < 1940.9.1
+		has_war_with_major = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 20
+	}
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 55
+	}
+}
+
+MER_SOV_wartime_mil_mobilization = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		OR = {
+			date > 1940.9.1
+			has_war_with_major = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 55
+	}
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 160
+	}
+}
+
+# Partially offsets vanilla SOV_unit_production (-60 fighter / -30 cas) once industry scales up.
+MER_SOV_air_recovery = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1939.1.1
+		num_of_military_factories > 45
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = cas
+		value = 20
+	}
+}
+
+MER_SOV_fighter_floor = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1939.6.1
+		num_of_military_factories > 55
+		has_equipment = { small_plane_airframe < 800 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 6
+	}
+}
+
+###############################################################################
+# 3. FRANCE — CREDIBLE PRE-WAR INDUSTRY (PRESERVES HISTORICAL FALL OF FRANCE)
+###############################################################################
+
+# Vanilla FRA.txt has zero construction strategies, leaving FRA at 19 MILs building railways in 1939.
+MER_FRA_prewar_civ_phase = {
+	allowed = { original_tag = FRA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date < 1937.9.1
+		has_war = no
+		has_capitulated = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 38
+	}
+}
+
+MER_FRA_prewar_rearmament = {
+	allowed = { original_tag = FRA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1937.9.1
+		has_capitulated = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 45
+	}
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 38
+	}
+}
+
+###############################################################################
+# 4. ITALY — FIX 1940 CIVILIAN-FACTORY LOOP & MED ARMOR RAMP
+###############################################################################
+
+# Vanilla ITA.txt construction guidance ends 1937.6.1, causing ITA to spend 88% of CIVs on CIVs in 1940.
+MER_ITA_mil_transition = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1937.9.1
+		date < 1939.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 35
+	}
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 48
+	}
+}
+
+MER_ITA_wartime_arms = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		OR = {
+			date > 1939.6.1
+			has_war_with_major = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 60
+	}
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 80
+	}
+}
+
+MER_ITA_medium_armor_floor = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 35
+		has_tech = basic_medium_tank_chassis
+		has_equipment = { medium_tank_chassis < 500 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = medium_tank_chassis
+		value = 5
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+}
+
+MER_ITA_balkan_alpini_ratio = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		OR = {
+			has_war_with = GRE
+			has_war_with = YUG
+			focus_progress = { focus = ITA_war_with_greece progress > 0.1 }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 6
+	}
+}
+
+###############################################################################
+# 5. UNITED KINGDOM — RAF FIGHTER PROTECTION & DOCKYARD MODERATION
+###############################################################################
+
+MER_ENG_raf_and_mil_balance = {
+	allowed = { original_tag = ENG }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1938.6.1
+		num_of_military_factories > 28
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = strategic_bomber
+		value = -25
+	}
+}
+
+MER_ENG_fighter_floor = {
+	allowed = { original_tag = ENG }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1939.1.1
+		num_of_military_factories > 40
+		has_equipment = { small_plane_airframe < 600 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 6
+	}
+}
+
+MER_ENG_dockyard_moderation = {
+	allowed = { original_tag = ENG }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1938.1.1
+		num_of_military_factories < 65
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dockyard_to_military_factory_ratio
+		value = -15
+	}
+}
+
+###############################################################################
+# 6. GERMANY — CONTINENTAL ENGINE: SYNTH RUBBER/FUEL, PANZER SPEARHEAD & ARMS
+###############################################################################
+
+# Build domestic rubber & fuel aggressively during 1939.6-1941.8 while German CIVs are plentiful
+# (before Economy of Conquest consumer goods peak and starve trade/construction in late 1941).
+MER_GER_wartime_synth_guard = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1939.6.1
+		has_war_with_major = yes
+		synthetic_refinery < 24
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = building_target
+		id = synthetic_refinery
+		value = 24
+	}
+}
+
+MER_GER_wartime_arms_focus = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1940.1.1
+		has_war_with_major = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 160
+	}
+}
+
+# Scale German medium panzer spearhead proportionally to ME's 500+ div Eastern Front
+# (vanilla armor role_ratio left GER stuck at 25 panzer divs = 4.7% of army in 1942.1).
+MER_GER_panzer_spearhead_scale = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 65
+		has_tech = basic_medium_tank_chassis
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 25
+	}
+}
+
+MER_GER_medium_tank_floor = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 85
+		has_tech = basic_medium_tank_chassis
+		has_equipment = { medium_tank_chassis < 1200 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = medium_tank_chassis
+		value = 12
+	}
+}
+
+# Prevent Eastern Front support-company attrition (-2,000 support deficit) from gutting German org/logi.
+MER_GER_barbarossa_support_sustain = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war_with = SOV
+		num_of_military_factories > 80
+		has_equipment = { support_equipment < 800 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = support
+		value = 25
+	}
+}
+
+###############################################################################
+# 7. EUROPEAN MINORS — GENERIC PRE-WAR CIV -> REARMAMENT CURVE
+###############################################################################
+
+MER_minor_prewar_civ = {
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		NOT = { original_tag = MAP }
+		is_major = no
+		has_war = no
+		date < 1938.1.1
+		threat < 0.25
+		num_of_civilian_factories < 25
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = -20
+	}
+}
+
+MER_minor_rearmament = {
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		NOT = { original_tag = MAP }
+		is_major = no
+		OR = {
+			date > 1938.1.1
+			threat > 0.25
+			has_war = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 45
+	}
+}

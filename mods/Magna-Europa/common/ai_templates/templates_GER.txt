@@ -57,12 +57,13 @@ armored_GER = {
 			}
 		}
 
-		replace_at_match = 1.5 # I.e, no
+		replace_at_match = 0.85 # MER: was 1.5 (blocked upgrading early light armor into medium panzers)
 		replace_with = medium_armor_early_GER
 		target_min_match = 0.75
 	}
 
 	medium_armor_early_GER = {
+		reinforce_prio = 2 # MER: prioritize armor reinforcement over line infantry
 		division_names_group = GER_Arm_01
 		upgrade_prio = {
 			base = 1
@@ -78,7 +79,7 @@ armored_GER = {
 
 		# this is a stop-gap towards medium tanks, if deployed dont upgrade to medium tanks until we burn out our light tanks
 		can_upgrade_in_field = {
-			has_equipment = { light_tank_chassis < 600 } 
+			has_equipment = { light_tank_chassis < 1800 } # MER: raised 600->1800 so GER doesn't stall on light tanks
 		}
 
 		target_template = {
@@ -97,18 +98,19 @@ armored_GER = {
 			}
 			
 			regiments = {
-				medium_armor = 3
-				light_armor = 2
+				medium_armor = 5 # MER: thickened 3->5 med, 2->1 light for credible Barbarossa spearhead
+				light_armor = 1
 				motorized = 6
 			}
 		}
 
-		replace_at_match = 1.5 # I.e, no
+		replace_at_match = 0.85 # MER: was 1.5 (permanently blocked upgrading into 6-med medium_armor_mid_GER)
 		replace_with = medium_armor_mid_GER
 		target_min_match = 0.75
 	}
 
 	medium_armor_mid_GER = {
+		reinforce_prio = 2 # MER: prioritize armor reinforcement over line infantry
 		division_names_group = GER_Arm_01
 		upgrade_prio = {
 			base = 1
@@ -152,6 +154,7 @@ armored_GER = {
 	}
 
 	medium_armor_late_GER = {
+		reinforce_prio = 2 # MER: prioritize armor reinforcement over line infantry
 		division_names_group = GER_Arm_01
 		upgrade_prio = {
 			base = 1
@@ -191,6 +194,7 @@ armored_GER = {
 	}
 
 	modern_armor_default_GER = {
+		reinforce_prio = 2 # MER: prioritize armor reinforcement over line infantry
 
 		upgrade_prio = {
 			base = 1
@@ -331,6 +335,7 @@ panzergrenadier_GER = {
 	}
 
 	panzergrenadier_mid_GER = {
+		reinforce_prio = 2 # MER: prioritize elite mechanized spearhead reinforcement
 		division_names_group = GER_MEC_01
 		upgrade_prio = {
 			base = 1
@@ -371,6 +376,7 @@ panzergrenadier_GER = {
 	}
 
 	panzergrenadier_late_GER = {
+		reinforce_prio = 2 # MER: prioritize elite mechanized spearhead reinforcement
 		division_names_group = GER_MEC_01
 		upgrade_prio = {
 			base = 1
@@ -410,6 +416,7 @@ panzergrenadier_GER = {
 	}
 
 	panzergrenadier_modern_GER = {
+		reinforce_prio = 2 # MER: prioritize elite mechanized spearhead reinforcement
 		division_names_group = GER_MEC_01
 		upgrade_prio = {
 			base = 1
@@ -610,6 +617,7 @@ infantry_GER = {
 				recon = 1
 				artillery = 1
 				logistics_company = 1
+				anti_air = 1 # MER: fill 5th support slot with basic wartime AA
 			#	field_hospital = 1
 			}
 

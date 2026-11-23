@@ -220,26 +220,9 @@ SOV_spearhead_armor_and_logistics = {
 		id = motorized
 		value = 4
 	}
-	ai_strategy = {
-		type = equipment_production_min_factories_archetype
-		id = artillery_equipment
-		value = 4
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories_archetype
-		id = support_equipment
-		value = 4
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories_archetype
-		id = motorized_equipment
-		value = 3
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories_archetype
-		id = train_equipment
-		value = 2
-	}
+	# MER: removed duplicate artillery(+4)/motorized(+3)/train(+2) floors that stacked
+	# onto SOV_unit_production(art 4), SOV_produce_medium_tanks(mot 2), and SOV_build_trains(train 2).
+	# Support equipment floor is now stock-gated from 1936 in MER_economy_pacing.txt.
 }
 
 SOV_spearhead_medium_tanks = {
@@ -247,7 +230,9 @@ SOV_spearhead_medium_tanks = {
 		original_tag = SOV
 	}
 	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
 		date > 1938.1.1
+		num_of_military_factories > 55
 		has_tech = basic_medium_tank_chassis
 	}
 	abort_when_not_enabled = yes
@@ -255,7 +240,7 @@ SOV_spearhead_medium_tanks = {
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = medium_tank_chassis
-		value = 6
+		value = 3 # MER: lowered 6->3 (stacks with vanilla SOV_produce_medium_tanks = 5 -> 8 total, stops starving air)
 	}
 }
 
