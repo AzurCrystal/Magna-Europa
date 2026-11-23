@@ -495,3 +495,103 @@ MER_minor_rearmament = {
 		value = 45
 	}
 }
+
+###############################################################################
+# 8. UNITED STATES — WARTIME AIR & MEDIUM ARMOR PRODUCTION DISCIPLINE
+###############################################################################
+
+# Prevent late-war USA from dumping 90+ MILs into surplus AT guns / support / light tanks
+# while Western Air War burns through fighter stockpiles.
+MER_USA_wartime_air_and_armor_focus = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1941.12.1
+		num_of_military_factories > 120
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = fighter value = 45 }
+	ai_strategy = { type = equipment_production_factor id = armor value = 35 }
+	ai_strategy = { type = equipment_production_factor id = mechanized value = 25 }
+	ai_strategy = { type = equipment_production_factor id = cas value = 15 }
+}
+
+MER_USA_fighter_sustain_floor = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		date > 1942.1.1
+		num_of_military_factories > 140
+		has_equipment = { small_plane_airframe < 2500 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 35
+	}
+}
+
+MER_USA_medium_armor_pivot = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 120
+		has_tech = basic_medium_tank_chassis
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = light_tank_chassis
+		value = -70
+	}
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = medium_tank_chassis
+		value = 40
+	}
+}
+
+MER_USA_medium_armor_floor = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 140
+		has_tech = basic_medium_tank_chassis
+		has_equipment = { medium_tank_chassis < 1500 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = medium_tank_chassis
+		value = 15
+	}
+}
+
+MER_USA_cap_surplus_at_and_support = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 120
+		has_equipment = { anti_tank_equipment > 5000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = anti_tank value = -60 }
+}
+
+MER_USA_cap_surplus_support = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		num_of_military_factories > 120
+		has_equipment = { support_equipment > 4000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = support value = -55 }
+}

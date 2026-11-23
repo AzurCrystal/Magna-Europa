@@ -660,3 +660,148 @@ MER_major_air_xp_upgrade_nudge = {
 		value = 100
 	}
 }
+
+###############################################################################
+# 5. NORWAY & GREECE CAMPAIGN FINISHERS, CONSCRIPTION PP GUARD & BALKAN LANES
+###############################################################################
+
+# Norway (Weserubung) cleanup: after France falls and before Barbarossa, break out from the
+# Rogaland/southwest beachhead to take Oslo & Bergen with infantry/mountaineers + Luftwaffe support
+# instead of stalling in fjord mountains for four years.
+MER_GER_finish_norway_campaign = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		has_war_with = NOR
+		NOR = { has_capitulated = no }
+		FRA = { has_capitulated = yes }
+		date < 1941.5.15
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = just_norway value = 90 }
+	ai_strategy = { type = front_unit_request tag = NOR value = 65 }
+	ai_strategy = { type = invasion_unit_request tag = NOR value = 60 }
+	ai_strategy = { type = invade id = NOR value = 100 }
+	ai_strategy = { type = front_armor_score id = NOR value = -100 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 124 # Oslo
+		state = 118 # Akershus
+		state = 111 # Hordaland (Bergen)
+		value = 50
+	}
+	ai_strategy = {
+		type = front_control
+		tag = NOR
+		ratio = 0.55
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 122 value = 5000 } # Oslo
+	ai_strategy = { type = strategic_air_importance id = 121 value = 3500 } # Southern Fjords
+}
+
+# Operation Marita (Greece): Germany + Bulgaria decisively finish Larissa -> Athens in spring 1941
+# rather than leaving Greece alive with 70+ divs pinning Axis Balkan forces until 1944.
+MER_GER_operation_marita_greece = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_historical_focus_on = yes
+		has_war_with = GRE
+		GRE = { has_capitulated = no }
+		date < 1941.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = GRE value = 45 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 941  # Thessaloniki
+		state = 1015 # Larissa
+		state = 2019 # Attica (Athens)
+		value = 50
+	}
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 33 value = 4000 } # Macedonia
+	ai_strategy = { type = strategic_air_importance id = 34 value = 5000 } # Greece
+}
+
+MER_BUL_finish_greece = {
+	allowed = { original_tag = BUL }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		has_war_with = GRE
+		GRE = { has_capitulated = no }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = GRE value = 50 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 941  # Thessaloniki
+		state = 1015 # Larissa
+		state = 2019 # Attica (Athens)
+		value = 45
+	}
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+# Bank 150 PP for urgent conscription law upgrades when wartime manpower runs dangerously low
+# (especially GER after Totaler Krieg -3% conscription penalty, or ROM/ITA/FIN hitting 0 manpower).
+MER_low_manpower_prioritize_law_pp = {
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		NOT = { original_tag = MAP }
+		has_war = yes
+		NOT = { has_idea = scraping_the_barrel }
+		OR = {
+			has_manpower < 250000
+			AND = {
+				original_tag = GER
+				has_idea = totaler_krieg_economy
+				has_manpower < 700000
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = pp_spend_amount id = idea value = 150 }
+	ai_strategy = { type = pp_spend_priority id = relation value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = admiral value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = guarantee value = -9999 }
+}
+
+# Keep Hungary in its Carpathian/Galician lane rather than piling 18 divisions onto single
+# Romanian Bessarabian tiles during Barbarossa.
+MER_HUN_ROM_eastern_lane_discipline = {
+	allowed = { original_tag = HUN }
+	enable = {
+		NOT = { has_global_flag = MER_EAI_enabled }
+		is_in_faction_with = GER
+		has_war_with = SOV
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = ROM value = 100 }
+}

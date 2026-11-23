@@ -562,6 +562,12 @@ ideas = {
 					manpower_per_military_factory <  800
 				}
 
+				modifier = { # MER: prevent warring nations (e.g. ROM) stalling at 0 manpower on limited_conscription
+					factor = 30
+					has_war = yes
+					has_manpower < 150000
+				}
+
 				modifier = {
 					tag = TUR
 					has_dlc = "Battle for the Bosporus"
@@ -816,6 +822,12 @@ ideas = {
 					#Prio if low on manpower
 					factor = 20
 					manpower_per_military_factory <  700
+				}
+
+				modifier = { # MER: ensure warring nations step up before pool hits zero
+					factor = 30
+					has_war = yes
+					has_manpower < 150000
 				}
 				modifier = {
 					#Lower chance if has decent amount
@@ -1100,6 +1112,25 @@ ideas = {
 					has_manpower < 2000000
 				}
 
+				modifier = { # MER: GER loses -3% conscription from Totaler Krieg and otherwise stalls at 8k manpower
+					factor = 30
+					original_tag = GER
+					has_war_with_major = yes
+					OR = {
+						has_manpower < 500000
+						AND = {
+							has_idea = totaler_krieg_economy
+							has_manpower < 900000
+						}
+					}
+				}
+
+				modifier = { # MER: universal wartime emergency step-up before manpower drains to zero
+					factor = 40
+					has_war = yes
+					has_manpower < 200000
+				}
+
 				modifier = {
 					factor = 0
 					NOT = { has_idea = service_by_requirement }
@@ -1315,6 +1346,12 @@ ideas = {
 					#Prio if low on manpower
 					factor = 20
 					manpower_per_military_factory <  500
+				}
+
+				modifier = { # MER: wartime last-resort manpower switch before total collapse
+					factor = 35
+					has_war = yes
+					has_manpower < 150000
 				}
 				modifier = {
 					#Lower chance if has decent amount
