@@ -1,0 +1,434 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 3.3 Espionage & Collaboration Government Brain
+# Uses 100% vanilla La Resistance mechanics with zero numerical cheating:
+#   - Counters vanilla's `-20` intelligence_agency_usable_factories penalty once CIV > 40
+#   - Focuses upgrades on Cryptography + Operations + Extra Operative (stops 26-upgrade CIV waste!)
+#   - GER: Early 1937 Agency -> Spymaster -> FRA Collaboration Gov (1937-40, +40-65 occupied factories!)
+#          -> SOV Collaboration Gov + Cipher Capture + Combat Intel Network (1940-43, -20-30% surrender limit!)
+#   - SOV: Counter-Intel + Defense/Crypto + GER Combat Intel Network & Cipher + pre-war tech steal
+#   - ENG/USA: Spymaster + Ultra Cryptography + GER/ITA Cipher & Combat Intel Network
+#   - ITA: GRE Combat Intel & Cipher (strips mountain entrenchment) -> ENG/North Africa Intel & Cipher
+############################################################################################################
+
+###############################################################################
+# 1. AGENCY CREATION, SPYMASTER & FOCUSED UPGRADE BRANCH DISCIPLINE
+###############################################################################
+
+ME_EAI_esp_major_upgrade_focus = {
+	allowed = {
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_country_flag = ME_EAI_tier_1
+		has_intelligence_agency = yes
+	}
+	abort_when_not_enabled = yes
+
+	# Override default.txt's `branch_intelligence = 1000` bloat -> unlock Crypto, Operations & Extra Spy fast!
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_crypto value = 1200 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_operation value = 800 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_operative value = 400 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_intelligence value = -600 }
+}
+
+ME_EAI_esp_GER_agency_and_spymaster = {
+	allowed = {
+		original_tag = GER
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		date > 1937.1.1
+		num_of_civilian_factories > 40
+	}
+	abort_when_not_enabled = yes
+
+	# Counters GER.txt's `-20` penalty so Abwehr starts in early 1937 and gets 2nd spy in time for FRA collabs!
+	ai_strategy = { type = intelligence_agency_usable_factories value = 30 }
+	ai_strategy = { type = become_spymaster value = 200 }
+	ai_strategy = { type = agency_ai_base_num_factories_factor value = -30 }
+	ai_strategy = { type = operation_equipment_priority value = 100 }
+}
+
+ME_EAI_esp_SOV_agency_and_spymaster = {
+	allowed = {
+		original_tag = SOV
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		date > 1937.6.1
+		num_of_civilian_factories > 45
+	}
+	abort_when_not_enabled = yes
+
+	# Counters SOV.txt's `-20` penalty; emphasizes NKVD Counter-Intel + Cryptography + Defense
+	ai_strategy = { type = intelligence_agency_usable_factories value = 30 }
+	ai_strategy = { type = become_spymaster value = 200 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_defense value = 500 }
+	ai_strategy = { type = operative_mission mission = counter_intelligence value = 450 }
+	ai_strategy = { type = operation_equipment_priority value = 100 }
+}
+
+ME_EAI_esp_ENG_ultra_spymaster = {
+	allowed = {
+		original_tag = ENG
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		date > 1937.6.1
+		num_of_civilian_factories > 35
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = intelligence_agency_usable_factories value = 20 }
+	ai_strategy = { type = become_spymaster value = 250 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_crypto value = 800 }
+	ai_strategy = { type = operation_equipment_priority value = 100 }
+}
+
+ME_EAI_esp_USA_oss_crypto = {
+	allowed = {
+		original_tag = USA
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		date > 1939.1.1
+		num_of_civilian_factories > 70
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = intelligence_agency_usable_factories value = 25 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_crypto value = 800 }
+	ai_strategy = { type = operation_equipment_priority value = 100 }
+}
+
+ME_EAI_esp_ITA_sim_agency = {
+	allowed = {
+		original_tag = ITA
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		date > 1938.1.1
+		num_of_civilian_factories > 35
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = intelligence_agency_usable_factories value = 15 }
+	ai_strategy = { type = operation_equipment_priority value = 100 }
+}
+
+###############################################################################
+# 2. GERMANY: COLLABORATION GOVERNMENTS (FRA 1937-40 -> SOV 1940-43) + CIPHER
+###############################################################################
+
+ME_EAI_esp_GER_collab_FRA = {
+	allowed = {
+		original_tag = GER
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		FRA = {
+			exists = yes
+			has_capitulated = no
+			NOT = { is_ally_with = GER }
+		}
+		num_finished_operations = {
+			operation = operation_collaboration_government
+			target = FRA
+			value < 3
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1800
+		mission_target = FRA
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_collaboration_government
+		value = 2500
+		operation_target = FRA
+	}
+}
+
+ME_EAI_esp_GER_collab_SOV = {
+	allowed = {
+		original_tag = GER
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		OR = {
+			date > 1940.1.1
+			FRA = { has_capitulated = yes }
+			num_finished_operations = {
+				operation = operation_collaboration_government
+				target = FRA
+				value > 1
+			}
+		}
+		SOV = {
+			exists = yes
+			has_capitulated = no
+			NOT = { is_ally_with = GER }
+		}
+		num_finished_operations = {
+			operation = operation_collaboration_government
+			target = SOV
+			value < 3
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 2000
+		mission_target = SOV
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_collaboration_government
+		value = 2600
+		operation_target = SOV
+	}
+}
+
+# Active Soviet Front Intel Network + Cipher Capture (strips -30% Soviet entrenchment & planning!)
+ME_EAI_esp_GER_combat_intel_SOV = {
+	allowed = {
+		original_tag = GER
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		SOV = {
+			exists = yes
+			has_capitulated = no
+			NOT = { is_ally_with = GER }
+		}
+		OR = {
+			has_war_with = SOV
+			date > 1940.9.1
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1400
+		mission_target = SOV
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_capture_cipher
+		value = 1100
+		operation_target = SOV
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_infiltrate_armed_forces_army
+		value = 700
+		operation_target = SOV
+	}
+}
+
+###############################################################################
+# 3. SOVIET UNION: ANTI-GERMAN COMBAT INTEL, CIPHER & PRE-WAR TECH STEAL
+###############################################################################
+
+ME_EAI_esp_SOV_prewar_tech_steal = {
+	allowed = {
+		original_tag = SOV
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		has_war = no
+		date > 1937.6.1
+		date < 1940.6.1
+		GER = { exists = yes }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1100
+		mission_target = GER
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_steal_tech_civilian
+		value = 950
+		operation_target = GER
+	}
+}
+
+ME_EAI_esp_SOV_combat_intel_GER = {
+	allowed = {
+		original_tag = SOV
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		GER = {
+			exists = yes
+			has_capitulated = no
+		}
+		OR = {
+			has_war_with = GER
+			date > 1940.6.1
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1600
+		mission_target = GER
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_capture_cipher
+		value = 1300
+		operation_target = GER
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_infiltrate_armed_forces_army
+		value = 800
+		operation_target = GER
+	}
+}
+
+###############################################################################
+# 4. ALLIES (ENG / USA): ULTRA ENIGMA CIPHER & OVERLORD/HUSKY INTEL NETWORKS
+###############################################################################
+
+ME_EAI_esp_Allies_vs_GER = {
+	allowed = {
+		OR = { original_tag = ENG original_tag = USA }
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		has_war_with = GER
+		GER = { exists = yes has_capitulated = no }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1500
+		mission_target = GER
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_capture_cipher
+		value = 1400
+		operation_target = GER
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_infiltrate_armed_forces_army
+		value = 700
+		operation_target = GER
+	}
+}
+
+ME_EAI_esp_Allies_vs_ITA = {
+	allowed = {
+		OR = { original_tag = ENG original_tag = USA }
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		has_war_with = ITA
+		ITA = { exists = yes has_capitulated = no }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1100
+		mission_target = ITA
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_capture_cipher
+		value = 1000
+		operation_target = ITA
+	}
+}
+
+###############################################################################
+# 5. ITALY: BALKANS (GRE) -> NORTH AFRICA / MEDITERRANEAN (ENG) COMBAT INTEL
+###############################################################################
+
+ME_EAI_esp_ITA_vs_GRE = {
+	allowed = {
+		original_tag = ITA
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		date > 1939.1.1
+		GRE = {
+			exists = yes
+			has_capitulated = no
+			NOT = { is_ally_with = ITA }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1500
+		mission_target = GRE
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_capture_cipher
+		value = 1200
+		operation_target = GRE
+	}
+}
+
+ME_EAI_esp_ITA_vs_ENG = {
+	allowed = {
+		original_tag = ITA
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		has_war_with = ENG
+		OR = {
+			GRE = { exists = no }
+			GRE = { has_capitulated = yes }
+			GRE = { is_ally_with = ITA }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1400
+		mission_target = ENG
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_capture_cipher
+		value = 1100
+		operation_target = ENG
+	}
+}

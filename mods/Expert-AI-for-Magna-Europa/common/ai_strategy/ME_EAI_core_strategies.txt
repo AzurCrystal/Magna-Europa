@@ -59,7 +59,7 @@ ME_EAI_strat_mech_ramp = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = equipment_production_min_factories_archetype id = mechanized_equipment value = 7 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = mechanized_equipment value = 4 }
 	ai_strategy = { type = equipment_production_factor id = mechanized value = 35 }
 }
 
@@ -131,14 +131,15 @@ ME_EAI_strat_tier3_spam_cap = {
 # 2. CIV -> MIL CONSTRUCTION PACING (UNIVERSAL + MAJOR-TUNED)
 ###############################################################################
 
+# Pure CIV compounding phase: -250 decisively overrides base GER.txt (+50) so majors exploit ME's huge building slots!
 ME_EAI_strat_civ_phase = {
 	enable = {
 		has_country_flag = ME_EAI_civ_phase
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = added_military_to_civilian_factory_ratio value = -35 }
-	ai_strategy = { type = building_target id = industrial_complex value = 60 }
+	ai_strategy = { type = added_military_to_civilian_factory_ratio value = -250 }
+	ai_strategy = { type = building_target id = industrial_complex value = 220 }
 }
 
 ME_EAI_strat_mil_phase = {
@@ -147,8 +148,8 @@ ME_EAI_strat_mil_phase = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = added_military_to_civilian_factory_ratio value = 65 }
-	ai_strategy = { type = building_target id = arms_factory value = 120 }
+	ai_strategy = { type = added_military_to_civilian_factory_ratio value = 160 }
+	ai_strategy = { type = building_target id = arms_factory value = 400 }
 }
 
 ###############################################################################
@@ -180,7 +181,7 @@ ME_EAI_strat_trucks_floor = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = equipment_production_min_factories_archetype id = motorized_equipment value = 3 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = motorized_equipment value = 2 }
 	ai_strategy = { type = equipment_production_factor id = motorized value = 25 }
 }
 
@@ -320,6 +321,27 @@ ME_EAI_strat_law_pp_guard = {
 	ai_strategy = { type = pp_spend_priority id = relation value = -9999 }
 	ai_strategy = { type = pp_spend_priority id = admiral value = -9999 }
 	ai_strategy = { type = pp_spend_priority id = guarantee value = -9999 }
-	ai_strategy = { type = pp_spend_priority id = decision value = -500 }
 	ai_strategy = { type = pp_spend_priority id = political_advisor value = -200 }
+}
+
+# Only suppress decision PP spend when NOT under urgent German MEFO / Gold Seizure pressure!
+ME_EAI_strat_law_pp_guard_decisions = {
+	enable = {
+		has_country_flag = ME_EAI_need_law_pp
+		NOT = { has_country_flag = ME_EAI_ger_mefo_high }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = pp_spend_priority id = decision value = -500 }
+}
+
+# German Historical Four-Year Plan MEFO Discipline: click Price Controls & Gold Seizure decisions ASAP!
+ME_EAI_strat_GER_mefo_control = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_country_flag = ME_EAI_ger_mefo_high
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = pp_spend_priority id = decision value = 650 }
 }

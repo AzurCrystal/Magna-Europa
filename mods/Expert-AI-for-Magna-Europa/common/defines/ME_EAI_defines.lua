@@ -40,8 +40,20 @@ NDefines.NAI.STR_UNIT_WEAK = 0.40
 NDefines.NAI.HOUR_BAD_COMBAT_REEVALUATE = 24
 NDefines.NAI.DEPLOY_MIN_TRAINING_WAR_FACTOR = 0.85
 NDefines.NAI.DEPLOY_MIN_EQUIPMENT_WAR_FACTOR = 0.88
-NDefines.NAI.DEPLOY_MIN_TRAINING_SURRENDER_FACTOR = 0.50
-NDefines.NAI.DEPLOY_MIN_EQUIPMENT_SURRENDER_FACTOR = 0.80
+-- Strategic training-queue reserve drop when surrender progress rises (esp. USSR plugging breakthroughs!)
+NDefines.NAI.DEPLOY_MIN_TRAINING_SURRENDER_FACTOR = 0.25
+NDefines.NAI.DEPLOY_MIN_EQUIPMENT_SURRENDER_FACTOR = 0.72
+
+-- Deterministic MIO mastery: eliminate vanilla 3-way RNG on traits, policies, research & production lines
+NDefines.NAI.INDUSTRIAL_ORG_TRAIT_UNLOCK_RANDOMNESS = 1
+NDefines.NAI.INDUSTRIAL_ORG_POLICY_CHANGE_RANDOMNESS = 1
+NDefines.NAI.INDUSTRIAL_ORG_RESEARCH_ASSIGN_RANDOMNESS = 1
+NDefines.NAI.INDUSTRIAL_ORG_PRODUCTION_ASSIGN_RANDOMNESS = 1
+NDefines.NAI.INDUSTRIAL_ORG_POLICY_CHANGE_SCALE = 2.0
+NDefines.NAI.INDUSTRIAL_ORG_RESEARCH_BONUS_FACTOR = 15.0
+
+-- Espionage readiness: let major economies fund Cryptography & Operations upgrades sooner without overbuilding
+NDefines.NOperatives.AGENCY_AI_BASE_NUM_FACTORIES = 20.0
 
 -- Production line, trade, lend-lease & fuel awareness
 NDefines.NAI.PRODUCTION_LINE_SWITCH_SURPLUS_NEEDED_MODIFIER = 0.0

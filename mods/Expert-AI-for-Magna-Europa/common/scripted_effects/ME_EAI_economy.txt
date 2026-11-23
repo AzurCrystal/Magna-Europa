@@ -366,6 +366,26 @@ ME_EAI_update_deficit_and_resource_flags = {
 	else = {
 		clr_country_flag = ME_EAI_need_law_pp
 	}
+
+	#-------------------------------------------------------------------------------------------------------
+	# 6. German Historical Four-Year Plan MEFO / Economy of Conquest CG Guard (O(1) Flag)
+	#    Ensures GER always prioritizes Price Control & Gold Seizure decisions whenever CG > 25%,
+	#    preventing the 1942 100%-CG bankruptcy death spiral on the historical 4YP path.
+	#-------------------------------------------------------------------------------------------------------
+	if = {
+		limit = {
+			original_tag = GER
+			OR = {
+				has_dynamic_modifier = { modifier = GER_mefo_bills_modifier }
+				has_dynamic_modifier = { modifier = GER_economy_of_conquest_modifier }
+			}
+			check_variable = { GER_industrial_consumer_goods_factor > 0.25 }
+		}
+		set_country_flag = ME_EAI_ger_mefo_high
+	}
+	else = {
+		clr_country_flag = ME_EAI_ger_mefo_high
+	}
 }
 
 #-----------------------------------------------------------------------------------------------------------

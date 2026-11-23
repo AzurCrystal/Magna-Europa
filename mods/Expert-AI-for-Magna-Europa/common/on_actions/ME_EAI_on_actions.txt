@@ -36,6 +36,55 @@ on_actions = {
 	}
 	on_capitulation = {
 		effect = {
+			# Zero-cheat pro-player timing: when France capitulates to AI Germany under Economy of Conquest,
+			# execute vanilla GER_seize_gold_reserves across ALL German-occupied European French cores
+			# BEFORE france.14 partitions Vichy the next day. Pays the exact -25 PP cost, applies exact
+			# -5 compliance / +10 resistance / 90d overburdened modifier, and marks GER_seize_gold_reserves_state_flag
+			# on every state so vanilla's decision can NEVER double-dip France.
+			if = {
+				limit = {
+					ROOT = { original_tag = FRA }
+					FROM = {
+						original_tag = GER
+						is_ai = yes
+						has_dynamic_modifier = { modifier = GER_economy_of_conquest_modifier }
+						has_political_power > 24
+						check_variable = { GER_industrial_consumer_goods_factor > 0.25 }
+					}
+					ROOT = {
+						any_core_state = {
+							is_on_continent = europe
+							is_controlled_by = GER
+							NOT = { has_state_flag = GER_seize_gold_reserves_state_flag }
+						}
+					}
+				}
+				GER = {
+					add_political_power = -25
+					set_temp_variable = { occupied_state_num_factory = 0 }
+					add_to_temp_variable = { occupied_state_num_factory = ROOT.num_of_military_factories_in_cores@GER }
+					add_to_temp_variable = { occupied_state_num_factory = ROOT.num_of_civilian_factories_in_cores@GER }
+					add_to_temp_variable = { occupied_state_num_factory = ROOT.num_of_naval_factories_in_cores@GER }
+					ROOT = {
+						every_core_state = {
+							limit = {
+								is_on_continent = europe
+								is_controlled_by = GER
+								NOT = { has_state_flag = GER_seize_gold_reserves_state_flag }
+							}
+							add_compliance = -5
+							add_resistance = 10
+							set_state_flag = GER_seize_gold_reserves_state_flag
+							add_dynamic_modifier = { modifier = GER_overburdened_state_modifier days = 90 }
+						}
+					}
+					divide_temp_variable = { occupied_state_num_factory = 200 }
+					multiply_temp_variable = { occupied_state_num_factory = -1 }
+					add_to_variable = { GER_industrial_consumer_goods_factor = occupied_state_num_factory }
+					clamp_variable = { var = GER_industrial_consumer_goods_factor min = 0 }
+					GER_reduce_mefo_bills_penalty = yes
+				}
+			}
 			FROM = { ME_EAI_on_war_crisis = yes }
 		}
 	}
