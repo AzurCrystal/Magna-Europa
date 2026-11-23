@@ -20,9 +20,17 @@ on_actions = {
 			ME_EAI_weekly_dispatch = yes
 		}
 	}
+	on_monthly = {
+		effect = {
+			ME_EAI_on_month_tick = yes
+		}
+	}
 	on_declare_war = {
 		effect = {
-			ROOT = { ME_EAI_on_war_crisis = yes }
+			ROOT = {
+				set_country_flag = { flag = ME_EAI_just_declared_war value = 1 days = 20 }
+				ME_EAI_on_war_crisis = yes
+			}
 			FROM = { ME_EAI_on_war_crisis = yes }
 		}
 	}

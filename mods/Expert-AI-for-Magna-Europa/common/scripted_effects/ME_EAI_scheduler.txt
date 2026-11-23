@@ -15,10 +15,14 @@ ME_EAI_startup = {
 
 		# Silence base-mod MER_economy_pacing.txt & MER_combat_discipline.txt cleanly
 		set_global_flag = MER_EAI_enabled
+		# Activate Phase 3 CSR Dynamic Super-Battle Commander & Amphibious Corridors
+		set_global_flag = ME_EAI_phase3_sectors_active
 
-		# Initialize staggered 28-day clock
+		# Initialize staggered 28-day clock & calendar month/winter tracker
 		set_variable = { global.me_eai_day = 1 }
 		set_variable = { global.me_eai_next_slot = 1 }
+		set_variable = { global.me_eai_month = 1 }
+		set_global_flag = ME_EAI_is_winter
 
 		# Load precompiled CSR map graphs + L2 tactical indexes
 		ME_EAI_map_load_all = yes
@@ -39,6 +43,7 @@ ME_EAI_startup = {
 				ME_EAI_update_economy_and_stock_flags = yes
 				ME_EAI_update_deficit_and_resource_flags = yes
 				ME_EAI_update_lend_lease_flags = yes
+				ME_EAI_update_doctrine_and_intel = yes
 			}
 			if = {
 				limit = { has_country_flag = ME_EAI_tier_1 }
@@ -162,13 +167,16 @@ ME_EAI_monthly_brain = {
 	ME_EAI_update_deficit_and_resource_flags = yes
 	ME_EAI_update_lend_lease_flags = yes
 	ME_EAI_map_guided_construction = yes
-	# Phase 3: Sector operations, river fortification lines, intel counter-adaptation
+	# Phase 3: Doctrine operational profile, armor/air intel counter-adaptation, 7 major-river fortifications
+	ME_EAI_update_doctrine_and_intel = yes
+	ME_EAI_manage_river_fortifications = yes
 }
 
 ME_EAI_weekly_tier1_pulse = {
-	# Fast equipment shortage & crisis checks for Tier 1 active majors only
+	# Fast equipment shortage, crisis & Super-Battle Commander cycle for Tier 1 active majors only
 	ME_EAI_update_economy_and_stock_flags = yes
 	ME_EAI_update_deficit_and_resource_flags = yes
+	ME_EAI_battle_commander_tick = yes
 }
 
 ME_EAI_on_war_crisis = {
@@ -180,5 +188,7 @@ ME_EAI_on_war_crisis = {
 		ME_EAI_update_economy_and_stock_flags = yes
 		ME_EAI_update_deficit_and_resource_flags = yes
 		ME_EAI_update_lend_lease_flags = yes
+		ME_EAI_update_doctrine_and_intel = yes
+		ME_EAI_battle_commander_tick = yes
 	}
 }

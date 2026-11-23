@@ -1,0 +1,292 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 3 Amphibious Corridors & Theater Hygiene
+# Active once ME_EAI_phase3_sectors_active is set (replaces ME_EAI_campaigns_bridge.txt cleanly).
+# Land-front targeting & operational cadence are driven dynamically by ME_EAI_operations.txt (CSR);
+# this file coordinates naval dominance, amphibious invasion corridors (Norway / Husky / Overlord),
+# diplomatic pacing gates, and coalition theater boundaries.
+############################################################################################################
+
+# 1. Historical Diplomatic Pacing & Poland-First West Economy
+ME_EAI_p3_GER_benelux_gate = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		is_historical_focus_on = yes
+		NOT = { has_war_with = HOL }
+		NOT = { has_war_with = BEL }
+		OR = {
+			date < 1940.3.20
+			AND = {
+				has_war_with = POL
+				POL = { has_capitulated = no }
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = declare_war id = HOL value = -2000 }
+	ai_strategy = { type = declare_war id = BEL value = -2000 }
+	ai_strategy = { type = declare_war id = LUX value = -2000 }
+}
+
+ME_EAI_p3_GER_poland_first = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = POL
+		POL = { has_capitulated = no }
+		NOT = { has_war_with = HOL }
+		NOT = { has_war_with = BEL }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = HOL value = -45 }
+	ai_strategy = { type = front_unit_request tag = BEL value = -45 }
+	ai_strategy = { type = front_unit_request tag = LUX value = -45 }
+}
+
+# 2. Corridor 1: Norway Amphibious Campaign (Weserubung)
+ME_EAI_p3_GER_corridor_norway = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = NOR
+		NOR = { has_capitulated = no }
+		OR = {
+			FRA = { has_capitulated = yes }
+			NOT = { has_war_with = FRA }
+		}
+		date < 1941.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = just_norway value = 90 }
+	ai_strategy = { type = front_unit_request tag = NOR value = 65 }
+	ai_strategy = { type = invasion_unit_request tag = NOR value = 60 }
+	ai_strategy = { type = invade id = NOR value = 120 }
+	ai_strategy = { type = front_armor_score id = NOR value = -100 }
+	ai_strategy = {
+		type = front_control
+		tag = NOR
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 122 value = 5500 }
+	ai_strategy = { type = strategic_air_importance id = 121 value = 4000 }
+}
+
+# 3. Balkans / Greece Rapid Finish (Marita)
+ME_EAI_p3_Axis_finish_greece = {
+	allowed = {
+		OR = {
+			original_tag = GER
+			original_tag = BUL
+			original_tag = ITA
+		}
+	}
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = GRE
+		GRE = { has_capitulated = no }
+		date < 1942.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = GRE value = 55 }
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 33 value = 4500 }
+	ai_strategy = { type = strategic_air_importance id = 34 value = 5000 }
+}
+
+# 4. Italy Mediterranean Lane Hygiene & Alpine Conservation
+ME_EAI_p3_ITA_stay_off_east = {
+	allowed = { original_tag = ITA }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		is_in_faction_with = GER
+		OR = {
+			has_war_with = SOV
+			GER = { has_war_with = SOV }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = GER value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = ROM value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HUN value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = SLO value = 100 }
+	ai_strategy = { type = front_unit_request tag = SOV value = -180 }
+}
+
+ME_EAI_p3_ITA_alpine_guard = {
+	allowed = { original_tag = ITA }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = FRA
+		FRA = { has_capitulated = no surrender_progress < 0.20 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.25
+		priority = 90
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = no
+	}
+}
+
+# 5. Corridor 2: Mediterranean, North Africa & Sicily/Italy Invasion (Torch + Husky)
+ME_EAI_p3_allies_med_control = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = ITA
+		ITA = { has_capitulated = no }
+		date > 1941.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = central_med_lifeline value = 180 }
+	ai_strategy = { type = naval_dominance id = western_med_control_zone value = 120 }
+	ai_strategy = { type = naval_dominance id = eastern_med_control_zone value = 120 }
+}
+
+ME_EAI_p3_allies_corridor_husky = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = ITA
+		ITA = { has_capitulated = no }
+		OR = {
+			AND = {
+				date > 1942.8.1
+				1241 = { is_controlled_by_ROOT_or_ally = yes }
+				1251 = { is_controlled_by_ROOT_or_ally = yes }
+			}
+			date > 1943.4.1
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = med_invasion_zone value = 240 }
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = invade id = ITA value = 160 }
+	ai_strategy = { type = naval_invasion_focus value = 40 }
+	ai_strategy = { type = area_priority id = italy value = 340 }
+	ai_strategy = { type = invasion_unit_request area = italy value = 26 }
+	ai_strategy = { type = front_unit_request area = italy value = 55 }
+	ai_strategy = {
+		type = front_control
+		area = italy
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 18 value = 7500 }
+	ai_strategy = { type = strategic_air_importance id = 17 value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 25 value = 5500 }
+}
+
+# 6. Corridor 3: UK Staging Bridgehead & Normandy Invasion (Overlord)
+ME_EAI_p3_USA_uk_staging = {
+	allowed = { original_tag = USA }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		date > 1942.9.1
+		has_war_with = GER
+		is_in_faction_with = ENG
+		571 = { NOT = { is_controlled_by_ROOT_or_ally = yes } }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 3
+		states = { 356 2475 446 344 357 410 458 426 }
+		ratio = 0.25
+		area = europe
+		subtract_invasions_from_need = yes
+	}
+	ai_strategy = { type = naval_dominance id = 209 value = 200 }
+}
+
+ME_EAI_p3_allies_corridor_overlord = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		date > 1944.1.1
+		has_war_with = GER
+		FRA = { has_capitulated = yes }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = 209 value = 260 }
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = invade id = GER value = 200 }
+	ai_strategy = { type = naval_invasion_focus value = 55 }
+	ai_strategy = { type = area_priority id = normandy_landing_zone value = 500 }
+	ai_strategy = { type = area_priority id = atlantik_wall_zone value = 240 }
+	ai_strategy = { type = invasion_unit_request area = normandy_landing_zone value = 36 }
+	ai_strategy = { type = front_unit_request area = normandy_landing_zone value = 70 }
+	ai_strategy = { type = front_armor_score id = GER value = 260 }
+	ai_strategy = {
+		type = front_control
+		area = normandy_landing_zone
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 209 value = 8000 }
+	ai_strategy = { type = strategic_air_importance id = 62  value = 10000 }
+	ai_strategy = { type = strategic_air_importance id = 89  value = 9500 }
+}
+
+# 7. Western Air Defense & Strategic Air War (1943+)
+ME_EAI_p3_western_air_ger = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		date > 1943.1.1
+		FRA = { has_capitulated = yes }
+		OR = { has_war_with = ENG has_war_with = USA }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = strategic_air_importance id = 62 value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 36 value = 8500 }
+	ai_strategy = { type = strategic_air_importance id = 64 value = 7500 }
+}

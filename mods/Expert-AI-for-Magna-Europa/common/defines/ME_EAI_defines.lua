@@ -64,3 +64,23 @@ NDefines.NAI.SCREEN_TASKFORCE_MAX_SHIP_COUNT = 6
 NDefines.NAI.SUB_TASKFORCE_MAX_SHIP_COUNT = 6
 NDefines.NAI.MAX_SCREEN_TASKFORCES_FOR_MINE_LAYING = 0.05
 NDefines.NAI.FAILED_INVASION_AVOID_DURATION = 10
+
+-- Phase 3: True Decisive Battle ("会战") & Deep Railway/Supply-Hub Breakthrough AIFC Tuning
+-- Concentrates armor into 1 super Schwerpunkt per theater (max 2 cross-theater), waits until assault
+-- corps assemble & regain org before striking, hugs railway corridors directly onto supply hubs,
+-- bypasses major rivers/marshes with armor, and closes encirclement pockets 3x faster.
+NDefines.NAI.AIFC_MAX_NR_FRONTS = 2
+NDefines.NAI.AIFC_UNIT_RATIO_BASE = 0.36
+NDefines.NAI.AIFC_CA_DIVISIONS_PER_PROVINCE = 5
+NDefines.NAI.AIFC_ACTIVATE_IN_POSITION_RATIO_THRESHOLD = 0.65
+NDefines.NAI.AIFC_ACTIVATE_AVG_ORG_RATIO_THRESHOLD = 0.55
+NDefines.NAI.AIFC_FRESHNESS_BASE_VALUE = 70.0
+NDefines.NAI.AIFC_FRESHNESS_ADD_ON_PROGRESS = 35.0
+NDefines.NAI.AIFC_TARGET_PERSISTED_FACTOR = 55.0
+NDefines.NAI.AIFC_TARGET_SUPPLY_HUB_BASE_SCORE = 85.0
+NDefines.NAI.AIFC_PATH_COST_RAILWAY_CONNECTION = 0.22
+NDefines.NAI.AIFC_PATH_COST_HAS_SUPPLY_HUB = 0.20
+NDefines.NAI.AIFC_PATH_MAX_COST = 14.0
+NDefines.NAI.AIFC_PATH_COST_ADJ_RIVER_LARGE = 4.5
+NDefines.NAI.AIFC_PATH_COST_TRN_MARSH = 4.5
+NDefines.NAI.HOURS_BETWEEN_ENCIRCLEMENT_DISCOVERY = 24

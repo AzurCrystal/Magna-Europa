@@ -1,0 +1,1196 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 3 Land Warfare Brain & CSR Super-Battle Commander
+# Architecture:
+#   1. Doctrine-Differentiated Operational Cadence (Blitzkrieg / Deep Battle + Winter Surge / GBP / SFP)
+#   2. Real-Time CSR Railway Supply-Hub Target Finder (253-SR border filter + 2,986-State bounded rail BFS)
+#   3. 1 Super Main-Axis Battle per Theater, Max 2 Concurrent Cross-Theater (6 HQ Slots: GER/SOV/ENG/USA/ITA/GEN)
+#   4. 4-Phase Battle Cycle (Select -> Stage+Logistics/Air Prep -> Offensive Schwerpunkt -> Consolidate/Rotate)
+#   5. 7 Oriented Major-River Honest Fortification Coordinator + Dynamic Armor/Air Intel Counter-Adaptation
+############################################################################################################
+
+#-----------------------------------------------------------------------------------------------------------
+# 0. Calendar Month & Winter Season Tracker (called from on_monthly)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_on_month_tick = {
+	if = {
+		limit = { NOT = { has_global_flag = ME_EAI_month_ticked } }
+		set_global_flag = { flag = ME_EAI_month_ticked value = 1 days = 25 }
+		add_to_variable = { global.me_eai_month = 1 }
+		if = {
+			limit = { check_variable = { global.me_eai_month > 12 } }
+			set_variable = { global.me_eai_month = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					check_variable = { global.me_eai_month > 10 }
+					check_variable = { global.me_eai_month < 4 }
+				}
+			}
+			set_global_flag = ME_EAI_is_winter
+		}
+		else = {
+			clr_global_flag = ME_EAI_is_winter
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 1. Operational Doctrine School, Elastic Defense & Dynamic Enemy Intel Counter-Adaptation
+#    Runs once per 28 days in ME_EAI_monthly_brain (and on war crisis).
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_update_doctrine_and_intel = {
+	clr_country_flag = ME_EAI_doc_blitz
+	clr_country_flag = ME_EAI_doc_deep
+	clr_country_flag = ME_EAI_doc_sfp
+	clr_country_flag = ME_EAI_doc_gbp
+	clr_country_flag = ME_EAI_sov_winter_surge
+
+	# Classify operational battle cadence by researched land doctrine + major national identity
+	if = {
+		limit = {
+			OR = {
+				original_tag = GER
+				has_doctrine = new_mobile_warfare
+			}
+		}
+		set_country_flag = ME_EAI_doc_blitz
+		set_variable = { me_eai_stage_days = 14 }
+		set_variable = { me_eai_attack_days = 63 }
+		set_variable = { me_eai_rest_days = 14 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				original_tag = SOV
+				has_doctrine = mass_assault
+			}
+		}
+		set_country_flag = ME_EAI_doc_deep
+		if = {
+			limit = {
+				original_tag = SOV
+				has_global_flag = ME_EAI_is_winter
+				has_war = yes
+				surrender_progress < 0.45
+			}
+			# Soviet Winter Deep-Battle Counter-Offensive: exploit enemy winter attrition & wide-front gaps
+			set_country_flag = ME_EAI_sov_winter_surge
+			set_variable = { me_eai_stage_days = 14 }
+			set_variable = { me_eai_attack_days = 84 }
+			set_variable = { me_eai_rest_days = 14 }
+		}
+		else = {
+			set_variable = { me_eai_stage_days = 21 }
+			set_variable = { me_eai_attack_days = 70 }
+			set_variable = { me_eai_rest_days = 21 }
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				original_tag = USA
+				has_doctrine = superior_firepower
+			}
+		}
+		set_country_flag = ME_EAI_doc_sfp
+		set_variable = { me_eai_stage_days = 21 }
+		set_variable = { me_eai_attack_days = 63 }
+		set_variable = { me_eai_rest_days = 21 }
+	}
+	else = {
+		# Grand Battleplan (ENG / ITA / FRA / GBP nations): full planning bonus & air/supply prep
+		set_country_flag = ME_EAI_doc_gbp
+		set_variable = { me_eai_stage_days = 28 }
+		set_variable = { me_eai_attack_days = 56 }
+		set_variable = { me_eai_rest_days = 21 }
+	}
+
+	# Elastic Strategic Defense Posture (conserves divisions & holds major rivers during severe shock)
+	if = {
+		limit = {
+			has_war = yes
+			OR = {
+				has_country_flag = ME_EAI_rifles_starved
+				fuel_ratio < 0.16
+				AND = {
+					surrender_progress > 0.28
+					NOT = { has_country_flag = ME_EAI_sov_winter_surge }
+				}
+				AND = {
+					original_tag = SOV
+					has_war_with = GER
+					NOT = { has_global_flag = ME_EAI_is_winter }
+					surrender_progress > 0.10
+					OR = {
+						GER = { has_idea = GER_barbarossa }
+						date < 1941.11.15
+					}
+				}
+			}
+		}
+		set_country_flag = ME_EAI_defensive_posture
+	}
+	else = {
+		clr_country_flag = ME_EAI_defensive_posture
+	}
+
+	# Dynamic Enemy Armor Intel Counter-Adaptation (unlocks 20W AT infantry + extra AT production & research)
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			has_war = yes
+			has_tech = interwar_antitank
+			num_of_military_factories > 49
+			any_enemy_country = {
+				OR = {
+					check_variable = { num_battalions_with_type@medium_armor > 55 }
+					check_variable = { num_battalions_with_type@heavy_armor > 18 }
+					AND = {
+						is_ai = no
+						check_variable = { num_battalions_with_type@medium_armor > 28 }
+					}
+				}
+			}
+		}
+		set_country_flag = ME_EAI_counter_armor
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_war = no
+				NOT = { has_country_flag = ME_EAI_tier_1 }
+			}
+		}
+		clr_country_flag = ME_EAI_counter_armor
+	}
+
+	# Dynamic Enemy Air Intel Counter-Adaptation (boosts fighters & division AA when outnumbered in the air)
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			has_war = yes
+			num_of_military_factories > 39
+			has_deployed_air_force_size = { type = fighter size < 2400 }
+			any_enemy_country = {
+				OR = {
+					has_deployed_air_force_size = { type = fighter size > 1800 }
+					AND = {
+						is_ai = no
+						has_deployed_air_force_size = { type = fighter size > 1000 }
+					}
+				}
+			}
+		}
+		set_country_flag = ME_EAI_counter_air
+	}
+	else = {
+		clr_country_flag = ME_EAI_counter_air
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 2. 7 Oriented Major-River Honest Fortification Coordinator
+#    Calls precompiled zero-meta_effect ME_EAI_fortify_riv_* effects (CIV-paid instant_build=no, cap lv 3).
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_manage_river_fortifications = {
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			num_of_civilian_factories > 29
+			NOT = { has_country_flag = me_eai_riv_mgr_cd }
+			OR = {
+				has_war = yes
+				threat > 0.45
+				date > 1939.6.1
+			}
+		}
+		set_country_flag = { flag = me_eai_riv_mgr_cd value = 1 days = 45 }
+
+		# Dnieper-Dvina East Bank (SOV preparing/defending against Western invasion)
+		if = {
+			limit = {
+				original_tag = SOV
+				OR = {
+					has_war_with = GER
+					date > 1940.6.1
+				}
+			}
+			ME_EAI_fortify_riv_dnieper_east = yes
+		}
+
+		# Don-Volga East Bank (SOV deep strategic fallback line)
+		if = {
+			limit = {
+				original_tag = SOV
+				has_war_with = GER
+				surrender_progress > 0.12
+			}
+			ME_EAI_fortify_riv_don_volga_east = yes
+		}
+
+		# Vistula-Narew West Bank (POL pre-war/war OR GER East Front fallback)
+		if = {
+			limit = {
+				OR = {
+					original_tag = POL
+					AND = {
+						original_tag = GER
+						has_war_with = SOV
+						OR = {
+							date > 1942.6.1
+							surrender_progress > 0.05
+						}
+					}
+				}
+			}
+			ME_EAI_fortify_riv_vistula_west = yes
+		}
+
+		# Oder-Elbe West Bank (GER homeland eastern barrier)
+		if = {
+			limit = {
+				original_tag = GER
+				has_war_with = SOV
+				OR = {
+					date > 1943.6.1
+					surrender_progress > 0.08
+				}
+			}
+			ME_EAI_fortify_riv_oder_elbe_west = yes
+		}
+
+		# Rhine-Westwall East Bank (GER western barrier vs Allies)
+		if = {
+			limit = {
+				original_tag = GER
+				OR = { has_war_with = ENG has_war_with = USA has_war_with = FRA }
+				OR = {
+					date > 1943.1.1
+					surrender_progress > 0.05
+				}
+			}
+			ME_EAI_fortify_riv_rhine_east = yes
+		}
+
+		# Po-Adige North Bank (ITA / GER Gothic-Po Line in Northern Italy)
+		if = {
+			limit = {
+				OR = { original_tag = ITA original_tag = GER }
+				OR = { has_war_with = ENG has_war_with = USA }
+				OR = {
+					date > 1942.6.1
+					surrender_progress > 0.08
+				}
+			}
+			ME_EAI_fortify_riv_po_north = yes
+		}
+
+		# Danube Line (Balkan / Axis southern barrier when threatened)
+		if = {
+			limit = {
+				has_war = yes
+				OR = { original_tag = ROM original_tag = HUN original_tag = YUG original_tag = BUL original_tag = GER }
+				surrender_progress > 0.05
+			}
+			ME_EAI_fortify_riv_danube = yes
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 3. Helper: Map Sector ID (1..13) -> Theater Group (1=East, 2=West/North, 3=Med/Africa/Balkans)
+#    Input: _sec_in | Output: _tgroup_out
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_sector_to_tgroup = {
+	if = {
+		limit = { check_variable = { _sec_in < 4 } }
+		set_temp_variable = { _tgroup_out = 1 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = { _sec_in = 7 }
+				check_variable = { _sec_in = 8 }
+				check_variable = { _sec_in = 9 }
+				check_variable = { _sec_in = 10 }
+			}
+		}
+		set_temp_variable = { _tgroup_out = 3 }
+	}
+	else = {
+		set_temp_variable = { _tgroup_out = 2 }
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 4. Real-Time CSR Railway Supply-Hub Target Finder
+#    Input:  THIS = evaluating country
+#            temp var _excl_tgroup (0 = allow all theaters; 1/2/3 = exclude primary battle theater)
+#    Output: temp var _best_tgt_sid (0 if none), _best_jump_sid, _best_tgt_sr, _best_tgt_sec, _best_tgroup
+#    Algorithm:
+#      - Filters 253-SR CSR in O(degree) for enemy-held SRs adjacent to a friendly-held land SR
+#      - Evaluates global.me_sr_top_hub^_srid & global.me_st_rail_score^_hub_sid
+#      - Runs bounded 2,986-state reverse-BFS (max 24 pops) to find our exact rail jump-off state
+#      - Scores: rail_score + rail_link(+30) + close_depth(+20) - major_river(-25) - recent_rotation(-65)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_find_rail_hub_target = {
+	set_temp_variable = { _me_c = THIS.id }
+	set_temp_variable = { _eval_country = THIS.id }
+	set_temp_variable = { _best_sc = -999 }
+	set_temp_variable = { _best_tgt_sid = 0 }
+	set_temp_variable = { _best_jump_sid = 0 }
+	set_temp_variable = { _best_tgt_sr = 0 }
+	set_temp_variable = { _best_tgt_sec = 0 }
+	set_temp_variable = { _best_tgroup = 0 }
+
+	# Scan all 1..num_srs land SRs that belong to a European sector (1..13)
+	set_temp_variable = { _sr_end = global.me_map_num_srs }
+	add_to_temp_variable = { _sr_end = 1 }
+
+	for_loop_effect = {
+		start = 1
+		end = var:_sr_end
+		value = _srid
+
+		set_temp_variable = { _sec_in = global.me_sr_sector^_srid }
+		if = {
+			limit = {
+				check_variable = { global.me_sr_is_sea^_srid = 0 }
+				check_variable = { _sec_in > 0 }
+			}
+			ME_EAI_sector_to_tgroup = yes
+			# Coalition theater lane discipline: ITA stays in Med/Africa/Balkans/West (not East); HUN/ROM/BUL stay East/Balkans
+			set_temp_variable = { _lane_ok = 1 }
+			if = {
+				limit = {
+					original_tag = ITA
+					is_in_faction_with = GER
+					check_variable = { _tgroup_out = 1 }
+				}
+				set_temp_variable = { _lane_ok = 0 }
+			}
+			else_if = {
+				limit = {
+					is_in_faction_with = GER
+					OR = { original_tag = HUN original_tag = ROM original_tag = BUL original_tag = SLO }
+					NOT = { check_variable = { _tgroup_out = 1 } }
+					NOT = { check_variable = { _sec_in = 10 } }
+				}
+				set_temp_variable = { _lane_ok = 0 }
+			}
+			if = {
+				limit = {
+					check_variable = { _lane_ok = 1 }
+					OR = {
+						check_variable = { _excl_tgroup = 0 }
+						NOT = { check_variable = { _tgroup_out = _excl_tgroup } }
+					}
+				}
+				set_temp_variable = { _hub_sid = global.me_sr_top_hub^_srid }
+				if = {
+					limit = { check_variable = { _hub_sid > 0 } }
+					set_temp_variable = { _base_sc = global.me_st_rail_score^_hub_sid }
+					if = {
+						limit = { check_variable = { _base_sc > 0 } }
+						set_temp_variable = { _hub_ref = global.me_st_ref^_hub_sid }
+						if = {
+							limit = {
+								var:_hub_ref = {
+									CONTROLLER = { has_war_with = var:_me_c }
+								}
+							}
+							# Fast 253-SR CSR border filter: only inspect enemy SRs touching a friendly land SR
+							set_temp_variable = { _sr_touch = 0 }
+							set_temp_variable = { _u1 = _srid }
+							add_to_temp_variable = { _u1 = 1 }
+							set_temp_variable = { _s = global.me_sr_off^_srid }
+							set_temp_variable = { _e = global.me_sr_off^_u1 }
+							if = {
+								limit = { check_variable = { _e > _s } }
+								for_loop_effect = {
+									start = var:_s
+									end = var:_e
+									value = _k
+									break = _sr_touch
+
+									set_temp_variable = { _nsr = global.me_sr_adj^_k }
+									if = {
+										limit = { check_variable = { global.me_sr_is_sea^_nsr = 0 } }
+										set_temp_variable = { _nh = global.me_sr_top_hub^_nsr }
+										if = {
+											limit = { check_variable = { _nh > 0 } }
+											set_temp_variable = { _nh_ref = global.me_st_ref^_nh }
+											if = {
+												limit = {
+													var:_nh_ref = {
+														CONTROLLER = { ME_EAI_is_friendly_to_eval = yes }
+													}
+												}
+												set_temp_variable = { _sr_touch = 1 }
+											}
+										}
+									}
+								}
+							}
+
+							# Also allow contested SR where our airbase/hub state touches enemy inside same SR
+							if = {
+								limit = { check_variable = { _sr_touch = 0 } }
+								set_temp_variable = { _as = global.me_sr_top_air^_srid }
+								if = {
+									limit = { check_variable = { _as > 0 } }
+									set_temp_variable = { _as_ref = global.me_st_ref^_as }
+									if = {
+										limit = {
+											var:_as_ref = {
+												CONTROLLER = { ME_EAI_is_friendly_to_eval = yes }
+											}
+										}
+										set_temp_variable = { _sr_touch = 1 }
+									}
+								}
+							}
+
+							# Bounded 2,986-state reverse-BFS from enemy rail hub -> nearest friendly jump-off state
+							if = {
+								limit = { check_variable = { _sr_touch = 1 } }
+								set_temp_variable = { _found_jump = 0 }
+								set_temp_variable = { _jump_sid = 0 }
+								set_temp_variable = { _jump_rail = 0 }
+								set_temp_variable = { _jump_riv = 0 }
+								set_temp_variable = { _exp = 0 }
+								clear_temp_array = _rb_q
+								clear_temp_array = _rb_seen
+								add_to_temp_array = { _rb_q = _hub_sid }
+								add_to_temp_array = { _rb_seen = _hub_sid }
+								set_temp_variable = { _head = 0 }
+
+								while_loop_effect = {
+									limit = {
+										check_variable = { _found_jump = 0 }
+										check_variable = { _head < _rb_q^num }
+										check_variable = { _exp < 24 }
+									}
+									set_temp_variable = { _cur = _rb_q^_head }
+									add_to_temp_variable = { _head = 1 }
+									add_to_temp_variable = { _exp = 1 }
+
+									set_temp_variable = { _cu1 = _cur }
+									add_to_temp_variable = { _cu1 = 1 }
+									set_temp_variable = { _cs = global.me_st_off^_cur }
+									set_temp_variable = { _ce = global.me_st_off^_cu1 }
+									if = {
+										limit = { check_variable = { _ce > _cs } }
+										for_loop_effect = {
+											start = var:_cs
+											end = var:_ce
+											value = _ck
+											break = _found_jump
+
+											set_temp_variable = { _cnb = global.me_st_adj^_ck }
+											set_temp_variable = { _cef = global.me_st_eflag^_ck }
+											set_temp_variable = { _cnb_ref = global.me_st_ref^_cnb }
+
+											if = {
+												limit = {
+													var:_cnb_ref = {
+														CONTROLLER = { ME_EAI_is_friendly_to_eval = yes }
+													}
+												}
+												set_temp_variable = { _found_jump = 1 }
+												set_temp_variable = { _jump_sid = _cnb }
+												set_temp_variable = { _efm = _cef }
+												modulo_temp_variable = { _efm = 2 }
+												if = {
+													limit = { check_variable = { _efm = 0 } }
+													set_temp_variable = { _jump_rail = 1 }
+												}
+												if = {
+													limit = {
+														check_variable = { _cef > 2 }
+														check_variable = { _cef < 5 }
+													}
+													set_temp_variable = { _jump_riv = 1 }
+												}
+											}
+											else_if = {
+												limit = {
+													NOT = { is_in_array = { _rb_seen = _cnb } }
+													var:_cnb_ref = {
+														CONTROLLER = { has_war_with = var:_me_c }
+													}
+												}
+												add_to_temp_array = { _rb_seen = _cnb }
+												add_to_temp_array = { _rb_q = _cnb }
+											}
+										}
+									}
+								}
+								clear_temp_array = _rb_q
+								clear_temp_array = _rb_seen
+
+								if = {
+									limit = { check_variable = { _found_jump = 1 } }
+									set_temp_variable = { _sc = _base_sc }
+									# Strong preference for railway hubs directly on THIS country's own controlled frontline
+									set_temp_variable = { _j_chk_ref = global.me_st_ref^_jump_sid }
+									if = {
+										limit = {
+											var:_j_chk_ref = { CONTROLLER = { tag = var:_me_c } }
+										}
+										add_to_temp_variable = { _sc = 45 }
+									}
+									if = {
+										limit = { check_variable = { _jump_rail = 1 } }
+										add_to_temp_variable = { _sc = 30 }
+									}
+									if = {
+										limit = { check_variable = { _exp < 7 } }
+										add_to_temp_variable = { _sc = 20 }
+									}
+									if = {
+										limit = { check_variable = { _jump_riv = 1 } }
+										subtract_from_temp_variable = { _sc = 25 }
+									}
+									# Avoid stalled target to drive natural North/Center/South battle rotation
+									if = {
+										limit = {
+											var:_hub_ref = { has_state_flag = me_eai_recent_tgt }
+										}
+										subtract_from_temp_variable = { _sc = 65 }
+									}
+									# Theater focus alignment for the 3 primary European theaters
+									if = {
+										limit = {
+											OR = { original_tag = GER original_tag = SOV }
+											check_variable = { _tgroup_out = 1 }
+										}
+										add_to_temp_variable = { _sc = 18 }
+									}
+									else_if = {
+										limit = {
+											original_tag = ITA
+											check_variable = { _tgroup_out = 3 }
+										}
+										add_to_temp_variable = { _sc = 20 }
+									}
+									else_if = {
+										limit = {
+											OR = { original_tag = ENG original_tag = USA }
+											OR = { check_variable = { _tgroup_out = 2 } check_variable = { _tgroup_out = 3 } }
+										}
+										add_to_temp_variable = { _sc = 15 }
+									}
+
+									if = {
+										limit = { check_variable = { _sc > _best_sc } }
+										set_temp_variable = { _best_sc = _sc }
+										set_temp_variable = { _best_tgt_sid = _hub_sid }
+										set_temp_variable = { _best_jump_sid = _jump_sid }
+										set_temp_variable = { _best_tgt_sr = _srid }
+										set_temp_variable = { _best_tgt_sec = _sec_in }
+										set_temp_variable = { _best_tgroup = _tgroup_out }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 5. Pre-Battle Logistics & Forward Airbase Pre-Conditioning (User Decision #3!)
+#    Ensures runways & supply-hub infrastructure right behind our jump-off line are expanded honestly
+#    before/during Staging so fighters & CAS always have full range and armor launches on max supply.
+#    Input: temp var _prep_jump_sid, _prep_tgt_sec
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_prep_battle_logistics = {
+	set_temp_variable = { _me_c = THIS.id }
+
+	# Sync air-superiority sector over battle target & jump-off SR
+	if = {
+		limit = { check_variable = { _prep_tgt_sec > 0 } }
+		set_temp_variable = { _air_sec_id = _prep_tgt_sec }
+		ME_EAI_enable_air_sector_by_id = yes
+	}
+	if = {
+		limit = { check_variable = { _prep_jump_sid > 0 } }
+		set_temp_variable = { _j_sr = global.me_st_sr^_prep_jump_sid }
+		if = {
+			limit = { check_variable = { _j_sr > 0 } }
+			set_temp_variable = { _j_sec = global.me_sr_sector^_j_sr }
+			if = {
+				limit = { check_variable = { _j_sec > 0 } }
+				set_temp_variable = { _air_sec_id = _j_sec }
+				ME_EAI_enable_air_sector_by_id = yes
+			}
+
+			# Honest CIV construction: expand forward airbase in jump-off SR (up to level 10!)
+			if = {
+				limit = {
+					num_of_civilian_factories > 24
+					NOT = { has_country_flag = me_eai_op_air_cd }
+				}
+				set_temp_variable = { _j_air = global.me_sr_top_air^_j_sr }
+				if = {
+					limit = { check_variable = { _j_air > 0 } }
+					set_temp_variable = { _j_air_ref = global.me_st_ref^_j_air }
+					var:_j_air_ref = {
+						if = {
+							limit = {
+								CONTROLLER = { tag = var:_me_c }
+								NOT = { has_state_flag = me_eai_queued_air }
+								air_base < 10
+								free_building_slots = {
+									building = air_base
+									size > 0
+									include_locked = no
+								}
+							}
+							add_building_construction = {
+								type = air_base
+								level = 1
+								instant_build = no
+							}
+							set_state_flag = { flag = me_eai_queued_air value = 1 days = 90 }
+							var:_me_c = { set_country_flag = { flag = me_eai_op_air_cd value = 1 days = 42 } }
+						}
+					}
+				}
+			}
+
+			# Honest CIV construction: boost jump-off state & jump-off SR hub infrastructure (up to level 5!)
+			if = {
+				limit = {
+					num_of_civilian_factories > 29
+					NOT = { has_country_flag = me_eai_op_infra_cd }
+				}
+				set_temp_variable = { _j_ref = global.me_st_ref^_prep_jump_sid }
+				var:_j_ref = {
+					if = {
+						limit = {
+							CONTROLLER = { tag = var:_me_c }
+							NOT = { has_state_flag = me_eai_queued_infra }
+							infrastructure < 5
+							free_building_slots = {
+								building = infrastructure
+								size > 0
+								include_locked = no
+							}
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = no
+						}
+						set_state_flag = { flag = me_eai_queued_infra value = 1 days = 120 }
+						var:_me_c = { set_country_flag = { flag = me_eai_op_infra_cd value = 1 days = 56 } }
+					}
+				}
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 6. O(k) State Flag Painting & Cleanup Helpers (Zero every_state Scans!)
+#    Supports 6 HQ slots: 1=GER, 2=SOV, 3=ENG, 4=USA, 5=ITA, 6=GEN (universal non-historical major).
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_get_hq_slot_id = {
+	if = { limit = { original_tag = GER } set_temp_variable = { _hq_id = 1 } }
+	else_if = { limit = { original_tag = SOV } set_temp_variable = { _hq_id = 2 } }
+	else_if = { limit = { original_tag = ENG } set_temp_variable = { _hq_id = 3 } }
+	else_if = { limit = { original_tag = USA } set_temp_variable = { _hq_id = 4 } }
+	else_if = { limit = { original_tag = ITA } set_temp_variable = { _hq_id = 5 } }
+	else = { set_temp_variable = { _hq_id = 6 } }
+}
+
+ME_EAI_clear_op1_marks = {
+	ME_EAI_get_hq_slot_id = yes
+	for_each_loop = {
+		array = me_eai_op1_marked
+		value = _msid
+		set_temp_variable = { _mref = global.me_st_ref^_msid }
+		var:_mref = {
+			if = { limit = { check_variable = { _hq_id = 1 } } clr_state_flag = me_eai_op1_tgt_GER clr_state_flag = me_eai_op1_zone_GER }
+			else_if = { limit = { check_variable = { _hq_id = 2 } } clr_state_flag = me_eai_op1_tgt_SOV clr_state_flag = me_eai_op1_zone_SOV }
+			else_if = { limit = { check_variable = { _hq_id = 3 } } clr_state_flag = me_eai_op1_tgt_ENG clr_state_flag = me_eai_op1_zone_ENG }
+			else_if = { limit = { check_variable = { _hq_id = 4 } } clr_state_flag = me_eai_op1_tgt_USA clr_state_flag = me_eai_op1_zone_USA }
+			else_if = { limit = { check_variable = { _hq_id = 5 } } clr_state_flag = me_eai_op1_tgt_ITA clr_state_flag = me_eai_op1_zone_ITA }
+			else = { clr_state_flag = me_eai_op1_tgt_GEN clr_state_flag = me_eai_op1_zone_GEN }
+		}
+	}
+	clear_array = me_eai_op1_marked
+}
+
+ME_EAI_clear_op2_marks = {
+	ME_EAI_get_hq_slot_id = yes
+	for_each_loop = {
+		array = me_eai_op2_marked
+		value = _msid
+		set_temp_variable = { _mref = global.me_st_ref^_msid }
+		var:_mref = {
+			if = { limit = { check_variable = { _hq_id = 1 } } clr_state_flag = me_eai_op2_tgt_GER clr_state_flag = me_eai_op2_zone_GER }
+			else_if = { limit = { check_variable = { _hq_id = 2 } } clr_state_flag = me_eai_op2_tgt_SOV clr_state_flag = me_eai_op2_zone_SOV }
+			else_if = { limit = { check_variable = { _hq_id = 3 } } clr_state_flag = me_eai_op2_tgt_ENG clr_state_flag = me_eai_op2_zone_ENG }
+			else_if = { limit = { check_variable = { _hq_id = 4 } } clr_state_flag = me_eai_op2_tgt_USA clr_state_flag = me_eai_op2_zone_USA }
+			else_if = { limit = { check_variable = { _hq_id = 5 } } clr_state_flag = me_eai_op2_tgt_ITA clr_state_flag = me_eai_op2_zone_ITA }
+		}
+	}
+	clear_array = me_eai_op2_marked
+}
+
+ME_EAI_paint_op1_zone = {
+	# Input: _best_tgt_sid (enemy railway hub state)
+	set_temp_variable = { _me_c = THIS.id }
+	ME_EAI_clear_op1_marks = yes
+	ME_EAI_get_hq_slot_id = yes
+
+	# Paint target hub + up to 14 enemy states within 2 CSR hops as the Super-Battle Operational Zone
+	clear_temp_array = _pq
+	clear_temp_array = _pseen
+	add_to_temp_array = { _pq = _best_tgt_sid }
+	add_to_temp_array = { _pseen = _best_tgt_sid }
+	set_temp_variable = { _ph = 0 }
+	set_temp_variable = { _pcnt = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { _ph < _pq^num }
+			check_variable = { _pcnt < 14 }
+		}
+		set_temp_variable = { _ps = _pq^_ph }
+		add_to_temp_variable = { _ph = 1 }
+		add_to_temp_variable = { _pcnt = 1 }
+
+		add_to_array = { me_eai_op1_marked = _ps }
+		set_temp_variable = { _pref = global.me_st_ref^_ps }
+		var:_pref = {
+			if = {
+				limit = { check_variable = { _hq_id = 1 } }
+				set_state_flag = me_eai_op1_zone_GER
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op1_tgt_GER }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 2 } }
+				set_state_flag = me_eai_op1_zone_SOV
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op1_tgt_SOV }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 3 } }
+				set_state_flag = me_eai_op1_zone_ENG
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op1_tgt_ENG }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 4 } }
+				set_state_flag = me_eai_op1_zone_USA
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op1_tgt_USA }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 5 } }
+				set_state_flag = me_eai_op1_zone_ITA
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op1_tgt_ITA }
+			}
+			else = {
+				set_state_flag = me_eai_op1_zone_GEN
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op1_tgt_GEN }
+			}
+		}
+
+		# Expand 1-2 CSR hops into adjacent enemy states
+		if = {
+			limit = { check_variable = { _pcnt < 10 } }
+			set_temp_variable = { _pu1 = _ps }
+			add_to_temp_variable = { _pu1 = 1 }
+			set_temp_variable = { _p_lo = global.me_st_off^_ps }
+			set_temp_variable = { _p_hi = global.me_st_off^_pu1 }
+			if = {
+				limit = { check_variable = { _p_hi > _p_lo } }
+				for_loop_effect = {
+					start = var:_p_lo
+					end = var:_p_hi
+					value = _pk
+					set_temp_variable = { _pnb = global.me_st_adj^_pk }
+					set_temp_variable = { _pnb_ref = global.me_st_ref^_pnb }
+					if = {
+						limit = {
+							NOT = { is_in_array = { _pseen = _pnb } }
+							var:_pnb_ref = { CONTROLLER = { has_war_with = var:_me_c } }
+						}
+						add_to_temp_array = { _pseen = _pnb }
+						add_to_temp_array = { _pq = _pnb }
+					}
+				}
+			}
+		}
+	}
+	clear_temp_array = _pq
+	clear_temp_array = _pseen
+}
+
+ME_EAI_paint_op2_zone = {
+	# Input: _best_tgt_sid (cross-theater secondary railway hub state; Big-5 superpowers only)
+	set_temp_variable = { _me_c = THIS.id }
+	ME_EAI_clear_op2_marks = yes
+	ME_EAI_get_hq_slot_id = yes
+
+	clear_temp_array = _pq
+	clear_temp_array = _pseen
+	add_to_temp_array = { _pq = _best_tgt_sid }
+	add_to_temp_array = { _pseen = _best_tgt_sid }
+	set_temp_variable = { _ph = 0 }
+	set_temp_variable = { _pcnt = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { _ph < _pq^num }
+			check_variable = { _pcnt < 10 }
+		}
+		set_temp_variable = { _ps = _pq^_ph }
+		add_to_temp_variable = { _ph = 1 }
+		add_to_temp_variable = { _pcnt = 1 }
+
+		add_to_array = { me_eai_op2_marked = _ps }
+		set_temp_variable = { _pref = global.me_st_ref^_ps }
+		var:_pref = {
+			if = {
+				limit = { check_variable = { _hq_id = 1 } }
+				set_state_flag = me_eai_op2_zone_GER
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op2_tgt_GER }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 2 } }
+				set_state_flag = me_eai_op2_zone_SOV
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op2_tgt_SOV }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 3 } }
+				set_state_flag = me_eai_op2_zone_ENG
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op2_tgt_ENG }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 4 } }
+				set_state_flag = me_eai_op2_zone_USA
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op2_tgt_USA }
+			}
+			else_if = {
+				limit = { check_variable = { _hq_id = 5 } }
+				set_state_flag = me_eai_op2_zone_ITA
+				if = { limit = { check_variable = { _ps = _best_tgt_sid } } set_state_flag = me_eai_op2_tgt_ITA }
+			}
+		}
+
+		if = {
+			limit = { check_variable = { _pcnt < 7 } }
+			set_temp_variable = { _pu1 = _ps }
+			add_to_temp_variable = { _pu1 = 1 }
+			set_temp_variable = { _p_lo = global.me_st_off^_ps }
+			set_temp_variable = { _p_hi = global.me_st_off^_pu1 }
+			if = {
+				limit = { check_variable = { _p_hi > _p_lo } }
+				for_loop_effect = {
+					start = var:_p_lo
+					end = var:_p_hi
+					value = _pk
+					set_temp_variable = { _pnb = global.me_st_adj^_pk }
+					set_temp_variable = { _pnb_ref = global.me_st_ref^_pnb }
+					if = {
+						limit = {
+							NOT = { is_in_array = { _pseen = _pnb } }
+							var:_pnb_ref = { CONTROLLER = { has_war_with = var:_me_c } }
+						}
+						add_to_temp_array = { _pseen = _pnb }
+						add_to_temp_array = { _pq = _pnb }
+					}
+				}
+			}
+		}
+	}
+	clear_temp_array = _pq
+	clear_temp_array = _pseen
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 7. Master Battle Commander Tick (Weekly for Tier-1 HQ Majors + Event-Driven on War Crisis)
+#    Phases: 0=Idle/Select -> 1=Staging(Prep+Air) -> 2=Offensive(Schwerpunkt) -> 3=Consolidate(Rail Convert)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_has_hq_slot = {
+	# Returns via flag ME_EAI_is_battle_hq: fixed Big-5 OR elected GEN universal major at war
+	if = {
+		limit = {
+			OR = {
+				original_tag = GER
+				original_tag = SOV
+				original_tag = ENG
+				original_tag = USA
+				original_tag = ITA
+			}
+		}
+		set_country_flag = ME_EAI_is_battle_hq
+	}
+	else_if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			has_war = yes
+			num_of_military_factories > 29
+			OR = {
+				NOT = { has_global_flag = ME_EAI_gen_hq_claimed }
+				has_country_flag = ME_EAI_gen_hq_owner
+			}
+		}
+		set_global_flag = { flag = ME_EAI_gen_hq_claimed value = 1 days = 35 }
+		set_country_flag = ME_EAI_gen_hq_owner
+		set_country_flag = ME_EAI_is_battle_hq
+	}
+	else = {
+		clr_country_flag = ME_EAI_is_battle_hq
+		clr_country_flag = ME_EAI_gen_hq_owner
+	}
+}
+
+ME_EAI_battle_commander_tick = {
+	ME_EAI_has_hq_slot = yes
+
+	if = {
+		limit = { has_country_flag = ME_EAI_is_battle_hq }
+
+		# Peace cleanup
+		if = {
+			limit = { has_war = no }
+			if = {
+				limit = {
+					OR = {
+						check_variable = { me_eai_op1_phase > 0 }
+						check_variable = { me_eai_op2_phase > 0 }
+					}
+				}
+				set_variable = { me_eai_op1_phase = 0 }
+				set_variable = { me_eai_op2_phase = 0 }
+				set_variable = { me_eai_op1_tgroup = 0 }
+				clr_country_flag = ME_EAI_op1_stage
+				clr_country_flag = ME_EAI_op1_attack
+				clr_country_flag = ME_EAI_op1_rest
+				clr_country_flag = ME_EAI_op2_stage
+				clr_country_flag = ME_EAI_op2_attack
+				clr_country_flag = ME_EAI_op2_rest
+				ME_EAI_clear_op1_marks = yes
+				ME_EAI_clear_op2_marks = yes
+				ME_EAI_clear_air_sectors = yes
+			}
+		}
+		else = {
+			# Ensure doctrine cadence vars initialized
+			if = {
+				limit = { check_variable = { me_eai_stage_days < 7 } }
+				ME_EAI_update_doctrine_and_intel = yes
+			}
+
+			# ==============================================================================================
+			# PRIMARY SUPER-BATTLE AXIS (op1: 1 Super Schwerpunkt per Theater!)
+			# ==============================================================================================
+			if = {
+				limit = { has_country_flag = ME_EAI_defensive_posture }
+				# Elastic defense overrides offensive cycle cleanly
+				if = {
+					limit = { check_variable = { me_eai_op1_phase > 0 } }
+					set_variable = { me_eai_op1_phase = 0 }
+					clr_country_flag = ME_EAI_op1_stage
+					clr_country_flag = ME_EAI_op1_attack
+					clr_country_flag = ME_EAI_op1_rest
+				}
+			}
+			else_if = {
+				# PHASE 0 -> SELECT NEXT RAILWAY SUPPLY-HUB TARGET
+				limit = { check_variable = { me_eai_op1_phase = 0 } }
+				set_temp_variable = { _excl_tgroup = 0 }
+				ME_EAI_find_rail_hub_target = yes
+				if = {
+					limit = { check_variable = { _best_tgt_sid > 0 } }
+					set_variable = { me_eai_op1_tgt_sid = _best_tgt_sid }
+					set_variable = { me_eai_op1_jump_sid = _best_jump_sid }
+					set_variable = { me_eai_op1_sec = _best_tgt_sec }
+					set_variable = { me_eai_op1_tgroup = _best_tgroup }
+					ME_EAI_paint_op1_zone = yes
+
+					# Refresh air focus + immediately queue forward airbase & jump-off hub infrastructure!
+					ME_EAI_clear_air_sectors = yes
+					set_temp_variable = { _prep_jump_sid = _best_jump_sid }
+					set_temp_variable = { _prep_tgt_sec = _best_tgt_sec }
+					ME_EAI_prep_battle_logistics = yes
+
+					# Transition to Phase 1 (STAGING); Blitzkrieg on war opening uses 7-day lightning staging
+					set_variable = { me_eai_op1_phase = 1 }
+					set_variable = { me_eai_op1_timer = me_eai_stage_days }
+					if = {
+						limit = {
+							has_country_flag = ME_EAI_doc_blitz
+							has_country_flag = ME_EAI_just_declared_war
+						}
+						set_variable = { me_eai_op1_timer = 7 }
+						clr_country_flag = ME_EAI_just_declared_war
+					}
+					set_country_flag = ME_EAI_op1_stage
+					clr_country_flag = ME_EAI_op1_attack
+					clr_country_flag = ME_EAI_op1_rest
+				}
+			}
+			else_if = {
+				# PHASE 1: STAGING -> Keep air/logistics topped up, countdown to Schwerpunkt launch!
+				limit = { check_variable = { me_eai_op1_phase = 1 } }
+				subtract_from_variable = { me_eai_op1_timer = 7 }
+
+				# Check if target hub was already captured early -> go straight to Consolidate
+				set_temp_variable = { _t_ref = global.me_st_ref^me_eai_op1_tgt_sid }
+				set_temp_variable = { _eval_country = THIS.id }
+				if = {
+					limit = {
+						var:_t_ref = { CONTROLLER = { ME_EAI_is_friendly_to_eval = yes } }
+					}
+					set_variable = { me_eai_op1_phase = 3 }
+					set_variable = { me_eai_op1_timer = me_eai_rest_days }
+					clr_country_flag = ME_EAI_op1_stage
+					set_country_flag = ME_EAI_op1_rest
+				}
+				else_if = {
+					limit = { check_variable = { me_eai_op1_timer < 1 } }
+					# LAUNCH DECISIVE OFFENSIVE (Phase 2)!
+					set_variable = { me_eai_op1_phase = 2 }
+					set_variable = { me_eai_op1_timer = me_eai_attack_days }
+					clr_country_flag = ME_EAI_op1_stage
+					set_country_flag = ME_EAI_op1_attack
+					log = "[GetDateText] | ME-EAI | OP1 LAUNCH [This.GetTag] -> hub=[?me_eai_op1_tgt_sid] jump=[?me_eai_op1_jump_sid] sec=[?me_eai_op1_sec] dur=[?me_eai_attack_days]d"
+				}
+			}
+			else_if = {
+				# PHASE 2: OFFENSIVE SCHWERPUNKT -> Monitor capture, exhaustion, or rotation timeout!
+				limit = { check_variable = { me_eai_op1_phase = 2 } }
+				subtract_from_variable = { me_eai_op1_timer = 7 }
+
+				set_temp_variable = { _t_ref = global.me_st_ref^me_eai_op1_tgt_sid }
+				set_temp_variable = { _eval_country = THIS.id }
+				if = {
+					limit = {
+						var:_t_ref = { CONTROLLER = { ME_EAI_is_friendly_to_eval = yes } }
+					}
+					# VICTORY! Railway hub captured -> enter Consolidate & Rail-Convert phase
+					set_variable = { me_eai_op1_phase = 3 }
+					set_variable = { me_eai_op1_timer = me_eai_rest_days }
+					clr_country_flag = ME_EAI_op1_attack
+					set_country_flag = ME_EAI_op1_rest
+					log = "[GetDateText] | ME-EAI | OP1 CAPTURED [This.GetTag] -> hub=[?me_eai_op1_tgt_sid] sec=[?me_eai_op1_sec] (consolidate [?me_eai_rest_days]d)"
+				}
+				else_if = {
+					limit = { check_variable = { me_eai_op1_timer < 1 } }
+					# Stalled -> mark target for 150-day rotation cooldown & enter Consolidate
+					var:_t_ref = { set_state_flag = { flag = me_eai_recent_tgt value = 1 days = 150 } }
+					set_variable = { me_eai_op1_phase = 3 }
+					set_variable = { me_eai_op1_timer = me_eai_rest_days }
+					clr_country_flag = ME_EAI_op1_attack
+					set_country_flag = ME_EAI_op1_rest
+					log = "[GetDateText] | ME-EAI | OP1 ROTATE [This.GetTag] -> stalled hub=[?me_eai_op1_tgt_sid] sec=[?me_eai_op1_sec] (150d cd)"
+				}
+			}
+			else_if = {
+				# PHASE 3: CONSOLIDATE & RAIL-CONVERT -> Wait for rail gauge conversion & org/supply refit
+				limit = { check_variable = { me_eai_op1_phase = 3 } }
+				subtract_from_variable = { me_eai_op1_timer = 7 }
+				if = {
+					limit = { check_variable = { me_eai_op1_timer < 1 } }
+					set_variable = { me_eai_op1_phase = 0 }
+					clr_country_flag = ME_EAI_op1_rest
+				}
+			}
+
+			# ==============================================================================================
+			# OPTIONAL SECONDARY CROSS-THEATER BATTLE AXIS (op2: STRICTLY different theater, Big-5 > 90 divs)
+			# Enforces User Decision #2: max 1 super battle per theater, max 2 cross-theater!
+			# ==============================================================================================
+			if = {
+				limit = {
+					OR = { original_tag = GER original_tag = SOV original_tag = ENG original_tag = USA original_tag = ITA }
+					num_divisions > 90
+					check_variable = { me_eai_op1_tgroup > 0 }
+					NOT = { has_country_flag = ME_EAI_defensive_posture }
+				}
+				if = {
+					limit = { check_variable = { me_eai_op2_phase = 0 } }
+					set_temp_variable = { _excl_tgroup = me_eai_op1_tgroup }
+					ME_EAI_find_rail_hub_target = yes
+					if = {
+						limit = { check_variable = { _best_tgt_sid > 0 } }
+						set_variable = { me_eai_op2_tgt_sid = _best_tgt_sid }
+						set_variable = { me_eai_op2_jump_sid = _best_jump_sid }
+						set_variable = { me_eai_op2_sec = _best_tgt_sec }
+						ME_EAI_paint_op2_zone = yes
+
+						set_temp_variable = { _prep_jump_sid = _best_jump_sid }
+						set_temp_variable = { _prep_tgt_sec = _best_tgt_sec }
+						ME_EAI_prep_battle_logistics = yes
+
+						set_variable = { me_eai_op2_phase = 1 }
+						set_variable = { me_eai_op2_timer = me_eai_stage_days }
+						set_country_flag = ME_EAI_op2_stage
+						clr_country_flag = ME_EAI_op2_attack
+						clr_country_flag = ME_EAI_op2_rest
+					}
+				}
+				else_if = {
+					limit = { check_variable = { me_eai_op2_phase = 1 } }
+					subtract_from_variable = { me_eai_op2_timer = 7 }
+					if = {
+						limit = { check_variable = { me_eai_op2_timer < 1 } }
+						set_variable = { me_eai_op2_phase = 2 }
+						set_variable = { me_eai_op2_timer = me_eai_attack_days }
+						clr_country_flag = ME_EAI_op2_stage
+						set_country_flag = ME_EAI_op2_attack
+					}
+				}
+				else_if = {
+					limit = { check_variable = { me_eai_op2_phase = 2 } }
+					subtract_from_variable = { me_eai_op2_timer = 7 }
+					set_temp_variable = { _t2_ref = global.me_st_ref^me_eai_op2_tgt_sid }
+					set_temp_variable = { _eval_country = THIS.id }
+					if = {
+						limit = {
+							OR = {
+								check_variable = { me_eai_op2_timer < 1 }
+								var:_t2_ref = { CONTROLLER = { ME_EAI_is_friendly_to_eval = yes } }
+							}
+						}
+						if = {
+							limit = { check_variable = { me_eai_op2_timer < 1 } }
+							var:_t2_ref = { set_state_flag = { flag = me_eai_recent_tgt value = 1 days = 150 } }
+						}
+						set_variable = { me_eai_op2_phase = 3 }
+						set_variable = { me_eai_op2_timer = me_eai_rest_days }
+						clr_country_flag = ME_EAI_op2_attack
+						set_country_flag = ME_EAI_op2_rest
+					}
+				}
+				else_if = {
+					limit = { check_variable = { me_eai_op2_phase = 3 } }
+					subtract_from_variable = { me_eai_op2_timer = 7 }
+					if = {
+						limit = { check_variable = { me_eai_op2_timer < 1 } }
+						set_variable = { me_eai_op2_phase = 0 }
+						clr_country_flag = ME_EAI_op2_rest
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = { check_variable = { me_eai_op2_phase > 0 } }
+					set_variable = { me_eai_op2_phase = 0 }
+					clr_country_flag = ME_EAI_op2_stage
+					clr_country_flag = ME_EAI_op2_attack
+					clr_country_flag = ME_EAI_op2_rest
+					ME_EAI_clear_op2_marks = yes
+				}
+			}
+		}
+	}
+}
