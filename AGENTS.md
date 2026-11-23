@@ -23,12 +23,21 @@ Mod state IDs ≠ vanilla. Province IDs share the number space but map different
 `localisation/victory_points_l_english.yml` is rebuilt to only contain real mod VPs without regional coverage (state-name fallback). Regional VP files are authoritative; keep it that way — stale vanilla IDs must never re-enter.
 
 #### Canonical mapping tables (generated, tracked in `docs/states/`)
-`docs/states/{v2m_states,m2v_states,regions,vps}.tsv` are the bidirectional truth tables —
-vanilla→ME descendants (primary + all members) and ME→vanilla ancestors (with `basis`
-provenance: comment/manual/name/vp-geo). Regenerate with `python tools/build_state_map.py`
-(from any cwd; `HOI4_DIR=<game dir>` overrides vanilla detection, `ME_MOD` the repo root);
-see `docs/states/README.md` for schema and status vocabulary. When a pair looks wrong,
-fix the generator's `MANUAL`/`MANUAL_ME2V` dicts, never the TSV by hand.
+`docs/states/state_edges.tsv` is the vanilla↔ME relation **evidence ledger**: one
+row per `(vanilla_id, me_id)` edge with a `relation_scope` partition —
+`compatibility` (canonical primary assertion, not a complete-subset proof),
+`asserted` (comment/manual declarations), `observation` (raster/heuristic
+evidence only), `excluded` (synthetic MAP edges). Only compatibility+asserted
+edges may answer "is this a relation"; raster overlap proves sampled coverage,
+never a complete subset (a province-level crosswalk the toolchain does not yet
+produce would be required). `v2m_states.tsv` and `m2v_states.tsv` are
+generated primary compatibility views; their `me_members`/`v_ancestor` fields
+must not be read as the complete relation graph. Regenerate with
+`python tools/build_state_map.py && python tools/build_state_edges.py` (from any
+cwd; `HOI4_DIR=<game dir>` overrides vanilla detection, `ME_MOD` the repo root);
+see `docs/states/README.md` for schema and status vocabulary. When a primary pair
+looks wrong, fix the generator's `MANUAL`/`MANUAL_ME2V` dicts, never a generated
+TSV by hand; secondary edge rows are generated evidence, not manual edits.
 
 ### 3. Map data invariants
 - `map/railways.txt` chains must be **consecutive land-adjacent** provinces. A sea/lake hop renders but **crashes supply mapmode** (renderer walks the chain onto water → CTD). Verify every hop against adjacency built from the *current* `provinces.bmp` — prebuilt `_ctx/prov_adj.json` can be stale after bmp edits.

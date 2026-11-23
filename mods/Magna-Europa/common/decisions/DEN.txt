@@ -2980,6 +2980,11 @@ DEN_occupation_category = {
 
 		visible = {
 			is_subject = yes
+			NOT = { 
+				has_government = communism
+				has_country_flag = DEN_banned_communism_flag 
+				has_country_flag = banned_communism_flag 
+			}
 			OVERLORD = { 
 				OR = {
 					has_government = fascism 
@@ -2987,11 +2992,6 @@ DEN_occupation_category = {
 						has_government = communism
 					}
 				}
-			}
-			NOT = { 
-				has_government = communism
-				has_country_flag = DEN_banned_communism_flag 
-				has_country_flag = banned_communism_flag 
 			}
 		}
 
@@ -3174,6 +3174,10 @@ DEN_occupation_category = {
 
 		visible = {
 			is_subject = yes
+			NOT = { 
+				has_government = fascism
+				has_country_flag = DEN_banned_fascism_flag 
+			}
 			OVERLORD = { 
 				OR = {
 					has_government = communism 
@@ -3181,10 +3185,6 @@ DEN_occupation_category = {
 						has_government = fascism
 					}
 				}
-			}
-			NOT = { 
-				has_government = fascism
-				has_country_flag = DEN_banned_fascism_flag 
 			}
 		}
 
@@ -3795,13 +3795,10 @@ DEN_overlord_category = {
 			NOT = { is_in_faction_with = DEN }
 			custom_trigger_tooltip = {
 				tooltip = mer_doesnt_control_jutland_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_jutland = yes 
-						}
-						NOT = { is_fully_controlled_by = ROOT }
+				NOT = {
+					any_controlled_state = {
+						is_jutland = yes
+						is_fully_controlled_by = ROOT
 					}
 				}
 			}
@@ -3812,13 +3809,9 @@ DEN_overlord_category = {
 			has_country_flag = DEN_overlord_installed_loyalist_flag
 			custom_trigger_tooltip = {
 				tooltip = mer_doesnt_control_jutland_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_jutland = yes 
-						}
-						NOT = { is_controlled_by = ROOT }
+				NOT = {
+					any_controlled_state = {
+						is_jutland = yes
 					}
 				}
 			}
@@ -3852,6 +3845,10 @@ DEN_overlord_category = {
 		priority = 1
 		icon = GFX_decision_eng_trade_unions_support
 
+		allowed = {
+			original_tag = GER
+		}
+
 		ai_will_do = { 
 			base = 100
 		}
@@ -3869,7 +3866,6 @@ DEN_overlord_category = {
 
 		visible = {	
 			has_subject = DEN
-			original_tag = GER
 			has_government = neutrality
 		}
 
@@ -5658,6 +5654,12 @@ DEN_military_category = {
 
 		state_target = yes
 
+		target_array = controlled_states
+
+		target_root_trigger = {
+			has_completed_focus = DEN_hjemmevaernet
+		}
+
 		target_trigger = {
 			FROM = {
 				is_core_of = DEN
@@ -7302,7 +7304,7 @@ DEN_danish_faction_category = {
 			}
 		}
 
-		targets = { SWE NOR FIN EST LAT LIT SMI POL HOL }
+		targets = { SWE NOR FIN EST LAT LIT POL HOL }
 
 		target_trigger = {
 			FROM = {
@@ -7390,7 +7392,7 @@ DEN_danish_faction_category = {
 			}
 		}
 
-		targets = { SWE NOR FIN EST LAT LIT SMI POL HOL }
+		targets = { SWE NOR FIN EST LAT LIT POL HOL }
 
 		target_trigger = {
 			FROM = {
@@ -7544,7 +7546,7 @@ DEN_influence_countries_category = {
 			}
 		}
 
-		targets = { SWE NOR FIN EST LAT LIT SMI }
+		targets = { SWE NOR FIN EST LAT LIT }
 
 		target_trigger = {
 			FROM = {
@@ -7662,7 +7664,7 @@ DEN_offer_protection_category = {
 			}
 		}
 
-		targets = { SWE NOR FIN EST LAT LIT SMI }
+		targets = { SWE NOR FIN EST LAT LIT }
 
 		target_trigger = {
 			FROM = {

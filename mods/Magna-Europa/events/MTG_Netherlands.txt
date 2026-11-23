@@ -15,7 +15,6 @@ country_event = {
 		effect_tooltip = {
 			# VEN = { transfer_state = 695 }   # 1.19-migration: off-map vanilla 695 (Curaçao)
 		}
-		VEN = { country_event = { id = mtg_netherlands.2 days = 1 random_days = 3 } }
 	}
 
 	# They're just trying to get the islands for themselves...
@@ -24,7 +23,6 @@ country_event = {
 		effect_tooltip = {
 			# VEN = { add_state_claim = 695 }   # 1.19-migration: off-map vanilla 695 (Curaçao)
 		}
-		VEN = { country_event = { id = mtg_netherlands.3 days = 1 random_days = 3 } }
 		set_global_flag = ven_claims_abc_islands
 	}
 
@@ -144,7 +142,6 @@ country_event = {
 		effect_tooltip = {
 			# VEN = { transfer_state = 695 }   # 1.19-migration: off-map vanilla 695 (Curaçao)
 		}
-		VEN = { country_event = { id = mtg_netherlands.2 days = 1 random_days = 3 } }
 	}
 
 	# We won't give it up!
@@ -153,7 +150,6 @@ country_event = {
 		effect_tooltip = {
 			# VEN = { add_state_claim = 695 }   # 1.19-migration: off-map vanilla 695 (Curaçao)
 		}
-		VEN = { country_event = { id = mtg_netherlands.3 days = 1 random_days = 3 } }
 		set_global_flag = ven_claims_abc_islands
 	}
 }
@@ -2831,8 +2827,10 @@ country_event = {
 	
 	trigger = {
 		original_tag = HOL
+		date > 1939.1.1
 		has_government = neutrality
 		has_completed_focus = HOL_wilhelminism
+		NOT = { has_country_flag = HOL_wilhelm_ii_died }
 		NOT = {
 			any_country_with_original_tag = {
 				exists = yes
@@ -2843,8 +2841,6 @@ country_event = {
 				}
 			}
 		}
-		date > 1939.1.1
-		NOT = { has_country_flag = HOL_wilhelm_ii_died }
 	}
 
 	mean_time_to_happen = {

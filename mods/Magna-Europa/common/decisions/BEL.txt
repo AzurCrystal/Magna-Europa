@@ -827,10 +827,7 @@ war_measures = {
 				every_country = {
 					limit = {
 						OR = {
-							original_tag = KAT
 							original_tag = COG
-							original_tag = RWA
-							original_tag = BRD
 						}
 						has_war_with = ROOT
 					}
@@ -2219,26 +2216,19 @@ BEL_closer_european_union_cat =  {
 						NOT = { controls_or_subject_of = yes }
 					}
 				}
-				NOT = {
-					any_state = {
-						OR = {
-							state = 61
-							state = 57
-							state = 24
-							state = 74
-							state = 59
-							state = 30
-							state = 39
-							state = 52
-							state = 38
-							state = 62
-							state = 2785
-							state = 19
-							state = 2709
-						}
-						NOT = { controls_or_subject_of = yes }
-					}
-				}
+				61 = { controls_or_subject_of = yes }
+				57 = { controls_or_subject_of = yes }
+				24 = { controls_or_subject_of = yes }
+				74 = { controls_or_subject_of = yes }
+				59 = { controls_or_subject_of = yes }
+				30 = { controls_or_subject_of = yes }
+				39 = { controls_or_subject_of = yes }
+				52 = { controls_or_subject_of = yes }
+				38 = { controls_or_subject_of = yes }
+				62 = { controls_or_subject_of = yes }
+				2785 = { controls_or_subject_of = yes }
+				19 = { controls_or_subject_of = yes }
+				2709 = { controls_or_subject_of = yes }
 			}
 		}
 
@@ -2552,16 +2542,17 @@ BEL_closer_european_union_cat =  {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = BEL_federation_controls_all_highlighted_states_tt
-				NOT = {
-					any_state = {
+				BLR = {
+					all_core_state = {
+						controls_or_subject_of = yes
+					}
+				}
+				UKR = {
+					all_core_state = {
 						OR = {
-							is_core_of = BLR
-							AND = {
-								is_core_of = UKR
-								NOT = { is_core_of = ROM }
-							}
+							is_core_of = ROM
+							controls_or_subject_of = yes
 						}
-						NOT = { controls_or_subject_of = yes }
 					}
 				}
 			}
@@ -2654,16 +2645,29 @@ BEL_closer_european_union_cat =  {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = BEL_federation_controls_all_highlighted_states_tt
-				NOT = {
-					any_state = {
-						OR = {
-							is_core_of = GEO
-							is_core_of = ARM
-							is_core_of = AZR
-							is_core_of = MOU
-							is_core_of = DAG
-						}
-						NOT = { controls_or_subject_of = yes }
+				GEO = {
+					all_core_state = {
+						controls_or_subject_of = yes
+					}
+				}
+				ARM = {
+					all_core_state = {
+						controls_or_subject_of = yes
+					}
+				}
+				AZR = {
+					all_core_state = {
+						controls_or_subject_of = yes
+					}
+				}
+				MOU = {
+					all_core_state = {
+						controls_or_subject_of = yes
+					}
+				}
+				DAG = {
+					all_core_state = {
+						controls_or_subject_of = yes
 					}
 				}
 			}
@@ -2756,10 +2760,9 @@ BEL_closer_european_union_cat =  {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = BEL_federation_controls_all_highlighted_states_tt
-				NOT = {
-					any_state = {
-						is_core_of = KUB
-						NOT = { controls_or_subject_of = yes }
+				KUB = {
+					all_core_state = {
+						controls_or_subject_of = yes
 					}
 				}
 			}
@@ -2997,6 +3000,19 @@ BEL_cores_in_gallic_france_cat = {
 		}
 
 		state_target = yes
+
+		targets = {
+			state = 466
+			state = 442
+			state = 552
+			state = 2747
+			state = 627
+			state = 2614
+		}
+
+		target_root_trigger = {
+			has_completed_focus = BEL_demand_further_gallic_concessions
+		}
 
 		target_trigger = {
 			FROM = {

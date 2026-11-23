@@ -4710,10 +4710,9 @@ BUL_macedonian_revolutionary_organizations = {
 		}
 
 		remove_effect = {
-			every_state = {
+			every_controlled_state = {
 				limit = {
 					BUL_is_macedonian_state = yes
-					is_controlled_by = ROOT
 				}
 				add_dynamic_modifier = { modifier = widespread_bulgarian_sentiment_02 }
 			}
@@ -4750,7 +4749,7 @@ BUL_macedonian_revolutionary_organizations = {
 		available = {
 			NOT = { has_country_flag = BUL_macedonian_affairs_ongoing_flag }
 			has_war = yes
-			any_state = {
+			any_controlled_state = {
 				BUL_is_macedonian_state = yes
 				is_fully_controlled_by = ROOT
 			}
@@ -4771,7 +4770,7 @@ BUL_macedonian_revolutionary_organizations = {
 
 		cancel_trigger = {
 			NOT = {
-				any_state = {
+				any_controlled_state = {
 					BUL_is_macedonian_state = yes
 					is_fully_controlled_by = ROOT
 				}
@@ -4891,7 +4890,7 @@ BUL_macedonian_revolutionary_organizations = {
 
 		available = {
 			NOT = { has_country_flag = BUL_macedonian_affairs_ongoing_flag }
-			any_state = {
+			any_controlled_state = {
 				BUL_is_macedonian_state = yes
 				is_fully_controlled_by = ROOT
 			}
@@ -8146,6 +8145,11 @@ BUL_negotiate_claims_in_the_balkans = {
 
 		state_target = yes
 
+		target_root_trigger = {
+			has_completed_focus = BUL_peaceful_development
+			is_in_faction = yes
+		}
+
 		target_trigger = {
 			FROM = {
 				BUL_is_balkan_state = yes
@@ -8401,6 +8405,13 @@ BUL_align_bulgaria = {
 		}
 
 		visible = {
+			is_subject = no
+			has_capitulated = no
+			NOT = {	
+				has_war_with = BUL
+				is_justifying_wargoal_against = BUL
+				has_military_access_to = BUL
+			}
 			BUL = { 
 				has_country_flag = BUL_german_influence_flag
 				OR = {
@@ -8408,17 +8419,10 @@ BUL_align_bulgaria = {
 					is_in_faction_with = GER
 				}
 			}
-			NOT = {	
-				has_war_with = BUL
-				is_justifying_wargoal_against = BUL
-				has_military_access_to = BUL
-			}
 			any_country = {
 				has_war_with = ROOT
 				is_neighbor_of = BUL				
 			}
-			is_subject = no
-			has_capitulated = no
 		}
 
 		ai_will_do = {
@@ -9653,6 +9657,10 @@ BUL_the_fate_of_the_balkans_dec_cat= {
 		}
 
 		state_target = yes
+
+		target_root_trigger = {
+			has_completed_focus = BUL_the_fate_of_the_balkans
+		}
 
 		allowed = {
 			original_tag = BUL

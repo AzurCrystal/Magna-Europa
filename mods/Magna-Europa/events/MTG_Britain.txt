@@ -1455,16 +1455,8 @@ country_event = {
 	option = {
 		name = mtg_britain.20.a
 		add_opinion_modifier = { target = ENG modifier = ENG_three_nation_solution }
-		release = BAN
-		ENG = { set_autonomy = { target = BAN autonomy_state = autonomy_colony } }
-		BAN = {
-			add_ideas = ENG_guided_by_britain_raj_1
-		}
-		release = PAK
-		ENG = { set_autonomy = { target = PAK autonomy_state = autonomy_colony } }
-		PAK = {
-			add_ideas = ENG_guided_by_britain_raj_1
-		}
+		ENG = { }
+		ENG = { }
 		if = {
 			limit = {
 				has_idea = RAJ_marginalized_muslim_community_angry
@@ -1525,24 +1517,22 @@ country_event = {
 			}	
 			if = {
 				limit = {
-					tag = PAK
+					always = no
 					NOT = { is_subject = no }
 					NOT = { has_autonomy_state = autonomy_dominion }
 					has_dlc = "Together for Victory"
 				}
 				ENG = {
-					set_autonomy = { target = PAK autonomy_state = autonomy_dominion }
 				}
 			}
 			if = {
 				limit = {
-					tag = BAN
+					always = no
 					NOT = { is_subject = no }
 					NOT = { has_autonomy_state = autonomy_dominion }
 					has_dlc = "Together for Victory"
 				}
 				ENG = {
-					set_autonomy = { target = BAN autonomy_state = autonomy_dominion }
 				}
 			}
 			if = {
@@ -2052,49 +2042,49 @@ country_event = {
 			event_target:democratic_uk_civil_war = {
 				if = {
 					limit = {
-						has_full_control_of_state = 126
+						has_full_control_of_state = 2475 # eu_mapping: v126 -> ME 2475
 					}
-					set_capital = { state = 126 }
+					set_capital = { state = 2475 } # eu_mapping: v126 -> ME 2475
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 132
+						has_full_control_of_state = 293 # eu_mapping: v132 -> ME 293
 					}
-					set_capital = { state = 132 }
+					set_capital = { state = 293 } # eu_mapping: v132 -> ME 293
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 128
+						has_full_control_of_state = 344 # eu_mapping: v128 -> ME 344
 					}
-					set_capital = { state = 128 }
+					set_capital = { state = 344 } # eu_mapping: v128 -> ME 344
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 127
+						has_full_control_of_state = 446 # eu_mapping: v127 -> ME 446
 					}
-					set_capital = { state = 127 }
+					set_capital = { state = 446 } # eu_mapping: v127 -> ME 446
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 132
+						has_full_control_of_state = 293 # eu_mapping: v132 -> ME 293
 					}
-					set_capital = { state = 132 }
+					set_capital = { state = 293 } # eu_mapping: v132 -> ME 293
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 130
+						has_full_control_of_state = 286 # eu_mapping: v130 -> ME 286
 					}
-					set_capital = { state = 130 }
+					set_capital = { state = 286 } # eu_mapping: v130 -> ME 286
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 121
+						has_full_control_of_state = 221 # eu_mapping: v121 -> ME 221
 					}
-					set_capital = { state = 121 }
+					set_capital = { state = 221 } # eu_mapping: v121 -> ME 221
 				}
 				else_if = {
 					limit = {
-						has_full_control_of_state = 133
+						has_full_control_of_state = 126 # eu_mapping: v133 -> ME 126
 					}
 					set_capital = { state = 126 }   # was vanilla 133 (Glasgow); keeps 1.19.4's capital=state fix
 				}
@@ -2210,11 +2200,6 @@ country_event = {
 					drop_cosmetic_tag = yes
 					retire_country_leader = yes
 				}
-			}
-			
-			MAL = {
-				drop_cosmetic_tag = yes
-				retire_country_leader = yes
 			}
 			CAN = {
 				if = {
@@ -2423,7 +2408,7 @@ country_event = {
 	# Accept
 	option = {
 		name = mtg_britain.40.a
-		transfer_state = 118
+		transfer_state = 882 # eu_mapping: v118 -> ME 882
 		FROM = {
 			add_to_faction = ROOT
 			country_event = { id = mtg_britain.36 hours = 6 }
@@ -2487,7 +2472,7 @@ country_event = {
 	option = {
 		name = excellent
 		effect_tooltip = {
-			FROM = { transfer_state = 118 }
+			FROM = { transfer_state = 882 } # eu_mapping: v118 -> ME 882
 			add_to_faction = FROM
 		}
 		hidden_effect = { news_event = { id = mtg_news.25 days = 1 } }
@@ -2711,28 +2696,22 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = PUE }
+				always = yes
 				owns_state = 686
 				has_full_control_of_state = 686
 			}
-			release = PUE
 		}
 		if = {
 			limit = {
-				PUE = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = PUE autonomy_state = autonomy_free }
-			PUE = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = "PAN" }
+				always = yes
 				owns_state = 685
 				has_full_control_of_state = 685
 			}
-			"PAN" = { transfer_state = 685 }
 		}
 		if = {
 			limit = {
@@ -2745,45 +2724,34 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CRC }
+				always = yes
 				owns_state = 695
 				has_full_control_of_state = 695
 			}
-			release = CRC
 		}
 		if = {
 			limit = {
-				CRC = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CRC autonomy_state = autonomy_free }
-			CRC = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = SUR }
+				always = yes
 				owns_state = 309
 				has_full_control_of_state = 309
 			}
-			release = SUR
 		}
 		if = {
 			limit = {
-				SUR = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = SUR autonomy_state = autonomy_free }
-			SUR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = SUR }
+				always = yes
 				owns_state = 309
 				has_full_control_of_state = 309
 			}
-			release = SUR
 		}
 		if = {
 			limit = {
@@ -2794,48 +2762,50 @@ country_event = {
 			set_autonomy = { target = INS autonomy_state = autonomy_free }
 			INS = { leave_faction = yes }
 		}
-		if = {
-			limit = {
-				NOT = { original_tag = INS }
-				owns_state = 335
-				has_full_control_of_state = 335
-				owns_state = 672
-				has_full_control_of_state = 672
-				owns_state = 334
-				has_full_control_of_state = 334
-				owns_state = 673
-				has_full_control_of_state = 673
-				owns_state = 667
-				has_full_control_of_state = 667
-				owns_state = 309
-				has_full_control_of_state = 309
-				owns_state = 668
-				has_full_control_of_state = 668
-				owns_state = 738
-				has_full_control_of_state = 738
-				owns_state = 669
-				has_full_control_of_state = 669
-			}
-			release = INS
-		}
-		if = {
-			limit = {
-				NOT = { original_tag = COG }
-				owns_state = 295
-				has_full_control_of_state = 295
-				owns_state = 538
-				has_full_control_of_state = 538
-				owns_state = 718
-				has_full_control_of_state = 718
-				owns_state = 888
-				has_full_control_of_state = 888
-				owns_state = 889
-				has_full_control_of_state = 889
-				owns_state = 890
-				has_full_control_of_state = 890
-			}
-			release = COG
-		}
+		# MER: off-map INS release removed
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = INS }
+		# 		owns_state = 335
+		# 		has_full_control_of_state = 335
+		# 		owns_state = 672
+		# 		has_full_control_of_state = 672
+		# 		owns_state = 334
+		# 		has_full_control_of_state = 334
+		# 		owns_state = 673
+		# 		has_full_control_of_state = 673
+		# 		owns_state = 667
+		# 		has_full_control_of_state = 667
+		# 		owns_state = 309
+		# 		has_full_control_of_state = 309
+		# 		owns_state = 668
+		# 		has_full_control_of_state = 668
+		# 		owns_state = 738
+		# 		has_full_control_of_state = 738
+		# 		owns_state = 669
+		# 		has_full_control_of_state = 669
+		# 	}
+		# 	release = INS
+		# }
+		# MER: off-map COG release removed
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = COG }
+		# 		owns_state = 295
+		# 		has_full_control_of_state = 295
+		# 		owns_state = 538
+		# 		has_full_control_of_state = 538
+		# 		owns_state = 718
+		# 		has_full_control_of_state = 718
+		# 		owns_state = 888
+		# 		has_full_control_of_state = 888
+		# 		owns_state = 889
+		# 		has_full_control_of_state = 889
+		# 		owns_state = 890
+		# 		has_full_control_of_state = 890
+		# 	}
+		# 	release = COG
+		# }
 		if = {
 			limit = {
 				COG = {
@@ -2855,81 +2825,61 @@ country_event = {
 #		}
 		if = {
 			limit = {
-				NOT = { original_tag = RWA }
+				always = yes
 				owns_state = 2974   # was vanilla 768 (Rwanda)
 				has_full_control_of_state = 2974   # was vanilla 768 (Rwanda)
 			}
-			release = RWA
 		}
 		if = {
 			limit = {
-				RWA = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = RWA autonomy_state = autonomy_free }
-			RWA = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = BRD }
+				always = yes
 				owns_state = 769
 				has_full_control_of_state = 769
 			}
-			release = BRD
 		}
 		if = {
 			limit = {
-				BRD = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = BRD autonomy_state = autonomy_free }
-			BRD = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = GDL }
+				always = yes
 				owns_state = 694
 				has_full_control_of_state = 694
 			}
-			release = GDL
 		}
 		if = {
 			limit = {
-				GDL = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = GDL autonomy_state = autonomy_free }
-			GDL = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CAY }
+				always = yes
 				owns_state = 310
 				has_full_control_of_state = 310
 			}
-			release = CAY
 		}
 		if = {
 			limit = {
-				CAY = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CAY autonomy_state = autonomy_free }
-			CAY = { leave_faction = yes }
 		}
 		if = {
 			limit = {
 				NOT = { original_tag = SYR }
-				owns_state = 677
-				has_full_control_of_state = 677
-				owns_state = 680
-				has_full_control_of_state = 680
-				owns_state = 554
-				has_full_control_of_state = 554
+				owns_state = 1124 # eu_mapping: v677 -> ME 1124
+				has_full_control_of_state = 1124 # eu_mapping: v677 -> ME 1124
+				owns_state = 1141 # eu_mapping: v680 -> ME 1141
+				has_full_control_of_state = 1141 # eu_mapping: v680 -> ME 1141
+				owns_state = 1930 # eu_mapping: v554 -> ME 1930
+				has_full_control_of_state = 1930 # eu_mapping: v554 -> ME 1930
 			}
 			release = SYR
 		}
@@ -2945,8 +2895,8 @@ country_event = {
 		if = {
 			limit = {
 				NOT = { original_tag = LEB }
-				owns_state = 553
-				has_full_control_of_state = 553
+				owns_state = 1920 # eu_mapping: v553 -> ME 1920
+				has_full_control_of_state = 1920 # eu_mapping: v553 -> ME 1920
 			}
 			release = LEB
 		}
@@ -2961,28 +2911,23 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = MAD }
+				always = yes
 				owns_state = 543
 				has_full_control_of_state = 543
 			}
-			release = MAD
 		}
 		if = {
 			limit = {
-				MAD = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = MAD autonomy_state = autonomy_free }
-			MAD = { leave_faction = yes }
 		}
 		if = {
 			limit = {
 				NOT = { original_tag = MOR }
-				owns_state = 461
-				has_full_control_of_state = 461
-				owns_state = 462
-				has_full_control_of_state = 462
+				owns_state = 1838 # eu_mapping: v461 -> ME 1838
+				has_full_control_of_state = 1838 # eu_mapping: v461 -> ME 1838
+				owns_state = 1829 # eu_mapping: v462 -> ME 1829
+				has_full_control_of_state = 1829 # eu_mapping: v462 -> ME 1829
 			}
 			release = MOR
 		}
@@ -2998,14 +2943,14 @@ country_event = {
 		if = {
 			limit = {
 				NOT = { original_tag = ALG }
-				owns_state = 459
-				has_full_control_of_state = 459
-				owns_state = 513
-				has_full_control_of_state = 513
-				owns_state = 460
-				has_full_control_of_state = 460
-				owns_state = 514
-				has_full_control_of_state = 514
+				owns_state = 1161 # eu_mapping: v459 -> ME 1161
+				has_full_control_of_state = 1161 # eu_mapping: v459 -> ME 1161
+				owns_state = 1130 # eu_mapping: v513 -> ME 1130
+				has_full_control_of_state = 1130 # eu_mapping: v513 -> ME 1130
+				owns_state = 1865 # eu_mapping: v460 -> ME 1865
+				has_full_control_of_state = 1865 # eu_mapping: v460 -> ME 1865
+				owns_state = 1221 # eu_mapping: v514 -> ME 1221
+				has_full_control_of_state = 1221 # eu_mapping: v514 -> ME 1221
 			}
 			release = ALG
 		}
@@ -3021,10 +2966,10 @@ country_event = {
 		if = {
 			limit = {
 				NOT = { original_tag = TUN }
-				owns_state = 458
-				has_full_control_of_state = 458
-				owns_state = 665
-				has_full_control_of_state = 665
+				owns_state = 1109 # eu_mapping: v458 -> ME 1109
+				has_full_control_of_state = 1109 # eu_mapping: v458 -> ME 1109
+				owns_state = 1215 # eu_mapping: v665 -> ME 1215
+				has_full_control_of_state = 1215 # eu_mapping: v665 -> ME 1215
 			}
 			release = TUN
 		}
@@ -3039,268 +2984,193 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = DJI }
+				always = yes
 				owns_state = 268
 				has_full_control_of_state = 268
 			}
-			release = DJI
 		}
 		if = {
 			limit = {
-				DJI = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = DJI autonomy_state = autonomy_free }
-			DJI = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = RCG }
+				always = yes
 				owns_state = 772
 				has_full_control_of_state = 772
 			}
-			release = RCG
 		}
 		if = {
 			limit = {
-				RCG = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = RCG autonomy_state = autonomy_free }
-			RCG = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = GAB }
+				always = yes
 				owns_state = 539
 				has_full_control_of_state = 539
 			}
-			release = GAB
 		}
 		if = {
 			limit = {
-				GAB = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = GAB autonomy_state = autonomy_free }
-			GAB = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CMR }
+				always = yes
 				owns_state = 773
 				has_full_control_of_state = 773
 			}
-			release = CMR
 		}
 		if = {
 			limit = {
-				CMR = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CMR autonomy_state = autonomy_free }
-			CMR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CAR }
+				always = yes
 				owns_state = 660
 				has_full_control_of_state = 660
 			}
-			release = CAR
 		}
 		if = {
 			limit = {
-				CAR = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CAR autonomy_state = autonomy_free }
-			CAR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CHA }
+				always = yes
 				owns_state = 774
 				has_full_control_of_state = 774
 				owns_state = 775
 				has_full_control_of_state = 775
 			}
-			release = CHA
 		}
 		if = {
 			limit = {
-				CHA = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CHA autonomy_state = autonomy_free }
-			CHA = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = NGR }
+				always = yes
 				owns_state = 515
 				has_full_control_of_state = 515
 				owns_state = 781
 				has_full_control_of_state = 781
 			}
-			release = NGR
 		}
 		if = {
 			limit = {
-				NGR = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = NGR autonomy_state = autonomy_free }
-			NGR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = DAH }
+				always = yes
 				owns_state = 776
 				has_full_control_of_state = 776
 			}
-			release = DAH
 		}
 		if = {
 			limit = {
-				DAH = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = DAH autonomy_state = autonomy_free }
-			DAH = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = TOG }
+				always = yes
 				owns_state = 777
 				has_full_control_of_state = 777
 			}
-			release = TOG
 		}
 		if = {
 			limit = {
-				TOG = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = TOG autonomy_state = autonomy_free }
-			TOG = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = VOL }
+				always = yes
 				owns_state = 778
 				has_full_control_of_state = 778
 			}
-			release = VOL
 		}
 		if = {
 			limit = {
-				VOL = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = VOL autonomy_state = autonomy_free }
-			VOL = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = IVO }
+				always = yes
 				owns_state = 779
 				has_full_control_of_state = 779
 			}
-			release = IVO
 		}
 		if = {
 			limit = {
-				IVO = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = IVO autonomy_state = autonomy_free }
-			IVO = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = MLI }
+				always = yes
 				owns_state = 556
 				has_full_control_of_state = 556
 				owns_state = 782
 				has_full_control_of_state = 782
 			}
-			release = MLI
 		}
 		if = {
 			limit = {
-				MLI = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = MLI autonomy_state = autonomy_free }
-			MLI = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = SEN }
+				always = yes
 				owns_state = 272
 				has_full_control_of_state = 272
 			}
-			release = SEN
 		}
 		if = {
 			limit = {
-				SEN = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = SEN autonomy_state = autonomy_free }
-			SEN = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CAY }
+				always = yes
 				owns_state = 310
 				has_full_control_of_state = 310
 			}
-			release = CAY
 		}
 		if = {
 			limit = {
-				CAY = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CAY autonomy_state = autonomy_free }
-			CAY = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = GNA }
+				always = yes
 				owns_state = 780
 				has_full_control_of_state = 780
 			}
-			release = GNA
 		}
 		if = {
 			limit = {
-				GNA = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = GNA autonomy_state = autonomy_free }
-			GNA = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = LAO }
+				always = yes
 				owns_state = 670
 				has_full_control_of_state = 670
 				owns_state = 1069
@@ -3308,39 +3178,29 @@ country_event = {
 				owns_state = 1068
 				has_full_control_of_state = 1068
 			}
-			release = LAO
 		}
 		if = {
 			limit = {
-				LAO = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = LAO autonomy_state = autonomy_free }
-			LAO = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CAM }
+				always = yes
 				owns_state = 741
 				has_full_control_of_state = 741
 				owns_state = 1067
 				has_full_control_of_state = 1067
 			}
-			release = CAM
 		}
 		if = {
 			limit = {
-				CAM = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = CAM autonomy_state = autonomy_free }
-			CAM = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = VIN }
+				always = yes
 				owns_state = 671
 				has_full_control_of_state = 671
 				owns_state = 286
@@ -3350,28 +3210,24 @@ country_event = {
 				owns_state = 1066
 				has_full_control_of_state = 1066
 			}
-			release = VIN
 		}
 		if = {
 			limit = {
-				VIN = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = VIN autonomy_state = autonomy_free }
-			VIN = { leave_faction = yes }
 		}
+		# MER: off-map Asian transfer removed (was vanilla 728)
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = event_target:WTT_current_china_leader }
+		# 		owns_state = 728
+		# 		has_full_control_of_state = 728
+		# 	}
+		# 	event_target:WTT_current_china_leader = { transfer_state = 728 }
+		# }
 		if = {
 			limit = {
-				NOT = { original_tag = event_target:WTT_current_china_leader }
-				owns_state = 728
-				has_full_control_of_state = 728
-			}
-			event_target:WTT_current_china_leader = { transfer_state = 728 }
-		}
-		if = {
-			limit = {
-				NOT = { original_tag = ANG }
+				always = yes
 				owns_state = 540
 				has_full_control_of_state = 540
 				owns_state = 891
@@ -3379,37 +3235,27 @@ country_event = {
 				owns_state = 892
 				has_full_control_of_state = 892
 			}
-			release = ANG
 		}
 		if = {
 			limit = {
-				ANG = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = ANG autonomy_state = autonomy_free }
-			ANG = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = GNB }
+				always = yes
 				owns_state = 296
 				has_full_control_of_state = 296
 			}
-			release = GNB
 		}
 		if = {
 			limit = {
-				GNB = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = GNB autonomy_state = autonomy_free }
-			GNB = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = MZB }
+				always = yes
 				owns_state = 544
 				has_full_control_of_state = 544
 				owns_state = 896
@@ -3417,55 +3263,47 @@ country_event = {
 				owns_state = 897
 				has_full_control_of_state = 897
 			}
-			release = MZB
 		}
 		if = {
 			limit = {
-				MZB = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = MZB autonomy_state = autonomy_free }
-			MZB = { leave_faction = yes }
 		}
+		# MER: off-map Asian transfer removed (was vanilla 729)
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = event_target:WTT_current_china_leader }
+		# 		owns_state = 729
+		# 		has_full_control_of_state = 729
+		# 	}
+		# 	event_target:WTT_current_china_leader = { transfer_state = 729 }
+		# }
+		# MER: off-map Asian transfer removed (was vanilla 721)
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = INS }
+		# 		owns_state = 721
+		# 		has_full_control_of_state = 721
+		# 	}
+		# 	INS = { transfer_state = 721 }
+		# }
 		if = {
 			limit = {
-				NOT = { original_tag = event_target:WTT_current_china_leader }
-				owns_state = 729
-				has_full_control_of_state = 729
-			}
-			event_target:WTT_current_china_leader = { transfer_state = 729 }
-		}
-		if = {
-			limit = {
-				NOT = { original_tag = INS }
-				owns_state = 721
-				has_full_control_of_state = 721
-			}
-			INS = { transfer_state = 721 }
-		}
-		if = {
-			limit = {
-				NOT = { original_tag = EQG }
+				always = yes
 				owns_state = 297
 				has_full_control_of_state = 297
 			}
-			release = EQG
 		}
 		if = {
 			limit = {
-				EQG = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = EQG autonomy_state = autonomy_free }
-			EQG = { leave_faction = yes }
 		}
 		if = {
 			limit = {
 				NOT = { original_tag = WES }
-				owns_state = 699
-				has_full_control_of_state = 699
+				owns_state = 1323 # eu_mapping: v699 -> ME 1323
+				has_full_control_of_state = 1323 # eu_mapping: v699 -> ME 1323
 			}
 			release = WES
 		}
@@ -3478,41 +3316,90 @@ country_event = {
 			set_autonomy = { target = WES autonomy_state = autonomy_free }
 			WES = { leave_faction = yes }
 		}
+		# MER: remapped Spanish Morocco (v290, excluding TNG 1851)
 		if = {
 			limit = {
 				NOT = { original_tag = MOR }
-				owns_state = 290
-				has_full_control_of_state = 290
+				owns_state = 893
+				has_full_control_of_state = 893
 			}
-			MOR = { transfer_state = 290 }
+			MOR = { transfer_state = 893 }
 		}
 		if = {
 			limit = {
 				NOT = { original_tag = MOR }
-				owns_state = 783
-				has_full_control_of_state = 783
+				owns_state = 1160
+				has_full_control_of_state = 1160
 			}
-			MOR = { transfer_state = 783 }
+			MOR = { transfer_state = 1160 }
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = MOR }
+				owns_state = 1177
+				has_full_control_of_state = 1177
+			}
+			MOR = { transfer_state = 1177 }
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = MOR }
+				owns_state = 1181
+				has_full_control_of_state = 1181
+			}
+			MOR = { transfer_state = 1181 }
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = MOR }
+				owns_state = 1182
+				has_full_control_of_state = 1182
+			}
+			MOR = { transfer_state = 1182 }
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = MOR }
+				owns_state = 1189
+				has_full_control_of_state = 1189
+			}
+			MOR = { transfer_state = 1189 }
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = MOR }
+				owns_state = 1852
+				has_full_control_of_state = 1852
+			}
+			MOR = { transfer_state = 1852 }
+		}
+		if = {
+			limit = {
+				NOT = { original_tag = MOR }
+				owns_state = 1976 # eu_mapping: v783 -> ME 1976
+				has_full_control_of_state = 1976 # eu_mapping: v783 -> ME 1976
+			}
+			MOR = { transfer_state = 1976 } # eu_mapping: v783 -> ME 1976
 		}
 		if = {
 			limit = {
 				NOT = { original_tag = LBA }
-				owns_state = 448
-				has_full_control_of_state = 448
-				owns_state = 661
-				has_full_control_of_state = 661
-				owns_state = 449
-				has_full_control_of_state = 449
-				owns_state = 662
-				has_full_control_of_state = 662
-				owns_state = 450
-				has_full_control_of_state = 450
-				owns_state = 451
-				has_full_control_of_state = 451
-				owns_state = 663
-				has_full_control_of_state = 663
-				owns_state = 273
-				has_full_control_of_state = 273
+				owns_state = 1241 # eu_mapping: v448 -> ME 1241
+				has_full_control_of_state = 1241 # eu_mapping: v448 -> ME 1241
+				owns_state = 1875 # eu_mapping: v661 -> ME 1875
+				has_full_control_of_state = 1875 # eu_mapping: v661 -> ME 1875
+				owns_state = 1289 # eu_mapping: v449 -> ME 1289
+				has_full_control_of_state = 1289 # eu_mapping: v449 -> ME 1289
+				owns_state = 1282 # eu_mapping: v662 -> ME 1282
+				has_full_control_of_state = 1282 # eu_mapping: v662 -> ME 1282
+				owns_state = 1251 # eu_mapping: v450 -> ME 1251
+				has_full_control_of_state = 1251 # eu_mapping: v450 -> ME 1251
+				owns_state = 1264 # eu_mapping: v451 -> ME 1264
+				has_full_control_of_state = 1264 # eu_mapping: v451 -> ME 1264
+				owns_state = 1239 # eu_mapping: v663 -> ME 1239
+				has_full_control_of_state = 1239 # eu_mapping: v663 -> ME 1239
+				owns_state = 1318 # eu_mapping: v273 -> ME 1318
+				has_full_control_of_state = 1318 # eu_mapping: v273 -> ME 1318
 			}
 			release = LBA
 		}
@@ -3527,46 +3414,37 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = ERI }
+				always = yes
 				owns_state = 550
 				has_full_control_of_state = 550
 			}
-			release = ERI
 		}
 		if = {
 			limit = {
-				ERI = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = ERI autonomy_state = autonomy_free }
-			ERI = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = SOM }
+				always = yes
 				owns_state = 559
 				has_full_control_of_state = 559
 			}
-			release = SOM
 		}
 		if = {
 			limit = {
-				SOM = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = SOM autonomy_state = autonomy_free }
-			SOM = { leave_faction = yes }
 		}
-		if = {
-			limit = {
-				NOT = { original_tag = ETH }
-				owns_state = 271
-				has_full_control_of_state = 271
-			}
-			release = ETH
-		}
+		# MER: off-map ETH release removed
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = ETH }
+		# 		owns_state = 271
+		# 		has_full_control_of_state = 271
+		# 	}
+		# 	release = ETH
+		# }
 		if = {
 			limit = {
 				ETH = {
@@ -3578,65 +3456,53 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = KOR }
+				always = yes
 				owns_state = 527
 				has_full_control_of_state = 527
 				owns_state = 525
 				has_full_control_of_state = 525
 			}
-			release = KOR
 		}
 		if = {
 			limit = {
-				KOR = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = KOR autonomy_state = autonomy_free }
-			KOR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				MAN = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = MAN autonomy_state = autonomy_free }
-			MAN = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				MEN = {
-					is_subject_of = ROOT
-				}
+				always = no
 			}
-			set_autonomy = { target = MEN autonomy_state = autonomy_free }
-			MEN = { leave_faction = yes }
 		}
-		if = {
-			limit = {
-				NOT = { original_tag = event_target:WTT_current_china_leader }
-				owns_state = 609
-				has_full_control_of_state = 609
-			}
-			event_target:WTT_current_china_leader = { transfer_state = 609 }
-		}
-		if = {
-			limit = {
-				NOT = { original_tag = event_target:WTT_current_china_leader }
-				owns_state = 745
-				has_full_control_of_state = 745
-			}
-			event_target:WTT_current_china_leader = { transfer_state = 745 }
-		}
-		if = {
-			limit = {
-				NOT = { original_tag = event_target:WTT_current_china_leader }
-				owns_state = 524
-				has_full_control_of_state = 524
-			}
-			event_target:WTT_current_china_leader = { transfer_state = 524 }
-		}
+		# MER: off-map China transfers removed (was vanilla 609/745/524)
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = event_target:WTT_current_china_leader }
+		# 		owns_state = 609
+		# 		has_full_control_of_state = 609
+		# 	}
+		# 	event_target:WTT_current_china_leader = { transfer_state = 609 }
+		# }
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = event_target:WTT_current_china_leader }
+		# 		owns_state = 745
+		# 		has_full_control_of_state = 745
+		# 	}
+		# 	event_target:WTT_current_china_leader = { transfer_state = 745 }
+		# }
+		# if = {
+		# 	limit = {
+		# 		NOT = { original_tag = event_target:WTT_current_china_leader }
+		# 		owns_state = 524
+		# 		has_full_control_of_state = 524
+		# 	}
+		# 	event_target:WTT_current_china_leader = { transfer_state = 524 }
+		# }
 		FROM = { country_event = { id = mtg_britain.47 hours = 6 } }
 	}
 
@@ -5447,7 +5313,7 @@ country_event = {
 
 	trigger = {
 		tag = RAJ
-		NOT = { country_exists = PAK }
+		always = yes
 		NOT = { has_country_flag = RAJ_civil_war }
 		# 1.19-migration: dead ENG_the_three_nation_solution / RAJ_two_nation_theory gate dropped (foci absent in ME)
 		is_subject = no
@@ -5479,192 +5345,7 @@ country_event = {
 	# We won't back down!
 	option = {
 		name = mtg_britain.73.a
-		release = PAK
-		PAK = {
-			declare_war_on = {
-				target = ROOT
-				type = annex_everything
-			}
-		}
 		hidden_effect = {
-			PAK = {
-				add_equipment_to_stockpile = {
-				    type = infantry_equipment
-				    amount = 15000
-				    producer = RAJ
-				}
-				division_template = {
-					name = "Pakistani Liberation Army"
-					priority = 1
-					division_names_group = RAJ_INF_01
-					is_locked = yes
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-					}
-				}
-				# Sind
-				443 = {
-					create_unit = {
-						division = "name = \"1. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"2. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"3. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-				# Punjab
-				440 = {
-					create_unit = {
-						division = "name = \"4. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"5. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"6. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-				# Northern Kashmir
-				787 = {
-					create_unit = {
-						division = "name = \"7. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"8. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"9. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-				# Peshawar
-				442 = {
-					create_unit = {
-						division = "name = \"10. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"11. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-				# Baluchistan
-				444 = {
-					create_unit = {
-						division = "name = \"12. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"13. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-				# Quetta
-				445 = {
-					create_unit = {
-						division = "name = \"14. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"15. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"16. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"17. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"18. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"19. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-				# East Bengal (Bangladesh)
-				430 = {
-					create_unit = {
-						division = "name = \"20. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"21. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"22. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"23. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"24. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"25. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"26. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"27. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"28. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"29. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"30. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"31. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"32. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"33. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-					create_unit = {
-						division = "name = \"34. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-						owner = PAK
-					}
-				}
-			}
 			hidden_effect = {
 				division_template = {
 					name = "Hindu Militia"
@@ -5788,206 +5469,6 @@ country_event = {
 					}
 				}
 			}
-			PAK = {
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"35. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"36. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"37. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"38. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"39. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"40. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"41. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"42. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"43. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"44. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"45. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"46. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"47. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"48. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"49. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"50. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"51. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"52. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"53. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"54. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"55. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"56. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-				if = {
-					limit = {
-						strength_ratio = {
-						    tag = RAJ
-						    ratio < 0.9
-						}
-					}
-					# East Bengal (Bangladesh)
-					430 = {
-						create_unit = {
-							division = "name = \"57. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-					# Punjab
-					440 = {
-						create_unit = {
-							division = "name = \"58. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-						create_unit = {
-							division = "name = \"59. Pakistani Liberation Army\" division_template = \"Pakistani Liberation Army\" start_experience_factor = 0.5" 
-							owner = PAK
-						}
-					}
-				}
-			}
 			if = {
 				limit = {
 					has_idea = RAJ_marginalized_muslim_community_angry
@@ -6016,7 +5497,6 @@ country_event = {
 		ai_chance = {
 			factor = 0
 		}
-		release = PAK
 		hidden_effect = { country_event = { id = mtg_britain.109 days = 5 random_days = 5 } }
 	}
 }
@@ -6029,12 +5509,12 @@ country_event = {
 	picture = GFX_report_event_generic_sign_treaty2
 
 	trigger = {
-		has_war_with = PAK
+		always = no
 	}
 
 	trigger = {
 		tag = RAJ
-		has_war_with = PAK
+		always = no
 		has_country_flag = RAJ_pakistani_civil_war_flag
 	}
 	
@@ -6066,12 +5546,9 @@ country_event = {
 		every_country = {
 			limit = {
 				is_in_faction_with = RAJ
-				has_war_with = PAK
+				always = no
 			}
-			white_peace = PAK
 		}
-		white_peace = PAK
-		PAK = { country_event = { id = mtg_britain.75 } }
 		effect_tooltip = {
 			delete_unit_template_and_units = {
    				division_template = "Hindu Militia"
@@ -6106,11 +5583,10 @@ country_event = {
 			every_country = {
 				limit = {
 					is_in_faction_with = RAJ
-					has_war_with = PAK
+					always = no
 				}
-				white_peace = PAK
 			}
-			RAJ = { white_peace = PAK }
+			RAJ = { }
 		}
 		delete_unit_template_and_units = {
    			division_template = "Pakistani Liberation Army"
@@ -6133,8 +5609,8 @@ country_event = {
 	picture = GFX_report_event_ger_civil_war
 
 	trigger = {
-		tag = PAK
-		NOT = { country_exists = BAN }
+		always = no
+		always = yes
 		NOT = { has_country_flag = PAK_civil_war }
 		# 1.19-migration: dead ENG_the_three_nation_solution gate dropped (focus absent in ME)
 		is_subject = no
@@ -6151,91 +5627,7 @@ country_event = {
 	option = {
 		name = mtg_britain.76.a
 		set_country_flag = PAK_civil_war
-		release = BAN
 		hidden_effect = {
-			BAN = {
-				division_template = {
-					name = "Bangladeshi Liberation Army"
-					priority = 1
-					division_names_group = RAJ_INF_01
-					is_locked = yes
-					regiments = {
-						infantry = { x = 0 y = 0 }
-						infantry = { x = 0 y = 1 }
-						infantry = { x = 0 y = 2 }
-						infantry = { x = 1 y = 0 }
-						infantry = { x = 1 y = 1 }
-						infantry = { x = 1 y = 2 }
-					}
-				}
-				# East Bengal (Bangladesh)
-				430 = {
-					create_unit = {
-						division = "name = \"1. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"2. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"3. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"4. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"5. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"6. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"7. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"8. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"9. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"10. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"11. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"12. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"13. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"14. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-					create_unit = {
-						division = "name = \"15. Bangladeshi Liberation Army\" division_template = \"Bangladeshi Liberation Army\" start_experience_factor = 0.5" 
-						owner = BAN
-					}
-				}
-				declare_war_on = {
-					target = ROOT
-					type = annex_everything
-				}
-			}
 			hidden_effect = { country_event = { id = mtg_britain.77 days = 270 random_days = 95 } }
 		}
 	}
@@ -6245,7 +5637,6 @@ country_event = {
 		ai_chance = {
 			factor = 0
 		}
-		release = BAN
 		set_country_flag = PAK_civil_war
 	}
 }
@@ -6258,7 +5649,7 @@ country_event = {
 	picture = GFX_report_event_generic_sign_treaty2
 
 	trigger = {
-		has_war_with = BAN
+		always = no
 	}
 
 	is_triggered_only = yes
@@ -6266,8 +5657,6 @@ country_event = {
 	# Let's make peace
 	option = {
 		name = mtg_britain.77.a
-		white_peace = BAN
-		BAN = { country_event = { id = mtg_britain.78 } }
 	}
 
 	# All or nothing - no peace!
@@ -6292,7 +5681,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.75.a
-		effect_tooltip = { BAN = { white_peace = PAK } }
+		effect_tooltip = { }
 		delete_unit_template_and_units = {
    			division_template = "Bangladeshi Liberation Army"
 		}
@@ -7997,7 +7386,7 @@ country_event = {
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = MAL
+							always = no
 						}
 					}
 				}
@@ -8030,7 +7419,7 @@ country_event = {
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = MAL
+							always = no
 						}
 					}
 				}
@@ -8084,7 +7473,7 @@ country_event = {
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = MAL
+							always = no
 						}
 					}
 				}
@@ -8113,7 +7502,7 @@ country_event = {
 						}
 						AND = {
 							is_subject_of = ENG
-							tag = MAL
+							always = no
 						}
 					}
 				}

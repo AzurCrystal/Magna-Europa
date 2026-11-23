@@ -1018,19 +1018,7 @@ AST_divide_the_pacific_effect = {
 	}
 		
 	custom_effect_tooltip = generic_skip_one_line_tt
-	custom_effect_tooltip = AST_dividing_the_pacific_ast_gain_tt 	
-	#If MAL/Singapore/SIA isn't controlled by JAP or AST, add AST state claims
-	MAL = {
-		every_core_state = {
-			limit = { 
-				NOT = {
-					is_controlled_by = AST
-					is_controlled_by = JAP				
-				}
-			}
-		set_state_flag = AST_claims_to_ast
-		}
-	}
+	custom_effect_tooltip = AST_dividing_the_pacific_ast_gain_tt
 
 	custom_effect_tooltip = generic_skip_one_line_tt
 	#	SIA = {
@@ -1047,11 +1035,6 @@ AST_divide_the_pacific_effect = {
 	#	}
 
 	JAP = {
-		add_ai_strategy = {
-			type = avoid_starting_wars
-			id = MAL
-			value = 150
-		}
 #		add_ai_strategy = {
 #			type = avoid_starting_wars
 #			id = SIA
@@ -1360,35 +1343,9 @@ AST_hand_in_glove_effect = {
 	custom_effect_tooltip = generic_skip_one_line_tt
 	IF = {
 		limit = {
-			MAL = {
-				is_ai = yes
-				is_subject_of = ENG
-			}
-		}
-		MAL = { 
-			every_state = {
-				limit = {
-					OR = {
-						is_owned_by = MAL
-						has_state_flag = AST_hand_in_glove_transfer_to_ast
-					}
-				}
-				set_state_flag = AST_hand_in_glove_transfer_to_ast #For tt reasons
-			} 
+			always = no
 		}
 		custom_effect_tooltip = generic_skip_one_line_tt
-	}
-	
-	MAL = {
-		every_core_state = {
-			limit = { 
-				OR = {
-					is_owned_by = ENG			
-					has_state_flag = AST_hand_in_glove_transfer_to_ast
-				}	
-			}
-			set_state_flag = AST_hand_in_glove_transfer_to_ast #For tt reasons
-		}
 	}
 }
 

@@ -1,0 +1,153 @@
+{
+  "counts": {
+    "by_confidence_gate": {
+      "excluded": 7,
+      "fail": 6917,
+      "pass": 134
+    },
+    "by_edge_class": {
+      "evidence_only": 688,
+      "excluded": 7,
+      "identity_accepted": 2984,
+      "significant": 2267,
+      "sliver": 1112
+    },
+    "by_owner_relation": {
+      "cross_owner": 1294,
+      "same_owner": 5764
+    },
+    "by_reason_code": {
+      "candidate_not_canonical": 4072,
+      "canonical_comment_conflict": 1049,
+      "family_has_synthetic_member": 3,
+      "family_member_below_95": 7013,
+      "family_reverse_share_below_95": 6797,
+      "geometry_not_usable": 1025,
+      "mapping_audit_review_required": 3193,
+      "me_owner_share_below_95": 4100,
+      "me_share_below_95": 6077,
+      "no_explicit_identity_evidence": 5222,
+      "owner_denominator_unusable": 539,
+      "owner_family_reverse_share_below_95": 5563,
+      "owner_mismatch": 1294,
+      "synthetic_state": 7
+    },
+    "by_relation_status": {
+      "confirmed_95": 134,
+      "excluded_synthetic": 7,
+      "review_candidate": 6917
+    },
+    "by_review_priority": {
+      "0": 1222,
+      "1": 1628,
+      "2": 479,
+      "3": 3588
+    },
+    "by_source_scope": {
+      "asserted": 479,
+      "compatibility": 2984,
+      "excluded": 7,
+      "observation": 3588
+    },
+    "families_with_synthetic_member": 2,
+    "owner_families_total": 467,
+    "owner_families_with_synthetic_member": 0,
+    "pairs_total": 7058,
+    "project_refs_by_status": {
+      "confirmed_target": 783,
+      "excluded_target": 39,
+      "review_target": 17497,
+      "unresolved": 7224
+    },
+    "project_refs_total": 25543,
+    "review_queue_rows": 6917,
+    "vanilla_families_total": 1081
+  },
+  "inputs": {
+    "comment_edges": {
+      "path": "docs/states/mapping_comment_edges.tsv",
+      "rows": 1699,
+      "sha256": "cbcfed38f747cfbad0589a2be42a4d4aa2b16d52ef615761448dbba0e036158a"
+    },
+    "focus_refs": {
+      "path": "docs/states/focus_state_refs.tsv",
+      "rows": 25543,
+      "sha256": "0230afa6ebec33464f16a0435513c922e27aa9b457d7da3bfafc81ce29a61326"
+    },
+    "m2v_states": {
+      "path": "docs/states/m2v_states.tsv",
+      "rows": 2986,
+      "sha256": "85101ddf19f6c51208f0b07f8b18ef0184abd208fff9e6709d5b9d582ef1f87a"
+    },
+    "mapping_audit": {
+      "path": "docs/states/mapping_audit.tsv",
+      "rows": 2986,
+      "sha256": "75d3cd3f99e03f3b4e263348f3d9fc5d2422e3d7c4b10e0cfe45109e02ff030d"
+    },
+    "mask_audit": {
+      "path": "docs/states/state_mask_audit_1936.tsv",
+      "rows": 7058,
+      "sha256": "13b3d3208d6dd54ddc3d692cecc9ac0e667f4ff1d4b2a4c8cdc213eb750d8d98"
+    },
+    "state_edges_1936": {
+      "path": "docs/states/state_edges_1936.tsv",
+      "rows": 7058,
+      "sha256": "e68e61e356b120fb4216ce076fb14adec4522adb40f4f91ddcba8a6d2d5ef572"
+    },
+    "v2m_states": {
+      "path": "docs/states/v2m_states.tsv",
+      "rows": 1081,
+      "sha256": "fd394f8d94bab742743e6b7b972522bbdc8b1901240290d7e253df3144d0cde7"
+    }
+  },
+  "kind": "read-only mapping confirmation overlay; 1936 owner-constrained conservative gate thresholds, not calibrated probabilities and not a complete-subset proof",
+  "schema": "state_mapping_confirmation_summary/v2",
+  "threshold_contract": {
+    "audit_blocking": "any audit reason outside the non-blocking context set ['comment(member)', 'explicit-independent-correction', 'overlap-weak', 'raw-geography-weak', 'region-contradiction', 'vp-absence-gap']; context_only/clear_correction rows never block",
+    "confidence_score": "min(evidence_cap, me_owner_share, owner_family_reverse_share); missing metrics count as 0",
+    "confirmation_threshold": 0.95,
+    "confirmed_95_requires": [
+      "canonical one-to-many pair (non-canonical candidates are never confirmed)",
+      "non-synthetic ME state (owner!=MAP, not a Map Border)",
+      "owner_relation == same_owner",
+      "a state_edges_1936 row with usable owner denominators (me_owner_area_px > 0 and v_owner_area_px > 0)",
+      "explicit identity evidence (evidence_cap == 1.0)",
+      "no identity-risk audit reason (context_only, clear_correction and comment(member) never veto)",
+      "no comment edge citing a different ancestor (canonical_comment_conflict vetoes)",
+      "no synthetic member in the canonical or owner family",
+      "me_owner_share >= threshold",
+      "owner_family_reverse_share >= threshold"
+    ],
+    "diagnostics_only": [
+      "me_share / family_reverse_share / family_min_me_share and mask geometry columns describe the canonical family; they never gate"
+    ],
+    "evidence_caps": {
+      "explicit_manual_or_comment": 1.0,
+      "name_only": 0.65,
+      "none": 0.5,
+      "pixel_or_vp_only": 0.8
+    },
+    "owner_family": "same_owner edges rows whose source_scope is compatibility or asserted (canonical rows join, observation rows never do); reverse_share = live-member v_owner_match_px union / v_owner_area_px",
+    "pair_level_only": "confirmed_95 is a pair-level gate; the owner-family reverse union covers only observed same-owner mass, never a complete-subset proof",
+    "reason_code_order": [
+      "synthetic_state",
+      "candidate_not_canonical",
+      "missing_mask_evidence",
+      "geometry_not_usable",
+      "missing_owner_edge",
+      "me_share_below_95",
+      "me_owner_share_below_95",
+      "family_reverse_share_below_95",
+      "family_member_below_95",
+      "owner_family_reverse_share_below_95",
+      "owner_denominator_unusable",
+      "owner_mismatch",
+      "owner_unknown",
+      "mapping_audit_review_required",
+      "canonical_comment_conflict",
+      "no_explicit_identity_evidence",
+      "family_has_synthetic_member",
+      "owner_family_has_synthetic_member"
+    ]
+  }
+}

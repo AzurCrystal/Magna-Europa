@@ -1026,7 +1026,7 @@ news_event = {
 			OR = {
 				original_tag = JAP
 				AND = {
-					original_tag = MAN
+					always = no
 					has_government = fascism
 				}
 			}
@@ -1066,7 +1066,7 @@ news_event = {
 				original_tag = NZL
 				original_tag = RAJ
 				AND = {
-					original_tag = MAN
+					always = no
 					has_government = fascism
 				}
 			}
@@ -1183,7 +1183,6 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = JAP
-				original_tag = MAN
 			}
 		}
 	}
@@ -1201,7 +1200,6 @@ news_event = {
 				original_tag = CHI
 				original_tag = SOV
 				original_tag = JAP
-				original_tag = MAN
 			}
 		}
 	}
@@ -1236,7 +1234,6 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = JAP
-				original_tag = MAN
 			}
 		}
 	}
@@ -1254,7 +1251,6 @@ news_event = {
 				original_tag = CHI
 				original_tag = SOV
 				original_tag = JAP
-				original_tag = MAN
 			}
 		}
 	}
@@ -1982,16 +1978,13 @@ news_event = {
 		name = wtt_news.44.a
 		trigger = {
 			is_literally_china = yes
-			OR = {
-				is_subject_of = MAN
-				is_in_faction_with = MAN
-			}
+			always = no
 		}
 	}
 	option = {
 		name = wtt_news.44.b
 		trigger = {
-			original_tag = MAN
+			always = no
 		}
 	}
 	option = {
@@ -2004,7 +1997,6 @@ news_event = {
 		name = wtt_news.44.d
 		trigger = {
 			NOT = {
-				original_tag = MAN
 				original_tag = JAP
 				is_literally_china = yes
 			}
@@ -2014,10 +2006,7 @@ news_event = {
 		name = wtt_news.44.e
 		trigger = {
 			is_literally_china = yes
-			NOT = { 
-				is_subject_of = MAN 
-				is_in_faction_with = MAN
-			}
+			always = yes
 		}
 	}
 }
@@ -2171,7 +2160,7 @@ news_event = {
 	option = {
 		name = wtt_news.48.b
 		trigger = {
-			original_tag = MAN
+			always = no
 		}
 	}
 	option = {
@@ -2184,7 +2173,6 @@ news_event = {
 		name = wtt_news.48.d
 		trigger = {
 			NOT = {
-			 	original_tag = MAN
 			 	original_tag = JAP
 			 	is_literally_china = yes
 			}
@@ -2425,24 +2413,18 @@ news_event = {
 	option = {
 		name = wtt_news.55.a
 		trigger = {
-			OR = {
-				original_tag = PAN
-				original_tag = ECU
-				original_tag = COL
-				original_tag = VEN
-				original_tag = PRU
-			}
+			always = no
 			NOT = { has_war_with = FROM }
 		}
 	}
 	option = {
 		name = wtt_news.55.b
 		trigger = {
-			NOT = { original_tag = PAN }
-			NOT = { original_tag = ECU }
-			NOT = { original_tag = COL }
-			NOT = { original_tag = VEN }
-			NOT = { original_tag = PRU }
+			always = yes
+			always = yes
+			always = yes
+			always = yes
+			always = yes
 			NOT = { has_war_with = FROM }
 		}
 	}
@@ -2579,24 +2561,18 @@ news_event = {
 	option = {
 		name = wtt_news.59.a
 		trigger = {
-			OR = {
-				original_tag = GUA
-				original_tag = ELS
-				original_tag = HON
-				original_tag = NIC
-				original_tag = COS
-			}
+			always = no
 			NOT = { has_war_with = FROM }
 		}
 	}
 	option = {
 		name = wtt_news.59.b
 		trigger = {
-			NOT = { original_tag = GUA }
-			NOT = { original_tag = ELS }
-			NOT = { original_tag = HON }
-			NOT = { original_tag = NIC }
-			NOT = { original_tag = COS }
+			always = yes
+			always = yes
+			always = yes
+			always = yes
+			always = yes
 			NOT = { has_war_with = FROM }
 		}
 	}
@@ -2729,9 +2705,6 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = SAF
-				original_tag = BOT
-				original_tag = ZIM
-				original_tag = MZB
 			}
 			NOT = { has_war_with = FROM }
 		}
@@ -2740,9 +2713,9 @@ news_event = {
 		name = wtt_news.63.b
 		trigger = {
 			NOT = { original_tag = SAF }
-			NOT = { original_tag = BOT }
-			NOT = { original_tag = ZIM }
-			NOT = { original_tag = MZB }
+			always = yes
+			always = yes
+			always = yes
 			NOT = { has_war_with = FROM }
 		}
 	}
@@ -2868,7 +2841,6 @@ news_event = {
 			OR = {
 				original_tag = IRQ
 				original_tag = SAU
-				original_tag = YEM
 				original_tag = OMA
 				original_tag = EGY
 				original_tag = LBA
@@ -2885,7 +2857,7 @@ news_event = {
 		trigger = {
 			NOT = { original_tag = IRQ }
 			NOT = { original_tag = SAU }
-			NOT = { original_tag = YEM }
+			always = yes
 			NOT = { original_tag = OMA }
 			NOT = { original_tag = EGY }
 			NOT = { original_tag = LBA }
@@ -2919,7 +2891,6 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = INS
-				original_tag = MAL
 			}
 			NOT = { has_war_with = FROM }
 		}
@@ -2928,7 +2899,7 @@ news_event = {
 		name = wtt_news.68.b
 		trigger = {
 			NOT = { original_tag = INS }
-			NOT = { original_tag = MAL }
+			always = yes
 			NOT = { has_war_with = FROM }
 		}
 	}
@@ -2955,7 +2926,6 @@ news_event = {
 		trigger = {
 			OR = {
 				original_tag = INS
-				original_tag = MAL
 			}
 			NOT = { has_war_with = FROM }
 		}
@@ -2964,7 +2934,7 @@ news_event = {
 		name = wtt_news.69.b
 		trigger = {
 			NOT = { original_tag = INS }
-			NOT = { original_tag = MAL }
+			always = yes
 			NOT = { has_war_with = FROM }
 		}
 	}

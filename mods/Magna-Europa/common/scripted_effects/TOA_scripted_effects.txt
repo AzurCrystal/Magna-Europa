@@ -100,13 +100,13 @@ JUNO_pick_navy_modifier_tt = {
 	}
 	ELSE_IF = {
 		limit = {
-			original_tag = PAR
+			always = no
 		}
 		custom_effect_tooltip = PAR_modify_paraguayan_navy_ns_intro			
 	}
 	ELSE_IF = {
 		limit = {
-			original_tag = URG
+			always = no
 		}
 		custom_effect_tooltip = URG_modify_uruguayan_navy_ns_intro			
 	}
@@ -870,9 +870,6 @@ USA_add_monroe_doctrine_to_target = {
 				OR = {
 					capital_scope = { is_on_continent = south_america }
 					capital_scope = { is_on_continent = north_america }
-					tag = CUB
-					tag = DOM
-					tag = HAI
 				}
 			}
 		}
@@ -891,7 +888,7 @@ VEN_blockade_countries = {
 				NOT = { has_non_aggression_pact_with = ROOT }
 				NOT = { has_guaranteed = ROOT }
 				ROOT = { NOT = { has_guaranteed = PREV } }
-				NOT = { is_embargoed_by = VEN }
+				always = yes
 				
 			}
 			
@@ -935,7 +932,7 @@ VEN_blockade_countries = {
 				}
 				every_country = {
 					limit = {
-						NOT = { is_embargoed_by = VEN }
+						always = yes
 						event_target:blockade_target = {
 							OR = {
 								PREV = { is_in_faction_with = PREV }

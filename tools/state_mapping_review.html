@@ -1,0 +1,1898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magna Europa — state mapping review</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #262725;
+      background: #f3f2ee;
+      line-height: 1.45;
+      --map-background: #d4d3cf;
+      --border: #c6c6be;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 2100px; margin: 0 auto; padding: 1.5rem; }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1 { margin-bottom: .35rem; font-size: clamp(1.5rem, 2.5vw, 2.2rem); }
+    h2 { margin-bottom: .45rem; font-size: 1.15rem; }
+    h3 { font-size: 1rem; margin-bottom: .5rem; }
+    h4 { font-size: .96rem; margin-bottom: .3rem; }
+    p { margin-bottom: .7rem; }
+    .muted { color: #575b55; }
+    .intro { max-width: 90ch; }
+    .panel { background: #fffefa; border: 1px solid var(--border); border-radius: .4rem; }
+    .status { margin: 1rem 0; padding: .65rem .85rem; border-left: 4px solid #7b8077; background: #e8e9e2; }
+    .status[data-state="ready"] { border-left-color: #557443; }
+    .status[data-state="error"], .error { border-left: 4px solid #a03d32; background: #fff0eb; padding: .8rem; }
+    .error { overflow-wrap: anywhere; }
+    .legend { display: flex; flex-wrap: wrap; gap: .45rem 1.3rem; padding: .7rem .9rem; margin-bottom: 1rem; font-size: .9rem; }
+    .legend-item { display: inline-flex; align-items: center; gap: .45rem; }
+    .swatch { display: inline-block; flex: 0 0 auto; width: 1.1rem; height: 1.1rem; border: 1px solid #666960; border-radius: .15rem; background: var(--map-background); }
+    .swatch.outline { border: 2px solid #3d403b; }
+    .swatch.selection { background: #9fc0a4; }
+    .comparison-modes { margin: 0 0 1rem; padding: .65rem .9rem; }
+    .comparison-modes legend { padding: 0 .3rem; font-weight: 600; }
+    .mode-options { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; }
+    .mode-options label { display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; }
+    .comparison-modes p { margin: .5rem 0 0; font-size: .9rem; }
+    .maps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+    .map-heading { padding: .85rem .9rem .3rem; }
+    .map-heading p { font-size: .9rem; min-height: 2.6em; }
+    .map-surface { background: var(--map-background); border-block: 1px solid var(--border); }
+    canvas { display: block; width: 100%; height: auto; aspect-ratio: var(--map-ratio, 3 / 2); image-rendering: pixelated; cursor: crosshair; }
+    .coverage { padding: .55rem .9rem; margin: 0; font-size: .85rem; color: #575b55; }
+    .pixel-comparison { margin-top: 1rem; }
+    .pixel-comparison .comparison-modes { margin: .5rem .9rem 1rem; }
+    .pixel-comparison .legend { margin: .8rem .9rem; padding: 0; }
+    .comparison-info { padding: .8rem .9rem 1rem; }
+    .selection-panel { margin-top: 1rem; padding: 1rem; }
+    .selection-title { display: flex; gap: .5rem; align-items: center; }
+    .selection-summary { margin-bottom: .7rem; }
+    .selection-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 1.3rem; }
+    .facts { display: grid; grid-template-columns: minmax(8rem, auto) minmax(0, 1fr); gap: .3rem .75rem; margin: 0; font-size: .92rem; }
+    .facts dt { font-weight: 600; }
+    .facts dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+    .notice { padding: .6rem .75rem; margin-top: .8rem; background: #f3eddb; border-left: 3px solid #b39950; font-size: .9rem; }
+    .natural-diagnostics { margin-top: 1rem; }
+    .member-list { list-style: none; padding: 0; margin: .6rem 0 0; max-height: 28rem; overflow-y: auto; border: 1px solid var(--border); border-radius: .25rem; }
+    .member-list li { padding: .7rem .8rem; border-bottom: 1px solid #deded6; }
+    .member-list li:last-child { border-bottom: 0; }
+    .member-list li.is-hovered { border-left: 4px solid var(--selection-color); padding-left: calc(.8rem - 4px); background: #f1f3ed; }
+    .member-meta { font-size: .85rem; grid-template-columns: 7.5rem minmax(0, 1fr); }
+    .member-flags { font-size: .8rem; font-weight: 600; color: #5b604f; margin-bottom: .4rem; }
+    .not-sampled { color: #71522d; }
+    .metadata { margin-top: 1rem; padding: 1rem; }
+    .metadata > p { max-width: 110ch; }
+    .metadata .facts { grid-template-columns: minmax(10rem, auto) minmax(0, 1fr); margin-top: .8rem; }
+    details { margin-top: .85rem; }
+    summary { cursor: pointer; font-weight: 600; }
+    pre { max-height: 26rem; overflow: auto; padding: .75rem; border: 1px solid var(--border); background: #f1f1eb; font-size: .8rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .warnings { margin-top: 1rem; padding: .8rem 1rem; background: #fff5db; border: 1px solid #d3b66f; border-radius: .3rem; }
+    .confirmation { margin-bottom: 1rem; }
+    .confirmation .map-heading { padding-bottom: 0; }
+    .confirmation-counts { padding: .2rem .9rem .6rem; grid-template-columns: minmax(13rem, auto) minmax(0, 1fr); }
+    .confirmation .notice { margin: .5rem .9rem; }
+    .filter-grid { display: flex; flex-wrap: wrap; gap: .45rem 1.1rem; padding: 0 .9rem .55rem; font-size: .9rem; }
+    .filter-grid label { display: inline-flex; align-items: center; gap: .35rem; }
+    .filter-grid select, .filter-grid input { font: inherit; padding: .15rem .3rem; max-width: 16rem; }
+    .confirmation-nav { display: flex; flex-wrap: wrap; gap: .45rem; padding: .3rem .9rem .55rem; }
+    .confirmation-nav button { font: inherit; padding: .2rem .6rem; cursor: pointer; }
+    .confirmation-table-wrap { margin: 0 .9rem .4rem; max-height: 26rem; overflow-y: auto; border: 1px solid var(--border); border-radius: .25rem; }
+    #confirmation-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    #confirmation-table caption { text-align: left; padding: .35rem .5rem; font-weight: 600; }
+    #confirmation-table th { position: sticky; top: 0; background: #efece2; text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    #confirmation-table td { padding: .3rem .5rem; border-bottom: 1px solid #e7e5db; vertical-align: top; }
+    #confirmation-table tbody tr { cursor: pointer; }
+    #confirmation-table tbody tr:hover { background: #f1f3ed; }
+    #confirmation-table tbody tr.is-selected { background: #e4ecdf; box-shadow: inset 3px 0 0 #557443; }
+    #confirmation-table tbody tr.has-decision td.decision-cell { font-weight: 700; }
+    .status-badge { display: inline-block; padding: .05rem .45rem; border-radius: .7rem; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+    .status-badge[data-status="confirmed_95"] { background: #d7ead2; color: #2c523b; }
+    .status-badge[data-status="review_candidate"] { background: #f3e3c2; color: #71522d; }
+    .status-badge[data-status="excluded_synthetic"] { background: #e4e0da; color: #5b574e; }
+    .record-candidates { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; margin-top: .8rem; }
+    .record-candidates .member-list { max-height: 16rem; }
+    .candidate-button { display: block; width: 100%; text-align: left; font: inherit; background: none; border: 0; padding: .15rem 0; cursor: pointer; }
+    .candidate-button:hover { text-decoration: underline; }
+    #confirmation-record { margin: .4rem .9rem .8rem; padding: .75rem .9rem; background: #fbfaf5; }
+    .decision-buttons { display: flex; flex-wrap: wrap; gap: .45rem; margin: .35rem 0 .55rem; }
+    .decision-buttons button { font: inherit; padding: .22rem .8rem; cursor: pointer; }
+    .decision-buttons button[data-active="true"] { outline: 3px solid #2c523b; font-weight: 700; }
+    #decision-note { width: 100%; font: inherit; margin: .2rem 0 .4rem; }
+    .decision-actions { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; margin-top: .4rem; }
+    .decision-actions button { font: inherit; padding: .2rem .6rem; cursor: pointer; }
+    .pin-button { font: inherit; font-size: .82rem; padding: .15rem .55rem; cursor: pointer; }
+    .warnings ul { margin-bottom: 0; padding-left: 1.4rem; overflow-wrap: anywhere; }
+    footer { margin: 1rem 0 .2rem; font-size: .85rem; color: #575b55; }
+    [hidden] { display: none !important; }
+    @media (max-width: 900px) {
+      main { padding: .8rem; }
+      .maps, .selection-grid { grid-template-columns: minmax(0, 1fr); }
+      .map-heading p { min-height: 0; }
+    }
+    @media (max-width: 480px) {
+      .facts, .metadata .facts, .member-meta { grid-template-columns: minmax(0, 1fr); gap: .1rem; }
+      .facts dd { margin-bottom: .4rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Magna Europa — state mapping review</h1>
+      <p class="intro">Hover an ME state on the right to compare that exact member with its canonical vanilla ancestor. Exact member is the default; switch to Full family only to inspect all canonical ME descendants together. Move onto water or leave a map to clear.</p>
+      <p class="intro muted">The mapping comes from the canonical TSVs, not from visual overlap. This offline page does not edit them.</p>
+    </header>
+
+    <p id="load-status" class="status" role="status" data-state="loading">Loading embedded hit maps and local boundary images…</p>
+    <p id="load-error" class="error" role="alert" hidden></p>
+    <noscript><p class="error">JavaScript is required for hit testing and linked highlighting. No internet connection or local web server is required.</p></noscript>
+
+    <section id="confirmation-panel" class="panel confirmation" aria-labelledby="confirmation-heading">
+      <div class="map-heading">
+        <h2 id="confirmation-heading">Owner-constrained 95% pair confirmation — review queue</h2>
+        <p class="muted" id="confirmation-description">Read-only confirmation overlay over the canonical tables. The 0.95 threshold is a conservative per-pair coverage gate on 1936 owner-constrained coverage (me_owner_share + the same-owner compatibility/asserted owner-family reverse union), not a calibrated probability: below the line a mapping is not wrong, it is a review candidate. confirmed_95 is pair-level only — it is not a proof that the whole many-to-many family is a complete subset; sample coverage, owners and focus references are context, never identity proof. The pin colors the selected ME↔Vanilla pair on every map.</p>
+      </div>
+      <p id="confirmation-unavailable" class="notice" hidden>Confirmation overlay unavailable.</p>
+      <dl id="confirmation-counts" class="facts confirmation-counts"></dl>
+      <p id="confirmation-notice" class="notice" hidden></p>
+      <div id="confirmation-body" hidden>
+        <div class="filter-grid" role="group" aria-label="Confirmation queue filters">
+          <label>Rows <select id="conf-filter-rows">
+            <option value="queue" selected>Review queue only</option>
+            <option value="all">All confirmation rows</option>
+          </select></label>
+          <label>Status <select id="conf-filter-status">
+            <option value="" selected>Any status</option>
+            <option value="confirmed_95">confirmed_95</option>
+            <option value="review_candidate">review_candidate</option>
+            <option value="excluded_synthetic">excluded_synthetic</option>
+          </select></label>
+          <label>Relation <select id="conf-filter-kind">
+            <option value="" selected>Any relation</option>
+            <option value="canonical">canonical</option>
+            <option value="candidate">candidate</option>
+          </select></label>
+          <label>Owner <select id="conf-filter-owner">
+            <option value="" selected>Any owner relation</option>
+            <option value="same_owner">same_owner</option>
+            <option value="cross_owner">cross_owner</option>
+            <option value="unknown_owner">unknown_owner</option>
+          </select></label>
+          <label>Priority <select id="conf-filter-priority">
+            <option value="" selected>Any priority</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select></label>
+          <label>Confidence <select id="conf-filter-confidence">
+            <option value="" selected>Any score</option>
+            <option value="0.8">≥ 0.80</option>
+            <option value="0.5">≥ 0.50</option>
+            <option value="0.25">≥ 0.25</option>
+            <option value="lt0.25">&lt; 0.25</option>
+          </select></label>
+          <label>Search <input id="conf-filter-search" type="search" placeholder="ID, name, owner tag" autocomplete="off"></label>
+        </div>
+        <div class="confirmation-nav">
+          <button id="conf-prev" type="button">← Previous</button>
+          <button id="conf-next" type="button">Next →</button>
+          <button id="conf-clear-pin" type="button" disabled>Unpin selected relation</button>
+        </div>
+        <div class="confirmation-table-wrap">
+          <table id="confirmation-table">
+            <caption id="confirmation-table-caption">Filtered rows</caption>
+            <thead>
+              <tr>
+                <th scope="col">ME state</th>
+                <th scope="col">Vanilla state</th>
+                <th scope="col">Status</th>
+                <th scope="col">Kind</th>
+                <th scope="col">Conf.</th>
+                <th scope="col">Owners</th>
+                <th scope="col">Decision</th>
+              </tr>
+            </thead>
+            <tbody id="confirmation-tbody"></tbody>
+          </table>
+        </div>
+        <div class="confirmation-nav">
+          <button id="conf-more" type="button" hidden>Show more rows</button>
+        </div>
+      </div>
+        <section id="confirmation-record" class="panel" aria-labelledby="confirmation-record-title" hidden>
+          <h3 id="confirmation-record-title">Selected relation</h3>
+          <p id="confirmation-record-summary" class="muted"></p>
+          <dl id="confirmation-record-facts" class="facts"></dl>
+          <p id="confirmation-record-notice" class="notice" hidden></p>
+          <div class="record-candidates">
+            <div>
+              <h4>Other Vanilla candidates for this ME state</h4>
+              <ul id="me-candidates" class="member-list"></ul>
+            </div>
+            <div>
+              <h4>ME candidates / family for this Vanilla state</h4>
+              <ul id="vanilla-candidates" class="member-list"></ul>
+            </div>
+          </div>
+          <section id="confirmation-decision" aria-labelledby="decision-heading">
+            <h4 id="decision-heading">Local review decision (external artifact — never writes back)</h4>
+            <p id="decision-status" class="muted"></p>
+            <div class="decision-buttons" role="group" aria-label="Decision for the selected pair">
+              <button type="button" id="decision-accept" data-decision="accept">Accept</button>
+              <button type="button" id="decision-reject" data-decision="reject">Reject</button>
+              <button type="button" id="decision-defer" data-decision="defer">Defer</button>
+              <button type="button" id="decision-candidate" data-decision="candidate">Candidate</button>
+              <button type="button" id="decision-clear-record" data-decision="">Clear decision</button>
+            </div>
+            <label for="decision-note" class="muted">Decision note (stored locally only)</label>
+            <textarea id="decision-note" rows="2"></textarea>
+            <div class="decision-actions">
+              <button id="decision-export" type="button">Export decisions…</button>
+              <button id="decision-clear" type="button">Clear local decisions</button>
+              <span id="decision-count" class="muted"></span>
+            </div>
+          </section>
+        </section>
+    </section>
+
+    <div class="legend panel" aria-label="Map legend">
+      <span class="legend-item"><span class="swatch" aria-hidden="true"></span>Neutral gray by default; no assigned-state fill</span>
+      <span class="legend-item"><span class="swatch outline" aria-hidden="true"></span>Charcoal state boundaries</span>
+      <span class="legend-item"><span class="swatch selection" aria-hidden="true"></span>Hovered selection; shared color, with scope chosen below</span>
+    </div>
+
+    <fieldset id="highlight-mode" class="panel comparison-modes" aria-describedby="mode-help">
+      <legend>Highlight scope</legend>
+      <div class="mode-options">
+        <label><input id="mode-exact" type="radio" name="highlight-mode" value="exact" checked> Exact member <span class="muted">(default)</span></label>
+        <label><input id="mode-family" type="radio" name="highlight-mode" value="family"> Full family</label>
+      </div>
+      <p id="mode-help" class="muted">Exact member fills only one hovered ME state and its vanilla ancestor. Hovering vanilla alone does not choose an ME member. Full family fills all canonical ME descendants; their combined shape is not an individual state boundary.</p>
+    </fieldset>
+
+    <section id="maps" class="maps" aria-label="Linked state maps" aria-busy="true">
+      <article class="panel">
+        <div class="map-heading">
+          <h2>Vanilla — coast-registered frame</h2>
+          <p class="muted">Vanilla sampled into the ME crop through one global coast-fit affine. No candidate-conditioned local deformation.</p>
+        </div>
+        <div class="map-surface">
+          <canvas id="vanilla-map" width="1" height="1" aria-label="Vanilla states in the coast-registered ME frame">Vanilla state map; use a canvas-capable browser to inspect states.</canvas>
+        </div>
+        <p id="vanilla-coverage" class="coverage">Preparing vanilla silhouettes…</p>
+      </article>
+      <article class="panel">
+        <div class="map-heading">
+          <h2>Magna Europa — native frame</h2>
+          <p class="muted">ME-native geometry in the same crop and raster size. Exact member compares only the hovered state with its ancestor; Full family includes its canonical siblings.</p>
+        </div>
+        <div class="map-surface">
+          <canvas id="me-map" width="1" height="1" aria-label="Magna Europa states in the native ME frame">Magna Europa state map; use a canvas-capable browser to inspect states.</canvas>
+        </div>
+        <p id="me-coverage" class="coverage">Preparing ME silhouettes…</p>
+      </article>
+    </section>
+
+    <section id="pixel-comparison-panel" class="panel pixel-comparison" aria-labelledby="comparison-heading" aria-busy="true">
+      <div class="map-heading">
+        <h2 id="comparison-heading">Pixel-to-pixel and partition comparison</h2>
+        <p class="muted">The same display pixel from the two existing hit maps: coast-registered vanilla versus native ME. Pixel agreement/mismatch is a registration/geometry visualization, <strong>not mapping identity proof</strong>. Partition overlay draws only candidate-independent state boundaries in this shared frame and never changes the canonical tables.</p>
+      </div>
+      <fieldset id="pixel-comparison-mode" class="comparison-modes" aria-describedby="comparison-help">
+        <legend>Pixel comparison mode</legend>
+        <div class="mode-options">
+          <label><input id="comparison-canonical" type="radio" name="pixel-comparison-mode" value="canonical"> Canonical crosswalk</label>
+          <label><input id="comparison-hovered" type="radio" name="pixel-comparison-mode" value="hovered"> Hovered exact pair</label>
+          <label><input id="comparison-partition" type="radio" name="pixel-comparison-mode" value="partition" checked> Partition overlay <span class="muted">(default)</span></label>
+        </div>
+        <p id="comparison-help" class="muted">Canonical crosswalk compares all land in this frame. Hovered exact pair draws only the hovered ME state's pixels against its canonical ancestor, independent of Exact member / Full family highlighting; other pixels stay neutral. Partition overlay draws continuous ME boundaries and dashed transformed Vanilla boundaries from the two decoded hit maps only; its overlap facts are a spatial overlap diagnostic, not identity proof. Hover this canvas to select ME first, or vanilla where there is no ME land. Water and pointer exit clear the selection.</p>
+      </fieldset>
+      <div class="legend" aria-label="Pixel comparison legend">
+        <span class="legend-item"><span class="swatch" style="background:#40835d" aria-hidden="true"></span>Match — canonical ancestor at this pixel</span>
+        <span class="legend-item"><span class="swatch" style="background:#c94c4c" aria-hidden="true"></span>Mismatch — different vanilla land ID</span>
+        <span class="legend-item"><span class="swatch" style="background:#c98d31" aria-hidden="true"></span>ME-only — no vanilla land ID</span>
+        <span class="legend-item"><span class="swatch" style="background:#547cb7" aria-hidden="true"></span>Vanilla-only — no ME land ID</span>
+        <span class="legend-item"><span class="swatch" style="background:#9365ad" aria-hidden="true"></span>Unknown / unmapped — ME has no canonical ancestor</span>
+        <span class="legend-item"><span class="swatch" style="background:#2c523b" aria-hidden="true"></span>ME boundary — continuous in Partition overlay</span>
+        <span class="legend-item"><span class="swatch" style="border:2px dashed #c64574;background:transparent" aria-hidden="true"></span>Vanilla boundary — dashed in Partition overlay</span>
+        <span class="legend-item"><span class="swatch" aria-hidden="true"></span>Neutral / water — no land, or outside the hovered target</span>
+      </div>
+      <div class="map-surface">
+        <canvas id="pixel-comparison" width="1" height="1" aria-label="Pixel-to-pixel comparison in the shared display frame">Pixel comparison map; use a canvas-capable browser to compare the hit maps.</canvas>
+      </div>
+      <div class="comparison-info">
+        <p id="comparison-summary" role="status" aria-live="polite">Preparing same-frame pixel comparison…</p>
+        <dl id="comparison-facts" class="facts"></dl>
+      </div>
+    </section>
+
+    <section class="panel selection-panel" aria-labelledby="selection-title">
+      <h2 id="selection-title" class="selection-title"><span id="selection-swatch" class="swatch" aria-hidden="true" hidden></span><span id="selection-heading">State information</span><button id="pin-hovered" class="pin-button" type="button" hidden title="Pin the hovered ME↔Vanilla pair as the selected relation">Pin hovered relation</button></h2>
+      <p id="selection-summary" class="selection-summary" role="status" aria-live="polite">Exact pair mode — hover a single ME state in the right pane. Vanilla hover lists the available family without choosing an ME member.</p>
+      <div id="selection-content" class="selection-grid" hidden>
+        <div>
+          <h3>Hovered state and vanilla relation</h3>
+          <dl id="selection-facts" class="facts"></dl>
+          <p id="selection-notice" class="notice" hidden></p>
+          <section id="natural-diagnostics" class="natural-diagnostics" aria-labelledby="natural-heading" hidden>
+            <h3 id="natural-heading">Natural registration diagnostics — hovered ME state only</h3>
+            <p class="muted">Diagnostic only, not state-identity proof. Candidate-independent coast and local river/lake registration never changes the canonical ancestor, family membership, or highlight scope.</p>
+            <dl id="natural-facts" class="facts"></dl>
+            <p id="natural-notice" class="notice" hidden></p>
+            <section id="overlap-diagnostics" class="natural-diagnostics" aria-labelledby="overlap-heading" hidden>
+              <h4 id="overlap-heading">Full raster overlap — global coast affine</h4>
+              <p class="muted">Diagnostic only, not state-identity proof. This full ME-native land-pixel census uses the single bbox-initialised coast affine, not local natural corrections or canonical ancestry. Reverse containment uses the best vanilla state's sampled area over the entire ME frame; it is not an acceptance gate.</p>
+              <dl id="overlap-facts" class="facts"></dl>
+              <p id="overlap-notice" class="notice" hidden></p>
+            </section>
+          </section>
+        </div>
+        <div>
+          <h3 id="members-heading">Canonical ME descendants</h3>
+          <p id="members-summary" class="muted"></p>
+          <ul id="member-list" class="member-list" aria-label="ME members and their canonical m2v provenance"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="warnings" class="warnings" aria-labelledby="warnings-heading" hidden>
+      <h2 id="warnings-heading">Generation warnings</h2>
+      <ul id="warning-list"></ul>
+    </section>
+
+    <section class="panel metadata" aria-labelledby="registration-heading">
+      <h2 id="registration-heading">Frame, registration, and evidence limits</h2>
+      <p>The two panes share an ME-coordinate display frame: vanilla is sampled with the global <strong>ME → vanilla coast affine</strong>, while ME remains native. Registration is a positioning aid, <strong>not state identity evidence</strong>. It does not assign ancestors or change the canonical TSVs; there is no candidate-conditioned visual warp here.</p>
+      <p>The crop covers ME <code>continent=1</code> land plus a margin, not the whole world. The crop bounding box uses half-open ME-native coordinates: <code>[x0, x1) × [y0, y1)</code>. Nearest-neighbour reduction may omit tiny islands or microstates. <strong>“Not sampled in this frame” means outside the crop or too small after reduction</strong>, not necessarily geographically outside it. Inland boundaries need not align under a single coast affine.</p>
+      <dl id="frame-facts" class="facts"></dl>
+      <p id="registration-warning" class="notice" hidden></p>
+      <details>
+        <summary>Full coast-registration metadata</summary>
+        <pre id="registration-json"></pre>
+      </details>
+      <details>
+        <summary>Canonical table and map source paths</summary>
+        <dl id="source-facts" class="facts"></dl>
+      </details>
+    </section>
+    <footer>Open index.html directly; keep the generated PNGs beside it. Hit testing decodes embedded PNG data once, so file:// canvas security does not require a server. Colors are deterministic visual aids with no provenance meaning.</footer>
+  </main>
+
+  <script type="application/json" id="review-data">__STATE_MAPPING_REVIEW_METADATA__</script>
+  <script>
+    "use strict";
+    (() => {
+      const BACKGROUND = "#d4d3cf";
+      const SIDES = ["vanilla", "me"];
+      const PIXEL = { neutral: 0, match: 1, mismatch: 2, meOnly: 3, vanillaOnly: 4, unknown: 5 };
+      const PIXEL_CLASSES = [
+        { label: "Neutral / water", color: [212, 211, 207] },
+        { label: "Match", color: [64, 131, 93] },
+        { label: "Mismatch", color: [201, 76, 76] },
+        { label: "ME-only", color: [201, 141, 49] },
+        { label: "Vanilla-only", color: [84, 124, 183] },
+        { label: "Unknown / unmapped", color: [147, 101, 173] }
+      ];
+      // Partition overlay colors are visual diagnostics only. They deliberately
+      // do not depend on canonical ancestors or any metadata table.
+      const PARTITION_COLORS = {
+        neutral: [212, 211, 207, 255],
+        meBoundary: [44, 82, 59, 255],
+        vanillaBoundary: [198, 69, 116, 255],
+        combinedBoundary: [92, 70, 96, 255]
+      };
+      const PARTITION_DASH_PERIOD = 6;
+      const byId = (id) => document.getElementById(id);
+      const ui = {
+        status: byId("load-status"), error: byId("load-error"), maps: byId("maps"),
+        heading: byId("selection-heading"), swatch: byId("selection-swatch"),
+        summary: byId("selection-summary"), content: byId("selection-content"),
+        facts: byId("selection-facts"), notice: byId("selection-notice"),
+        natural: byId("natural-diagnostics"), naturalFacts: byId("natural-facts"),
+        naturalNotice: byId("natural-notice"),
+        overlap: byId("overlap-diagnostics"), overlapFacts: byId("overlap-facts"),
+        overlapNotice: byId("overlap-notice"),
+        membersHeading: byId("members-heading"), membersSummary: byId("members-summary"),
+        memberList: byId("member-list"), modeGroup: byId("highlight-mode"),
+        familyMode: byId("mode-family"), comparisonPanel: byId("pixel-comparison-panel"),
+        comparisonCanvas: byId("pixel-comparison"), comparisonMode: byId("pixel-comparison-mode"),
+        hoveredComparison: byId("comparison-hovered"), partitionComparison: byId("comparison-partition"),
+        comparisonSummary: byId("comparison-summary"), comparisonFacts: byId("comparison-facts"),
+        pinHovered: byId("pin-hovered"),
+        confirmationPanel: byId("confirmation-panel"),
+        confirmationUnavailable: byId("confirmation-unavailable"),
+        confirmationCounts: byId("confirmation-counts"),
+        confirmationNotice: byId("confirmation-notice"),
+        confirmationBody: byId("confirmation-body"),
+        filterRows: byId("conf-filter-rows"), filterStatus: byId("conf-filter-status"),
+        filterKind: byId("conf-filter-kind"), filterOwner: byId("conf-filter-owner"),
+        filterPriority: byId("conf-filter-priority"), filterConfidence: byId("conf-filter-confidence"),
+        filterSearch: byId("conf-filter-search"),
+        confPrev: byId("conf-prev"), confNext: byId("conf-next"), confClearPin: byId("conf-clear-pin"),
+        confCaption: byId("confirmation-table-caption"), confTbody: byId("confirmation-tbody"),
+        confMore: byId("conf-more"),
+        recordPanel: byId("confirmation-record"), recordTitle: byId("confirmation-record-title"),
+        recordSummary: byId("confirmation-record-summary"), recordFacts: byId("confirmation-record-facts"),
+        recordNotice: byId("confirmation-record-notice"),
+        meCandidates: byId("me-candidates"), vanillaCandidates: byId("vanilla-candidates"),
+        decisionStatus: byId("decision-status"), decisionNote: byId("decision-note"),
+        decisionExport: byId("decision-export"), decisionClear: byId("decision-clear"),
+        decisionCount: byId("decision-count")
+      };
+      let metadata;
+      let panes;
+      let activeSelection = null;
+      let highlightMode = "exact";
+      let comparisonMode = "partition";
+      let comparison;
+      const canonicalMembers = new Map();
+      // Confirmation overlay state. `confirmation` is the embedded metadata
+      // block; `currentRecord` is the pinned relation row (or a lightweight
+      // map-pin record that is not part of the confirmation ledger).
+      let confirmation = null;
+      const confirmationByPair = new Map();
+      const confirmationByMe = new Map();
+      const confirmationByVanilla = new Map();
+      let filteredRows = [];
+      let tableLimit = 0;
+      const TABLE_PAGE = 400;
+      let currentRecord = null;
+      const pairKey = (meId, vanillaId) => `${meId}|${vanillaId}`;
+      const DECISIONS_KEY = "me-state-mapping-review-decisions/v1";
+      const DECISION_VALUES = new Set(["accept", "reject", "defer", "candidate"]);
+      const DECISION_NOTICE = "Local review decisions are an external human artifact stored only in this browser (or the exported JSON). They are never applied to v2m_states.tsv, m2v_states.tsv or any canonical table.";
+      const decisions = { store: new Map(), persistent: false };
+      const PIN_FILL = "rgba(28, 84, 90, 0.42)";
+      const PIN_OUTLINE = "#103c42";
+
+      function node(tag, className, text) {
+        const result = document.createElement(tag);
+        if (className) result.className = className;
+        if (text !== undefined) result.textContent = String(text);
+        return result;
+      }
+
+      function fact(list, label, value) {
+        list.append(node("dt", "", label), node("dd", "", value));
+      }
+
+      function supplied(value) {
+        return value === undefined || value === null || value === "" ? "Not supplied" : String(value);
+      }
+      function evidenceNotice(record, side) {
+        if (!record) return null;
+        const label = side === "me" ? "m2v" : "v2m";
+        const messages = {
+          "pixel-geo-low": "low-confidence spatial majority (<50%); this ancestor requires manual review.",
+          "pixel-geo": "spatial majority vote; useful positioning evidence, not a state-identity proof.",
+          "comment(member)": "secondary migration-comment membership; batch comments can be broader than one state split.",
+          "name-singleton": "name-only singleton match; check same-name state collisions.",
+          "name~": "fuzzy name match; check geography before relying on the ancestor.",
+          "vp-geo": "VP-name modal match; check relocated or cross-state VP cases."
+        };
+        return messages[record.basis] ? `${label}=${record.basis}: ${messages[record.basis]}` : null;
+      }
+
+      function naturalNumber(value) {
+        return Number.isFinite(value) ? value.toFixed(3) : "Not supplied";
+      }
+
+      function naturalRatio(value) {
+        return Number.isFinite(value) ? `${(value * 100).toFixed(2)}%` : "Not supplied";
+      }
+
+      function naturalCandidate(id) {
+        return isStateId(id) ? stateLabel("vanilla", id, metadata.vanilla[String(id)]) : "None supplied";
+      }
+
+      function updateOverlapDiagnostics(side, hovered, canonicalAncestor) {
+        ui.overlap.hidden = true;
+        ui.overlapFacts.replaceChildren();
+        ui.overlapNotice.hidden = true;
+        ui.overlapNotice.textContent = "";
+        if (side !== "me" || hovered?.geography?.overlap_ok === undefined) return;
+        const geography = hovered.geography;
+        ui.overlap.hidden = false;
+        fact(ui.overlapFacts, "Overlap acceptance", geography.overlap_ok ? "Accepted" : "Withheld");
+        fact(ui.overlapFacts, "Overlap method", supplied(geography.overlap_method));
+        fact(ui.overlapFacts, "Overlap domain", supplied(geography.overlap_domain));
+        fact(ui.overlapFacts, "Overlap area", `${supplied(geography.overlap_area_px)} ME-native land pixels`);
+        fact(ui.overlapFacts, "Overlap best", naturalCandidate(geography.overlap_best));
+        fact(ui.overlapFacts, "Overlap best share", naturalRatio(geography.overlap_share));
+        fact(ui.overlapFacts, "Overlap runner", naturalCandidate(geography.overlap_runner));
+        fact(ui.overlapFacts, "Overlap runner share", naturalRatio(geography.overlap_runner_share));
+        fact(ui.overlapFacts, "Overlap best–runner margin", naturalRatio(geography.overlap_margin));
+        fact(ui.overlapFacts, "Assigned / unregistered share", `${naturalRatio(geography.overlap_assigned_share)} / ${naturalRatio(geography.overlap_unregistered_share)}`);
+        fact(ui.overlapFacts, "Best reverse containment", naturalRatio(geography.overlap_containment));
+        fact(ui.overlapFacts, "Land components", `${supplied(geography.overlap_components)} (4-connected)`);
+        fact(ui.overlapFacts, "Largest-component area share", naturalRatio(geography.overlap_largest_share));
+        fact(ui.overlapFacts, "Largest-component best", naturalCandidate(geography.overlap_largest_best));
+        fact(ui.overlapFacts, "Largest-component candidate share", naturalRatio(geography.overlap_largest_candidate_share));
+        fact(ui.overlapFacts, "Component agreement", geography.overlap_components_agree
+          ? "Yes — all components meet the producer coverage/share/margin gates"
+          : "No — an unregistered, weak or dissenting component withholds ancestry");
+        fact(ui.overlapFacts, "Overlap producer reason", supplied(geography.overlap_reason));
+        fact(ui.overlapFacts, "Overlap accepted ancestor", naturalCandidate(geography.overlap_ancestor));
+        fact(ui.overlapFacts, "Overlap marker", supplied(geography.overlap_marker));
+        const notices = [];
+        if (!geography.overlap_ok) {
+          notices.push(`Overlap producer withheld acceptance (overlap_ok is false): ${supplied(geography.overlap_reason)}. No accepted overlap ancestor; the canonical relation and fills remain unchanged.`);
+        }
+        if (isStateId(geography.overlap_best) && geography.overlap_best !== canonicalAncestor) {
+          notices.push(`Overlap best Vanilla ${geography.overlap_best} differs from ${isStateId(canonicalAncestor) ? `canonical Vanilla ${canonicalAncestor}` : "the unmapped canonical ancestor"}. The canonical relation and fills remain unchanged.`);
+        }
+        ui.overlapNotice.hidden = notices.length === 0;
+        ui.overlapNotice.textContent = notices.join(" ");
+      }
+
+      function updateNaturalDiagnostics(side, hovered, canonicalAncestor) {
+        updateOverlapDiagnostics(side, hovered, canonicalAncestor);
+        ui.natural.hidden = true;
+        ui.naturalFacts.replaceChildren();
+        ui.naturalNotice.hidden = true;
+        ui.naturalNotice.textContent = "";
+        if (side !== "me" || !hovered?.geography) return;
+        const geography = hovered.geography;
+        ui.natural.hidden = false;
+        fact(ui.naturalFacts, "Local fit", `${geography.natural_ok ? "OK" : "Not OK"}; method: ${supplied(geography.natural_method)}`);
+        fact(ui.naturalFacts, "Kept natural pairs", supplied(geography.natural_pairs));
+        if (geography.natural_river_pairs !== undefined || geography.natural_lake_pairs !== undefined) {
+          fact(ui.naturalFacts, "River / lake pairs", `${supplied(geography.natural_river_pairs)} / ${supplied(geography.natural_lake_pairs)}`);
+        }
+        fact(ui.naturalFacts, "Residual p50 / p95", `${naturalNumber(geography.natural_residual_p50)} / ${naturalNumber(geography.natural_residual_p95)} vanilla pixels`);
+        fact(ui.naturalFacts, "Natural best", naturalCandidate(geography.natural_best));
+        fact(ui.naturalFacts, "Best share", naturalRatio(geography.natural_share));
+        fact(ui.naturalFacts, "Natural runner", naturalCandidate(geography.natural_runner));
+        fact(ui.naturalFacts, "Runner share", naturalRatio(geography.natural_runner_share));
+        fact(ui.naturalFacts, "Best–runner margin", naturalRatio(geography.natural_margin));
+        fact(ui.naturalFacts, "Sampled state-raster area", naturalRatio(geography.natural_sampled_share));
+        if (geography.natural_center_x !== undefined || geography.natural_center_y !== undefined || geography.natural_radius !== undefined) {
+          fact(ui.naturalFacts, "ME-native center / radius", `(${naturalNumber(geography.natural_center_x)}, ${naturalNumber(geography.natural_center_y)}) / ${naturalNumber(geography.natural_radius)} ME pixels`);
+        }
+        fact(ui.naturalFacts, "Producer reason", supplied(geography.natural_reason));
+        fact(ui.naturalFacts, "Raw accepted ancestor", naturalCandidate(geography.raw_geography_ancestor));
+        fact(ui.naturalFacts, "Raw geography marker", supplied(geography.raw_geography_marker));
+
+        // Keep these gates in sync with state_geography_evidence.py's acceptance contract.
+        const qualityProblems = [];
+        if (!geography.natural_ok) qualityProblems.push("natural_ok is false");
+        if (geography.natural_method !== "translation") qualityProblems.push("local method is not translation");
+        if (!Number.isInteger(geography.natural_pairs) || geography.natural_pairs < 10) qualityProblems.push("fewer than 10 kept natural pairs");
+        if (!Number.isFinite(geography.natural_residual_p50) || geography.natural_residual_p50 > 6) qualityProblems.push("residual p50 missing or above 6 vanilla pixels");
+        if (!Number.isFinite(geography.natural_residual_p95) || geography.natural_residual_p95 > 12) qualityProblems.push("residual p95 missing or above 12 vanilla pixels");
+        if (!isStateId(geography.natural_best)) qualityProblems.push("no natural best candidate");
+        if (!Number.isFinite(geography.natural_share) || geography.natural_share < 0.85) qualityProblems.push("best share missing or below 85%");
+        if (!Number.isFinite(geography.natural_margin) || geography.natural_margin < 0.60) qualityProblems.push("margin missing or below 60%");
+        if (geography.natural_sampled_share !== undefined && (!Number.isFinite(geography.natural_sampled_share) || geography.natural_sampled_share < 0.95)) {
+          qualityProblems.push("sampled state-raster area missing or below 95%");
+        }
+        const notices = [];
+        if (isStateId(geography.natural_best) && geography.natural_best !== canonicalAncestor) {
+          notices.push(`Natural best Vanilla ${geography.natural_best} differs from ${isStateId(canonicalAncestor) ? `canonical Vanilla ${canonicalAncestor}` : "the unmapped canonical ancestor"}. The canonical relation and fills remain unchanged.`);
+        }
+        if (qualityProblems.length) notices.push(`Producer quality gates not met: ${qualityProblems.join("; ")}. This is weak/unaccepted registration evidence, not corroboration.`);
+        if (geography.natural_sampled_share === undefined) notices.push("Sampled state-raster area was not supplied; its 95% producer gate cannot be rechecked here.");
+        const acceptedRaw = isStateId(geography.raw_geography_ancestor)
+          && geography.raw_geography_ancestor === geography.natural_best
+          && Boolean(geography.raw_geography_marker) && qualityProblems.length === 0;
+        const corroborates = acceptedRaw && geography.raw_geography_ancestor === canonicalAncestor;
+        fact(ui.naturalFacts, "Canonical comparison", corroborates
+          ? "Producer-accepted raw geography ancestor matches the canonical ancestor: corroborating diagnostic only, not identity proof."
+          : "No accepted raw geography match to the canonical ancestor; natural-best agreement alone is not corroboration.");
+        ui.naturalNotice.hidden = notices.length === 0;
+        ui.naturalNotice.textContent = notices.join(" ");
+      }
+
+
+      function isStateId(value) {
+        return Number.isInteger(value) && value > 0 && value <= 0xffffff;
+      }
+
+      function stateLabel(side, id, record) {
+        return `${side === "vanilla" ? "Vanilla" : "ME"} ${id} — ${record ? supplied(record.name) : "metadata missing"}`;
+      }
+
+      function visiblePixels(side, id, record) {
+        return record && Number.isFinite(record.visible_pixels)
+          ? record.visible_pixels
+          : (panes[side].index.states.get(id)?.pixels || 0);
+      }
+
+      function visibility(side, id, record) {
+        const count = visiblePixels(side, id, record);
+        return count > 0
+          ? `${count.toLocaleString()} sampled pixels in this frame`
+          : "Not sampled in this frame (outside crop or too small after reduction)";
+      }
+
+      function relativeBoundaryPath(value) {
+        if (typeof value !== "string" || !value.trim() || /^(?:[a-z][a-z0-9+.-]*:|[\\/])/i.test(value.trim())) {
+          throw new Error("Boundary images must be relative local PNG paths, not external URLs.");
+        }
+        return value.trim();
+      }
+
+      function loadImage(source, label) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = () => reject(new Error(`Could not load ${label}.`));
+          image.src = source;
+        });
+      }
+
+      // Only this isolated canvas is read. Relative boundary images never touch it:
+      // Chromium taints canvases that draw file:// images, but not embedded PNGs.
+      function indexHitMap(image, width, height) {
+        const hitCanvas = document.createElement("canvas");
+        hitCanvas.width = width;
+        hitCanvas.height = height;
+        const hitContext = hitCanvas.getContext("2d", { willReadFrequently: true });
+        if (!hitContext) throw new Error("This browser does not provide a 2D canvas context.");
+        hitContext.drawImage(image, 0, 0);
+        const rgba = hitContext.getImageData(0, 0, width, height).data;
+        const ids = new Uint32Array(width * height);
+        const states = new Map();
+
+        function countRun(id, length) {
+          if (!id) return;
+          let state = states.get(id);
+          if (!state) {
+            state = { pixels: 0, runCount: 0, runs: null, cursor: 0 };
+            states.set(id, state);
+          }
+          state.pixels += length;
+          state.runCount++;
+        }
+
+        // Decode RGB = high/middle/low ID bytes once; count horizontal runs.
+        for (let y = 0; y < height; y++) {
+          const row = y * width;
+          let previous = 0;
+          let start = 0;
+          for (let x = 0; x < width; x++) {
+            const pixel = row + x;
+            const offset = pixel * 4;
+            const id = (rgba[offset] << 16) | (rgba[offset + 1] << 8) | rgba[offset + 2];
+            ids[pixel] = id;
+            if (id !== previous) {
+              countRun(previous, x - start);
+              previous = id;
+              start = x;
+            }
+          }
+          countRun(previous, width - start);
+        }
+
+        for (const state of states.values()) state.runs = new Uint32Array(state.runCount * 3);
+        // Store x/y/length triples per state. Hover visits only selected runs,
+        // never scans all raster pixels or calls getImageData again.
+        for (let y = 0; y < height; y++) {
+          const row = y * width;
+          let start = 0;
+          while (start < width) {
+            const id = ids[row + start];
+            let end = start + 1;
+            while (end < width && ids[row + end] === id) end++;
+            if (id) {
+              const state = states.get(id);
+              state.runs[state.cursor++] = start;
+              state.runs[state.cursor++] = y;
+              state.runs[state.cursor++] = end - start;
+            }
+            start = end;
+          }
+        }
+        hitCanvas.width = 1;
+        hitCanvas.height = 1;
+        return { ids, states };
+      }
+
+      async function preparePane(side) {
+        const assets = metadata.images[side];
+        if (typeof assets.hit_data_uri !== "string" || !assets.hit_data_uri.startsWith("data:image/png;base64,")) {
+          throw new Error(`${side}: the embedded PNG hit map is missing. Regenerate this review page.`);
+        }
+        const boundaryPath = relativeBoundaryPath(assets.boundary);
+        const [hitImage, boundaryImage] = await Promise.all([
+          loadImage(assets.hit_data_uri, `${side} embedded hit map`),
+          loadImage(boundaryPath, `${side} boundary image (${boundaryPath})`)
+        ]);
+        for (const image of [hitImage, boundaryImage]) {
+          if (image.naturalWidth !== metadata.width || image.naturalHeight !== metadata.height) {
+            throw new Error(`${side}: image dimensions do not match the embedded review metadata. Regenerate all review files together.`);
+          }
+        }
+        const index = indexHitMap(hitImage, metadata.width, metadata.height);
+        const boundary = document.createElement("canvas");
+        boundary.width = metadata.width;
+        boundary.height = metadata.height;
+        const boundaryContext = boundary.getContext("2d");
+        const canvas = byId(`${side}-map`);
+        const context = canvas.getContext("2d");
+        if (!boundaryContext || !context) throw new Error("This browser does not provide a 2D canvas context.");
+        boundaryContext.drawImage(boundaryImage, 0, 0);
+        context.imageSmoothingEnabled = false;
+        return { side, canvas, context, boundary, index };
+      }
+
+      function familyColor(vanillaId, meId) {
+        const seed = vanillaId === null ? meId + 10000019 : vanillaId;
+        const hue = (seed * 137.508) % 360;
+        return { fill: `hsla(${hue}, 64%, 47%, 0.43)`, solid: `hsl(${hue}, 64%, 38%)` };
+      }
+
+      function paintPane(pane, ids, color) {
+        const context = pane.context;
+        context.fillStyle = BACKGROUND;
+        context.fillRect(0, 0, metadata.width, metadata.height);
+        if (color) {
+          context.fillStyle = color.fill;
+          for (const id of ids) {
+            const runs = pane.index.states.get(id)?.runs;
+            if (!runs) continue;
+            for (let i = 0; i < runs.length; i += 3) context.fillRect(runs[i], runs[i + 1], runs[i + 2], 1);
+          }
+        }
+        // Draw transparent charcoal boundaries last, above both neutral and highlighted land.
+        context.drawImage(pane.boundary, 0, 0);
+      }
+
+      function pinnedPairIds() {
+        if (!currentRecord) return null;
+        return { meId: currentRecord.me_id, vanillaId: currentRecord.vanilla_id };
+      }
+
+      function paintPinned() {
+        const pair = pinnedPairIds();
+        if (!pair || !panes) return;
+        for (const [side, id] of [["me", pair.meId], ["vanilla", pair.vanillaId]]) {
+          const pane = panes[side];
+          const state = pane.index.states.get(id);
+          if (!state?.runs?.length) continue;
+          const { context, index } = pane;
+          context.fillStyle = PIN_FILL;
+          for (let i = 0; i < state.runs.length; i += 3) {
+            context.fillRect(state.runs[i], state.runs[i + 1], state.runs[i + 2], 1);
+          }
+          // Draw the pinned state boundary itself in a stable pin color: a run
+          // pixel is a boundary pixel when a 4-neighbour holds a different ID.
+          context.fillStyle = PIN_OUTLINE;
+          const ids = index.ids;
+          const width = metadata.width;
+          for (let i = 0; i < state.runs.length; i += 3) {
+            const x0 = state.runs[i], y = state.runs[i + 1], runLength = state.runs[i + 2];
+            const row = y * width;
+            for (let x = x0; x < x0 + runLength; x++) {
+              const pixel = row + x;
+              if (x === 0 || x === width - 1 || y === 0 || y === metadata.height - 1
+                || ids[pixel - 1] !== id || ids[pixel + 1] !== id
+                || ids[pixel - width] !== id || ids[pixel + width] !== id) {
+                context.fillRect(x, y, 1, 1);
+              }
+            }
+          }
+          context.drawImage(pane.boundary, 0, 0);
+        }
+      }
+
+      // Repaint the base fills for the active hover selection, then re-apply
+      // the pinned relation overlay. Called by showSelection/clearSelection and
+      // whenever the pin itself changes.
+      function paintSelectionFills() {
+        if (!panes) return;
+        if (!activeSelection) {
+          for (const side of SIDES) paintPane(panes[side], [], null);
+          paintPinned();
+          return;
+        }
+        const { side, id } = activeSelection;
+        const hovered = metadata[side][String(id)];
+        const vanillaId = side === "vanilla" ? id : (isStateId(hovered?.ancestor) ? hovered.ancestor : null);
+        const members = vanillaId === null ? [] : (canonicalMembers.get(vanillaId) || []);
+        const highlightedME = highlightMode === "family" ? members.slice() : [];
+        if (side === "me" && !highlightedME.includes(id)) highlightedME.push(id);
+        const color = familyColor(vanillaId, id);
+        paintPane(panes.vanilla, vanillaId === null ? [] : [vanillaId], color);
+        paintPane(panes.me, highlightedME, color);
+        paintPinned();
+      }
+
+      function updatePinnedUI() {
+        if (ui.confClearPin) ui.confClearPin.disabled = !currentRecord;
+        if (ui.confTbody) {
+          for (const row of ui.confTbody.children) {
+            row.classList.remove("is-selected");
+            row.setAttribute("aria-selected", "false");
+          }
+          if (currentRecord?._rowElement) {
+            currentRecord._rowElement.classList.add("is-selected");
+            currentRecord._rowElement.setAttribute("aria-selected", "true");
+          }
+        }
+        refreshComparison();
+      }
+
+      function writeHash() {
+        if (typeof location === "undefined") return;
+        const pair = pinnedPairIds();
+        const target = pair ? `#me=${pair.meId}&vanilla=${pair.vanillaId}` : "#";
+        try {
+          if (typeof history !== "undefined" && history.replaceState) {
+            history.replaceState(null, "", target === "#" ? location.pathname + location.search : target);
+          } else {
+            location.hash = target;
+          }
+        } catch (_) { /* file:// or sandboxed contexts may forbid hash writes */ }
+      }
+
+      function readHash() {
+        try {
+          const match = /[#&]me=(\d+)[\s\S]*?[#&]?vanilla=(\d+)/.exec(location?.hash || "");
+          if (!match) return null;
+          const meId = Number(match[1]), vanillaId = Number(match[2]);
+          return isStateId(meId) && isStateId(vanillaId) ? { meId, vanillaId } : null;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      // A map pin that has no confirmation row still pins the exact pair, but
+      // is clearly labelled as outside the confirmation ledger.
+      function unlistedRecord(meId, vanillaId) {
+        return {
+          me_id: meId, vanilla_id: vanillaId,
+          me_name: metadata.me[String(meId)]?.name ?? "",
+          vanilla_name: metadata.vanilla[String(vanillaId)]?.name ?? "",
+          me_owner: "", vanilla_owner: "",
+          relation_kind: null, relation_status: "unlisted_map_selection",
+          unlisted: true, confidence_score: null
+        };
+      }
+
+      function pinRelation(meId, vanillaId) {
+        if (!isStateId(meId) || !isStateId(vanillaId)) return false;
+        const record = confirmationByPair.get(pairKey(meId, vanillaId)) || unlistedRecord(meId, vanillaId);
+        selectRecord(record, { scroll: false });
+        return true;
+      }
+
+      function unpin() {
+        if (!currentRecord) return;
+        currentRecord = null;
+        if (ui.recordPanel) ui.recordPanel.hidden = true;
+        paintSelectionFills();
+        updatePinnedUI();
+        writeHash();
+      }
+
+      function comparisonPixel(data, pixel, category) {
+        const color = PIXEL_CLASSES[category].color;
+        const offset = pixel * 4;
+        data[offset] = color[0];
+        data[offset + 1] = color[1];
+        data[offset + 2] = color[2];
+        data[offset + 3] = 255;
+      }
+
+      function partitionBoundaryMask(ids) {
+        const width = metadata.width;
+        const height = metadata.height;
+        const mask = new Uint8Array(ids.length);
+        for (let y = 0; y < height; y++) {
+          const row = y * width;
+          for (let x = 0; x < width; x++) {
+            const pixel = row + x;
+            const id = ids[pixel];
+            // Water/outside never becomes a boundary pixel. A positive state
+            // does become one at the frame edge or beside any other ID.
+            if (id <= 0) continue;
+            if (x === 0 || x === width - 1 || y === 0 || y === height - 1
+              || ids[pixel - 1] !== id || ids[pixel + 1] !== id
+              || ids[pixel - width] !== id || ids[pixel + width] !== id) {
+              mask[pixel] = 1;
+            }
+          }
+        }
+        return mask;
+      }
+
+      function partitionShare(value) {
+        return Number.isFinite(value) ? `${(value * 100).toFixed(2)}%` : "n/a";
+      }
+
+      function preparePartition(context) {
+        const width = metadata.width;
+        const height = metadata.height;
+        const size = width * height;
+        const meIds = panes.me.index.ids;
+        const vanillaIds = panes.vanilla.index.ids;
+        const meBoundary = partitionBoundaryMask(meIds);
+        const vanillaBoundary = partitionBoundaryMask(vanillaIds);
+        const sampled = new Map();
+        const overlaps = new Map();
+        let meLand = 0;
+        let vanillaLand = 0;
+        let unionLand = 0;
+        let meOnly = 0;
+        let vanillaOnly = 0;
+
+        for (let pixel = 0; pixel < size; pixel++) {
+          const meId = meIds[pixel] > 0 ? meIds[pixel] : 0;
+          const vanillaId = vanillaIds[pixel] > 0 ? vanillaIds[pixel] : 0;
+          if (meId) {
+            meLand++;
+            sampled.set(meId, (sampled.get(meId) || 0) + 1);
+            if (vanillaId) {
+              let candidates = overlaps.get(meId);
+              if (!candidates) {
+                candidates = new Map();
+                overlaps.set(meId, candidates);
+              }
+              candidates.set(vanillaId, (candidates.get(vanillaId) || 0) + 1);
+            }
+          }
+          if (vanillaId) vanillaLand++;
+          if (meId || vanillaId) unionLand++;
+          if (meId && !vanillaId) meOnly++;
+          if (vanillaId && !meId) vanillaOnly++;
+        }
+
+        const records = new Map();
+        for (const meId of Array.from(sampled.keys()).sort((a, b) => a - b)) {
+          const sampledPixels = sampled.get(meId);
+          const candidates = Array.from(overlaps.get(meId) || [], ([vanillaId, pixels]) => ({
+            vanillaId,
+            pixels,
+            share: pixels / sampledPixels
+          })).sort((a, b) => b.pixels - a.pixels || a.vanillaId - b.vanillaId);
+          const bestShare = candidates.length ? candidates[0].share : 0;
+          const runnerShare = candidates.length > 1 ? candidates[1].share : 0;
+          records.set(meId, {
+            meId,
+            sampledPixels,
+            candidates,
+            runnerShare,
+            margin: bestShare - runnerShare
+          });
+        }
+
+        const image = context.createImageData(width, height);
+        for (let pixel = 0; pixel < size; pixel++) {
+          const x = pixel % width;
+          const y = Math.floor(pixel / width);
+          const me = meBoundary[pixel] !== 0;
+          const vanilla = vanillaBoundary[pixel] !== 0
+            && ((x + y) % PARTITION_DASH_PERIOD < PARTITION_DASH_PERIOD / 2);
+          const color = me && vanilla ? PARTITION_COLORS.combinedBoundary
+            : me ? PARTITION_COLORS.meBoundary
+              : vanilla ? PARTITION_COLORS.vanillaBoundary : PARTITION_COLORS.neutral;
+          const offset = pixel * 4;
+          image.data[offset] = color[0];
+          image.data[offset + 1] = color[1];
+          image.data[offset + 2] = color[2];
+          image.data[offset + 3] = color[3];
+        }
+        return { image, records, meLand, vanillaLand, unionLand, meOnly, vanillaOnly };
+      }
+
+      function prepareComparison() {
+        const canvas = ui.comparisonCanvas;
+        canvas.width = metadata.width;
+        canvas.height = metadata.height;
+        ui.comparisonPanel.style.setProperty("--map-ratio", `${metadata.width} / ${metadata.height}`);
+        const context = canvas.getContext("2d");
+        if (!context) throw new Error("This browser does not provide a 2D canvas context.");
+        const size = metadata.width * metadata.height;
+        const classes = new Uint8Array(size);
+        const counts = new Uint32Array(PIXEL_CLASSES.length);
+        const canonical = context.createImageData(metadata.width, metadata.height);
+        const hovered = context.createImageData(metadata.width, metadata.height);
+        const ancestors = new Map();
+        for (const id of panes.me.index.states.keys()) {
+          const ancestor = metadata.me[String(id)]?.ancestor;
+          ancestors.set(id, isStateId(ancestor) ? ancestor : 0);
+        }
+        // One shared-grid scan, using only the already-decoded hit-map IDs.
+        // Unmapped ME land remains unknown even when vanilla is water.
+        for (let pixel = 0; pixel < size; pixel++) {
+          const meId = panes.me.index.ids[pixel];
+          const vanillaId = panes.vanilla.index.ids[pixel];
+          const ancestor = meId ? ancestors.get(meId) : 0;
+          const category = meId
+            ? !ancestor ? PIXEL.unknown : !vanillaId ? PIXEL.meOnly
+              : ancestor === vanillaId ? PIXEL.match : PIXEL.mismatch
+            : vanillaId ? PIXEL.vanillaOnly : PIXEL.neutral;
+          classes[pixel] = category;
+          counts[category]++;
+          comparisonPixel(canonical.data, pixel, category);
+          comparisonPixel(hovered.data, pixel, PIXEL.neutral);
+        }
+        const hoveredCounts = new Uint32Array(PIXEL_CLASSES.length);
+        hoveredCounts[PIXEL.neutral] = size;
+        const partition = preparePartition(context);
+        comparison = { context, classes, canonical, hovered, counts, hoveredCounts, partition,
+          bufferTargetId: null, renderedMode: null, renderedTargetId: null };
+        refreshComparison();
+      }
+
+      function paintHoveredComparison(id) {
+        if (comparison.bufferTargetId === id) return;
+        // Reuse the buffer and the existing ME runs: only the old/new target is
+        // visited on hover, never another PNG read or a full-frame rescan.
+        for (let pass = 0; pass < 2; pass++) {
+          const clearing = pass === 0;
+          const target = clearing ? comparison.bufferTargetId : id;
+          if (!clearing) {
+            comparison.hoveredCounts.fill(0);
+            comparison.hoveredCounts[PIXEL.neutral] = comparison.classes.length;
+          }
+          const runs = panes.me.index.states.get(target)?.runs;
+          if (!runs) continue;
+          for (let run = 0; run < runs.length; run += 3) {
+            const start = runs[run + 1] * metadata.width + runs[run];
+            const end = start + runs[run + 2];
+            for (let pixel = start; pixel < end; pixel++) {
+              const category = clearing ? PIXEL.neutral : comparison.classes[pixel];
+              comparisonPixel(comparison.hovered.data, pixel, category);
+              if (!clearing) {
+                comparison.hoveredCounts[category]++;
+                comparison.hoveredCounts[PIXEL.neutral]--;
+              }
+            }
+          }
+        }
+        comparison.bufferTargetId = id;
+      }
+
+      function renderPartitionComparison(targetId) {
+        const { partition } = comparison;
+        comparison.context.putImageData(partition.image, 0, 0);
+        applyPinnedTint();
+        ui.comparisonFacts.replaceChildren();
+        fact(ui.comparisonFacts, "Shared display grid", `${metadata.width} × ${metadata.height} pixels — existing coast-registered vanilla / native ME hit maps`);
+        fact(ui.comparisonFacts, "Comparison scope", "Partition overlay — candidate-independent state boundaries");
+        fact(ui.comparisonFacts, "Diagnostic status", "spatial overlap diagnostic — not identity proof");
+        fact(ui.comparisonFacts, "ME land pixels", partition.meLand.toLocaleString());
+        fact(ui.comparisonFacts, "Vanilla land pixels", partition.vanillaLand.toLocaleString());
+        fact(ui.comparisonFacts, "Union land pixels", partition.unionLand.toLocaleString());
+        fact(ui.comparisonFacts, "ME-only pixels", partition.meOnly.toLocaleString());
+        fact(ui.comparisonFacts, "Vanilla-only pixels", partition.vanillaOnly.toLocaleString());
+        if (pinnedPairIds()) {
+          fact(ui.comparisonFacts, "Pinned relation", `ME ${pinnedPairIds().meId} ↔ Vanilla ${pinnedPairIds().vanillaId} — pin tint overlay, not a classification change`);
+        }
+        if (targetId === null) {
+          fact(ui.comparisonFacts, "Hovered ME overlap", "No ME target selected; hover an ME land pixel to inspect spatial overlap.");
+          ui.comparisonSummary.textContent = "Partition overlay — hover an ME state in the ME or comparison canvas. No ME target selected; overlap facts cleared, not a descendant inference. spatial overlap diagnostic — not identity proof.";
+          return;
+        }
+        const record = partition.records.get(targetId);
+        const pinnedTarget = !(activeSelection?.side === "me") && pinnedPairIds()?.meId === targetId;
+        const targetLabel = pinnedTarget ? "Pinned ME" : "Hovered ME";
+        if (!record) {
+          fact(ui.comparisonFacts, `${targetLabel} overlap`, `ME ${targetId} has no sampled pixels in this frame.`);
+          ui.comparisonSummary.textContent = `Partition overlay — ME ${targetId} has no sampled pixels in this frame. spatial overlap diagnostic — not identity proof.`;
+          return;
+        }
+        fact(ui.comparisonFacts, `${targetLabel} state`, `ME ${targetId}`);
+        fact(ui.comparisonFacts, "Sampled ME pixels", record.sampledPixels.toLocaleString());
+        const top = record.candidates.slice(0, 3);
+        fact(ui.comparisonFacts, "Top Vanilla overlap candidates", top.length
+          ? top.map((candidate) => `Vanilla ${candidate.vanillaId}: ${candidate.pixels.toLocaleString()} pixels (${partitionShare(candidate.share)})`).join("\n")
+          : "None — no Vanilla ID overlaps this ME state");
+        const best = record.candidates[0];
+        fact(ui.comparisonFacts, "Best share", best ? partitionShare(best.share) : "n/a");
+        fact(ui.comparisonFacts, "Runner candidate", record.candidates.length > 1
+          ? `Vanilla ${record.candidates[1].vanillaId}: ${record.candidates[1].pixels.toLocaleString()} pixels`
+          : "None");
+        fact(ui.comparisonFacts, "Runner share", record.candidates.length > 1 ? partitionShare(record.runnerShare) : "n/a");
+        fact(ui.comparisonFacts, "Best–runner margin", record.candidates.length > 1 ? partitionShare(record.margin) : "n/a");
+        ui.comparisonSummary.textContent = `Partition overlay — ${pinnedTarget ? "pinned " : ""}ME ${targetId}: ${record.sampledPixels.toLocaleString()} sampled ME pixels; ${best ? `top Vanilla ${best.vanillaId} has ${partitionShare(best.share)} share` : "no Vanilla overlap"}. spatial overlap diagnostic — not identity proof.`;
+      }
+
+      function refreshComparison() {
+        if (!comparison) return;
+        const canonical = comparisonMode === "canonical";
+        const partition = comparisonMode === "partition";
+        const targetId = !canonical
+          ? (activeSelection?.side === "me" ? activeSelection.id : pinnedPairIds()?.meId ?? null)
+          : null;
+        const pinnedKey = pinnedPairIds() ? pairKey(pinnedPairIds().meId, pinnedPairIds().vanillaId) : null;
+        if (comparison.renderedMode === comparisonMode && comparison.renderedTargetId === targetId && comparison.renderedPinnedKey === pinnedKey) return;
+        comparison.renderedMode = comparisonMode;
+        comparison.renderedTargetId = targetId;
+        comparison.renderedPinnedKey = pinnedKey;
+        if (partition) {
+          renderPartitionComparison(targetId);
+          return;
+        }
+        if (!canonical) paintHoveredComparison(targetId);
+        const counts = canonical ? comparison.counts : comparison.hoveredCounts;
+        const size = comparison.classes.length;
+        const denominator = size - counts[PIXEL.neutral];
+        comparison.context.putImageData(canonical ? comparison.canonical : comparison.hovered, 0, 0);
+        applyPinnedTint();
+        ui.comparisonFacts.replaceChildren();
+        fact(ui.comparisonFacts, "Shared display grid", `${metadata.width} × ${metadata.height} pixels — existing coast-registered vanilla / native ME hit maps`);
+        const target = targetId === null ? null : metadata.me[String(targetId)];
+        const ancestor = isStateId(target?.ancestor) ? target.ancestor : null;
+        fact(ui.comparisonFacts, "Comparison scope", canonical ? "All land in the display frame"
+          : targetId === null ? "No hovered ME state" : `ME ${targetId} ↔ ${ancestor === null ? "no canonical ancestor (unknown)" : `Vanilla ${ancestor}`}; only this ME state's pixels`);
+        fact(ui.comparisonFacts, "Comparison denominator", `${denominator.toLocaleString()} pixels — ${canonical ? "union of land in either hit map" : "hovered ME state's sampled pixels (not the ancestor union or full family)"}`);
+        for (let category = 1; category < PIXEL_CLASSES.length; category++) {
+          const percentage = denominator ? `${(counts[category] * 100 / denominator).toFixed(2)}%` : "n/a";
+          fact(ui.comparisonFacts, PIXEL_CLASSES[category].label, `${counts[category].toLocaleString()} pixels (${percentage} of comparison denominator)`);
+        }
+        fact(ui.comparisonFacts, PIXEL_CLASSES[PIXEL.neutral].label, `${counts[PIXEL.neutral].toLocaleString()} pixels (${(counts[PIXEL.neutral] * 100 / size).toFixed(2)}% of full frame${canonical ? "" : "; water or outside the hovered target"})`);
+        if (pinnedPairIds()) {
+          fact(ui.comparisonFacts, "Pinned relation", `ME ${pinnedPairIds().meId} ↔ Vanilla ${pinnedPairIds().vanillaId} — pin tint overlay, not a classification change`);
+        }
+        ui.comparisonSummary.textContent = !canonical && targetId === null
+          ? "Hovered exact pair — hover an ME state in the ME or comparison canvas. No ME target selected; comparison cleared, not a mismatch."
+          : `${canonical ? "Canonical crosswalk" : `Hovered exact pair — ME ${targetId}`} — ${counts[PIXEL.match].toLocaleString()} match; ${counts[PIXEL.mismatch].toLocaleString()} mismatch; ${denominator.toLocaleString()} compared land pixels. Category percentages use the comparison denominator; neutral uses the full frame. Registration/geometry visualization only, not mapping identity proof.`;
+      }
+
+      function addMember(fragment, id, hoveredId, primary) {
+        const record = metadata.me[String(id)];
+        const item = node("li", id === hoveredId ? "is-hovered" : "");
+        item.append(node("h4", "", stateLabel("me", id, record)));
+        const flags = [];
+        if (id === hoveredId) flags.push("Hovered ME state");
+        if (id === primary) flags.push("Canonical primary member");
+        if (flags.length) item.append(node("p", "member-flags", flags.join(" · ")));
+        const details = node("dl", "facts member-meta");
+        fact(details, "m2v ancestor", record ? (isStateId(record.ancestor) ? `Vanilla ${record.ancestor}` : "None (unmapped)") : "Metadata missing");
+        fact(details, "m2v basis", supplied(record?.basis));
+        fact(details, "m2v status", supplied(record?.status));
+        fact(details, "Frame visibility", visibility("me", id, record));
+        if (visiblePixels("me", id, record) === 0) details.lastElementChild.classList.add("not-sampled");
+        item.append(details);
+        fragment.append(item);
+      }
+
+      function formatPercent(value) {
+        return Number.isFinite(value) ? `${(value * 100).toFixed(2)}%` : "n/a";
+      }
+
+      function formatScore(value) {
+        return Number.isFinite(value) ? value.toFixed(3) : "n/a";
+      }
+
+      function statusBadge(status) {
+        const badge = node("span", "status-badge", status);
+        badge.dataset.status = status;
+        return badge;
+      }
+
+      function loadDecisions() {
+        decisions.store.clear();
+        decisions.persistent = false;
+        try {
+          if (typeof localStorage === "undefined") return;
+          const raw = localStorage.getItem(DECISIONS_KEY);
+          decisions.persistent = true;
+          if (!raw) return;
+          const payload = JSON.parse(raw);
+          for (const [key, entry] of Object.entries(payload?.decisions || {})) {
+            const [meText, vanillaText] = String(key).split("|");
+            const meId = Number(meText), vanillaId = Number(vanillaText);
+            if (!isStateId(meId) || !isStateId(vanillaId) || typeof entry !== "object" || entry === null) continue;
+            const decision = DECISION_VALUES.has(entry.decision) ? entry.decision : null;
+            const note = typeof entry.note === "string" ? entry.note : "";
+            if (decision || note) decisions.store.set(pairKey(meId, vanillaId), { decision, note });
+          }
+        } catch (_) {
+          decisions.persistent = false;
+          decisions.store.clear();
+        }
+      }
+
+      function saveDecisions() {
+        if (!decisions.persistent) return;
+        try {
+          const serialized = {};
+          for (const [key, entry] of decisions.store) {
+            serialized[key] = { decision: entry.decision, note: entry.note };
+          }
+          localStorage.setItem(DECISIONS_KEY, JSON.stringify({ schema: DECISIONS_KEY, decisions: serialized }));
+        } catch (_) {
+          decisions.persistent = false;
+        }
+      }
+
+      function updateDecisionCount() {
+        if (!ui.decisionCount) return;
+        const count = decisions.store.size;
+        const where = decisions.persistent
+          ? "browser localStorage"
+          : "memory only — localStorage unavailable; export to keep them";
+        ui.decisionCount.textContent = `${count} recorded decision${count === 1 ? "" : "s"} (${where}).`;
+      }
+
+      function decisionFor(record) {
+        return record ? decisions.store.get(pairKey(record.me_id, record.vanilla_id)) : undefined;
+      }
+
+      function setDecision(record, value) {
+        if (!record || record.unlisted) return;
+        const key = pairKey(record.me_id, record.vanilla_id);
+        const entry = decisions.store.get(key) || { decision: null, note: "" };
+        entry.decision = DECISION_VALUES.has(value) ? value : null;
+        if (entry.decision || entry.note) decisions.store.set(key, entry);
+        else decisions.store.delete(key);
+        saveDecisions();
+        refreshDecisionUI(record);
+        renderTable(false);
+        updateDecisionCount();
+      }
+
+      function setDecisionNote(record, note) {
+        if (!record || record.unlisted) return;
+        const key = pairKey(record.me_id, record.vanilla_id);
+        const entry = decisions.store.get(key) || { decision: null, note: "" };
+        entry.note = String(note ?? "");
+        if (entry.decision || entry.note) decisions.store.set(key, entry);
+        else decisions.store.delete(key);
+        saveDecisions();
+        updateDecisionCount();
+      }
+
+      function refreshDecisionUI(record) {
+        if (!record) return;
+        const entry = decisionFor(record);
+        for (const value of [...DECISION_VALUES, ""]) {
+          const button = byId(`decision-${value || "clear-record"}`);
+          if (button) button.dataset.active = Boolean(entry?.decision) && entry.decision === value ? "true" : "false";
+        }
+        if (ui.decisionNote && ui.decisionNote.value !== (entry?.note ?? "")) {
+          ui.decisionNote.value = entry?.note ?? "";
+        }
+        if (ui.decisionStatus) {
+          ui.decisionStatus.textContent = record.unlisted
+            ? "This map-pinned pair is not a confirmation row; decisions are available only for confirmation ledger pairs."
+            : entry?.decision
+              ? `Recorded decision: ${entry.decision} — stored locally only. ${DECISION_NOTICE}`
+              : `No local decision recorded for this pair. ${DECISION_NOTICE}`;
+        }
+      }
+
+      function exportDecisions() {
+        const exported = {};
+        for (const [key, entry] of [...decisions.store.entries()].sort()) {
+          const [meId, vanillaId] = key.split("|").map(Number);
+          const record = confirmationByPair.get(key);
+          exported[key] = {
+            me_id: meId,
+            vanilla_id: vanillaId,
+            decision: entry.decision,
+            note: entry.note,
+            relation_status: record?.relation_status ?? null,
+            relation_kind: record?.relation_kind ?? null,
+            confidence_score: record?.confidence_score ?? null
+          };
+        }
+        const payload = {
+          schema: "me-state-mapping-review-decisions/v1",
+          exported_at: new Date().toISOString(),
+          notice: DECISION_NOTICE + " Apply them by hand-editing the generator's MANUAL/MANUAL_ME2V approvals, never automatically.",
+          source_confirmation: confirmation?.sources ?? null,
+          input_sha256: confirmation?.counts?.input_sha256 ?? null,
+          threshold: confirmation?.threshold ?? null,
+          decisions: exported
+        };
+        const text = JSON.stringify(payload, null, 2) + "\n";
+        const anchor = node("a");
+        anchor.setAttribute("download", "state-mapping-review-decisions.json");
+        try {
+          anchor.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+        } catch (_) {
+          anchor.href = `data:application/json,${encodeURIComponent(text)}`;
+        }
+        try { anchor.click(); } catch (_) { /* jsdom-less fixtures have no click() */ }
+        if (ui.decisionStatus) ui.decisionStatus.textContent = `Exported ${Object.keys(exported).length} decision record(s) as JSON. ${DECISION_NOTICE}`;
+      }
+
+      function clearDecisions() {
+        decisions.store.clear();
+        saveDecisions();
+        try { localStorage?.removeItem(DECISIONS_KEY); } catch (_) { /* optional persistence */ }
+        if (currentRecord) refreshDecisionUI(currentRecord);
+        renderTable(false);
+        updateDecisionCount();
+      }
+
+      function rowMatchesFilters(record) {
+        const rows = ui.filterRows?.value ?? "queue";
+        if (rows === "queue" && record.relation_status !== "review_candidate") return false;
+        const status = ui.filterStatus?.value;
+        if (status && record.relation_status !== status) return false;
+        const kind = ui.filterKind?.value;
+        if (kind && record.relation_kind !== kind) return false;
+        const owner = ui.filterOwner?.value;
+        if (owner && record.owner_relation !== owner) return false;
+        const priority = ui.filterPriority?.value;
+        if (priority !== "" && priority !== undefined && String(record.review_priority ?? "") !== priority) return false;
+        const confidence = ui.filterConfidence?.value;
+        if (confidence === "lt0.25" ? !(record.confidence_score < 0.25)
+          : confidence && !(record.confidence_score >= Number(confidence))) return false;
+        const query = (ui.filterSearch?.value ?? "").trim().toLowerCase();
+        if (query) {
+          const haystack = `${record.me_id} ${record.vanilla_id} ${record.me_name ?? ""} ${record.vanilla_name ?? ""} ${record.me_owner ?? ""} ${record.vanilla_owner ?? ""}`.toLowerCase();
+          for (const term of query.split(/\s+/)) {
+            if (term && !haystack.includes(term)) return false;
+          }
+        }
+        return true;
+      }
+
+      function renderTable(resetPage = true) {
+        if (!confirmation?.available || !ui.confTbody) return;
+        if (resetPage) tableLimit = TABLE_PAGE;
+        tableLimit = Math.max(tableLimit, TABLE_PAGE);
+        ui.confTbody.replaceChildren();
+        const shown = filteredRows.slice(0, tableLimit);
+        const fragment = document.createDocumentFragment();
+        for (const record of shown) {
+          const tr = node("tr");
+          tr.append(
+            node("td", "", `ME ${record.me_id} — ${record.me_name || "unnamed"}`),
+            node("td", "", `Vanilla ${record.vanilla_id} — ${record.vanilla_name || "unnamed"}`),
+            node("td"),
+            node("td", "", record.relation_kind ?? "—"),
+            node("td", "", formatScore(record.confidence_score)),
+            node("td", "", `${record.me_owner || "?"} / ${record.vanilla_owner || "?"}`),
+            node("td", "decision-cell", decisionFor(record)?.decision ?? "")
+          );
+          tr.children[2].append(statusBadge(record.relation_status));
+          tr.tabIndex = 0;
+          tr.setAttribute("role", "row");
+          tr.setAttribute("aria-selected", currentRecord === record ? "true" : "false");
+          if (currentRecord === record) tr.classList.add("is-selected");
+          record._rowElement = tr;
+          tr.addEventListener("click", () => selectRecord(record));
+          tr.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " " && event.key !== "Spacebar") return;
+            event.preventDefault?.();
+            selectRecord(record);
+          });
+          fragment.append(tr);
+        }
+        ui.confTbody.append(fragment);
+        if (ui.confCaption) {
+          const queueCount = filteredRows.length;
+          const scope = (ui.filterRows?.value ?? "queue") === "queue" ? "review-queue" : "confirmation";
+          ui.confCaption.textContent = `${queueCount.toLocaleString()} ${scope} row${queueCount === 1 ? "" : "s"} match the filters; showing first ${shown.length.toLocaleString()}. Click a row to pin its exact ME↔Vanilla pair on the maps.`;
+        }
+        if (ui.confMore) {
+          ui.confMore.hidden = filteredRows.length <= tableLimit;
+          ui.confMore.textContent = `Show more rows (${filteredRows.length - shown.length} hidden)`;
+        }
+      }
+
+      function applyConfFilters() {
+        if (!confirmation?.available) return;
+        filteredRows = confirmation.rows.filter(rowMatchesFilters);
+        renderTable(true);
+      }
+
+      // The pinned row must exist in the rendered page window: raise the
+      // table limit past its filtered index, re-render, then scroll it.
+      function ensureSelectedRowRendered() {
+        if (!currentRecord || currentRecord.unlisted) return;
+        const index = filteredRows.indexOf(currentRecord);
+        if (index < 0) return;
+        if (index >= tableLimit) {
+          tableLimit = index + 1;
+          renderTable(false);
+        }
+        currentRecord._rowElement?.scrollIntoView?.({ block: "nearest" });
+      }
+
+      function selectRecord(record, { scroll = true } = {}) {
+        if (!record) return;
+        currentRecord = record;
+        renderRecord(record);
+        paintSelectionFills();
+        ensureSelectedRowRendered();
+        updatePinnedUI();
+        writeHash();
+        if (scroll) ui.recordPanel?.scrollIntoView?.({ block: "nearest" });
+      }
+
+      function stepRecord(direction) {
+        if (!filteredRows.length) return;
+        const index = currentRecord ? filteredRows.indexOf(currentRecord) : -1;
+        const next = index === -1
+          ? (direction < 0 ? filteredRows.length - 1 : 0)
+          : (index + direction + filteredRows.length) % filteredRows.length;
+        selectRecord(filteredRows[next], { scroll: false });
+        filteredRows[next]._rowElement?.scrollIntoView?.({ block: "nearest" });
+      }
+
+      function renderCandidateLists(record) {
+        ui.meCandidates.replaceChildren();
+        ui.vanillaCandidates.replaceChildren();
+        if (record.unlisted) {
+          ui.meCandidates.append(node("li", "", "Not a confirmation row — no candidate ledger."));
+          ui.vanillaCandidates.append(node("li", "", "Not a confirmation row — no candidate ledger."));
+          return;
+        }
+        for (const [list, others, selfSide] of [
+          [ui.meCandidates, confirmationByMe.get(record.me_id) || [], "vanilla"],
+          [ui.vanillaCandidates, confirmationByVanilla.get(record.vanilla_id) || [], "me"]
+        ]) {
+          // excluded_synthetic rows stay visible in the all-rows table only;
+          // they are never navigable candidates.
+          for (const other of others.filter((row) => row.relation_status !== "excluded_synthetic")) {
+            const item = node("li", other === record ? "is-hovered" : "");
+            const button = node("button", "candidate-button");
+            button.setAttribute("type", "button");
+            button.textContent = selfSide === "vanilla"
+              ? `Vanilla ${other.vanilla_id} — ${other.vanilla_name || "unnamed"} (${other.relation_kind}, ${formatScore(other.confidence_score)})`
+              : `ME ${other.me_id} — ${other.me_name || "unnamed"} (${other.relation_kind}, ${formatScore(other.confidence_score)})`;
+            button.addEventListener("click", () => selectRecord(other));
+            item.append(button);
+            item.append(node("p", "member-meta muted",
+              `${other.relation_status} · owners ${other.me_owner || "?"}/${other.vanilla_owner || "?"} · owner share ${formatPercent(other.me_owner_share)} · owner-family min ${formatPercent(other.owner_family_min_me_owner_share)}`));
+            list.append(item);
+          }
+          if (!list.children.length) {
+            list.append(node("li", "", selfSide === "vanilla"
+              ? "No other confirmation rows reference this ME state."
+              : "No other confirmation rows reference this vanilla state."));
+          }
+        }
+      }
+
+      function renderRecord(record) {
+        if (!ui.recordPanel) return;
+        ui.recordPanel.hidden = false;
+        ui.recordTitle.textContent = record.unlisted
+          ? `Selected relation — ME ${record.me_id} ↔ Vanilla ${record.vanilla_id} (map pin, not a confirmation row)`
+          : `Selected relation — ME ${record.me_id} ↔ Vanilla ${record.vanilla_id}`;
+        const canonicalAncestor = metadata.me[String(record.me_id)]?.ancestor;
+        ui.recordSummary.textContent = record.unlisted
+          ? "Pinned from a map click. This pair is outside the confirmation ledger; canonical facts below come from the canonical metadata only."
+          : `${record.relation_status} · ${record.relation_kind} · confidence ${formatScore(record.confidence_score)} — the ${confirmation?.threshold ?? 0.95} gate is a conservative owner-scoped pair-level coverage gate (not a complete-subset proof, not a calibrated probability). Pin tint marks this pair on all three canvases.`;
+        ui.recordFacts.replaceChildren();
+        fact(ui.recordFacts, "Relation status", record.unlisted ? "unlisted map selection" : record.relation_status);
+        if (!record.unlisted) {
+          fact(ui.recordFacts, "Relation kind", supplied(record.relation_kind));
+          fact(ui.recordFacts, "Source scope", supplied(record.source_scope));
+          fact(ui.recordFacts, "Edge source", supplied(record.edge_source));
+          fact(ui.recordFacts, "Edge class", supplied(record.edge_class));
+          fact(ui.recordFacts, "Confidence score", `${formatScore(record.confidence_score)} (gate ${supplied(record.confidence_gate)}; threshold ${confirmation.threshold})`);
+          fact(ui.recordFacts, "Gate reasons", supplied(record.confidence_reasons) || "none — every gate passed");
+          fact(ui.recordFacts, "Review priority", record.review_priority === undefined ? "not a queue row" : `tier ${record.review_priority}`);
+          fact(ui.recordFacts, "Canonical record", record.relation_kind === "canonical" ? "yes" : "no");
+          fact(ui.recordFacts, "Canonical basis / status", `${supplied(record.canonical_basis)} / ${supplied(record.canonical_status)}`);
+          fact(ui.recordFacts, "ME → Vanilla owner share", `${formatPercent(record.me_owner_share)} (${supplied(record.me_owner_match_px)} / ${supplied(record.me_owner_area_px)} px of the 1936 same-owner denominator)`);
+          fact(ui.recordFacts, "Vanilla owner share (reverse)", `${formatPercent(record.v_owner_share)} (${supplied(record.v_owner_match_px)} / ${supplied(record.v_owner_area_px)} px)`);
+          fact(ui.recordFacts, "Owner-family reverse share", `${formatPercent(record.owner_family_reverse_share)} (${supplied(record.owner_family_reverse_match_px)} / ${supplied(record.v_owner_area_px)} px — union of the same-owner compatibility/asserted members)`);
+          fact(ui.recordFacts, "Owner-family members", `${supplied(record.owner_family_member_count)} total, ${supplied(record.owner_family_live_member_count)} live${record.owner_family_has_synthetic_member ? "; includes a synthetic member" : ""} — ${(record.owner_family_me_ids || []).join(", ") || "none listed"} (same-owner compatibility/asserted edges only)`);
+          fact(ui.recordFacts, "Owner-family min owner share (diagnostic)", formatPercent(record.owner_family_min_me_owner_share));
+          fact(ui.recordFacts, "Unconstrained ME share (diagnostic)", formatPercent(record.me_share));
+          fact(ui.recordFacts, "Registered ME share (diagnostic)", formatPercent(record.me_registered_share));
+          fact(ui.recordFacts, "Vanilla share (native, diagnostic)", `${formatPercent(record.v_share_native)} — ${supplied(record.v_hit_px)} / ${supplied(record.v_native_px)} px`);
+          fact(ui.recordFacts, "Canonical-family reverse share (diagnostic)", `${formatPercent(record.family_reverse_share)} (${supplied(record.family_reverse_hit_px)} / ${supplied(record.family_reverse_native_px)} px)`);
+          fact(ui.recordFacts, "Canonical-family min ME share (diagnostic)", formatPercent(record.family_min_me_share));
+          fact(ui.recordFacts, "Canonical-family members (diagnostic)", `${supplied(record.family_member_count)} total, ${supplied(record.family_live_member_count)} live${record.family_has_synthetic_member ? "; includes a synthetic member" : ""} — ${(record.family_me_ids || []).join(", ") || "none listed"}`);
+          fact(ui.recordFacts, "ME geometry usable", record.me_geometry_usable === undefined ? "Not supplied" : record.me_geometry_usable ? "yes" : "no");
+          fact(ui.recordFacts, "Evidence families", supplied(record.evidence_families));
+          fact(ui.recordFacts, "Evidence cap", formatScore(record.evidence_cap));
+          fact(ui.recordFacts, "Explicit identity evidence", supplied(record.explicit_identity_evidence) || "none recorded");
+          fact(ui.recordFacts, "Comment votes", record.comment_votes ?? "none recorded");
+          fact(ui.recordFacts, "Mapping audit", `${supplied(record.mapping_audit_class)} — ${supplied(record.mapping_audit_reason_codes)}`);
+          fact(ui.recordFacts, "1936 owners", `${supplied(record.me_owner)} / ${supplied(record.vanilla_owner)} — ${supplied(record.owner_relation)} (${supplied(record.country_scope)})`);
+          fact(ui.recordFacts, "Project references", `${supplied(record.project_ref_count)} total / ${supplied(record.project_review_ref_count)} on review candidates — usage context, never identity proof`);
+          fact(ui.recordFacts, "Canonical m2v ancestor", isStateId(canonicalAncestor)
+            ? `Vanilla ${canonicalAncestor}${canonicalAncestor === record.vanilla_id ? " — this row is the canonical pair" : " — differs from this row"}`
+            : "None (unmapped in canonical metadata)");
+        }
+        const notices = [];
+        if (record.unlisted) {
+          notices.push("This pair was pinned from the map, not from the confirmation queue. It is not a confirmation row and carries no score.");
+        } else {
+          if (record.relation_status === "excluded_synthetic") {
+            notices.push("excluded_synthetic: a synthetic MAP-owned/Map Border row reported for completeness; it is never a review candidate and never joins owner-family live denominators.");
+          }
+          if (record.relation_status === "confirmed_95") {
+            notices.push("confirmed_95: every conservative owner-scoped gate passed for THIS pair only — it is not a complete-subset proof for the whole many-to-many family, and not a probability of correctness.");
+          }
+          if (record.relation_kind === "candidate") {
+            notices.push("Non-canonical candidate row: it can never be confirmed_95 regardless of coverage; decide whether the canonical pair needs a manual correction instead.");
+          }
+          if (record.owner_relation === "cross_owner") {
+            notices.push("cross_owner: the 1936 owners differ between ME and vanilla — owner metrics gate/annotate only and are never identity evidence; owner-constrained shares may be blank here.");
+          }
+          if (record.owner_family_has_synthetic_member) {
+            notices.push("The owner family includes a synthetic member: it counts toward member totals but never joins the live reverse-union numerator.");
+          }
+          if (isStateId(canonicalAncestor) && canonicalAncestor !== record.vanilla_id) {
+            notices.push(`Canonical metadata maps ME ${record.me_id} to Vanilla ${canonicalAncestor}, not Vanilla ${record.vanilla_id}. This row is a non-canonical candidate.`);
+          }
+        }
+        notices.push("Owner-constrained and unconstrained sampled coverage are coverage diagnostics — never a mapping-identity proof.");
+        ui.recordNotice.hidden = false;
+        ui.recordNotice.textContent = notices.join(" ");
+        renderCandidateLists(record);
+        refreshDecisionUI(record);
+      }
+
+      // Tint the pinned pair inside the comparison canvas after its base mode
+      // has rendered. Works for partition, canonical and hovered images.
+      function applyPinnedTint() {
+        const pair = pinnedPairIds();
+        if (!pair || !comparison) return;
+        const width = metadata.width;
+        const context = comparison.context;
+        const image = context.getImageData(0, 0, width, metadata.height);
+        const data = image.data;
+        const tint = (side, id, rgba) => {
+          const state = panes[side].index.states.get(id);
+          if (!state?.runs?.length) return;
+          for (let i = 0; i < state.runs.length; i += 3) {
+            const start = state.runs[i + 1] * width + state.runs[i];
+            const end = start + state.runs[i + 2];
+            for (let pixel = start; pixel < end; pixel++) {
+              const offset = pixel * 4;
+              data[offset] = Math.round(data[offset] * 0.55 + rgba[0] * 0.45);
+              data[offset + 1] = Math.round(data[offset + 1] * 0.55 + rgba[1] * 0.45);
+              data[offset + 2] = Math.round(data[offset + 2] * 0.55 + rgba[2] * 0.45);
+            }
+          }
+        };
+        tint("me", pair.meId, [28, 84, 90]);
+        tint("vanilla", pair.vanillaId, [90, 64, 130]);
+        context.putImageData(image, 0, 0);
+      }
+
+      function initConfirmation() {
+        loadDecisions();
+        confirmation = metadata.confirmation && typeof metadata.confirmation === "object"
+          ? metadata.confirmation
+          : null;
+        confirmationByPair.clear();
+        confirmationByMe.clear();
+        confirmationByVanilla.clear();
+        for (const record of confirmation?.rows || []) {
+          confirmationByPair.set(pairKey(record.me_id, record.vanilla_id), record);
+          for (const [index, key] of [[confirmationByMe, record.me_id], [confirmationByVanilla, record.vanilla_id]]) {
+            const bucket = index.get(key) || [];
+            bucket.push(record);
+            index.set(key, bucket);
+          }
+        }
+        ui.confirmationCounts.replaceChildren();
+        // Decision + pin controls stay live even without embedded rows:
+        // previously stored decisions remain exportable and map pins still work.
+        ui.confPrev?.addEventListener("click", () => stepRecord(-1));
+        ui.confNext?.addEventListener("click", () => stepRecord(1));
+        ui.confClearPin?.addEventListener("click", unpin);
+        for (const value of [...DECISION_VALUES, ""]) {
+          byId(`decision-${value || "clear-record"}`)?.addEventListener("click", () => {
+            setDecision(currentRecord, value || null);
+          });
+        }
+        ui.decisionNote?.addEventListener("input", () => setDecisionNote(currentRecord, ui.decisionNote.value));
+        ui.decisionExport?.addEventListener("click", exportDecisions);
+        ui.decisionClear?.addEventListener("click", clearDecisions);
+        if (!confirmation?.available) {
+          ui.confirmationBody.hidden = true;
+          ui.confirmationUnavailable.hidden = false;
+          ui.confirmationUnavailable.textContent = "Confirmation overlay unavailable — build_state_mapping_review.py found no readable state_mapping_confirmation.tsv / state_mapping_review_queue_95.tsv beside the canonical tables, or discarded it: malformed content, a schema-mismatched summary, or a summary whose recorded input hashes no longer match the current docs/states tables (stale data is never shown as fresh; see generation warnings). The canonical review below is unchanged.";
+          fact(ui.confirmationCounts, "Confirmation data", "not embedded in this page");
+          updateDecisionCount();
+          return;
+        }
+        ui.confirmationBody.hidden = false;
+        ui.confirmationUnavailable.hidden = true;
+        const counts = confirmation.counts || {};
+        const threshold = confirmation.threshold;
+        fact(ui.confirmationCounts, "Summary schema", confirmation.input_verified
+          ? `${confirmation.schema ?? "not recorded"} — input hashes verified against the current docs/states tables at page build`
+          : "no verified summary — counts below come from the confirmation TSV only");
+        fact(ui.confirmationCounts, "Confirmation threshold", `${threshold} — conservative coverage gate, not a calibrated probability; owner-scoped pair-level, not a complete-subset proof`);
+        fact(ui.confirmationCounts, "confirmed_95", `${(counts.confirmed_95 ?? 0).toLocaleString()} of ${(counts.pairs_total ?? 0).toLocaleString()} pairs`);
+        fact(ui.confirmationCounts, "review_candidate", `${(counts.review_candidate ?? 0).toLocaleString()} — the human worklist below`);
+        if (counts.owner_families_total !== undefined && counts.owner_families_total !== null) {
+          const syntheticFamilies = counts.owner_families_with_synthetic_member ?? 0;
+          fact(ui.confirmationCounts, "Owner families", `${Number(counts.owner_families_total).toLocaleString()} vanilla same-owner families${syntheticFamilies ? ` (${syntheticFamilies} with a synthetic member)` : ""} — observation edges never join`);
+        }
+        for (const [label, key] of [["Source scopes", "by_source_scope"], ["Edge classes", "by_edge_class"]]) {
+          const entries = counts[key];
+          if (entries && typeof entries === "object") {
+            const parts = Object.entries(entries).map(([name, value]) => `${name}: ${Number(value).toLocaleString()}`).join(", ");
+            if (parts) fact(ui.confirmationCounts, label, parts);
+          }
+        }
+        fact(ui.confirmationCounts, "excluded_synthetic", `${(counts.excluded_synthetic ?? 0).toLocaleString()} — synthetic MAP/Map Border rows, never candidates`);
+        if (counts.project_refs_total !== undefined && counts.project_refs_total !== null) {
+          const byStatus = counts.project_refs_by_status || {};
+          const parts = Object.entries(byStatus).map(([status, value]) => `${status}: ${Number(value).toLocaleString()}`).join(", ");
+          fact(ui.confirmationCounts, "Project state references", `${Number(counts.project_refs_total).toLocaleString()} total${parts ? ` (${parts})` : ""} — usage context only`);
+        }
+        fact(ui.confirmationCounts, "Embedded rows", `${(confirmation.rows?.length ?? 0).toLocaleString()} pair rows — review queue order, then confirmed and excluded rows`);
+        ui.confirmationNotice.hidden = false;
+        ui.confirmationNotice.textContent = (counts.confirmed_95 ?? 0) === 0
+          ? `0 of ${(counts.pairs_total ?? 0).toLocaleString()} pairs reach the ${threshold} owner-scoped pair gate (me_owner_share + owner-family reverse union). Zero confirmed is a data outcome — every non-excluded pair below the line is a review_candidate for a human, NOT silently accepted; excluded_synthetic rows (${(counts.excluded_synthetic ?? 0).toLocaleString()} here) are never candidates, and nothing here writes back to the canonical tables.`
+          : `${(counts.confirmed_95 ?? 0).toLocaleString()} pairs reach the ${threshold} owner-scoped pair gate — pair-level only, not a complete-subset proof for any many-to-many family. ${DECISION_NOTICE}`;
+        filteredRows = confirmation.rows.filter(rowMatchesFilters);
+        for (const element of [
+          ui.filterRows, ui.filterStatus, ui.filterKind, ui.filterOwner,
+          ui.filterPriority, ui.filterConfidence
+        ]) {
+          element?.addEventListener("change", applyConfFilters);
+        }
+        ui.filterSearch?.addEventListener("input", applyConfFilters);
+        ui.confMore?.addEventListener("click", () => {
+          tableLimit += TABLE_PAGE;
+          renderTable(false);
+        });
+        renderTable(true);
+        updateDecisionCount();
+      }
+
+      function showSelection(side, id) {
+        if (activeSelection?.side === side && activeSelection.id === id && activeSelection.mode === highlightMode) return;
+        activeSelection = { side, id, mode: highlightMode };
+        const fullFamily = highlightMode === "family";
+        const scope = fullFamily ? "Full canonical family" : "Exact pair";
+        const hovered = metadata[side][String(id)];
+        const vanillaId = side === "vanilla" ? id : (isStateId(hovered?.ancestor) ? hovered.ancestor : null);
+        const vanilla = vanillaId === null ? null : metadata.vanilla[String(vanillaId)];
+        const members = vanillaId === null ? [] : (canonicalMembers.get(vanillaId) || []);
+        const highlightedME = fullFamily ? members.slice() : [];
+        if (side === "me" && !highlightedME.includes(id)) highlightedME.push(id);
+        const color = familyColor(vanillaId, id);
+        // Both panes update in the same pointer event; the scope controls ME membership.
+        paintSelectionFills();
+        if (ui.pinHovered) ui.pinHovered.hidden = !(side === "me" && vanillaId !== null);
+        ui.swatch.hidden = false;
+        ui.swatch.style.backgroundColor = color.solid;
+        ui.memberList.style.setProperty("--selection-color", color.solid);
+        ui.heading.textContent = `${scope} — ${stateLabel(side, id, hovered)}`;
+        ui.content.hidden = false;
+        ui.facts.replaceChildren();
+        fact(ui.facts, "Highlight scope", !fullFamily && side === "vanilla" ? `${scope} — no ME member selected` : scope);
+        fact(ui.facts, "Hovered state", stateLabel(side, id, hovered));
+        fact(ui.facts, side === "me" ? "Hovered m2v basis" : "Hovered v2m basis", supplied(hovered?.basis));
+        fact(ui.facts, side === "me" ? "Hovered m2v status" : "Hovered v2m status", supplied(hovered?.status));
+        fact(ui.facts, "Hovered visibility", visibility(side, id, hovered));
+        if (side === "me") fact(ui.facts, "Hovered m2v ancestor", vanillaId === null ? "None (unmapped)" : `Vanilla ${vanillaId}`);
+        if (vanillaId !== null) {
+          fact(ui.facts, "Vanilla state", stateLabel("vanilla", vanillaId, vanilla));
+          fact(ui.facts, "Vanilla v2m basis", supplied(vanilla?.basis));
+          fact(ui.facts, "Vanilla v2m status", supplied(vanilla?.status));
+          fact(ui.facts, "Vanilla visibility", visibility("vanilla", vanillaId, vanilla));
+          fact(ui.facts, "Canonical relation", `1 → ${members.length} ME descendant${members.length === 1 ? "" : "s"}`);
+          fact(ui.facts, "Primary ME member", isStateId(vanilla?.primary) ? `ME ${vanilla.primary}` : "None");
+        } else {
+          fact(ui.facts, "Vanilla state", "No canonical ancestor");
+        }
+        updateNaturalDiagnostics(side, hovered, vanillaId);
+
+
+        const notices = [];
+        for (const [record, recordSide] of [[hovered, side], [vanilla, "vanilla"]]) {
+          const evidence = evidenceNotice(record, recordSide);
+          if (evidence) notices.push(evidence);
+        }
+        if (!hovered) notices.push("This hit-map state has no metadata record. No relationship is inferred from its silhouette.");
+        if (side === "me" && vanillaId === null) {
+          notices.push("This ME state has no canonical vanilla ancestor. Only its own silhouette is highlighted; no vanilla state is selected.");
+        } else if (!vanilla) {
+          notices.push("The referenced vanilla metadata is missing; the complete canonical ME member list is unavailable.");
+        } else if (members.length === 0) {
+          notices.push(side === "vanilla"
+            ? "This vanilla state has no canonical ME descendants. Only its own silhouette is highlighted."
+            : "The vanilla v2m list has no canonical ME descendants; the hovered state's m2v ancestor is shown without inferring any siblings.");
+        }
+        if (side === "me" && vanillaId !== null && vanilla && !members.includes(id)) {
+          notices.push("The hovered m2v ancestor and the v2m member list disagree. The hovered ME state is highlighted separately; it is not added to the canonical descendant count.");
+        }
+        ui.notice.hidden = notices.length === 0;
+        ui.notice.textContent = notices.join(" ");
+        if (vanillaId === null) {
+          ui.summary.textContent = `${scope} mode — unmapped ME state; no vanilla identity is inferred.`;
+        } else if (fullFamily) {
+          ui.summary.textContent = `${scope} — Vanilla ${vanillaId}: 1 → ${members.length} canonical ME descendant${members.length === 1 ? "" : "s"}. The combined family shape is not an individual ME state boundary; matching colors show table membership, not geometric proof.`;
+        } else if (side === "me") {
+          ui.summary.textContent = `${scope} — ME ${id} ↔ Vanilla ${vanillaId}. Only this ME member and its ancestor are filled; siblings remain unfilled. This is the canonical table relation, not geometric proof.`;
+        } else {
+          ui.summary.textContent = `${scope} mode — Vanilla ${vanillaId} only; no ME member selected. ${members.length} canonical ME descendant${members.length === 1 ? " is" : "s are"} available. ${members.length ? "Hover a single ME state in the right pane to compare it with its ancestor." : "No exact ME pair is inferred."}`;
+        }
+
+        const listedIds = vanillaId === null ? [id] : members;
+        const sampled = listedIds.filter((memberId) => visiblePixels("me", memberId, metadata.me[String(memberId)]) > 0).length;
+        ui.membersHeading.textContent = vanillaId === null
+          ? "ME state without a vanilla ancestor"
+          : `${fullFamily ? "All" : "Available"} canonical ME descendants (${members.length})`;
+        const memberScope = vanillaId === null
+          ? "Only the hovered ME state is highlighted."
+          : fullFamily ? "All sampled canonical descendants are highlighted."
+          : side === "me" ? "Only the hovered ME member is highlighted; this list does not expand the fill."
+          : "No ME member is highlighted. Hover one in the right pane to form an exact pair.";
+        ui.membersSummary.textContent = listedIds.length
+          ? `${memberScope} ${sampled} sampled in this frame; ${listedIds.length - sampled} not sampled (outside crop or too small after reduction). Each member's m2v provenance is listed below.`
+          : "The canonical v2m member list is empty; no ME identity is inferred from map overlap.";
+        const fragment = document.createDocumentFragment();
+        for (const memberId of listedIds) addMember(fragment, memberId, side === "me" ? id : null, vanilla?.primary);
+        ui.memberList.replaceChildren(fragment);
+        ui.memberList.hidden = listedIds.length === 0;
+        ui.memberList.scrollTop = 0;
+        refreshComparison();
+      }
+
+      function resetSelectionInfo() {
+        ui.swatch.hidden = true;
+        ui.heading.textContent = `${highlightMode === "family" ? "Full canonical family" : "Exact pair"} — State information`;
+        ui.summary.textContent = highlightMode === "family"
+          ? "Full canonical family mode — hover either map to highlight the vanilla state and all canonical ME descendants. Their combined shape is not an individual ME state boundary."
+          : "Exact pair mode — hover a single ME state in the right pane. Vanilla hover lists the available family without choosing an ME member.";
+        ui.content.hidden = true;
+        if (ui.pinHovered) ui.pinHovered.hidden = true;
+        updateNaturalDiagnostics(null, null, null);
+      }
+
+      function clearSelection() {
+        if (activeSelection === null) return;
+        activeSelection = null;
+        paintSelectionFills();
+        resetSelectionInfo();
+        refreshComparison();
+      }
+
+      function inspectPointer(pane, event) {
+        const rect = pane.canvas.getBoundingClientRect();
+        // Canvas buffers are in source-raster pixels. CSS size, device pixel ratio,
+        // and browser zoom are handled by this ratio, never by multiplying by DPR.
+        const x = Math.floor((event.clientX - rect.left) * metadata.width / rect.width);
+        const y = Math.floor((event.clientY - rect.top) * metadata.height / rect.height);
+        if (x < 0 || y < 0 || x >= metadata.width || y >= metadata.height) {
+          clearSelection();
+          return;
+        }
+        const pixel = y * metadata.width + x;
+        const side = pane.side === "comparison" ? (panes.me.index.ids[pixel] ? "me" : "vanilla") : pane.side;
+        const id = panes[side].index.ids[pixel];
+        if (id === 0) clearSelection();
+        else {
+          showSelection(side, id);
+          // A click (not just hover) pins the pair for the confirmation panel:
+          // ME clicks pin ME↔ancestor; vanilla clicks pin the canonical
+          // primary member when present, otherwise the first descendant.
+          if (event?.type === "pointerdown") {
+            const vanillaRecord = metadata.vanilla[String(id)];
+            const meRecord = metadata.me[String(id)];
+            const meId = side === "me" ? id
+              : isStateId(vanillaRecord?.primary) ? vanillaRecord.primary
+              : (canonicalMembers.get(id) || [])[0];
+            const vanillaId = side === "vanilla" ? id
+              : (isStateId(meRecord?.ancestor) ? meRecord.ancestor : null);
+            if (isStateId(meId) && isStateId(vanillaId)) pinRelation(meId, vanillaId);
+          }
+        }
+      }
+
+      function renderMetadata() {
+        const frameFacts = byId("frame-facts");
+        const registration = metadata.registration || {};
+        fact(frameFacts, "Raster per pane", `${metadata.width} × ${metadata.height} pixels`);
+        fact(frameFacts, "Sampling", supplied(metadata.frame?.sampling));
+        fact(frameFacts, "Crop definition", supplied(metadata.frame?.crop));
+        fact(frameFacts, "ME-native crop bbox", `${JSON.stringify(metadata.frame?.bbox_me_xyxy ?? null)} — half-open [x0, x1) × [y0, y1)`);
+        fact(frameFacts, "Coast-fit method", supplied(registration.method));
+        fact(frameFacts, "Affine initialization", supplied(registration.init_source));
+        fact(frameFacts, "Fit diagnostics", `ok: ${supplied(registration.ok)}; converged: ${supplied(registration.converged)}`);
+        fact(frameFacts, "ME → vanilla affine", JSON.stringify(registration.affine_me_to_vanilla ?? null));
+        byId("registration-json").textContent = JSON.stringify(registration, null, 2);
+        const sourceFacts = byId("source-facts");
+        for (const [key, label] of [["vanilla", "Vanilla map source"], ["mod", "ME map source"], ["v2m", "Canonical v2m TSV"], ["m2v", "Canonical m2v TSV"]]) {
+          fact(sourceFacts, label, supplied(metadata.sources?.[key]));
+        }
+        if (registration.ok === false || registration.converged === false) {
+          const warning = byId("registration-warning");
+          warning.hidden = false;
+          warning.textContent = "The supplied coast fit is marked not OK or not converged. Treat its positioning with additional caution; canonical TSV membership is independent of this fit.";
+        }
+        if (Array.isArray(metadata.warnings) && metadata.warnings.length) {
+          byId("warnings").hidden = false;
+          const list = byId("warning-list");
+          for (const warning of metadata.warnings) list.append(node("li", "", warning));
+        }
+      }
+
+      async function initialize() {
+        document.documentElement.dataset.reviewState = "loading";
+        try {
+          metadata = JSON.parse(byId("review-data").textContent);
+          if (!Number.isInteger(metadata.width) || metadata.width <= 0 || !Number.isInteger(metadata.height) || metadata.height <= 0 || !metadata.vanilla || !metadata.me || !metadata.images) {
+            throw new Error("The embedded review metadata is incomplete. Regenerate index.html and its PNGs together.");
+          }
+          for (const [id, record] of Object.entries(metadata.vanilla)) {
+            canonicalMembers.set(Number(id), Array.isArray(record.members) ? record.members : []);
+          }
+          for (const side of SIDES) {
+            const canvas = byId(`${side}-map`);
+            canvas.width = metadata.width;
+            canvas.height = metadata.height;
+          }
+          ui.maps.style.setProperty("--map-ratio", `${metadata.width} / ${metadata.height}`);
+          renderMetadata();
+          const loaded = await Promise.all(SIDES.map(preparePane));
+          panes = Object.fromEntries(loaded.map((pane) => [pane.side, pane]));
+          prepareComparison();
+          const comparisonPane = { side: "comparison", canvas: ui.comparisonCanvas };
+          comparisonPane.canvas.addEventListener("pointermove", (event) => inspectPointer(comparisonPane, event));
+          comparisonPane.canvas.addEventListener("pointerdown", (event) => inspectPointer(comparisonPane, event));
+          comparisonPane.canvas.addEventListener("pointerleave", clearSelection);
+          comparisonPane.canvas.addEventListener("pointercancel", clearSelection);
+          ui.comparisonPanel.setAttribute("aria-busy", "false");
+          for (const side of SIDES) {
+            const pane = panes[side];
+            paintPane(pane, [], null);
+            pane.canvas.addEventListener("pointermove", (event) => inspectPointer(pane, event));
+            pane.canvas.addEventListener("pointerdown", (event) => inspectPointer(pane, event));
+            pane.canvas.addEventListener("pointerleave", clearSelection);
+            pane.canvas.addEventListener("pointercancel", clearSelection);
+            const records = Object.values(metadata[side]);
+            const sampled = records.filter((record) => record.visible_pixels > 0).length;
+            byId(`${side}-coverage`).textContent = `${sampled.toLocaleString()} of ${records.length.toLocaleString()} state records sampled; ${(records.length - sampled).toLocaleString()} not sampled in this frame (outside crop or too small after reduction).`;
+          }
+          initConfirmation();
+          const deepLink = readHash();
+          if (deepLink) pinRelation(deepLink.meId, deepLink.vanillaId);
+          ui.maps.setAttribute("aria-busy", "false");
+          ui.status.dataset.state = "ready";
+          ui.status.textContent = "Ready — Exact member compares one hovered ME state with its ancestor; Full family fills all canonical descendants. Partition overlay shows candidate-independent boundaries and spatial overlap, not identity proof. The pixel comparison uses the same display grid. Water and pointer exit clear the selection.";
+          document.documentElement.dataset.reviewState = "ready";
+        } catch (error) {
+          ui.maps.setAttribute("aria-busy", "false");
+          ui.comparisonPanel.setAttribute("aria-busy", "false");
+          ui.comparisonSummary.textContent = "Pixel comparison unavailable: the review hit maps could not be prepared.";
+          ui.status.dataset.state = "error";
+          ui.status.textContent = "This state review could not be loaded.";
+          ui.error.hidden = false;
+          ui.error.textContent = `${error instanceof Error ? error.message : String(error)} Open the generated index.html, not the HTML template, and keep all generated PNGs beside it. No local web server is needed.`;
+          document.documentElement.dataset.reviewState = "error";
+        }
+      }
+
+      ui.modeGroup.addEventListener("change", () => {
+        highlightMode = ui.familyMode.checked ? "family" : "exact";
+        if (activeSelection) showSelection(activeSelection.side, activeSelection.id);
+        else resetSelectionInfo();
+      });
+      ui.comparisonMode.addEventListener("change", () => {
+        comparisonMode = ui.partitionComparison.checked ? "partition"
+          : ui.hoveredComparison.checked ? "hovered" : "canonical";
+        refreshComparison();
+      });
+      ui.pinHovered?.addEventListener("click", () => {
+        if (activeSelection?.side !== "me") return;
+        const ancestor = metadata.me[String(activeSelection.id)]?.ancestor;
+        if (isStateId(ancestor)) pinRelation(activeSelection.id, ancestor);
+      });
+      if (typeof window !== "undefined" && window.addEventListener) {
+        window.addEventListener("hashchange", () => {
+          if (!panes) return;
+          const pair = readHash();
+          if (pair) pinRelation(pair.meId, pair.vanillaId);
+          else unpin();
+        });
+      }
+      resetSelectionInfo();
+
+      initialize();
+    })();
+  </script>
+</body>
+</html>

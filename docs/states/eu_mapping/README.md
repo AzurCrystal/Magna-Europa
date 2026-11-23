@@ -12,6 +12,12 @@ python tools/build_eu_mapping.py
 # 2. Run unit & table invariant tests
 python -m unittest discover -s tools -p test_eu_mapping.py -v
 
+# 3. Regenerate Layer 5 (Strategic Regions crosswalk, pure Python stdlib!) & run tests
+python tools/build_region_mapping.py
+python -m unittest discover -s tools -p test_region_mapping.py -v
+python tools/translate_vanilla_regions.py --regions 7 8 18 68 69
+python tools/translate_vanilla_regions.py --audit-scripts
+
 # 3. Sync / translate Vanilla HOI4 updates into Magna Europa (stdlib only — no numpy needed!)
 #    Territory union mode (auto-cancels internal border straddlers across multi-state blocks):
 python tools/translate_vanilla_states.py --states 42 51 978 --mode territory --emit transfer_state
@@ -59,3 +65,4 @@ Zero circularity: no Victory Points, state names, migration comments, or legacy 
 | **Review** | `review_queue.tsv` | Open human review worklist (**0 open items** — all 2,961 European ME states finalized) |
 | **Review UI** | `review/index.html` | Offline 4-mode cartographic review UI: **Swipe Atlas**, **Parent-Color Check** (8-color graph-colored atlas + Legacy toggle), **Spotlight A/B/C/D** (4-candidate coloring, `rivers.bmp` overlay, ME `●` & Vanilla `◆` VP city pins, Vanilla territorial script diff, ME regional cores, one-click Wikipedia lookup, and full adjudicated-state inspection), and **Synced Side-by-Side** |
 | **Metrics** | `registration_report.json`, `mapping_summary.json` | Full quantitative registration benchmarks and summary statistics |
+| **5 — Regions** | `region_overlap.tsv`, `region_partition_m2v.tsv`, `region_partition_v2m.tsv`, `region_mapping_summary.json` | Weighted many-to-many overlaps & partition between Vanilla 304 and ME 253 strategic regions (169 on-map land + 73 on-map sea + 11 inset/proxy/border excluded) |

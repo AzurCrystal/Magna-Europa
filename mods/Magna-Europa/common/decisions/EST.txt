@@ -521,6 +521,16 @@ march_through_estonia = {
 
 		state_target = yes
 
+		target_array = owned_states
+
+		target_root_trigger = {
+			has_completed_focus = EST_rally_the_nation
+			NOT = {
+				has_country_flag = EST_vapsid_takeover_finland
+				has_government = fascism
+			}
+		}
+
 		available = {
 			FROM = {
 				is_core_of = ROOT
@@ -610,6 +620,8 @@ EST_convert_FIN_cat = {
 		icon = hol_draw_up_staff_plans
 
 		state_target = yes
+
+		target_array = FIN.core_states
 
 		available = {
 			FROM = {
@@ -724,6 +736,18 @@ EST_convert_FIN_cat = {
 		icon = hol_draw_up_staff_plans
 
 		state_target = yes
+
+		target_array = FIN.owned_states
+
+		target_root_trigger = {
+			ROOT = {
+				has_completed_focus = EST_national_pride_in_finland
+			}
+			FIN = {
+				NOT = { has_government = fascism }
+				NOT = { has_country_flag = banned_fascism_flag }
+			}
+		}
 
 		available = {
 			FROM = {

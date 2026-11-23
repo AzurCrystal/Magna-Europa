@@ -326,9 +326,6 @@ category_test_decisions = {
 						is_controlled_by = ROOT
 						OR = {
 							is_on_continent = africa
-							is_core_of = VIN
-							is_core_of = CAM
-							is_core_of = LAO
 							is_core_of = LEB
 							is_core_of = SYR
 						}
@@ -1857,23 +1854,38 @@ FRA_intervention_in_overseas_territories = {
 			NOT = {
 				FRA_controls_syria = yes
 			}
-			any_state = {
-				OR = {
-					is_core_of = SYR # was vanilla 680
-					is_core_of = SYR # was vanilla 677
-					is_core_of = SYR # was vanilla 554
-					is_core_of = LEB # was vanilla 553
-				}
-				CONTROLLER = {
-					NOT = {
-						has_war_with = ROOT
+			OR = {
+				SYR = {
+					any_core_state = {
+						CONTROLLER = {
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+						any_neighbor_state = {
+							CONTROLLER = {
+								OR = {
+									tag = ROOT
+									is_in_faction_with = ROOT
+								}
+							}
+						}
 					}
 				}
-				any_neighbor_state = {
-					CONTROLLER = {
-						OR = {
-							tag = ROOT
-							is_in_faction_with = ROOT
+				LEB = {
+					any_core_state = {
+						CONTROLLER = {
+							NOT = {
+								has_war_with = ROOT
+							}
+						}
+						any_neighbor_state = {
+							CONTROLLER = {
+								OR = {
+									tag = ROOT
+									is_in_faction_with = ROOT
+								}
+							}
 						}
 					}
 				}

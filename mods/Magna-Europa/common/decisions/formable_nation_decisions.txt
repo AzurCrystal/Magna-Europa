@@ -227,8 +227,6 @@ form_nordic_league_category = {
 				original_tag = FIN
 				original_tag = ICE
 				original_tag = EST
-				original_tag = GRN
-				original_tag = SMI
 				original_tag = KAR
 			}
 			OR = {
@@ -245,8 +243,6 @@ form_nordic_league_category = {
 						original_tag = SWE
 						original_tag = FIN
 						original_tag = ICE
-						original_tag = GRN
-						original_tag = SMI
 						original_tag = KAR
 					}
 				}
@@ -395,8 +391,6 @@ form_nordic_league_category = {
 				original_tag = SWE
 				original_tag = FIN
 				original_tag = ICE
-				original_tag = GRN
-				original_tag = SMI
 				original_tag = KAR
 				AND = {
 					original_tag = EST
@@ -637,26 +631,11 @@ form_north_sea_category = {
 			# Sweden
 			custom_trigger_tooltip = {
 				tooltip = form_north_sea_empire_swedish_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								state = 184
-								state = 202
-								state = 203
-								state = 212
-								state = 2885
-							}
-						}
-						OR = {
-							is_controlled_by = ROOT
-							controller = {
-								is_subject_of = ROOT
-							}
-						}
-					}
-				}
+				184 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				202 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				203 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				212 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2885 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
 			}
 			# Denmark
 			custom_trigger_tooltip = {
@@ -2682,24 +2661,22 @@ form_commonwealth_category = {
 						LIT = {
 							is_subject_of = ROOT
 						}
-						NOT = {
-							any_state = {
-								is_core_of = LIT
-								NOT = { is_core_of = PRE }
-								NOT = { is_core_of = POL }
-								controller = {
-									NOT = {
+						LIT = {
+							all_core_state = {
+								OR = {
+									is_core_of = PRE
+									is_core_of = POL
+									controller = {
 										original_tag = LIT
 									}
 								}
 							}
 						}
 					}
-					NOT = {
-						any_state = {
-							is_core_of = LIT
-							NOT = { is_core_of = PRE }
-							NOT = {
+					LIT = {
+						all_core_state = {
+							OR = {
+								is_core_of = PRE
 								is_controlled_by = ROOT
 							}
 						}
@@ -2714,25 +2691,23 @@ form_commonwealth_category = {
 						POL = {
 							is_subject_of = ROOT
 						}
-						NOT = {
-							any_state = {
-								is_core_of = POL
-								NOT = { is_core_of = CZE }
-								NOT = { is_core_of = LIT }
-								NOT = { is_core_of = DNZ }
-								controller = {
-									NOT = {
+						POL = {
+							all_core_state = {
+								OR = {
+									is_core_of = CZE
+									is_core_of = LIT
+									is_core_of = DNZ
+									controller = {
 										original_tag = POL
 									}
 								}
 							}
 						}
 					}
-					NOT = {
-						any_state = {
-							is_core_of = POL
-							NOT = { is_core_of = CZE }
-							NOT = {
+					POL = {
+						all_core_state = {
+							OR = {
+								is_core_of = CZE
 								is_controlled_by = ROOT
 							}
 						}
@@ -3826,18 +3801,16 @@ form_ottoman_empire_category = {
 				set_global_flag = ottoman_arabia_flag
 			}
 
-			every_state = {
+			every_owned_state = {
 				limit = {
 					is_core_of = JBS
-					is_owned_by = ROOT
 				}
 				transfer_state_to = JBS
 			}
 			puppet = JBS
-			every_state = {
+			every_owned_state = {
 				limit = {
 					is_core_of = NJD
-					is_owned_by = ROOT
 				}
 				transfer_state_to = NJD
 			}
@@ -5098,26 +5071,19 @@ form_european_union_category = {
 							NOT = {is_controlled_by = ROOT }
 						}
 					}
-				NOT = {
-					any_state = {
-						OR = {
-							state = 61
-							state = 57
-							state = 24
-							state = 74
-							state = 59
-							state = 30
-							state = 39
-							state = 52
-							state = 38
-							state = 62
-							state = 2785
-							state = 19
-							state = 2709
-						}
-						NOT = {is_controlled_by = ROOT }
-					}
-				}
+				61 = { is_controlled_by = ROOT }
+				57 = { is_controlled_by = ROOT }
+				24 = { is_controlled_by = ROOT }
+				74 = { is_controlled_by = ROOT }
+				59 = { is_controlled_by = ROOT }
+				30 = { is_controlled_by = ROOT }
+				39 = { is_controlled_by = ROOT }
+				52 = { is_controlled_by = ROOT }
+				38 = { is_controlled_by = ROOT }
+				62 = { is_controlled_by = ROOT }
+				2785 = { is_controlled_by = ROOT }
+				19 = { is_controlled_by = ROOT }
+				2709 = { is_controlled_by = ROOT }
 			}
 		}
 
@@ -5412,16 +5378,9 @@ form_european_union_category = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				NOT = {
-					any_state = {
-							is_core_of = BLR
-							NOT = {is_controlled_by = ROOT }
-						}
-					}
-				NOT = {
-					any_state = {
-					is_core_of = BLR
-						NOT = {is_controlled_by = ROOT }
+				BLR = {
+					all_core_state = {
+						is_controlled_by = ROOT
 					}
 				}
 			}
@@ -5511,16 +5470,29 @@ form_european_union_category = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				NOT = {
-					any_state = {
-				        OR = {
-							is_core_of = GEO
-							is_core_of = ARM
-							is_core_of = AZR
-							is_core_of = MOU
-							is_core_of = DAG
-						}
-						NOT = {is_controlled_by = ROOT }
+				GEO = {
+					all_core_state = {
+						is_controlled_by = ROOT
+					}
+				}
+				ARM = {
+					all_core_state = {
+						is_controlled_by = ROOT
+					}
+				}
+				AZR = {
+					all_core_state = {
+						is_controlled_by = ROOT
+					}
+				}
+				MOU = {
+					all_core_state = {
+						is_controlled_by = ROOT
+					}
+				}
+				DAG = {
+					all_core_state = {
+						is_controlled_by = ROOT
 					}
 				}
 			}
@@ -5608,10 +5580,9 @@ form_european_union_category = {
 		available = {
 			custom_trigger_tooltip = {
 				tooltip = GER_reichskommissariat_highlighted_required_states
-				NOT = {
-					any_state = {
-							is_core_of = KUB
-							NOT = {is_controlled_by = ROOT }
+				KUB = {
+					all_core_state = {
+						is_controlled_by = ROOT
 					}
 				}
 			}
@@ -5838,41 +5809,29 @@ form_roman_empire_category = {
 			# Yugoslavia
 			custom_trigger_tooltip = {
 				tooltip = form_country_mare_nostrum_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = DLM
-								state = 1478
-								state = 2829
-								state = 754
-								state = 2924
-								state = 1477
-								state = 2911
-								state = 1473
-								state = 2651
-								state = 2895
-								state = 2825
-								state = 743
-								state = 1486
-							}
-						}
+				DLM = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
+				1478 = { is_controlled_by = ROOT }
+				2829 = { is_controlled_by = ROOT }
+				754 = { is_controlled_by = ROOT }
+				2924 = { is_controlled_by = ROOT }
+				1477 = { is_controlled_by = ROOT }
+				2911 = { is_controlled_by = ROOT }
+				1473 = { is_controlled_by = ROOT }
+				2651 = { is_controlled_by = ROOT }
+				2895 = { is_controlled_by = ROOT }
+				2825 = { is_controlled_by = ROOT }
+				743 = { is_controlled_by = ROOT }
+				1486 = { is_controlled_by = ROOT }
 			}
 			# Greece
 			custom_trigger_tooltip = {
 				tooltip = form_country_mare_nostrum_greece_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = GRE
-							}
-						}
+				GRE = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
@@ -5880,60 +5839,50 @@ form_roman_empire_category = {
 			# Turkey
 			custom_trigger_tooltip = {
 				tooltip = form_country_mare_nostrum_turkey_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								AND = {
-									is_core_of = THR
-									is_core_of = TUR
-								}
-								state = 991
-								state = 2768
-								state = 945
-								state = 2771
-								state = 1939
-								state = 948
-								state = 1932
-								state = 1931
-								state = 2767
-								state = 988
-								state = 2769
-								state = 1935
-								state = 1032
-								state = 1941
-								state = 1084
-								state = 1942
-								state = 1094
-								state = 2879
-								state = 1097
-								state = 1943
-								state = 1954
-								state = 1098
-								state = 1066
-								state = 1095
-								state = 1956
-								state = 1955
-							}
+				THR = {
+					all_core_state = {
+						OR = {
+							NOT = { is_core_of = TUR }
+							is_controlled_by = ROOT
 						}
-						is_controlled_by = ROOT
 					}
 				}
+				991 = { is_controlled_by = ROOT }
+				2768 = { is_controlled_by = ROOT }
+				945 = { is_controlled_by = ROOT }
+				2771 = { is_controlled_by = ROOT }
+				1939 = { is_controlled_by = ROOT }
+				948 = { is_controlled_by = ROOT }
+				1932 = { is_controlled_by = ROOT }
+				1931 = { is_controlled_by = ROOT }
+				2767 = { is_controlled_by = ROOT }
+				988 = { is_controlled_by = ROOT }
+				2769 = { is_controlled_by = ROOT }
+				1935 = { is_controlled_by = ROOT }
+				1032 = { is_controlled_by = ROOT }
+				1941 = { is_controlled_by = ROOT }
+				1084 = { is_controlled_by = ROOT }
+				1942 = { is_controlled_by = ROOT }
+				1094 = { is_controlled_by = ROOT }
+				2879 = { is_controlled_by = ROOT }
+				1097 = { is_controlled_by = ROOT }
+				1943 = { is_controlled_by = ROOT }
+				1954 = { is_controlled_by = ROOT }
+				1098 = { is_controlled_by = ROOT }
+				1066 = { is_controlled_by = ROOT }
+				1095 = { is_controlled_by = ROOT }
+				1956 = { is_controlled_by = ROOT }
+				1955 = { is_controlled_by = ROOT }
 			}
 			# Italy
 			custom_trigger_tooltip = {
 				tooltip = form_spqr_italy_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							
-							is_core_of = ITA
-							is_on_continent = europe
-							
+				ITA = {
+					all_core_state = {
+						OR = {
+							NOT = { is_on_continent = europe }
+							is_controlled_by = ROOT
 						}
-						is_controlled_by = ROOT
 					}
 				}
 			}
@@ -5965,15 +5914,13 @@ form_roman_empire_category = {
 				controls_state = 850
 				controls_state = 871
 				controls_state = 855
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = SAV
-								is_core_of = PRV
-							}
-						}
+				SAV = {
+					all_core_state = {
+						is_controlled_by = ROOT
+					}
+				}
+				PRV = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
@@ -5981,38 +5928,25 @@ form_roman_empire_category = {
 			# British Mediterranean
 			custom_trigger_tooltip = {
 				tooltip = form_mare_nostrum_coastal_uk_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = CYP
-								is_core_of = MLT
-								state = 882
-							}
-						}
+				CYP = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
+				MLT = {
+					all_core_state = {
+						is_controlled_by = ROOT
+					}
+				}
+				882 = { is_controlled_by = ROOT }
 			}
 			# North Africa (Morocco to Libya)
 			custom_trigger_tooltip = {
 				tooltip = form_country_mare_nostrum_north_africa_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = MOR
-								is_core_of = ALG
-								is_core_of = TUN
-								is_core_of = LBA
-							}
-							NOT = { region = 66 }
-						}
-						is_controlled_by = ROOT
-					}
-				}
+				MOR = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
+				ALG = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
+				TUN = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
+				LBA = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
 			}
 			# Middle East (Egypt to Syria)
 			custom_trigger_tooltip = {
@@ -6531,16 +6465,12 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						is_core_of = IRQ
-						NOT = {
-							is_core_of = JBS
-						}
+			IRQ = {
+				all_core_state = {
+					OR = {
+						is_core_of = JBS
+						is_controlled_by = ROOT
 					}
-					is_controlled_by = ROOT
 				}
 			}
 
@@ -6694,16 +6624,12 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						is_core_of = ARM
-						NOT = {
-							is_core_of = NGK
-						}
+			ARM = {
+				all_core_state = {
+					OR = {
+						is_core_of = NGK
+						is_controlled_by = ROOT
 					}
-					is_controlled_by = ROOT
 				}
 			}
 			
@@ -6767,20 +6693,16 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						OR = {
-							AND = {
-								is_core_of = JOR
-								NOT = {
-									is_core_of = JBS
-								}
-							} 
-							is_core_of = HJZ
-						}
+			JOR = {
+				all_core_state = {
+					OR = {
+						is_core_of = JBS
+						is_controlled_by = ROOT
 					}
+				}
+			}
+			HJZ = {
+				all_core_state = {
 					is_controlled_by = ROOT
 				}
 			}
@@ -6845,12 +6767,8 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						is_core_of = MOR
-					}
+			MOR = {
+				all_core_state = {
 					is_controlled_by = ROOT
 				}
 			}
@@ -6972,15 +6890,13 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						OR = {
-							is_core_of = SWI
-							is_core_of = AUS
-						}
-					}
+			SWI = {
+				all_core_state = {
+					is_controlled_by = ROOT
+				}
+			}
+			AUS = {
+				all_core_state = {
 					is_controlled_by = ROOT
 				}
 			}
@@ -7283,26 +7199,16 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						OR = {
-							is_core_of = MER
-							is_core_of = EAG
-							is_core_of = WSX
-							is_core_of = SSX
-							is_core_of = KNT
-							is_core_of = WLS
-							is_core_of = NRT
-							is_core_of = KER
-							is_core_of = ESX
-							state = 2475
-						}
-					}
-					is_controlled_by = ROOT
-				}
-			}
+			MER = { all_core_state = { is_controlled_by = ROOT } }
+			EAG = { all_core_state = { is_controlled_by = ROOT } }
+			WSX = { all_core_state = { is_controlled_by = ROOT } }
+			SSX = { all_core_state = { is_controlled_by = ROOT } }
+			KNT = { all_core_state = { is_controlled_by = ROOT } }
+			WLS = { all_core_state = { is_controlled_by = ROOT } }
+			NRT = { all_core_state = { is_controlled_by = ROOT } }
+			KER = { all_core_state = { is_controlled_by = ROOT } }
+			ESX = { all_core_state = { is_controlled_by = ROOT } }
+			2475 = { is_controlled_by = ROOT }
 
 		}
 
@@ -7366,12 +7272,8 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						is_core_of = IRE
-					}
+			IRE = {
+				all_core_state = {
 					is_controlled_by = ROOT
 				}
 			}
@@ -7429,12 +7331,8 @@ form_roman_empire_category = {
 
 		available = {
 			
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						is_core_of = SCO
-					}
+			SCO = {
+				all_core_state = {
 					is_controlled_by = ROOT
 				}
 			}
@@ -8155,19 +8053,9 @@ form_byzantine_empire_category = {
 			# Romania
 			custom_trigger_tooltip = {
 				tooltip = form_country_paristrion_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = BDZ
-								is_core_of = WLC
-								is_core_of = BNT
-							}
-						}
-						is_controlled_by = ROOT
-					}
-				}
+				BDZ = { all_core_state = { is_controlled_by = ROOT } }
+				WLC = { all_core_state = { is_controlled_by = ROOT } }
+				BNT = { all_core_state = { is_controlled_by = ROOT } }
 			}
 			# Bulgaria
 			custom_trigger_tooltip = {
@@ -8414,19 +8302,9 @@ form_byzantine_empire_category = {
 				limit = { has_dlc = "Battle for the Bosporus"}
 				has_completed_focus = GRE_reviving_the_double_headed_eagle
 			}
-			all_state = {
-				# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-				OR = {
-					NOT = {
-						OR = {
-							is_core_of = EGY 
-							is_core_of = TUN
-							is_core_of = LBA
-						}
-					}
-					is_controlled_by = ROOT
-				}
-			}
+			EGY = { all_core_state = { is_controlled_by = ROOT } }
+			TUN = { all_core_state = { is_controlled_by = ROOT } }
+			LBA = { all_core_state = { is_controlled_by = ROOT } }
 		}
 
 		visible = {
@@ -8504,12 +8382,8 @@ form_arabia_category = {
 			# Iraq
 			custom_trigger_tooltip = {
 				tooltip = form_country_iraq_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_core_of = IRQ
-						}
+				IRQ = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
@@ -8517,12 +8391,8 @@ form_arabia_category = {
 			# Saudi Arabia
 			custom_trigger_tooltip = {
 				tooltip = form_country_saudi_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_core_of = SAU
-						}
+				SAU = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
@@ -8530,35 +8400,15 @@ form_arabia_category = {
 			# Italy: Libya
 			custom_trigger_tooltip = {
 				tooltip = form_arabia_italy_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_core_of = LBA
-							NOT = { region = 66 }
-						}
-						is_controlled_by = ROOT
-					}
-				}
+				LBA = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
 			}
 			# France: Syria, Northern Africa
 			custom_trigger_tooltip = {
 				tooltip = form_arabia_france_required_states_tt
 				# North Africa
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = ALG
-								is_core_of = TUN
-								is_core_of = SYR
-							}
-							NOT = { region = 66 }
-						}
-						is_controlled_by = ROOT
-					}
-				}
+				ALG = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
+				TUN = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
+				SYR = { all_core_state = { OR = { region = 66 is_controlled_by = ROOT } } }
 			}
 			# Britain: Egypt, Middle East, Arabia
 			custom_trigger_tooltip = {
@@ -8587,7 +8437,6 @@ form_arabia_category = {
 			OR = {
 				original_tag = IRQ
 				original_tag = SAU
-				original_tag = YEM
 				original_tag = OMA
 				original_tag = EGY
 				original_tag = LBA
@@ -8770,12 +8619,8 @@ form_hre_category = {
 			# Belgium
 			custom_trigger_tooltip = {
 				tooltip = form_eu_belgium_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_core_of = BEL
-						}
+				BEL = {
+					all_core_state = {
 						is_controlled_by = ROOT
 					}
 				}
@@ -9011,6 +8856,13 @@ form_andalusia_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			OR = {
+				original_tag = MOR
+				original_tag = ALG
+				original_tag = TUN
+				original_tag = WES
+				original_tag = LBA
+			}
 			has_dlc = "La Resistance"
 		}
 
@@ -9085,6 +8937,13 @@ form_andalusia_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			OR = {
+				original_tag = MOR
+				original_tag = ALG
+				original_tag = TUN
+				original_tag = WES
+				original_tag = LBA
+			}
 			has_dlc = "La Resistance"
 		}
 
@@ -9159,6 +9018,13 @@ form_andalusia_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			OR = {
+				original_tag = MOR
+				original_tag = ALG
+				original_tag = TUN
+				original_tag = WES
+				original_tag = LBA
+			}
 			has_dlc = "La Resistance"
 		}
 
@@ -9275,6 +9141,13 @@ form_andalusia_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			OR = {
+				original_tag = MOR
+				original_tag = ALG
+				original_tag = TUN
+				original_tag = WES
+				original_tag = LBA
+			}
 			has_dlc = "La Resistance"
 		}
 
@@ -9373,6 +9246,13 @@ form_andalusia_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			OR = {
+				original_tag = MOR
+				original_tag = ALG
+				original_tag = TUN
+				original_tag = WES
+				original_tag = LBA
+			}
 			has_dlc = "La Resistance"
 		}
 
@@ -9887,14 +9767,8 @@ form_macedonian_empire_category = {
 			# Iran
 			custom_trigger_tooltip = {
 				tooltip = form_country_iran_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = PER 
-							}
-						}
+				PER = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -9902,15 +9776,13 @@ form_macedonian_empire_category = {
 			# Central Asia
 			custom_trigger_tooltip = {
 				tooltip = form_country_southern_central_asia_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = TMS 
-								is_core_of = UZB 
-							}
-						}
+				TMS = {
+					all_core_state = {
+						is_controlled_by = ROOT 
+					}
+				}
+				UZB = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -9918,14 +9790,8 @@ form_macedonian_empire_category = {
 			# Iraq
 			custom_trigger_tooltip = {
 				tooltip = form_country_iraq_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = IRQ 
-							}
-						}
+				IRQ = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -9948,15 +9814,13 @@ form_macedonian_empire_category = {
 			# France: Syria
 			custom_trigger_tooltip = {
 				tooltip = form_persia_france_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = SYR 
-								is_core_of = LEB 
-							}
-						}
+				SYR = {
+					all_core_state = {
+						is_controlled_by = ROOT 
+					}
+				}
+				LEB = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -9964,14 +9828,8 @@ form_macedonian_empire_category = {
 			# Britain: Egypt
 			custom_trigger_tooltip = {
 				tooltip = form_country_egypt_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = EGY 
-							}
-						}
+				EGY = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -9979,16 +9837,18 @@ form_macedonian_empire_category = {
 			# Britain: Levant / Kuwait
 			custom_trigger_tooltip = {
 				tooltip = form_country_british_levant_required_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								is_core_of = PAL 
-								is_core_of = KUW 
-								is_core_of = JOR 
-							}
-						}
+				PAL = {
+					all_core_state = {
+						is_controlled_by = ROOT 
+					}
+				}
+				KUW = {
+					all_core_state = {
+						is_controlled_by = ROOT 
+					}
+				}
+				JOR = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -10112,26 +9972,16 @@ form_turan_category = {
 			# Syria
 			custom_trigger_tooltip = {
 				tooltip = mer_turan_syria_controlled_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							OR = {
-								state = 1123
-								state = 1926
-								state = 2842
-								state = 1924
-								state = 1105
-								state = 1134
-								state = 1141
-								state = 2925
-								state = 2926
-								state = 1149
-							}
-						}
-						is_controlled_by = ROOT 
-					}
-				}
+				1123 = { is_controlled_by = ROOT }
+				1926 = { is_controlled_by = ROOT }
+				2842 = { is_controlled_by = ROOT }
+				1924 = { is_controlled_by = ROOT }
+				1105 = { is_controlled_by = ROOT }
+				1134 = { is_controlled_by = ROOT }
+				1141 = { is_controlled_by = ROOT }
+				2925 = { is_controlled_by = ROOT }
+				2926 = { is_controlled_by = ROOT }
+				1149 = { is_controlled_by = ROOT }
 			}
 			# Iraq
 			custom_trigger_tooltip = {
@@ -10173,12 +10023,8 @@ form_turan_category = {
 			# Azerbaijan
 			custom_trigger_tooltip = {
 				tooltip = mer_turan_azerbaijan_controlled_states_tt
-				all_state = {
-					# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-					OR = {
-						NOT = {
-							is_core_of = AZR 
-						}
+				AZR = {
+					all_core_state = {
 						is_controlled_by = ROOT 
 					}
 				}
@@ -10307,6 +10153,7 @@ form_turan_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			original_tag = TUR
 			has_dlc = "Battle for the Bosporus"
 		}
 
@@ -10366,6 +10213,7 @@ form_turan_category = {
 		icon = generic_form_nation
 
 		allowed = {
+			original_tag = TUR
 			has_dlc = "Battle for the Bosporus"
 		}
 
@@ -11114,43 +10962,27 @@ greater_italy_category = {
 			}  
 			custom_trigger_tooltip = {
 				tooltip = greater_italy_required_other_states
-					all_state = {
-						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-						OR = {
-							NOT = {
-								OR = {
-									
-									state = 1422 
-									state = 866 
-									state = 743 
-									state = 1486 
-									state = 1554 
-									state = 1622 
-									state = 2829 
-									state = 754 
-									state = 2924 
-									state = 2651 
-									state = 2911 
-									state = 1473 
-									state = 2825 
-									state = 2965
-									state = 2964
-									state = 1477
-									is_core_of = DLM
-									is_core_of = TIC
-									is_core_of = SAV
-									is_core_of = NZA
-									is_core_of = CRT
-								}
-							}
-							OR = {
-								is_controlled_by = ROOT
-								controller = {
-									is_subject_of = ROOT
-								}
-							}
-						}
-					}
+				1422 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				866 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				743 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				1486 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				1554 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				1622 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2829 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				754 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2924 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2651 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2911 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				1473 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2825 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2965 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				2964 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				1477 = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } }
+				DLM = { all_core_state = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } } }
+				TIC = { all_core_state = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } } }
+				SAV = { all_core_state = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } } }
+				NZA = { all_core_state = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } } }
+				CRT = { all_core_state = { OR = { is_controlled_by = ROOT controller = { is_subject_of = ROOT } } } }
 			}
 			
 			
@@ -11596,23 +11428,13 @@ form_east_africa_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				original_tag = COG # Congo
 			}
 		}
 
 		visible = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				AND = {
 					has_dlc = "Gotterdammerung"
 					original_tag = COG # Congo
@@ -11678,12 +11500,7 @@ form_east_africa_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				original_tag = COG # Congo
 			}
 		}
@@ -11723,12 +11540,7 @@ form_east_africa_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				original_tag = COG # Congo
 			}
 		}
@@ -11767,12 +11579,7 @@ form_east_africa_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				original_tag = COG # Congo
 			}
 		}
@@ -11807,12 +11614,7 @@ form_east_africa_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				original_tag = COG # Congo
 			}
 		}
@@ -11874,12 +11676,7 @@ form_east_africa_category = {
 		icon = generic_form_nation
 
 		allowed = {
-			OR = {
-				original_tag = KEN # Kenya
-				original_tag = UGA # Uganda
-				original_tag = TZN # Tanzania
-				original_tag = RWA # Rwanda
-				original_tag = BRD # Burundi
+			OR = { # Burundi
 				original_tag = COG # Congo
 			}
 		}

@@ -5318,6 +5318,9 @@ ITA_diplomacy_balkan_decision_category = {
 		}
 
 		visible = {
+			NOT = {
+				has_country_flag = ITA_demanded_montenegro
+			}
 			ITA = {
 				OR = {
 					has_government = neutrality
@@ -5336,9 +5339,6 @@ ITA_diplomacy_balkan_decision_category = {
 				1563 = {
 					is_controlled_by = ITA
 				}
-			}
-			NOT = {
-				has_country_flag = ITA_demanded_montenegro
 			}
 		}
 
@@ -6086,12 +6086,12 @@ ITA_italian_mafia_dec_cat = {
 			}
 		}
 		target_root_trigger = {
-			any_controlled_state = {
-				ITA_state_has_any_version_of_mafia_rising_modifier = yes
-			}
 			OR = {
 				NOT = { original_tag = ITA }
 				has_completed_focus = ITA_crush_the_mafia
+			}
+			any_controlled_state = {
+				ITA_state_has_any_version_of_mafia_rising_modifier = yes
 			}
 		}
 		state_target = yes

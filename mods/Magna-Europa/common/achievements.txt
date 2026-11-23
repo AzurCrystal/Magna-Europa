@@ -902,7 +902,6 @@ the_empire_strikes_back = {
 			has_war_with = RAJ
 			has_war_with = AST
 			has_war_with = NZL
-			has_war_with = MAL
 		}
 	}
 }
@@ -1421,7 +1420,7 @@ awake_and_angry = {
 					is_owned_by = ROOT
 					AND = {
 						NOT = { is_core_of = CHI }
-						NOT = { is_core_of = MAN }
+						always = yes
 					}
 					# state = 728  # 1.19-migration: off-map Guangzhouwan (was vanilla 728)
 					# state = 729  # 1.19-migration: off-map Macau (was vanilla 729)
@@ -1585,7 +1584,7 @@ the_dragon_swallowed_the_sun = {
 	id = 62
 	
 	possible = {
-		tag = MAN
+		always = no
 		is_ironman = yes
 		difficulty > 1
 		has_start_date < 1936.01.02
@@ -1602,7 +1601,7 @@ hail_to_the_qing = {
 	id = 63
 	
 	possible = {
-		tag = MAN
+		always = no
 		is_ironman = yes
 		difficulty > 1
 		has_start_date < 1936.01.02
@@ -1628,7 +1627,7 @@ the_good_the_bad_and_the_weird = {
 	id = 64
 	
 	possible = {
-		tag = MAN
+		always = no
 		is_ironman = yes
 		difficulty > 1
 		has_start_date < 1936.01.02
@@ -1657,14 +1656,6 @@ battlecry = {
 			tag = SHX
 			tag = XSM
 			tag = SIK
-			tag = KHM
-			tag = NXM
-			tag = GSM
-			tag = GDC
-			tag = XIC
-			tag = SND
-			tag = HBC
-			tag = KUM
 		}
 		is_ironman = yes
 		difficulty > 1
@@ -1681,7 +1672,7 @@ battlecry = {
 					is_owned_by = ROOT
 					AND = {
 						NOT = { is_core_of = CHI }
-						NOT = { is_core_of = MAN }
+						always = yes
 						NOT = { is_core_of = JAP }
 					}
 					# state = 728  # 1.19-migration: off-map Guangzhouwan (was vanilla 728)
@@ -1703,14 +1694,6 @@ panda_monium = {
 			tag = SHX
 			tag = XSM
 			tag = SIK
-			tag = GDC
-			tag = SND
-			tag = NXM
-			tag = GSM
-			tag = XIC
-			tag = KHM
-			tag = KUM
-			tag = HBC
 		}
 		is_ironman = yes
 		difficulty > 1
@@ -1770,14 +1753,6 @@ make_a_man_out_of_you = {
 			tag = SHX
 			tag = XSM
 			tag = SIK
-			tag = GDC
-			tag = SND
-			tag = NXM
-			tag = GSM
-			tag = XIC
-			tag = KHM
-			tag = KUM
-			tag = HBC
 		}
 		is_ironman = yes
 		difficulty > 1
@@ -1870,7 +1845,7 @@ my_ships_dont_lie = {
 	id = 71
 	
 	possible = {
-		tag = COL
+		always = no
 		is_ironman = yes
 		difficulty > 1
 		has_start_date < 1936.01.02
@@ -2412,7 +2387,7 @@ portugal_macau_my_day = {
 						is_owned_by = PREV
 						AND = {
 							NOT = { is_core_of = CHI }
-							NOT = { is_core_of = MAN }
+							always = yes
 						}
 					}
 				}
@@ -4416,16 +4391,11 @@ siberian_tiger = {
 		has_start_date < 1936.01.02
 		has_any_custom_difficulty_setting = no
 		game_rules_allow_achievements = yes			
-		original_tag = TAN
+		always = no
 	}
 	
 	happened = {
-		TAN = {
-			custom_trigger_tooltip = {
-				tooltip = siberian_tiger_tt
-				has_cosmetic_tag = siberia_unified
-			}
-		}
+		always = no
 	}
 }
 
@@ -5008,12 +4978,8 @@ sapmi_united_by_the_fire = { #works
 	}
 
 	happened = {
-		tag = SMI
-		SMI = {
-			all_core_state = {
-				is_owned_and_controlled_by = SMI
-			}
-		}
+		always = no
+		always = no
 	}
 }
 
@@ -5234,13 +5200,13 @@ uralic_brothers_united = {
 		tag = FIN
 		HUN = { is_subject_of = FIN }
 		EST = { is_subject_of = FIN }
-		SMI = { is_subject_of = FIN }
+		always = no
 		KAR = { is_subject_of = FIN }
 		MEL = { is_subject_of = FIN }
 		UDM = { is_subject_of = FIN }
 		KOM = { is_subject_of = FIN }
-		OVO = { is_subject_of = FIN } #OwO  
-		YAM = { is_subject_of = FIN }
+		always = no #OwO  
+		always = no
 		NEN = { is_subject_of = FIN }
 	}
 }
@@ -5543,14 +5509,7 @@ rumble_in_the_jungle = {
 		OR = {
 			tag = BRA
 			tag = ARG
-			tag = PAR
 			tag = CHL
-			tag = VEN
-			tag = ECU
-			tag = PRU
-			tag = URG
-			tag = BOL
-			tag = COL
 		}
 	}
 	happened = {
@@ -5671,14 +5630,7 @@ proactive_defense = {
 		OR = {
 			tag = BRA
 			tag = ARG
-			tag = PAR
 			tag = CHL
-			tag = VEN
-			tag = ECU
-			tag = PRU
-			tag = URG
-			tag = BOL
-			tag = COL
 		}
 	}
 	happened = {
@@ -5730,14 +5682,7 @@ ursal = {
 		OR = {
 			tag = BRA
 			tag = ARG
-			tag = PAR
 			tag = CHL
-			tag = VEN
-			tag = ECU
-			tag = PRU
-			tag = URG
-			tag = BOL
-			tag = COL
 		}
 	}
 	happened = {
@@ -5955,21 +5900,19 @@ revenge_for_the_triple_alliance = {
 		has_start_date < 1936.01.02
 		has_any_custom_difficulty_setting = no
 		game_rules_allow_achievements = yes
-		tag = PAR	
+		always = no	
 	}
 	happened = {
 		has_war_with = BRA
 		has_war_with = ARG
-		has_war_with = URG
+		always = no
 		ARG = {
 			has_country_flag = PAR_revenge_flag
 		}
 		BRA = {
 			has_country_flag = PAR_revenge_flag
 		}
-		URG = {
-			has_country_flag = PAR_revenge_flag
-		}
+		always = no
 	}
 }
 
@@ -5983,7 +5926,7 @@ the_dragon_rises = {
 		game_rules_allow_achievements = yes	
 	}
 	happened = {
-		tag = WLA
+		always = no
 		controls_state = 426  # 1.19-migration: was vanilla 122 (Wales)
 	}
 }
@@ -6015,11 +5958,6 @@ true_condor_legion = {
 		game_rules_allow_achievements = yes	
 		OR = {
 			tag = CHL
-			tag = BOL
-			tag = PRU
-			tag = ECU
-			tag = VEN
-			tag = COL
 		}
 	}
 	happened = {
@@ -6194,9 +6132,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				GUA = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6204,9 +6140,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				CUB = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6214,9 +6148,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				DOM = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6224,9 +6156,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				PUE = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6234,9 +6164,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				ELS = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6244,9 +6172,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				HON = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6254,9 +6180,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				NIC = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6264,9 +6188,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				COS = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6274,9 +6196,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				PAN = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6284,9 +6204,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				COL = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6294,9 +6212,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				VEN = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6304,9 +6220,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				ECU = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6314,9 +6228,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				PRU = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6324,9 +6236,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				BOL = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6334,9 +6244,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				PAR = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6344,9 +6252,7 @@ hispanics_of_the_world_unite = {
 		}
 		if = { 
 			limit = {
-				URG = {
-					is_in_faction_with = CHL
-				}
+				always = no
 				add_to_temp_variable = {
 					t_count = 1
 				}
@@ -6385,12 +6291,12 @@ cisplatine_war_2 = {
 			AND = {
 				tag = BRA
 				has_war_with = ARG
-				is_in_faction_with = URG
+				always = no
 			}
 			AND = {
 				tag = ARG
 				has_war_with = BRA
-				is_in_faction_with = URG
+				always = no
 			}
 		}
 	}
@@ -7630,12 +7536,12 @@ thats_sikh = {
 	}
 
 	happened = {
-		original_tag = KHL
+		always = no
 		custom_trigger_tooltip = {
 			tooltip = thats_sikh_tt
 			all_of_scopes = {
 				array = RAJ.owned_states_at_game_start
-				is_controlled_by = KHL
+				always = no
 			}
 		}
 	}
@@ -8183,14 +8089,6 @@ the_neverending_story = {
 			tag = SHX
 			tag = XSM
 			tag = SIK
-			tag = GDC
-			tag = SND
-			tag = NXM
-			tag = GSM
-			tag = XIC
-			tag = KHM
-			tag = KUM
-			tag = HBC
 		}
 		is_ironman = yes
 		difficulty > 1
@@ -8210,14 +8108,6 @@ the_neverending_story = {
 					tag = SHX
 					tag = XSM
 					tag = SIK
-					tag = GDC
-					tag = SND
-					tag = NXM
-					tag = GSM
-					tag = XIC
-					tag = KHM
-					tag = KUM
-					tag = HBC
 				}
 				# 1.19-migration: missing focus CHI_tsr_restoration_of_the_chinese_empire — dead ROOT block commented out
 				# ROOT = {
@@ -8243,16 +8133,7 @@ genghis_khant = {
 			tag = SHX
 			tag = XSM
 			tag = SIK
-			tag = GDC
-			tag = SND
-			tag = NXM
-			tag = GSM
-			tag = XIC
-			tag = KHM
-			tag = KUM
 			tag = RNG
-			tag = HBC
-			tag = MAN
 		}
 		is_ironman = yes
 		difficulty > 1
@@ -8271,22 +8152,9 @@ genghis_khant = {
 				tag = SHX
 				tag = XSM
 				tag = SIK
-				tag = GDC
-				tag = SND
-				tag = NXM
-				tag = GSM
-				tag = XIC
-				tag = KHM
-				tag = KUM
-				tag = RNG
-				tag = HBC
-				tag = MAN				
+				tag = RNG				
 			}
-			MON = {
-				all_core_state = {
-					is_owned_and_controlled_by = ROOT
-				}
-			}
+			always = no
 		}
 	}
 }
@@ -8294,7 +8162,7 @@ genghis_khant = {
 i_have_avenged_you_father = {
 	id = 265
 	possible = {
-		tag = XIC
+		always = no
 		is_ironman = yes
 		difficulty > 1
 		has_start_date < 1936.01.02
@@ -8304,13 +8172,7 @@ i_have_avenged_you_father = {
 	}
 
 	happened = {
-		XIC = {
-			has_country_leader = {
-				ruling_only = yes 
-				character = CHI_zhang_xueliang
-			}
-			has_global_flag = achievement_XIC_i_have_avenged_you_father
-		}
+		always = no
 		# 1.19-migration: off-map region Liaotung — state block dead (was vanilla 716 / mod 716 Mangystau)
 #		716 = {
 #			is_fully_controlled_by = XIC

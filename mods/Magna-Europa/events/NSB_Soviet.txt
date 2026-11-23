@@ -12245,16 +12245,16 @@ country_event = {
 					hidden_effect = {
 						#Add Repola and Uhtua VPs
 						add_victory_points = {
-							province = 6098 #Repola
+							province = 9 # MER: Repola in 62-Repola (was vanilla prov 6098)
 							value = 1
 						}
 						add_victory_points = {
-							province = 3067 #Uhtua
+							province = 19724 # MER: Ukhta VP in 38-Ukhta (was vanilla prov 3067)
 							value = 1
 						}
 						#Add Porajärvi VP
 						add_victory_points = {
-							province = 2998 #Porajärvi
+							province = 3247 # MER: Porajarvi in 74-Porajarvi (was vanilla prov 2998)
 							value = 1
 						}
 
@@ -12509,29 +12509,6 @@ country_event = {
 					set_country_flag = khi_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1 = { # Bukharan uprising
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = BUK
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = buk_uprising_flag
-							BUK = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = BUK }
-					set_country_flag = buk_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
 				1 = { # Kazakh uprising
 					modifier = {
 						add = SOV_civil_war_months
@@ -12624,52 +12601,6 @@ country_event = {
 					set_country_flag = tms_uprising_flag
 					SOV = { country_event = NSB_soviet_nationalist.001 }
 				}
-				1 = { # KYR uprising
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = KYR
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = KYR_uprising_flag
-							KYR = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = KYR }
-					set_country_flag = KYR_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
-				1 = { # TAJ uprising
-					modifier = {
-						add = SOV_civil_war_months
-						always = yes
-					}
-					modifier = {
-						factor = 0.25
-						any_state = {
-							is_core_of = TAJ
-							is_controlled_by = SOV
-						}
-					}
-					modifier = {
-						factor = 0
-						OR = {
-							has_country_flag = TAJ_uprising_flag
-							TAJ = { exists = yes }
-						}
-					}
-					set_variable = { SOV_nationalist_country = TAJ }
-					set_country_flag = TAJ_uprising_flag
-					SOV = { country_event = NSB_soviet_nationalist.001 }
-				}
 
 			}
 		}
@@ -12760,7 +12691,7 @@ country_event = {
 			}
 			# Renaming of cities where apropriate 
 			IF = {
-				limit = { var:SOV.SOV_nationalist_country = { tag = KYR }}
+				limit = { var:SOV.SOV_nationalist_country = { always = no }}
 				# set_province_name = { id = 12583 name = SOV_Bishkek }   # 1.19-migration: off-map vanilla province 12583 - Bishkek / Pamir (Kyrgyzstan); the ME map has no such province
 			}
 			ELSE_IF = {

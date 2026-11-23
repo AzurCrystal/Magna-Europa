@@ -72,7 +72,7 @@ SOV_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 75 #because doctrine 70
+		value = 65
 	}
 
 	#Air unit factors
@@ -193,6 +193,69 @@ SOV_unit_production = {
 		type = equipment_production_factor
 		id = armor
 		value = 8
+	}
+}
+
+SOV_spearhead_armor_and_logistics = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date > 1938.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 6
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = heavy_armor
+		value = 3
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = artillery_equipment
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = support_equipment
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 3
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = train_equipment
+		value = 2
+	}
+}
+
+SOV_spearhead_medium_tanks = {
+	allowed = {
+		original_tag = SOV
+	}
+	enable = {
+		date > 1938.1.1
+		has_tech = basic_medium_tank_chassis
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = medium_tank_chassis
+		value = 6
 	}
 }
 

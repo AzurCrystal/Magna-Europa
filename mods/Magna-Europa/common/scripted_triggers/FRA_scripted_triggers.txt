@@ -15,121 +15,113 @@
 
 
 FRA_controls_north_africa = {
-	all_state = {
-		OR = {
-			AND = {
-				is_core_of = ALG
-				OR = {
-					is_controlled_by = ROOT
-					CONTROLLER = {
-						OR = {
-							is_in_faction_with = ROOT
-							is_subject_of = ROOT
-						}
+	ALG = {
+		all_core_state = {
+			OR = {
+				is_controlled_by = ROOT
+				CONTROLLER = {
+					OR = {
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
 					}
 				}
 			}
-			NOT = { is_core_of = ALG }
 		}
 	}
 }
 FRA_controls_syria = {
-	all_state = {
-		OR = {
-			AND = {
-				is_core_of = SYR
-				NOT = { is_core_of = TUR }
-				OR = {
-					is_controlled_by = ROOT
-					CONTROLLER = {
-						OR = {
-							is_in_faction_with = ROOT
-							is_subject_of = ROOT
-						}
+	SYR = {
+		all_core_state = {
+			OR = {
+				is_core_of = TUR
+				is_controlled_by = ROOT
+				CONTROLLER = {
+					OR = {
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
 					}
 				}
 			}
-			NOT = { is_core_of = SYR }
-			is_core_of = TUR
 		}
 	}
 }
 
 FRA_controls_indochina = {
-	all_state = {
-		OR = {
-			AND = {
-				is_core_of = LEB
-				OR = {
-					is_controlled_by = ROOT
-					CONTROLLER = {
-						OR = {
-							is_in_faction_with = ROOT
-							is_subject_of = ROOT
-						}
+	LEB = {
+		all_core_state = {
+			OR = {
+				is_controlled_by = ROOT
+				CONTROLLER = {
+					OR = {
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
 					}
 				}
 			}
-			NOT = { is_core_of = LEB }
 		}
 	}
 }
 FRA_controls_west_africa = {
-	all_state = {
-		OR = {
-			AND = {
-				is_core_of = MRT
-				OR = {
-					is_controlled_by = ROOT
-					CONTROLLER = {
-						OR = {
-							is_in_faction_with = ROOT
-							is_subject_of = ROOT
-						}
+	MRT = {
+		all_core_state = {
+			OR = {
+				is_controlled_by = ROOT
+				CONTROLLER = {
+					OR = {
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
 					}
 				}
 			}
-			NOT = { is_core_of = MRT }
 		}
 	}
 }
 
 FRA_controls_central_africa = {
-	all_state = {
-		OR = {
-			AND = {
-				is_core_of = TUN
-				OR = {
-					is_controlled_by = ROOT
-					CONTROLLER = {
-						OR = {
-							is_in_faction_with = ROOT
-							is_subject_of = ROOT
-						}
-					}
-				}
-			}
-			AND = {
-				is_core_of = MOR
-				OR = {
-					is_controlled_by = ROOT
-					CONTROLLER = {
+	TUN = {
+		all_core_state = {
+			OR = {
+				is_controlled_by = ROOT
+				CONTROLLER = {
+					OR = {
+						is_in_faction_with = ROOT
 						is_subject_of = ROOT
 					}
-					is_controlled_by = TNG
-					CONTROLLER = {
-						OR = {
-							original_tag = SPR
-							is_in_faction_with = ROOT
+				}
+				AND = {
+					is_core_of = MOR
+					OR = {
+						is_controlled_by = ROOT
+						CONTROLLER = {
 							is_subject_of = ROOT
+						}
+						is_controlled_by = TNG
+						CONTROLLER = {
+							OR = {
+								original_tag = SPR
+								is_in_faction_with = ROOT
+								is_subject_of = ROOT
+							}
 						}
 					}
 				}
 			}
-			NOT = { 
-				OR = {
-					is_core_of = TUN
-					is_core_of = MOR
+		}
+	}
+	MOR = {
+		all_core_state = {
+			OR = {
+				is_controlled_by = ROOT
+				CONTROLLER = {
+					is_subject_of = ROOT
+				}
+				is_controlled_by = TNG
+				CONTROLLER = {
+					OR = {
+						original_tag = SPR
+						is_in_faction_with = ROOT
+						is_subject_of = ROOT
+					}
 				}
 			}
 		}

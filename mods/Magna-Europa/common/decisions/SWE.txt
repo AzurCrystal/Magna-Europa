@@ -2340,6 +2340,10 @@ SWE_military_matters = {
 		}
 		on_map_mode = map_and_decisions_view	
 		state_target = yes
+		target_array = controlled_states
+		target_root_trigger = {
+			has_completed_focus = SWE_hemvarnet
+		}
 
 		custom_cost_trigger = {
 			command_power > 35
@@ -2395,6 +2399,10 @@ SWE_military_matters = {
 
 		on_map_mode = map_only	
 		state_target = yes
+		target_array = ROOT.core_states
+		target_root_trigger = {
+			has_completed_focus = SWE_hemvarnet
+		}
 
 		target_trigger = {
 			FROM = {
@@ -2501,8 +2509,10 @@ SWE_ball_bearings_cat = {
 
 		on_map_mode = map_and_decisions_view
 		#targets_dynamic = yes
-		visible = {
+		allowed = {
 			original_tag = SWE
+		}
+		visible = {
 			has_capitulated = no
 		}
 		cost = 30 #REMEMBER TO UPDATE AAT_Sweden_ball_bearing.1 to match!!!
@@ -3145,6 +3155,15 @@ SWE_royalist_buildup = {
 		cost = 20
 		icon = GFX_decision_eng_support_imperialist_coup
 		state_target = yes
+		targets = {
+			state = 148
+			state = 141
+			state = 212
+		}
+		target_root_trigger = {
+			has_completed_focus = SWE_meet_with_the_king
+			neutrality < 0.55
+		}
 		target_trigger = {
 		    FROM = {
 		        is_core_of = ROOT

@@ -42,7 +42,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
-		value = 1 #because doctrine this = 1
+		value = 4 #because doctrine this = 4
 	}
 
 	ai_strategy = {
@@ -66,7 +66,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 75 #88 to 70
+		value = 65
 	}
 
 	# Naval unit factors
@@ -79,7 +79,7 @@ GER_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
-		value = 40
+		value = 55
 	}
 
 	ai_strategy = {
@@ -136,6 +136,33 @@ GER_unit_production = {
 	ai_strategy = { #added to railway gun define (set to 0 by default, increased in default strategies)
 		type = railway_gun_divisions_ratio
 		value = 1
+	}
+}
+
+GER_rearmament_to_war = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		date < 1939.9.1
+		has_war = no
+		NOT = { has_completed_focus = GER_danzig_or_war }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = ai_wanted_divisions_factor
+		value = 0.25
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = infantry_equipment
+		value = 6
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = support_equipment
+		value = 3
 	}
 }
 
@@ -355,7 +382,7 @@ GER_assault_armor = {
 	ai_strategy = {
 		type = role_ratio
 		id = mechanized_assault
-		value = 1
+		value = 3
 	}
 }
 GER_assault_armor_ostfront = {
@@ -380,7 +407,7 @@ GER_assault_armor_ostfront = {
 	ai_strategy = {
 		type = role_ratio
 		id = mechanized_assault
-		value = 2
+		value = 5
 	}
 }
 
@@ -389,7 +416,7 @@ GER_armored_production = {
 		original_tag = GER
 	}
 	enable = {
-		date > 1938.3.1
+		date > 1937.6.1
 		ai_wants_divisions > 10 #Decreasing the amount of tanks the AI wants
 	}
 	abort = {
@@ -401,7 +428,7 @@ GER_armored_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 6
 	}
 }
 
@@ -516,13 +543,13 @@ GER_highered_armored_production = {
 	ai_strategy = { #Germany struggles with manual management of this in an endless loop
 		type = equipment_production_min_factories_archetype
 		id = motorized_equipment
-		value = 1
+		value = 3
 	}
 	
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 6
 	}
 }
 
@@ -809,19 +836,37 @@ GER_blitzkrieg_poland = {
 		type = force_concentration_target_weight
 		state = 2567 #danzig corridor cut
 		state = 693 
-		state = 381 # Warsaw
+		state = 381 # Lodz
+		state = 508 # Warsaw
 		value = 40 # +40%
 	}
 
 	ai_strategy = {
-		# Still need to defend at the maginot...
+		type = front_unit_request
+		tag = POL
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = POL
+		ratio = 0.25
+		priority = 100
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+
+	ai_strategy = {
+		# GER_hold_maginot_historical already provides +15 defensive staffing on
+		# the West Wall; keep Fall Weiss Alsace request neutral (0) so Poland
+		# (+50, +250 armor, rush) collapses rapidly without leaving border gaps.
 		type = front_unit_request
 		state = 606
 		state = 566
 		state = 547 # Alsace-Lorraine
 
-
-		value = 30  # +30 %
+		value = 0
 	}
 }
 
@@ -853,7 +898,33 @@ GER_blitzkrieg_russia_with_force_concentration = {
 		}
 	}
 	abort_when_not_enabled = yes
-	##### I have to thinnk about plans
+
+	ai_strategy = {
+		type = force_concentration_target_weight
+		# Minsk (vanilla v206)
+		state = 2135 # eu_mapping: v206 (Minsk) -> ME 2135 (Minsk)
+		state = 266  # eu_mapping: v206 (Minsk) -> ME 266 (Krupki)
+		state = 2136 # eu_mapping: v206 (Minsk) -> ME 2136 (Pleshchanitsa)
+		state = 2155 # eu_mapping: v206 (Minsk) -> ME 2155 (Bykhov)
+		state = 2159 # eu_mapping: v206 (Minsk) -> ME 2159 (Borisov)
+		state = 2160 # eu_mapping: v206 (Minsk) -> ME 2160 (Mogilyov)
+		state = 2161 # eu_mapping: v206 (Minsk) -> ME 2161 (Koydanov)
+		state = 2162 # eu_mapping: v206 (Minsk) -> ME 2162 (Odezhda)
+		# Kiev (vanilla v202)
+		state = 2081 # eu_mapping: v202 (Kiev) -> ME 2081 (Zapadnyy Kiev)
+		state = 443  # eu_mapping: v202 (Kiev) -> ME 443 (Borispol)
+		state = 2027 # eu_mapping: v202 (Kiev) -> ME 2027 (Kiev)
+		state = 2054 # eu_mapping: v202 (Kiev) -> ME 2054 (Irpin)
+		state = 2055 # eu_mapping: v202 (Kiev) -> ME 2055 (Ivankov)
+		state = 2056 # eu_mapping: v202 (Kiev) -> ME 2056 (Vasylkiv)
+		state = 2057 # eu_mapping: v202 (Kiev) -> ME 2057 (Belaya Tserkov')
+		state = 2058 # eu_mapping: v202 (Kiev) -> ME 2058 (Obukhov)
+		state = 2059 # eu_mapping: v202 (Kiev) -> ME 2059 (Khotyanovka)
+		state = 2068 # eu_mapping: v202 (Kiev) -> ME 2068 (Chernobyl')
+		state = 2069 # eu_mapping: v202 (Kiev) -> ME 2069 (Brovary)
+
+		value = 25 # +25%
+	}
 }
 
 GER_dont_die_in_mountains = {
@@ -1425,6 +1496,61 @@ GER_force_concentration_through_maginot_hurts_too_much = {
 	}
 }
 
+# MER: enforce strategic defense on the West Wall / Maginot border on historical
+# path until Belgium falls — keeps the border firmly staffed with infantry,
+# blocks both battleplan and manual attacks into Level-10 Maginot forts, keeps
+# armor off the French border until Fall Gelb, and immediately aborts to permit
+# counterattacks if France ever steps onto any of the 7 West Wall border states.
+GER_hold_maginot_historical = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		is_historical_focus_on = yes
+		has_war_with = FRA
+		FRA = { has_capitulated = no }
+		date < 1941.1.1
+		BEL = { has_capitulated = no }
+		NOT = { controls_state = 566 }
+		# Symmetric with FRA_why_push_into_germany_their_food_is_horrible &
+		# GER_around_the_maginot: if France enters even 1 province of German soil,
+		# lift the defensive lock immediately so Germany counterattacks.
+		537 = { is_fully_controlled_by = GER }  # Saarland
+		524 = { is_fully_controlled_by = GER }  # Zweibruecken
+		2337 = { is_fully_controlled_by = GER } # Merzig-Waden
+		2340 = { is_fully_controlled_by = GER } # Landau in der Pfalz
+		1764 = { is_fully_controlled_by = GER } # Baden-Baden
+		1763 = { is_fully_controlled_by = GER } # Freiburg
+		589 = { is_fully_controlled_by = GER }  # Wolfach
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		state = 547 # Moselle
+		state = 566 # Bas-Rhin
+		state = 606 # Haut-Rhin
+		ratio = 0.75
+		priority = 115
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = no
+	}
+	ai_strategy = {
+		type = front_unit_request
+		state = 547
+		state = 566
+		state = 606
+		value = 15
+	}
+	ai_strategy = {
+		type = front_armor_score
+		id = FRA
+		value = -100
+	}
+}
+
 GER_prepare_against_czechoslovakia = {
 	allowed = {
 		original_tag = GER
@@ -1969,53 +2095,41 @@ GER_stop_blitz = { #prevents GER air from suicidally continuing the Blitz after 
 
 	abort_when_not_enabled = yes
 
+	# MER: deduplicated Ireland + added missing Wales (SR 1/2/3/4/18/43)
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 45 # Southern England
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 46 #Strategic Region ID - Northern England
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 46 # Northern England
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 2 #Strategic Region ID - Scotland
+		id = 3 # Wales
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 1
+		id = 2 # Scotland
+		value = -20000
 	}
-
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 1 #Strategic Region ID - Ireland
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 1 # Ireland
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 1 #Strategic Region ID - Ireland
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 209 # English Channel
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 209 #Strategic Region ID - English Channel
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 244 #Strategic Region ID - Western Approaches
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 244 # Western Approaches
+		value = -20000
 	}
 }
 
@@ -2032,96 +2146,96 @@ GER_avoid_air_war_before_fall_gelb = { #prevents GER air from uselessly beating 
 
 	abort_when_not_enabled = yes
 
+	# MER: deduplicated Ireland + added missing Wales & French regions (SR 1/2/3/4/18/43/42/19/208/20)
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 45 # Southern England
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 46 #Strategic Region ID - Northern England
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 46 # Northern England
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 2 #Strategic Region ID - Scotland
+		id = 3 # Wales
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 1
+		id = 2 # Scotland
+		value = -20000
 	}
-
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 1 #Strategic Region ID - Ireland
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 1 # Ireland
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 209 #Strategic Region ID - English Channel
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 209 # English Channel
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 244 #Strategic Region ID - Western Approaches
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 244 # Western Approaches
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 220 #Strategic Region ID - Bay of Biscay
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 220 # Gulf of Biscay
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 89 #Strategic Region ID - Northern France
+		id = 89 # Northern France
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 62
+		id = 88 # Alsace-Lorraine
+		value = -20000
 	}
-
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 67 #Strategic Region ID - Western France
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 90 # Burgundy
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 87 #Strategic Region ID - Southern France
+		id = 92 # Central France
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 91
+		id = 93 # Loire
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 92
+		id = 67 # Brittany
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 61
+		id = 62 # Normandy
+		value = -20000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 87 # Aquitaine
+		value = -20000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 91 # Languedoc
+		value = -20000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 61 # Alpes
+		value = -20000
 	}
 
 }
@@ -2138,47 +2252,41 @@ GER_avoid_early_blitz = { #prevents GER air from uselessly attacking England whi
 
 	abort_when_not_enabled = yes
 
+	# MER: deduplicated Ireland + added missing Wales (SR 1/2/3/4/18/43)
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 45 # Southern England
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 46 #Strategic Region ID - Northern England
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 46 # Northern England
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 2 #Strategic Region ID - Scotland
+		id = 3 # Wales
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
-		id = 1
+		id = 2 # Scotland
+		value = -20000
 	}
-
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 1 #Strategic Region ID - Ireland
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 1 # Ireland
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 209 #Strategic Region ID - English Channel
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 209 # English Channel
+		value = -20000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 244 #Strategic Region ID - Western Approaches
-		value = -20000 #value of stocked main front in active combat is usually around 35,000
+		id = 244 # Western Approaches
+		value = -20000
 	}
 }
 
@@ -2266,7 +2374,7 @@ GER_make_sure_poland_is_ganked_before_we_move = {
 	enable = {
 		has_war_with = POL
 		POL = { has_capitulated = no }
-		date < 1940.2.1
+		date < 1940.4.1
 	}
 	abort = {
 		OR = {
@@ -2274,7 +2382,7 @@ GER_make_sure_poland_is_ganked_before_we_move = {
 				has_capitulated = yes
                 days_since_capitulated > 8
 			}
-			date > 1940.2.1
+			date > 1940.4.1
 		}
 	}
 
@@ -2291,6 +2399,16 @@ GER_make_sure_poland_is_ganked_before_we_move = {
 	ai_strategy = {
 		type = declare_war
 		id = LUX
+		value = -2000
+	}
+	ai_strategy = {
+		type = declare_war
+		id = DEN
+		value = -2000
+	}
+	ai_strategy = {
+		type = declare_war
+		id = NOR
 		value = -2000
 	}
 }
@@ -3151,41 +3269,47 @@ GER_prepare_for_weserubung = {
 		value = -100
 	}
 
-	# 1.19-migration: vanilla GER→NOR invasion crosses one sea zone; the mod splits
-	# the Danish approaches into 3 strategic regions (238 Jutland Sea, 237 Kattegat,
-	# 168 Skagerrak — flanked by 167 Danish Straits and 239 Eastern North Sea).
-	# PATROL_FLEETS_PER_INVASION_REGION_ON_PATH=2 requires ~2 patrol fleets per zone;
-	# vanilla GER AI never concentrates on all three simultaneously, so the invasion
-	# source never gets posted (error.log: order_set_invasion_source_command spam).
-	# Push the naval-invasion + per-zone dominance levers so the fleet actually splits.
+	# 1.19-migration / MER naval dominance: vanilla GER→NOR crosses one sea zone; ME splits
+	# the Danish approaches into 167 Danish Straits -> 237 Kattegat -> 168 Skagerrak (flanked by 238 Jutland).
+	# Focus Kriegsmarine on the Kattegat/Skagerrak Oslo corridor instead of spreading thinly across 5 zones / North Sea.
 	ai_strategy = {
 		type = naval_invasion_dominance_weight
-		value = 40
+		value = 60
 	}
 	ai_strategy = {
-		type = naval_dominance
-		id = 238 # Jutland Sea
-		value = 80
-	}
-	ai_strategy = {
-		type = naval_dominance
-		id = 237 # Kattegat
-		value = 80
-	}
-	ai_strategy = {
-		type = naval_dominance
-		id = 168 # Skagerrak
-		value = 80
+		type = naval_mission_threshold
+		id = MISSION_PATROL
+		value = -100
 	}
 	ai_strategy = {
 		type = naval_dominance
 		id = 167 # Danish Straits
-		value = 60
+		value = 90
 	}
 	ai_strategy = {
 		type = naval_dominance
-		id = 239 # Eastern North Sea
-		value = 80
+		id = 237 # Kattegat
+		value = 120
+	}
+	ai_strategy = {
+		type = naval_dominance
+		id = 168 # Skagerrak
+		value = 120
+	}
+	ai_strategy = {
+		type = naval_dominance
+		id = 238 # Jutland Sea
+		value = 40
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 240 # North Sea
+		value = 400
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 235 # Shetland Sea
+		value = 400
 	}
 }
 
@@ -3344,13 +3468,30 @@ GER_tanks_against_belgium = {
 	enable = {
 		is_historical_focus_on = yes
 		HOL = { has_capitulated = yes }
+		country_exists = BEL
+		BEL = { has_capitulated = no }
+		NOT = { BEL = { is_in_faction_with = GER } }
 		#LUX = { has_capitulated = yes }
 	}
 
 	abort = {
-		surrender_progress > 0.15 #Bring our metal bawkses home
+		OR = {
+			surrender_progress > 0.15 #Bring our metal bawkses home
+			BEL = { has_capitulated = yes }
+			BEL = { is_in_faction_with = GER }
+		}
 	}
 
+	ai_strategy = {
+		type = declare_war
+		id = BEL
+		value = 200
+	}
+	ai_strategy = {
+		type = conquer
+		id = BEL
+		value = 200
+	}
 	ai_strategy = {
 		type = front_armor_score
 		id = BEL
@@ -3924,6 +4065,51 @@ GER_blitzkrieg_russia_hard  = { #STEINER, IT IS NOT TIME YET
 		execution_type = rush
 		execute_order = yes
 	}
+	ai_strategy = {
+		# Avoid the Pripyat Marshes (vanilla v94 Polesie, v93 Volyn, v194 Mozyr)
+		type = force_concentration_target_weight
+		# Polesie (v94)
+		state = 1163 # eu_mapping: v94 (Polesie) -> ME 1163 (Pinsk)
+		state = 367  # eu_mapping: v94 (Polesie) -> ME 367 (Kobryn)
+		state = 1088 # eu_mapping: v94 (Polesie) -> ME 1088 (Kamien Koszyrski)
+		state = 1129 # eu_mapping: v94 (Polesie) -> ME 1129 (Wlodzimierzec)
+		state = 1132 # eu_mapping: v94 (Polesie) -> ME 1132 (Pruzana)
+		state = 1153 # eu_mapping: v94 (Polesie) -> ME 1153 (Brzesc)
+		state = 1250 # eu_mapping: v94 (Polesie) -> ME 1250 (Luniniec)
+		state = 2258 # eu_mapping: v94 (Polesie) -> ME 2258 (Zarichne)
+		state = 2259 # eu_mapping: v94 (Polesie) -> ME 2259 (Dabrowica)
+		state = 2315 # eu_mapping: v94 (Polesie) -> ME 2315 (Dywin)
+		state = 2316 # eu_mapping: v94 (Polesie) -> ME 2316 (Janow Poleski)
+		state = 2317 # eu_mapping: v94 (Polesie) -> ME 2317 (Bereza Kartuska)
+		state = 2319 # eu_mapping: v94 (Polesie) -> ME 2319 (Glinno)
+		state = 2539 # eu_mapping: v94 (Polesie) -> ME 2539 (Dawidgrodek)
+		# Wolyn (v93)
+		state = 992  # eu_mapping: v93 (Wołyn) -> ME 992 (Kowel)
+		state = 420  # eu_mapping: v93 (Wołyn) -> ME 420 (Sarny)
+		state = 434  # eu_mapping: v93 (Wołyn) -> ME 434 (Wlodzimierz Wolynski)
+		state = 459  # eu_mapping: v93 (Wołyn) -> ME 459 (Krzemieniec)
+		state = 671  # eu_mapping: v93 (Wołyn) -> ME 671 (Rowne)
+		state = 1030 # eu_mapping: v93 (Wołyn) -> ME 1030 (Luck)
+		state = 1041 # eu_mapping: v93 (Wołyn) -> ME 1041 (Luboml)
+		state = 1110 # eu_mapping: v93 (Wołyn) -> ME 1110 (Dubno)
+		state = 2347 # eu_mapping: v93 (Wołyn) -> ME 2347 (Tudorkovyczi)
+		state = 2538 # eu_mapping: v93 (Wołyn) -> ME 2538 (Kostopol)
+		# Mozyr (v194)
+		state = 2139 # eu_mapping: v194 (Mozyr) -> ME 2139 (Mozyr)
+		state = 384  # eu_mapping: v194 (Mozyr) -> ME 384 (Zhitkovichi)
+		state = 2132 # eu_mapping: v194 (Mozyr) -> ME 2132 (Kryva Hora)
+		state = 2138 # eu_mapping: v194 (Mozyr) -> ME 2138 (Rechytsa)
+		state = 2140 # eu_mapping: v194 (Mozyr) -> ME 2140 (Loyev)
+		state = 2141 # eu_mapping: v194 (Mozyr) -> ME 2141 (Narovlya)
+		state = 2142 # eu_mapping: v194 (Mozyr) -> ME 2142 (Khoiniki)
+		state = 2143 # eu_mapping: v194 (Mozyr) -> ME 2143 (Kalinkovichi)
+		state = 2144 # eu_mapping: v194 (Mozyr) -> ME 2144 (Svetlogorsk)
+		state = 2145 # eu_mapping: v194 (Mozyr) -> ME 2145 (Lelchitsy)
+		state = 2576 # eu_mapping: v194 (Mozyr) -> ME 2576 (Yelsk)
+		state = 2577 # eu_mapping: v194 (Mozyr) -> ME 2577 (Myshanka)
+
+		value = -40 # -40%
+	}
 }
 
 GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border defenses in the initial stages of Barb
@@ -3951,7 +4137,7 @@ GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border d
 				controls_state = 207
 				controls_state = 208
 				controls_state = 225
-				controls_state = 557
+				#controls_state = 557  # 1.19-migration: removed (Stalino, cross-contamination)
 				controls_state = 236
 				controls_state = 238
 				controls_state = 241
@@ -3976,16 +4162,16 @@ GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border d
 				#Latvia
 				controls_state = 67
 				controls_state = 87
-				controls_state = 1292
-				controls_state = 2316
-				controls_state = 326
+				#controls_state = 1292 # 1.19-migration: removed (Lwow, cross-contamination)
+				#controls_state = 2316 # 1.19-migration: removed (Janow Poleski, cross-contamination)
+				#controls_state = 326  # 1.19-migration: removed (Wolkowysk, cross-contamination)
 				controls_state = 112
 				controls_state = 170
 				controls_state = 172
 				controls_state = 174
 				controls_state = 185
-				controls_state = 557  # 1.19-migration: was vanilla 227 (Stalino)
-				controls_state = 2085 # eu_mapping: v197 (Mykolaiv) -> ME 2085 (Kherson)
+				#controls_state = 557  # 1.19-migration: removed (Stalino, cross-contamination)
+				#controls_state = 2085 # 1.19-migration: removed (Kherson, cross-contamination)
 				controls_state = 1344
 				controls_state = 1345
 				controls_state = 1346
@@ -4024,46 +4210,23 @@ GER_blitzkrieg_russia_hard_air_north  = { #get GER to focus on breaking border d
 
 	abort_when_not_enabled = yes
 
+	# MER: deduplicated Baltic States (SR 37)
 	ai_strategy = {
 		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 27 #Strategic Region ID - Baltic States
+		value = 20000
+		id = 27 # Lithuania
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 28
+		value = 20000
+		id = 56 # Latvia
 	}
 
 	ai_strategy = {
 		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 56
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 28 #Strategic Region ID - Baltic States
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 56
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 28 #Strategic Region ID - Baltic States
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 20000 #value of stocked main front in active combat is usually around 35,000
-		id = 56
+		value = 20000
+		id = 28 # Estonia
 	}
 
 }
@@ -4401,16 +4564,76 @@ GER_blitzkrieg_russia_soft  = { #Rolling incursions
 		execute_order = yes
 	}
 
+	# MER: remapped Eastern Poland + Ukraine (SR 39/130)
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
-		value = 10000 #value of stocked main front in active combat is usually around 35,000
+		id = 43 # Eastern Poland
+		value = 10000
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
-		id = 45 #Strategic Region ID - Southern England
-		value = 10000 #value of stocked main front in active combat is usually around 35,000
+		id = 41 # Galicia
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 42 # Western Polesia
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 96 # Podlachia
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 107 # Dnepr
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 101 # Sloboda
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 99 # Podolia
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 98 # Siveria
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 100 # Eastern Bug
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 104 # Donbas
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 106 # Zaporizhia
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 105 # Pryazovia
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 78 # Taurida
+		value = 10000
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 79 # Crimea
+		value = 10000
 	}
 }
 
@@ -4765,58 +4988,26 @@ GER_focus_yugo = {
 		is_historical_focus_on = yes
 	}
 	abort_when_not_enabled = yes
+	# MER: remapped Western Balkans (SR 24)
 	ai_strategy = {
 		type = strategic_air_importance
 		value = 30000
-		id = 16 #Strategic Region ID - Western Balkans
+		id = 22 # Serbia
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
 		value = 30000
-		id = 17
+		id = 23 # Slavonia
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
 		value = 30000
-		id = 18
+		id = 24 # Dinaric Alps
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
 		value = 30000
-		id = 25
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 30000
-		id = 22
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 30000
-		id = 24
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 30000
-		id = 23
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 30000
-		id = 8
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = 30000
-		id = 21
+		id = 20 # Albania
 	}
 
 }
@@ -5094,13 +5285,13 @@ GER_gotta_have_enough_medium_tanks = {
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = motorized_equipment
-		value = 1
+		value = 3
 	}
 	
 	ai_strategy = {
 		type = equipment_production_min_factories_archetype
 		id = medium_tank_chassis
-		value = 3  # Germany need medium tanks to crush the enemies!
+		value = 8  # Germany need medium tanks to crush the enemies!
 	}
 }
 
@@ -5196,10 +5387,11 @@ GER_dont_send_half_the_army_to_finland_if_not_in_our_faction = {
 		type = front_unit_request
 
 		# As long as the front touches any of these regions. I hope this doesn't mess up the bigger Eastern Front if the Finnish and German frontlines merge...
-		strategic_region = 113  # Eastern Finland
-		strategic_region = 114  # Northern Finland
-		strategic_region = 112  # East Karelia
-		strategic_region = 115  # Kola
+		strategic_region = 118  # Northern Finland
+		strategic_region = 113  # Olonets Karelia
+		strategic_region = 114  # White Karelia
+		strategic_region = 112  # Karelian Isthmus
+		strategic_region = 115  # Kola Peninsula
 
 		value = -90
 	}
@@ -5821,33 +6013,51 @@ GER_dont_send_air_to_middle_east = {
 	}
 	abort_when_not_enabled = yes
 
+	# MER: remapped Middle East / Levant / Persia (SR 28/232/116)
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 227 # Middle East
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = -30000
-		id = 226
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 49 # Levant
-		value = -30000
+		id = 54 # Mesopotamia
 	}
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 227 # Iran
+		id = 55 # Iraqi Kurdistan
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 226
+		id = 49 # Northern Levant
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 32 # Southern Levant
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 57 # Sinai
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 224 # Persian Plateau
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 225 # Zagros Mountains
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 226 # Southern Persia
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 227 # Northern Persia
 	}
 
 }

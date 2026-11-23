@@ -816,9 +816,7 @@ political_actions = {
 
 		target_trigger = {
 			FROM = {
-				OR = {
-					always = no # MEPORT: off-map region set emptied (vanilla Central/Southern Africa; COG off-map)
-				}
+				always = no
 				NOT = {
 					is_core_of = ROOT
 				}
@@ -1472,15 +1470,15 @@ war_measures = {
 
 		visible = { 
 			has_global_flag = CONGO_independence_war_ongoing
-			any_country = {
-				has_war_with = ROOT
-				original_tag = COG
-			}
 			NOT = {
 				is_subject_of = BEL
 			}
 			NOT = {
 				has_country_flag = COG_already_forced_a_peace_flag
+			}
+			any_country = {
+				has_war_with = ROOT
+				original_tag = COG
 			}
 		}
 
@@ -1516,8 +1514,6 @@ war_measures = {
 					limit = {
 						OR = {
 							original_tag = COG
-						#original_tag = KAT
-							original_tag = RCG
 						}
 						OR = {
 							has_war_with = ROOT
@@ -3098,6 +3094,10 @@ COG_congo_integration_decisions = {
 		} 
 
 		state_target = yes
+
+		targets = {
+			state = 2974
+		}
 
 		target_trigger = {
 			FROM = {

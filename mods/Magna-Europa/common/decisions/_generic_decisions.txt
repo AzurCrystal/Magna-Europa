@@ -166,12 +166,12 @@ economy_decisions = {
 		}
 
 		visible = {
+			NOT = { is_in_faction_with = FRA }
 			FRA = {
 				any_owned_state = {
 					is_controlled_by = ROOT
 				}
 			}
-			NOT = { is_in_faction_with = FRA }
 		}
 
 		modifier = {
@@ -1392,11 +1392,7 @@ operations = {
 		remove_effect = {
 			if = {
 				limit = {
-					OR = {
-						# has_full_control_of_state = 685   # 1.19-migration: off-map Panama Canal (was vanilla 685)
-						# has_full_control_of_state = 304   # 1.19-migration: off-map Panama (was vanilla 304)
-						always = no
-					}
+					always = no
 				}
 				set_country_flag = blew_up_panama
 				set_global_flag = PANAMA_CANAL_BLOCKED
@@ -1952,8 +1948,6 @@ war_measures = {
 					tag = CHL #has a focus
 					tag = BRA #has a focus
 					tag = ARG #has a focus
-					tag = URG #has a focus
-					tag = PAR #has a focus
 				}
 			}
 			if = {
@@ -2064,22 +2058,22 @@ foreign_politics = {
         }
 
         visible = {
-        	FROM = {
-        		NOT = { has_country_flag = rejected_withdrawing_attache }
-        		NOT = { has_country_flag = rejected_withdrawing_attache@ROOT }
-        		NOT = { has_country_flag = object_attache_going_on }
-        	}
         	has_war = yes
         	has_capitulated = no
         	NOT = { has_war_with = FROM }
-        	any_enemy_country = {
-				has_attache_from = FROM
-			}
 			NOT = {
 				AND = {
 					original_tag = SPR
 					has_completed_focus = SPR_regional_defense_council_of_aragon
 				}
+			}
+        	FROM = {
+        		NOT = { has_country_flag = rejected_withdrawing_attache }
+        		NOT = { has_country_flag = rejected_withdrawing_attache@ROOT }
+        		NOT = { has_country_flag = object_attache_going_on }
+        	}
+        	any_enemy_country = {
+				has_attache_from = FROM
 			}
 		}
 

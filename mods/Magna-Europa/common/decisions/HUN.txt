@@ -3017,15 +3017,23 @@ HUN_territorial_revision_category = {
 			custom_trigger_tooltip = {
 				tooltip = wuw_HUN_the_kingdom_of_ukraine_required_states_tt
 				NOT = {
-					any_state = {
-						OR = {
-							is_core_of = UKR
-							is_core_of = CRI
+					OR = {
+						UKR = {
+							any_core_state = {
+								NOT = { has_state_flag = POL_INITIAL_STATE }
+								NOT = { has_state_flag = ROM_INITIAL_STATE }
+								NOT = { has_state_flag = CZE_INITIAL_STATE }
+								NOT = {is_controlled_by = ROOT }
+							}
 						}
-						NOT = { has_state_flag = POL_INITIAL_STATE }
-						NOT = { has_state_flag = ROM_INITIAL_STATE }
-						NOT = { has_state_flag = CZE_INITIAL_STATE }
-						NOT = {is_controlled_by = ROOT }
+						CRI = {
+							any_core_state = {
+								NOT = { has_state_flag = POL_INITIAL_STATE }
+								NOT = { has_state_flag = ROM_INITIAL_STATE }
+								NOT = { has_state_flag = CZE_INITIAL_STATE }
+								NOT = {is_controlled_by = ROOT }
+							}
+						}
 					}
 				}
 			}
@@ -3957,12 +3965,8 @@ HUN_the_empire_category = {
 					AUS = {
 						exists = no
 					}
-					all_state = {
-						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-						OR = {
-							NOT = {
-								is_core_of = AUS
-							}
+					AUS = {
+						all_core_state = {
 							is_controlled_by = ROOT
 						}
 					}
@@ -3974,9 +3978,8 @@ HUN_the_empire_category = {
 
 		complete_effect = {
 
-			every_state = {
+			every_controlled_state = {
 				limit = {
-					is_controlled_by = ROOT
 					NOT = {
 						is_core_of = ROOT
 					}
@@ -4044,12 +4047,8 @@ HUN_the_empire_category = {
 					ALB = {
 						exists = no
 					}
-					all_state = {
-						# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-						OR = {
-							NOT = {
-								is_core_of = ALB
-							}
+					ALB = {
+						all_core_state = {
 							is_controlled_by = ROOT
 						}
 					}
@@ -4068,9 +4067,8 @@ HUN_the_empire_category = {
 				add_core_of = ALB
 			}
 
-			every_state = {
+			every_controlled_state = {
 				limit = {
-					is_controlled_by = ROOT
 					NOT = {
 						is_core_of = ROOT
 					}

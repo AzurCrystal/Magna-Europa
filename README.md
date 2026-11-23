@@ -59,7 +59,7 @@ This mod uses `replace_path` on `history/`, `events/`, `map/strategicregions` an
 | `mods/Magna-Europa/interface/`, `gfx/` | UI scripts, flags, portraits, fonts |
 | `mods/Magna-Europa/music/` | Mod music tracks and playlists |
 | `mods/<Submod>/` | Sibling slots for submods (e.g. RK+) — each ships its own `descriptor.mod` + launcher `.mod`, same layout |
-| `docs/states/` | Vanilla↔ME state/region/VP truth tables (`v2m_states`, `m2v_states`, `regions`, `vps`) + `province_pairs.json`; schema and status vocabulary in [`docs/states/README.md`](docs/states/README.md) |
+| `docs/states/` | Full vanilla↔ME state relation graph (`state_edges.tsv`, including one-to-many/many-to-many edges), primary compatibility views (`v2m_states`, `m2v_states`), region/VP tables and evidence; schema, audit commands and status vocabulary in [`docs/states/README.md`](docs/states/README.md) |
 | `tools/` | Dev utilities (audits, map-truth generator) — not shipped with the mod; see [`tools/README.md`](tools/README.md) |
 | `mods/Magna-Europa/descriptor.mod` | In-mod descriptor (name, version, `replace_path` set) |
 | `mods/Magna-Europa/Magna Europa.mod` | Launcher-facing descriptor — copied to `mod/` and given a `path=` |

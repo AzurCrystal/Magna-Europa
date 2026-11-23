@@ -1156,6 +1156,8 @@ POL_organize_the_peasants_strike = {
 
 		state_target = yes
 
+		target_array = owned_states
+
 		available = {
 			NOT = { has_country_flag = adding_state_to_strike_flag }
 			FROM = {
@@ -1186,6 +1188,7 @@ POL_organize_the_peasants_strike = {
 		
 		target_root_trigger = {
 			original_tag = POL
+			has_completed_focus = POL_organize_the_peasants_strike
 		}
 		
 		visible = {
@@ -1960,6 +1963,10 @@ POL_defensive_plans = {
 
 		state_target = yes
 
+		target_root_trigger = {
+			has_completed_focus = POL_local_eastern_plans
+		}
+
 		available = {
 			FROM = {
 				OR = {
@@ -2046,6 +2053,10 @@ POL_defensive_plans = {
 		icon = hol_draw_up_staff_plans
 
 		state_target = yes
+
+		target_root_trigger = {
+			has_completed_focus = POL_local_western_plans
+		}
 
 		available = {
 			FROM = {
@@ -3208,6 +3219,11 @@ POL_promote_falangism_decisions = {
 
 		state_target = yes
 
+		target_root_trigger = {
+			has_completed_focus = POL_support_global_falangism
+			has_government = fascism
+		}
+
 		available = {
 		}
 		target_trigger = {
@@ -3228,9 +3244,6 @@ POL_promote_falangism_decisions = {
 								original_tag = MEX
 								original_tag = BRA
 								original_tag = ARG
-								original_tag = COL
-								original_tag = VEN
-								original_tag = PRU
 							}
 							ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
 						}
@@ -3274,6 +3287,11 @@ POL_promote_falangism_decisions = {
 
 		state_target = yes
 
+		target_root_trigger = {
+			has_completed_focus = POL_support_global_falangism
+			has_government = fascism
+		}
+
 		available = {
 		}
 		target_trigger = {
@@ -3283,9 +3301,6 @@ POL_promote_falangism_decisions = {
 						original_tag = MEX
 						original_tag = BRA
 						original_tag = ARG
-						original_tag = COL
-						original_tag = VEN
-						original_tag = PRU
 					}
 					ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
 					NOT = { has_government = fascism }

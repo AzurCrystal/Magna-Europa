@@ -13,14 +13,6 @@ ROM_change_sides = {
 		available = {
 			is_faction_leader = no
 			has_capitulated = no
-			any_enemy_country = {
-				is_faction_leader = yes
-				OR = {
-					has_government = democratic
-					original_tag = ENG
-					original_tag = USA
-				}
-			}
 			OR = {
 				has_country_leader = {
 					character = ROM_king_michael
@@ -29,13 +21,22 @@ ROM_change_sides = {
 				has_government = neutrality
 				has_government = democratic
 			}
+			hidden_trigger = {
+				has_war = yes
+				NOT = { has_country_flag = romania_has_flipped_sides } #Romania shouldn't be able to keep switching sides all the time
+			}
+			any_enemy_country = {
+				is_faction_leader = yes
+				OR = {
+					has_government = democratic
+					original_tag = ENG
+					original_tag = USA
+				}
+			}
 			NOT = {
 				FACTION_LEADER  = {
 					has_government = democratic
 				}
-			}
-			hidden_trigger = {
-				NOT = { has_country_flag = romania_has_flipped_sides } #Romania shouldn't be able to keep switching sides all the time
 			}
 		}
 		
@@ -164,13 +165,6 @@ ROM_change_sides = {
 		available = {
 			is_faction_leader = no
 			has_capitulated = no
-			any_enemy_country = {
-				is_faction_leader = yes
-				OR = {
-					has_government = communism
-					original_tag = SOV
-				}
-			}
 			OR = {
 				has_country_leader = {
 					character = ROM_king_michael
@@ -178,13 +172,21 @@ ROM_change_sides = {
 				}
 				has_government = communism
 			}
+			hidden_trigger = {
+				has_war = yes
+				NOT = { has_country_flag = romania_has_flipped_sides } #Romania shouldn't be able to keep switching sides all the time
+			}
+			any_enemy_country = {
+				is_faction_leader = yes
+				OR = {
+					has_government = communism
+					original_tag = SOV
+				}
+			}
 			NOT = {
 				FACTION_LEADER  = {
 					has_government = communism
 				}
-			}
-			hidden_trigger = {
-				NOT = { has_country_flag = romania_has_flipped_sides } #Romania shouldn't be able to keep switching sides all the time
 			}
 		}
 		
@@ -278,6 +280,17 @@ ROM_change_sides = {
 		available = {
 			is_faction_leader = no
 			has_capitulated = no
+			OR = {
+				has_country_leader = {
+					character = ROM_king_michael
+					ruling_only = yes
+				}
+				has_government = fascism
+			}
+			hidden_trigger = {
+				has_war = yes
+				NOT = { has_country_flag = romania_has_flipped_sides } #Romania shouldn't be able to keep switching sides all the time
+			}
 			any_enemy_country = {
 				is_faction_leader = yes
 				OR = {
@@ -286,20 +299,10 @@ ROM_change_sides = {
 					original_tag = ITA
 				}
 			}
-			OR = {
-				has_country_leader = {
-					character = ROM_king_michael
-					ruling_only = yes
-				}
-				has_government = fascism
-			}
 			NOT = {
 				FACTION_LEADER  = {
 					has_government = fascism
 				}
-			}
-			hidden_trigger = {
-				NOT = { has_country_flag = romania_has_flipped_sides } #Romania shouldn't be able to keep switching sides all the time
 			}
 		}
 		
@@ -9867,10 +9870,10 @@ ROM_the_war_in_the_east_category = {
 					}
 				}
 				else = {
-					every_state = {
+					every_owned_state = {
 						limit = {
 							has_state_flag = ROM_transcaucasia_state_flag
-							is_owned_and_controlled_by = ROOT
+							is_controlled_by = ROOT
 						}
 						transfer_state_to = GEO
 						add_claim_by = GEO
@@ -12734,6 +12737,60 @@ ROM_liberate_the_faithful_of_ukraine_category = {
 
 		state_target = yes
 
+		targets = {
+			state = 2045
+			state = 613
+			state = 618
+			state = 2047
+			state = 2061
+			state = 2063
+			state = 2081
+			state = 443
+			state = 2027
+			state = 2054
+			state = 2055
+			state = 2056
+			state = 2057
+			state = 2058
+			state = 2059
+			state = 2068
+			state = 2069
+			state = 497
+			state = 2032
+			state = 2033
+			state = 2104
+			state = 2105
+			state = 2106
+			state = 2107
+			state = 2108
+			state = 2109
+			state = 2075
+			state = 560
+			state = 579
+			state = 2076
+			state = 2077
+			state = 2078
+			state = 2079
+			state = 2080
+			state = 2111
+			state = 557
+			state = 2028
+			state = 2093
+			state = 2094
+			state = 2095
+			state = 2096
+			state = 2306
+			state = 2307
+			state = 2310
+		}
+
+		target_root_trigger = {
+			has_completed_focus = ROM_liberate_the_faithful_of_ukraine
+			has_government = fascism
+			NOT = { is_in_faction_with = SOV }
+			NOT = { has_war_with = SOV }
+		}
+
 		target_trigger = {
 			FROM = {
 				is_core_of = SOV
@@ -12814,6 +12871,48 @@ ROM_liberate_the_faithful_of_ukraine_category = {
 		}
 
 		state_target = yes
+
+		targets = {
+			state = 397
+			state = 2118
+			state = 2119
+			state = 2120
+			state = 2121
+			state = 2122
+			state = 2123
+			state = 2131
+			state = 2133
+			state = 436
+			state = 2042
+			state = 2053
+			state = 2070
+			state = 2100
+			state = 2101
+			state = 2687
+			state = 511
+			state = 2082
+			state = 2083
+			state = 2309
+			state = 2409
+			state = 2723
+			state = 2725
+			state = 2733
+			state = 2741
+			state = 2942
+			state = 388
+			state = 2426
+			state = 2427
+			state = 2428
+			state = 2734
+			state = 2735
+		}
+
+		target_root_trigger = {
+			has_completed_focus = ROM_liberate_the_faithful_of_ukraine
+			has_government = fascism
+			NOT = { is_in_faction_with = SOV }
+			NOT = { has_war_with = SOV }
+		}
 
 		target_trigger = {
 			FROM = {

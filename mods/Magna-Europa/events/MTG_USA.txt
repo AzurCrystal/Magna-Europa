@@ -2583,11 +2583,13 @@ country_event = {
 		}
 		effect_tooltip = {
 			FROM = {
-				transfer_state = 740
-				transfer_state = 473
-				transfer_state = 739
-				transfer_state = 471
-				transfer_state = 864
+				# MER: off-map Western Canada removed (was vanilla 740/473/739/471/864)
+				# transfer_state = 740
+				# transfer_state = 473
+				# transfer_state = 739
+				# transfer_state = 471
+				# transfer_state = 864
+				add_political_power = 25
 			}
 		}
 	}
@@ -2618,9 +2620,8 @@ country_event = {
 		effect_tooltip = {
 			FROM = {
 				create_wargoal = {
-					type = take_state
+					type = annex_everything
 					target = CAN
-					generator = { 740 473 739 471 864}
 				}
 			}
 		}
@@ -2637,11 +2638,13 @@ country_event = {
 	is_triggered_only = yes
 	option = { #agree
 		name = mtg_usa_canadian_corridor.2.a
-		transfer_state = 740
-		transfer_state = 473
-		transfer_state = 739
-		transfer_state = 471
-		transfer_state = 864
+		# MER: off-map Western Canada removed (was vanilla 740/473/739/471/864)
+		# transfer_state = 740
+		# transfer_state = 473
+		# transfer_state = 739
+		# transfer_state = 471
+		# transfer_state = 864
+		add_political_power = 25
 	}
 }
 
@@ -2663,9 +2666,8 @@ country_event = {
 			}
 		}
 		create_wargoal = {
-			type = take_state
+			type = annex_everything
 			target = CAN
-			generator = { 740 473 739 471 864 }
 		}
 	}
 	option = { #no war!
@@ -2942,47 +2944,49 @@ country_event = {
 			FROM = {
 				if = {
 					limit = {
-						has_full_control_of_state = 118
+						has_full_control_of_state = 882 # eu_mapping: v118 -> ME 882
 					}
-					transfer_state = 118
+					transfer_state = 882 # eu_mapping: v118 -> ME 882
 				}
-				if = {
-					limit = {
-						has_full_control_of_state = 1021
-					}
-					transfer_state = 1021
-				}
-				if = {
-					limit = {
-						has_full_control_of_state = 1065
-					}
-					transfer_state = 1065
-				}
+				# MER: off-map Asian colonies removed (was vanilla 1021/1065/326/336)
+				# if = {
+				# 	limit = {
+				# 		has_full_control_of_state = 1021
+				# 	}
+				# 	transfer_state = 1021
+				# }
+				# if = {
+				# 	limit = {
+				# 		has_full_control_of_state = 1065
+				# 	}
+				# 	transfer_state = 1065
+				# }
 			}
-			if = {
-				limit = {
-					336 = {
-						OWNER = {
-							is_subject_of = ROOT
-						}
-					}
-				}
-				336 = {
-					OWNER = {
-						USA = {
-							puppet = PREV
-						}
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					has_full_control_of_state = 336
-				}
-				USA = {
-					transfer_state = 336
-				}
-			}
+			# MER: off-map Asian colonies removed (was vanilla 1021/1065/326/336)
+			# if = {
+			# 	limit = {
+			# 		336 = {
+			# 			OWNER = {
+			# 				is_subject_of = ROOT
+			# 			}
+			# 		}
+			# 	}
+			# 	336 = {
+			# 		OWNER = {
+			# 			USA = {
+			# 				puppet = PREV
+			# 			}
+			# 		}
+			# 	}
+			# }
+			# else_if = {
+			# 	limit = {
+			# 		has_full_control_of_state = 336
+			# 	}
+			# 	USA = {
+			# 		transfer_state = 336
+			# 	}
+			# }
 		}
 	}
 	option = { #refuse
@@ -3029,52 +3033,53 @@ country_event = {
 		name = mtg_usa_strategic_interests.2.a
 		if = {
 			limit = {
-				FROM = { has_full_control_of_state = 118 }
+				FROM = { has_full_control_of_state = 882 } # eu_mapping: v118 -> ME 882
 			}
-			transfer_state = 118
+			transfer_state = 882 # eu_mapping: v118 -> ME 882
 		}
-		if = {
-			limit = {
-				FROM = { has_full_control_of_state = 1021 }
-			}
-			transfer_state = 1021
-		}
-		if = {
-			limit = {
-				FROM = { has_full_control_of_state = 1065 }
-			}
-			transfer_state = 1065
-		}
-		if = {
-			limit = {
-				FROM = { has_full_control_of_state = 326 }
-			}
-			transfer_state = 326
-		}
-		if = {
-			limit = {
-				336 = {
-					CONTROLLER = {
-						is_subject_of = FROM
-					}
-				}
-			}
-			336 = {
-				CONTROLLER = {
-					USA = {
-						puppet = PREV
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				FROM = { has_full_control_of_state = 336 }
-			}
-			USA = {
-				transfer_state = 336
-			}
-		}
+		# MER: off-map Asian colonies removed (was vanilla 1021/1065/326/336)
+		# if = {
+		# 	limit = {
+		# 		FROM = { has_full_control_of_state = 1021 }
+		# 	}
+		# 	transfer_state = 1021
+		# }
+		# if = {
+		# 	limit = {
+		# 		FROM = { has_full_control_of_state = 1065 }
+		# 	}
+		# 	transfer_state = 1065
+		# }
+		# if = {
+		# 	limit = {
+		# 		FROM = { has_full_control_of_state = 326 }
+		# 	}
+		# 	transfer_state = 326
+		# }
+		# if = {
+		# 	limit = {
+		# 		336 = {
+		# 			CONTROLLER = {
+		# 				is_subject_of = FROM
+		# 			}
+		# 		}
+		# 	}
+		# 	336 = {
+		# 		CONTROLLER = {
+		# 			USA = {
+		# 				puppet = PREV
+		# 			}
+		# 		}
+		# 	}
+		# }
+		# else_if = {
+		# 	limit = {
+		# 		FROM = { has_full_control_of_state = 336 }
+		# 	}
+		# 	USA = {
+		# 		transfer_state = 336
+		# 	}
+		# }
 	}
 }
 

@@ -100,7 +100,6 @@ country_event = {
 					any_neighbor_state = { 
 						OR = {
 							is_owned_by = JAP
-							is_owned_by = MAN
 						}
 					} 
 				} 
@@ -157,7 +156,6 @@ country_event = {
 					any_neighbor_state = { 
 						OR = {
 							is_owned_by = JAP
-							is_owned_by = MAN
 						}
 					} 
 				}
@@ -183,7 +181,7 @@ country_event = {
 	option = {
 		name = soviet.4.a
 
-		set_variable = { SOV.former_controller_of_bessarabia = 78.controller }
+		set_variable = { SOV.former_controller_of_bessarabia = 1604.controller } # eu_mapping: v78 -> ME 1604
 		
 		ROOT = { #Scoping for tooltip reasons
 			if = { #NSB note: Now this will check for ownership and control so that in edge cases where there might be more than one controller, it won't break.
@@ -541,7 +539,6 @@ country_event = {
 	
 	option = {
 		name = soviet.16.a
-		annex_country = { target = TAN }
 		hidden_effect = {
 			SOV = {
 				country_event = { days = 1 id = news.14 }
@@ -2473,8 +2470,8 @@ country_event = {
 		country_exists = AZR
 		country_exists = ARM
 		country_exists = UZB
-		country_exists = TAJ
-		country_exists = KYR
+		always = no
+		always = no
 		country_exists = TMS
 		country_exists = KAZ
 		NOT = { has_global_flag = SOV_became_russia }
@@ -2496,27 +2493,26 @@ country_event = {
 	
 	trigger = {
 		tag = SOV
+		has_global_flag = SOV_became_russia
 		NOT = { country_exists = UKR }
 		NOT = { country_exists = BLR }
 		NOT = { country_exists = GEO }
 		NOT = { country_exists = AZR }
 		NOT = { country_exists = ARM }
 		NOT = { country_exists = UZB }
-		NOT = { country_exists = TAJ }
-		NOT = { country_exists = KYR }
+		always = yes
+		always = yes
 		NOT = { country_exists = TMS }
 		NOT = { country_exists = KAZ }
 		NOT = {
-			any_state = {
+			any_core_state = {
 				# MER: conjunction intent — "no SOV core is owned by anyone else".
 				# The pre-sweep if{limit} form was broken (empty if-body, limit ran in
 				# country scope); flattened the stranded sibling into A B form.
-				is_core_of = SOV
 				NOT = { state = 329 }   # 1.19-migration: off-map Tannu Tuva
 				NOT = { is_owned_by = SOV }
 			}
 		}
-		has_global_flag = SOV_became_russia
 	}
 
 	mean_time_to_happen = { days = 2 }

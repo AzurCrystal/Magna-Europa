@@ -162,30 +162,51 @@ ROM_dont_send_air_to_middle_east = {
 	}
 	abort_when_not_enabled = yes
 
+	# MER: remapped Middle East / Levant / Persia (SR 28/232/116)
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 49 # Middle East
+		id = 54 # Mesopotamia
 	}
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 32
-	}
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 49 # Levant
-		value = -30000
+		id = 55 # Iraqi Kurdistan
 	}
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 227 # Iran
+		id = 49 # Northern Levant
 	}
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 226
+		id = 32 # Southern Levant
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 57 # Sinai
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 224 # Persian Plateau
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 225 # Zagros Mountains
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 226 # Southern Persia
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 227 # Northern Persia
 	}
 }
 
@@ -603,8 +624,29 @@ ROM_vs_ai_sov_handicap = {
 		type = put_unit_buffers
 		ratio = 0.1
 		states = {
-			81
-			46
+			# Oltenia (vanilla v81)
+			797  # eu_mapping: v81 (Oltenia) -> ME 797 (Dolj)
+			759  # eu_mapping: v81 (Oltenia) -> ME 759 (Valcea)
+			774  # eu_mapping: v81 (Oltenia) -> ME 774 (Gorj)
+			781  # eu_mapping: v81 (Oltenia) -> ME 781 (Mehedinti)
+			800  # eu_mapping: v81 (Oltenia) -> ME 800 (Romanati)
+			2359 # eu_mapping: v81 (Oltenia) -> ME 2359 (Obarsia)
+			2363 # eu_mapping: v81 (Oltenia) -> ME 2363 (Defileul)
+			2364 # eu_mapping: v81 (Oltenia) -> ME 2364 (Domogled)
+			# Muntenia (vanilla v46)
+			801  # eu_mapping: v46 (Muntenia) -> ME 801 (Ilfov)
+			757  # eu_mapping: v46 (Muntenia) -> ME 757 (Buzau)
+			758  # eu_mapping: v46 (Muntenia) -> ME 758 (Muscel)
+			764  # eu_mapping: v46 (Muntenia) -> ME 764 (Prahova)
+			765  # eu_mapping: v46 (Muntenia) -> ME 765 (Braila)
+			768  # eu_mapping: v46 (Muntenia) -> ME 768 (Dambovita)
+			788  # eu_mapping: v46 (Muntenia) -> ME 788 (Olt)
+			791  # eu_mapping: v46 (Muntenia) -> ME 791 (Ialomita)
+			804  # eu_mapping: v46 (Muntenia) -> ME 804 (Teleorman)
+			1588 # eu_mapping: v46 (Muntenia) -> ME 1588 (Arges)
+			1589 # eu_mapping: v46 (Muntenia) -> ME 1589 (Vlasca)
+			2362 # eu_mapping: v46 (Muntenia) -> ME 2362 (Cheia)
+			2981 # eu_mapping: v46 (Muntenia) -> ME 2981 (Caineni)
 		}
 	}
 	#ai_strategy = {
@@ -632,5 +674,53 @@ ROM_do_not_start_barbarossa = {
 		type = declare_war
 		id = SOV
 		value = -100
+	}
+}
+
+ROM_operational_unit_production = {
+	allowed = {
+		original_tag = ROM
+	}
+	enable = {
+		always = yes
+	}
+	abort = {
+		always = no
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 72
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 5
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 6
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = artillery_equipment
+		value = 2
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = support_equipment
+		value = 2
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = anti_air_equipment
+		value = 1
 	}
 }

@@ -94,7 +94,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = ROM
-			generator = { 78 79 80 46 81  }
+			generator = { 1604 592 600 1602 1603 1605 1606 2744 2745 2980 1594 609 629 655 667 689 698 733 739 1590 1591 1592 1593 1595 1596 1597 1598 1600 2360 2361 1599 590 801 757 758 764 765 768 788 791 804 1588 1589 2362 2981 797 759 774 781 800 2359 2363 2364 } # MER: remapped vanilla generator { 78 79 80 46 81 }
 		}
 		
 		hidden_effect = {
@@ -130,7 +130,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = ROM
-			generator = { 76 83 82 84  }
+			generator = { 680 622 628 639 649 664 665 674 1582 1586 1587 2671 2672 2673 2675 2676 2680 2859 2860 705 686 2669 2674 2679 736 756 1581 2668 2670 2677 737 692 713 727 730 1583 1584 1585 2024 2261 2678 } # MER: remapped vanilla generator { 76 83 82 84 }
 		}
 		hidden_effect = {
 			
@@ -210,7 +210,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = POL
-			generator = { 88 89 90 91 }
+			generator = { 1157 484 496 501 509 836 923 1162 1219 1223 1258 1440 1441 1975 2312 2318 2329 2345 2692 2880 2931 2932 1164 490 542 1143 1265 2336 827 429 867 902 1080 1119 1292 502 1233 1270 1272 1293 1294 2346 } # MER: remapped vanilla generator { 88 89 90 91 }
 		}
 		hidden_effect = {
 			
@@ -294,7 +294,7 @@ country_event = {
 		create_wargoal = {
 			type = take_state_focus
 			target = POL
-			generator = { 88 89 90 91 }
+			generator = { 1157 484 496 501 509 836 923 1162 1219 1223 1258 1440 1441 1975 2312 2318 2329 2345 2692 2880 2931 2932 1164 490 542 1143 1265 2336 827 429 867 902 1080 1119 1292 502 1233 1270 1272 1293 1294 2346 } # MER: remapped vanilla generator { 88 89 90 91 }
 		}
 		
 		hidden_effect = {
@@ -971,17 +971,6 @@ country_event = {
 	
 	trigger = {
 		original_tag = CZE
-		all_state = {
-			# MER: all_state+if fix — implication as OR{ NOT{A}, B }
-			OR = {
-				NOT = {
-					is_core_of = SLO
-				}
-				NOT = {
-					is_owned_by = CZE
-				}
-			}
-		}
 		NOT = { has_war_with = SLO }
 		NOT = { has_global_flag = CZE_became_czech }
 		NOT = {
@@ -996,6 +985,13 @@ country_event = {
 				}
 				SLO = {
 					is_subject_of = ROOT
+				}
+			}
+		}
+		SLO = {
+			all_core_state = {
+				NOT = {
+					is_owned_by = CZE
 				}
 			}
 		}

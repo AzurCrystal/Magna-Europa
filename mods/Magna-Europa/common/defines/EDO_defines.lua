@@ -45,12 +45,12 @@ NDefines.NAir.AIR_REGION_SUPERIORITY_PIXEL_SCALE = 0.02
 NDefines.NCountry.MAJOR_IC_RATIO = 10                             -- difference in total factories needed to be considered major with respect to other nation
 NDefines.NCountry.MAJOR_MIN_FACTORIES = 70						-- need at least these many factories to become a major
 
-NDefines.NAI.WANTED_UNITS_INDUSTRY_FACTOR = 1.50                        -- How many units a country wants is partially based on how much military industry that is available
+NDefines.NAI.WANTED_UNITS_INDUSTRY_FACTOR = 1.85                        -- How many units a country wants is partially based on how much military industry that is available
 NDefines.NAI.WANTED_UNITS_THREAT_BASE = 0.7                             -- If no threat, multiply min wanted units by this
 NDefines.NAI.WANTED_UNITS_THREAT_MAX = 6.0                             -- Normalized threat is clamped to this
 NDefines.NAI.WANTED_UNITS_WAR_THREAT_FACTOR = 1.5                      -- Factor threat with this if country is at war. this value is overriden by the value in ideology database if that value exceedes this.
 NDefines.NAI.WANTED_UNITS_DANGEROUS_NEIGHBOR_FACTOR = 1.15              -- Factor if has dangerous neighbor
-NDefines.NAI.WANTED_UNITS_MANPOWER_DIVISOR = 14000                      -- Normalizing divisor for AI manpower. (for each x max available manpower, they want one division)
+NDefines.NAI.WANTED_UNITS_MANPOWER_DIVISOR = 11000                      -- Normalizing divisor for AI manpower. (for each x max available manpower, they want one division)
 NDefines.NAI.WANTED_UNITS_WEIGHT_FRONTS_WANT = 0.40                      -- Weight of front needs when computing final nr wanted units
 NDefines.NAI.WANTED_UNITS_WEIGHT_FACTORIES = 0.45                        -- Weight of military factories when computing final nr wanted units
 NDefines.NAI.WANTED_UNITS_WEIGHT_MANPOWER = 0.3                         -- Weight of manpower availability when computing final nr wanted units
@@ -61,6 +61,8 @@ NDefines.NAI.WANTED_UNITS_MAX_WANTED_CAP = 800	-- Maximum wanted divisions for a
 NDefines.NNavy.NAVAL_SPEED_MODIFIER = 0.3
 NDefines.NNavy.NAVAL_TRANSFER_BASE_SPEED = 12
 NDefines.NNavy.NAVAL_RANGE_TO_INGAME_DISTANCE = 0.24							-- Scale the ship stats "naval_range" to the ingame distance
+NDefines.NNavy.MEDITERRANEAN_SEA_REGIONS = { 75, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208 } -- ME: all 16 Mediterranean SRs (replaces vanilla {29,68,69,168,169,202} which wrongly hit 168 Skagerrak & land SRs)
+NDefines.NNavy.NAVAL_DOMINANCE_STRIKE_FORCE_MULTIREGION_DECAY = 0.025 -- VANILLA: 0.05. Halved for ME's ~3x finer sea-SR grid so strike forces sustain dominance across 3-4 narrow zones
 
 NDefines.NGraphics.MINIMUM_PROVINCE_SIZE_IN_PIXELS = 4
 
@@ -105,10 +107,10 @@ NDefines.NResistance.SUPPRESSION_NEEDED_BY_RESISTANCE_POINT = 0.6 --Reduced from
 
 -- Production discipline: don't keep queueing divisions while field units starve
 NDefines.NAI.MIN_FIELD_STRENGTH_TO_BUILD_UNITS = 0.5		-- VANILLA: 0.7. Cancels queued unit production below this to reinforce field units. At 0.75 GER hovered on the threshold → training queue kept getting cancelled (obs run 4: template upgrades only, no new divisions). 0.5 keeps it as a genuine starvation guard only.
-NDefines.NAI.PRODUCTION_EQUIPMENT_SURPLUS_FACTOR = 1.2	-- VANILLA: 0.8
+NDefines.NAI.PRODUCTION_EQUIPMENT_SURPLUS_FACTOR = 0.95	-- VANILLA: 0.8 (lowered from 1.2 so AI resumes queueing new divisions once field reinforcement stabilizes, preventing wartime TRN=0 stalls)
 NDefines.NAI.UPGRADE_DIVISION_RELUCTANCE = 7				-- VANILLA: 7. 3 = AI upgraded templates 2.3x more eagerly; obs showed GER expanding templates post-Anschluss instead of queueing new divisions (halved manpower per battalion makes upgrades useless for fielded-manpower goals)
 NDefines.NAI.UPGRADE_PERCENTAGE_OF_FORCES = 0.20			-- VANILLA: 0.20
-NDefines.NAI.DESIRE_USE_XP_TO_UPDATE_LAND_TEMPLATE = 2.0	-- VANILLA: 2.0
+NDefines.NAI.DESIRE_USE_XP_TO_UPDATE_LAND_TEMPLATE = 3.0	-- VANILLA: 2.0
 NDefines.NAI.DEPLOYED_UNIT_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.5	-- VANILLA: 0.10. Buffer = share of deployed manpower held back for reinforcements; at 0.1 GER kept ~37k of 750k reserved → only ~4-8 deployment lines open. 0.5 lets the training pipeline fill without removing the wartime stockguard entirely.
 NDefines.NAI.MAX_AVAILABLE_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.5	-- VANILLA: 0.2
 
@@ -117,13 +119,40 @@ NDefines.NAI.MAX_AVAILABLE_MANPOWER_RATIO_TO_BUFFER_PEACETIME = 0.5	-- VANILLA: 
 NDefines.NAI.FRONT_EVAL_PERCENT_TO_ASSIST_ALLY_FRONT = 1.0	-- VANILLA: 0.5
 NDefines.NAI.FRONTLINE_EXPANSION_FACTOR = 0.6				-- VANILLA: 0.6. 0.4 under-fed front demand → GER wanted_units sagged, fewer divisions built (obs 2026-10-01 run 2)
 NDefines.NAI.FRONT_UNITS_CAP_FACTOR = 20.0					-- VANILLA: 15.0. Halved battalion costs → ~2x divisions needed for same frontage; 10 capped GER below its real requirement
-NDefines.NAI.AIFC_UNIT_RATIO_BASE = 0.25					-- VANILLA: 0.15. Bigger spearhead reserve
+NDefines.NAI.AIFC_UNIT_RATIO_BASE = 0.28					-- VANILLA: 0.15. Bigger spearhead reserve
 
 -- AIFC pathing: breakthroughs should follow railways and supply hubs
 NDefines.NAI.AIFC_PATH_COST_RAILWAY_CONNECTION = 0.35		-- VANILLA: 0.75
 NDefines.NAI.AIFC_PATH_COST_HAS_SUPPLY_HUB = 0.3			-- VANILLA: 0.5
-NDefines.NAI.AIFC_TARGET_SUPPLY_HUB_BASE_SCORE = 40.0		-- VANILLA: 20.0
+NDefines.NAI.AIFC_TARGET_SUPPLY_HUB_BASE_SCORE = 45.0		-- VANILLA: 20.0
 NDefines.NAI.AIFC_TARGET_CAPITAL_SCORE_EXTRA = 25.0			-- VANILLA: 5.0. Capital hubs were drowning under supply-hub score 40; capitals should outrank ordinary hubs
+NDefines.NAI.AIFC_MAX_NR_FRONTS = 6							-- VANILLA: 4. Enlarged European map has more concurrent operational axes
+NDefines.NAI.AIFC_CA_DIVISIONS_PER_PROVINCE = 4				-- VANILLA: 3. Matches 2x division density at breakthrough supply-hub targets
+NDefines.NAI.AIFC_PATH_MAX_COST = 11.0						-- VANILLA: 7.0. Lets armor plan 300-400 km railway thrusts to the next major supply hub
+NDefines.NAI.AIFC_UPDATE_FREQUENCY_DAYS = 7					-- VANILLA: 5. Offsets CPU evaluation cost of deeper AIFC_PATH_MAX_COST
+
+-- Area defense scaling: ME splits Germany/USSR into ~5x more land Strategic Regions
+-- than vanilla (19 GER / 25 SOV SRs), causing vanilla per-SR caps & interior weights
+-- to lock ~46-51% of frontline armies into landlocked rear garrisons. Keep coastal
+-- weights at vanilla defaults so ports/coastlines stay guarded.
+NDefines.NAI.AREA_DEFENSE_MINCAP_MAX_CAPITAL_DEFENSE = 15			-- VANILLA: 100
+NDefines.NAI.AREA_DEFENSE_MINCAP_DESIRED_CAPITAL_DEFENSE = 2		-- VANILLA: 5
+NDefines.NAI.AREA_DEFENSE_MINCAP_MAX_HOME_AREA = 3					-- VANILLA: 10
+NDefines.NAI.AREA_DEFENSE_MINCAP_DESIRED_HOME_AREA = 1				-- VANILLA: 3
+NDefines.NAI.AREA_DEFENSE_CAPITAL_VP_WEIGHT = { 0.0, 0.25, 0.5 }	-- VANILLA: { 0.0, 1.0, 2.0 }
+NDefines.NAI.AREA_DEFENSE_HOME_VP_WEIGHT = { 0.0, 0.1, 0.25 }		-- VANILLA: { 0.0, 0.5, 1.0 }
+NDefines.NAI.AREA_DEFENSE_OTHER_VP_WEIGHT = { 0.0, 0.0, 0.2 }		-- VANILLA: { 0.0, 0.0, 1.0 }
+NDefines.NAI.AREA_DEFENSE_CAPITAL_BASE_WEIGHT = { 0.1, 0.25, 0.4 }	-- VANILLA: { 0.5, 1.0, 1.5 }
+NDefines.NAI.AREA_DEFENSE_HOME_BASE_WEIGHT = { 0.05, 0.15, 0.3 }		-- VANILLA: { 0.5, 1.0, 1.0 }
+NDefines.NAI.AREA_DEFENSE_OTHER_BASE_WEIGHT = { 0.05, 0.1, 0.2 }		-- VANILLA: { 0.5, 0.5, 1.0 }
+NDefines.NAI.AREA_DEFENSE_BASE_IMPORTANCE = 12						-- VANILLA: 30
+NDefines.NAI.AREA_DEFENSE_IMPORTANCE_FACTOR = 0.35					-- VANILLA: 1.0
+
+-- Naval AI scaling for ME's ~3x finer sea-SR grid (pure-script fix, no sea-zone merging)
+NDefines.NAI.PATROL_FLEETS_PER_INVASION_REGION_ON_PATH = 1	-- VANILLA: 2. Multi-SR corridors (Weserubung 3 SRs, Med) otherwise demand 6 patrol TFs simultaneously
+NDefines.NAI.AI_MIN_DOMINANCE_MARGIN = 120					-- VANILLA: 200. Prevent smaller navies from over-stacking 1 zone at the expense of adjacent corridor zones
+NDefines.NAI.MAX_DISTANCE_NAVAL_INVASION = 400.0			-- VANILLA: 200.0. Scaled for ME enlarged map pixel distances (MAP_SCALE_PIXEL_TO_KM 7.114->1.74)
+NDefines.NAI.NAVAL_MISSION_DISTANCE_BASE = 6500				-- VANILLA: 3500. Scaled for ME enlarged map pixel distances
 
 -- AI supply awareness: vanilla values assume the old organic-supply economy
 NDefines.NAI.CONSTRUCTION_PRIO_SUPPLY_BUILDING = 1.5		-- VANILLA: 1.10. Boosted for ME supply economy but kept below factories after x2 core factor (3.0 vs CIV 1.6/MIL 1.4 is enough)

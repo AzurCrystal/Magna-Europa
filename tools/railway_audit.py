@@ -9,14 +9,14 @@ Checks:
 
 Usage: python tools/railway_audit.py [mapdir]
 """
-import sys, json, csv
-from _modroot import cd_mod, repo_root
+import sys
+from _modroot import cd_mod
 cd_mod()
 from collections import deque
 from prov_adjacency import build
 
 def audit(mapdir='map'):
-    adj_list, ptype = build(mapdir, repo_root() + '/_ctx/_adj_tmp.json')
+    adj_list, ptype = build(mapdir)
     adj = {int(k): {n for n,_ in v} for k, v in adj_list.items()}
     rail_adj, rail_provs = {}, set()
     breaks, sea_hops = [], []

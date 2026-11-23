@@ -12244,6 +12244,13 @@ country_event = {
 	fire_only_once = yes
 
 	trigger = {
+		OR = {
+			has_country_flag = SPR_relocated_gold_reserves_selection_flag_sov
+			has_country_flag = SPR_relocated_gold_reserves_selection_flag1
+			has_country_flag = SPR_relocated_gold_reserves_selection_flag2
+			has_country_flag = SPR_relocated_gold_reserves_selection_flag3
+		}
+		NOT = { has_country_flag = SPR_relocate_the_gold_reserves_timer_flag }
 		any_country_with_original_tag = {
 			exists = yes
 			original_tag_to_check = SPR
@@ -12257,13 +12264,6 @@ country_event = {
 			}
 			has_completed_focus = SPR_relocate_the_gold_reserves
 		}
-		OR = {
-			has_country_flag = SPR_relocated_gold_reserves_selection_flag_sov
-			has_country_flag = SPR_relocated_gold_reserves_selection_flag1
-			has_country_flag = SPR_relocated_gold_reserves_selection_flag2
-			has_country_flag = SPR_relocated_gold_reserves_selection_flag3
-		}
-		NOT = { has_country_flag = SPR_relocate_the_gold_reserves_timer_flag }
 	}
 
 	mean_time_to_happen = {
@@ -13066,6 +13066,10 @@ country_event = {
 	
 	trigger = {
 		original_tag = SPR
+		date > 1940.2.28
+		has_completed_focus = SPA_a_great_spain
+		NOT = { has_completed_focus = SPA_the_phalanx_ascendant }
+		NOT = { has_global_flag = SPB_alfonso_xiii_dead }
 		if = {
 			limit = {
 				any_country = {
@@ -13081,10 +13085,6 @@ country_event = {
 			}
 			is_ai = no
 		}
-		has_completed_focus = SPA_a_great_spain
-		NOT = { has_completed_focus = SPA_the_phalanx_ascendant }
-		NOT = { has_global_flag = SPB_alfonso_xiii_dead }
-		date > 1940.2.28
 	}
 
 	mean_time_to_happen = {
@@ -13518,7 +13518,7 @@ country_event = {
 		owns_state = 896 # -> Barcelona
 		owns_state = 1619 # -> Andorra
 		owns_state = 2966 # -> Valle de Arán
-		has_full_control_of_state = 165
+		has_full_control_of_state = 896 # eu_mapping: v165 -> ME 896
 	}
 
 	mean_time_to_happen = {
@@ -13562,7 +13562,7 @@ country_event = {
 		has_war_with = SOV
 		SOV = { owns_state = 1007 } # was vanilla 167 (Valencia -> València)
 		owns_state = 1056 # -> Alicante
-		has_full_control_of_state = 167
+		has_full_control_of_state = 1007 # eu_mapping: v167 -> ME 1007
 	}
 
 	mean_time_to_happen = {
@@ -13601,7 +13601,7 @@ country_event = {
 		SOV = { owns_state = 927 } # was vanilla 794 (Eastern Aragón -> Tarragona)
 		owns_state = 974 # -> Castellón
 		owns_state = 2328 # -> Amposta
-		has_full_control_of_state = 794
+		has_full_control_of_state = 927 # MER: matched to lar_spain.87 state 927 (Tarragona)
 	}
 
 	mean_time_to_happen = {

@@ -2943,51 +2943,6 @@ SOV_approach_sinkiang_diplomacy_effect = {
 			id = GXC		
 			value = -5
 		}
-		add_ai_strategy = {
-			type = alliance
-			id = MEN		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = MAN		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = GDC		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = XIC		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = SND		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = KHM		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = NXM		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = GSM		
-			value = -5
-		}
-		add_ai_strategy = {
-			type = alliance
-			id = HBC		
-			value = -5
-		}
 	}
 }
 
@@ -3044,19 +2999,19 @@ SOV_set_appropriate_national_academy_of_sciences_flag_effect = {
 	}
 	else_if = {
 		limit = {
-			FROM = { tag = KYR }
+			FROM = { always = no }
 		}
 		ROOT = { set_country_flag = SOV_national_academy_of_sciences_built_KYR_flag }
 	}
 	else_if = {
 		limit = {
-			FROM = { tag = TAJ }
+			FROM = { always = no }
 		}
 		ROOT = { set_country_flag = SOV_national_academy_of_sciences_built_TAJ_flag }
 	}
 	else_if = {
 		limit = {
-			FROM = { tag = TAN }
+			FROM = { always = no }
 		}
 		ROOT = { set_country_flag = SOV_national_academy_of_sciences_built_TAN_flag }
 	}
@@ -3104,7 +3059,7 @@ SOV_set_appropriate_national_academy_of_sciences_flag_effect = {
 	}
 	else_if = {
 		limit = {
-			FROM = { tag = MON }
+			FROM = { always = no }
 		}
 		ROOT = { set_country_flag = SOV_national_academy_of_sciences_built_MON_flag }
 	}
@@ -7577,7 +7532,6 @@ SOV_initiate_civil_war = {
 			limit = {
 				SOV_is_exiles = yes 
 			}
-			MAN = { give_military_access = SOP }
 		}
 
 
@@ -8656,12 +8610,6 @@ SOV_exiles_civil_war_start = {
 		limit = {
 			has_completed_focus = SOV_approach_semyonov
 		}
-		MAN = {
-			country_event = {
-				id = NSB_Soviet_fascist_civil_war.004 # transfer Semyonov from MAN to SOV
-				days = 0
-			}
-		}
 	}
 	IF = {
 		limit = {
@@ -8907,9 +8855,7 @@ SOV_the_eyes_fear_units = {
 					is_owned_by = SOS
 					is_owned_by = SOV
 				}
-				OR  = {
-					always = no # MEPORT: off-map region set emptied (vanilla Siberia/Far-East 149,151,256-262)
-				}
+				always = no
 				NOT = { has_state_flag = SOV_ruki_flag } # Only one per state
 			}
 			create_unit = {

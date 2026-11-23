@@ -401,49 +401,8 @@ USA_unit_buffer_for_africa = {
 			1335 # Rio de Oro (was vanilla 699)
 			# 557 # 1.19-migration: off-map Mauritania
 			# 272 # 1.19-migration: off-map French Africa
-			849 # Basque Country (Vizcaya) (was vanilla 792)
-			851 # Guipuzcoa (was vanilla 792)
+			# 792 # 1.19-migration: off-map Guinea (removed Basque 849/851)
 			# 700 # 1.19-migration: off-map Sierra Leone
-		}
-
-		ratio = 0.15
-
-		area = africa
-
-		subtract_invasions_from_need = no
-	}
-
-	ai_strategy = {
-		type = put_unit_buffers
-
-		order_id = 1
-
-		# east africa
-		states = {  # was vanilla 559 269 268 550 551
-			# 559 # 1.19-migration: off-map Somaliland
-			# 269 # 1.19-migration: off-map British Somaliland
-			# 268 # 1.19-migration: off-map French Somaliland
-			# 550 # 1.19-migration: off-map Eritrea
-			# 551 # 1.19-migration: off-map Khartoum
-		}
-
-		ratio = 0.15
-
-		area = africa
-
-		subtract_invasions_from_need = no
-	}
-
-	ai_strategy = {
-		type = put_unit_buffers
-
-		order_id = 1
-
-		# south africa
-		states = {  # was vanilla 541 681 719
-			# 541 # 1.19-migration: off-map South West Africa
-			# 681 # 1.19-migration: off-map Soviet Lakes
-			# 719 # 1.19-migration: off-map Natal
 		}
 
 		ratio = 0.15
@@ -1756,7 +1715,6 @@ USA_avoid_med_for_escort = {
 	ai_strategy = { type = naval_avoid_region id = 206 value = 500 } # Libyan Sea
 	ai_strategy = { type = naval_avoid_region id = 207 value = 500 } # Western Libyan Sea
 	ai_strategy = { type = naval_avoid_region id = 75  value = 500 } # Aegean Sea
-	ai_strategy = { type = naval_avoid_region id = 49  value = 500 } # Levant
 	ai_strategy = { type = naval_avoid_region id = 200 value = 500 } # Strait of Sicily (vanilla SR29 Central Mediterranean Sea)
 	ai_strategy = { type = naval_avoid_region id = 202 value = 500 } # Ionian Sea
 	ai_strategy = { type = naval_avoid_region id = 195 value = 500 } # Tyrrhenian Sea
@@ -2515,5 +2473,32 @@ USA_leave_england_to_the_brits = {
 		type = naval_dominance
 		id = 239 # Eastern North Sea (vanilla SR173)
 		value = -100
+	}
+}
+
+USA_atlantic_dominance = {
+	allowed = { original_tag = USA }
+	enable = {
+		OR = {
+			has_war_with = GER
+			has_war_with = ITA
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_dominance
+		id = 244 # Western Approaches
+		value = 80
+	}
+	ai_strategy = {
+		type = naval_dominance
+		id = 243 # Mid Atlantic
+		value = 80
+	}
+	ai_strategy = {
+		type = naval_dominance
+		id = 220 # Gulf of Biscay
+		value = 60
 	}
 }

@@ -152,9 +152,6 @@ TUR_the_constitutional_arrows_category = {
 		
 		visible = {
 			has_completed_focus = TUR_ratify_the_six_arrows
-			any_owned_state = {
-				has_state_flag = TUR_ideological_battleground_state
-			}
 			NOT = { 
 				OR = {
 					has_country_leader = {
@@ -181,6 +178,9 @@ TUR_the_constitutional_arrows_category = {
 						NOT = { has_completed_focus = TUR_loosen_the_laws_on_secularism } 
 					}
 				}
+			}
+			any_owned_state = {
+				has_state_flag = TUR_ideological_battleground_state
 			}
 		}
 		
@@ -3534,13 +3534,6 @@ TUR_fundamentalist_state_management_category = {
 		cost = 100
 
 		visible = { 
-			any_owned_state = { 
-				OR = {
-					has_dynamic_modifier = { modifier = islamist_opposition }
-					has_dynamic_modifier = { modifier = islamist_sedition }
-					has_dynamic_modifier = { modifier = islamist_insurgency }
-				}
-			}
 			NOT = { 
 				OR = {
 					has_completed_focus = TUR_lift_the_ban_on_other_political_parties
@@ -3551,6 +3544,13 @@ TUR_fundamentalist_state_management_category = {
 						ruling_only = yes
 					}
 					has_completed_focus = TUR_pivot_to_the_past
+				}
+			}
+			any_owned_state = { 
+				OR = {
+					has_dynamic_modifier = { modifier = islamist_opposition }
+					has_dynamic_modifier = { modifier = islamist_sedition }
+					has_dynamic_modifier = { modifier = islamist_insurgency }
 				}
 			}
 		}
@@ -3744,9 +3744,6 @@ TUR_fundamentalist_state_management_category = {
 		cost = 200
 
 		visible = { 
-			any_owned_state = {
-				TUR_is_fundamentalist_state = yes
-			}
 			NOT = {
 				has_country_flag = TUR_empowered_fundamentalism_recently_flag
 			}
@@ -3754,6 +3751,9 @@ TUR_fundamentalist_state_management_category = {
 				has_completed_focus = TUR_turk_ulusu
 				has_completed_focus = TUR_reinvigorate_turkish_nationalism
 				has_completed_focus = TUR_permit_regional_elections
+			}
+			any_owned_state = {
+				TUR_is_fundamentalist_state = yes
 			}
 		}
 
@@ -4048,8 +4048,8 @@ TUR_the_enemy_within = {
 		cost = 100
 
 		visible = { 
-			any_owned_state = {
-				has_state_flag = TUR_ideological_battleground_state
+			NOT = {
+				has_country_flag = TUR_spread_fundamentalism_recently_flag
 			}
 			OR = {
 				has_country_leader = {
@@ -4058,8 +4058,8 @@ TUR_the_enemy_within = {
 				}
 				has_completed_focus = TUR_pivot_to_the_past
 			}
-			NOT = {
-				has_country_flag = TUR_spread_fundamentalism_recently_flag
+			any_owned_state = {
+				has_state_flag = TUR_ideological_battleground_state
 			}
 		}
 

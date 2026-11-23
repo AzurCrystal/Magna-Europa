@@ -146,7 +146,7 @@ JAP_create_patrick_heenan_operative = {
 		traits = { operative_tough }
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { ENG NZL MAL RAJ }
+		nationalities = { ENG NZL RAJ }
 	}
 }
 
@@ -170,7 +170,7 @@ JAP_create_ignatius_lincoln_operative = {
 		traits = { operative_seducer operative_well_groomed operative_natural_orator }
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { HUN AUS TIB CHI ISR }
+		nationalities = { HUN AUS CHI ISR }
 	}
 }
 
@@ -182,7 +182,7 @@ JAP_create_yoshiko_kawashima_operative = {
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		female = yes
-		nationalities = { MAN JAP CHI }
+		nationalities = { JAP CHI }
 	}
 }
 
@@ -824,24 +824,7 @@ JAP_trigger_democratic_civil_war = {
 	# The Colonies and Imperial Protectorates Break Ties 
 	IF = {
 		limit = {
-			MAN = { is_subject_of = ROOT }
-		}
-		set_autonomy = { target = MAN autonomy_state = autonomy_free }
-		MAN = {
-#			country_event = {   # 1.19-migration: SEA_japan_popup_events not in mod
-#				id = SEA_japan_popup_events.26
-#				hours = 4
-#			}	
-			effect_tooltip = {
-				set_cosmetic_tag = MAN_kwantung_army
-				IF = {
-					limit = {
-						has_idea = MAN_kwantung_veto 
-					}
-					remove_ideas = MAN_kwantung_veto 
-				}
-				add_ideas = MAN_militarism 
-			}
+			always = no
 		}
 	}
 	
@@ -1058,16 +1041,6 @@ JAP_trigger_democratic_civil_war = {
 	subtract_from_temp_variable = { temp_imperial_air = ROOT.JAP_opposition_air_support }
 	
 	hidden_effect = {
-		MAN = {
-			every_owned_state = {
-				teleport_armies = {
-					limit = {
-						original_tag = JAP
-					}
-					to_state_array = JAP.owned_controlled_states
-				}
-			}
-		}
 	#		KOR = {
 	#			every_owned_state = {
 	#				teleport_armies = {
@@ -1599,24 +1572,7 @@ JAP_trigger_communist_civil_war = {
 	# The Colonies and Imperial Protectorates Break Ties 
 	IF = {
 		limit = {
-			MAN = { is_subject_of = ROOT }
-		}
-		set_autonomy = { target = MAN autonomy_state = autonomy_free }
-		MAN = {
-#			country_event = {   # 1.19-migration: SEA_japan_popup_events not in mod
-#				id = SEA_japan_popup_events.26
-#				hours = 4
-#			}	
-			effect_tooltip = {
-				set_cosmetic_tag = MAN_kwantung_army
-				IF = {
-					limit = {
-						has_idea = MAN_kwantung_veto 
-					}
-					remove_ideas = MAN_kwantung_veto 
-				}
-				add_ideas = MAN_militarism 
-			}
+			always = no
 		}
 	}
 	
@@ -1829,16 +1785,6 @@ JAP_trigger_communist_civil_war = {
 	subtract_from_temp_variable = { temp_imperial_air = ROOT.JAP_opposition_air_support }
 
 	hidden_effect = {
-		MAN = {
-			every_owned_state = {
-				teleport_armies = {
-					limit = {
-						original_tag = JAP
-					}
-					to_state_array = JAP.owned_controlled_states
-				}
-			}
-		}
 	#		KOR = {
 	#			every_owned_state = {
 	#				teleport_armies = {

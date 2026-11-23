@@ -29,7 +29,7 @@ ITA_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = mountaineers
-		value = 2
+		value = 5
 	}
 
 	ai_strategy = {
@@ -47,13 +47,13 @@ ITA_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 8
+		value = 12
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 80
+		value = 68
 	}
 
 	#Air unit factors
@@ -115,7 +115,7 @@ ITA_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
-		value = 40
+		value = 55
 	}
 
 	ai_strategy = {
@@ -140,6 +140,24 @@ ITA_unit_production = {
 		type = equipment_production_factor
 		id = artillery
 		value = 25
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = artillery_equipment
+		value = 3
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = support_equipment
+		value = 2
+	}
+
+	ai_strategy = {
+		type = equipment_production_min_factories_archetype
+		id = motorized_equipment
+		value = 2
 	}
 }
 
@@ -1141,29 +1159,6 @@ ITA_abbandon_eth = {
 		date > 1938.6.1
 	}
 	abort_when_not_enabled = yes
-		
-	ai_strategy = {
-		type = front_unit_request
-		value = -35
-
-		state_trigger = {
-			controller = {
-				OR = {
-					tag = AOI 
-					tag = FRA
-					tag = ENG
-					has_war_with = AOI
-				}
-			}
-			OR = {
-				region = 37 # was vanilla SR 17 (Africa) -> mod Algeria
-				region = 38 # was vanilla SR 274 (Ogaden) -> mod Tripolitania
-				region = 39 # was vanilla SR 273 (Danakil) -> mod Cyrenaica
-				region = 50 # was vanilla SR 216 (Upper Nile) -> mod Upper Nile
-				region = 58 # was vanilla SR 217 (Lake Victoria) -> mod Lower Nile
-			}
-		}
-	}
 }
 
 # lets not invade until we have europe
@@ -1669,14 +1664,14 @@ ITA_contest_the_med = {
 	
 	ai_strategy = {
 		type = naval_dominance
-		id = western_med_control_zone
-		value = 80
+		id = central_med_lifeline
+		value = 120
 	}
 	
 	ai_strategy = {
 		type = naval_dominance
-		id = italy_med_control_zone
-		value = 80
+		id = 194 # Adriatic Sea
+		value = 60
 	}
 }
 
@@ -1754,33 +1749,51 @@ ITA_dont_send_air_to_middle_east = {
 	}
 	abort_when_not_enabled = yes
 
+	# MER: remapped Middle East / Levant / Persia (SR 28/232/116)
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 49 # Middle East
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		value = -30000
-		id = 32
-	}
-
-	ai_strategy = {
-		type = strategic_air_importance
-		id = 49 # Levant
-		value = -30000
+		id = 54 # Mesopotamia
 	}
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 227 # Iran
+		id = 55 # Iraqi Kurdistan
 	}
-
 	ai_strategy = {
 		type = strategic_air_importance
 		value = -30000
-		id = 226
+		id = 49 # Northern Levant
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 32 # Southern Levant
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 57 # Sinai
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 224 # Persian Plateau
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 225 # Zagros Mountains
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 226 # Southern Persia
+	}
+	ai_strategy = {
+		type = strategic_air_importance
+		value = -30000
+		id = 227 # Northern Persia
 	}
 
 }
