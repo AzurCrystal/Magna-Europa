@@ -1,11 +1,11 @@
 <div align="center">
 
-<img src="thumbnail.png" alt="Magna Europa: Reforged">
+<img src="mods/Magna-Europa/thumbnail.png" alt="Magna Europa: Reforged">
 
 # Magna Europa: Reforged
 
-![Version](https://img.shields.io/badge/version-0.99.6-blue)
-![Hearts of Iron IV](https://img.shields.io/badge/HoI4-1.19.*-orange)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Hearts of Iron IV](https://img.shields.io/badge/HoI4-1.20.*-orange)
 [![Steam Workshop](https://img.shields.io/badge/Steam%20Workshop-3809580289-1b2838)](https://steamcommunity.com/sharedfiles/filedetails/?id=3809580289)
 
 **[English](README.md)** | 简体中文
@@ -17,7 +17,7 @@
 </div>
 
 > [!NOTE]
-> **Reforged** 是 **Edouard_Saladier** 原作 [Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839) 项目的社区续作，已迁移至 HoI4 **1.19.\***，目前处于活跃开发中。
+> **Reforged** 是 **Edouard_Saladier** 原作 [Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839) 项目的社区续作，已迁移至 HoI4 **1.20.\***，目前处于活跃开发中。
 
 > [!CAUTION]
 > 本模组基于 [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093)（Alpha 本身也是对原作的社区重制）开发，但对其内容做了大幅精简与修改，因此可视为**不兼容任何为 Magna Europa Alpha 或 Reloaded 制作的子模组**，以及任何其他修改游戏内容的模组。具体兼容情况请查阅[兼容性列表](COMPATIBILITY.md)。
@@ -42,7 +42,7 @@
 
 本模组对 `history/`、`events/`、`map/strategicregions` 及 `common/` 的大部分目录使用 `replace_path`，并以同名路径下的自带地图位图覆盖原版文件——实际上替换了整个游戏状态。**请默认它与其他所有模组不兼容**，包括子模组，除非另有说明。
 
-- 需求游戏版本：**1.19.\***
+- 需求游戏版本：**1.20.\***
 - 不强制要求任何 DLC；DLC 专属内容均通过 `has_dlc` 检查做了门槛处理。
 - 详细的 DLC 与模组支持情况见[兼容性列表](COMPATIBILITY.md)。
 

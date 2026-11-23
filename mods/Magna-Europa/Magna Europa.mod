@@ -1,4 +1,4 @@
-version="0.99.9"
+version="1.0.0"
 tags={
 	"Map"
 }

@@ -4,8 +4,8 @@
 
 # Magna Europa: Reforged
 
-![Version](https://img.shields.io/badge/version-0.99.6-blue)
-![Hearts of Iron IV](https://img.shields.io/badge/HoI4-1.19.*-orange)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Hearts of Iron IV](https://img.shields.io/badge/HoI4-1.20.*-orange)
 [![Steam Workshop](https://img.shields.io/badge/Steam%20Workshop-3809580289-1b2838)](https://steamcommunity.com/sharedfiles/filedetails/?id=3809580289)
 
 **English** | [简体中文](README_zh-CN.md)
@@ -17,7 +17,7 @@
 </div>
 
 > [!NOTE]
-> **Reforged** is the community continuation of the [Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839) project by **Edouard_Saladier**, migrated to HoI4 **1.19.\*** and under active development.
+> **Reforged** is the community continuation of the [Magna Europa: Reloaded](https://steamcommunity.com/sharedfiles/filedetails/?id=3150495839) project by **Edouard_Saladier**, migrated to HoI4 **1.20.\*** and under active development.
 
 > [!CAUTION]
 > This mod is built on [Magna Europa Alpha](https://steamcommunity.com/sharedfiles/filedetails/?id=3586596093) — itself a community rework of the original — but heavily prunes and reworks its content. It should therefore be treated as **incompatible with any submod made for Magna Europa Alpha or Reloaded**, as well as any other mod that changes game content. For specific cases, please check the [compatibility list](COMPATIBILITY.md).
@@ -42,7 +42,7 @@
 
 This mod uses `replace_path` on `history/`, `events/`, `map/strategicregions` and most of `common/`, and ships its own map bitmaps that shadow the vanilla ones at identical paths. It effectively replaces the entire game state. **Assume it is incompatible with every other mod**, including submods, unless explicitly stated otherwise.
 
-- Required game version: **1.19.\***
+- Required game version: **1.20.\***
 - No DLC is strictly required; DLC-specific content is gated by the usual `has_dlc` checks.
 - For per-DLC and per-mod status see the [compatibility list](COMPATIBILITY.md).
 
