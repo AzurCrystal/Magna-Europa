@@ -1,0 +1,139 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Optimized USA Historical Focus Plan
+# Rushes New Deal recovery, Scientist Haven + OSRD (5th & 6th research slots), Giant Wakes,
+# Arsenal of Democracy, Tank Experiments, Two-Ocean Navy + Carriers, and Wartime Industry for Europe.
+############################################################################################################
+
+USA_historical_plan = {
+	name = "US historical plan (ME-EAI)"
+	desc = "Fast industrial awakening, 6-slot research, armored & naval power projection to Europe"
+
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		OR = {
+			AND = {
+				is_historical_focus_on = yes
+				OR = {
+					not = { has_dlc = "Man the Guns" }
+					has_game_rule = {
+						rule = USA_ai_behavior
+						option = DEFAULT
+					}
+				}
+			}
+			has_country_flag = USA_AI_DEMOCRATIC_HISTORICAL
+			has_country_flag = democratic_usa_won_civil_war
+			has_game_rule = {
+				rule = USA_ai_behavior
+				option = DEMOCRATIC_HISTORICAL
+			}
+		}
+	}
+	abort = {
+		OR = {
+			AND = {
+				has_game_rule = {
+					rule = USA_ai_behavior
+					option = DEFAULT
+				}
+				OR = {
+					GER = {
+						OR = {
+							has_completed_focus = GER_oppose_hitler_ww
+							has_completed_focus = GER_oppose_hitler
+						}
+					}
+					ENG = {
+						not = { has_government = democratic }
+					}
+					has_war_with = CAN
+				}
+			}
+		}
+	}
+
+	ai_national_focuses = {
+		# 1936-1937: Rapid Depression Exit + Early Research Slot
+		USA_continue_the_new_deal
+		USA_wpa
+		USA_agricultural_adjustment_act
+		USA_neutrality_act
+		USA_fair_labour_standards_act
+		USA_scientist_haven						# 5th research slot early!
+		USA_war_department
+
+		# 1938-1939: Arsenal of Democracy + Giant Wakes + OSRD + War Plans Europe
+		USA_arsenal_of_democracy
+		USA_the_giant_wakes						# Drop Great Depression ASAP!
+		USA_federal_housing_act
+		USA_military_construction
+		USA_USACE_projects
+		USA_office_of_scientific_research_and_development	# 6th research slot!
+		USA_air_war_plans_division
+		USA_war_plans_division
+		USA_intervention_in_europe
+		USA_war_plan_black
+
+		# 1940: Mobilization + Two-Ocean Navy + Armored Warfare
+		USA_selective_training_act
+		USA_wartime_industry					# Huge MIL efficiency earlier!
+		USA_two_ocean_navy_act
+		USA_fund_the_navy
+		USA_destroyers_for_bases
+		USA_lend_lease_act
+		USA_louisiana_maneuvers
+		USA_support_rock_island
+		USA_tank_experiments
+		USA_tank_destroyer_doctrine
+
+		# 1941-1942: Atlantic Fleet, Carriers, Amphibious Logistics & Air Dominance
+		USA_bureau_of_ships
+		USA_carrier_primacy
+		USA_maritime_commission
+		USA_liberty_ships
+		USA_escort_fighters
+		USA_strategic_bombing
+		USA_combined_bomber_offensive
+		USA_build_the_pentagon
+		USA_army_of_the_united_states
+
+		# 1943+: Endgame
+		USA_womens_armed_service_integration_act
+		USA_manhattan_project
+		USA_intervention_in_asia
+	}
+
+	focus_factors = {
+		USA_suspend_the_presecution = 0
+	}
+
+	research = {
+		industry = 25.0
+		armor = 25.0
+		light_fighter = 30.0
+		dd_tech = 18.0
+		cv_tech = 18.0
+		tp_tech = 20.0
+	}
+
+	ideas = {
+	}
+
+	traits = {
+		war_industrialist = 10
+		financial_expert = 10
+		silent_workhorse = 25
+	}
+
+	ai_strategy = {
+		type = support
+		id = "ENG"
+		value = 250
+	}
+
+	weight = {
+		factor = 1.0
+	}
+}

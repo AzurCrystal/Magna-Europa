@@ -1,0 +1,432 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Production, Division Soft-Cap & State Flags Engine
+# Runs inside the 28-day staggered monthly brain + Tier-1 weekly pulse + war-crisis fast path.
+# Exports ONLY cheap O(1) country flags consumed by ME_EAI_core_strategies.txt and ME_EAI_research.txt.
+############################################################################################################
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_update_global_tech_era
+#   Sets global year-window flags so ai_strategy never evaluates date triggers daily across 63 nations.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_update_global_tech_era = {
+	if = {
+		limit = {
+			NOT = { has_global_flag = ME_EAI_era_1938 }
+			date > 1937.6.1
+		}
+		set_global_flag = ME_EAI_era_1938
+	}
+	if = {
+		limit = {
+			NOT = { has_global_flag = ME_EAI_era_1940 }
+			date > 1939.5.1
+		}
+		set_global_flag = ME_EAI_era_1940
+	}
+	if = {
+		limit = {
+			NOT = { has_global_flag = ME_EAI_era_1943 }
+			date > 1942.5.1
+		}
+		set_global_flag = ME_EAI_era_1943
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_update_doctrine_and_roles
+#   Assigns ME-scaled template styles, naval-major status, and unit role appetites per country.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_update_doctrine_and_roles = {
+	# Naval Majors: ITA, ENG, USA get upgraded naval tech, dockyard and modern screen/capital priorities
+	if = {
+		limit = {
+			OR = {
+				original_tag = ENG
+				original_tag = USA
+				original_tag = ITA
+			}
+		}
+		set_country_flag = ME_EAI_naval_major
+	}
+	else = {
+		clr_country_flag = ME_EAI_naval_major
+	}
+
+	# Axis Synthetic Fuel/Rubber priority
+	if = {
+		limit = {
+			OR = {
+				original_tag = GER
+				original_tag = ITA
+				original_tag = ROM
+				original_tag = HUN
+			}
+		}
+		set_country_flag = ME_EAI_axis_synth
+	}
+	else = {
+		clr_country_flag = ME_EAI_axis_synth
+	}
+
+	# 21W Offensive/Holding Infantry (9 Inf + 1 Line Arty) for rich Tier 1 powers except SOV
+	# (SOV retains 18W Logistics/AA/AT Wall to maintain unbroken density across the 3-sector Eastern Front)
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			NOT = { original_tag = SOV }
+			num_of_military_factories > 29
+		}
+		set_country_flag = ME_EAI_inf_21w
+	}
+	else = {
+		clr_country_flag = ME_EAI_inf_21w
+	}
+
+	# Armor appetite (6 Majors & true industrial powers with >= 50 MILs — prevents resource-poor minors like HUN burning 30 starved MILs on medium tanks)
+	if = {
+		limit = {
+			OR = {
+				original_tag = GER
+				original_tag = SOV
+				original_tag = USA
+				original_tag = ENG
+				original_tag = FRA
+				original_tag = ITA
+				num_of_military_factories > 49
+			}
+			has_tech = motorised_infantry
+		}
+		set_country_flag = ME_EAI_want_armor
+	}
+	else = {
+		clr_country_flag = ME_EAI_want_armor
+	}
+
+	# Mechanized template readiness gate (prevents SOV/ENG converting 15 divs into -3600 mech deficit before producing mech!)
+	if = {
+		limit = {
+			has_tech = mechanised_infantry
+			num_of_military_factories > 65
+			OR = {
+				has_equipment = { mechanized_equipment > 500 }
+				num_of_military_factories > 160
+			}
+		}
+		set_country_flag = ME_EAI_mech_ready
+	}
+	else = {
+		clr_country_flag = ME_EAI_mech_ready
+	}
+
+	# Heavy armor readiness gate (prevents ITA converting 23 divs into -2660 heavy tank deficit!)
+	if = {
+		limit = {
+			has_tech = improved_heavy_tank_chassis
+			num_of_military_factories > 90
+			has_equipment = { heavy_tank_chassis > 250 }
+		}
+		set_country_flag = ME_EAI_heavy_ready
+	}
+	else = {
+		clr_country_flag = ME_EAI_heavy_ready
+	}
+
+	# Motorized/Mechanized exploitation appetite for the 6 majors
+	if = {
+		limit = {
+			OR = {
+				original_tag = GER
+				original_tag = SOV
+				original_tag = USA
+				original_tag = ENG
+				original_tag = FRA
+				original_tag = ITA
+			}
+			has_tech = motorised_infantry
+			num_of_military_factories > 34
+		}
+		set_country_flag = ME_EAI_want_motorized
+	}
+	else = {
+		clr_country_flag = ME_EAI_want_motorized
+	}
+
+	# Amphibious Marines appetite (Overlord / Husky / Weserubung)
+	if = {
+		limit = {
+			OR = {
+				original_tag = ENG
+				original_tag = USA
+				original_tag = GER
+				original_tag = ITA
+			}
+			has_tech = marines
+		}
+		set_country_flag = ME_EAI_want_marines
+	}
+	else = {
+		clr_country_flag = ME_EAI_want_marines
+	}
+
+	# Mountaineers appetite (Italy, Alps, Balkans, Norway, Caucasus)
+	if = {
+		limit = {
+			OR = {
+				original_tag = ITA
+				original_tag = GER
+				original_tag = SOV
+				original_tag = FRA
+				original_tag = GRE
+				original_tag = YUG
+				original_tag = ROM
+				original_tag = HUN
+				original_tag = NOR
+				original_tag = TUR
+			}
+			has_tech = tech_mountaineers
+		}
+		set_country_flag = ME_EAI_want_mountaineers
+	}
+	else = {
+		clr_country_flag = ME_EAI_want_mountaineers
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_update_division_limits
+#   ME-scaled soft division caps (2-2.5x vanilla frontage) preventing late-game 900-div lag bloat
+#   while redirecting surplus IC into elite armor, mechanized forces, and air dominance.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_update_division_limits = {
+	# Compute total division cap me_eai_div_cap
+	if = {
+		limit = { original_tag = SOV }
+		if = {
+			limit = { has_war = yes }
+			set_variable = { me_eai_div_cap = 560 }
+		}
+		else = {
+			set_variable = { me_eai_div_cap = 420 }
+		}
+		set_variable = { me_eai_arm_cap = 55 }
+	}
+	else_if = {
+		limit = { original_tag = GER }
+		if = {
+			limit = { has_war = yes }
+			set_variable = { me_eai_div_cap = 440 }
+		}
+		else = {
+			set_variable = { me_eai_div_cap = 320 }
+		}
+		set_variable = { me_eai_arm_cap = 60 }
+	}
+	else_if = {
+		limit = { original_tag = USA }
+		if = {
+			limit = { has_war = yes }
+			set_variable = { me_eai_div_cap = 300 }
+		}
+		else = {
+			set_variable = { me_eai_div_cap = 160 }
+		}
+		set_variable = { me_eai_arm_cap = 45 }
+	}
+	else_if = {
+		limit = { original_tag = ENG }
+		if = {
+			limit = { has_war = yes }
+			set_variable = { me_eai_div_cap = 210 }
+		}
+		else = {
+			set_variable = { me_eai_div_cap = 140 }
+		}
+		set_variable = { me_eai_arm_cap = 30 }
+	}
+	else_if = {
+		limit = { original_tag = ITA }
+		if = {
+			limit = { has_war = yes }
+			set_variable = { me_eai_div_cap = 195 }
+		}
+		else = {
+			set_variable = { me_eai_div_cap = 145 }
+		}
+		set_variable = { me_eai_arm_cap = 22 }
+	}
+	else_if = {
+		limit = { original_tag = FRA }
+		set_variable = { me_eai_div_cap = 175 }
+		set_variable = { me_eai_arm_cap = 20 }
+	}
+	else_if = {
+		limit = { has_country_flag = ME_EAI_tier_3 }
+		# Keep tiny minors/puppets lean to eliminate late-game supply pollution & CPU drag
+		set_variable = { me_eai_div_cap = 18 }
+		set_variable = { me_eai_arm_cap = 0 }
+	}
+	else = {
+		# Tier 1 regional powers & Tier 2 mids: scale cleanly by MIL count (28..160)
+		set_variable = { me_eai_div_cap = num_of_military_factories }
+		multiply_variable = { me_eai_div_cap = 2.4 }
+		add_to_variable = { me_eai_div_cap = 24 }
+		clamp_variable = { var = me_eai_div_cap min = 28 max = 160 }
+
+		set_variable = { me_eai_arm_cap = num_of_military_factories }
+		multiply_variable = { me_eai_arm_cap = 0.25 }
+		clamp_variable = { var = me_eai_arm_cap min = 0 max = 16 }
+	}
+
+	# Flip O(1) infantry/total cap flag
+	if = {
+		limit = {
+			check_variable = { num_divisions > me_eai_div_cap }
+		}
+		set_country_flag = ME_EAI_cap_infantry
+	}
+	else = {
+		clr_country_flag = ME_EAI_cap_infantry
+	}
+
+	# Flip O(1) armor cap flag (using armored battalion count ~10 per div as fast proxy)
+	set_temp_variable = { _arm_bats = num_battalions_with_type@light_armor }
+	add_to_temp_variable = { _arm_bats = num_battalions_with_type@medium_armor }
+	add_to_temp_variable = { _arm_bats = num_battalions_with_type@heavy_armor }
+	set_temp_variable = { _arm_bat_cap = me_eai_arm_cap }
+	multiply_temp_variable = { _arm_bat_cap = 9 }
+	if = {
+		limit = {
+			check_variable = { _arm_bats > _arm_bat_cap }
+		}
+		set_country_flag = ME_EAI_cap_armor
+	}
+	else = {
+		clr_country_flag = ME_EAI_cap_armor
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_update_economy_and_stock_flags
+#   Updates CIV->MIL transition phase, equipment floor/surplus flags, and urgent manpower PP guard.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_update_economy_and_stock_flags = {
+	# 1. CIV -> MIL Construction Pacing (universal + country-tuned; immediately pivots on major war)
+	clr_country_flag = ME_EAI_civ_phase
+	clr_country_flag = ME_EAI_mil_phase
+
+	if = {
+		limit = {
+			OR = {
+				has_war = yes
+				threat > 0.50
+				AND = { original_tag = GER date > 1938.2.1 }
+				AND = { original_tag = ITA date > 1938.4.1 }
+				AND = { original_tag = FRA date > 1938.6.1 }
+				AND = { original_tag = ENG date > 1938.9.1 }
+				AND = { original_tag = SOV date > 1939.1.1 }
+				AND = { original_tag = USA date > 1940.4.1 }
+				AND = {
+					NOT = { original_tag = GER original_tag = ITA original_tag = FRA original_tag = ENG original_tag = SOV original_tag = USA }
+					date > 1938.6.1
+				}
+			}
+		}
+		set_country_flag = ME_EAI_mil_phase
+	}
+	else = {
+		set_country_flag = ME_EAI_civ_phase
+	}
+
+	# 2. Rifle Starvation Guard & Surplus Redirect to Air/Armor
+	if = {
+		limit = {
+			has_war = yes
+			stockpile_ratio = {
+				archetype = infantry_equipment
+				ratio < 0.72
+			}
+		}
+		set_country_flag = ME_EAI_rifles_starved
+	}
+	else = {
+		clr_country_flag = ME_EAI_rifles_starved
+	}
+
+	if = {
+		limit = {
+			num_of_military_factories > 35
+			has_equipment = { infantry_equipment > 22000 }
+		}
+		set_country_flag = ME_EAI_rifles_surplus
+	}
+	else = {
+		clr_country_flag = ME_EAI_rifles_surplus
+	}
+
+	# 3. Logistics & Support Equipment Floors (vital for ME's Logistics/AA/Engineer template stack)
+	if = {
+		limit = {
+			num_of_military_factories > 19
+			has_equipment = { support_equipment < 1600 }
+		}
+		set_country_flag = ME_EAI_support_low
+	}
+	else = {
+		clr_country_flag = ME_EAI_support_low
+	}
+
+	if = {
+		limit = {
+			num_of_military_factories > 19
+			has_tech = motorised_infantry
+			has_equipment = { motorized_equipment < 1400 }
+		}
+		set_country_flag = ME_EAI_trucks_low
+	}
+	else = {
+		clr_country_flag = ME_EAI_trucks_low
+	}
+
+	if = {
+		limit = {
+			num_of_military_factories > 14
+			has_equipment = { train_equipment < 160 }
+		}
+		set_country_flag = ME_EAI_trains_low
+	}
+	else = {
+		clr_country_flag = ME_EAI_trains_low
+	}
+
+	if = {
+		limit = {
+			num_of_military_factories > 19
+			has_tech = interwar_antiair
+			has_equipment = { anti_air_equipment < 900 }
+		}
+		set_country_flag = ME_EAI_aa_low
+	}
+	else = {
+		clr_country_flag = ME_EAI_aa_low
+	}
+
+	# 4. Urgent Conscription Law PP Bank (prevents GER/ITA/ROM/FIN bleeding to 0 manpower)
+	if = {
+		limit = {
+			has_war = yes
+			NOT = { has_idea = scraping_the_barrel }
+			OR = {
+				has_manpower < 280000
+				AND = {
+					original_tag = GER
+					has_idea = totaler_krieg_economy
+					has_manpower < 750000
+				}
+			}
+		}
+		set_country_flag = ME_EAI_need_law_pp
+	}
+	else = {
+		clr_country_flag = ME_EAI_need_law_pp
+	}
+}

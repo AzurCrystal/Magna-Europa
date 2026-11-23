@@ -1,0 +1,107 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Unified ME-Scaled Infantry Templates
+# Tailored to ME's 2-2.5x frontline width (half battalion cost) and tight supply economy:
+#   - 18W-21W line infantry keeps full European frontage covered without starving supply hubs
+#   - Standard support stack: Engineer + Artillery + Anti-Air + Logistics Company (+ Anti-Tank when countered)
+############################################################################################################
+
+ME_EAI_infantry_role = {
+	role = infantry
+	upgrade_prio = {
+		base = 100
+	}
+
+	# Tier 3 / Early Minor 18W Solid Line Infantry (no Logistics tech required yet)
+	ME_EAI_INF_18W_BASIC = {
+		enable = {
+			NOT = { has_country_flag = ME_EAI_inf_21w }
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+			NOT = { has_tech = tech_logistics_company }
+		}
+		upgrade_prio = { base = 10 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				recon = 1
+			}
+			regiments = {
+				infantry = 9
+			}
+		}
+	}
+
+	# 18W Logistics-Hardened Wall Infantry (SOV mass front & Tier 2/3 nations once Logistics unlocked)
+	ME_EAI_INF_18W_LOG = {
+		enable = {
+			NOT = { has_country_flag = ME_EAI_inf_21w }
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+			has_tech = tech_logistics_company
+		}
+		upgrade_prio = { base = 20 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				logistics_company = 1
+				anti_tank = 1
+			}
+			regiments = {
+				infantry = 9
+			}
+		}
+	}
+
+	# Tier 1 Standard 21W Offensive/Holding Infantry (9 Inf + 1 Line Arty + Full Supply/AA Support)
+	ME_EAI_INF_21W_STD = {
+		enable = {
+			has_country_flag = ME_EAI_inf_21w
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+		}
+		upgrade_prio = { base = 30 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				logistics_company = 1
+				recon = 1
+			}
+			regiments = {
+				infantry = 9
+				artillery_brigade = 1
+			}
+		}
+	}
+
+	# Anti-Armor Counter 20W Infantry (activated automatically against heavy enemy/player armor)
+	ME_EAI_INF_20W_AT = {
+		enable = {
+			has_country_flag = ME_EAI_counter_armor
+		}
+		upgrade_prio = { base = 50 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				anti_tank = 1
+				logistics_company = 1
+			}
+			regiments = {
+				infantry = 9
+				anti_tank_brigade = 1
+			}
+		}
+	}
+}

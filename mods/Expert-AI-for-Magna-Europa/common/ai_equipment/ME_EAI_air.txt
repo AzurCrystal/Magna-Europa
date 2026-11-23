@@ -1,0 +1,338 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Meta Air Blueprints (Green Air & CAS Dominance)
+# Designed to trade competitively against human player airframes across Europe & Eastern Front.
+############################################################################################################
+
+ME_EAI_fighter = {
+	category = air
+	roles = { air_fighter }
+	priority = {
+		base = 50000
+	}
+
+	# 1936 Basic Fighter — Heavy MG / Engine 2 + Drop Tanks + Survivability
+	ME_EAI_FIGHTER_1936 = {
+		enable = {
+			has_tech = basic_small_airframe
+			has_tech = engines_2
+			NOT = {
+				AND = {
+					has_tech = improved_small_airframe
+					has_tech = engines_3
+				}
+			}
+		}
+		priority = { base = 800 }
+
+		target_variant = {
+			type = small_plane_airframe_1
+			match_value = 2500
+
+			modules = {
+				fixed_main_weapon_slot = { module = heavy_mg_4x module = light_mg_4x }
+				fixed_auxiliary_weapon_slot_1 = { module = heavy_mg_4x module = light_mg_4x }
+				engine_type_slot > engine_1_1x
+				special_type_slot_1 = { module = self_sealing_fuel_tanks_small module = armor_plate_small module = empty }
+				special_type_slot_2 = { module = drop_tanks module = armor_plate_small module = empty }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			light_mg_4x
+			heavy_mg_4x
+			aircraft_cannon_1_2x
+			drop_tanks
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+
+	# 1940 Improved Fighter — Core European Air Superiority Meta (Full HMGs/Cannons + Engine 3 + Armor + SSFT + Drop Tanks)
+	ME_EAI_FIGHTER_1940 = {
+		enable = {
+			has_tech = improved_small_airframe
+			has_tech = engines_3
+			NOT = {
+				AND = {
+					has_tech = advanced_small_airframe
+					has_tech = engines_4
+				}
+			}
+		}
+		priority = { base = 1500 }
+
+		target_variant = {
+			type = small_plane_airframe_2
+			match_value = 4000
+
+			modules = {
+				fixed_main_weapon_slot = { module = heavy_mg_4x module = aircraft_cannon_1_2x module = light_mg_4x }
+				fixed_auxiliary_weapon_slot_1 = { module = heavy_mg_4x module = aircraft_cannon_1_2x module = light_mg_4x }
+				fixed_auxiliary_weapon_slot_2 = { module = heavy_mg_4x module = light_mg_4x module = empty }
+				engine_type_slot > engine_2_1x
+				special_type_slot_1 = { module = self_sealing_fuel_tanks_small module = armor_plate_small }
+				special_type_slot_2 = { module = armor_plate_small module = drop_tanks module = empty }
+				special_type_slot_3 = { module = drop_tanks module = fuel_tanks_small module = empty }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			light_mg_4x
+			heavy_mg_4x
+			aircraft_cannon_1_2x
+			aircraft_cannon_2_2x
+			drop_tanks
+			fuel_tanks_small
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+
+	# 1944 Advanced Fighter — Late-War Air Superiority Meta
+	ME_EAI_FIGHTER_1944 = {
+		enable = {
+			has_tech = advanced_small_airframe
+			has_tech = engines_4
+		}
+		priority = { base = 2000 }
+
+		target_variant = {
+			type = small_plane_airframe_3
+			match_value = 5000
+
+			modules = {
+				fixed_main_weapon_slot = { module = aircraft_cannon_2_2x module = heavy_mg_4x }
+				fixed_auxiliary_weapon_slot_1 = { module = heavy_mg_4x module = aircraft_cannon_2_2x }
+				fixed_auxiliary_weapon_slot_2 = { module = heavy_mg_4x module = aircraft_cannon_1_2x }
+				engine_type_slot > engine_3_1x
+				special_type_slot_1 = { module = self_sealing_fuel_tanks_small module = armor_plate_small }
+				special_type_slot_2 = { module = armor_plate_small }
+				special_type_slot_3 = { module = drop_tanks module = fuel_tanks_small }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			heavy_mg_4x
+			aircraft_cannon_1_2x
+			aircraft_cannon_2_2x
+			drop_tanks
+			fuel_tanks_small
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Close Air Support (High Ground Attack + Dive Brakes + Range)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_cas = {
+	category = air
+	roles = { air_cas }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_CAS_1936 = {
+		enable = {
+			has_tech = basic_small_airframe
+			NOT = { has_tech = improved_small_airframe }
+		}
+		priority = { base = 800 }
+
+		target_variant = {
+			type = small_plane_cas_airframe_1
+			match_value = 2000
+
+			modules = {
+				fixed_main_weapon_slot = { module = small_bomb_bay module = bomb_locks }
+				fixed_auxiliary_weapon_slot_1 = { module = bomb_locks module = empty }
+				engine_type_slot > engine_1_1x
+				special_type_slot_1 = { module = dive_brakes_small module = self_sealing_fuel_tanks_small module = empty }
+				special_type_slot_2 = { module = drop_tanks module = armor_plate_small module = empty }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			bomb_locks
+			small_bomb_bay
+			tank_buster_1
+			dive_brakes_small
+			drop_tanks
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+
+	ME_EAI_CAS_1940 = {
+		enable = {
+			has_tech = improved_small_airframe
+			NOT = { has_tech = advanced_small_airframe }
+		}
+		priority = { base = 1500 }
+
+		target_variant = {
+			type = small_plane_cas_airframe_2
+			match_value = 3500
+
+			modules = {
+				fixed_main_weapon_slot = { module = small_bomb_bay module = bomb_locks }
+				fixed_auxiliary_weapon_slot_1 = { module = tank_buster_2 module = tank_buster_1 module = small_bomb_bay module = bomb_locks }
+				fixed_auxiliary_weapon_slot_2 = { module = bomb_locks module = empty }
+				engine_type_slot > engine_2_1x
+				special_type_slot_1 = { module = dive_brakes_small module = armor_plate_small }
+				special_type_slot_2 = { module = self_sealing_fuel_tanks_small module = armor_plate_small module = empty }
+				special_type_slot_3 = { module = drop_tanks module = fuel_tanks_small module = empty }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			bomb_locks
+			small_bomb_bay
+			tank_buster_1
+			tank_buster_2
+			dive_brakes_small
+			drop_tanks
+			fuel_tanks_small
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+
+	ME_EAI_CAS_1944 = {
+		enable = {
+			has_tech = advanced_small_airframe
+		}
+		priority = { base = 2000 }
+
+		target_variant = {
+			type = small_plane_cas_airframe_3
+			match_value = 4500
+
+			modules = {
+				fixed_main_weapon_slot = { module = small_bomb_bay module = bomb_locks }
+				fixed_auxiliary_weapon_slot_1 = { module = tank_buster_2 module = small_bomb_bay module = bomb_locks }
+				fixed_auxiliary_weapon_slot_2 = { module = small_bomb_bay module = bomb_locks }
+				engine_type_slot > engine_3_1x
+				special_type_slot_1 = { module = dive_brakes_small }
+				special_type_slot_2 = { module = self_sealing_fuel_tanks_small module = armor_plate_small }
+				special_type_slot_3 = { module = drop_tanks module = fuel_tanks_small }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			bomb_locks
+			small_bomb_bay
+			tank_buster_1
+			tank_buster_2
+			dive_brakes_small
+			drop_tanks
+			fuel_tanks_small
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Naval Bombers (Mediterranean / English Channel / North Sea Strike)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_nav_bomber = {
+	category = air
+	roles = { air_naval_bomber }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_NAV_1940 = {
+		enable = {
+			has_tech = improved_small_airframe
+		}
+		priority = { base = 1200 }
+
+		target_variant = {
+			type = small_plane_naval_bomber_airframe_2
+			match_value = 3000
+
+			modules = {
+				fixed_main_weapon_slot = { module = torpedo_mounting_2 module = torpedo_mounting }
+				engine_type_slot > engine_1_1x
+				special_type_slot_1 = { module = drop_tanks module = fuel_tanks_small module = empty }
+				special_type_slot_2 = { module = self_sealing_fuel_tanks_small module = armor_plate_small module = empty }
+			}
+		}
+
+		allowed_modules = {
+			plane_engine_type
+			torpedo_mounting
+			torpedo_mounting_2
+			drop_tanks
+			fuel_tanks_small
+			armor_plate_small
+			self_sealing_fuel_tanks_small
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Carrier Fighters & Carrier Naval Bombers (ENG / USA Naval Air Arm)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_cv_fighter = {
+	category = air
+	roles = { air_cv_fighter }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_CV_FIGHTER_1940 = {
+		enable = {
+			has_tech = improved_small_airframe
+		}
+		priority = { base = 1500 }
+
+		target_variant = {
+			type = cv_small_plane_airframe_2
+			match_value = 3500
+
+			modules = {
+				fixed_main_weapon_slot = { module = heavy_mg_4x module = light_mg_4x }
+				fixed_auxiliary_weapon_slot_1 = { module = heavy_mg_4x module = light_mg_4x }
+				engine_type_slot > engine_2_1x
+				special_type_slot_1 = { module = self_sealing_fuel_tanks_small module = armor_plate_small module = empty }
+				special_type_slot_2 = { module = armor_plate_small module = empty }
+			}
+		}
+	}
+}
+
+ME_EAI_cv_nav = {
+	category = air
+	roles = { air_cv_naval_bomber }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_CV_NAV_1940 = {
+		enable = {
+			has_tech = improved_small_airframe
+		}
+		priority = { base = 1500 }
+
+		target_variant = {
+			type = cv_small_plane_naval_bomber_airframe_2
+			match_value = 3500
+
+			modules = {
+				fixed_main_weapon_slot = { module = torpedo_mounting_2 module = torpedo_mounting }
+				engine_type_slot > engine_1_1x
+				special_type_slot_1 = { module = self_sealing_fuel_tanks_small module = armor_plate_small module = empty }
+			}
+		}
+	}
+}

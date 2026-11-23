@@ -1,0 +1,565 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — European Campaign Bridge Strategies
+# Preserves proven v1.0.1 historical campaign spearheads & coalition lane hygiene during Phases 1-2.
+# Yields automatically once Phase 3 CSR dynamic sector operations set ME_EAI_phase3_sectors_active.
+############################################################################################################
+
+ME_EAI_GER_benelux_historical_date_gate = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		NOT = { has_war_with = HOL }
+		NOT = { has_war_with = BEL }
+		OR = {
+			date < 1940.3.20
+			AND = {
+				has_war_with = POL
+				POL = { has_capitulated = no }
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = declare_war id = HOL value = -2000 }
+	ai_strategy = { type = declare_war id = BEL value = -2000 }
+	ai_strategy = { type = declare_war id = LUX value = -2000 }
+}
+
+ME_EAI_GER_poland_first_west_economy = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		has_war_with = POL
+		POL = { has_capitulated = no }
+		NOT = { has_war_with = HOL }
+		NOT = { has_war_with = BEL }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = HOL value = -40 }
+	ai_strategy = { type = front_unit_request tag = BEL value = -40 }
+	ai_strategy = { type = front_unit_request tag = LUX value = -40 }
+}
+
+ME_EAI_GER_barbarossa_spearhead = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date < 1942.6.1
+		SOV = { has_capitulated = no }
+		OR = {
+			focus_progress = { focus = GER_war_with_the_ussr progress > 0.05 }
+			has_war_with = SOV
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_armor_score id = SOV value = 320 }
+	ai_strategy = { type = front_unit_request tag = SOV value = 80 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 172  # Riga
+		state = 151  # Pskov
+		state = 2135 # Minsk
+		state = 2189 # Smolensk
+		state = 2027 # Kiev
+		state = 2045 # Odessa
+		state = 497  # Kharkov
+		value = 60
+	}
+}
+
+ME_EAI_SOV_barbarossa_defensive_discipline = {
+	allowed = { original_tag = SOV }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		has_war_with = GER
+		surrender_progress > 0.15
+		OR = {
+			GER = { has_idea = GER_barbarossa }
+			date < 1941.12.15
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.25
+		priority = 20
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+ME_EAI_GER_finish_norway = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		has_war_with = NOR
+		NOR = { has_capitulated = no }
+		FRA = { has_capitulated = yes }
+		date < 1941.5.15
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = just_norway value = 90 }
+	ai_strategy = { type = front_unit_request tag = NOR value = 65 }
+	ai_strategy = { type = invasion_unit_request tag = NOR value = 60 }
+	ai_strategy = { type = invade id = NOR value = 100 }
+	ai_strategy = { type = front_armor_score id = NOR value = -100 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 124 # Oslo
+		state = 118 # Akershus
+		state = 111 # Hordaland
+		value = 50
+	}
+	ai_strategy = {
+		type = front_control
+		tag = NOR
+		ratio = 0.55
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 122 value = 5000 }
+	ai_strategy = { type = strategic_air_importance id = 121 value = 3500 }
+}
+
+ME_EAI_GER_marita_greece = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		has_war_with = GRE
+		GRE = { has_capitulated = no }
+		date < 1941.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = GRE value = 45 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 941
+		state = 1015
+		state = 2019
+		value = 50
+	}
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 33 value = 4000 }
+	ai_strategy = { type = strategic_air_importance id = 34 value = 5000 }
+}
+
+ME_EAI_BUL_finish_greece = {
+	allowed = { original_tag = BUL }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		has_war_with = GRE
+		GRE = { has_capitulated = no }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = GRE value = 50 }
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+ME_EAI_ITA_stay_off_eastern_front = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_in_faction_with = GER
+		OR = {
+			has_war_with = SOV
+			GER = { has_war_with = SOV }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = GER value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = ROM value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HUN value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = SLO value = 100 }
+	ai_strategy = { type = front_unit_request tag = SOV value = -180 }
+}
+
+ME_EAI_ITA_north_africa_spearhead = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		has_war_with = ENG
+		date > 1940.6.1
+		date < 1943.1.1
+		OR = {
+			1241 = { is_controlled_by_ROOT_or_ally = yes } # Tripoli
+			1251 = { is_controlled_by_ROOT_or_ally = yes } # Benghazi
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = egypt_front value = 65 }
+	ai_strategy = { type = area_priority id = libya value = 40 }
+	ai_strategy = { type = front_unit_request area = egypt_front value = 35 }
+	ai_strategy = { type = front_unit_request tag = EGY value = 45 }
+	ai_strategy = { type = front_armor_score id = EGY value = 250 }
+	ai_strategy = {
+		type = force_concentration_target_weight
+		state = 1893
+		state = 1895
+		state = 1889
+		value = 40
+	}
+	ai_strategy = {
+		type = front_control
+		tag = EGY
+		ratio = 0.45
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+ME_EAI_ITA_balkan_greece_spearhead = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		OR = {
+			AND = {
+				GRE = { exists = yes has_capitulated = no NOT = { is_in_faction_with = ITA } }
+				OR = {
+					has_war_with = GRE
+					has_completed_focus = ITA_war_with_greece
+					focus_progress = { focus = ITA_war_with_greece progress > 0.1 }
+				}
+			}
+			AND = {
+				YUG = { exists = yes has_capitulated = no NOT = { is_in_faction_with = ITA } }
+				has_war_with = YUG
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = greater_balkans value = 80 }
+	ai_strategy = { type = area_priority id = albania value = 60 }
+	ai_strategy = { type = front_unit_request tag = GRE value = 65 }
+	ai_strategy = { type = front_unit_request tag = YUG value = 45 }
+	ai_strategy = { type = front_armor_score id = GRE value = 150 }
+	ai_strategy = { type = front_armor_score id = YUG value = 150 }
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = {
+		type = front_control
+		tag = YUG
+		ratio = 0.50
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 20 value = 4000 }
+	ai_strategy = { type = strategic_air_importance id = 34 value = 5000 }
+	ai_strategy = { type = strategic_air_importance id = 33 value = 3500 }
+}
+
+ME_EAI_ITA_alpine_conservation = {
+	allowed = { original_tag = ITA }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		has_war_with = FRA
+		FRA = { has_capitulated = no surrender_progress < 0.20 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.25
+		priority = 20
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+ME_EAI_allies_med_and_north_africa = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date > 1942.5.1
+		has_war_with = ITA
+		ITA = { has_capitulated = no }
+		OR = {
+			1241 = { NOT = { is_controlled_by_ROOT_or_ally = yes } }
+			1251 = { NOT = { is_controlled_by_ROOT_or_ally = yes } }
+			1109 = { NOT = { is_controlled_by_ROOT_or_ally = yes } }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = central_med_lifeline value = 180 }
+	ai_strategy = { type = naval_dominance id = western_med_control_zone value = 100 }
+	ai_strategy = { type = naval_dominance id = eastern_med_control_zone value = 100 }
+	ai_strategy = { type = area_priority id = north_africa value = 120 }
+	ai_strategy = { type = front_unit_request area = north_africa value = 45 }
+	ai_strategy = { type = front_armor_score id = ITA value = 180 }
+	ai_strategy = {
+		type = front_control
+		area = north_africa
+		ratio = 0.50
+		priority = 95
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+ME_EAI_allies_husky_italy = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date > 1942.9.1
+		has_war_with = ITA
+		ITA = { has_capitulated = no }
+		OR = {
+			AND = {
+				1241 = { is_controlled_by_ROOT_or_ally = yes }
+				1251 = { is_controlled_by_ROOT_or_ally = yes }
+			}
+			date > 1943.5.1
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = med_invasion_zone value = 220 }
+	ai_strategy = { type = naval_dominance id = central_med_lifeline value = 160 }
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = invade id = ITA value = 140 }
+	ai_strategy = { type = naval_invasion_focus value = 35 }
+	ai_strategy = { type = area_priority id = italy value = 320 }
+	ai_strategy = { type = invasion_unit_request area = italy value = 24 }
+	ai_strategy = { type = front_unit_request area = italy value = 50 }
+	ai_strategy = {
+		type = front_control
+		area = italy
+		ratio = 0.55
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 18 value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 17 value = 5500 }
+	ai_strategy = { type = strategic_air_importance id = 25 value = 5000 }
+}
+
+ME_EAI_USA_uk_bridgehead = {
+	allowed = { original_tag = USA }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date > 1942.10.1
+		has_war_with = GER
+		is_in_faction_with = ENG
+		571 = { NOT = { is_controlled_by_ROOT_or_ally = yes } }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 3
+		states = { 356 2475 446 344 357 410 458 426 }
+		ratio = 0.25
+		area = europe
+		subtract_invasions_from_need = yes
+	}
+	ai_strategy = { type = naval_dominance id = 209 value = 180 }
+}
+
+ME_EAI_allies_overlord = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date > 1944.2.1
+		has_war_with = GER
+		FRA = { has_capitulated = yes }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = naval_dominance id = 209 value = 240 }
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = invade id = GER value = 180 }
+	ai_strategy = { type = naval_invasion_focus value = 50 }
+	ai_strategy = { type = area_priority id = normandy_landing_zone value = 480 }
+	ai_strategy = { type = area_priority id = atlantik_wall_zone value = 220 }
+	ai_strategy = { type = invasion_unit_request area = normandy_landing_zone value = 32 }
+	ai_strategy = { type = front_unit_request area = normandy_landing_zone value = 65 }
+	ai_strategy = { type = front_armor_score id = GER value = 240 }
+	ai_strategy = {
+		type = front_control
+		area = normandy_landing_zone
+		ratio = 0.55
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+}
+
+ME_EAI_western_air_war_allies = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date > 1943.1.1
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = strategic_air_importance id = 209 value = 7000 }
+	ai_strategy = { type = strategic_air_importance id = 62  value = 9000 }
+	ai_strategy = { type = strategic_air_importance id = 89  value = 9000 }
+	ai_strategy = { type = strategic_air_importance id = 5   value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 4   value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 36  value = 7000 }
+	ai_strategy = { type = strategic_air_importance id = 64  value = 6000 }
+}
+
+ME_EAI_western_air_war_ger = {
+	allowed = { original_tag = GER }
+	enable = {
+		NOT = { has_global_flag = ME_EAI_phase3_sectors_active }
+		is_historical_focus_on = yes
+		date > 1943.1.1
+		FRA = { has_capitulated = yes }
+		OR = {
+			has_war_with = ENG
+			has_war_with = USA
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = strategic_air_importance id = 62  value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 89  value = 6500 }
+	ai_strategy = { type = strategic_air_importance id = 209 value = 4500 }
+	ai_strategy = { type = strategic_air_importance id = 5   value = 5500 }
+	ai_strategy = { type = strategic_air_importance id = 4   value = 5500 }
+	ai_strategy = { type = strategic_air_importance id = 36  value = 8000 }
+	ai_strategy = { type = strategic_air_importance id = 64  value = 7000 }
+}
+
+# Coalition anti-deathstack theater lane boundaries
+ME_EAI_axis_minors_stay_in_theater = {
+	allowed = {
+		OR = {
+			original_tag = HUN
+			original_tag = ROM
+			original_tag = BUL
+			original_tag = SLO
+		}
+	}
+	enable = {
+		is_in_faction_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = ITA value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = FRA value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HOL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = BEL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = NOR value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = DEN value = 100 }
+}
+
+ME_EAI_HUN_ROM_eastern_lane = {
+	allowed = { original_tag = HUN }
+	enable = {
+		is_in_faction_with = GER
+		has_war_with = SOV
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = ROM value = 100 }
+}
+
+ME_EAI_middle_east_allies_no_europe_flood = {
+	allowed = {
+		OR = {
+			original_tag = EGY
+			original_tag = PAL
+			original_tag = JOR
+			original_tag = IRQ
+			original_tag = SYR
+			original_tag = LEB
+			original_tag = KUW
+			original_tag = QAT
+			original_tag = BHR
+			original_tag = UAE
+			original_tag = OMA
+		}
+	}
+	enable = {
+		is_in_faction_with = ENG
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = dont_defend_ally_borders id = ENG value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = FRA value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = BEL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = HOL value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = NOR value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = DEN value = 100 }
+	ai_strategy = { type = dont_defend_ally_borders id = POL value = 100 }
+}

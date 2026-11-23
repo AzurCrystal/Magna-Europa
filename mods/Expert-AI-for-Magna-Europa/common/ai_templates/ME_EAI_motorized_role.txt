@@ -1,0 +1,77 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Motorized & Mechanized Exploitation Templates
+############################################################################################################
+
+ME_EAI_motorized_role = {
+	role = motorized
+	upgrade_prio = {
+		base = 80
+	}
+
+	ME_EAI_MOT_20W = {
+		enable = {
+			NOT = { has_country_flag = ME_EAI_mech_ready }
+		}
+		upgrade_prio = { base = 20 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				logistics_company = 1
+				mot_recon = 1
+			}
+			regiments = {
+				motorized = 10
+			}
+		}
+	}
+
+	ME_EAI_MECH_20W = {
+		enable = {
+			has_country_flag = ME_EAI_mech_ready
+		}
+		upgrade_prio = { base = 30 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				logistics_company = 1
+				mot_recon = 1
+			}
+			regiments = {
+				mechanized = 10
+			}
+		}
+	}
+}
+
+ME_EAI_mobile_role = {
+	role = mobile
+	upgrade_prio = {
+		base = 60
+	}
+
+	ME_EAI_MOBILE_20W = {
+		enable = { always = yes }
+		upgrade_prio = { base = 10 }
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				logistics_company = 1
+			}
+			regiments = {
+				motorized = 10
+			}
+		}
+	}
+}

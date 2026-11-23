@@ -1,0 +1,346 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Upgraded European Naval Blueprints
+# Elevates ITA (Regia Marina), ENG (Royal Navy), and USA (Atlantic Fleet) naval combat effectiveness
+# with Meta light-attack cruisers, ASW escorts, high-AA/radar battleships, full-hangar carriers, and subs.
+############################################################################################################
+
+#-----------------------------------------------------------------------------------------------------------
+# Fleet Screening Destroyers (Fast, Torpedo + DP Gun + AA)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_destroyer_screen = {
+	category = naval
+	roles = { naval_screen }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_DD_1936 = {
+		enable = {
+			has_tech = basic_ship_hull_light
+			NOT = { has_tech = improved_ship_hull_light }
+		}
+		priority = { base = 800 }
+		role_icon_index = 2
+
+		target_variant = {
+			type = ship_hull_light_2
+			match_value = 2500
+
+			modules = {
+				fixed_ship_battery_slot = { any_of = { dp_light_battery ship_light_battery } }
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = { any_of = { ship_radar ship_sonar } }
+				fixed_ship_engine_slot = light_ship_engine
+				fixed_ship_torpedo_slot = ship_torpedo
+				mid_1_custom_slot = ship_torpedo
+				rear_1_custom_slot = { any_of = { ship_depth_charge ship_anti_air } }
+			}
+		}
+	}
+
+	ME_EAI_DD_1940 = {
+		enable = {
+			has_tech = improved_ship_hull_light
+		}
+		priority = { base = 1500 }
+		role_icon_index = 2
+
+		target_variant = {
+			type = ship_hull_light_3
+			match_value = 3500
+
+			modules = {
+				fixed_ship_battery_slot = { any_of = { dp_light_battery ship_light_battery } }
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = { any_of = { ship_radar ship_sonar } }
+				fixed_ship_engine_slot = light_ship_engine
+				fixed_ship_torpedo_slot = ship_torpedo
+				front_1_custom_slot = { any_of = { dp_light_battery ship_anti_air } }
+				mid_1_custom_slot = ship_torpedo
+				rear_1_custom_slot = ship_depth_charge
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Dedicated ASW Convoy Escort Destroyers (ENG / USA / ITA — Kills U-Boats & Protects Supply Convoys)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_destroyer_asw = {
+	category = naval
+	roles = { naval_escort }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_ASW_DD_1936 = {
+		enable = {
+			has_tech = basic_ship_hull_light
+			NOT = { has_tech = improved_ship_hull_light }
+		}
+		priority = { base = 1000 }
+		role_icon_index = 6
+
+		target_variant = {
+			type = ship_hull_light_2
+			match_value = 2800
+
+			modules = {
+				fixed_ship_battery_slot = { any_of = { dp_light_battery ship_light_battery } }
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = ship_sonar
+				fixed_ship_engine_slot = light_ship_engine
+				fixed_ship_torpedo_slot = empty
+				mid_1_custom_slot = ship_depth_charge
+				rear_1_custom_slot = ship_depth_charge
+			}
+		}
+	}
+
+	ME_EAI_ASW_DD_1940 = {
+		enable = {
+			has_tech = improved_ship_hull_light
+		}
+		priority = { base = 1600 }
+		role_icon_index = 6
+
+		target_variant = {
+			type = ship_hull_light_3
+			match_value = 3800
+
+			modules = {
+				fixed_ship_battery_slot = { any_of = { dp_light_battery ship_light_battery } }
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = ship_sonar
+				fixed_ship_engine_slot = light_ship_engine
+				fixed_ship_torpedo_slot = empty
+				front_1_custom_slot = ship_depth_charge
+				mid_1_custom_slot = ship_depth_charge
+				rear_1_custom_slot = ship_anti_air
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Light-Attack Meta Light Cruisers (Screen-Shredder Backbone for ITA / ENG / USA)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_light_cruiser = {
+	category = naval
+	roles = { naval_cruiser_light }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_CL_1936 = {
+		enable = {
+			has_tech = basic_ship_hull_cruiser
+			NOT = { has_tech = improved_ship_hull_cruiser }
+		}
+		priority = { base = 1000 }
+		role_icon_index = 2
+
+		target_variant = {
+			type = ship_hull_cruiser_2
+			match_value = 3000
+
+			modules = {
+				fixed_ship_battery_slot = ship_light_medium_battery
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = ship_radar
+				fixed_ship_engine_slot = cruiser_ship_engine
+				fixed_ship_armor_slot = { any_of = { ship_armor_cruiser_3 ship_armor_cruiser_2 ship_armor_cruiser_1 } }
+				front_1_custom_slot = ship_light_medium_battery
+				mid_1_custom_slot = ship_light_medium_battery
+				mid_2_custom_slot = { any_of = { ship_airplane_launcher ship_anti_air } }
+				rear_1_custom_slot = ship_light_medium_battery
+			}
+		}
+	}
+
+	ME_EAI_CL_1940 = {
+		enable = {
+			has_tech = improved_ship_hull_cruiser
+		}
+		priority = { base = 1600 }
+		role_icon_index = 2
+
+		target_variant = {
+			type = ship_hull_cruiser_3
+			match_value = 4200
+
+			modules = {
+				fixed_ship_battery_slot = ship_light_medium_battery
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = ship_radar
+				fixed_ship_engine_slot = cruiser_ship_engine
+				fixed_ship_armor_slot = { any_of = { ship_armor_cruiser_3 ship_armor_cruiser_2 ship_armor_cruiser_1 } }
+				front_1_custom_slot = ship_light_medium_battery
+				mid_1_custom_slot = ship_light_medium_battery
+				mid_2_custom_slot = ship_light_medium_battery
+				rear_1_custom_slot = ship_light_medium_battery
+				rear_2_custom_slot = { any_of = { ship_airplane_launcher ship_anti_air } }
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Battleships (Littorio / KGV / North Carolina-Iowa Fleet Anchors for ITA / ENG / USA)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_battleship = {
+	category = naval
+	roles = { naval_capital_bb }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_BB_1936 = {
+		enable = {
+			has_tech = basic_ship_hull_heavy
+			NOT = { has_tech = improved_ship_hull_heavy }
+		}
+		priority = { base = 1000 }
+		role_icon_index = 1
+
+		target_variant = {
+			type = ship_hull_heavy_2
+			match_value = 3500
+
+			modules = {
+				fixed_ship_battery_slot = ship_heavy_battery
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = ship_radar
+				fixed_ship_engine_slot = heavy_ship_engine
+				fixed_ship_secondaries_slot = { any_of = { ship_dp_secondaries ship_secondaries } }
+				fixed_ship_armor_slot = { any_of = { ship_armor_bb_3 ship_armor_bb_2 ship_armor_bb_1 } }
+				front_1_custom_slot = ship_heavy_battery
+				mid_1_custom_slot = ship_heavy_battery
+				mid_2_custom_slot = ship_anti_air
+				rear_1_custom_slot = ship_heavy_battery
+			}
+		}
+	}
+
+	ME_EAI_BB_1940 = {
+		enable = {
+			has_tech = improved_ship_hull_heavy
+		}
+		priority = { base = 1600 }
+		role_icon_index = 1
+
+		target_variant = {
+			type = ship_hull_heavy_3
+			match_value = 4500
+
+			modules = {
+				fixed_ship_battery_slot = ship_heavy_battery
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_fire_control_system_slot = ship_fire_control_system
+				fixed_ship_radar_slot = ship_radar
+				fixed_ship_engine_slot = heavy_ship_engine
+				fixed_ship_secondaries_slot = { any_of = { ship_dp_secondaries ship_secondaries } }
+				fixed_ship_armor_slot = { any_of = { ship_armor_bb_3 ship_armor_bb_2 ship_armor_bb_1 } }
+				front_1_custom_slot = ship_heavy_battery
+				mid_1_custom_slot = ship_heavy_battery
+				mid_2_custom_slot = ship_anti_air
+				mid_3_custom_slot = ship_anti_air
+				rear_1_custom_slot = ship_heavy_battery
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Fleet Carriers (Max Deck Space Meta for ENG / USA)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_carrier = {
+	category = naval
+	roles = { naval_carrier }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_CV_1936 = {
+		enable = {
+			has_tech = basic_ship_hull_carrier
+		}
+		priority = { base = 1500 }
+		role_icon_index = 7
+
+		target_variant = {
+			type = ship_hull_carrier_2
+			match_value = 4000
+
+			modules = {
+				fixed_ship_deck_slot_1 = ship_deck_space
+				fixed_ship_deck_slot_2 = ship_deck_space
+				fixed_ship_anti_air_slot = ship_anti_air
+				fixed_ship_radar_slot = ship_radar
+				fixed_ship_engine_slot = carrier_ship_engine
+				fixed_ship_secondaries_slot = { any_of = { ship_dp_secondaries ship_secondaries } }
+				front_1_custom_slot = ship_deck_space
+				mid_1_custom_slot = ship_deck_space
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Submarines (GER / ITA / USA / ENG Convoy Warfare Meta)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_submarine = {
+	category = naval
+	roles = { naval_submarine }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_SUB_1936 = {
+		enable = {
+			has_tech = basic_ship_hull_submarine
+			NOT = { has_tech = improved_ship_hull_submarine }
+		}
+		priority = { base = 1000 }
+		role_icon_index = 4
+
+		target_variant = {
+			type = ship_hull_submarine_2
+			match_value = 2500
+
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub
+				fixed_ship_engine_slot = sub_ship_engine
+				rear_1_custom_slot = ship_torpedo_sub
+			}
+		}
+	}
+
+	ME_EAI_SUB_1940 = {
+		enable = {
+			has_tech = improved_ship_hull_submarine
+		}
+		priority = { base = 1600 }
+		role_icon_index = 4
+
+		target_variant = {
+			type = ship_hull_submarine_3
+			match_value = 3800
+
+			modules = {
+				fixed_ship_torpedo_slot = ship_torpedo_sub
+				fixed_ship_engine_slot = sub_ship_engine
+				front_1_custom_slot = ship_torpedo_sub
+				mid_1_custom_slot = { any_of = { ship_sub_snorkel ship_radar } }
+				rear_1_custom_slot = ship_torpedo_sub
+			}
+		}
+	}
+}

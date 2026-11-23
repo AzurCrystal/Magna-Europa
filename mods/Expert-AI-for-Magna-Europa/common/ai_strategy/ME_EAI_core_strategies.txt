@@ -1,0 +1,310 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Pure O(1) Flag-Driven Core AI Strategies
+# ZERO loops, ZERO any_state / any_enemy_country triggers in daily C++ evaluation.
+# All heavy checks run inside the 28-day staggered state machine and export simple country flags here.
+############################################################################################################
+
+###############################################################################
+# 1. ROLE RATIOS & DIVISION SOFT-CAPS (ELITE QUALITY + LATE-GAME FPS GAIN)
+###############################################################################
+
+ME_EAI_strat_want_armor = {
+	enable = {
+		has_country_flag = ME_EAI_want_armor
+		NOT = { has_country_flag = ME_EAI_cap_armor }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = armor value = 24 }
+	ai_strategy = { type = template_prio id = medium_armor value = 140 }
+	ai_strategy = { type = equipment_production_factor id = armor value = 35 }
+}
+
+# GER & SOV armored spearhead emphasis (35-55 Panzer/Tank divisions for Eastern Front warfare)
+ME_EAI_strat_major_panzer_corps = {
+	allowed = {
+		OR = {
+			original_tag = GER
+			original_tag = SOV
+		}
+	}
+	enable = {
+		has_country_flag = ME_EAI_want_armor
+		NOT = { has_country_flag = ME_EAI_cap_armor }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = armor value = 16 }
+	ai_strategy = { type = role_ratio id = motorized value = -4 }
+}
+
+# Ensure majors with mechanised_infantry start ramping mechanized lines before converting templates
+ME_EAI_strat_mech_ramp = {
+	enable = {
+		has_country_flag = ME_EAI_tier_1
+		has_tech = mechanised_infantry
+		NOT = { has_country_flag = ME_EAI_mech_ready }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = mechanized_equipment value = 5 }
+	ai_strategy = { type = equipment_production_factor id = mechanized value = 30 }
+}
+
+ME_EAI_strat_want_motorized = {
+	enable = {
+		has_country_flag = ME_EAI_want_motorized
+		NOT = { has_country_flag = ME_EAI_cap_infantry }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = motorized value = 12 }
+}
+
+ME_EAI_strat_want_marines = {
+	enable = {
+		has_country_flag = ME_EAI_want_marines
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = marines value = 8 }
+}
+
+ME_EAI_strat_want_mountaineers = {
+	enable = {
+		has_country_flag = ME_EAI_want_mountaineers
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = mountaineers value = 8 }
+}
+
+# Soft cap on total infantry divisions -> prevents 900-div lag bloat and redirects surplus IC to armor & air
+ME_EAI_strat_cap_infantry = {
+	enable = {
+		has_country_flag = ME_EAI_cap_infantry
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = infantry value = -200 }
+	ai_strategy = { type = build_army id = infantry value = -1 }
+	ai_strategy = { type = ai_wanted_divisions_factor value = -0.35 }
+	ai_strategy = { type = air_factory_balance value = 20 }
+}
+
+# Soft cap on armored divisions -> ensures existing Panzer/Tank corps stay 100% reinforced instead of diluting
+ME_EAI_strat_cap_armor = {
+	enable = {
+		has_country_flag = ME_EAI_cap_armor
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = armor value = -60 }
+	ai_strategy = { type = build_army id = armor value = -1 }
+}
+
+# Tier 3 minor/puppet spam suppression (huge late-game supply & CPU improvement)
+ME_EAI_strat_tier3_spam_cap = {
+	enable = {
+		has_country_flag = ME_EAI_tier_3
+		num_divisions > 18
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = build_army id = infantry value = -1 }
+	ai_strategy = { type = ai_wanted_divisions_factor value = -0.60 }
+}
+
+###############################################################################
+# 2. CIV -> MIL CONSTRUCTION PACING (UNIVERSAL + MAJOR-TUNED)
+###############################################################################
+
+ME_EAI_strat_civ_phase = {
+	enable = {
+		has_country_flag = ME_EAI_civ_phase
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = added_military_to_civilian_factory_ratio value = -35 }
+	ai_strategy = { type = building_target id = industrial_complex value = 60 }
+}
+
+ME_EAI_strat_mil_phase = {
+	enable = {
+		has_country_flag = ME_EAI_mil_phase
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = added_military_to_civilian_factory_ratio value = 65 }
+	ai_strategy = { type = building_target id = arms_factory value = 120 }
+}
+
+###############################################################################
+# 3. STOCK-GATED LOGISTICS, SUPPORT, AA & AIR/ARMOR SURPLUS REDIRECT
+###############################################################################
+
+ME_EAI_strat_trains_floor = {
+	enable = {
+		has_country_flag = ME_EAI_trains_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = train_equipment value = 1 }
+}
+
+ME_EAI_strat_support_floor = {
+	enable = {
+		has_country_flag = ME_EAI_support_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = support_equipment value = 4 }
+	ai_strategy = { type = equipment_production_factor id = support value = 35 }
+}
+
+ME_EAI_strat_trucks_floor = {
+	enable = {
+		has_country_flag = ME_EAI_trucks_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = motorized_equipment value = 3 }
+	ai_strategy = { type = equipment_production_factor id = motorized value = 25 }
+}
+
+ME_EAI_strat_aa_floor = {
+	enable = {
+		has_country_flag = ME_EAI_aa_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = anti_air_equipment value = 2 }
+	ai_strategy = { type = equipment_production_factor id = anti_air value = 30 }
+}
+
+# Redirect surplus rifle MILs straight into Green Air (Fighters + CAS) and Medium Tanks
+ME_EAI_strat_rifles_surplus_to_air_armor = {
+	enable = {
+		has_country_flag = ME_EAI_rifles_surplus
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = infantry value = -35 }
+	ai_strategy = { type = equipment_production_factor id = fighter value = 40 }
+	ai_strategy = { type = equipment_production_factor id = cas value = 25 }
+	ai_strategy = { type = equipment_production_factor id = armor value = 25 }
+	ai_strategy = { type = air_factory_balance value = 25 }
+}
+
+# Tier 1 Green Air baseline commitment + Air XP variant priority
+ME_EAI_strat_tier1_air_discipline = {
+	enable = {
+		has_country_flag = ME_EAI_tier_1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = fighter value = 25 }
+	ai_strategy = { type = equipment_production_factor id = cas value = 15 }
+	ai_strategy = { type = air_xp_spend_priority id = equipment_variant value = 120 }
+}
+
+###############################################################################
+# 4. ELEVATED EUROPEAN NAVAL STRENGTH (ITA / ENG / USA)
+###############################################################################
+
+ME_EAI_strat_naval_major_composition = {
+	enable = {
+		has_country_flag = ME_EAI_naval_major
+	}
+	abort_when_not_enabled = yes
+
+	# Emphasize Meta screen/CL/ASW balance + modern BB/CV backbones instead of junk ratios
+	ai_strategy = { type = role_ratio id = naval_screen value = 45 }
+	ai_strategy = { type = role_ratio id = naval_escort value = 25 }
+	ai_strategy = { type = role_ratio id = naval_cruiser_light value = 25 }
+	ai_strategy = { type = role_ratio id = naval_capital_bb value = 12 }
+	ai_strategy = { type = role_ratio id = naval_submarine value = 10 }
+	ai_strategy = { type = equipment_production_factor id = naval_bomber value = 15 }
+	ai_strategy = { type = navy_xp_spend_priority id = equipment_variant value = 100 }
+}
+
+ME_EAI_strat_ENG_USA_carriers = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		has_country_flag = ME_EAI_naval_major
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = role_ratio id = naval_carrier value = 15 }
+	ai_strategy = { type = role_ratio id = naval_escort value = 20 }
+}
+
+ME_EAI_strat_ITA_regia_marina_med = {
+	allowed = { original_tag = ITA }
+	enable = {
+		has_country_flag = ME_EAI_naval_major
+		has_war_with = ENG
+	}
+	abort_when_not_enabled = yes
+
+	# Concentrate Regia Marina strike forces & naval air in Central Med instead of scattering
+	ai_strategy = { type = naval_dominance id = central_med_lifeline value = 160 }
+	ai_strategy = { type = naval_dominance id = med_invasion_zone value = 120 }
+	ai_strategy = { type = strike_force_home_base id = 195 } # Tyrrhenian Sea
+	ai_strategy = { type = strategic_air_importance id = 200 value = 4500 } # Strait of Sicily
+	ai_strategy = { type = strategic_air_importance id = 202 value = 4000 } # Ionian Sea
+}
+
+###############################################################################
+# 5. FUEL DISCIPLINE, RIFLE STARVATION GUARD & CONSCRIPTION LAW PP BANK
+###############################################################################
+
+ME_EAI_strat_wartime_fuel_discipline = {
+	enable = {
+		has_country_flag = ME_EAI_tier_1
+		has_war = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = stockpile_fuel
+		start_below = 25
+		stop_above = 65
+	}
+}
+
+ME_EAI_strat_conserve_when_rifles_starved = {
+	enable = {
+		has_country_flag = ME_EAI_rifles_starved
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		area = europe
+		area = north_africa
+		area = middle_east
+		ratio = 0.25
+		priority = 15
+		ordertype = front
+		execution_type = careful
+		manual_attack = no
+	}
+}
+
+ME_EAI_strat_law_pp_guard = {
+	enable = {
+		has_country_flag = ME_EAI_need_law_pp
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = pp_spend_amount id = idea value = 150 }
+	ai_strategy = { type = pp_spend_priority id = relation value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = admiral value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = guarantee value = -9999 }
+}

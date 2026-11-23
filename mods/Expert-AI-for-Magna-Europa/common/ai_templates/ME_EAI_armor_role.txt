@@ -1,0 +1,222 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Unified ME-Scaled Armor Templates
+# High-org (>=32), supply-conscious breakthrough fists:
+#   - Early 18W Light Armor transition -> 30W Medium/Mot Breakthrough -> 34W Mechanized/Flame/TD Late Spearhead
+#   - Always mounts Logistics Company + AA + Engineer (+ Medium Flame Tank once unlocked)
+############################################################################################################
+
+ME_EAI_armor_role = {
+	role = armor
+	upgrade_prio = {
+		base = 200
+	}
+
+	# Early 18W Light Armor (pre-medium tank tech)
+	ME_EAI_LARM_18W = {
+		enable = {
+			NOT = { has_tech = basic_medium_tank_chassis }
+		}
+		upgrade_prio = { base = 10 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				artillery = 1
+				anti_air = 1
+				logistics_company = 1
+			}
+			regiments = {
+				light_armor = 5
+				motorized = 4
+			}
+		}
+	}
+
+	# 1938-1940 Transitional 20W Medium Armor (fast buildup while ramping medium tank production)
+	ME_EAI_MARM_20W_EARLY = {
+		enable = {
+			has_tech = basic_medium_tank_chassis
+			NOT = { has_tech = improved_medium_tank_chassis }
+		}
+		upgrade_prio = { base = 20 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				artillery = 1
+				recon = 1
+			}
+			regiments = {
+				medium_armor = 5
+				motorized = 5
+			}
+		}
+	}
+
+	# Core 1940+ 30W Medium Breakthrough Division (8 Medium + 7 Motorized + Logistics + Flame Tank)
+	ME_EAI_MARM_30W_MOT = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			NOT = { has_country_flag = ME_EAI_mech_ready }
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+		}
+		upgrade_prio = { base = 40 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				medium_flame_tank = 1
+				signal_company = 1
+			}
+			regiments = {
+				medium_armor = 8
+				motorized = 7
+			}
+		}
+	}
+
+	# Core 1940+ 30W Anti-Armor Spearhead (7 Medium + 1 Medium TD + 7 Motorized)
+	ME_EAI_MARM_30W_TD = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			NOT = { has_country_flag = ME_EAI_mech_ready }
+			has_country_flag = ME_EAI_counter_armor
+		}
+		upgrade_prio = { base = 50 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				medium_flame_tank = 1
+				signal_company = 1
+			}
+			regiments = {
+				medium_armor = 7
+				medium_tank_destroyer_brigade = 1
+				motorized = 7
+			}
+		}
+	}
+
+	# Elite 1941+ 34W Mechanized Medium Breakthrough Division (9 Medium + 8 Mechanized)
+	ME_EAI_MARM_34W_MECH = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			has_country_flag = ME_EAI_mech_ready
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+		}
+		upgrade_prio = { base = 60 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				medium_flame_tank = 1
+				signal_company = 1
+			}
+			regiments = {
+				medium_armor = 9
+				mechanized = 8
+			}
+		}
+	}
+
+	# Elite 1941+ 34W Mechanized Anti-Armor Division (8 Medium + 1 Medium TD + 8 Mechanized)
+	ME_EAI_MARM_34W_MECH_TD = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			has_country_flag = ME_EAI_mech_ready
+			has_country_flag = ME_EAI_counter_armor
+		}
+		upgrade_prio = { base = 70 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				medium_flame_tank = 1
+				signal_company = 1
+			}
+			regiments = {
+				medium_armor = 8
+				medium_tank_destroyer_brigade = 1
+				mechanized = 8
+			}
+		}
+	}
+}
+
+ME_EAI_heavy_armor_role = {
+	role = heavy_armor
+	upgrade_prio = {
+		base = 80
+	}
+
+	# Only nations with real heavy tank stockpile upgrade to heavy armor (prevents ITA -2660 heavy deficit!)
+	ME_EAI_HARM_30W = {
+		enable = {
+			has_country_flag = ME_EAI_heavy_ready
+		}
+		upgrade_prio = { base = 30 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				medium_flame_tank = 1
+				signal_company = 1
+			}
+			regiments = {
+				heavy_armor = 8
+				motorized = 7
+			}
+		}
+	}
+
+	# Clean Medium fallback when heavy tank stockpile is absent
+	ME_EAI_HARM_FALLBACK_MED = {
+		enable = {
+			NOT = { has_country_flag = ME_EAI_heavy_ready }
+		}
+		upgrade_prio = { base = 10 }
+		reinforce_prio = 2
+		can_upgrade_in_field = { always = yes }
+
+		target_template = {
+			support = {
+				engineer = 1
+				logistics_company = 1
+				anti_air = 1
+				artillery = 1
+				recon = 1
+			}
+			regiments = {
+				medium_armor = 5
+				motorized = 5
+			}
+		}
+	}
+}

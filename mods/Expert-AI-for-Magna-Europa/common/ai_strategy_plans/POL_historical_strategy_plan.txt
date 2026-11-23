@@ -1,0 +1,99 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Optimized Polish Historical Focus Plan
+# Rushes 4-Year Plan, Upper Silesia, Extra Research Slot, and Plan West defense instead of wasting
+# 1939 slots on naval shipbuilding before Fall Weiss.
+############################################################################################################
+
+POL_historical_plan = {
+	name = "POL historical plan (ME-EAI)"
+	desc = "Industrialized, land-defense hardened historical Poland"
+
+	allowed = {
+		original_tag = POL
+	}
+	enable = {
+		OR = {
+			AND = {
+				is_historical_focus_on = yes
+				has_game_rule = {
+					rule = POL_ai_behavior
+					option = DEFAULT
+				}
+			}
+			has_country_flag = POL_AI_RANDOM_HISTORICAL
+			has_game_rule = {
+				rule = POL_ai_behavior
+				option = HISTORICAL
+			}
+		}
+	}
+	abort = {
+		is_subject = yes
+	}
+
+	ai_national_focuses = {
+		# 1936: Industrial Base + Railways + Militarism
+		POL_the_four_year_plan
+		POL_central_region_strategy
+		POL_expansion_of_new_towns
+		POL_fill_the_railways_gaps
+		POL_develop_upper_silesia				# Pulled forward from 1938 -> 1936!
+		POL_additional_research_slot1			# Early research slot!
+
+		# 1937: Political Consolidation + Central Defense + Old Polish Industry
+		POL_complete_april_constitution
+		POL_consolidate_sanation_government
+		POL_polish_militarism
+		POL_central_defence_of_poland
+		POL_invest_in_the_old_polish_region
+		POL_modernize_congressional_factories
+
+		# 1938: Army Hardening + Plan West + Allies Alignment
+		POL_agrarian_reform
+		POL_the_castle
+		POL_the_sanation_right
+		POL_department_for_home_defence
+		POL_align_with_the_west
+		POL_join_allies
+		POL_plan_west							# Pulled forward from 1941 -> 1938/39!
+		POL_the_prusya_line
+		POL_the_prusya_army
+
+		# 1939+: Forts & Secondary Focuses
+		POL_expand_poznan_forts
+		POL_silesia_fortified_area
+		POL_warsaw_main_railway_station
+		POL_eliminate_socialist_parties
+		POL_dissolve_the_sejm
+		POL_camp_of_national_unity
+		POL_lithuanian_ultimatum
+		POL_support_right_paramilitaries
+		POL_polish_revanchism
+		POL_second_man_of_the_state
+		POL_hel_fortified_area
+		POL_develop_polish_ship_building
+		POL_attract_poles_to_gdynia
+		POL_study_foreign_built_ships
+		POL_expand_gdynia_seaport
+	}
+
+	research = {
+		industry = 20.0
+		infantry_weapons = 35.0
+		artillery = 18.0
+		support_tech = 15.0
+	}
+
+	ideas = {
+	}
+
+	traits = {
+		captain_of_industry = 15
+		war_industrialist = 10
+		popular_figurehead = 5
+	}
+
+	weight = {
+		factor = 1.0
+	}
+}

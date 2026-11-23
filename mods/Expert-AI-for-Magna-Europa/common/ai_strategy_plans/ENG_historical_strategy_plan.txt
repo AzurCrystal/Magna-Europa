@@ -1,0 +1,112 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Optimized UK Historical Focus Plan
+# Rushes industrial base, extra research slot, Fighter Command + Aircraft Production, Tank Focus,
+# Destroyer/Carrier Royal Navy upgrades, and Amphibious Assault ahead of Mediterranean & Overlord.
+############################################################################################################
+
+ENG_historical_plan = {
+	name = "United Kingdom historical plan (ME-EAI)"
+	desc = "High-efficiency RAF, Royal Navy, armored and amphibious UK buildup"
+
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		OR = {
+			AND = {
+				is_historical_focus_on = yes
+				OR = {
+					not = { has_dlc = "Man the Guns" }
+					has_game_rule = {
+						rule = ENG_ai_behavior
+						option = DEFAULT
+					}
+				}
+			}
+			has_country_flag = ENG_AI_DEMOCRATIC_HISTORICAL
+			has_game_rule = {
+				rule = ENG_ai_behavior
+				option = DEMOCRATIC_HISTORICAL
+			}
+		}
+	}
+	abort = {
+		OR = {
+			GER = { has_completed_focus = GER_oppose_hitler }
+			GER = { has_completed_focus = GER_oppose_hitler_ww }
+		}
+	}
+
+	ai_national_focuses = {
+		# 1936: Rearmament + Industrial Snowball + Early Research Slot
+		limited_rearmament_focus
+		shadow_scheme_focus
+		uk_industrial_focus
+		uk_extra_tech_slot						# Early 5th research slot!
+		general_rearmament_focus
+		royal_ordinance_focus
+
+		# 1937-1938: Steady Government + RAF Air Defense & Radar + Tank/Motorized Prep
+		ENG_steady_as_she_goes
+		uk_empire_focus
+		uk_service_focus
+		air_rearmament_focus
+		fighter_command_focus					# RAF Fighter supremacy early
+		aircraft_production_focus
+		air_defense_focus
+		radar_focus
+		uk_small_arms_focus
+
+		# 1939: War Mobilization + Tanks + Royal Navy Escorts & Med Bases
+		ENG_prepare_for_the_inevitable
+		ENG_home_defence
+		ENG_issue_gasmasks
+		ENG_military_training_act
+		ENG_motorized_focus
+		ENG_tank_focus							# Moved up from 1944 -> 1939/40!
+		naval_rearmament_focus
+		uk_destroyer_focus						# ASW & Med screening early
+
+		# 1940-1941: Mediterranean + Amphibious + Carriers + Ultra/Tizard
+		uk_mediterranean_focus
+		uk_protect_suez
+		uk_malta_focus
+		uk_rock_focus
+		uk_amphibious_focus						# Earlier Husky/Overlord readiness
+		uk_waves_focus
+		uk_convoy_focus
+		uk_carrier_focus
+		crypto_bomb_focus
+		tizard_mission_focus
+		ENG_chiefs_of_staff_committee
+
+		# 1942+: Bombers, Commonwealth, Endgame
+		bomber_command_focus
+		coastal_command_focus
+		ENG_special_air_service
+		uk_colonial_focus
+		uk_commonwealth_focus
+		uk_canada_focus
+		uk_iraq_focus
+		maud_focus
+		UK_secret_focus
+		uk_jet_focus
+	}
+
+	research = {
+		industry = 20.0
+		light_fighter = 35.0
+		armor = 20.0
+		dd_tech = 18.0
+		cv_tech = 15.0
+		tp_tech = 20.0
+	}
+
+	ideas = {
+		home_defence_spirit = 1
+	}
+
+	weight = {
+		factor = 1.0
+	}
+}

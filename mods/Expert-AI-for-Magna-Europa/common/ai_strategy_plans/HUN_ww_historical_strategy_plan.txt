@@ -1,0 +1,109 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Optimized Hungarian Historical Focus Plan (Gotterdammerung)
+# Front-loads Economic Intervention, Gyor Program, Academy of Sciences research slot, and rapid rearmament.
+############################################################################################################
+
+HUN_ww_historical = {
+	name = "Hungarian historical plan (ME-EAI)"
+	desc = "Fast-rearming, industrialized Axis Hungary"
+
+	allowed = {
+		original_tag = HUN
+		has_dlc = "Gotterdammerung"
+	}
+
+	enable = {
+		OR = {
+			AND = {
+				is_historical_focus_on = yes
+				has_game_rule = {
+					rule = HUN_ai_behavior
+					option = DEFAULT
+				}
+			}
+			has_country_flag = HUN_AI_RANDOM_FASCIST_HISTORICAL
+			has_game_rule = {
+				rule = HUN_ai_behavior
+				option = FASCIST_HISTORICAL
+			}
+		}
+	}
+
+	abort = {
+		is_subject = yes
+	}
+
+	ai_national_focuses = {
+		# Conditional ASAP
+		wuw_HUN_support_for_our_finnish_brothers
+		wuw_HUN_joint_air_development
+		wuw_HUN_allied_manufacturing_programs
+		wuw_HUN_construct_the_arpad_line
+
+		# 1936: Economic Intervention + Secret Rearmament + Ganz Muvek
+		wuw_HUN_continue_the_regency
+		wuw_HUN_strengthen_horthys_reign
+		wuw_HUN_economic_intervention
+		wuw_HUN_secret_rearmament
+		wuw_HUN_expand_the_ganz_muvek
+		wuw_HUN_reintigrate_the_imperial_railroads
+		wuw_HUN_hold_war_games
+
+		# 1937: Gyor Program + Urbanization + Research Slot + Negotiate Trianon
+		wuw_HUN_promote_increased_urbanization
+		wuw_HUN_announce_the_gyor_program
+		wuw_HUN_expand_the_hungarian_academy_of_sciences	# Pulled forward from 1940 -> 1937/38!
+		wuw_HUN_pass_statute_xix
+		wuw_HUN_spur_on_the_trianon_trauma
+		wuw_HUN_negotiate_the_restrictions
+		wuw_HUN_renounce_the_treaty_of_trianon
+
+		# 1938-1939: Army/Arms/German Industrial Cooperation
+		wuw_HUN_outlaw_the_party_of_national_will
+		wuw_HUN_restrict_voting_rights
+		wuw_HUN_absolute_rule_of_the_national_unity_party
+		wuw_HUN_act_of_defense
+		wuw_HUN_initiate_army_maneuvers
+		wuw_HUN_form_the_gyorshadtest
+		wuw_HUN_invest_in_ludovica_academy
+		wuw_HUN_seek_german_contracts
+		wuw_HUN_invite_german_investors
+		wuw_HUN_joint_aluminum_mining_company
+
+		# 1940: Join Axis + Territorial Claims + Heavy Arms Industry
+		wuw_HUN_join_the_axis
+		wuw_HUN_demand_southern_slovakia
+		wuw_HUN_demand_carpathian_ruthenia
+		wuw_HUN_demand_transylvania
+		wuw_HUN_establish_the_mavag_army_division
+		wuw_HUN_expand_the_diosgyor_machinery_factory
+		wuw_HUN_danuvia_submachine_guns
+
+		# 1941+: Air/Armor Industry & Doctrine
+		wuw_HUN_doctrinal_studies
+		wuw_HUN_quantity_over_quality
+		wuw_HUN_undercover_air_maneuvers
+		wuw_HUN_make_the_magyar_legiero_known
+		wuw_HUN_establish_the_mavag_aircraft_factory
+		wuw_HUN_the_matyasfold_fighter_factory
+		wuw_HUN_the_turan
+		wuw_HUN_reestablish_the_rongyos_garda
+		wuw_HUN_the_hungarian_life_and_renewal_party
+		wuw_HUN_promote_hungarianism
+		wuw_HUN_reaffirm_territorial_claims
+		wuw_HUN_the_turul_association
+		wuw_HUN_magyar_kiralyi_csendorseg
+		wuw_HUN_light_infantry_divisions_doctrine
+		wuw_HUN_reinstate_the_navy
+	}
+
+	research = {
+		industry = 20.0
+		infantry_weapons = 30.0
+		artillery = 15.0
+	}
+
+	weight = {
+		factor = 1.0
+	}
+}

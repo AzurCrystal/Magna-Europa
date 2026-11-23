@@ -1,0 +1,114 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Optimized French Historical Focus Plan
+# Rushes Devalue Franc -> Metropolitan Industry -> Research Slot -> Rearmament -> Army Reform so France
+# fields a tougher 1940 defense (especially challenging for a human German player).
+############################################################################################################
+
+FRA_historical_plan = {
+	name = "France historical plan (ME-EAI)"
+	desc = "Industrial-first and reformed-army historical France"
+
+	allowed = {
+		original_tag = FRA
+	}
+	enable = {
+		OR = {
+			AND = {
+				is_historical_focus_on = yes
+				has_game_rule = {
+					rule = FRA_ai_behavior
+					option = DEFAULT
+				}
+			}
+			has_game_rule = {
+				rule = FRA_ai_behavior
+				option = DEMOCRATIC_HISTORICAL
+			}
+			has_country_flag = FRA_AI_DEMOCRATIC_HISTORICAL
+		}
+	}
+	abort = {
+		OR = {
+			GER = { has_completed_focus = GER_oppose_hitler }
+			GER = { has_completed_focus = GER_oppose_hitler_ww }
+			AND = {
+				ENG = { has_completed_focus = ENG_a_change_in_course }
+				NOT = {
+					GER = { has_completed_focus = GER_oppose_hitler }
+					GER = { has_completed_focus = GER_oppose_hitler_ww }
+				}
+			}
+		}
+		has_game_rule = {
+			rule = FRA_ai_behavior
+			option = DEFAULT
+		}
+	}
+
+	ai_national_focuses = {
+		# 1936: Economic Stabilization + Metropolitan Industry + Early Research Slot
+		FRA_devalue_the_franc
+		FRA_invest_in_the_metropole
+		FRA_metropolitan_france
+		FRA_industrial_expansion
+		FRA_extra_research_slot					# Moved up from 1938 -> 1936/37!
+
+		# 1937: Political Stability + Rearmament + State Arsenals
+		FRA_form_the_popular_front
+		FRA_begin_rearmament
+		FRA_defensive_focus
+		FRA_firepower_kills
+		FRA_nationalize_key_industry
+		FRA_form_the_state_arsenals
+
+		# 1938: Army Reform + Aviation + Go With Britain
+		FRA_reform_the_labour_laws
+		FRA_strengthen_government_support
+		FRA_review_foreign_policy
+		FRA_buy_time
+		FRA_go_with_britain
+		FRA_infantry_focus
+		FRA_artillery_focus
+		FRA_army_reform							# Drop Victors of the Great War earlier!
+
+		# 1939-1940: Heavy Armor, Air Force & Colonial Fallback
+		FRA_reorganize_the_aviation_industry
+		FRA_air_focus
+		FRA_fighter_focus
+		FRA_heavy_armor_focus
+		FRA_division_cuirassee
+		FRA_arms_purchases_in_the_us
+		FRA_dirigisme
+		FRA_general_work_council
+
+		# 1941+: Colonial Industry & Second Research Slot
+		FRA_invest_in_the_colonies
+		FRA_algerie_france
+		FRA_invest_in_syria
+		FRA_colonial_industry
+		FRA_extra_research_slot_2
+		FRA_the_blum_viollette_proposal
+		FRA_intervention_in_spain
+		FRA_heavy_fighter_focus
+		FRA_air_doctrine
+	}
+
+	focus_factors = {
+		FRA_right_wing_rhetoric = 0
+		FRA_leftist_rhetoric = 0
+	}
+
+	research = {
+		industry = 20.0
+		infantry_weapons = 30.0
+		artillery = 15.0
+		light_fighter = 25.0
+	}
+
+	ideas = {
+	}
+
+	weight = {
+		factor = 1.0
+	}
+}

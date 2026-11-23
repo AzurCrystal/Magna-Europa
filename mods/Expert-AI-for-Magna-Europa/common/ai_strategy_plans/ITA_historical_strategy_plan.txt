@@ -1,0 +1,140 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Optimized Italian Historical Focus Plan
+# Rushes Northern Industry, Edison, National Universities (research slot), Superesercito / Superaereo /
+# Supermarina, Libya oil/infra, and Ansaldo/modern armor before 1940 Mediterranean War.
+############################################################################################################
+
+ITA_historical_plan = {
+	name = "Italy historical plan (ME-EAI)"
+	desc = "Industrialized, modernized Regia Marina and stronger land/air Italy"
+
+	allowed = {
+		original_tag = ITA
+	}
+	enable = {
+		OR = {
+			AND = {
+				is_historical_focus_on = yes
+				has_game_rule = {
+					rule = ITA_ai_behavior
+					option = DEFAULT
+				}
+			}
+			has_country_flag = ITA_AI_RANDOM_FASCIST_HISTORICAL
+			has_game_rule = {
+				rule = ITA_ai_behavior
+				option = FASCIST_HISTORICAL
+			}
+		}
+	}
+	abort = {
+		GER = {
+			OR = {
+				has_completed_focus = GER_oppose_hitler_ww
+				has_completed_focus = GER_oppose_hitler
+			}
+		}
+	}
+
+	ai_national_focuses = {
+		# 1936: Immediate Victory in Africa + Core Industrial Snowball
+		ITA_italian_highways_bba				#35
+		ITA_solid_progress						#35
+		ITA_triumph_in_africa_bba				#35
+		ITA_the_new_emperor_of_ethiopia			#35
+		ITA_devaluate_the_lire					#35
+		ITA_strengthen_northern_industry		# Pulled forward from 1941 -> 1936!
+		ITA_investments_in_edison				# Pulled forward from 1942 -> 1936/37!
+		ITA_expand_national_universities		# Extra Research Slot early!
+
+		# 1937: Steel, Oil, Synthetic Rubber, Army & Regia Marina Foundations
+		ITA_steel_industry_in_terni
+		ITA_modernize_ansaldo_facilities		# Pulled forward from 1942 -> 1937!
+		ITA_army_primacy_bba					#35
+		ITA_fiocchi_munizioni					#35
+		ITA_naval_power_projection				#35
+		ITA_oto_naval_guns						#35
+		ITA_air_innovations_bba					#35
+		ITA_expand_rome_flying_school			#35
+		ITA_citta_dell_aria
+
+		# 1938: Libya Infrastructure/Oil, Rubber, Political & Military Modernization
+		ITA_develop_libya						#35
+		ITA_prospect_for_oil					#35  Pulled forward from 1941!
+		ITA_industria_della_gomma_sintetica		#35
+		ITA_stockpile_fuel						#35
+		ITA_railway_innovations
+		ITA_foreign_affairs						#35
+		ITA_ministry_of_italian_africa			#35
+		ITA_corpo_di_truppe_volontarie			#35
+		ITA_culto_del_duce
+		ITA_the_man_of_providence				#35
+
+		# 1939: Pact of Steel, Albania, Pre-War Army/Air/Naval High Commands
+		ITA_potential_allies_in_the_balkans		#35
+		ITA_albanian_occupation					#35
+		ITA_pact_of_steel						#35
+		ITA_german_military_cooperation			#35
+		ITA_treaty_with_germany					#35
+		ITA_expand_naval_facilities				#35
+		ITA_superesercito						#35
+		ITA_superaereo							#35
+		ITA_supermarina							#35  Regia Marina modernized before Med War!
+		ITA_increase_production					#35
+
+		# 1940: Greece, Armor/Artillery Modernization & Bersaglieri
+		ITA_italian_irredentism
+		ITA_support_albanian_irredentism		#35
+		ITA_war_with_greece						#35
+		ITA_army_leaders
+		ITA_italian_tankettes
+		ITA_self_propelled_guns
+		ITA_bersaglieri
+		ITA_ferrea_mole_ferreo_cuore			#35
+		ITA_brescia_small_arms_industry			#35
+
+		# 1941+: Economy, Militia & Late-War
+		ITA_regional_development
+		ITA_expand_foggia_farm_fields
+		ITA_milan_comms_industry				#35
+		ITA_redirect_alfa_romeo_production
+		ITA_servizio_informazione_militare
+		ITA_security_militias					#35
+		ITA_a_bandits_war
+		ITA_milizia_marittima_di_artiglieria
+		ITA_ministero_della_cultura_popolare	#35
+		ITA_believe_obey_fight					#35
+		ITA_legge_bottai						#35
+		ITA_banda_carita
+		ITA_polizia_dell_africa_italiana
+		ITA_banda_koch
+	}
+
+	focus_factors = {
+		ITA_the_abyssinian_fiasco = 0
+		ITA_struggle_in_ethiopia = 0
+		ITA_defy_the_duce = 0
+		ITA_unite_the_opposition = 0
+		ITA_liberate_gramsci = 0
+		ITA_convene_the_grand_council = 0
+		ITA_undermine_the_duce = 0
+		ITA_guarantee_austrian_independence = 0
+	}
+
+	research = {
+		industry = 20.0
+		infantry_weapons = 30.0
+		artillery = 15.0
+		light_fighter = 25.0
+		dd_tech = 18.0
+		cl_tech = 18.0
+		bb_tech = 15.0
+	}
+
+	ideas = {
+	}
+
+	weight = {
+		factor = 1.0
+	}
+}

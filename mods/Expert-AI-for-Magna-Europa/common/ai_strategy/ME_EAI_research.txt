@@ -1,0 +1,164 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Pure O(1) Flag-Driven Meta Research Priorities
+# Uses native HOI4 1.20 research_weight_factor gated on ME_EAI tier & global era flags.
+# Zero vanilla tech files overwritten -> 100% safe across ME patches and DLC combinations.
+############################################################################################################
+
+#-----------------------------------------------------------------------------------------------------------
+# 1. Universal Core Industry, Computing & Support Techs (Tier 1 & Tier 2 — 1936+)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_core_1936 = {
+	enable = {
+		has_country_flag = ME_EAI_active_brain
+	}
+	abort_when_not_enabled = yes
+
+	# Computing & Radio (massive combat/reinforce/research multiplier)
+	ai_strategy = { type = research_weight_factor id = electronic_mechanical_engineering value = 250 }
+	ai_strategy = { type = research_weight_factor id = mechanical_computing value = 200 }
+	ai_strategy = { type = research_weight_factor id = radio value = 250 }
+
+	# Machine Tools, Construction & Industry Snowball
+	ai_strategy = { type = research_weight_factor id = basic_machine_tools value = 250 }
+	ai_strategy = { type = research_weight_factor id = construction1 value = 200 }
+	ai_strategy = { type = research_weight_factor id = concentrated_industry value = 150 }
+	ai_strategy = { type = research_weight_factor id = dispersed_industry value = 180 }
+
+	# ME Critical Support Stack: Engineers + Logistics + Anti-Air + Artillery
+	ai_strategy = { type = research_weight_factor id = tech_engineers value = 250 }
+	ai_strategy = { type = research_weight_factor id = tech_logistics_company value = 300 }
+	ai_strategy = { type = research_weight_factor id = interwar_antiair value = 220 }
+	ai_strategy = { type = research_weight_factor id = interwar_artillery value = 200 }
+	ai_strategy = { type = research_weight_factor id = interwar_antitank value = 150 }
+	ai_strategy = { type = research_weight_factor id = infantry_weapons1 value = 200 }
+	ai_strategy = { type = research_weight_factor id = motorised_infantry value = 200 }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 2. Tier 1 Core Armor & Air Techs (1936-1938 Baseline)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_tier1_land_air_1936 = {
+	enable = {
+		has_country_flag = ME_EAI_tier_1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = research_weight_factor id = basic_small_airframe value = 220 }
+	ai_strategy = { type = research_weight_factor id = engines_2 value = 220 }
+	ai_strategy = { type = research_weight_factor id = aa_hmg value = 280 }
+	ai_strategy = { type = research_weight_factor id = range_improvements value = 180 }
+	ai_strategy = { type = research_weight_factor id = armor_tech_1 value = 150 }
+	ai_strategy = { type = research_weight_factor id = engine_tech_1 value = 150 }
+	ai_strategy = { type = research_weight_factor id = tech_signal_company value = 120 }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 3. 1938 Era Window (Industry II, Basic Medium Chassis, Engineers II for Flame Tanks, Survivability)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_era_1938 = {
+	enable = {
+		has_global_flag = ME_EAI_era_1938
+		has_country_flag = ME_EAI_active_brain
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = research_weight_factor id = improved_machine_tools value = 240 }
+	ai_strategy = { type = research_weight_factor id = construction2 value = 200 }
+	ai_strategy = { type = research_weight_factor id = concentrated_industry2 value = 160 }
+	ai_strategy = { type = research_weight_factor id = dispersed_industry2 value = 180 }
+	ai_strategy = { type = research_weight_factor id = computing_machine value = 200 }
+	ai_strategy = { type = research_weight_factor id = infantry_weapons2 value = 220 }
+	ai_strategy = { type = research_weight_factor id = improved_infantry_weapons value = 240 }
+	ai_strategy = { type = research_weight_factor id = artillery1 value = 180 }
+	ai_strategy = { type = research_weight_factor id = antiair1 value = 180 }
+	ai_strategy = { type = research_weight_factor id = antitank1 value = 180 }
+	ai_strategy = { type = research_weight_factor id = tech_engineers2 value = 240 }
+	ai_strategy = { type = research_weight_factor id = tech_logistics_company2 value = 240 }
+	ai_strategy = { type = research_weight_factor id = basic_medium_tank_chassis value = 280 }
+	ai_strategy = { type = research_weight_factor id = survivability_studies value = 260 }
+	ai_strategy = { type = research_weight_factor id = aircraft_construction value = 200 }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 4. 1940 Era Window (The European Decisive Tech Tier: 1940 Fighters, Engine 3, Improved Medium, Mech)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_era_1940 = {
+	enable = {
+		has_global_flag = ME_EAI_era_1940
+		has_country_flag = ME_EAI_tier_1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = research_weight_factor id = advanced_machine_tools value = 220 }
+	ai_strategy = { type = research_weight_factor id = construction3 value = 180 }
+	ai_strategy = { type = research_weight_factor id = concentrated_industry3 value = 160 }
+	ai_strategy = { type = research_weight_factor id = dispersed_industry3 value = 180 }
+	ai_strategy = { type = research_weight_factor id = improved_small_airframe value = 360 }
+	ai_strategy = { type = research_weight_factor id = engines_3 value = 340 }
+	ai_strategy = { type = research_weight_factor id = aa_cannon_1 value = 220 }
+	ai_strategy = { type = research_weight_factor id = improved_medium_tank_chassis value = 360 }
+	ai_strategy = { type = research_weight_factor id = mechanised_infantry value = 260 }
+	ai_strategy = { type = research_weight_factor id = artillery4 value = 200 }
+	ai_strategy = { type = research_weight_factor id = antiair2 value = 220 }
+	ai_strategy = { type = research_weight_factor id = antitank2 value = 220 }
+	ai_strategy = { type = research_weight_factor id = antitank3 value = 200 }
+	ai_strategy = { type = research_weight_factor id = radio_detection value = 160 }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 5. 1943 Era Window (Late-War Advanced Fighters, Engine 4, 1943 Medium Tanks, Advanced Infantry)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_era_1943 = {
+	enable = {
+		has_global_flag = ME_EAI_era_1943
+		has_country_flag = ME_EAI_tier_1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = research_weight_factor id = advanced_small_airframe value = 350 }
+	ai_strategy = { type = research_weight_factor id = engines_4 value = 320 }
+	ai_strategy = { type = research_weight_factor id = aa_cannon_2 value = 220 }
+	ai_strategy = { type = research_weight_factor id = advanced_medium_tank_chassis value = 340 }
+	ai_strategy = { type = research_weight_factor id = advanced_infantry_weapons value = 250 }
+	ai_strategy = { type = research_weight_factor id = mechanised_infantry2 value = 220 }
+	ai_strategy = { type = research_weight_factor id = antitank5 value = 200 }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 6. Axis Synthetic Oil & Rubber Independence (GER / ITA / ROM / HUN)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_axis_synth = {
+	enable = {
+		has_country_flag = ME_EAI_axis_synth
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = research_weight_factor id = synth_oil_experiments value = 240 }
+	ai_strategy = { type = research_weight_factor id = rubber_processing value = 260 }
+	ai_strategy = { type = research_weight_factor id = improved_rubber_processing value = 220 }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 7. Naval Major Tech Focus (ITA / ENG / USA — Hulls, ASW, Light-Attack Cruisers, Radar, Landing Craft)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_res_naval_majors = {
+	enable = {
+		has_country_flag = ME_EAI_naval_major
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = research_weight_factor id = basic_ship_hull_light value = 200 }
+	ai_strategy = { type = research_weight_factor id = improved_ship_hull_light value = 220 }
+	ai_strategy = { type = research_weight_factor id = basic_ship_hull_cruiser value = 200 }
+	ai_strategy = { type = research_weight_factor id = improved_ship_hull_cruiser value = 240 }
+	ai_strategy = { type = research_weight_factor id = basic_dp_light_battery value = 240 }
+	ai_strategy = { type = research_weight_factor id = improved_light_battery value = 200 }
+	ai_strategy = { type = research_weight_factor id = sonar value = 200 }
+	ai_strategy = { type = research_weight_factor id = improved_sonar value = 220 }
+	ai_strategy = { type = research_weight_factor id = basic_depth_charges value = 200 }
+	ai_strategy = { type = research_weight_factor id = improved_depth_charges value = 200 }
+	ai_strategy = { type = research_weight_factor id = basic_fire_control_system value = 220 }
+	ai_strategy = { type = research_weight_factor id = improved_fire_control_system value = 200 }
+	ai_strategy = { type = research_weight_factor id = mtg_landing_craft value = 260 }
+	ai_strategy = { type = research_weight_factor id = mtg_tank_landing_craft value = 240 }
+}

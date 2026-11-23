@@ -1,0 +1,282 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Meta Land Armor Blueprints
+# Priority 50000 cleanly overrides vanilla ai_equipment when chassis tech is unlocked, while gracefully
+# falling back to vanilla designs for earlier chassis.
+############################################################################################################
+
+ME_EAI_medium_tank = {
+	category = land
+	roles = { land_medium_tank }
+	priority = {
+		base = 50000
+	}
+
+	# 1938 Basic Medium — Breakthrough / Soft Attack Meta
+	ME_EAI_BASIC_MEDIUM_SA = {
+		enable = {
+			has_tech = basic_medium_tank_chassis
+			NOT = { has_tech = improved_medium_tank_chassis }
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+		}
+		priority = { base = 500 }
+
+		target_variant = {
+			type = medium_tank_chassis_1
+			match_value = 2000
+
+			modules = {
+				main_armament_slot = { any_of = { tank_medium_howitzer tank_medium_cannon tank_close_support_gun tank_small_cannon_2 } }
+				turret_type_slot = { any_of = { tank_medium_three_man_tank_turret tank_medium_two_man_tank_turret } }
+				suspension_type_slot = { any_of = { tank_christie_suspension tank_torsion_bar_suspension tank_bogie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_riveted_armor } }
+				engine_type_slot = { any_of = { tank_gasoline_engine tank_diesel_engine } }
+				special_type_slot_1 = { any_of = { tank_radio_3 tank_radio_2 tank_radio_1 extra_ammo_storage } }
+				special_type_slot_2 = { any_of = { easy_maintenance sloped_armor extra_ammo_storage additional_machine_guns } }
+				special_type_slot_3 = { any_of = { additional_machine_guns secondary_turret_hmg extra_ammo_storage } }
+				special_type_slot_4 = { any_of = { armor_skirts wet_ammo_storage additional_machine_guns } }
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 6
+				tank_nsb_armor_upgrade = 4
+			}
+		}
+	}
+
+	# 1940 Improved Medium — Workhorse European Breakthrough Meta (High Soft Attack, >=8km/h, High Reliability)
+	ME_EAI_IMPROVED_MEDIUM_SA = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			NOT = { has_tech = advanced_medium_tank_chassis }
+			NOT = { has_country_flag = ME_EAI_counter_armor }
+		}
+		priority = { base = 1000 }
+
+		target_variant = {
+			type = medium_tank_chassis_2
+			match_value = 3000
+
+			modules = {
+				main_armament_slot = { any_of = { tank_medium_howitzer_2 tank_medium_howitzer tank_medium_cannon_2 tank_medium_cannon tank_close_support_gun } }
+				turret_type_slot = tank_medium_three_man_tank_turret
+				suspension_type_slot = { any_of = { tank_christie_suspension tank_torsion_bar_suspension tank_bogie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_riveted_armor } }
+				engine_type_slot = { any_of = { tank_diesel_engine tank_gasoline_engine } }
+				special_type_slot_1 = { any_of = { tank_radio_3 tank_radio_2 tank_radio_1 } }
+				special_type_slot_2 = { any_of = { easy_maintenance sloped_armor wet_ammo_storage } }
+				special_type_slot_3 = { any_of = { sloped_armor secondary_turret_small_cannon secondary_turret_hmg additional_machine_guns } }
+				special_type_slot_4 = { any_of = { stabilizer extra_ammo_storage armor_skirts additional_machine_guns } }
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 8
+				tank_nsb_armor_upgrade = 8
+			}
+		}
+	}
+
+	# 1940 Improved Medium — Anti-Armor Variant (when facing heavy player/enemy tank concentrations)
+	ME_EAI_IMPROVED_MEDIUM_AT = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			NOT = { has_tech = advanced_medium_tank_chassis }
+			has_country_flag = ME_EAI_counter_armor
+		}
+		priority = { base = 1200 }
+
+		target_variant = {
+			type = medium_tank_chassis_2
+			match_value = 3200
+
+			modules = {
+				main_armament_slot = { any_of = { tank_medium_cannon_2 tank_high_velocity_cannon_2 tank_medium_cannon tank_high_velocity_cannon } }
+				turret_type_slot = tank_medium_three_man_tank_turret
+				suspension_type_slot = { any_of = { tank_torsion_bar_suspension tank_christie_suspension tank_bogie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_cast_armor tank_riveted_armor } }
+				engine_type_slot = { any_of = { tank_diesel_engine tank_gasoline_engine } }
+				special_type_slot_1 = { any_of = { tank_radio_3 tank_radio_2 tank_radio_1 } }
+				special_type_slot_2 = { any_of = { sloped_armor easy_maintenance } }
+				special_type_slot_3 = { any_of = { easy_maintenance wet_ammo_storage armor_skirts } }
+				special_type_slot_4 = { any_of = { stabilizer extra_ammo_storage additional_machine_guns } }
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 8
+				tank_nsb_armor_upgrade = 10
+			}
+		}
+	}
+
+	# 1943 Advanced Medium — Late-War Panther/T-34-85/Comet/Easy-Eight Meta
+	ME_EAI_ADVANCED_MEDIUM = {
+		enable = {
+			has_tech = advanced_medium_tank_chassis
+		}
+		priority = { base = 1500 }
+
+		target_variant = {
+			type = medium_tank_chassis_3
+			match_value = 4000
+
+			modules = {
+				main_armament_slot = { any_of = { tank_medium_cannon_2 tank_medium_howitzer_2 tank_high_velocity_cannon_2 tank_medium_cannon } }
+				turret_type_slot = tank_medium_three_man_tank_turret
+				suspension_type_slot = { any_of = { tank_torsion_bar_suspension tank_christie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_cast_armor } }
+				engine_type_slot = { any_of = { tank_diesel_engine tank_gasoline_engine } }
+				special_type_slot_1 = { any_of = { tank_radio_3 tank_radio_2 tank_radio_1 } }
+				special_type_slot_2 = { any_of = { sloped_armor easy_maintenance } }
+				special_type_slot_3 = { any_of = { easy_maintenance stabilizer wet_ammo_storage } }
+				special_type_slot_4 = { any_of = { stabilizer extra_ammo_storage armor_skirts additional_machine_guns } }
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 9
+				tank_nsb_armor_upgrade = 10
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Medium Tank Destroyer (High-Piercing Counter to Player Heavy Armor)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_medium_td = {
+	category = land
+	roles = { land_medium_tank_destroyer }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_IMPROVED_MTD = {
+		enable = {
+			has_tech = improved_medium_tank_chassis
+			NOT = { has_tech = advanced_medium_tank_chassis }
+		}
+		priority = { base = 1000 }
+
+		target_variant = {
+			type = medium_tank_destroyer_chassis_2
+			match_value = 3000
+
+			modules = {
+				main_armament_slot = { any_of = { tank_heavy_cannon_2 tank_high_velocity_cannon_2 tank_heavy_cannon tank_high_velocity_cannon tank_medium_cannon_2 } }
+				turret_type_slot = tank_medium_fixed_superstructure_turret
+				suspension_type_slot = { any_of = { tank_torsion_bar_suspension tank_christie_suspension tank_bogie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_riveted_armor } }
+				engine_type_slot = { any_of = { tank_diesel_engine tank_gasoline_engine } }
+				special_type_slot_1 = { any_of = { sloped_armor easy_maintenance tank_radio_2 tank_radio_1 } }
+				special_type_slot_2 = { any_of = { easy_maintenance extra_ammo_storage wet_ammo_storage } }
+				special_type_slot_3 = { any_of = { extra_ammo_storage armor_skirts } }
+				special_type_slot_4 = empty
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 8
+				tank_nsb_armor_upgrade = 8
+			}
+		}
+	}
+
+	ME_EAI_ADVANCED_MTD = {
+		enable = {
+			has_tech = advanced_medium_tank_chassis
+		}
+		priority = { base = 1500 }
+
+		target_variant = {
+			type = medium_tank_destroyer_chassis_3
+			match_value = 4000
+
+			modules = {
+				main_armament_slot = { any_of = { tank_heavy_cannon_3 tank_high_velocity_cannon_3 tank_heavy_cannon_2 tank_high_velocity_cannon_2 } }
+				turret_type_slot = tank_medium_fixed_superstructure_turret
+				suspension_type_slot = { any_of = { tank_torsion_bar_suspension tank_christie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_cast_armor } }
+				engine_type_slot = { any_of = { tank_diesel_engine tank_gasoline_engine } }
+				special_type_slot_1 = { any_of = { sloped_armor easy_maintenance } }
+				special_type_slot_2 = { any_of = { easy_maintenance wet_ammo_storage } }
+				special_type_slot_3 = { any_of = { extra_ammo_storage armor_skirts } }
+				special_type_slot_4 = empty
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 9
+				tank_nsb_armor_upgrade = 10
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Medium Flame Tank Support (Cheap, Fast, Massive Urban/River/Forest/Fort Attack Multiplier)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_medium_flame_tank = {
+	category = land
+	roles = { land_medium_tank_flamethrower }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_CHEAP_MEDIUM_FLAME = {
+		enable = {
+			has_tech = basic_medium_tank_chassis
+			has_tech = tech_engineers2
+		}
+		priority = { base = 1000 }
+
+		target_variant = {
+			type = medium_tank_flame_chassis_1
+			match_value = 2500
+
+			modules = {
+				main_armament_slot = flamethrower
+				turret_type_slot = tank_medium_one_man_tank_turret
+				suspension_type_slot = { any_of = { tank_christie_suspension tank_bogie_suspension } }
+				armor_type_slot = tank_riveted_armor
+				engine_type_slot = { any_of = { tank_gasoline_engine tank_diesel_engine } }
+				special_type_slot_1 = { any_of = { dozer_blade expanded_fuel_tank } }
+				special_type_slot_2 = { any_of = { expanded_fuel_tank easy_maintenance } }
+				special_type_slot_3 = empty
+				special_type_slot_4 = empty
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 8
+				tank_nsb_armor_upgrade = 0
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Heavy Breakthrough Tank (Fort/River Buster for Majors)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_heavy_tank = {
+	category = land
+	roles = { land_heavy_tank }
+	priority = {
+		base = 50000
+	}
+
+	ME_EAI_IMPROVED_HEAVY = {
+		enable = {
+			has_tech = improved_heavy_tank_chassis
+		}
+		priority = { base = 1000 }
+
+		target_variant = {
+			type = heavy_tank_chassis_2
+			match_value = 3500
+
+			modules = {
+				main_armament_slot = { any_of = { tank_heavy_cannon_2 tank_heavy_cannon tank_medium_howitzer_2 tank_medium_cannon_2 } }
+				turret_type_slot = tank_heavy_three_man_tank_turret
+				suspension_type_slot = { any_of = { tank_torsion_bar_suspension tank_christie_suspension tank_bogie_suspension } }
+				armor_type_slot = { any_of = { tank_welded_armor tank_cast_armor } }
+				engine_type_slot = { any_of = { tank_diesel_engine tank_gasoline_engine } }
+				special_type_slot_1 = { any_of = { tank_radio_3 tank_radio_2 tank_radio_1 } }
+				special_type_slot_2 = { any_of = { sloped_armor easy_maintenance } }
+				special_type_slot_3 = { any_of = { easy_maintenance wet_ammo_storage } }
+				special_type_slot_4 = { any_of = { stabilizer extra_ammo_storage armor_skirts } }
+			}
+			upgrades = {
+				tank_nsb_engine_upgrade = 8
+				tank_nsb_armor_upgrade = 12
+			}
+		}
+	}
+}
