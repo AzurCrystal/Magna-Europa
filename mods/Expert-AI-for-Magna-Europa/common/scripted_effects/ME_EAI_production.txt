@@ -337,96 +337,149 @@ ME_EAI_update_economy_and_stock_flags = {
 		set_country_flag = ME_EAI_civ_phase
 	}
 
-	# 2. Rifle Starvation Guard & Surplus Redirect to Air/Armor
+	# 2. Real Fielded Rifle Starvation Guard (num_equipment_in_armies_k / num_target_equipment_in_armies_k) & Surplus Redirect
+	set_temp_variable = { _inf_str = 1 }
 	if = {
-		limit = {
-			has_war = yes
-			stockpile_ratio = {
-				archetype = infantry_equipment
-				ratio < 0.72
+		limit = { check_variable = { num_target_equipment_in_armies_k@infantry_equipment > 5 } }
+		set_temp_variable = { _inf_str = num_equipment_in_armies_k@infantry_equipment }
+		divide_temp_variable = { _inf_str = num_target_equipment_in_armies_k@infantry_equipment }
+	}
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_rifles_starved } }
+		if = {
+			limit = {
+				has_war = yes
+				check_variable = { _inf_str < 0.78 }
+				check_variable = { num_equipment@infantry_equipment < 1000 }
 			}
+			set_country_flag = ME_EAI_rifles_starved
 		}
-		set_country_flag = ME_EAI_rifles_starved
 	}
 	else = {
-		clr_country_flag = ME_EAI_rifles_starved
-	}
-
-	if = {
-		limit = {
-			num_of_military_factories > 35
-			has_equipment = { infantry_equipment > 22000 }
-		}
-		set_country_flag = ME_EAI_rifles_surplus
-	}
-	else = {
-		clr_country_flag = ME_EAI_rifles_surplus
-	}
-
-	# 3. Logistics & Support Equipment Floors (vital for ME's Logistics/AA/Engineer template stack)
-	if = {
-		limit = {
-			num_of_military_factories > 19
-			has_equipment = { support_equipment < 1600 }
-		}
-		set_country_flag = ME_EAI_support_low
-	}
-	else = {
-		clr_country_flag = ME_EAI_support_low
-	}
-
-	if = {
-		limit = {
-			num_of_military_factories > 19
-			has_tech = motorised_infantry
-			has_equipment = { motorized_equipment < 1400 }
-		}
-		set_country_flag = ME_EAI_trucks_low
-	}
-	else = {
-		clr_country_flag = ME_EAI_trucks_low
-	}
-
-	if = {
-		limit = {
-			num_of_military_factories > 14
-			has_equipment = { train_equipment < 160 }
-		}
-		set_country_flag = ME_EAI_trains_low
-	}
-	else = {
-		clr_country_flag = ME_EAI_trains_low
-	}
-
-	if = {
-		limit = {
-			num_of_military_factories > 19
-			has_tech = interwar_antiair
-			has_equipment = { anti_air_equipment < 900 }
-		}
-		set_country_flag = ME_EAI_aa_low
-	}
-	else = {
-		clr_country_flag = ME_EAI_aa_low
-	}
-
-	# 4. Urgent Conscription Law PP Bank (prevents GER/ITA/ROM/FIN bleeding to 0 manpower)
-	if = {
-		limit = {
-			has_war = yes
-			NOT = { has_idea = scraping_the_barrel }
-			OR = {
-				has_manpower < 280000
-				AND = {
-					original_tag = GER
-					has_idea = totaler_krieg_economy
-					has_manpower < 750000
+		if = {
+			limit = {
+				OR = {
+					has_war = no
+					check_variable = { _inf_str > 0.88 }
+					check_variable = { num_equipment@infantry_equipment > 2500 }
 				}
 			}
+			clr_country_flag = ME_EAI_rifles_starved
 		}
-		set_country_flag = ME_EAI_need_law_pp
+	}
+
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_rifles_surplus } }
+		if = {
+			limit = {
+				num_of_military_factories > 35
+				check_variable = { _inf_str > 0.96 }
+				has_equipment = { infantry_equipment > 22000 }
+			}
+			set_country_flag = ME_EAI_rifles_surplus
+		}
 	}
 	else = {
-		clr_country_flag = ME_EAI_need_law_pp
+		if = {
+			limit = {
+				OR = {
+					num_of_military_factories < 30
+					check_variable = { _inf_str < 0.92 }
+					has_equipment = { infantry_equipment < 12000 }
+				}
+			}
+			clr_country_flag = ME_EAI_rifles_surplus
+		}
+	}
+
+	# 3. Hysteresis-Gated Logistics & Support Equipment Floors (vital for ME's Logistics/AA/Engineer stack)
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_support_low } }
+		if = {
+			limit = {
+				num_of_military_factories > 19
+				has_equipment = { support_equipment < 1000 }
+			}
+			set_country_flag = ME_EAI_support_low
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				OR = {
+					num_of_military_factories < 15
+					has_equipment = { support_equipment > 2400 }
+				}
+			}
+			clr_country_flag = ME_EAI_support_low
+		}
+	}
+
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_trucks_low } }
+		if = {
+			limit = {
+				num_of_military_factories > 19
+				has_tech = motorised_infantry
+				has_equipment = { motorized_equipment < 900 }
+			}
+			set_country_flag = ME_EAI_trucks_low
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				OR = {
+					num_of_military_factories < 15
+					has_equipment = { motorized_equipment > 2200 }
+				}
+			}
+			clr_country_flag = ME_EAI_trucks_low
+		}
+	}
+
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_trains_low } }
+		if = {
+			limit = {
+				num_of_military_factories > 14
+				has_equipment = { train_equipment < 100 }
+			}
+			set_country_flag = ME_EAI_trains_low
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				OR = {
+					num_of_military_factories < 12
+					has_equipment = { train_equipment > 220 }
+				}
+			}
+			clr_country_flag = ME_EAI_trains_low
+		}
+	}
+
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_aa_low } }
+		if = {
+			limit = {
+				num_of_military_factories > 19
+				has_tech = interwar_antiair
+				has_equipment = { anti_air_equipment < 600 }
+			}
+			set_country_flag = ME_EAI_aa_low
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				OR = {
+					num_of_military_factories < 15
+					has_equipment = { anti_air_equipment > 1500 }
+				}
+			}
+			clr_country_flag = ME_EAI_aa_low
+		}
 	}
 }

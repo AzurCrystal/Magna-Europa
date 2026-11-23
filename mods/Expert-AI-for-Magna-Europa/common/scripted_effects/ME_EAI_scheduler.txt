@@ -37,6 +37,8 @@ ME_EAI_startup = {
 				ME_EAI_update_doctrine_and_roles = yes
 				ME_EAI_update_division_limits = yes
 				ME_EAI_update_economy_and_stock_flags = yes
+				ME_EAI_update_deficit_and_resource_flags = yes
+				ME_EAI_update_lend_lease_flags = yes
 			}
 			if = {
 				limit = { has_country_flag = ME_EAI_tier_1 }
@@ -156,13 +158,17 @@ ME_EAI_monthly_brain = {
 	ME_EAI_update_doctrine_and_roles = yes
 	ME_EAI_update_division_limits = yes
 	ME_EAI_update_economy_and_stock_flags = yes
-	# Phase 2: Dynamic deficit production loop, map-guided infrastructure/air/rail
+	# Phase 2: Dynamic deficit production loop, coalition lend-lease, CSR map-guided honest CIV construction
+	ME_EAI_update_deficit_and_resource_flags = yes
+	ME_EAI_update_lend_lease_flags = yes
+	ME_EAI_map_guided_construction = yes
 	# Phase 3: Sector operations, river fortification lines, intel counter-adaptation
 }
 
 ME_EAI_weekly_tier1_pulse = {
 	# Fast equipment shortage & crisis checks for Tier 1 active majors only
 	ME_EAI_update_economy_and_stock_flags = yes
+	ME_EAI_update_deficit_and_resource_flags = yes
 }
 
 ME_EAI_on_war_crisis = {
@@ -172,5 +178,7 @@ ME_EAI_on_war_crisis = {
 		ME_EAI_assign_country_slot_and_tier = yes
 		ME_EAI_update_division_limits = yes
 		ME_EAI_update_economy_and_stock_flags = yes
+		ME_EAI_update_deficit_and_resource_flags = yes
+		ME_EAI_update_lend_lease_flags = yes
 	}
 }

@@ -1,0 +1,117 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 2 Pure O(1) Deficit Production & Resource Strategies
+# Every strategy trigger evaluates ONLY simple country flags precomputed by ME_EAI_economy.txt.
+############################################################################################################
+
+ME_EAI_strat_def_rifles = {
+	enable = {
+		has_country_flag = ME_EAI_def_rifles
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = infantry value = 45 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = infantry_equipment value = 8 }
+}
+
+ME_EAI_strat_def_arty = {
+	enable = {
+		has_country_flag = ME_EAI_def_arty
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = artillery value = 30 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = artillery_equipment value = 3 }
+}
+
+ME_EAI_strat_def_at = {
+	enable = {
+		has_country_flag = ME_EAI_def_at
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = anti_tank value = 35 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = anti_tank_equipment value = 2 }
+}
+
+ME_EAI_strat_def_med_tank = {
+	enable = {
+		has_country_flag = ME_EAI_def_med_tank
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = armor value = 40 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = medium_tank_chassis value = 8 }
+}
+
+ME_EAI_strat_def_flame_tank = {
+	enable = {
+		has_country_flag = ME_EAI_def_flame_tank
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = medium_tank_flame_chassis value = 2 }
+}
+
+# Green-Air-First: baseline fighter floor for all 6 majors (>= 40 MILs)
+ME_EAI_strat_def_fighters = {
+	enable = {
+		has_country_flag = ME_EAI_def_fighters
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = air_factory_balance value = 30 }
+	ai_strategy = { type = equipment_production_factor id = fighter value = 50 }
+	ai_strategy = { type = equipment_production_min_factories id = fighter value = 8 }
+}
+
+# Superpower wartime fighter surge (>= 100 MILs, 1940+, stacks to 18 MIL floor until >= 3000 fighters)
+ME_EAI_strat_def_fighters_heavy = {
+	enable = {
+		has_country_flag = ME_EAI_def_fighters_heavy
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = air_factory_balance value = 20 }
+	ai_strategy = { type = equipment_production_min_factories id = fighter value = 10 }
+}
+
+# Once fighter strength is healthy, ramp CAS for decisive ground support
+ME_EAI_strat_def_cas = {
+	enable = {
+		has_country_flag = ME_EAI_def_cas
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = cas value = 35 }
+	ai_strategy = { type = equipment_production_min_factories id = cas value = 5 }
+}
+
+# Convoy lifeline floor (Dockyard-only) for maritime & amphibious majors
+ME_EAI_strat_def_convoys = {
+	enable = {
+		has_country_flag = ME_EAI_def_convoys
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = unit_ratio id = convoy value = 40 }
+	ai_strategy = { type = equipment_production_min_factories id = convoy value = 4 }
+}
+
+# Refinery & Fuel Silo building targets (complements CSR safe-rear refinery queuing)
+ME_EAI_strat_need_refineries = {
+	enable = {
+		has_country_flag = ME_EAI_need_refineries
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = building_target id = synthetic_refinery value = 14 }
+}
+
+ME_EAI_strat_need_silos = {
+	enable = {
+		has_country_flag = ME_EAI_need_silos
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = building_target id = fuel_silo value = 4 }
+}

@@ -1,0 +1,404 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 2 Precompiled Map-Guided Honest Construction
+# 100% CIV-paid (`instant_build = no`) — ZERO cheating, ZERO hourly virtual queues.
+# Powered directly by ME_EAI_map_data.txt (253-SR CSR, 2,986-State CSR, me_sr_top_air, me_sec_*_anchors).
+# Runs once per 28 days inside ME_EAI_monthly_brain for Tier-1 nations with >= 28 CIVs.
+############################################################################################################
+
+ME_EAI_map_guided_construction = {
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			num_of_civilian_factories > 27
+		}
+		set_temp_variable = { _me_c = THIS.id }
+
+		# 1. Safe Rear Synthetic Refineries (high-infra heartland cores, CSR frontline-checked: 0 enemy neighbors)
+		ME_EAI_build_safe_refinery = yes
+
+		# 2. Forward Airbase Expansion via precompiled me_sr_top_air + 253-SR CSR (1-land-hop OR 1-sea-hop!)
+		ME_EAI_build_forward_airbase = yes
+
+		# 3. Active Frontline Supply-Hub Infrastructure via me_sec_*_anchors + 2,986-State CSR
+		ME_EAI_build_frontline_hub_infra = yes
+
+		# 4. Heartland Anti-Air & Radar against Strategic Bombing / Air Combat
+		ME_EAI_build_heartland_aa_radar = yes
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 1. Safe Rear Synthetic Refineries (Rubber/Fuel Independence for GER/ITA/Majors)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_build_safe_refinery = {
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_need_refineries
+			has_tech = synth_oil_experiments
+			NOT = { has_country_flag = me_eai_ref_cd }
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = PREV
+				check_variable = { me_sid > 0 }
+				NOT = { has_state_flag = me_eai_queued_ref }
+				infrastructure > 2
+				free_building_slots = {
+					building = synthetic_refinery
+					size > 0
+					include_locked = no
+				}
+				synthetic_refinery < 3
+			}
+			set_temp_variable = { _st_id = me_sid }
+			PREV = { ME_EAI_st_inspect_frontline = yes }
+			if = {
+				limit = { check_variable = { _st_enemy_nbrs = 0 } }
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = no
+				}
+				set_state_flag = { flag = me_eai_queued_ref value = 1 days = 120 }
+				PREV = { set_country_flag = { flag = me_eai_ref_cd value = 1 days = 60 } }
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Helper: ME_EAI_scan_sector_airbases
+#   Input: temp array _scan_srs (list of SR IDs from precompiled sector), temp var _air_done
+#   Uses O(1) global.me_sr_top_air^_srid -> global.me_st_ref^_air_sid + 253-SR CSR neighbor check
+#   (both direct land-adjacent SRs AND 1-sea-hop across English Channel / Mediterranean / Baltic!)
+#   to queue +1 air_base in an active theater airbase state below level 8.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_scan_sector_airbases = {
+	for_each_loop = {
+		array = _scan_srs
+		value = _srid
+		break = _air_done
+
+		set_temp_variable = { _air_sid = global.me_sr_top_air^_srid }
+		if = {
+			limit = { check_variable = { _air_sid > 0 } }
+			set_temp_variable = { _air_ref = global.me_st_ref^_air_sid }
+			var:_air_ref = {
+				if = {
+					limit = {
+						CONTROLLER = { tag = var:_me_c }
+						NOT = { has_state_flag = me_eai_queued_air }
+						air_base < 8
+						free_building_slots = {
+							building = air_base
+							size > 0
+							include_locked = no
+						}
+					}
+					# Check if SR touches an enemy-held SR via 253-SR CSR (1 land hop OR 1 sea hop)
+					set_temp_variable = { _sr_hot = 0 }
+					set_temp_variable = { _u1 = _srid }
+					add_to_temp_variable = { _u1 = 1 }
+					set_temp_variable = { _s = global.me_sr_off^_srid }
+					set_temp_variable = { _e = global.me_sr_off^_u1 }
+					if = {
+						limit = { check_variable = { _e > _s } }
+						for_loop_effect = {
+							start = var:_s
+							end = var:_e
+							value = _k
+							break = _sr_hot
+
+							set_temp_variable = { _nsr = global.me_sr_adj^_k }
+							if = {
+								limit = { check_variable = { global.me_sr_is_sea^_nsr = 0 } }
+								set_temp_variable = { _nhub = global.me_sr_top_hub^_nsr }
+								if = {
+									limit = { check_variable = { _nhub > 0 } }
+									set_temp_variable = { _nhub_ref = global.me_st_ref^_nhub }
+									if = {
+										limit = {
+											var:_nhub_ref = {
+												CONTROLLER = { has_war_with = var:_me_c }
+											}
+										}
+										set_temp_variable = { _sr_hot = 1 }
+									}
+								}
+							}
+							else = {
+								# 1-sea-hop check across adjacent sea SR (detects Channel / Med / North Sea airfronts)
+								set_temp_variable = { _su1 = _nsr }
+								add_to_temp_variable = { _su1 = 1 }
+								set_temp_variable = { _ss = global.me_sr_off^_nsr }
+								set_temp_variable = { _se = global.me_sr_off^_su1 }
+								if = {
+									limit = { check_variable = { _se > _ss } }
+									for_loop_effect = {
+										start = var:_ss
+										end = var:_se
+										value = _sk
+										break = _sr_hot
+
+										set_temp_variable = { _c_sr = global.me_sr_adj^_sk }
+										if = {
+											limit = { check_variable = { global.me_sr_is_sea^_c_sr = 0 } }
+											set_temp_variable = { _chub = global.me_sr_top_hub^_c_sr }
+											if = {
+												limit = { check_variable = { _chub > 0 } }
+												set_temp_variable = { _chub_ref = global.me_st_ref^_chub }
+												if = {
+													limit = {
+														var:_chub_ref = {
+															CONTROLLER = { has_war_with = var:_me_c }
+														}
+													}
+													set_temp_variable = { _sr_hot = 1 }
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					if = {
+						limit = { check_variable = { _sr_hot = 1 } }
+						add_building_construction = {
+							type = air_base
+							level = 1
+							instant_build = no
+						}
+						set_state_flag = { flag = me_eai_queued_air value = 1 days = 120 }
+						var:_me_c = { set_country_flag = { flag = me_eai_airbase_cd value = 1 days = 60 } }
+						set_temp_variable = { _air_done = 1 }
+					}
+				}
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 2. Map-Guided Forward Airbase Expansion (3 Main European Theaters + Universal Non-Historical Fallback)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_build_forward_airbase = {
+	if = {
+		limit = {
+			has_war = yes
+			NOT = { has_country_flag = me_eai_airbase_cd }
+		}
+		set_temp_variable = { _air_done = 0 }
+
+		# Priority 1: Eastern Front airbases
+		if = {
+			limit = {
+				check_variable = { _air_done = 0 }
+				OR = { original_tag = GER original_tag = SOV original_tag = POL original_tag = ROM original_tag = HUN original_tag = FIN }
+			}
+			clear_temp_array = _scan_srs
+			for_each_loop = { array = global.me_sec_east_center_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_east_south_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_east_north_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			ME_EAI_scan_sector_airbases = yes
+		}
+
+		# Priority 2: Western Front & Channel airbases
+		if = {
+			limit = {
+				check_variable = { _air_done = 0 }
+				OR = { original_tag = GER original_tag = ENG original_tag = USA original_tag = FRA }
+			}
+			clear_temp_array = _scan_srs
+			for_each_loop = { array = global.me_sec_west_channel_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_british_isles_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_west_germany_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			ME_EAI_scan_sector_airbases = yes
+		}
+
+		# Priority 3: Mediterranean / Italy / North Africa / Balkans airbases
+		if = {
+			limit = {
+				check_variable = { _air_done = 0 }
+				OR = { original_tag = ITA original_tag = ENG original_tag = USA original_tag = GER original_tag = GRE original_tag = YUG original_tag = TUR }
+			}
+			clear_temp_array = _scan_srs
+			for_each_loop = { array = global.me_sec_italy_south_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_italy_north_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_north_africa_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_balkans_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			ME_EAI_scan_sector_airbases = yes
+		}
+
+		# Universal fallback for non-historical fronts (Scandinavia, Southern France, Iberia, Balkans)
+		if = {
+			limit = { check_variable = { _air_done = 0 } }
+			clear_temp_array = _scan_srs
+			for_each_loop = { array = global.me_sec_scandinavia_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_west_france_south_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_iberia_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			for_each_loop = { array = global.me_sec_balkans_srs value = _x add_to_temp_array = { _scan_srs = _x } }
+			ME_EAI_scan_sector_airbases = yes
+		}
+
+		clear_temp_array = _scan_srs
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 3. Map-Guided Frontline Supply-Hub Infrastructure Boost (via precompiled Anchors + 2,986-State CSR)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_scan_sector_hubs = {
+	for_each_loop = {
+		array = _scan_anchors
+		value = _asid
+		break = _hub_done
+
+		set_temp_variable = { _aref = global.me_st_ref^_asid }
+		var:_aref = {
+			if = {
+				limit = {
+					CONTROLLER = { tag = var:_me_c }
+					NOT = { has_state_flag = me_eai_queued_infra }
+					infrastructure < 4
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+						include_locked = no
+					}
+				}
+				set_temp_variable = { _st_id = _asid }
+				var:_me_c = { ME_EAI_st_inspect_frontline = yes }
+				if = {
+					limit = { check_variable = { _st_enemy_nbrs > 0 } }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = no
+					}
+					set_state_flag = { flag = me_eai_queued_infra value = 1 days = 150 }
+					var:_me_c = { set_country_flag = { flag = me_eai_hub_infra_cd value = 1 days = 90 } }
+					set_temp_variable = { _hub_done = 1 }
+				}
+			}
+		}
+	}
+}
+
+ME_EAI_build_frontline_hub_infra = {
+	if = {
+		limit = {
+			has_war = yes
+			num_of_civilian_factories > 39
+			NOT = { has_country_flag = me_eai_hub_infra_cd }
+		}
+		set_temp_variable = { _hub_done = 0 }
+
+		if = {
+			limit = { OR = { original_tag = GER original_tag = SOV original_tag = POL original_tag = ROM original_tag = HUN } }
+			clear_temp_array = _scan_anchors
+			for_each_loop = { array = global.me_sec_east_center_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_east_south_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_east_north_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			ME_EAI_scan_sector_hubs = yes
+		}
+		if = {
+			limit = {
+				check_variable = { _hub_done = 0 }
+				OR = { original_tag = ITA original_tag = ENG original_tag = USA original_tag = GER original_tag = FRA }
+			}
+			clear_temp_array = _scan_anchors
+			for_each_loop = { array = global.me_sec_north_africa_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_italy_south_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_italy_north_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_west_channel_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			ME_EAI_scan_sector_hubs = yes
+		}
+		if = {
+			limit = { check_variable = { _hub_done = 0 } }
+			clear_temp_array = _scan_anchors
+			for_each_loop = { array = global.me_sec_balkans_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_scandinavia_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_west_france_south_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			for_each_loop = { array = global.me_sec_iberia_anchors value = _x add_to_temp_array = { _scan_anchors = _x } }
+			ME_EAI_scan_sector_hubs = yes
+		}
+
+		clear_temp_array = _scan_anchors
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# 4. Heartland Anti-Air & Radar Defense (Protects High-IC Cores & Boosts Air Detection)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_build_heartland_aa_radar = {
+	# Heartland State Anti-Air against Strategic Bombing
+	if = {
+		limit = {
+			has_war = yes
+			num_of_civilian_factories > 49
+			NOT = { has_country_flag = me_eai_aa_cd }
+			OR = {
+				original_tag = GER
+				original_tag = ENG
+				original_tag = ITA
+				original_tag = SOV
+				original_tag = FRA
+			}
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = PREV
+				NOT = { has_state_flag = me_eai_queued_aa }
+				OR = {
+					arms_factory > 3
+					industrial_complex > 3
+				}
+				anti_air_building < 3
+				free_building_slots = {
+					building = anti_air_building
+					size > 0
+					include_locked = no
+				}
+			}
+			add_building_construction = {
+				type = anti_air_building
+				level = 1
+				instant_build = no
+			}
+			set_state_flag = { flag = me_eai_queued_aa value = 1 days = 120 }
+			PREV = { set_country_flag = { flag = me_eai_aa_cd value = 1 days = 90 } }
+		}
+	}
+
+	# Heartland / Air-Defense Radar Station (massive air combat & naval detection bonus once Radio Detection researched)
+	if = {
+		limit = {
+			has_war = yes
+			has_tech = radio_detection
+			num_of_civilian_factories > 49
+			NOT = { has_country_flag = me_eai_radar_cd }
+		}
+		random_owned_controlled_state = {
+			limit = {
+				is_core_of = PREV
+				NOT = { has_state_flag = me_eai_queued_radar }
+				air_base > 3
+				radar_station < 2
+				free_building_slots = {
+					building = radar_station
+					size > 0
+					include_locked = no
+				}
+			}
+			add_building_construction = {
+				type = radar_station
+				level = 1
+				instant_build = no
+			}
+			set_state_flag = { flag = me_eai_queued_radar value = 1 days = 150 }
+			PREV = { set_country_flag = { flag = me_eai_radar_cd value = 1 days = 120 } }
+		}
+	}
+}
