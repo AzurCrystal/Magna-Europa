@@ -1,0 +1,60 @@
+--------------------------------------------------------------------------------------------------------------
+-- Expert AI for Magna Europa: Reforged — Incremental AI Defines Overlay
+-- Loads after Magna Europa's EDO_defines.lua. Preserves all base-mod scale & balance choices
+-- (48/72 leader caps, 0.5 peacetime manpower buffer, 2x volunteer scale, AIFC rail targeting,
+-- anti-micro-garrison & leader stickiness).
+--------------------------------------------------------------------------------------------------------------
+
+-- XP & Designer responsiveness: prioritize updating land templates & air/naval variants over random spending
+NDefines.NAI.DESIRE_USE_XP_TO_UPDATE_LAND_TEMPLATE = 80.0
+NDefines.NAI.DESIRE_USE_XP_TO_UPGRADE_AIR_EQUIPMENT = 60.0
+NDefines.NAI.DESIRE_USE_XP_TO_UPGRADE_NAVAL_EQUIPMENT = 40.0
+NDefines.NAI.DEFAULT_MODULE_VARIANT_CREATION_XP_CUTOFF_LAND = 50
+NDefines.NAI.DEFAULT_MODULE_VARIANT_CREATION_XP_CUTOFF_AIR = 25
+NDefines.NAI.DEFAULT_MODULE_VARIANT_CREATION_XP_CUTOFF_NAVY = 25
+NDefines.NAI.VARIANT_CREATION_XP_RESERVE_LAND = 25
+NDefines.NAI.VARIANT_CREATION_XP_RESERVE_AIR = 40
+NDefines.NAI.VARIANT_CREATION_XP_RESERVE_NAVY = 40
+NDefines.NAI.DAYS_BETWEEN_CHECK_BEST_TEMPLATE = 7
+NDefines.NAI.DAYS_BETWEEN_CHECK_BEST_EQUIPMENT = 7
+NDefines.NAI.DAYS_BETWEEN_CHECK_BEST_DOCTRINE = 7
+
+-- Land combat & readiness discipline: stronger armor concentration on active war fronts, avoid bleeding half-org divisions
+NDefines.NAI.ASSIGN_TANKS_TO_WAR_FRONT = 8.0
+NDefines.NAI.ASSIGN_TANKS_TO_NON_WAR_FRONT = 0.2
+NDefines.NAI.PLAN_ATTACK_MIN_ORG_FACTOR_LOW = 0.85
+NDefines.NAI.PLAN_ATTACK_MIN_STRENGTH_FACTOR_LOW = 0.85
+NDefines.NAI.PLAN_ATTACK_MIN_ORG_FACTOR_MED = 0.65
+NDefines.NAI.PLAN_ATTACK_MIN_STRENGTH_FACTOR_MED = 0.65
+NDefines.NAI.PLAN_ATTACK_MIN_ORG_FACTOR_HIGH = 0.50
+NDefines.NAI.PLAN_ATTACK_MIN_STRENGTH_FACTOR_HIGH = 0.50
+NDefines.NAI.PLAN_FACTION_STRONG_TO_EXECUTE = 0.65
+NDefines.NAI.ORG_UNIT_STRONG = 0.75
+NDefines.NAI.STR_UNIT_STRONG = 0.75
+NDefines.NAI.PLAN_FACTION_NORMAL_TO_EXECUTE = 0.65
+NDefines.NAI.ORG_UNIT_NORMAL = 0.60
+NDefines.NAI.STR_UNIT_NORMAL = 0.60
+NDefines.NAI.PLAN_FACTION_WEAK_TO_ABORT = 0.50
+NDefines.NAI.ORG_UNIT_WEAK = 0.45
+NDefines.NAI.STR_UNIT_WEAK = 0.40
+NDefines.NAI.HOUR_BAD_COMBAT_REEVALUATE = 24
+NDefines.NAI.DEPLOY_MIN_TRAINING_WAR_FACTOR = 0.85
+NDefines.NAI.DEPLOY_MIN_EQUIPMENT_WAR_FACTOR = 0.88
+NDefines.NAI.DEPLOY_MIN_TRAINING_SURRENDER_FACTOR = 0.50
+NDefines.NAI.DEPLOY_MIN_EQUIPMENT_SURRENDER_FACTOR = 0.80
+
+-- Production line & fuel awareness
+NDefines.NAI.PRODUCTION_LINE_SWITCH_SURPLUS_NEEDED_MODIFIER = 0.0
+NDefines.NAI.WANTED_MAX_FUEL_BUFFER_IN_DAYS_FOR_ARMY_MAX_CONSUMPTION = 365
+NDefines.NAI.WANTED_MAX_FUEL_BUFFER_IN_DAYS_FOR_AIR_MAX_CONSUMPTION = 365
+NDefines.NAI.WANTED_MAX_FUEL_BUFFER_IN_DAYS_FOR_NAVY_MAX_CONSUMPTION = 365
+NDefines.NAI.FUEL_RATIO_TO_EXIST_FUEL_SAVING_MODE = 0.40
+NDefines.NAI.MANPOWER_RATIO_REQUIRED_TO_PRIO_MOBILIZATION_LAW = 0.40
+
+-- Naval composition discipline (especially ITA, ENG, USA in Mediterranean/Atlantic/Channel)
+NDefines.NAI.NAVY_PREFERED_MAX_SIZE = 120
+NDefines.NAI.SCREENS_TO_CAPITAL_RATIO = 5.0
+NDefines.NAI.SCREEN_TASKFORCE_MAX_SHIP_COUNT = 6
+NDefines.NAI.SUB_TASKFORCE_MAX_SHIP_COUNT = 6
+NDefines.NAI.MAX_SCREEN_TASKFORCES_FOR_MINE_LAYING = 0.05
+NDefines.NAI.FAILED_INVASION_AVOID_DURATION = 10

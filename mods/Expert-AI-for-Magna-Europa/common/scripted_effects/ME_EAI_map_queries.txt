@@ -1,0 +1,309 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Precompiled CSR Map Graph Query Engine
+# Zero meta_effect. Pure integer-indexed O(1) CSR traversal over:
+#   - L1-SR CSR (253 strategic regions, 1,434 directed edges)
+#   - L1-State CSR (2,986 states, 15,366 directed edges)
+#   - L2 Tactical Indexes (13 sectors, 7 river lines, 5 amphibious corridors)
+############################################################################################################
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_st_get_degree
+#   Input:  temp var _st_id (1..2986)
+#   Output: temp var _st_deg, _st_sr_id, _st_meta_val
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_st_get_degree = {
+	set_temp_variable = { _u1 = _st_id }
+	add_to_temp_variable = { _u1 = 1 }
+	set_temp_variable = { _s = global.me_st_off^_st_id }
+	set_temp_variable = { _e = global.me_st_off^_u1 }
+	set_temp_variable = { _st_deg = _e }
+	subtract_from_temp_variable = { _st_deg = _s }
+	set_temp_variable = { _st_sr_id = global.me_st_sr^_st_id }
+	set_temp_variable = { _st_meta_val = global.me_st_meta^_st_id }
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_st_inspect_frontline
+#   O(degree) frontline & major-river border inspector for a single state.
+#   Input:  ROOT = evaluating country, temp var _st_id
+#   Output: temp var _st_enemy_nbrs (count of enemy-controlled adjacent states)
+#           temp var _st_river_enemy_nbrs (subset across a major river, eflag 3 or 4)
+#           temp var _st_rail_friendly_nbrs (friendly rail-linked neighbors, even eflag)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_st_inspect_frontline = {
+	set_temp_variable = { _eval_country = THIS.id }
+	set_temp_variable = { _st_enemy_nbrs = 0 }
+	set_temp_variable = { _st_river_enemy_nbrs = 0 }
+	set_temp_variable = { _st_rail_friendly_nbrs = 0 }
+
+	set_temp_variable = { _u1 = _st_id }
+	add_to_temp_variable = { _u1 = 1 }
+	set_temp_variable = { _s = global.me_st_off^_st_id }
+	set_temp_variable = { _e = global.me_st_off^_u1 }
+
+	if = {
+		limit = { check_variable = { _e > _s } }
+		for_loop_effect = {
+			start = var:_s
+			end = var:_e
+			value = _k
+
+			set_temp_variable = { _nb = global.me_st_adj^_k }
+			set_temp_variable = { _ef = global.me_st_eflag^_k }
+			set_temp_variable = { _nb_ref = global.me_st_ref^_nb }
+
+			if = {
+				limit = {
+					var:_nb_ref = {
+						CONTROLLER = { ME_EAI_is_enemy_to_eval = yes }
+					}
+				}
+				add_to_temp_variable = { _st_enemy_nbrs = 1 }
+				if = {
+					limit = {
+						check_variable = { _ef > 2 }
+						check_variable = { _ef < 5 }
+					}
+					add_to_temp_variable = { _st_river_enemy_nbrs = 1 }
+				}
+			}
+			else_if = {
+				limit = {
+					var:_nb_ref = {
+						CONTROLLER = { ME_EAI_is_friendly_to_eval = yes }
+					}
+				}
+				set_temp_variable = { _ef_mod = _ef }
+				modulo_temp_variable = { _ef_mod = 2 }
+				if = {
+					limit = { check_variable = { _ef_mod = 0 } }
+					add_to_temp_variable = { _st_rail_friendly_nbrs = 1 }
+				}
+			}
+		}
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_sr_bfs_topology
+#   Fast topology BFS on the 253-SR CSR graph (zero meta_effect, < 1 ms).
+#   Input:  temp var _sr_start, _sr_target, _sr_max_eflag (4=overland, 6=land+strait, 8=all)
+#           optional _sr_min_eflag (default 1; pass 7 for maritime/amphibious-only)
+#   Output: temp var _bfs_found (1/0), _bfs_expands
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_sr_bfs_topology = {
+	set_temp_variable = { _bfs_found = 0 }
+	set_temp_variable = { _bfs_expands = 0 }
+	if = {
+		limit = { check_variable = { _sr_min_eflag < 1 } }
+		set_temp_variable = { _sr_min_eflag = 1 }
+	}
+	if = {
+		limit = { check_variable = { _sr_max_eflag < 1 } }
+		set_temp_variable = { _sr_max_eflag = 6 }
+	}
+
+	clear_temp_array = _bfs_q
+	clear_temp_array = _bfs_seen
+	add_to_temp_array = { _bfs_q = _sr_start }
+	add_to_temp_array = { _bfs_seen = _sr_start }
+	set_temp_variable = { _head = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { _bfs_found = 0 }
+			check_variable = { _head < _bfs_q^num }
+			check_variable = { _bfs_expands < 260 }
+		}
+
+		set_temp_variable = { _u = _bfs_q^_head }
+		add_to_temp_variable = { _head = 1 }
+		add_to_temp_variable = { _bfs_expands = 1 }
+
+		if = {
+			limit = { check_variable = { _u = _sr_target } }
+			set_temp_variable = { _bfs_found = 1 }
+		}
+		else = {
+			set_temp_variable = { _u1 = _u }
+			add_to_temp_variable = { _u1 = 1 }
+			set_temp_variable = { _s = global.me_sr_off^_u }
+			set_temp_variable = { _e = global.me_sr_off^_u1 }
+
+			if = {
+				limit = { check_variable = { _e > _s } }
+				for_loop_effect = {
+					start = var:_s
+					end = var:_e
+					value = _k
+
+					set_temp_variable = { _ef = global.me_sr_eflag^_k }
+					if = {
+						limit = {
+							NOT = { check_variable = { _ef < _sr_min_eflag } }
+							NOT = { check_variable = { _ef > _sr_max_eflag } }
+						}
+						set_temp_variable = { _nb = global.me_sr_adj^_k }
+						if = {
+							limit = { NOT = { is_in_array = { _bfs_seen = _nb } } }
+							add_to_temp_array = { _bfs_seen = _nb }
+							add_to_temp_array = { _bfs_q = _nb }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	clear_temp_array = _bfs_q
+	clear_temp_array = _bfs_seen
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_st_bfs_friendly_path
+#   Bounded state-level friendly reachability BFS over the full 2,986-state CSR graph.
+#   Checks whether ROOT (and allies) hold an unbroken land (or rail-only) corridor between two states.
+#   Input:  ROOT = country
+#           temp var _st_start, _st_target
+#           optional _st_rail_only (1 = traverse rail-linked edges only, 0 = all walkable)
+#           optional _st_max_expands (default 150)
+#   Output: temp var _bfs_found (1/0), _bfs_expands
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_st_bfs_friendly_path = {
+	set_temp_variable = { _eval_country = THIS.id }
+	set_temp_variable = { _bfs_found = 0 }
+	set_temp_variable = { _bfs_expands = 0 }
+	if = {
+		limit = { check_variable = { _st_max_expands < 1 } }
+		set_temp_variable = { _st_max_expands = 150 }
+	}
+
+	clear_temp_array = _bfs_q
+	clear_temp_array = _bfs_seen
+	add_to_temp_array = { _bfs_q = _st_start }
+	add_to_temp_array = { _bfs_seen = _st_start }
+	set_temp_variable = { _head = 0 }
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { _bfs_found = 0 }
+			check_variable = { _head < _bfs_q^num }
+			check_variable = { _bfs_expands < _st_max_expands }
+		}
+
+		set_temp_variable = { _u = _bfs_q^_head }
+		add_to_temp_variable = { _head = 1 }
+		add_to_temp_variable = { _bfs_expands = 1 }
+
+		if = {
+			limit = { check_variable = { _u = _st_target } }
+			set_temp_variable = { _bfs_found = 1 }
+		}
+		else = {
+			set_temp_variable = { _u1 = _u }
+			add_to_temp_variable = { _u1 = 1 }
+			set_temp_variable = { _s = global.me_st_off^_u }
+			set_temp_variable = { _e = global.me_st_off^_u1 }
+
+			if = {
+				limit = { check_variable = { _e > _s } }
+				for_loop_effect = {
+					start = var:_s
+					end = var:_e
+					value = _k
+
+					set_temp_variable = { _ef = global.me_st_eflag^_k }
+					set_temp_variable = { _edge_ok = 1 }
+					if = {
+						limit = { check_variable = { _st_rail_only = 1 } }
+						set_temp_variable = { _ef_mod = _ef }
+						modulo_temp_variable = { _ef_mod = 2 }
+						if = {
+							limit = { NOT = { check_variable = { _ef_mod = 0 } } }
+							set_temp_variable = { _edge_ok = 0 }
+						}
+					}
+
+					if = {
+						limit = { check_variable = { _edge_ok = 1 } }
+						set_temp_variable = { _nb = global.me_st_adj^_k }
+						set_temp_variable = { _nb_ref = global.me_st_ref^_nb }
+						if = {
+							limit = {
+								NOT = { is_in_array = { _bfs_seen = _nb } }
+								var:_nb_ref = {
+									CONTROLLER = { ME_EAI_is_friendly_to_eval = yes }
+								}
+							}
+							add_to_temp_array = { _bfs_seen = _nb }
+							add_to_temp_array = { _bfs_q = _nb }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	clear_temp_array = _bfs_q
+	clear_temp_array = _bfs_seen
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_map_selftest
+#   One-shot startup verification logged once to game.log.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_map_selftest = {
+	# Test 1: Brandenburg (69) -> Moscow (135) overland SR BFS
+	set_temp_variable = { _sr_start = 69 }
+	set_temp_variable = { _sr_target = 135 }
+	set_temp_variable = { _sr_min_eflag = 1 }
+	set_temp_variable = { _sr_max_eflag = 4 }
+	ME_EAI_sr_bfs_topology = yes
+	set_temp_variable = { _t1_ok = _bfs_found }
+	set_temp_variable = { _t1_exp = _bfs_expands }
+
+	# Test 2: Southern England (45) -> Normandy (62) overland (expect 0) vs maritime (expect 1)
+	set_temp_variable = { _sr_start = 45 }
+	set_temp_variable = { _sr_target = 62 }
+	set_temp_variable = { _sr_min_eflag = 1 }
+	set_temp_variable = { _sr_max_eflag = 6 }
+	ME_EAI_sr_bfs_topology = yes
+	set_temp_variable = { _t2_land = _bfs_found }
+
+	set_temp_variable = { _sr_start = 45 }
+	set_temp_variable = { _sr_target = 62 }
+	set_temp_variable = { _sr_min_eflag = 7 }
+	set_temp_variable = { _sr_max_eflag = 8 }
+	ME_EAI_sr_bfs_topology = yes
+	set_temp_variable = { _t2_sea = _bfs_found }
+
+	# Test 3: GER capital state CSR degree, SR lookup, and bidirectional scope handle check
+	GER = {
+		capital_scope = {
+			set_temp_variable = { _st_id = me_sid }
+		}
+		ME_EAI_st_get_degree = yes
+		set_temp_variable = { _ger_cap = _st_id }
+		set_temp_variable = { _ger_deg = _st_deg }
+		set_temp_variable = { _ger_sr = _st_sr_id }
+		set_temp_variable = { _ger_meta = _st_meta_val }
+
+		# Test 4: State-level CSR friendly rail BFS from GER capital -> GER Rhineland anchor (top hub of SR 36)
+		set_temp_variable = { _st_start = _ger_cap }
+		set_temp_variable = { _st_target = global.me_sr_top_hub^36 }
+		set_temp_variable = { _st_rail_only = 1 }
+		set_temp_variable = { _st_max_expands = 250 }
+		ME_EAI_st_bfs_friendly_path = yes
+		set_temp_variable = { _t4_ok = _bfs_found }
+		set_temp_variable = { _t4_exp = _bfs_expands }
+		set_temp_variable = { _t4_tgt = _st_target }
+
+		# Test 5: Frontline inspector on GER capital (1936 peace -> 0 enemies, >=1 friendly rail nbrs)
+		set_temp_variable = { _st_id = _ger_cap }
+		ME_EAI_st_inspect_frontline = yes
+		set_temp_variable = { _t5_en = _st_enemy_nbrs }
+		set_temp_variable = { _t5_rail = _st_rail_friendly_nbrs }
+	}
+
+	log = "[GetDateText] | ME-EAI | MAP SELFTEST: SRs=[?global.me_map_num_srs] States=[?global.me_map_num_states] SR_edges=[?global.me_sr_adj^num] ST_edges=[?global.me_st_adj^num] | T1_BerMos=[?_t1_ok](exp=[?_t1_exp]) T2_EngNormLand=[?_t2_land] Sea=[?_t2_sea] | T3_GerCap=[?_ger_cap] SR=[?_ger_sr] Deg=[?_ger_deg] Meta=[?_ger_meta] | T4_BerRhineRail(->[?_t4_tgt])=[?_t4_ok](exp=[?_t4_exp]) | T5_CapEn=[?_t5_en] RailNbr=[?_t5_rail]"
+}

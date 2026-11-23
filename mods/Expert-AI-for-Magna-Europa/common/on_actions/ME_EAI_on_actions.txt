@@ -1,0 +1,34 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — On-Actions
+############################################################################################################
+
+on_actions = {
+	on_startup = {
+		effect = {
+			random_country = {
+				ME_EAI_startup = yes
+			}
+		}
+	}
+	on_daily = {
+		effect = {
+			ME_EAI_daily_dispatch = yes
+		}
+	}
+	on_weekly = {
+		effect = {
+			ME_EAI_weekly_dispatch = yes
+		}
+	}
+	on_declare_war = {
+		effect = {
+			ROOT = { ME_EAI_on_war_crisis = yes }
+			FROM = { ME_EAI_on_war_crisis = yes }
+		}
+	}
+	on_capitulation = {
+		effect = {
+			FROM = { ME_EAI_on_war_crisis = yes }
+		}
+	}
+}

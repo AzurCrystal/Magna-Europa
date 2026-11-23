@@ -1,0 +1,160 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Staggered Low-Overhead State Machine Kernel
+# Architecture:
+#   - Zero hourly loops, zero daily full-map scans.
+#   - 3-tier country funnel (Tier 1 full brain, Tier 2 compact brain, Tier 3 dormant/capped).
+#   - 28-day staggered monthly slot scheduling: only 1-2 AI countries run full monthly brain per day.
+#   - Weekly lightweight pulse for Tier 1 active majors only.
+#   - Event-driven crisis fast path (war declaration, capitulation).
+############################################################################################################
+
+ME_EAI_startup = {
+	if = {
+		limit = { NOT = { has_global_flag = ME_EAI_initialized } }
+		set_global_flag = ME_EAI_initialized
+
+		# Silence base-mod MER_economy_pacing.txt & MER_combat_discipline.txt cleanly
+		set_global_flag = MER_EAI_enabled
+
+		# Initialize staggered 28-day clock
+		set_variable = { global.me_eai_day = 1 }
+		set_variable = { global.me_eai_next_slot = 1 }
+
+		# Load precompiled CSR map graphs + L2 tactical indexes
+		ME_EAI_map_load_all = yes
+
+		# Classify all existing countries & assign staggered monthly slots
+		set_temp_variable = { _cnt_t1 = 0 }
+		set_temp_variable = { _cnt_t2 = 0 }
+		set_temp_variable = { _cnt_t3 = 0 }
+		every_country = {
+			ME_EAI_assign_country_slot_and_tier = yes
+			if = {
+				limit = { has_country_flag = ME_EAI_tier_1 }
+				add_to_temp_variable = { _cnt_t1 = 1 }
+			}
+			else_if = {
+				limit = { has_country_flag = ME_EAI_tier_2 }
+				add_to_temp_variable = { _cnt_t2 = 1 }
+			}
+			else = {
+				add_to_temp_variable = { _cnt_t3 = 1 }
+			}
+		}
+
+		log = "[GetDateText] | ME-EAI | STARTUP COMPLETE: MER_EAI_enabled=1 | Tier1=[?_cnt_t1] Tier2=[?_cnt_t2] Tier3=[?_cnt_t3]"
+
+		# Verify CSR map graph queries live in engine
+		ME_EAI_map_selftest = yes
+	}
+}
+
+ME_EAI_assign_country_slot_and_tier = {
+	# Assign staggered day slot in 1..28 if not yet assigned
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_slot_assigned } }
+		set_country_flag = ME_EAI_slot_assigned
+		set_variable = { me_eai_slot = global.me_eai_next_slot }
+		add_to_variable = { global.me_eai_next_slot = 1 }
+		if = {
+			limit = { check_variable = { global.me_eai_next_slot > 28 } }
+			set_variable = { global.me_eai_next_slot = 1 }
+		}
+	}
+
+	# Re-evaluate brain tier (dynamic: rising/released powers automatically promote)
+	clr_country_flag = ME_EAI_tier_1
+	clr_country_flag = ME_EAI_tier_2
+	clr_country_flag = ME_EAI_tier_3
+	clr_country_flag = ME_EAI_active_brain
+
+	if = {
+		limit = {
+			OR = {
+				ME_EAI_is_tier_1_tag = yes
+				is_major = yes
+				num_of_factories > 39
+			}
+		}
+		set_country_flag = ME_EAI_tier_1
+		set_country_flag = ME_EAI_active_brain
+	}
+	else_if = {
+		limit = { num_of_factories > 9 }
+		set_country_flag = ME_EAI_tier_2
+		set_country_flag = ME_EAI_active_brain
+	}
+	else = {
+		set_country_flag = ME_EAI_tier_3
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_daily_dispatch
+#   Called from on_daily. Global clock ticks ONCE per day; each country does a single integer check.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_daily_dispatch = {
+	if = {
+		limit = { NOT = { has_global_flag = ME_EAI_day_ticked } }
+		set_global_flag = { flag = ME_EAI_day_ticked value = 1 days = 1 }
+		add_to_variable = { global.me_eai_day = 1 }
+		if = {
+			limit = { check_variable = { global.me_eai_day > 28 } }
+			set_variable = { global.me_eai_day = 1 }
+		}
+	}
+
+	if = {
+		limit = {
+			is_ai = yes
+			has_country_flag = ME_EAI_active_brain
+			check_variable = { me_eai_slot = global.me_eai_day }
+		}
+		ME_EAI_monthly_brain = yes
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_weekly_dispatch
+#   Called from on_weekly. Registers any newly released/spawned countries, then runs fast pulse for Tier 1.
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_weekly_dispatch = {
+	if = {
+		limit = {
+			is_ai = yes
+			NOT = { has_country_flag = ME_EAI_slot_assigned }
+		}
+		ME_EAI_assign_country_slot_and_tier = yes
+	}
+
+	if = {
+		limit = {
+			is_ai = yes
+			has_country_flag = ME_EAI_tier_1
+		}
+		ME_EAI_weekly_tier1_pulse = yes
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# Brain Hooks (populated in Phases 1-3)
+#-----------------------------------------------------------------------------------------------------------
+ME_EAI_monthly_brain = {
+	# Refresh tier in case factories grew/shrank across thresholds
+	ME_EAI_assign_country_slot_and_tier = yes
+	# Phase 1: Division soft-caps, template/design flags, research/law priorities
+	# Phase 2: Economy CIV->MIL transition, deficit production, map-guided infrastructure/air/rail
+	# Phase 3: Sector operations, river fortification lines, intel counter-adaptation
+}
+
+ME_EAI_weekly_tier1_pulse = {
+	# Phase 1-3: Fast equipment shortage, air superiority ratio & theater crisis checks for Tier 1 only
+}
+
+ME_EAI_on_war_crisis = {
+	# Triggered immediately on war declaration for AI participants (zero polling latency)
+	if = {
+		limit = { is_ai = yes }
+		ME_EAI_assign_country_slot_and_tier = yes
+	}
+}

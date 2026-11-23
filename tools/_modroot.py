@@ -18,6 +18,9 @@ def mod_root():
     if env:
         return os.path.abspath(env)
     repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    primary = os.path.join(repo, 'mods', 'Magna-Europa')
+    if os.path.isfile(os.path.join(primary, 'descriptor.mod')):
+        return primary
     for cand in sorted(_glob.glob(os.path.join(repo, 'mods', '*'))):
         if os.path.isfile(os.path.join(cand, 'descriptor.mod')):
             return cand
