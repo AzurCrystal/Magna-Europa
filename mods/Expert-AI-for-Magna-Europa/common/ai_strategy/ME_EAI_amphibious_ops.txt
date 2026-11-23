@@ -65,14 +65,14 @@ ME_EAI_p3_GER_tanks_vs_france = {
 	ai_strategy = { type = front_unit_request tag = FRA value = 25 }
 }
 
-# Lean post-1942.3 Atlantic coastal garrison (never steals Panzer corps during 1941 Barbarossa!)
+# Lean post-1942 Atlantic coastal infantry guard (8% coastal infantry; ASSIGN_TANKS_TO_NON_WAR_FRONT=0 keeps all Panzers East!)
 ME_EAI_p3_GER_normandy_guard = {
 	allowed = { original_tag = GER }
 	enable = {
 		has_global_flag = ME_EAI_phase3_sectors_active
 		is_historical_focus_on = yes
 		FRA = { has_capitulated = yes }
-		date > 1942.3.1
+		date > 1942.1.1
 		date < 1943.1.1
 	}
 	abort_when_not_enabled = yes
@@ -80,12 +80,12 @@ ME_EAI_p3_GER_normandy_guard = {
 	ai_strategy = {
 		type = put_unit_buffers
 		states = { 583 578 587 534 551 517 505 448 2874 472 2333 822 824 829 }
-		ratio = 0.04
+		ratio = 0.08
 		area = normandy_landing_zone
 		subtract_invasions_from_need = no
 		subtract_fronts_from_need = yes
 	}
-	ai_strategy = { type = role_ratio id = garrison value = 5 }
+	ai_strategy = { type = role_ratio id = garrison value = 7 }
 }
 
 # 2. Corridor 1: Norway Limited Amphibious Window (strictly capped; NEVER drains Eastern Front!)
@@ -235,7 +235,52 @@ ME_EAI_p3_ITA_balkans_ownership = {
 	ai_strategy = { type = strategic_air_importance id = 22 value = 5000 }
 }
 
-# Italy North Africa Primary Theater Focus (Libya -> Egypt / Suez)
+# Italy Land-Sea-Air Synergy vs Greece (Regia Marina amphibious landings behind Epirus/Thessaly mountains!)
+# Finishes Greece cleanly (Peloponnese/Athens/Crete) BEFORE splitting forces onto Egypt/Suez!
+ME_EAI_p3_ITA_greece_amphibious_hammer = {
+	allowed = { original_tag = ITA }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = GRE
+		GRE = { has_capitulated = no }
+		surrender_progress < 0.15
+	}
+	abort_when_not_enabled = yes
+
+	# Regia Marina sea-control corridor for Ionian / Aegean / Crete landings
+	ai_strategy = { type = naval_dominance id = 202 value = 240 } # Ionian Sea
+	ai_strategy = { type = naval_dominance id = 75 value = 220 }  # Aegean Sea
+	ai_strategy = { type = naval_dominance id = 208 value = 180 } # Western Levantine (Crete)
+	ai_strategy = { type = naval_dominance id = 200 value = 160 } # Strait of Sicily
+	ai_strategy = { type = naval_mission_threshold id = MISSION_PATROL value = -80 }
+	ai_strategy = { type = naval_invasion_dominance_weight value = 65 }
+
+	# Amphibious flanking behind Greek mountain chokepoints + full land concentration
+	ai_strategy = { type = invade id = GRE value = 260 }
+	ai_strategy = { type = naval_invasion_focus value = 65 }
+	ai_strategy = { type = invasion_unit_request tag = GRE value = 32 }
+	ai_strategy = { type = area_priority id = greater_balkans value = 260 }
+	ai_strategy = { type = front_unit_request tag = GRE value = 110 }
+	ai_strategy = { type = front_unit_request tag = EGY value = -35 } # Hold Libya defensively until Greece falls!
+	ai_strategy = {
+		type = front_control
+		tag = GRE
+		ratio = 0.65
+		priority = 230
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	# Regia Aeronautica combined air cover over Greece & landing seas
+	ai_strategy = { type = strategic_air_importance id = 34 value = 8500 }  # Greece
+	ai_strategy = { type = strategic_air_importance id = 33 value = 7000 }  # Macedonia
+	ai_strategy = { type = strategic_air_importance id = 75 value = 5000 }  # Aegean Sea
+	ai_strategy = { type = strategic_air_importance id = 202 value = 5000 } # Ionian Sea
+}
+
+# Italy North Africa Primary Theater Focus (full consolidated surge into Egypt/Suez once Greece is dealt with!)
 ME_EAI_p3_ITA_north_africa_ownership = {
 	allowed = { original_tag = ITA }
 	enable = {
@@ -244,16 +289,20 @@ ME_EAI_p3_ITA_north_africa_ownership = {
 			has_war_with = ENG
 			has_war_with = EGY
 		}
+		OR = {
+			NOT = { has_war_with = GRE }
+			GRE = { has_capitulated = yes }
+		}
 		surrender_progress < 0.15
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = area_priority id = egypt_front value = 180 }
-	ai_strategy = { type = area_priority id = libya value = 140 }
-	ai_strategy = { type = front_unit_request tag = EGY value = 65 }
-	ai_strategy = { type = front_armor_score id = EGY value = 180 }
-	ai_strategy = { type = strategic_air_importance id = 39 value = 5500 }
-	ai_strategy = { type = strategic_air_importance id = 58 value = 5000 }
+	ai_strategy = { type = area_priority id = egypt_front value = 200 }
+	ai_strategy = { type = area_priority id = libya value = 160 }
+	ai_strategy = { type = front_unit_request tag = EGY value = 80 }
+	ai_strategy = { type = front_armor_score id = EGY value = 200 }
+	ai_strategy = { type = strategic_air_importance id = 39 value = 6000 }
+	ai_strategy = { type = strategic_air_importance id = 58 value = 5500 }
 }
 
 # Italy stays completely off the Eastern Front
@@ -382,6 +431,28 @@ ME_EAI_p3_USA_uk_staging = {
 		subtract_invasions_from_need = yes
 	}
 	ai_strategy = { type = naval_dominance id = 209 value = 200 }
+}
+
+# Allied Historical Grand Strategy: Torch (North Africa) & Husky (Italy) BEFORE Overlord (1943.6+)
+ME_EAI_p3_allies_med_before_overlord = {
+	allowed = {
+		OR = {
+			original_tag = ENG
+			original_tag = USA
+		}
+	}
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		is_historical_focus_on = yes
+		date < 1943.6.1
+		has_war_with = GER
+		FRA = { has_capitulated = yes }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = invasion_unit_request area = normandy_landing_zone value = -120 }
+	ai_strategy = { type = area_priority id = normandy_landing_zone value = -100 }
+	ai_strategy = { type = area_priority id = torch_landing_zone value = 200 }
 }
 
 ME_EAI_p3_allies_corridor_overlord = {

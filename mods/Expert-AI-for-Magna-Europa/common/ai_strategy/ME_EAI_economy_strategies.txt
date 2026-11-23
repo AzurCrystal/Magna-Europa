@@ -1,6 +1,8 @@
 ############################################################################################################
-# Expert AI for Magna Europa: Reforged — Phase 2 Pure O(1) Deficit Production & Resource Strategies
+# Expert AI for Magna Europa: Reforged — Phase 3.2 Pure O(1) Deficit Production & Resource Strategies
 # Every strategy trigger evaluates ONLY simple country flags precomputed by ME_EAI_economy.txt.
+# Uses BBA-native `_archetype` min-factory floors (small_plane_airframe / small_plane_cas_airframe) so
+# Luftwaffe, VVS, RAF & Regia Aeronautica ALWAYS maintain real wartime aircraft production!
 ############################################################################################################
 
 ME_EAI_strat_def_rifles = {
@@ -11,6 +13,17 @@ ME_EAI_strat_def_rifles = {
 
 	ai_strategy = { type = equipment_production_factor id = infantry value = 45 }
 	ai_strategy = { type = equipment_production_min_factories_archetype id = infantry_equipment value = 8 }
+}
+
+# Superpower Mass-Army Rifle Floor (>220 divs -> stacks to 32 guaranteed rifle MILs, prevents -31k Barbarossa bleed!)
+ME_EAI_strat_def_rifles_heavy = {
+	enable = {
+		has_country_flag = ME_EAI_def_rifles_heavy
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_factor id = infantry value = 55 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = infantry_equipment value = 24 }
 }
 
 ME_EAI_strat_def_arty = {
@@ -39,7 +52,7 @@ ME_EAI_strat_def_med_tank = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = equipment_production_factor id = armor value = 45 }
+	ai_strategy = { type = equipment_production_factor id = armor value = 30 }
 	ai_strategy = { type = equipment_production_min_factories_archetype id = medium_tank_chassis value = 10 }
 }
 
@@ -52,27 +65,30 @@ ME_EAI_strat_def_flame_tank = {
 	ai_strategy = { type = equipment_production_min_factories_archetype id = medium_tank_flame_chassis value = 2 }
 }
 
-# Green-Air-First: baseline fighter floor for all 6 majors (>= 40 MILs)
+# Green-Air-First: BBA-native small_plane_airframe floor for all 6 majors (>= 40 MILs -> 10 guaranteed fighter MILs)
 ME_EAI_strat_def_fighters = {
 	enable = {
 		has_country_flag = ME_EAI_def_fighters
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = air_factory_balance value = 30 }
-	ai_strategy = { type = equipment_production_factor id = fighter value = 50 }
-	ai_strategy = { type = equipment_production_min_factories id = fighter value = 8 }
+	ai_strategy = { type = air_factory_balance value = 45 }
+	ai_strategy = { type = equipment_production_factor id = fighter value = 65 }
+	ai_strategy = { type = equipment_production_min_factories id = fighter value = 10 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = small_plane_airframe value = 10 }
 }
 
-# Superpower wartime fighter surge (>= 100 MILs, 1940+, stacks to 18 MIL floor until >= 3000 fighters)
+# Superpower wartime fighter surge (>= 100 MILs, 1940+, stacks to 26 guaranteed fighter MILs until >= 3000 fighters!)
 ME_EAI_strat_def_fighters_heavy = {
 	enable = {
 		has_country_flag = ME_EAI_def_fighters_heavy
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = air_factory_balance value = 20 }
-	ai_strategy = { type = equipment_production_min_factories id = fighter value = 10 }
+	ai_strategy = { type = air_factory_balance value = 35 }
+	ai_strategy = { type = equipment_production_factor id = fighter value = 55 }
+	ai_strategy = { type = equipment_production_min_factories id = fighter value = 16 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = small_plane_airframe value = 16 }
 }
 
 # Once fighter strength is healthy, ramp CAS for decisive ground support
@@ -82,8 +98,24 @@ ME_EAI_strat_def_cas = {
 	}
 	abort_when_not_enabled = yes
 
+	ai_strategy = { type = equipment_production_factor id = cas value = 40 }
+	ai_strategy = { type = equipment_production_min_factories id = cas value = 6 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = small_plane_cas_airframe value = 6 }
+}
+
+# Luftwaffe Blitzkrieg CAS Commitment (ensures GER always brings 800-1200 Stuka/CAS alongside fighters in 1940-43!)
+ME_EAI_strat_GER_luftwaffe_blitz = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_country_flag = ME_EAI_tier_1
+		num_of_military_factories > 79
+		has_deployed_air_force_size = { type = cas size < 1100 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = air_factory_balance value = 25 }
 	ai_strategy = { type = equipment_production_factor id = cas value = 35 }
-	ai_strategy = { type = equipment_production_min_factories id = cas value = 5 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = small_plane_cas_airframe value = 8 }
 }
 
 # Convoy lifeline floor (Dockyard-only) for maritime & amphibious majors

@@ -390,15 +390,25 @@ ME_EAI_find_rail_hub_target = {
 			}
 			ME_EAI_sector_to_tgroup = yes
 			# Coalition theater lane discipline:
-			#   - ITA owns Mediterranean / North Africa / Balkans (never East Front)
-			#   - GER focuses on East Front (and West vs Allies) — leaves Balkans & North Africa to Italy unless Italy collapses
+			#   - ITA owns Mediterranean / North Africa / Balkans (never East Front, never wanders to France while Balkans/Africa are hot!)
+			#   - GER focuses on East Front (and West vs Allies) — leaves Balkans & North Africa to Italy from summer 1940 unless Italy collapses
 			#   - HUN/ROM/BUL/SLO stay in East Front / Balkans
 			set_temp_variable = { _lane_ok = 1 }
 			if = {
 				limit = {
 					original_tag = ITA
 					is_in_faction_with = GER
-					check_variable = { _tgroup_out = 1 }
+					OR = {
+						check_variable = { _tgroup_out = 1 }
+						AND = {
+							check_variable = { _tgroup_out = 2 }
+							OR = {
+								AND = { has_war_with = GRE GRE = { has_capitulated = no } }
+								AND = { has_war_with = YUG YUG = { has_capitulated = no } }
+								has_war_with = EGY
+							}
+						}
+					}
 				}
 				set_temp_variable = { _lane_ok = 0 }
 			}
@@ -407,8 +417,10 @@ ME_EAI_find_rail_hub_target = {
 					original_tag = GER
 					is_in_faction_with = ITA
 					check_variable = { _tgroup_out = 3 }
-					has_war_with = SOV
-					SOV = { has_capitulated = no }
+					OR = {
+						has_war_with = SOV
+						date > 1940.6.15
+					}
 					ITA = {
 						has_capitulated = no
 						surrender_progress < 0.25
@@ -606,13 +618,39 @@ ME_EAI_find_rail_hub_target = {
 										}
 										subtract_from_temp_variable = { _sc = 65 }
 									}
-									# Theater focus alignment for the 3 primary European theaters
+									# Theater focus alignment & terrain/strategic-axis intelligence
 									if = {
 										limit = {
 											OR = { original_tag = GER original_tag = SOV }
 											check_variable = { _tgroup_out = 1 }
 										}
-										add_to_temp_variable = { _sc = 18 }
+										add_to_temp_variable = { _sc = 22 }
+										# Bypass Pripyat Marshes (SR 97 Eastern Polesia / Mozyr 2139 / Pinsk 1163) -> never waste Panzer autumn in swamps!
+										if = {
+											limit = {
+												OR = {
+													check_variable = { _srid = 97 }
+													check_variable = { _hub_sid = 2139 }
+													check_variable = { _hub_sid = 1163 }
+												}
+											}
+											subtract_from_temp_variable = { _sc = 95 }
+										}
+										# Prioritize major Eastern railway trunk hubs (Leningrad/Smolensk/Moscow/Kiev/Kharkov/Donbas)
+										if = {
+											limit = {
+												original_tag = GER
+												OR = {
+													check_variable = { _srid = 111 } # Ingria / Leningrad
+													check_variable = { _srid = 109 } # Smolensk
+													check_variable = { _srid = 135 } # Moscow
+													check_variable = { _srid = 107 } # Dnepr / Kiev
+													check_variable = { _srid = 101 } # Sloboda / Kharkov
+													check_variable = { _srid = 104 } # Donbas
+												}
+											}
+											add_to_temp_variable = { _sc = 28 }
+										}
 									}
 									else_if = {
 										limit = {
@@ -620,6 +658,15 @@ ME_EAI_find_rail_hub_target = {
 											check_variable = { _tgroup_out = 3 }
 										}
 										add_to_temp_variable = { _sc = 35 }
+										# Italy Finish-Greece-First discipline: crush Greece completely before splitting forces!
+										if = {
+											limit = {
+												has_war_with = GRE
+												GRE = { has_capitulated = no }
+												check_variable = { _sec_in = 10 }
+											}
+											add_to_temp_variable = { _sc = 85 }
+										}
 									}
 									else_if = {
 										limit = {
@@ -1034,6 +1081,23 @@ ME_EAI_battle_commander_tick = {
 			if = {
 				limit = { check_variable = { me_eai_stage_days < 7 } }
 				ME_EAI_update_doctrine_and_intel = yes
+			}
+
+			# Instant Barbarossa Day-1 Pivot: if GER is at war with SOV while OP1 is stuck in another theater, immediately re-target East Front!
+			if = {
+				limit = {
+					original_tag = GER
+					has_war_with = SOV
+					SOV = { has_capitulated = no }
+					check_variable = { me_eai_op1_phase > 0 }
+					NOT = { check_variable = { me_eai_op1_tgroup = 1 } }
+				}
+				set_variable = { me_eai_op1_phase = 0 }
+				set_variable = { me_eai_op1_tgroup = 0 }
+				clr_country_flag = ME_EAI_op1_stage
+				clr_country_flag = ME_EAI_op1_attack
+				clr_country_flag = ME_EAI_op1_rest
+				ME_EAI_clear_op1_marks = yes
 			}
 
 			# ==============================================================================================

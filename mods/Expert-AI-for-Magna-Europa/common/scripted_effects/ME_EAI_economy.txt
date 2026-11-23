@@ -58,6 +58,23 @@ ME_EAI_update_deficit_and_resource_flags = {
 		}
 	}
 
+	# Superpower Mass-Army Rifle Floor (prevents 400-div Wehrmacht/Red Army from bleeding -31k rifles when armor/air ramp!)
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_def_rifles
+			num_divisions > 220
+			num_of_military_factories > 79
+			OR = {
+				check_variable = { _e_inf_str < 0.95 }
+				has_equipment = { infantry_equipment < 5000 }
+			}
+		}
+		set_country_flag = ME_EAI_def_rifles_heavy
+	}
+	else = {
+		clr_country_flag = ME_EAI_def_rifles_heavy
+	}
+
 	# Artillery deficit (Tier 1 & industrialized Tier 2; start < 500, stop > 1600)
 	if = {
 		limit = { NOT = { has_country_flag = ME_EAI_def_arty } }
@@ -107,7 +124,7 @@ ME_EAI_update_deficit_and_resource_flags = {
 		}
 	}
 
-	# Medium Tank stockpile floor for industrialized armored powers (higher buffer for GER/SOV to sustain 50-65 Panzer/Tank divs!)
+	# Medium Tank stockpile floor for industrialized armored powers (balanced so GER keeps 45-55 Panzers WITHOUT starving fighters/rifles!)
 	if = {
 		limit = { NOT = { has_country_flag = ME_EAI_def_med_tank } }
 		if = {
@@ -116,10 +133,10 @@ ME_EAI_update_deficit_and_resource_flags = {
 				has_tech = basic_medium_tank_chassis
 				num_of_military_factories > 59
 				OR = {
-					has_equipment = { medium_tank_chassis < 450 }
+					has_equipment = { medium_tank_chassis < 400 }
 					AND = {
 						OR = { original_tag = GER original_tag = SOV }
-						has_equipment = { medium_tank_chassis < 1100 }
+						has_equipment = { medium_tank_chassis < 650 }
 					}
 				}
 			}
@@ -134,11 +151,11 @@ ME_EAI_update_deficit_and_resource_flags = {
 					num_of_military_factories < 50
 					AND = {
 						NOT = { original_tag = GER original_tag = SOV }
-						has_equipment = { medium_tank_chassis > 1200 }
+						has_equipment = { medium_tank_chassis > 1100 }
 					}
 					AND = {
 						OR = { original_tag = GER original_tag = SOV }
-						has_equipment = { medium_tank_chassis > 2600 }
+						has_equipment = { medium_tank_chassis > 1500 }
 					}
 				}
 			}

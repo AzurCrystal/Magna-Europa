@@ -145,12 +145,41 @@ ME_EAI_op_GER_1_attack = {
 	enable = { has_country_flag = ME_EAI_op1_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GER } value = 240 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 150 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GER } value = 260 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 170 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } value = -75 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 100 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 120 }
 	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } priority = 150 ordertype = front execution_type = careful manual_attack = no }
+}
+
+# Barbarossa Opening General Advance: all 3 Army Groups (North/Center/South) advance aggressively while OP1 smashes railway hubs!
+ME_EAI_op_GER_barbarossa_general_advance = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_war_with = SOV
+		SOV = { has_capitulated = no }
+		NOT = { has_country_flag = ME_EAI_defensive_posture }
+		OR = {
+			has_idea = GER_barbarossa
+			AND = {
+				date > 1941.4.1
+				date < 1941.11.15
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = SOV
+		ratio = 0.70
+		priority = 175
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
 }
 
 ME_EAI_op_GER_1_rest = {
