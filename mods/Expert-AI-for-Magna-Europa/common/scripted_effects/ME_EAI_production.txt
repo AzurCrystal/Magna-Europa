@@ -102,20 +102,40 @@ ME_EAI_update_doctrine_and_roles = {
 		clr_country_flag = ME_EAI_want_armor
 	}
 
-	# Mechanized template readiness gate (prevents SOV/ENG converting 15 divs into -3600 mech deficit before producing mech!)
+	# Mechanized template readiness gate (strict stockpile gate with hysteresis: prevents premature 0-stock conversion freezing Panzer deployment!)
 	if = {
 		limit = {
 			has_tech = mechanised_infantry
-			num_of_military_factories > 65
+			num_of_military_factories > 79
 			OR = {
-				has_equipment = { mechanized_equipment > 500 }
-				num_of_military_factories > 160
+				has_equipment = { mechanized_equipment > 1800 }
+				AND = {
+					has_country_flag = ME_EAI_mech_ready
+					OR = {
+						has_equipment = { mechanized_equipment > 700 }
+						check_variable = { num_battalions_with_type@mechanized > 60 }
+					}
+				}
 			}
 		}
 		set_country_flag = ME_EAI_mech_ready
 	}
 	else = {
 		clr_country_flag = ME_EAI_mech_ready
+	}
+
+	# Continuous mechanized halftrack production ramp (stays active even after ME_EAI_mech_ready until deep stockpile >= 2400!)
+	if = {
+		limit = {
+			has_country_flag = ME_EAI_tier_1
+			has_tech = mechanised_infantry
+			num_of_military_factories > 69
+			has_equipment = { mechanized_equipment < 2400 }
+		}
+		set_country_flag = ME_EAI_want_mech_prod
+	}
+	else = {
+		clr_country_flag = ME_EAI_want_mech_prod
 	}
 
 	# Heavy armor readiness gate (prevents ITA converting 23 divs into -2660 heavy tank deficit!)
@@ -198,7 +218,7 @@ ME_EAI_update_doctrine_and_roles = {
 #   while redirecting surplus IC into elite armor, mechanized forces, and air dominance.
 #-----------------------------------------------------------------------------------------------------------
 ME_EAI_update_division_limits = {
-	# Compute total division cap me_eai_div_cap
+	# Compute total division cap me_eai_div_cap (ME 2-2.5x scale -> 45-65 Panzer/Tank divs for GER & SOV)
 	if = {
 		limit = { original_tag = SOV }
 		if = {
@@ -208,18 +228,18 @@ ME_EAI_update_division_limits = {
 		else = {
 			set_variable = { me_eai_div_cap = 420 }
 		}
-		set_variable = { me_eai_arm_cap = 55 }
+		set_variable = { me_eai_arm_cap = 65 }
 	}
 	else_if = {
 		limit = { original_tag = GER }
 		if = {
 			limit = { has_war = yes }
-			set_variable = { me_eai_div_cap = 440 }
+			set_variable = { me_eai_div_cap = 450 }
 		}
 		else = {
-			set_variable = { me_eai_div_cap = 320 }
+			set_variable = { me_eai_div_cap = 330 }
 		}
-		set_variable = { me_eai_arm_cap = 60 }
+		set_variable = { me_eai_arm_cap = 70 }
 	}
 	else_if = {
 		limit = { original_tag = USA }
@@ -230,7 +250,7 @@ ME_EAI_update_division_limits = {
 		else = {
 			set_variable = { me_eai_div_cap = 160 }
 		}
-		set_variable = { me_eai_arm_cap = 45 }
+		set_variable = { me_eai_arm_cap = 55 }
 	}
 	else_if = {
 		limit = { original_tag = ENG }
@@ -241,7 +261,7 @@ ME_EAI_update_division_limits = {
 		else = {
 			set_variable = { me_eai_div_cap = 140 }
 		}
-		set_variable = { me_eai_arm_cap = 30 }
+		set_variable = { me_eai_arm_cap = 35 }
 	}
 	else_if = {
 		limit = { original_tag = ITA }
@@ -252,7 +272,7 @@ ME_EAI_update_division_limits = {
 		else = {
 			set_variable = { me_eai_div_cap = 145 }
 		}
-		set_variable = { me_eai_arm_cap = 22 }
+		set_variable = { me_eai_arm_cap = 26 }
 	}
 	else_if = {
 		limit = { original_tag = FRA }

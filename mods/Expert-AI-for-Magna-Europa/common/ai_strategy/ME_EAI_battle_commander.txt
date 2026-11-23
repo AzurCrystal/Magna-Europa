@@ -1,10 +1,12 @@
 ############################################################################################################
-# Expert AI for Magna Europa: Reforged — Phase 3 Battle Commander & Counter-Adaptation Strategies
+# Expert AI for Magna Europa: Reforged — Phase 3.1 Battle Commander & Counter-Adaptation Strategies
 # Pure O(1) flag & single-state_flag triggers driving native HOI4 1.20 AIFC + front_control:
 #   - 4 Doctrine Schools (Blitzkrieg / Deep Battle + Winter Surge / Grand Battleplan / Superior Firepower)
 #   - 6 HQ Battle Slots (GER, SOV, ENG, USA, ITA, GEN universal)
 #   - Strictly 1 Super Main-Axis Battle per Theater, Max 2 Concurrent Cross-Theater
-#   - Dynamic Enemy Armor & Air Intel Counter-Adaptation
+#   - Priority Hierarchy (beats base GER/SOV/ENG/ITA priority 100..200 while respecting homeland core 250):
+#       OP1 Attack = 240 | OP2 Attack = 225 | OP1 Stage = 220 | Elastic Defense = 215
+#       OP2 Stage  = 212 | OP1 Rest   = 210 | Non-Axis Holding Fronts = 150
 ############################################################################################################
 
 ###############################################################################
@@ -20,7 +22,7 @@ ME_EAI_doc_profile_blitz = {
 	abort_when_not_enabled = yes
 
 	# Blitzkrieg: maximal armored concentration along European rail networks
-	ai_strategy = { type = force_concentration_factor value = 30 }
+	ai_strategy = { type = force_concentration_factor value = 40 }
 }
 
 ME_EAI_doc_profile_deep_winter = {
@@ -32,7 +34,7 @@ ME_EAI_doc_profile_deep_winter = {
 	abort_when_not_enabled = yes
 
 	# Soviet Winter Deep-Battle Counter-Offensive: unleash Shock & Tank Armies across winter gaps
-	ai_strategy = { type = force_concentration_factor value = 25 }
+	ai_strategy = { type = force_concentration_factor value = 30 }
 }
 
 ME_EAI_doc_profile_deep = {
@@ -44,7 +46,7 @@ ME_EAI_doc_profile_deep = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_factor value = 15 }
+	ai_strategy = { type = force_concentration_factor value = 18 }
 }
 
 ME_EAI_doc_profile_sfp = {
@@ -55,7 +57,7 @@ ME_EAI_doc_profile_sfp = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_factor value = 20 }
+	ai_strategy = { type = force_concentration_factor value = 22 }
 }
 
 ME_EAI_doc_profile_gbp = {
@@ -66,7 +68,7 @@ ME_EAI_doc_profile_gbp = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_factor value = 15 }
+	ai_strategy = { type = force_concentration_factor value = 18 }
 }
 
 # Elastic Strategic Defense (conserves divisions & digs in behind major rivers during severe shock)
@@ -83,7 +85,7 @@ ME_EAI_strat_elastic_defense = {
 		area = north_africa
 		area = middle_east
 		ratio = 0.25
-		priority = 55
+		priority = 215
 		ordertype = front
 		execution_type = careful
 		execute_order = no
@@ -131,11 +133,11 @@ ME_EAI_op_GER_1_stage = {
 	enable = { has_country_flag = ME_EAI_op1_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GER } value = 120 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 100 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } value = -65 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 65 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 70 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GER } value = 180 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 135 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } value = -75 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 90 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 220 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_GER_1_attack = {
@@ -143,12 +145,12 @@ ME_EAI_op_GER_1_attack = {
 	enable = { has_country_flag = ME_EAI_op1_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GER } value = 180 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 110 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } value = -65 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 70 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 80 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
-	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } priority = 30 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GER } value = 240 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 150 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } value = -75 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GER } value = 100 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_GER } NOT = { has_state_flag = me_eai_op2_zone_GER } } priority = 150 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_GER_1_rest = {
@@ -156,7 +158,7 @@ ME_EAI_op_GER_1_rest = {
 	enable = { has_country_flag = ME_EAI_op1_rest }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 60 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GER } priority = 210 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_GER_2_stage = {
@@ -164,10 +166,10 @@ ME_EAI_op_GER_2_stage = {
 	enable = { has_country_flag = ME_EAI_op2_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_GER } value = 90 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 40 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_GER } priority = 65 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_GER } value = 110 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 75 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 50 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_GER } priority = 212 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_GER_2_attack = {
@@ -175,10 +177,10 @@ ME_EAI_op_GER_2_attack = {
 	enable = { has_country_flag = ME_EAI_op2_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_GER } value = 140 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 75 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 45 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_GER } priority = 75 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_GER } value = 165 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 90 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_GER } value = 55 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_GER } priority = 225 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 }
 
 # === HQ SLOT 2: SOVIET UNION (DEEP BATTLE + WINTER COUNTER-OFFENSIVE) ===
@@ -187,11 +189,11 @@ ME_EAI_op_SOV_1_stage = {
 	enable = { has_country_flag = ME_EAI_op1_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_SOV } value = 120 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 100 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_SOV } NOT = { has_state_flag = me_eai_op2_zone_SOV } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 65 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_SOV } priority = 70 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_SOV } value = 140 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 115 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_SOV } NOT = { has_state_flag = me_eai_op2_zone_SOV } } value = -65 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 75 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_SOV } priority = 220 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_SOV_1_attack = {
@@ -199,12 +201,12 @@ ME_EAI_op_SOV_1_attack = {
 	enable = { has_country_flag = ME_EAI_op1_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_SOV } value = 180 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 105 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_SOV } NOT = { has_state_flag = me_eai_op2_zone_SOV } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 70 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_SOV } priority = 80 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
-	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_SOV } NOT = { has_state_flag = me_eai_op2_zone_SOV } } priority = 30 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_SOV } value = 200 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 125 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_SOV } NOT = { has_state_flag = me_eai_op2_zone_SOV } } value = -65 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_SOV } value = 85 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_SOV } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_SOV } NOT = { has_state_flag = me_eai_op2_zone_SOV } } priority = 150 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_SOV_1_rest = {
@@ -212,7 +214,7 @@ ME_EAI_op_SOV_1_rest = {
 	enable = { has_country_flag = ME_EAI_op1_rest }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_SOV } priority = 60 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_SOV } priority = 210 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_SOV_2_stage = {
@@ -220,10 +222,10 @@ ME_EAI_op_SOV_2_stage = {
 	enable = { has_country_flag = ME_EAI_op2_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_SOV } value = 90 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 40 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_SOV } priority = 65 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_SOV } value = 100 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 65 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 45 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_SOV } priority = 212 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_SOV_2_attack = {
@@ -231,10 +233,10 @@ ME_EAI_op_SOV_2_attack = {
 	enable = { has_country_flag = ME_EAI_op2_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_SOV } value = 140 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 75 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 45 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_SOV } priority = 75 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_SOV } value = 155 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 80 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_SOV } value = 50 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_SOV } priority = 225 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 }
 
 # === HQ SLOT 3: UNITED KINGDOM (GRAND BATTLEPLAN) ===
@@ -243,11 +245,11 @@ ME_EAI_op_ENG_1_stage = {
 	enable = { has_country_flag = ME_EAI_op1_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ENG } value = 120 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 95 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ENG } value = 135 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 110 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ENG } NOT = { has_state_flag = me_eai_op2_zone_ENG } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 60 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ENG } priority = 70 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 70 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ENG } priority = 220 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_ENG_1_attack = {
@@ -255,12 +257,12 @@ ME_EAI_op_ENG_1_attack = {
 	enable = { has_country_flag = ME_EAI_op1_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ENG } value = 175 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 100 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ENG } value = 195 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 115 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ENG } NOT = { has_state_flag = me_eai_op2_zone_ENG } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 65 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ENG } priority = 80 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
-	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ENG } NOT = { has_state_flag = me_eai_op2_zone_ENG } } priority = 30 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ENG } value = 75 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ENG } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ENG } NOT = { has_state_flag = me_eai_op2_zone_ENG } } priority = 150 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_ENG_1_rest = {
@@ -268,7 +270,18 @@ ME_EAI_op_ENG_1_rest = {
 	enable = { has_country_flag = ME_EAI_op1_rest }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ENG } priority = 60 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ENG } priority = 210 ordertype = front execution_type = careful manual_attack = no }
+}
+
+ME_EAI_op_ENG_2_stage = {
+	allowed = { original_tag = ENG }
+	enable = { has_country_flag = ME_EAI_op2_stage }
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_ENG } value = 100 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_ENG } value = 65 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_ENG } value = 45 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_ENG } priority = 212 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_ENG_2_attack = {
@@ -276,10 +289,10 @@ ME_EAI_op_ENG_2_attack = {
 	enable = { has_country_flag = ME_EAI_op2_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_ENG } value = 135 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_ENG } value = 70 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_ENG } value = 45 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_ENG } priority = 75 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_ENG } value = 150 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_ENG } value = 80 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_ENG } value = 50 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_ENG } priority = 225 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 }
 
 # === HQ SLOT 4: UNITED STATES (SUPERIOR FIREPOWER) ===
@@ -288,11 +301,11 @@ ME_EAI_op_USA_1_stage = {
 	enable = { has_country_flag = ME_EAI_op1_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_USA } value = 120 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 100 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_USA } value = 140 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 115 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_USA } NOT = { has_state_flag = me_eai_op2_zone_USA } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 60 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_USA } priority = 70 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 70 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_USA } priority = 220 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_USA_1_attack = {
@@ -300,12 +313,12 @@ ME_EAI_op_USA_1_attack = {
 	enable = { has_country_flag = ME_EAI_op1_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_USA } value = 180 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 105 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_USA } value = 200 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 120 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_USA } NOT = { has_state_flag = me_eai_op2_zone_USA } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 65 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_USA } priority = 80 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
-	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_USA } NOT = { has_state_flag = me_eai_op2_zone_USA } } priority = 30 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_USA } value = 75 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_USA } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_USA } NOT = { has_state_flag = me_eai_op2_zone_USA } } priority = 150 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_USA_1_rest = {
@@ -313,7 +326,18 @@ ME_EAI_op_USA_1_rest = {
 	enable = { has_country_flag = ME_EAI_op1_rest }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_USA } priority = 60 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_USA } priority = 210 ordertype = front execution_type = careful manual_attack = no }
+}
+
+ME_EAI_op_USA_2_stage = {
+	allowed = { original_tag = USA }
+	enable = { has_country_flag = ME_EAI_op2_stage }
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_USA } value = 100 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_USA } value = 65 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_USA } value = 45 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_USA } priority = 212 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_USA_2_attack = {
@@ -321,10 +345,10 @@ ME_EAI_op_USA_2_attack = {
 	enable = { has_country_flag = ME_EAI_op2_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_USA } value = 140 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_USA } value = 75 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_USA } value = 45 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_USA } priority = 75 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_USA } value = 155 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_USA } value = 80 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_USA } value = 50 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_USA } priority = 225 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 }
 
 # === HQ SLOT 5: ITALY (MEDITERRANEAN / NORTH AFRICA / BALKANS GBP) ===
@@ -333,11 +357,11 @@ ME_EAI_op_ITA_1_stage = {
 	enable = { has_country_flag = ME_EAI_op1_stage }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ITA } value = 115 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 90 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ITA } value = 135 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 105 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ITA } NOT = { has_state_flag = me_eai_op2_zone_ITA } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 55 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ITA } priority = 70 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 70 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ITA } priority = 220 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_ITA_1_attack = {
@@ -345,12 +369,12 @@ ME_EAI_op_ITA_1_attack = {
 	enable = { has_country_flag = ME_EAI_op1_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ITA } value = 165 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 95 }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_ITA } value = 190 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 115 }
 	ai_strategy = { type = force_concentration_front_factor state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ITA } NOT = { has_state_flag = me_eai_op2_zone_ITA } } value = -60 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 60 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ITA } priority = 80 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
-	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ITA } NOT = { has_state_flag = me_eai_op2_zone_ITA } } priority = 30 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_ITA } value = 75 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ITA } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = front_control state_trigger = { NOT = { has_state_flag = me_eai_op1_zone_ITA } NOT = { has_state_flag = me_eai_op2_zone_ITA } } priority = 150 ordertype = front execution_type = careful manual_attack = no }
 }
 
 ME_EAI_op_ITA_1_rest = {
@@ -358,7 +382,18 @@ ME_EAI_op_ITA_1_rest = {
 	enable = { has_country_flag = ME_EAI_op1_rest }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ITA } priority = 60 ordertype = front execution_type = careful manual_attack = no }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_ITA } priority = 210 ordertype = front execution_type = careful manual_attack = no }
+}
+
+ME_EAI_op_ITA_2_stage = {
+	allowed = { original_tag = ITA }
+	enable = { has_country_flag = ME_EAI_op2_stage }
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_ITA } value = 95 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_ITA } value = 65 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_ITA } value = 45 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_ITA } priority = 212 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_ITA_2_attack = {
@@ -366,10 +401,10 @@ ME_EAI_op_ITA_2_attack = {
 	enable = { has_country_flag = ME_EAI_op2_attack }
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_ITA } value = 120 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_ITA } value = 65 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_ITA } value = 40 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_ITA } priority = 75 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op2_tgt_ITA } value = 140 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op2_zone_ITA } value = 75 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op2_zone_ITA } value = 45 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op2_zone_ITA } priority = 225 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 }
 
 # === HQ SLOT 6: UNIVERSAL NON-HISTORICAL / REGIONAL MAJOR (FRA, POL, SPA, TUR, SWE, ROM, HUN...) ===
@@ -380,10 +415,10 @@ ME_EAI_op_GEN_1_stage = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GEN } value = 110 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 85 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 50 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GEN } priority = 70 ordertype = front execution_type = careful execute_order = no manual_attack = no }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GEN } value = 125 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 95 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 60 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GEN } priority = 220 ordertype = front execution_type = careful execute_order = no manual_attack = no }
 }
 
 ME_EAI_op_GEN_1_attack = {
@@ -393,8 +428,8 @@ ME_EAI_op_GEN_1_attack = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GEN } value = 160 }
-	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 90 }
-	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 55 }
-	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GEN } priority = 80 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
+	ai_strategy = { type = force_concentration_target_weight state_trigger = { has_state_flag = me_eai_op1_tgt_GEN } value = 180 }
+	ai_strategy = { type = force_concentration_front_factor state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 105 }
+	ai_strategy = { type = front_unit_request state_trigger = { has_state_flag = me_eai_op1_zone_GEN } value = 65 }
+	ai_strategy = { type = front_control state_trigger = { has_state_flag = me_eai_op1_zone_GEN } priority = 240 ordertype = front execution_type = rush_weak execute_order = yes manual_attack = yes }
 }

@@ -55,9 +55,40 @@ ME_EAI_update_doctrine_and_intel = {
 			}
 		}
 		set_country_flag = ME_EAI_doc_blitz
-		set_variable = { me_eai_stage_days = 14 }
-		set_variable = { me_eai_attack_days = 63 }
-		set_variable = { me_eai_rest_days = 14 }
+		if = {
+			limit = {
+				original_tag = GER
+				has_war_with = SOV
+				OR = {
+					has_idea = GER_barbarossa
+					AND = {
+						date > 1941.4.1
+						date < 1941.11.15
+					}
+				}
+			}
+			# Barbarossa Opening Blitzkrieg Window: rapid 7-day Panzer leaps along Eastern railways
+			set_variable = { me_eai_stage_days = 7 }
+			set_variable = { me_eai_attack_days = 84 }
+			set_variable = { me_eai_rest_days = 7 }
+		}
+		else_if = {
+			limit = {
+				original_tag = GER
+				has_war_with = SOV
+				has_global_flag = ME_EAI_is_winter
+				date < 1942.4.1
+			}
+			# First Russian Winter (1941-42): German logistics freeze slows offensives while Red Army counter-attacks
+			set_variable = { me_eai_stage_days = 21 }
+			set_variable = { me_eai_attack_days = 42 }
+			set_variable = { me_eai_rest_days = 21 }
+		}
+		else = {
+			set_variable = { me_eai_stage_days = 14 }
+			set_variable = { me_eai_attack_days = 63 }
+			set_variable = { me_eai_rest_days = 14 }
+		}
 	}
 	else_if = {
 		limit = {
@@ -107,6 +138,7 @@ ME_EAI_update_doctrine_and_intel = {
 	}
 
 	# Elastic Strategic Defense Posture (conserves divisions & holds major rivers during severe shock)
+	# Surrender threshold raised to 0.45 so late-war powers can still launch Ardennes/Balaton counter-offensives when rifles/fuel allow
 	if = {
 		limit = {
 			has_war = yes
@@ -114,7 +146,7 @@ ME_EAI_update_doctrine_and_intel = {
 				has_country_flag = ME_EAI_rifles_starved
 				fuel_ratio < 0.16
 				AND = {
-					surrender_progress > 0.28
+					surrender_progress > 0.45
 					NOT = { has_country_flag = ME_EAI_sov_winter_surge }
 				}
 				AND = {
@@ -207,14 +239,11 @@ ME_EAI_manage_river_fortifications = {
 		}
 		set_country_flag = { flag = me_eai_riv_mgr_cd value = 1 days = 45 }
 
-		# Dnieper-Dvina East Bank (SOV preparing/defending against Western invasion)
+		# Dnieper-Dvina East Bank (SOV fortifies ONLY once war with GER actually begins — no psychic 1940 pre-fortifying!)
 		if = {
 			limit = {
 				original_tag = SOV
-				OR = {
-					has_war_with = GER
-					date > 1940.6.1
-				}
+				has_war_with = GER
 			}
 			ME_EAI_fortify_riv_dnieper_east = yes
 		}
@@ -360,13 +389,30 @@ ME_EAI_find_rail_hub_target = {
 				check_variable = { _sec_in > 0 }
 			}
 			ME_EAI_sector_to_tgroup = yes
-			# Coalition theater lane discipline: ITA stays in Med/Africa/Balkans/West (not East); HUN/ROM/BUL stay East/Balkans
+			# Coalition theater lane discipline:
+			#   - ITA owns Mediterranean / North Africa / Balkans (never East Front)
+			#   - GER focuses on East Front (and West vs Allies) — leaves Balkans & North Africa to Italy unless Italy collapses
+			#   - HUN/ROM/BUL/SLO stay in East Front / Balkans
 			set_temp_variable = { _lane_ok = 1 }
 			if = {
 				limit = {
 					original_tag = ITA
 					is_in_faction_with = GER
 					check_variable = { _tgroup_out = 1 }
+				}
+				set_temp_variable = { _lane_ok = 0 }
+			}
+			else_if = {
+				limit = {
+					original_tag = GER
+					is_in_faction_with = ITA
+					check_variable = { _tgroup_out = 3 }
+					has_war_with = SOV
+					SOV = { has_capitulated = no }
+					ITA = {
+						has_capitulated = no
+						surrender_progress < 0.25
+					}
 				}
 				set_temp_variable = { _lane_ok = 0 }
 			}
@@ -573,7 +619,7 @@ ME_EAI_find_rail_hub_target = {
 											original_tag = ITA
 											check_variable = { _tgroup_out = 3 }
 										}
-										add_to_temp_variable = { _sc = 20 }
+										add_to_temp_variable = { _sc = 35 }
 									}
 									else_if = {
 										limit = {
@@ -750,7 +796,7 @@ ME_EAI_paint_op1_zone = {
 	ME_EAI_clear_op1_marks = yes
 	ME_EAI_get_hq_slot_id = yes
 
-	# Paint target hub + up to 14 enemy states within 2 CSR hops as the Super-Battle Operational Zone
+	# Paint target hub + up to 24 enemy states within 2-3 CSR hops as the Super-Battle Operational Zone
 	clear_temp_array = _pq
 	clear_temp_array = _pseen
 	add_to_temp_array = { _pq = _best_tgt_sid }
@@ -761,7 +807,7 @@ ME_EAI_paint_op1_zone = {
 	while_loop_effect = {
 		limit = {
 			check_variable = { _ph < _pq^num }
-			check_variable = { _pcnt < 14 }
+			check_variable = { _pcnt < 24 }
 		}
 		set_temp_variable = { _ps = _pq^_ph }
 		add_to_temp_variable = { _ph = 1 }
@@ -801,9 +847,9 @@ ME_EAI_paint_op1_zone = {
 			}
 		}
 
-		# Expand 1-2 CSR hops into adjacent enemy states
+		# Expand 1-2 CSR hops into adjacent enemy states (full Army Group operational sector frontage)
 		if = {
-			limit = { check_variable = { _pcnt < 10 } }
+			limit = { check_variable = { _pcnt < 16 } }
 			set_temp_variable = { _pu1 = _ps }
 			add_to_temp_variable = { _pu1 = 1 }
 			set_temp_variable = { _p_lo = global.me_st_off^_ps }
@@ -848,7 +894,7 @@ ME_EAI_paint_op2_zone = {
 	while_loop_effect = {
 		limit = {
 			check_variable = { _ph < _pq^num }
-			check_variable = { _pcnt < 10 }
+			check_variable = { _pcnt < 14 }
 		}
 		set_temp_variable = { _ps = _pq^_ph }
 		add_to_temp_variable = { _ph = 1 }
@@ -885,7 +931,7 @@ ME_EAI_paint_op2_zone = {
 		}
 
 		if = {
-			limit = { check_variable = { _pcnt < 7 } }
+			limit = { check_variable = { _pcnt < 9 } }
 			set_temp_variable = { _pu1 = _ps }
 			add_to_temp_variable = { _pu1 = 1 }
 			set_temp_variable = { _p_lo = global.me_st_off^_ps }
@@ -971,6 +1017,7 @@ ME_EAI_battle_commander_tick = {
 				set_variable = { me_eai_op1_phase = 0 }
 				set_variable = { me_eai_op2_phase = 0 }
 				set_variable = { me_eai_op1_tgroup = 0 }
+				set_variable = { me_eai_op2_tgroup = 0 }
 				clr_country_flag = ME_EAI_op1_stage
 				clr_country_flag = ME_EAI_op1_attack
 				clr_country_flag = ME_EAI_op1_rest
@@ -1004,9 +1051,16 @@ ME_EAI_battle_commander_tick = {
 				}
 			}
 			else_if = {
-				# PHASE 0 -> SELECT NEXT RAILWAY SUPPLY-HUB TARGET
+				# PHASE 0 -> SELECT NEXT RAILWAY SUPPLY-HUB TARGET (bidirectional exclusion with active OP2 theater!)
 				limit = { check_variable = { me_eai_op1_phase = 0 } }
 				set_temp_variable = { _excl_tgroup = 0 }
+				if = {
+					limit = {
+						check_variable = { me_eai_op2_phase > 0 }
+						check_variable = { me_eai_op2_tgroup > 0 }
+					}
+					set_temp_variable = { _excl_tgroup = me_eai_op2_tgroup }
+				}
 				ME_EAI_find_rail_hub_target = yes
 				if = {
 					limit = { check_variable = { _best_tgt_sid > 0 } }
@@ -1125,6 +1179,7 @@ ME_EAI_battle_commander_tick = {
 						set_variable = { me_eai_op2_tgt_sid = _best_tgt_sid }
 						set_variable = { me_eai_op2_jump_sid = _best_jump_sid }
 						set_variable = { me_eai_op2_sec = _best_tgt_sec }
+						set_variable = { me_eai_op2_tgroup = _best_tgroup }
 						ME_EAI_paint_op2_zone = yes
 
 						set_temp_variable = { _prep_jump_sid = _best_jump_sid }
@@ -1147,6 +1202,7 @@ ME_EAI_battle_commander_tick = {
 						set_variable = { me_eai_op2_timer = me_eai_attack_days }
 						clr_country_flag = ME_EAI_op2_stage
 						set_country_flag = ME_EAI_op2_attack
+						log = "[GetDateText] | ME-EAI | OP2 LAUNCH [This.GetTag] -> hub=[?me_eai_op2_tgt_sid] jump=[?me_eai_op2_jump_sid] sec=[?me_eai_op2_sec] dur=[?me_eai_attack_days]d"
 					}
 				}
 				else_if = {
@@ -1164,6 +1220,10 @@ ME_EAI_battle_commander_tick = {
 						if = {
 							limit = { check_variable = { me_eai_op2_timer < 1 } }
 							var:_t2_ref = { set_state_flag = { flag = me_eai_recent_tgt value = 1 days = 150 } }
+							log = "[GetDateText] | ME-EAI | OP2 ROTATE [This.GetTag] -> stalled hub=[?me_eai_op2_tgt_sid] sec=[?me_eai_op2_sec] (150d cd)"
+						}
+						else = {
+							log = "[GetDateText] | ME-EAI | OP2 CAPTURED [This.GetTag] -> hub=[?me_eai_op2_tgt_sid] sec=[?me_eai_op2_sec] (consolidate [?me_eai_rest_days]d)"
 						}
 						set_variable = { me_eai_op2_phase = 3 }
 						set_variable = { me_eai_op2_timer = me_eai_rest_days }
@@ -1177,6 +1237,7 @@ ME_EAI_battle_commander_tick = {
 					if = {
 						limit = { check_variable = { me_eai_op2_timer < 1 } }
 						set_variable = { me_eai_op2_phase = 0 }
+						set_variable = { me_eai_op2_tgroup = 0 }
 						clr_country_flag = ME_EAI_op2_rest
 					}
 				}
@@ -1185,6 +1246,7 @@ ME_EAI_battle_commander_tick = {
 				if = {
 					limit = { check_variable = { me_eai_op2_phase > 0 } }
 					set_variable = { me_eai_op2_phase = 0 }
+					set_variable = { me_eai_op2_tgroup = 0 }
 					clr_country_flag = ME_EAI_op2_stage
 					clr_country_flag = ME_EAI_op2_attack
 					clr_country_flag = ME_EAI_op2_rest

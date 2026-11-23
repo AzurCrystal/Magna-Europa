@@ -20,35 +20,47 @@ ME_EAI_strat_want_armor = {
 	ai_strategy = { type = equipment_production_factor id = armor value = 35 }
 }
 
-# GER & SOV armored spearhead emphasis (35-55 Panzer/Tank divisions for Eastern Front warfare)
-ME_EAI_strat_major_panzer_corps = {
-	allowed = {
-		OR = {
-			original_tag = GER
-			original_tag = SOV
-		}
-	}
+# GER Blitzkrieg Panzerwaffe (targets 50-65 Panzer divisions on ME's 2-2.5x frontline scale!)
+# Counters base GER_industry_we_are_the_baddies_but_not_yet (-50) & GER_anti_armor (+15) and trims mot/mtn bloat
+ME_EAI_strat_GER_panzerwaffe = {
+	allowed = { original_tag = GER }
 	enable = {
 		has_country_flag = ME_EAI_want_armor
 		NOT = { has_country_flag = ME_EAI_cap_armor }
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = role_ratio id = armor value = 16 }
-	ai_strategy = { type = role_ratio id = motorized value = -4 }
+	ai_strategy = { type = role_ratio id = armor value = 36 }
+	ai_strategy = { type = role_ratio id = motorized value = -8 }
+	ai_strategy = { type = role_ratio id = mountaineers value = -4 }
+	ai_strategy = { type = role_ratio id = anti_armor value = -12 }
+	ai_strategy = { type = equipment_production_factor id = armor value = 35 }
 }
 
-# Ensure majors with mechanised_infantry start ramping mechanized lines before converting templates
-ME_EAI_strat_mech_ramp = {
+# SOV Deep-Battle Tank Corps (targets 45-60 Tank divisions for counter-offensives & deep breakthroughs)
+ME_EAI_strat_SOV_tank_corps = {
+	allowed = { original_tag = SOV }
 	enable = {
-		has_country_flag = ME_EAI_tier_1
-		has_tech = mechanised_infantry
-		NOT = { has_country_flag = ME_EAI_mech_ready }
+		has_country_flag = ME_EAI_want_armor
+		NOT = { has_country_flag = ME_EAI_cap_armor }
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = equipment_production_min_factories_archetype id = mechanized_equipment value = 5 }
-	ai_strategy = { type = equipment_production_factor id = mechanized value = 30 }
+	ai_strategy = { type = role_ratio id = armor value = 24 }
+	ai_strategy = { type = role_ratio id = motorized value = -6 }
+	ai_strategy = { type = role_ratio id = mountaineers value = -4 }
+	ai_strategy = { type = equipment_production_factor id = armor value = 20 }
+}
+
+# Continuous mechanized halftrack ramp (stays active until deep stockpile >= 2400, even after ME_EAI_mech_ready!)
+ME_EAI_strat_mech_ramp = {
+	enable = {
+		has_country_flag = ME_EAI_want_mech_prod
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = mechanized_equipment value = 7 }
+	ai_strategy = { type = equipment_production_factor id = mechanized value = 35 }
 }
 
 ME_EAI_strat_want_motorized = {
@@ -158,8 +170,8 @@ ME_EAI_strat_support_floor = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = equipment_production_min_factories_archetype id = support_equipment value = 4 }
-	ai_strategy = { type = equipment_production_factor id = support value = 35 }
+	ai_strategy = { type = equipment_production_min_factories_archetype id = support_equipment value = 6 }
+	ai_strategy = { type = equipment_production_factor id = support value = 40 }
 }
 
 ME_EAI_strat_trucks_floor = {

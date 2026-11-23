@@ -1,9 +1,12 @@
 ############################################################################################################
-# Expert AI for Magna Europa: Reforged — Phase 3 Amphibious Corridors & Theater Hygiene
+# Expert AI for Magna Europa: Reforged — Phase 3.1 Amphibious Corridors & Coalition Theater Specialization
 # Active once ME_EAI_phase3_sectors_active is set (replaces ME_EAI_campaigns_bridge.txt cleanly).
 # Land-front targeting & operational cadence are driven dynamically by ME_EAI_operations.txt (CSR);
-# this file coordinates naval dominance, amphibious invasion corridors (Norway / Husky / Overlord),
-# diplomatic pacing gates, and coalition theater boundaries.
+# this file enforces:
+#   - Historical Western/Eastern diplomatic pacing & Barbarossa full Wehrmacht commitment
+#   - Clean Norway invasion cap/cutoff (prevents 92 GER divisions freezing in North Sea ports!)
+#   - Clear Axis theater division: GER owns East + West; ITA owns Balkans (GRE/YUG) + North Africa/Med!
+#   - Allied Mediterranean / Husky / UK Staging / Overlord amphibious corridors
 ############################################################################################################
 
 # 1. Historical Diplomatic Pacing & Poland-First West Economy
@@ -45,71 +48,215 @@ ME_EAI_p3_GER_poland_first = {
 	ai_strategy = { type = front_unit_request tag = LUX value = -45 }
 }
 
-# 2. Corridor 1: Norway Amphibious Campaign (Weserubung)
+# Clean Fall Gelb Panzer focus (strictly aborts once France capitulates — never holds tanks in West during Barbarossa!)
+ME_EAI_p3_GER_tanks_vs_france = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		is_historical_focus_on = yes
+		HOL = { has_capitulated = yes }
+		BEL = { has_capitulated = yes }
+		LUX = { has_capitulated = yes }
+		FRA = { has_capitulated = no }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_armor_score id = FRA value = 150 }
+	ai_strategy = { type = front_unit_request tag = FRA value = 25 }
+}
+
+# Lean post-1942.3 Atlantic coastal garrison (never steals Panzer corps during 1941 Barbarossa!)
+ME_EAI_p3_GER_normandy_guard = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		is_historical_focus_on = yes
+		FRA = { has_capitulated = yes }
+		date > 1942.3.1
+		date < 1943.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 583 578 587 534 551 517 505 448 2874 472 2333 822 824 829 }
+		ratio = 0.04
+		area = normandy_landing_zone
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+	ai_strategy = { type = role_ratio id = garrison value = 5 }
+}
+
+# 2. Corridor 1: Norway Limited Amphibious Window (strictly capped; NEVER drains Eastern Front!)
 ME_EAI_p3_GER_corridor_norway = {
 	allowed = { original_tag = GER }
 	enable = {
 		has_global_flag = ME_EAI_phase3_sectors_active
 		has_war_with = NOR
 		NOR = { has_capitulated = no }
+		NOT = { has_war_with = SOV }
+		NOT = { focus_progress = { focus = GER_war_with_the_ussr progress > 0.01 } }
 		OR = {
 			FRA = { has_capitulated = yes }
 			NOT = { has_war_with = FRA }
 		}
-		date < 1941.6.1
+		date < 1941.3.1
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = area_priority id = just_norway value = 90 }
-	ai_strategy = { type = front_unit_request tag = NOR value = 65 }
-	ai_strategy = { type = invasion_unit_request tag = NOR value = 60 }
-	ai_strategy = { type = invade id = NOR value = 120 }
-	ai_strategy = { type = front_armor_score id = NOR value = -100 }
-	ai_strategy = {
-		type = front_control
-		tag = NOR
-		ratio = 0.50
-		priority = 100
-		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
-	}
-	ai_strategy = { type = strategic_air_importance id = 122 value = 5500 }
-	ai_strategy = { type = strategic_air_importance id = 121 value = 4000 }
+	ai_strategy = { type = area_priority id = just_norway value = 30 }
+	ai_strategy = { type = front_unit_request tag = NOR value = 20 }
+	ai_strategy = { type = invasion_unit_request tag = NOR value = 15 }
+	ai_strategy = { type = invade id = NOR value = 40 }
+	ai_strategy = { type = front_armor_score id = NOR value = -200 }
+	ai_strategy = { type = strategic_air_importance id = 122 value = 4000 }
 }
 
-# 3. Balkans / Greece Rapid Finish (Marita)
-ME_EAI_p3_Axis_finish_greece = {
+# Abort deadlocked Norway sea-invasion staging once Barbarossa looms (frees 92 divs from Emden/Stade ports!)
+# Whatever local garrison holds Oslo stays grinding locally without trapping 25% of the Wehrmacht in Germany.
+ME_EAI_p3_GER_abandon_norway_invasion = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = NOR
+		NOR = { has_capitulated = no }
+		OR = {
+			has_war_with = SOV
+			date > 1941.3.1
+			focus_progress = { focus = GER_war_with_the_ussr progress > 0.01 }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = invade id = NOR value = -2000 }
+	ai_strategy = { type = invasion_unit_request tag = NOR value = -300 }
+	ai_strategy = { type = front_unit_request tag = NOR value = -110 }
+	ai_strategy = { type = front_armor_score id = NOR value = -250 }
+	ai_strategy = { type = area_priority id = just_norway value = -220 }
+}
+
+# 3. Barbarossa Full Wehrmacht & Panzerwaffe Commitment (pulls all mobile armies onto Eastern Front!)
+ME_EAI_p3_GER_barbarossa_commitment = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		SOV = { has_capitulated = no }
+		571 = { is_controlled_by_ROOT_or_ally = yes } # Paris still Axis (no Overlord breakthrough)
+		OR = {
+			has_war_with = SOV
+			focus_progress = { focus = GER_war_with_the_ussr progress > 0.01 }
+			has_completed_focus = GER_war_with_the_ussr
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = prepare_for_war id = SOV value = 160 }
+	ai_strategy = { type = front_armor_score id = SOV value = 950 }
+	ai_strategy = { type = front_unit_request tag = SOV value = 165 }
+	ai_strategy = { type = front_armor_score id = FRA value = -250 }
+	ai_strategy = { type = front_unit_request tag = FRA value = -55 }
+	ai_strategy = { type = area_priority id = normandy_landing_zone value = -140 }
+	ai_strategy = { type = area_priority id = atlantik_wall_zone value = -110 }
+}
+
+# 4. Axis Coalition Theater Specialization:
+#    - GERMANY leaves Balkans (GRE/YUG) & North Africa to Italy unless mainland Italy is collapsing!
+#    - ITALY owns Balkans (Greece + Yugoslavia) AND North Africa/Mediterranean (never East Front)!
+ME_EAI_p3_GER_balkans_hands_off = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		is_in_faction_with = ITA
+		ITA = {
+			has_capitulated = no
+			surrender_progress < 0.25
+		}
+		OR = {
+			has_war_with = SOV
+			date > 1941.4.15
+			focus_progress = { focus = GER_war_with_the_ussr progress > 0.01 }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = front_unit_request tag = GRE value = -160 }
+	ai_strategy = { type = front_armor_score id = GRE value = -250 }
+	ai_strategy = { type = front_unit_request tag = YUG value = -100 }
+	ai_strategy = { type = front_armor_score id = YUG value = -200 }
+	ai_strategy = { type = area_priority id = greater_balkans value = -150 }
+	ai_strategy = { type = area_priority id = africa value = -220 }
+	ai_strategy = { type = area_priority id = egypt_front value = -220 }
+	ai_strategy = { type = dont_defend_ally_borders id = ITA value = 100 }
+}
+
+# Italy + Balkan Axis (BUL/HUN/ROM) decisive Balkans ownership (Greece & Yugoslavia)
+ME_EAI_p3_ITA_balkans_ownership = {
 	allowed = {
 		OR = {
-			original_tag = GER
-			original_tag = BUL
 			original_tag = ITA
+			original_tag = BUL
 		}
 	}
 	enable = {
 		has_global_flag = ME_EAI_phase3_sectors_active
-		has_war_with = GRE
-		GRE = { has_capitulated = no }
-		date < 1942.1.1
+		OR = {
+			AND = { has_war_with = GRE GRE = { has_capitulated = no } }
+			AND = { has_war_with = YUG YUG = { has_capitulated = no } }
+		}
+		date < 1943.1.1
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = front_unit_request tag = GRE value = 55 }
+	ai_strategy = { type = area_priority id = greater_balkans value = 160 }
+	ai_strategy = { type = front_unit_request tag = GRE value = 75 }
+	ai_strategy = { type = front_unit_request tag = YUG value = 65 }
+	ai_strategy = { type = front_armor_score id = YUG value = 120 }
 	ai_strategy = {
 		type = front_control
 		tag = GRE
-		ratio = 0.50
-		priority = 95
+		ratio = 0.55
+		priority = 185
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
 	}
-	ai_strategy = { type = strategic_air_importance id = 33 value = 4500 }
-	ai_strategy = { type = strategic_air_importance id = 34 value = 5000 }
+	ai_strategy = {
+		type = front_control
+		tag = YUG
+		ratio = 0.55
+		priority = 185
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+	}
+	ai_strategy = { type = strategic_air_importance id = 33 value = 5500 }
+	ai_strategy = { type = strategic_air_importance id = 34 value = 6000 }
+	ai_strategy = { type = strategic_air_importance id = 22 value = 5000 }
 }
 
-# 4. Italy Mediterranean Lane Hygiene & Alpine Conservation
+# Italy North Africa Primary Theater Focus (Libya -> Egypt / Suez)
+ME_EAI_p3_ITA_north_africa_ownership = {
+	allowed = { original_tag = ITA }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		OR = {
+			has_war_with = ENG
+			has_war_with = EGY
+		}
+		surrender_progress < 0.15
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = area_priority id = egypt_front value = 180 }
+	ai_strategy = { type = area_priority id = libya value = 140 }
+	ai_strategy = { type = front_unit_request tag = EGY value = 65 }
+	ai_strategy = { type = front_armor_score id = EGY value = 180 }
+	ai_strategy = { type = strategic_air_importance id = 39 value = 5500 }
+	ai_strategy = { type = strategic_air_importance id = 58 value = 5000 }
+}
+
+# Italy stays completely off the Eastern Front
 ME_EAI_p3_ITA_stay_off_east = {
 	allowed = { original_tag = ITA }
 	enable = {
@@ -126,7 +273,7 @@ ME_EAI_p3_ITA_stay_off_east = {
 	ai_strategy = { type = dont_defend_ally_borders id = ROM value = 100 }
 	ai_strategy = { type = dont_defend_ally_borders id = HUN value = 100 }
 	ai_strategy = { type = dont_defend_ally_borders id = SLO value = 100 }
-	ai_strategy = { type = front_unit_request tag = SOV value = -180 }
+	ai_strategy = { type = front_unit_request tag = SOV value = -200 }
 }
 
 ME_EAI_p3_ITA_alpine_guard = {
@@ -142,7 +289,7 @@ ME_EAI_p3_ITA_alpine_guard = {
 		type = front_control
 		tag = FRA
 		ratio = 0.25
-		priority = 90
+		priority = 180
 		ordertype = front
 		execution_type = careful
 		execute_order = no
@@ -204,7 +351,7 @@ ME_EAI_p3_allies_corridor_husky = {
 		type = front_control
 		area = italy
 		ratio = 0.50
-		priority = 100
+		priority = 180
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -265,7 +412,7 @@ ME_EAI_p3_allies_corridor_overlord = {
 		type = front_control
 		area = normandy_landing_zone
 		ratio = 0.50
-		priority = 100
+		priority = 180
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
