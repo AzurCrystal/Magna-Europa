@@ -4,7 +4,7 @@
 
 # Magna Europa: Reforged
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![Hearts of Iron IV](https://img.shields.io/badge/HoI4-1.20.*-orange)
 [![Steam Workshop](https://img.shields.io/badge/Steam%20Workshop-3809580289-1b2838)](https://steamcommunity.com/sharedfiles/filedetails/?id=3809580289)
 
