@@ -46,10 +46,18 @@
 - 不强制要求任何 DLC；DLC 专属内容均通过 `has_dlc` 检查做了门槛处理。
 - 详细的 DLC 与模组支持情况见[兼容性列表](COMPATIBILITY.md)。
 
+## 原版 ↔ Magna Europa 地图映射表专题
+
+如果你需要编写子模组、移植原版/DLC 国策与事件，或了解欧洲高密度重制地图如何与原版地区/战略区域精确对应，请访问本项目内置的中英双语映射专题：
+
+- **专题入口**：[**简体中文 (`docs/mapping/README_zh-CN.md`)**](docs/mapping/README_zh-CN.md) · [**English (`docs/mapping/README.md`)**](docs/mapping/README.md)
+- **核心亮点**：欧洲主图 `2,961` 个 ME 地区 ↔ `464` 原版地区（`99.27%` 开局同主准确率、`39/39` 首都全部命中）、`19,758` 个陆地省份、`242` 个陆海战略区域对照、纠偏 `204` 处旧表错配，并提供零第三方依赖的 Python 脚本翻译工具。
+
 ## 仓库结构
 
 | 路径 | 内容 |
 |---|---|
+| `mods/Magna-Europa/` | **发布的本体模组**——以下游戏目录均位于其内 |
 | `map/` | 省份/地区位图、`definition.csv`、相邻关系、铁路、战略区域 |
 | `common/` | 游戏数据库：国家、国策树、决议、精神、人物、scripted effect/trigger、科技、部队、AI |
 | `events/` | 事件脚本（原版 + DLC 移植，以及 MER 新增） |
@@ -57,6 +65,9 @@
 | `localisation/` | `english/`、`russian/`、`simp_chinese/` |
 | `interface/`、`gfx/` | UI 脚本、旗帜、头像、字体 |
 | `music/` | 模组音乐与播放列表 |
+| `docs/mapping/` | **原版 ↔ ME 映射表对外展示专题**（[简体中文](docs/mapping/README_zh-CN.md) / [English](docs/mapping/README.md)）：对照图鉴、量化指标、CLI 移植指南与离线图谱说明 |
+| `docs/states/` | 全量状态/省份/战略区域对照表、几何证据与离线 HTML 复核浏览器；字段规范见 [`docs/states/README.md`](docs/states/README.md) |
+| `tools/` | 映射生成、脚本自动翻译与静态审计工具集——见 [`tools/README.md`](tools/README.md) |
 | `descriptor.mod` | 模组内部描述文件（名称、版本、`replace_path` 列表） |
 | `Magna Europa.mod` | 启动器用描述文件——复制到 `mod/` 目录并添加 `path=` |
 

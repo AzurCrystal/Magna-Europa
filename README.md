@@ -46,6 +46,13 @@ This mod uses `replace_path` on `history/`, `events/`, `map/strategicregions` an
 - No DLC is strictly required; DLC-specific content is gated by the usual `has_dlc` checks.
 - For per-DLC and per-mod status see the [compatibility list](COMPATIBILITY.md).
 
+## Vanilla ↔ Magna Europa Mapping Showcase
+
+Looking to translate Vanilla HOI4 states, provinces, strategic regions, or DLC content onto Magna Europa's 3.14× European grid? Explore the public mapping portal:
+
+- **Showcase & Visual Atlas**: [**English (`docs/mapping/README.md`)**](docs/mapping/README.md) · [**简体中文 (`docs/mapping/README_zh-CN.md`)**](docs/mapping/README_zh-CN.md)
+- **Covers**: `2,961` ME states ↔ `464` Vanilla states (`99.27%` 1936 same-owner accuracy, `39/39` capitals), `19,758` land provinces, `242` mapped land+sea strategic regions, `204` legacy mis-mappings caught, and zero-dependency Python CLI translators.
+
 ## Repository layout
 
 | Path | Contents |
@@ -59,6 +66,7 @@ This mod uses `replace_path` on `history/`, `events/`, `map/strategicregions` an
 | `mods/Magna-Europa/interface/`, `gfx/` | UI scripts, flags, portraits, fonts |
 | `mods/Magna-Europa/music/` | Mod music tracks and playlists |
 | `mods/<Submod>/` | Sibling slots for submods (e.g. RK+) — each ships its own `descriptor.mod` + launcher `.mod`, same layout |
+| `docs/mapping/` | **Public Vanilla ↔ ME mapping showcase** ([English](docs/mapping/README.md) / [简体中文](docs/mapping/README_zh-CN.md)): cartographic comparison maps, benchmarks, CLI porting guide & atlas docs |
 | `docs/states/` | Full vanilla↔ME state relation graph (`state_edges.tsv`, including one-to-many/many-to-many edges), primary compatibility views (`v2m_states`, `m2v_states`), region/VP tables and evidence; schema, audit commands and status vocabulary in [`docs/states/README.md`](docs/states/README.md) |
 | `tools/` | Dev utilities (audits, map-truth generator) — not shipped with the mod; see [`tools/README.md`](tools/README.md) |
 | `mods/Magna-Europa/descriptor.mod` | In-mod descriptor (name, version, `replace_path` set) |
