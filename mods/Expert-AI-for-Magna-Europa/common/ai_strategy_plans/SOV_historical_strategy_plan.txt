@@ -1,15 +1,18 @@
 ############################################################################################################
-# Expert AI for Magna Europa: Reforged — Optimized Soviet Historical Focus Plan (Phase 3.2)
-# Restores SOV_the_comintern + SOV_restore_cossack_units prerequisite chain so:
-#   - Great Purge finishes early 1938
-#   - Baltic Security + Claims in Baltic fire in mid-1939 (annexes EST/LAT/LIT alongside Eastern Poland!)
-#   - Winter War (Secure Leningrad) + Bessarabia fire on historical 1939-1940 cadence
-#   - Armaments pivot, Rehabilitated Military & Tankograd land in 1941 (authentic 1941 shock -> 1942-43 juggernaut!)
+# Expert AI for Magna Europa: Reforged — Phase 3.4 "Red Storm Rising" Soviet Historical Focus Plan
+# 100% zero-cheat vanilla NSB/BBA/AAT/LaR mastery (validated 0 broken prereqs & 0 mutual conflicts):
+#   - Early 1937 Agitprop (2 Propaganda slots 5 years earlier -> Builders of Communism -> Motherland Calls!)
+#   - Foreign Experts (Gosproyektstroy +15% CIV/MIL construction speed!) + Early 5th Research Slot
+#   - Cleanly spaced Great Purge (finishes Sep 1938) -> Mid-1939 Baltics, Winter War, Mid-1940 Bessarabia
+#   - Restores SOV_transpolar_flights -> FULL Red Air Force reform (wipes out +75% accidents & weather debuffs!)
+#   - Heavy Industry + Steel Casting + Synthetic Rubber + Tankograd + Merged Tank/Air MIOs + Positive Heroism
+#   - Authentic 1941 Barbarossa Shock -> Instant Desperate Measures, Urals Evacuation, Defense of Moscow,
+#     Camouflage, Lessons of War, Political Advisors, Glory of the Red Army, SMERSH, Barrier Troops & 4th FYP!
 ############################################################################################################
 
 SOV_historical_plan = {
 	name = "SOV historical plan (ME-EAI)"
-	desc = "Historical Baltic/Finland/Bessarabia expansion + CIV snowball + unstoppable wartime Tankograd rebound"
+	desc = "Early Agitprop + Gosproyektstroy + Reformed VVS + Synthetic Rubber + Tankograd + Stavka Deep Battle"
 
 	allowed = {
 		original_tag = SOV
@@ -49,110 +52,137 @@ SOV_historical_plan = {
 	}
 
 	ai_national_focuses = {
-		# Wartime emergency focuses ASAP when Barbarossa strikes
-		SOV_desperate_measures					#35
-		SOV_move_industry_to_the_urals
-		SOV_the_defense_of_moscow				#35
-		SOV_lessons_of_war						#35
-		SOV_fourth_five_year_plan
+		# Wartime emergency focuses pinned at top -> fire IMMEDIATELY on Barbarossa Day 1 & once Desperate Measures finishes!
+		SOV_desperate_measures					#35  Day-1 Barbarossa emergency defense + starts 365d Lessons of War clock!
+		SOV_move_industry_to_the_urals			#35  Evacuates western factories to safe Urals rear (>120 trains guarded!)
+		SOV_the_defense_of_moscow				#35  Moscow forts + Defend Moscow propaganda campaign
+		SOV_lessons_of_war						#35  Fires immediately after 365d -> removes Red Army org debuff!
 
-		# 1936 (~350d): Stalin Centre + Heavy Industry + Fast Purge #1
-		SOV_the_path_of_marxism_leninism		#35
-		SOV_the_centre							#35
-		SOV_heavy_industry						#35
-		SOV_infrastructure_effort_nsb			#35
-		SOV_the_stalin_constitution				#70
-		SOV_the_zinovyevite_terrorist_center	#35
-		SOV_finish_the_five_year_plan			#70
-		SOV_found_the_pcdi						#35
+		# Phase A (Jan-Jun 1936, d0..175): Rush Trial #1 cleanly before paranoia climbs above 15!
+		SOV_the_path_of_marxism_leninism		#35  d35
+		SOV_the_centre							#35  d70
+		SOV_the_stalin_constitution				#70  d140 (-10 paranoia)
+		SOV_the_zinovyevite_terrorist_center	#35  d175 Trial #1 -> paranoia 0
 
-		# 1937 (~385d): Comintern (unlocks Baltics!) + Purge #2 & #3 + Cossacks + Third FYP
-		SOV_the_comintern						#35  CRITICAL prerequisite for Baltic/Finland/Bessarabia!
-		SOV_the_anti_soviet_trotskyist_center	#35
-		SOV_strengthen_the_mobilization_plan	#35
-		SOV_restore_cossack_units				#35  Prerequisite for Rehabilitated Military
-		SOV_the_workers_dictatorship			#35
-		SOV_pc_of_mechanical_engineering		#35
-		SOV_the_military_conspiracy				#35
-		SOV_addressing_internal_affairs			#35
-		SOV_third_five_year_plan				#70
-		SOV_national_specialists				#35
+		# Phase B (Jul 1936-Feb 1937, 210d gap, +2/wk): Socialism (-10) + Secure Admin (-20) + Early Agitprop (Jan 1937!)
+		SOV_socialism_in_one_country			#35  d210 (-10 paranoia, +25% def war stability, +25 PP)
+		SOV_heavy_industry						#35  d245
+		SOV_addressing_internal_affairs			#35  d280
+		SOV_secure_the_administration			#70  d350 (-20 paranoia, -20% law PP cost, +50 PP)
+		SOV_expand_the_agitprop					#35  d385 EARLY Jan 1937: 2 Propaganda slots 5 YEARS EARLIER!
+		SOV_the_anti_soviet_trotskyist_center	#35  d420 Trial #2 -> paranoia 0 (weekly rate -> +3/wk)
 
-		# 1938 (~350d): Finish Purge Early (Feb 1938) + Urals + Academy of Sciences + T-34 Designs
-		SOV_the_bloc_of_rights_and_trotskyites	#35  Ends Paranoia -> unlocks Baltic/Finland focuses!
-		SOV_eastern_development					#35
+		# Phase C (Feb-Oct 1937, 210d gap, +3/wk): Workers Dictatorship (-10) + Collectivization (-20 & -2% CG/+5% build/+10% slots!)
+		SOV_infrastructure_effort_nsb			#35  d455
+		SOV_the_workers_dictatorship			#70  d525 (-10 paranoia, +5% PP, +5% surrender limit, +50 PP)
+		SOV_the_collectivization_process		#70  d595 (-20 paranoia, -2% CG, +5% build speed, +10% slots, free CIVs!)
+		SOV_the_comintern						#35  d630 Prerequisite for Baltics/Finland/Bessarabia
+		SOV_the_military_conspiracy				#35  d665 Trial #3 -> paranoia <= 10
+
+		# Phase D (Oct 1937-Aug 1938, 210d gap, +3/wk): Behead the Snake (-30 + Mercader + 1 Spy!) + Org Cent Disc (-20) + Early Gosproyektstroy!
+		SOV_behead_the_snake					#35  d700 (-30 paranoia + Ramon Mercader + 1 Operative Slot!)
+		SOV_finish_the_five_year_plan			#70  d770
+		SOV_organization_centralization_discipline	#35  d805 (-20 paranoia, +20 CP, +5% mob speed, +50 PP)
+		SOV_foreign_experts						#35  d840 EARLY Apr 1938: Gosproyektstroy (+15% CIV/MIL construction speed!)
+		SOV_found_the_pcdi						#35  d875
+		SOV_the_bloc_of_rights_and_trotskyites	#70  d945 Trial #4 (Aug 1938) -> PARANOIA PERMANENTLY ENDED (0 Army/Air random purges!)
+
+		# Late 1938 - Mid 1939: Early 5th Research Slot + Mobilization + Third FYP + Historical Mid-1939 Baltics & Winter War!
+		SOV_eastern_development					#35  Prerequisite for Academy of Sciences
 		SOV_develop_the_urals					#35
-		SOV_the_ussr_academy_of_sciences		#70  Extra Research Slot
-		SOV_socialism_in_one_country			#35
-		SOV_reorganize_the_pc_of_heavy_industry	#70
-		SOV_superior_war_machines				#35  T-34 designs
-		SOV_policy_of_individual_security		#35
+		SOV_the_ussr_academy_of_sciences		#70  5th Research Slot (Jan 1939!)
+		SOV_strengthen_the_mobilization_plan	#35  Prerequisite for Desperate Measures & Mil Eng Univ
+		SOV_restore_cossack_units				#35  Prerequisite for Rehabilitated Military
+		SOV_third_five_year_plan				#70
+		SOV_baltic_security						#35  Mid-1939
+		SOV_claims_in_baltic					#70  Mid/Late-1939 Baltics annexed!
+		SOV_secure_leningrad					#70  Autumn/Winter 1939 Winter War
+		SOV_reorganize_the_pc_of_heavy_industry	#70  -5% CG + retains CIV build speed!
+		SOV_transpolar_flights					#35  CRITICAL: Unlocks ENTIRE Red Air Force reform tree!
+		SOV_foster_flying_clubs					#70  -25% air accidents, +25% aces!
+		SOV_military_engineering_university		#35  Prerequisite for Move Industry to Urals (ready well before 1941!)
 
-		# 1939 (~350d): Baltics Annexation (Mid-1939 alongside Eastern Poland!) + Winter War + Bessarabia
-		SOV_baltic_security						#35  Early 1939
-		SOV_claims_in_baltic					#70  Mid-1939 Baltic ultimatums -> annexes EST/LAT/LIT by 1939-40!
-		SOV_secure_leningrad					#70  Autumn 1939 Winter War
+		# 1940: Bessarabia + Complete Pilot Training + Steel/Synthetic Rubber + Tankograd + Zhukov/Rokossovsky!
+		SOV_policy_of_individual_security		#35
 		SOV_anti_capitalist_policies			#35
 		SOV_approach_germany					#35
-		SOV_claims_on_poland					#70
-		SOV_claim_on_bessarabia					#70  Early-Mid 1940 Bessarabia
+		SOV_claims_on_poland					#70  Bypassed via Molotov-Ribbentrop
+		SOV_claim_on_bessarabia					#70  Mid-1940 Bessarabia!
+		SOV_intensify_pilot_training_program	#70  WIPES OUT air accidents/weather/night debuffs!
+		SOV_steel_casting_industry				#70  +5% factory output + Steel!
+		SOV_synthetic_rubber					#35  FREE Rubber refineries (fixes Magna Europa rubber crunch!)
+		SOV_pc_of_mechanical_engineering		#70  Prerequisite for Means to Wage War / Tankograd!
+		SOV_the_means_to_wage_war				#35  Prerequisite for Tankograd!
+		SOV_development_of_tankograd			#70  Tankograd industrial surge!
+		SOV_merge_tank_and_materiel_plants		#35  Tank MIO turbocharge!
+		SOV_positive_heroism					#70  Zhukov + Rokossovsky + 3rd Propaganda Slot!
 
-		# 1940: Industry Modernization + Air Industry + Officer Education
-		SOV_industrial_modernization			#70
-		SOV_expand_the_aircraft_industry		#35
-		SOV_modernize_aircraft_facilities		#35
-		SOV_demand_eastern_poland				#70  Fallback if no Molotov-Ribbentrop
-		SOV_military_engineering_university		#35
-		SOV_national_academies_of_sciences		#35
-		SOV_foster_flying_clubs					#70
-		SOV_behead_the_snake					#35
-
-		# 1941+: Wartime Armaments Pivot, Army Rehabilitation & Tankograd Snowball
-		SOV_shift_to_armaments_production		#70
+		# 1941+: Wartime Red Army, Red Air Force, Stakhanovite, SMERSH & 4th Five-Year Plan Juggernaut!
 		SOV_rehabilitated_military				#70
+		SOV_industrial_modernization			#70  +5% max efficiency cap +10% efficiency retention!
 		SOV_military_reorganization				#70
-		SOV_optimize_production_lines			#70
-		SOV_development_of_tankograd			#70
-		SOV_merge_tank_and_materiel_plants		#70
-		SOV_the_means_to_wage_war
-		SOV_pc_of_mortar_armament
-		SOV_soviet_artillery
-		SOV_women_in_aviation
-		SOV_raskovas_aviation_group
-		SOV_expand_the_agitprop					#35
-		SOV_positive_heroism
-		SOV_revive_the_stakhanovite_movement
-		SOV_middle_east_diplomacy				#35
-		SOV_support_afghan_ideology				#35
-		SOV_preemptive_invasion_of_iran			#35
-		SOV_leningrad_polytechnical_institute
+		SOV_experts_in_camouflage				#35  +5 max dig-in & CAS damage reduction!
+		SOV_ground_support						#70  +10% CAS air efficiency!
+		SOV_the_modern_war_in_the_skies			#70  +10% air mission efficiency, -10% night penalty!
+		SOV_revive_the_stakhanovite_movement	#70  +5% output +5% efficiency cap!
+		SOV_an_adaptable_army					#70  -10% winter attrition + cold acclimatization!
+		SOV_swap_to_political_advisors			#70  Turns politicized military into +org & +3% core defense!
+		SOV_the_glory_of_the_red_army			#70  Elite Red Army endgame buffs!
+		SOV_smersh								#70  Massive counter-intelligence against Axis collabs!
+		SOV_barrier_troops						#35  +10% army org regain!
+		SOV_expand_the_aircraft_industry		#70  Aircraft MILs & -25% aircraft designer cost!
+		SOV_modernize_aircraft_facilities		#70
+		SOV_merge_aircraft_plants				#35  Aircraft MIO turbocharge!
+		SOV_oil_production						#35
+		SOV_restoration_and_development			#35  Prerequisite for 4th FYP!
+		SOV_fourth_five_year_plan				#70  -5% CG +5% max efficiency cap!
+		SOV_women_in_aviation					#70
+		SOV_raskovas_aviation_group				#70
+		SOV_pc_of_mortar_armament				#35
+		SOV_superior_war_machines				#35
+		SOV_soviet_artillery					#35
+		SOV_leningrad_polytechnical_institute	#70
 		SOV_expand_the_red_fleet				#35
 		SOV_pc_of_the_ussr_navy					#35
 	}
 
+	focus_factors = {
+		SOV_national_specialists = 0
+		SOV_shift_to_armaments_production = 0
+		SOV_collectivist_propaganda = 0
+		SOV_increase_aircraft_production = 0
+		SOV_long_range_aircraft = 0
+		SOV_keep_commissars_organization = 0
+	}
+
 	research = {
-		industry = 24.0
+		industry = 28.0
 		infantry_weapons = 22.0
 		armor = 34.0
-		artillery = 22.0
-		air_equipment = 22.0
+		artillery = 20.0
+		light_fighter = 32.0
+		air_equipment = 26.0
 		land_doctrine = 18.0
-		electronics = 12.0
+		electronics = 14.0
 	}
 
 	ideas = {
-		SOV_mikhail_kalinin = 10
-		nikolai_voznesensky = 18
-		alexander_poskrebyshev = 12
+		SOV_gosproyektstroy_1 = 25
+		SOV_nikolay_voznesensky = 22
+		mikhail_kalinin = 15
+		SOV_lazar_kaganovich = 12
+		georgy_zhukov = 15
+		konstantin_rokossovsky = 15
+		alexander_novikov = 12
 		SOV_nikolay_kuznetsov = 8
 	}
 
 	traits = {
-		captain_of_industry = 15
-		war_industrialist = 12
-		armaments_organizer = 8
-		army_armored_3 = 12
-		army_armored_2 = 8
+		captain_of_industry = 18
+		war_industrialist = 15
+		armaments_organizer = 10
+		army_armored_3 = 14
+		army_armored_2 = 10
 	}
 
 	weight = {

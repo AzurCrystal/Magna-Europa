@@ -20,6 +20,56 @@ on_actions = {
 			ME_EAI_weekly_dispatch = yes
 		}
 	}
+	on_weekly_SOV = {
+		effect = {
+			# Zero-cheat pro-player Great Purge Paranoia discipline:
+			# Runs right after 07_nsb_on_actions.txt ticks weekly paranoia, keeping SOV_paranoia < 25 so
+			# Red Army & Red Air Force suffer ZERO random purges (no dissolved air bureaus, no banned military thinking!).
+			# Priority 1: Forge Production Reports (pays exact -25 PP, runs exact vanilla decision w/ +2% CG for 90d & 270d CD).
+			# Priority 2: Fallback "Inspection in the Navy" (pays exact -50 PP, runs exact vanilla Navy purge w/ 187d CD,
+			#             sacrificing Navy to protect Red Army & Red Air Force when Forge is on cooldown!).
+			if = {
+				limit = {
+					is_ai = yes
+					has_country_flag = SOV_paranoia_system_active_flag
+					NOT = { has_country_flag = SOV_civil_war_triggered_flag }
+					SOV_paranoia_is_finishing_purge_focus = no
+				}
+				if = {
+					limit = {
+						check_variable = { SOV_paranoia > 20 }
+						has_political_power > 24
+						NOT = { has_decision = SOV_forge_production_reports }
+						NOT = { has_country_flag = me_eai_sov_forge_cd }
+					}
+					add_political_power = -25
+					set_country_flag = { flag = me_eai_sov_forge_cd value = 1 days = 270 }
+					activate_decision = SOV_forge_production_reports
+					log = "[GetDateText] | ME-EAI | SOV Paranoia Guard: Forge Production Reports activated (paranoia=[?SOV_paranoia])"
+				}
+				else_if = {
+					limit = {
+						check_variable = { SOV_paranoia > 22 }
+						has_political_power > 49
+						NOT = { has_decision = SOV_inspection_in_the_navy }
+						NOT = { has_country_flag = SOV_paranoia_conducting_inspection_flag }
+						NOT = { has_country_flag = me_eai_sov_navy_cd }
+						NOT = { has_country_flag = SOV_paranoia_random_purge_cooldown_from_focus_flag }
+						NOT = { has_country_flag = SOV_paranoia_random_purge_cooldown_from_decision_flag }
+						OR = {
+							any_navy_leader = { SOV_character_can_be_purged = yes }
+							NOT = { has_idea = SOV_anti_soviet_military_thinking_banned_navy }
+							NOT = { has_idea = SOV_shipyard_staff_purged }
+						}
+					}
+					add_political_power = -50
+					set_country_flag = { flag = me_eai_sov_navy_cd value = 1 days = 187 }
+					activate_decision = SOV_inspection_in_the_navy
+					log = "[GetDateText] | ME-EAI | SOV Paranoia Guard: Navy Inspection activated (paranoia=[?SOV_paranoia])"
+				}
+			}
+		}
+	}
 	on_monthly = {
 		effect = {
 			ME_EAI_on_month_tick = yes

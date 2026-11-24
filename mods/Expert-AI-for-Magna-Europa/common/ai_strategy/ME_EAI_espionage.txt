@@ -55,16 +55,17 @@ ME_EAI_esp_SOV_agency_and_spymaster = {
 		has_dlc = "La Resistance"
 	}
 	enable = {
-		date > 1937.6.1
+		date > 1937.3.1
 		num_of_civilian_factories > 45
 	}
 	abort_when_not_enabled = yes
 
-	# Counters SOV.txt's `-20` penalty; emphasizes NKVD Counter-Intel + Cryptography + Defense
+	# Counters SOV.txt's `-20` penalty; emphasizes NKVD/SMERSH Counter-Intel + Defense + Cryptography vs Abwehr collabs!
 	ai_strategy = { type = intelligence_agency_usable_factories value = 30 }
 	ai_strategy = { type = become_spymaster value = 200 }
-	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_defense value = 500 }
-	ai_strategy = { type = operative_mission mission = counter_intelligence value = 450 }
+	ai_strategy = { type = agency_ai_base_num_factories_factor value = -30 }
+	ai_strategy = { type = intelligence_agency_branch_desire_factor id = branch_defense value = 900 }
+	ai_strategy = { type = operative_mission mission = counter_intelligence value = 700 }
 	ai_strategy = { type = operation_equipment_priority value = 100 }
 }
 
@@ -241,6 +242,61 @@ ME_EAI_esp_GER_combat_intel_SOV = {
 # 3. SOVIET UNION: ANTI-GERMAN COMBAT INTEL, CIPHER & PRE-WAR TECH STEAL
 ###############################################################################
 
+# Finish assassinating Trotsky ASAP once Behead the Snake is done (replaces -20% Stab / -15% PP debuff 3-4 years early!)
+ME_EAI_esp_SOV_finish_trotsky_CAN = {
+	allowed = {
+		original_tag = SOV
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		has_completed_focus = SOV_behead_the_snake
+		has_global_flag = AAT_trotsky_in_mexico
+		NOT = { has_global_flag = flag_trotsky_dead }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1800
+		mission_target = CAN
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = murder_trotsky
+		value = 2200
+		operation_target = CAN
+	}
+}
+
+ME_EAI_esp_SOV_finish_trotsky_NOR = {
+	allowed = {
+		original_tag = SOV
+		has_dlc = "La Resistance"
+	}
+	enable = {
+		has_intelligence_agency = yes
+		has_completed_focus = SOV_behead_the_snake
+		has_global_flag = NOR_trotsky_in_norway
+		NOT = { has_global_flag = flag_trotsky_dead }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1800
+		mission_target = NOR
+	}
+	ai_strategy = {
+		type = operative_operation
+		operation = murder_trotsky
+		value = 2200
+		operation_target = NOR
+	}
+}
+
 ME_EAI_esp_SOV_prewar_tech_steal = {
 	allowed = {
 		original_tag = SOV
@@ -251,6 +307,10 @@ ME_EAI_esp_SOV_prewar_tech_steal = {
 		has_war = no
 		date > 1937.6.1
 		date < 1940.6.1
+		OR = {
+			NOT = { has_completed_focus = SOV_behead_the_snake }
+			has_global_flag = flag_trotsky_dead
+		}
 		GER = { exists = yes }
 	}
 	abort_when_not_enabled = yes

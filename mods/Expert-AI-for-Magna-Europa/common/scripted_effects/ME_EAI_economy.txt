@@ -325,7 +325,14 @@ ME_EAI_update_deficit_and_resource_flags = {
 					check_variable = { resource_imported@rubber > 12 }
 				}
 				AND = {
+					original_tag = SOV
+					date > 1939.6.1
+					num_of_civilian_factories > 80
+					check_variable = { resource@rubber < 10 }
+				}
+				AND = {
 					has_country_flag = ME_EAI_axis_synth
+					NOT = { original_tag = SOV }
 					has_war = yes
 					fuel_ratio < 0.55
 				}
@@ -340,6 +347,7 @@ ME_EAI_update_deficit_and_resource_flags = {
 	if = {
 		limit = {
 			has_country_flag = ME_EAI_axis_synth
+			NOT = { original_tag = SOV }
 			has_war = no
 			date > 1938.1.1
 			fuel_ratio > 0.85
@@ -352,7 +360,7 @@ ME_EAI_update_deficit_and_resource_flags = {
 	}
 
 	#-------------------------------------------------------------------------------------------------------
-	# 5. Expanded Honest Law PP Guard (Single Owner of ME_EAI_need_law_pp: Conscription + War Economy)
+	# 5. Expanded Honest Law PP Guard (Single Owner of ME_EAI_need_law_pp: Conscription + War/Total Economy)
 	#-------------------------------------------------------------------------------------------------------
 	if = {
 		limit = {
@@ -389,6 +397,13 @@ ME_EAI_update_deficit_and_resource_flags = {
 						has_idea = partial_economic_mobilisation
 					}
 				}
+				# Soviet Total Mobilization push once wartime Propaganda lifts War Support >= 80%!
+				AND = {
+					original_tag = SOV
+					has_war_with = GER
+					has_war_support > 0.79
+					has_idea = war_economy
+				}
 			}
 		}
 		set_country_flag = ME_EAI_need_law_pp
@@ -415,6 +430,58 @@ ME_EAI_update_deficit_and_resource_flags = {
 	}
 	else = {
 		clr_country_flag = ME_EAI_ger_mefo_high
+	}
+
+	#-------------------------------------------------------------------------------------------------------
+	# 7. Soviet Great Purge PP Reserve, Propaganda, Gosproyektstroy, Urals Relocation & Stavka Reserves (O(1) Flags)
+	#-------------------------------------------------------------------------------------------------------
+	if = {
+		limit = {
+			original_tag = SOV
+			has_country_flag = SOV_paranoia_system_active_flag
+			check_variable = { SOV_paranoia > 12 }
+			has_political_power < 55
+		}
+		set_country_flag = ME_EAI_sov_purge_pp_reserve
+	}
+	else = {
+		clr_country_flag = ME_EAI_sov_purge_pp_reserve
+	}
+
+	if = {
+		limit = {
+			original_tag = SOV
+			NOT = { has_country_flag = ME_EAI_sov_purge_pp_reserve }
+			OR = {
+				has_war_with = GER
+				AND = {
+					has_completed_focus = SOV_expand_the_agitprop
+					NOT = { has_country_flag = SOV_propaganda_center_days_remaining_flag }
+				}
+				AND = {
+					has_completed_focus = SOV_foreign_experts
+					has_idea = SOV_gosproyektstroy_1
+				}
+			}
+		}
+		set_country_flag = ME_EAI_sov_pp_decisions
+	}
+	else = {
+		clr_country_flag = ME_EAI_sov_pp_decisions
+	}
+
+	if = {
+		limit = {
+			original_tag = SOV
+			has_war_with = GER
+			surrender_progress > 0.03
+			num_divisions < 580
+			has_manpower > 500000
+		}
+		set_country_flag = ME_EAI_sov_stavka_reserves
+	}
+	else = {
+		clr_country_flag = ME_EAI_sov_stavka_reserves
 	}
 }
 

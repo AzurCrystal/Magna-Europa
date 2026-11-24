@@ -195,6 +195,54 @@ ME_EAI_strat_aa_floor = {
 	ai_strategy = { type = equipment_production_factor id = anti_air value = 30 }
 }
 
+# Superpower Mass-Army Logistics Scaling (>260 divs & >120 MILs: eliminates -3k motorized / -2.5k AA / -2k support deficits!)
+ME_EAI_strat_mass_army_trucks = {
+	enable = {
+		has_country_flag = ME_EAI_mass_army_logistics
+		has_country_flag = ME_EAI_trucks_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = motorized_equipment value = 6 }
+	ai_strategy = { type = equipment_production_factor id = motorized value = 40 }
+}
+
+ME_EAI_strat_mass_army_support = {
+	enable = {
+		has_country_flag = ME_EAI_mass_army_logistics
+		has_country_flag = ME_EAI_support_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = support_equipment value = 5 }
+	ai_strategy = { type = equipment_production_factor id = support value = 35 }
+}
+
+ME_EAI_strat_mass_army_aa = {
+	enable = {
+		has_country_flag = ME_EAI_mass_army_logistics
+		has_country_flag = ME_EAI_aa_low
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = equipment_production_min_factories_archetype id = anti_air_equipment value = 4 }
+	ai_strategy = { type = equipment_production_factor id = anti_air value = 40 }
+}
+
+# Stavka Training-Queue Strategic Reserve Surge (pairs with DEPLOY_MIN_TRAINING_SURRENDER_FACTOR=0.25!)
+# Continuously pumps fresh rifle & tank armies into the training pipeline whenever Germany pushes onto Soviet soil.
+ME_EAI_strat_SOV_stavka_reserves = {
+	allowed = { original_tag = SOV }
+	enable = {
+		has_country_flag = ME_EAI_sov_stavka_reserves
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = force_build_armies value = 120 }
+	ai_strategy = { type = build_army id = infantry value = 60 }
+	ai_strategy = { type = build_army id = armor value = 25 }
+}
+
 # Redirect surplus rifle MILs straight into Green Air (Fighters + CAS) and Medium Tanks
 ME_EAI_strat_rifles_surplus_to_air_armor = {
 	enable = {
@@ -324,11 +372,12 @@ ME_EAI_strat_law_pp_guard = {
 	ai_strategy = { type = pp_spend_priority id = political_advisor value = -200 }
 }
 
-# Only suppress decision PP spend when NOT under urgent German MEFO / Gold Seizure pressure!
+# Only suppress decision PP spend when NOT under urgent German MEFO or Soviet Propaganda/Evacuation pressure!
 ME_EAI_strat_law_pp_guard_decisions = {
 	enable = {
 		has_country_flag = ME_EAI_need_law_pp
 		NOT = { has_country_flag = ME_EAI_ger_mefo_high }
+		NOT = { has_country_flag = ME_EAI_sov_pp_decisions }
 	}
 	abort_when_not_enabled = yes
 
@@ -344,4 +393,30 @@ ME_EAI_strat_GER_mefo_control = {
 	abort_when_not_enabled = yes
 
 	ai_strategy = { type = pp_spend_priority id = decision value = 650 }
+}
+
+# Soviet Great Purge Paranoia PP Reserve: bank 55 PP whenever paranoia > 12 so Forge (25 PP) / Navy Inspection (50 PP) ALWAYS fire on time!
+ME_EAI_strat_SOV_purge_pp_bank = {
+	allowed = { original_tag = SOV }
+	enable = {
+		has_country_flag = ME_EAI_sov_purge_pp_reserve
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = pp_spend_priority id = political_advisor value = -600 }
+	ai_strategy = { type = pp_spend_priority id = decision value = -600 }
+	ai_strategy = { type = pp_spend_priority id = idea value = -600 }
+	ai_strategy = { type = pp_spend_priority id = relation value = -9999 }
+	ai_strategy = { type = pp_spend_priority id = admiral value = -9999 }
+}
+
+# Soviet Propaganda, Gosproyektstroy Foreign Experts, Urals Factory Relocation & Women in the Workforce priority!
+ME_EAI_strat_SOV_propaganda_and_evac = {
+	allowed = { original_tag = SOV }
+	enable = {
+		has_country_flag = ME_EAI_sov_pp_decisions
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = pp_spend_priority id = decision value = 500 }
 }

@@ -147,7 +147,20 @@ ME_EAI_strat_need_refineries = {
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = building_target id = synthetic_refinery value = 14 }
+	ai_strategy = { type = building_target id = synthetic_refinery value = 16 }
+}
+
+# Soviet Rubber Independence Target (Magna Europa has only 2 domestic Soviet rubber -> 22 safe-rear refineries
+# + rubber_processing techs eliminate all 110 rubber-starved Soviet fighter/CAS/truck MILs!)
+ME_EAI_strat_SOV_rubber_refineries = {
+	allowed = { original_tag = SOV }
+	enable = {
+		has_country_flag = ME_EAI_need_refineries
+		num_of_civilian_factories > 90
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = { type = building_target id = synthetic_refinery value = 24 }
 }
 
 ME_EAI_strat_need_silos = {

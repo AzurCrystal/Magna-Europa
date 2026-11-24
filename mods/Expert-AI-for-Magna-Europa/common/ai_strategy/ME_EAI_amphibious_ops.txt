@@ -535,3 +535,25 @@ ME_EAI_p3_western_air_ger = {
 	ai_strategy = { type = strategic_air_importance id = 36 value = 8500 }
 	ai_strategy = { type = strategic_air_importance id = 64 value = 7500 }
 }
+
+# 8. Stavka Second-Echelon Emergency Reserve Anchor (zero pre-war psychic defense; activates ONLY after GER breaks deep!)
+# Channels newly deployed training-queue reserves onto Moscow / Leningrad / Tula / Voronezh / Rostov trunk railway hubs.
+ME_EAI_p3_SOV_stavka_emergency_line = {
+	allowed = { original_tag = SOV }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		has_war_with = GER
+		surrender_progress > 0.12
+		surrender_progress < 0.55
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 229 195 265 2286 153 250 412 119 127 511 }
+		ratio = 0.08
+		area = defend_moscow_zone
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
