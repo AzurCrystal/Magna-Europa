@@ -65,27 +65,30 @@ ME_EAI_p3_GER_tanks_vs_france = {
 	ai_strategy = { type = front_unit_request tag = FRA value = 25 }
 }
 
-# Lean post-1942 Atlantic coastal infantry guard (8% coastal infantry; ASSIGN_TANKS_TO_NON_WAR_FRONT=0 keeps all Panzers East!)
+# Atlantic Wall Coastal Infantry Guard (activates once USA enters war or 1942.2+; covers Brittany, Normandy, Calais & Holland)
+# ASSIGN_TANKS_TO_NON_WAR_FRONT=0 guarantees ZERO Panzers are wasted on coastal guard until an actual beachhead lands!
 ME_EAI_p3_GER_normandy_guard = {
 	allowed = { original_tag = GER }
 	enable = {
 		has_global_flag = ME_EAI_phase3_sectors_active
 		is_historical_focus_on = yes
 		FRA = { has_capitulated = yes }
-		date > 1942.1.1
-		date < 1943.1.1
+		OR = {
+			has_war_with = USA
+			date > 1942.2.1
+		}
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = put_unit_buffers
-		states = { 583 578 587 534 551 517 505 448 2874 472 2333 822 824 829 }
-		ratio = 0.08
-		area = normandy_landing_zone
+		states = { 583 587 534 551 517 505 448 402 358 472 2333 822 824 829 }
+		ratio = 0.12
+		area = atlantik_wall_zone
 		subtract_invasions_from_need = no
-		subtract_fronts_from_need = yes
+		subtract_fronts_from_need = no
 	}
-	ai_strategy = { type = role_ratio id = garrison value = 7 }
+	ai_strategy = { type = role_ratio id = garrison value = 9 }
 }
 
 # 2. Corridor 1: Norway Limited Amphibious Window (strictly capped; NEVER drains Eastern Front!)
@@ -155,6 +158,23 @@ ME_EAI_p3_GER_barbarossa_commitment = {
 	ai_strategy = { type = front_armor_score id = SOV value = 950 }
 	ai_strategy = { type = front_unit_request tag = SOV value = 165 }
 	ai_strategy = { type = front_armor_score id = FRA value = -250 }
+}
+
+# 1941-only West strip (frees maximum infantry for opening Barbarossa; lifts automatically once USA enters war or 1942.2!)
+ME_EAI_p3_GER_barbarossa_1941_west_strip = {
+	allowed = { original_tag = GER }
+	enable = {
+		has_global_flag = ME_EAI_phase3_sectors_active
+		SOV = { has_capitulated = no }
+		date < 1942.2.1
+		NOT = { has_war_with = USA }
+		OR = {
+			has_war_with = SOV
+			focus_progress = { focus = GER_war_with_the_ussr progress > 0.01 }
+		}
+	}
+	abort_when_not_enabled = yes
+
 	ai_strategy = { type = front_unit_request tag = FRA value = -55 }
 	ai_strategy = { type = area_priority id = normandy_landing_zone value = -140 }
 	ai_strategy = { type = area_priority id = atlantik_wall_zone value = -110 }
@@ -261,6 +281,7 @@ ME_EAI_p3_ITA_greece_amphibious_hammer = {
 	ai_strategy = { type = invasion_unit_request tag = GRE value = 32 }
 	ai_strategy = { type = area_priority id = greater_balkans value = 260 }
 	ai_strategy = { type = front_unit_request tag = GRE value = 110 }
+	ai_strategy = { type = front_armor_score id = GRE value = 90 }
 	ai_strategy = { type = front_unit_request tag = EGY value = -35 } # Hold Libya defensively until Greece falls!
 	ai_strategy = {
 		type = front_control
@@ -434,6 +455,7 @@ ME_EAI_p3_USA_uk_staging = {
 }
 
 # Allied Historical Grand Strategy: Torch (North Africa) & Husky (Italy) BEFORE Overlord (1943.6+)
+# Suppresses BOTH normandy_landing_zone AND atlantik_wall_zone (Brittany/Loire) while Italy still fights!
 ME_EAI_p3_allies_med_before_overlord = {
 	allowed = {
 		OR = {
@@ -447,12 +469,17 @@ ME_EAI_p3_allies_med_before_overlord = {
 		date < 1943.6.1
 		has_war_with = GER
 		FRA = { has_capitulated = yes }
+		ITA = { exists = yes has_capitulated = no }
 	}
 	abort_when_not_enabled = yes
 
-	ai_strategy = { type = invasion_unit_request area = normandy_landing_zone value = -120 }
-	ai_strategy = { type = area_priority id = normandy_landing_zone value = -100 }
-	ai_strategy = { type = area_priority id = torch_landing_zone value = 200 }
+	ai_strategy = { type = invade id = GER value = -220 }
+	ai_strategy = { type = invasion_unit_request area = normandy_landing_zone value = -250 }
+	ai_strategy = { type = invasion_unit_request area = atlantik_wall_zone value = -250 }
+	ai_strategy = { type = area_priority id = normandy_landing_zone value = -200 }
+	ai_strategy = { type = area_priority id = atlantik_wall_zone value = -200 }
+	ai_strategy = { type = area_priority id = torch_landing_zone value = 260 }
+	ai_strategy = { type = area_priority id = central_north_africa value = 200 }
 }
 
 ME_EAI_p3_allies_corridor_overlord = {

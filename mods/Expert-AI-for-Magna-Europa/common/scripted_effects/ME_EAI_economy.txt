@@ -75,6 +75,36 @@ ME_EAI_update_deficit_and_resource_flags = {
 		clr_country_flag = ME_EAI_def_rifles_heavy
 	}
 
+	# Acute Superpower Rifle Crisis Surge (stacks to 54 guaranteed rifle MILs so 400+ div armies NEVER lock in ME_EAI_rifles_starved!)
+	if = {
+		limit = { NOT = { has_country_flag = ME_EAI_def_rifles_crisis } }
+		if = {
+			limit = {
+				has_country_flag = ME_EAI_def_rifles_heavy
+				num_of_military_factories > 119
+				OR = {
+					check_variable = { _e_inf_str < 0.88 }
+					has_equipment = { infantry_equipment < 1000 }
+				}
+			}
+			set_country_flag = ME_EAI_def_rifles_crisis
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_country_flag = ME_EAI_def_rifles_heavy }
+					AND = {
+						check_variable = { _e_inf_str > 0.93 }
+						has_equipment = { infantry_equipment > 4000 }
+					}
+				}
+			}
+			clr_country_flag = ME_EAI_def_rifles_crisis
+		}
+	}
+
 	# Artillery deficit (Tier 1 & industrialized Tier 2; start < 500, stop > 1600)
 	if = {
 		limit = { NOT = { has_country_flag = ME_EAI_def_arty } }
