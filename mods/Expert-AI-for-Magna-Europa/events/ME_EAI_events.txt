@@ -1,0 +1,186 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 4 Startup & In-Game Configuration Events (v0.1.0)
+# Human-only UI events (never fire for AI or observer runs). Pays explicit tribute to Expert AI 5.0.
+############################################################################################################
+
+add_namespace = ME_EAI_events
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_events.1 — Day-1 Welcome, Expert AI 5.0 Tribute & Quick Difficulty Selection
+#-----------------------------------------------------------------------------------------------------------
+country_event = {
+	id = ME_EAI_events.1
+	title = ME_EAI_events.1.t
+	desc = ME_EAI_events.1.desc
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	# Option A: Keep Game Rule / Standard (Zero-Cheat — Recommended)
+	option = {
+		name = ME_EAI_events.1.a
+		ai_chance = { base = 100 }
+		if = {
+			limit = { has_global_flag = ME_EAI_diff_custom }
+			country_event = { id = ME_EAI_events.2 }
+		}
+		else = {
+			custom_effect_tooltip = ME_EAI_events.1.a.tt
+		}
+	}
+
+	# Option B: Switch immediately to Challenging (+15% AI Industry & Supply)
+	option = {
+		name = ME_EAI_events.1.b
+		ai_chance = { base = 0 }
+		clr_global_flag = ME_EAI_diff_standard
+		clr_global_flag = ME_EAI_diff_brutal
+		set_global_flag = ME_EAI_diff_challenging
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.1.b.tt
+	}
+
+	# Option C: Switch immediately to Brutal (+30% AI Industry & Combat)
+	option = {
+		name = ME_EAI_events.1.c
+		ai_chance = { base = 0 }
+		clr_global_flag = ME_EAI_diff_standard
+		clr_global_flag = ME_EAI_diff_challenging
+		set_global_flag = ME_EAI_diff_brutal
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.1.c.tt
+	}
+
+	# Option D: Open Bloc-Focus Boost Menu (e.g. boost only Axis / USSR / Allies / Anti-Player)
+	option = {
+		name = ME_EAI_events.1.d
+		ai_chance = { base = 0 }
+		country_event = { id = ME_EAI_events.3 }
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_events.2 — Live AI Difficulty Tier Switcher (Callable Anytime From Control Panel)
+#-----------------------------------------------------------------------------------------------------------
+country_event = {
+	id = ME_EAI_events.2
+	title = ME_EAI_events.2.t
+	desc = ME_EAI_events.2.desc
+	picture = GFX_report_event_generic_factory
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_EAI_events.2.a
+		clr_global_flag = ME_EAI_diff_challenging
+		clr_global_flag = ME_EAI_diff_brutal
+		set_global_flag = ME_EAI_diff_standard
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.2.a.tt
+	}
+
+	option = {
+		name = ME_EAI_events.2.b
+		clr_global_flag = ME_EAI_diff_standard
+		clr_global_flag = ME_EAI_diff_brutal
+		set_global_flag = ME_EAI_diff_challenging
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.1.b.tt
+	}
+
+	option = {
+		name = ME_EAI_events.2.c
+		clr_global_flag = ME_EAI_diff_standard
+		clr_global_flag = ME_EAI_diff_challenging
+		set_global_flag = ME_EAI_diff_brutal
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.1.c.tt
+	}
+
+	option = {
+		name = ME_EAI_events.2.d
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_events.3 — Targeted Bloc Boost Selector (Axis / Comintern / Allies / Anti-Player / None)
+#-----------------------------------------------------------------------------------------------------------
+country_event = {
+	id = ME_EAI_events.3
+	title = ME_EAI_events.3.t
+	desc = ME_EAI_events.3.desc
+	picture = GFX_report_event_czech_soldiers_01
+
+	is_triggered_only = yes
+
+	# Clear all bloc boosts (Symmetric)
+	option = {
+		name = ME_EAI_events.3.a
+		clr_global_flag = ME_EAI_bloc_axis
+		clr_global_flag = ME_EAI_bloc_comintern
+		clr_global_flag = ME_EAI_bloc_allies
+		clr_global_flag = ME_EAI_bloc_anti_player
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.3.a.tt
+	}
+
+	# Boost Axis Majors (GER / ITA / HUN / ROM / FIN)
+	option = {
+		name = ME_EAI_events.3.b
+		clr_global_flag = ME_EAI_bloc_comintern
+		clr_global_flag = ME_EAI_bloc_allies
+		clr_global_flag = ME_EAI_bloc_anti_player
+		set_global_flag = ME_EAI_bloc_axis
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.3.b.tt
+	}
+
+	# Boost Soviet Union (SOV)
+	option = {
+		name = ME_EAI_events.3.c
+		clr_global_flag = ME_EAI_bloc_axis
+		clr_global_flag = ME_EAI_bloc_allies
+		clr_global_flag = ME_EAI_bloc_anti_player
+		set_global_flag = ME_EAI_bloc_comintern
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.3.c.tt
+	}
+
+	# Boost Allied Majors (ENG / USA / FRA)
+	option = {
+		name = ME_EAI_events.3.d
+		clr_global_flag = ME_EAI_bloc_axis
+		clr_global_flag = ME_EAI_bloc_comintern
+		clr_global_flag = ME_EAI_bloc_anti_player
+		set_global_flag = ME_EAI_bloc_allies
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.3.d.tt
+	}
+
+	# Boost Anti-Player AI Majors (dynamic: any Tier-1 AI not allied to player)
+	option = {
+		name = ME_EAI_events.3.e
+		clr_global_flag = ME_EAI_bloc_axis
+		clr_global_flag = ME_EAI_bloc_comintern
+		clr_global_flag = ME_EAI_bloc_allies
+		set_global_flag = ME_EAI_bloc_anti_player
+		ME_EAI_sync_all_difficulty_ideas = yes
+		custom_effect_tooltip = ME_EAI_events.3.e.tt
+	}
+}
+
+#-----------------------------------------------------------------------------------------------------------
+# ME_EAI_events.4 — Credits, Tribute to Expert AI 5.0 & Live Architecture Overview
+#-----------------------------------------------------------------------------------------------------------
+country_event = {
+	id = ME_EAI_events.4
+	title = ME_EAI_events.4.t
+	desc = ME_EAI_events.4.desc
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = ME_EAI_events.4.a
+	}
+}

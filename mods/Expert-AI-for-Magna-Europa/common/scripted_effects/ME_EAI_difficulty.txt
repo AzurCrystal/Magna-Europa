@@ -1,0 +1,152 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Phase 4 Difficulty & Rule Configuration Effects
+# Runs once at startup, on newly spawned countries, and whenever the player updates settings in-game.
+# Zero-cheat Standard default: never grants any stat modifier unless Challenging/Brutal/Bloc Boost is active.
+############################################################################################################
+
+ME_EAI_init_rules_from_game_rules = {
+	clr_global_flag = ME_EAI_diff_standard
+	clr_global_flag = ME_EAI_diff_challenging
+	clr_global_flag = ME_EAI_diff_brutal
+	clr_global_flag = ME_EAI_diff_custom
+
+	if = {
+		limit = { has_game_rule = { rule = ME_EAI_difficulty_rule option = ME_EAI_DIFF_CHALLENGING } }
+		set_global_flag = ME_EAI_diff_challenging
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = ME_EAI_difficulty_rule option = ME_EAI_DIFF_BRUTAL } }
+		set_global_flag = ME_EAI_diff_brutal
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = ME_EAI_difficulty_rule option = ME_EAI_DIFF_CUSTOM } }
+		set_global_flag = ME_EAI_diff_custom
+		set_global_flag = ME_EAI_diff_standard
+	}
+	else = {
+		set_global_flag = ME_EAI_diff_standard
+	}
+
+	clr_global_flag = ME_EAI_bloc_axis
+	clr_global_flag = ME_EAI_bloc_comintern
+	clr_global_flag = ME_EAI_bloc_allies
+	clr_global_flag = ME_EAI_bloc_anti_player
+
+	if = {
+		limit = { has_game_rule = { rule = ME_EAI_bloc_focus_rule option = ME_EAI_BLOC_AXIS } }
+		set_global_flag = ME_EAI_bloc_axis
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = ME_EAI_bloc_focus_rule option = ME_EAI_BLOC_COMINTERN } }
+		set_global_flag = ME_EAI_bloc_comintern
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = ME_EAI_bloc_focus_rule option = ME_EAI_BLOC_ALLIES } }
+		set_global_flag = ME_EAI_bloc_allies
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = ME_EAI_bloc_focus_rule option = ME_EAI_BLOC_ANTI_PLAYER } }
+		set_global_flag = ME_EAI_bloc_anti_player
+	}
+
+	clr_global_flag = ME_EAI_forts_disabled
+	if = {
+		limit = { has_game_rule = { rule = ME_EAI_river_forts_rule option = ME_EAI_FORTS_OFF } }
+		set_global_flag = ME_EAI_forts_disabled
+	}
+}
+
+# Syncs opt-in difficulty & bloc-boost ideas on THIS country (called in country scope).
+# Human countries ALWAYS have all AI difficulty ideas stripped cleanly.
+ME_EAI_sync_country_difficulty_ideas = {
+	# Always strip first if human or if tier changed
+	if = {
+		limit = { is_ai = no }
+		if = { limit = { has_idea = ME_EAI_diff_challenging_idea } remove_ideas = ME_EAI_diff_challenging_idea }
+		if = { limit = { has_idea = ME_EAI_diff_brutal_idea } remove_ideas = ME_EAI_diff_brutal_idea }
+		if = { limit = { has_idea = ME_EAI_bloc_boost_idea } remove_ideas = ME_EAI_bloc_boost_idea }
+	}
+	else = {
+		# 1. Global difficulty tier (Tier 1 & Tier 2 AI only — never bloats micro-states)
+		if = {
+			limit = {
+				has_global_flag = ME_EAI_diff_challenging
+				has_country_flag = ME_EAI_active_brain
+			}
+			if = { limit = { has_idea = ME_EAI_diff_brutal_idea } remove_ideas = ME_EAI_diff_brutal_idea }
+			if = { limit = { NOT = { has_idea = ME_EAI_diff_challenging_idea } } add_ideas = ME_EAI_diff_challenging_idea }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = ME_EAI_diff_brutal
+				has_country_flag = ME_EAI_active_brain
+			}
+			if = { limit = { has_idea = ME_EAI_diff_challenging_idea } remove_ideas = ME_EAI_diff_challenging_idea }
+			if = { limit = { NOT = { has_idea = ME_EAI_diff_brutal_idea } } add_ideas = ME_EAI_diff_brutal_idea }
+		}
+		else = {
+			if = { limit = { has_idea = ME_EAI_diff_challenging_idea } remove_ideas = ME_EAI_diff_challenging_idea }
+			if = { limit = { has_idea = ME_EAI_diff_brutal_idea } remove_ideas = ME_EAI_diff_brutal_idea }
+		}
+
+		# 2. Optional targeted bloc boost
+		set_temp_variable = { _want_bloc_boost = 0 }
+		if = {
+			limit = {
+				has_global_flag = ME_EAI_bloc_axis
+				OR = {
+					original_tag = GER
+					original_tag = ITA
+					original_tag = HUN
+					original_tag = ROM
+					original_tag = FIN
+				}
+			}
+			set_temp_variable = { _want_bloc_boost = 1 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = ME_EAI_bloc_comintern
+				original_tag = SOV
+			}
+			set_temp_variable = { _want_bloc_boost = 1 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = ME_EAI_bloc_allies
+				OR = {
+					original_tag = ENG
+					original_tag = USA
+					original_tag = FRA
+				}
+			}
+			set_temp_variable = { _want_bloc_boost = 1 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = ME_EAI_bloc_anti_player
+				has_country_flag = ME_EAI_tier_1
+				any_country = {
+					is_ai = no
+					NOT = { is_in_faction_with = PREV }
+					NOT = { tag = PREV }
+				}
+			}
+			set_temp_variable = { _want_bloc_boost = 1 }
+		}
+
+		if = {
+			limit = { check_variable = { _want_bloc_boost = 1 } }
+			if = { limit = { NOT = { has_idea = ME_EAI_bloc_boost_idea } } add_ideas = ME_EAI_bloc_boost_idea }
+		}
+		else = {
+			if = { limit = { has_idea = ME_EAI_bloc_boost_idea } remove_ideas = ME_EAI_bloc_boost_idea }
+		}
+	}
+}
+
+ME_EAI_sync_all_difficulty_ideas = {
+	every_country = {
+		ME_EAI_sync_country_difficulty_ideas = yes
+	}
+}

@@ -1,0 +1,98 @@
+############################################################################################################
+# Expert AI for Magna Europa: Reforged — Human-Only Live Configuration Decisions (Zero AI Cost)
+############################################################################################################
+
+ME_EAI_config_category = {
+	ME_EAI_dec_open_difficulty_menu = {
+		icon = generic_army_support
+		cost = 0
+		fire_only_once = no
+		days_re_enable = 1
+
+		visible = {
+			is_ai = no
+		}
+
+		complete_effect = {
+			country_event = { id = ME_EAI_events.2 }
+		}
+
+		ai_will_do = { base = 0 }
+	}
+
+	ME_EAI_dec_open_bloc_menu = {
+		icon = generic_political_discourse
+		cost = 0
+		fire_only_once = no
+		days_re_enable = 1
+
+		visible = {
+			is_ai = no
+		}
+
+		complete_effect = {
+			country_event = { id = ME_EAI_events.3 }
+		}
+
+		ai_will_do = { base = 0 }
+	}
+
+	ME_EAI_dec_toggle_river_forts = {
+		icon = generic_construction
+		cost = 0
+		fire_only_once = no
+		days_re_enable = 1
+
+		visible = {
+			is_ai = no
+		}
+
+		complete_effect = {
+			if = {
+				limit = { has_global_flag = ME_EAI_forts_disabled }
+				clr_global_flag = ME_EAI_forts_disabled
+				custom_effect_tooltip = ME_EAI_dec_river_forts_enabled_tt
+			}
+			else = {
+				set_global_flag = ME_EAI_forts_disabled
+				custom_effect_tooltip = ME_EAI_dec_river_forts_disabled_tt
+			}
+		}
+
+		ai_will_do = { base = 0 }
+	}
+
+	ME_EAI_dec_show_credits = {
+		icon = generic_research
+		cost = 0
+		fire_only_once = no
+		days_re_enable = 1
+
+		visible = {
+			is_ai = no
+		}
+
+		complete_effect = {
+			country_event = { id = ME_EAI_events.4 }
+		}
+
+		ai_will_do = { base = 0 }
+	}
+
+	ME_EAI_dec_hide_panel = {
+		icon = generic_civil_support
+		cost = 0
+		fire_only_once = no
+
+		visible = {
+			is_ai = no
+		}
+
+		complete_effect = {
+			set_country_flag = ME_EAI_panel_hidden
+			custom_effect_tooltip = ME_EAI_dec_hide_panel_tt
+		}
+
+		ai_will_do = { base = 0 }
+	}
+}

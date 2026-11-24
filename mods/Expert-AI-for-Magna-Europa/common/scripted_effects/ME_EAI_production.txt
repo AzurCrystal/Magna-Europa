@@ -311,6 +311,18 @@ ME_EAI_update_division_limits = {
 	}
 
 	# Flip O(1) infantry/total cap flag
+	# Apply Phase 4 Custom Game Rule override for division soft-caps
+	if = {
+		limit = { has_game_rule = { rule = ME_EAI_division_caps_rule option = ME_EAI_CAPS_RELAXED } }
+		multiply_variable = { me_eai_div_cap = 1.25 }
+		multiply_variable = { me_eai_arm_cap = 1.25 }
+	}
+	else_if = {
+		limit = { has_game_rule = { rule = ME_EAI_division_caps_rule option = ME_EAI_CAPS_OFF } }
+		set_variable = { me_eai_div_cap = 9999 }
+		set_variable = { me_eai_arm_cap = 999 }
+	}
+
 	if = {
 		limit = {
 			check_variable = { num_divisions > me_eai_div_cap }

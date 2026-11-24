@@ -27,8 +27,9 @@ ME_EAI_startup = {
 		# Load precompiled CSR map graphs + L2 tactical indexes
 		ME_EAI_map_load_all = yes
 
-		# Initialize global tech era flags
+		# Initialize global tech era flags & Phase 4 difficulty/rule flags
 		ME_EAI_update_global_tech_era = yes
+		ME_EAI_init_rules_from_game_rules = yes
 
 		# Classify all existing countries, assign staggered monthly slots & initial state flags
 		set_temp_variable = { _cnt_t1 = 0 }
@@ -36,6 +37,7 @@ ME_EAI_startup = {
 		set_temp_variable = { _cnt_t3 = 0 }
 		every_country = {
 			ME_EAI_assign_country_slot_and_tier = yes
+			ME_EAI_sync_country_difficulty_ideas = yes
 			if = {
 				limit = { is_ai = yes }
 				ME_EAI_update_doctrine_and_roles = yes
@@ -44,6 +46,10 @@ ME_EAI_startup = {
 				ME_EAI_update_deficit_and_resource_flags = yes
 				ME_EAI_update_lend_lease_flags = yes
 				ME_EAI_update_doctrine_and_intel = yes
+			}
+			else = {
+				# Fire Welcome & Configuration Event on Day 1 for human players only (never blocks observer runs!)
+				country_event = { id = ME_EAI_events.1 days = 1 }
 			}
 			if = {
 				limit = { has_country_flag = ME_EAI_tier_1 }
@@ -142,6 +148,7 @@ ME_EAI_weekly_dispatch = {
 			NOT = { has_country_flag = ME_EAI_slot_assigned }
 		}
 		ME_EAI_assign_country_slot_and_tier = yes
+		ME_EAI_sync_country_difficulty_ideas = yes
 	}
 
 	if = {
@@ -154,11 +161,12 @@ ME_EAI_weekly_dispatch = {
 }
 
 #-----------------------------------------------------------------------------------------------------------
-# Brain Hooks (populated in Phases 1-3)
+# Brain Hooks (populated in Phases 1-4)
 #-----------------------------------------------------------------------------------------------------------
 ME_EAI_monthly_brain = {
-	# Refresh tier in case factories grew/shrank across thresholds
+	# Refresh tier in case factories grew/shrank across thresholds & sync opt-in difficulty ideas
 	ME_EAI_assign_country_slot_and_tier = yes
+	ME_EAI_sync_country_difficulty_ideas = yes
 	# Phase 1: Division soft-caps, template/role flags, economy/stock flags
 	ME_EAI_update_doctrine_and_roles = yes
 	ME_EAI_update_division_limits = yes
@@ -169,7 +177,10 @@ ME_EAI_monthly_brain = {
 	ME_EAI_map_guided_construction = yes
 	# Phase 3: Doctrine operational profile, armor/air intel counter-adaptation, 7 major-river fortifications
 	ME_EAI_update_doctrine_and_intel = yes
-	ME_EAI_manage_river_fortifications = yes
+	if = {
+		limit = { NOT = { has_global_flag = ME_EAI_forts_disabled } }
+		ME_EAI_manage_river_fortifications = yes
+	}
 }
 
 ME_EAI_weekly_tier1_pulse = {
