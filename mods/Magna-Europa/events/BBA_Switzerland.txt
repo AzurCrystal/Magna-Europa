@@ -3208,7 +3208,7 @@ country_event = { #Event to notify SWI that they won the state lottery and they'
 					check_variable = {SWI_requested_territory = GER} #If Ancshluss has happened and Austria does no longer exist
 					
 					OR = {
-						NOT = {owns_state = 848}
+						NOT = {owns_state = 654} # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 						NOT = {has_country_flag = denied_vorarlberg}
 					}
 				}
@@ -3218,15 +3218,15 @@ country_event = { #Event to notify SWI that they won the state lottery and they'
 
 		if = {
 			limit = {
-				FROM = { owns_state = 848 }  
+				FROM = { owns_state = 654 }   # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 			}
-			ROOT = { transfer_state = 848 } 
+			ROOT = { transfer_state = 654 }  # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 		}
 		if = {
 			limit = {
-				FROM = { controls_state = 848 } 
+				FROM = { controls_state = 654 }  # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 			}
-			848 = { set_state_controller_to = ROOT }
+			654 = { set_state_controller_to = ROOT } # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 		} 
 		clear_variable = SWI_requested_territory
 	}
@@ -3697,7 +3697,7 @@ country_event = { #Sending request for Vorarlberg
 		}
 		effect_tooltip ={
 			FROM = {
-				transfer_state = 848
+				transfer_state = 654 # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 				set_country_flag = SWI_got_vorarlberg
 			}
 		}
@@ -3811,7 +3811,7 @@ country_event = { #Sending request for Vorarlberg
 		}
 		effect_tooltip = {
 			FROM = {
-				transfer_state = 848
+				transfer_state = 654 # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 				set_country_flag = SWI_got_vorarlberg
 			}
 		}
@@ -3865,8 +3865,8 @@ country_event = { #Vorarlberg will join Switzerland
 		}
 		trigger = {
 		}
-		transfer_state = 848
-		848 = {
+		transfer_state = 654 # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
+		654 = { # eu_mapping: v848 (Vorarlberg) -> ME 654 (Vorarlberg)
 			add_core_of = SWI
 		}
 		set_country_flag = SWI_got_vorarlberg

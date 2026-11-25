@@ -339,37 +339,21 @@ country_event = {
 		#	}
 
 		SLO = {
-			if = {
-				limit = {
-					CZE = {
-						owns_state = 70
-					}
-				}
-				transfer_state = 70
+			every_state = { # eu_mapping: v70 (Western Slovakia)
+				limit = { OR = { state = 1437 state = 555 state = 574 state = 577 state = 586 state = 591 state = 2662 state = 2663 state = 2978 } is_owned_by = CZE }
+				transfer_state_to = PREV
 			}
-			if = {
-				limit = {
-					CZE = {
-						owns_state = 71
-					}
-				}
-				transfer_state = 71
+			every_state = { # eu_mapping: v71 (Eastern Slovakia)
+				limit = { OR = { state = 550 state = 541 state = 562 state = 569 state = 2313 state = 2660 state = 2661 } is_owned_by = CZE }
+				transfer_state_to = PREV
 			}
-			if = {
-				limit = {
-					CZE = {
-						owns_state = 73
-					}
-				}
-				transfer_state = 73
+			every_state = { # eu_mapping: v73 (Carpathian Ruthenia)
+				limit = { OR = { state = 593 state = 564 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 } is_owned_by = CZE }
+				transfer_state_to = PREV
 			}
-			if = {
-				limit = {
-					CZE = {
-						owns_state = 664
-					}
-				}
-				transfer_state = 664
+			every_state = { # eu_mapping: v664 (Southern Slovakia)
+				limit = { OR = { state = 1442 state = 580 state = 610 state = 1438 state = 1439 state = 2930 } is_owned_by = CZE }
+				transfer_state_to = PREV
 			}
 			
 		}
@@ -377,10 +361,43 @@ country_event = {
 			target = SLO
 			type = annex_everything
 		}
-		SLO = { add_state_core = 70 }
-		SLO = { add_state_core = 71 }
-		SLO = { add_state_core = 73 }
-		SLO = { add_state_core = 664 }
+		SLO = {
+			add_state_core = 1437 # eu_mapping: v70 (Western Slovakia) -> ME 1437 (Bratislava)
+			add_state_core = 555 # eu_mapping: v70 (Western Slovakia) -> ME 555 (Trenčín)
+			add_state_core = 574 # eu_mapping: v70 (Western Slovakia) -> ME 574 (Hron)
+			add_state_core = 577 # eu_mapping: v70 (Western Slovakia) -> ME 577 (Žilina)
+			add_state_core = 586 # eu_mapping: v70 (Western Slovakia) -> ME 586 (Nitra)
+			add_state_core = 591 # eu_mapping: v70 (Western Slovakia) -> ME 591 (Malacky)
+			add_state_core = 2662 # eu_mapping: v70 (Western Slovakia) -> ME 2662 (Piešťany)
+			add_state_core = 2663 # eu_mapping: v70 (Western Slovakia) -> ME 2663 (Čadca)
+			add_state_core = 2978 # eu_mapping: v70 (Western Slovakia) -> ME 2978 (Trnava)
+		}
+		SLO = {
+			add_state_core = 550 # eu_mapping: v71 (Eastern Slovakia) -> ME 550 (Prešov)
+			add_state_core = 541 # eu_mapping: v71 (Eastern Slovakia) -> ME 541 (Tatry)
+			add_state_core = 562 # eu_mapping: v71 (Eastern Slovakia) -> ME 562 (Sobrance)
+			add_state_core = 569 # eu_mapping: v71 (Eastern Slovakia) -> ME 569 (Levoča)
+			add_state_core = 2313 # eu_mapping: v71 (Eastern Slovakia) -> ME 2313 (Bardejov)
+			add_state_core = 2660 # eu_mapping: v71 (Eastern Slovakia) -> ME 2660 (Námestovo)
+			add_state_core = 2661 # eu_mapping: v71 (Eastern Slovakia) -> ME 2661 (Kezmarok)
+		}
+		SLO = {
+			add_state_core = 593 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+			add_state_core = 564 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+			add_state_core = 1607 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+			add_state_core = 1608 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+			add_state_core = 2246 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+			add_state_core = 2247 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+			add_state_core = 2929 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+		}
+		SLO = {
+			add_state_core = 1442 # eu_mapping: v664 (Southern Slovakia) -> ME 1442 (Košice)
+			add_state_core = 580 # eu_mapping: v664 (Southern Slovakia) -> ME 580 (Nové Zámky)
+			add_state_core = 610 # eu_mapping: v664 (Southern Slovakia) -> ME 610 (Komárno)
+			add_state_core = 1438 # eu_mapping: v664 (Southern Slovakia) -> ME 1438 (Gemer a Malohont)
+			add_state_core = 1439 # eu_mapping: v664 (Southern Slovakia) -> ME 1439 (Tekov a Hontianska)
+			add_state_core = 2930 # eu_mapping: v664 (Southern Slovakia) -> ME 2930 (Čop)
+		}
 		
 		hidden_effect = {
 			SLO = {
@@ -640,12 +657,36 @@ country_event = {
 			factor = 100
 		}
 		GER = {
-			add_state_core = 69
-			transfer_state = 69
-			add_state_core = 972
-			transfer_state = 972
-			add_state_core = 74
-			transfer_state = 74
+			add_state_core = 473 # eu_mapping: v69 (North Sudetenland) -> ME 473 (Liberec)
+			add_state_core = 471 # eu_mapping: v69 (North Sudetenland) -> ME 471 (Ústí nad Labem)
+			add_state_core = 498 # eu_mapping: v69 (North Sudetenland) -> ME 498 (Cheb)
+			add_state_core = 522 # eu_mapping: v69 (North Sudetenland) -> ME 522 (Tachov)
+			add_state_core = 1434 # eu_mapping: v69 (North Sudetenland) -> ME 1434 (Karlovy Vary)
+			add_state_core = 1435 # eu_mapping: v69 (North Sudetenland) -> ME 1435 (Trutnov)
+			transfer_state = 473 # eu_mapping: v69 (North Sudetenland) -> ME 473 (Liberec)
+			transfer_state = 471 # eu_mapping: v69 (North Sudetenland) -> ME 471 (Ústí nad Labem)
+			transfer_state = 498 # eu_mapping: v69 (North Sudetenland) -> ME 498 (Cheb)
+			transfer_state = 522 # eu_mapping: v69 (North Sudetenland) -> ME 522 (Tachov)
+			transfer_state = 1434 # eu_mapping: v69 (North Sudetenland) -> ME 1434 (Karlovy Vary)
+			transfer_state = 1435 # eu_mapping: v69 (North Sudetenland) -> ME 1435 (Trutnov)
+			add_state_core = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+			add_state_core = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
+			add_state_core = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+			add_state_core = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+			transfer_state = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+			transfer_state = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
+			transfer_state = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+			transfer_state = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+			add_state_core = 507 # eu_mapping: v74 (Sudeten Silesia) -> ME 507 (Opava)
+			add_state_core = 499 # eu_mapping: v74 (Sudeten Silesia) -> ME 499 (Šternberk)
+			add_state_core = 504 # eu_mapping: v74 (Sudeten Silesia) -> ME 504 (Svitavy)
+			add_state_core = 1428 # eu_mapping: v74 (Sudeten Silesia) -> ME 1428 (Krnov)
+			add_state_core = 1977 # eu_mapping: v74 (Sudeten Silesia) -> ME 1977 (Hlučín)
+			transfer_state = 507 # eu_mapping: v74 (Sudeten Silesia) -> ME 507 (Opava)
+			transfer_state = 499 # eu_mapping: v74 (Sudeten Silesia) -> ME 499 (Šternberk)
+			transfer_state = 504 # eu_mapping: v74 (Sudeten Silesia) -> ME 504 (Svitavy)
+			transfer_state = 1428 # eu_mapping: v74 (Sudeten Silesia) -> ME 1428 (Krnov)
+			transfer_state = 1977 # eu_mapping: v74 (Sudeten Silesia) -> ME 1977 (Hlučín)
 		}
 		CZE = {
 			country_event = { id = czech.23 hours = 6 }
@@ -935,11 +976,9 @@ country_event = {
 				target = FROM
 				modifier = border_conflict_reconciled
 		}
-		if = {
-			limit = { 664 = { is_claimed_by = HUN } }
-			HUN = {
-				remove_state_claim = 664
-			}
+		every_state = { # eu_mapping: v664 (Southern Slovakia)
+			limit = { OR = { state = 1442 state = 580 state = 610 state = 1438 state = 1439 state = 2930 } is_claimed_by = HUN }
+			remove_claim_by = HUN
 		}
 		
 		hidden_effect = {
@@ -1014,11 +1053,8 @@ country_event = {
 	trigger = {
 		original_tag = CZE
 		has_cosmetic_tag = CZE_ONLY	#The DLC autonomist path can reach at least 5 cosmetic tags while having the global flag be true, a union with Poland, the CEF, 2nd republic and Austria-Hungary (=Great Moravia)
-		OR = {
-			owns_state = 70
-			owns_state = 71
-			owns_state = 73
-			owns_state = 664
+		any_owned_state = { # eu_mapping: v70/71/73/664 (Slovakia & Carpathian Ruthenia)
+			OR = { state = 1437 state = 555 state = 574 state = 577 state = 586 state = 591 state = 2662 state = 2663 state = 2978 state = 550 state = 541 state = 562 state = 569 state = 2313 state = 2660 state = 2661 state = 593 state = 564 state = 1607 state = 1608 state = 2246 state = 2247 state = 2929 state = 1442 state = 580 state = 610 state = 1438 state = 1439 state = 2930 }
 		}
 		has_global_flag = CZE_became_czech
 	}
@@ -1028,10 +1064,35 @@ country_event = {
 	hidden = yes
 
 	immediate = {
-		add_state_core = 70
-		add_state_core = 71
-		add_state_core = 73
-		add_state_core = 664
+		add_state_core = 1437 # eu_mapping: v70 (Western Slovakia) -> ME 1437 (Bratislava)
+		add_state_core = 555 # eu_mapping: v70 (Western Slovakia) -> ME 555 (Trenčín)
+		add_state_core = 574 # eu_mapping: v70 (Western Slovakia) -> ME 574 (Hron)
+		add_state_core = 577 # eu_mapping: v70 (Western Slovakia) -> ME 577 (Žilina)
+		add_state_core = 586 # eu_mapping: v70 (Western Slovakia) -> ME 586 (Nitra)
+		add_state_core = 591 # eu_mapping: v70 (Western Slovakia) -> ME 591 (Malacky)
+		add_state_core = 2662 # eu_mapping: v70 (Western Slovakia) -> ME 2662 (Piešťany)
+		add_state_core = 2663 # eu_mapping: v70 (Western Slovakia) -> ME 2663 (Čadca)
+		add_state_core = 2978 # eu_mapping: v70 (Western Slovakia) -> ME 2978 (Trnava)
+		add_state_core = 550 # eu_mapping: v71 (Eastern Slovakia) -> ME 550 (Prešov)
+		add_state_core = 541 # eu_mapping: v71 (Eastern Slovakia) -> ME 541 (Tatry)
+		add_state_core = 562 # eu_mapping: v71 (Eastern Slovakia) -> ME 562 (Sobrance)
+		add_state_core = 569 # eu_mapping: v71 (Eastern Slovakia) -> ME 569 (Levoča)
+		add_state_core = 2313 # eu_mapping: v71 (Eastern Slovakia) -> ME 2313 (Bardejov)
+		add_state_core = 2660 # eu_mapping: v71 (Eastern Slovakia) -> ME 2660 (Námestovo)
+		add_state_core = 2661 # eu_mapping: v71 (Eastern Slovakia) -> ME 2661 (Kezmarok)
+		add_state_core = 593 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+		add_state_core = 564 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+		add_state_core = 1607 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+		add_state_core = 1608 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+		add_state_core = 2246 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+		add_state_core = 2247 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+		add_state_core = 2929 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+		add_state_core = 1442 # eu_mapping: v664 (Southern Slovakia) -> ME 1442 (Košice)
+		add_state_core = 580 # eu_mapping: v664 (Southern Slovakia) -> ME 580 (Nové Zámky)
+		add_state_core = 610 # eu_mapping: v664 (Southern Slovakia) -> ME 610 (Komárno)
+		add_state_core = 1438 # eu_mapping: v664 (Southern Slovakia) -> ME 1438 (Gemer a Malohont)
+		add_state_core = 1439 # eu_mapping: v664 (Southern Slovakia) -> ME 1439 (Tekov a Hontianska)
+		add_state_core = 2930 # eu_mapping: v664 (Southern Slovakia) -> ME 2930 (Čop)
 		drop_cosmetic_tag = yes
 		clr_global_flag = CZE_became_czech
 	}

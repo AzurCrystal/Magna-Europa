@@ -5645,8 +5645,19 @@ country_event = { #Denmark: Overlord tries to take Jutland
 		effect_tooltip = {
 			FROM = {
 				ROOT = {
-					transfer_state = 99
-					transfer_state = 912
+					transfer_state = 15 # eu_mapping: v99 (Jutland) -> ME 15 (Århus)
+					transfer_state = 34 # eu_mapping: v99 (Jutland) -> ME 34 (Skanderborg)
+					transfer_state = 76 # eu_mapping: v99 (Jutland) -> ME 76 (Randers)
+					transfer_state = 120 # eu_mapping: v99 (Jutland) -> ME 120 (Ålborg)
+					transfer_state = 140 # eu_mapping: v99 (Jutland) -> ME 140 (Hjørring)
+					transfer_state = 144 # eu_mapping: v99 (Jutland) -> ME 144 (Thisted)
+					transfer_state = 181 # eu_mapping: v99 (Jutland) -> ME 181 (Viborg)
+					transfer_state = 197 # eu_mapping: v99 (Jutland) -> ME 197 (Ringkøbing)
+					transfer_state = 223 # eu_mapping: v99 (Jutland) -> ME 223 (Vejle)
+					transfer_state = 228 # eu_mapping: v99 (Jutland) -> ME 228 (Ribe)
+					transfer_state = 139 # eu_mapping: v912 (Southern Jutland) -> ME 139 (Åbenrå-Sønderborg)
+					transfer_state = 104 # eu_mapping: v912 (Southern Jutland) -> ME 104 (Haderslev)
+					transfer_state = 246 # eu_mapping: v912 (Southern Jutland) -> ME 246 (Tønder)
 				}
 				add_opinion_modifier = {
 					modifier = DEN_cooperative_subject
@@ -5697,8 +5708,19 @@ country_event = { #Overlord: Denmark gives away Jutland
 		name = denmark_overlord_events.23.a #intentional 
 
 		ROOT = {
-			transfer_state = 99
-			transfer_state = 912
+			transfer_state = 15 # eu_mapping: v99 (Jutland) -> ME 15 (Århus)
+			transfer_state = 34 # eu_mapping: v99 (Jutland) -> ME 34 (Skanderborg)
+			transfer_state = 76 # eu_mapping: v99 (Jutland) -> ME 76 (Randers)
+			transfer_state = 120 # eu_mapping: v99 (Jutland) -> ME 120 (Ålborg)
+			transfer_state = 140 # eu_mapping: v99 (Jutland) -> ME 140 (Hjørring)
+			transfer_state = 144 # eu_mapping: v99 (Jutland) -> ME 144 (Thisted)
+			transfer_state = 181 # eu_mapping: v99 (Jutland) -> ME 181 (Viborg)
+			transfer_state = 197 # eu_mapping: v99 (Jutland) -> ME 197 (Ringkøbing)
+			transfer_state = 223 # eu_mapping: v99 (Jutland) -> ME 223 (Vejle)
+			transfer_state = 228 # eu_mapping: v99 (Jutland) -> ME 228 (Ribe)
+			transfer_state = 139 # eu_mapping: v912 (Southern Jutland) -> ME 139 (Åbenrå-Sønderborg)
+			transfer_state = 104 # eu_mapping: v912 (Southern Jutland) -> ME 104 (Haderslev)
+			transfer_state = 246 # eu_mapping: v912 (Southern Jutland) -> ME 246 (Tønder)
 		}
 
 		unlock_decision_tooltip = DEN_annex_denmark
@@ -8970,7 +8992,7 @@ country_event = { #Denmark offers Swedish steel for guarantees
 			FROM = {
 				give_resource_rights = {
 					receiver = ROOT
-					state = 666
+					state = 2704 # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna)
 				}
 				add_offsite_building = { type = industrial_complex  level = 2 }
 			}
@@ -9023,7 +9045,7 @@ country_event = { #Denmark gives away resource rights
 		ROOT = {
 			give_resource_rights = {
 				receiver = FROM
-				state = 666
+				state = 2704 # eu_mapping: v666 (Norrbotten) -> ME 2704 (Kiruna)
 			}
 		}
 		add_offsite_building = { type = industrial_complex  level = 2 }
@@ -10568,124 +10590,145 @@ country_event = { #Danish Empire Cores
 
 		add_political_power = 50
 
-		if = {
-			limit = {
-				OR = {
-					138 = { is_claimed_by = ROOT }
-					138 = { is_fully_controlled_by = ROOT }
+		every_state = { # eu_mapping: v138 (Skåne)
+			limit = { OR = { state = 212 state = 184 state = 202 state = 203 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 138 = { is_core_of = ROOT }}
+				add_core_of = ROOT
 			}
-			138 = {	add_core_of = ROOT }
-		}
-		else_if = {
-			limit = {
-				NOT = { 138 = { is_claimed_by = ROOT }}
-				NOT = { 138 = { is_core_of = ROOT }}
-			}
-			138 = { add_claim_by = ROOT } 
-		}
-		if = {
-			limit = {
-				OR = {
-					124 = { is_claimed_by = ROOT }
-					124 = { is_fully_controlled_by = ROOT }
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 124 = { is_core_of = ROOT }}
+				add_claim_by = ROOT
 			}
-			124 = {	add_core_of = ROOT }
 		}
-		else_if = {
-			limit = {
-				NOT = { 124 = { is_claimed_by = ROOT }}
-				NOT = { 124 = { is_core_of = ROOT }}
-			}
-			124 = { add_claim_by = ROOT } 
-		}
-		if = {
-			limit = {
-				OR = {
-					909 = { is_claimed_by = ROOT }
-					909 = { is_fully_controlled_by = ROOT }
+		every_state = { # eu_mapping: v124 (Gotland)
+			limit = { OR = { state = 226 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 909 = { is_core_of = ROOT }}
+				add_core_of = ROOT
 			}
-			909 = {	add_core_of = ROOT }
-		}
-		else_if = {
-			limit = {
-				NOT = { 909 = { is_claimed_by = ROOT }}
-				NOT = { 909 = { is_core_of = ROOT }}
-			}
-			909 = { add_claim_by = ROOT } 
-		}
-		if = {
-			limit = {
-				OR = {
-					58 = { is_claimed_by = ROOT }
-					58 = { is_fully_controlled_by = ROOT }
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 58 = { is_core_of = ROOT }}
+				add_claim_by = ROOT
 			}
-			58 = {	add_core_of = ROOT }
 		}
-		else_if = {
-			limit = {
-				NOT = { 58 = { is_claimed_by = ROOT }}
-				NOT = { 58 = { is_core_of = ROOT }}
-			}
-			58 = { add_claim_by = ROOT } 
-		}
-		if = {
-			limit = {
-				OR = {
-					61 = { is_claimed_by = ROOT }
-					61 = { is_fully_controlled_by = ROOT }
+		every_state = { # eu_mapping: v909 (Schleswig)
+			limit = { OR = { state = 1710 state = 260 state = 1709 state = 2961 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 61 = { is_core_of = ROOT }}
+				add_core_of = ROOT
 			}
-			61 = {	add_core_of = ROOT }
-		}
-		else_if = {
-			limit = {
-				NOT = { 61 = { is_claimed_by = ROOT }}
-				NOT = { 61 = { is_core_of = ROOT }}
-			}
-			61 = { add_claim_by = ROOT } 
-		}
-		if = {
-			limit = {
-				OR = {
-					62 = { is_claimed_by = ROOT }
-					62 = { is_fully_controlled_by = ROOT }
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 62 = { is_core_of = ROOT }}
+				add_claim_by = ROOT
 			}
-			62 = {	add_core_of = ROOT }
 		}
-		else_if = {
-			limit = {
-				NOT = { 62 = { is_claimed_by = ROOT }}
-				NOT = { 62 = { is_core_of = ROOT }}
-			}
-			62 = { add_claim_by = ROOT } 
-		}
-		if = {
-			limit = {
-				OR = {
-					63 = { is_claimed_by = ROOT }
-					63 = { is_fully_controlled_by = ROOT }
+		every_state = { # eu_mapping: v58 (Holstein)
+			limit = { OR = { state = 1702 state = 1703 state = 1704 state = 1705 state = 1706 state = 1708 state = 1755 state = 2570 state = 2946 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
 				}
-				NOT = { 63 = { is_core_of = ROOT }}
+				add_core_of = ROOT
 			}
-			63 = {	add_core_of = ROOT }
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
+				}
+				add_claim_by = ROOT
+			}
 		}
-		else_if = {
-			limit = {
-				NOT = { 63 = { is_claimed_by = ROOT }}
-				NOT = { 63 = { is_core_of = ROOT }}
+		every_state = { # eu_mapping: v61 (Mecklenburg)
+			limit = { OR = { state = 1699 state = 289 state = 1698 state = 1700 state = 1701 state = 1759 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_core_of = ROOT
 			}
-			63 = { add_claim_by = ROOT } 
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
+				}
+				add_claim_by = ROOT
+			}
+		}
+		every_state = { # eu_mapping: v62 (Vorpommern)
+			limit = { OR = { state = 281 state = 1632 state = 1633 state = 1634 state = 1635 state = 1640 state = 1642 state = 1697 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_core_of = ROOT
+			}
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
+				}
+				add_claim_by = ROOT
+			}
+		}
+		every_state = { # eu_mapping: v63 (Hinterpommern)
+			limit = { OR = { state = 1631 state = 263 state = 273 state = 295 state = 301 state = 1623 state = 1624 state = 1625 state = 1626 state = 1628 state = 1629 state = 1630 state = 1636 state = 2559 state = 2560 state = 2561 state = 2568 state = 2666 } }
+			if = {
+				limit = {
+					OR = {
+						is_claimed_by = ROOT
+						is_fully_controlled_by = ROOT
+					}
+					NOT = { is_core_of = ROOT }
+				}
+				add_core_of = ROOT
+			}
+			else_if = {
+				limit = {
+					NOT = { is_claimed_by = ROOT }
+					NOT = { is_core_of = ROOT }
+				}
+				add_claim_by = ROOT
+			}
 		}
 	}
 	option = {

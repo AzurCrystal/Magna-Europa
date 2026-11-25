@@ -6544,8 +6544,8 @@ focus_tree = {
 				owns_state = 2885   # 1.19-migration: was vanilla 915 (Bohuslän)
 				owns_state = 2708   # 1.19-migration: was vanilla 916 (Dalarna)
 				owns_state = 54   # 1.19-migration: was vanilla 917 (Jämtland)
-				has_war_with = 915.OWNER 
-				is_in_faction_with = 915.OWNER
+				has_war_with = 2885.OWNER # eu_mapping: v915 (Bohuslän) -> ME 2885 (Bohuslän)
+				is_in_faction_with = 2885.OWNER # eu_mapping: v915 (Bohuslän) -> ME 2885 (Bohuslän)
 			}
 			is_subject = no
 		}
@@ -6653,11 +6653,11 @@ focus_tree = {
 		available = {
 			NOT = {
 				owns_state = 90   # 1.19-migration: was vanilla 337 (Faroe Islands)
-				has_war_with = 337.OWNER
-				is_in_faction_with = 337.OWNER
+				has_war_with = 90.OWNER # eu_mapping: v337 (Faroe Islands) -> ME 90 (Færø)
+				is_in_faction_with = 90.OWNER # eu_mapping: v337 (Faroe Islands) -> ME 90 (Færø)
 			}
 			OR = {
-				90 = { is_controlled_by = 337.OWNER }   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
+				90 = { is_controlled_by = 90.OWNER }   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 				90 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 337 (Faroe Islands); mod Færø
 			}
 			is_subject = no
@@ -6774,12 +6774,12 @@ focus_tree = {
 		available = {
 			NOT = { 
 				owns_state = 51   # 1.19-migration: was vanilla 100 (Iceland)
-				has_war_with = 100.OWNER
-				is_in_faction_with = 100.OWNER
+				has_war_with = 51.OWNER # eu_mapping: v100 (Iceland) -> ME 51 (Norðurland eystra)
+				is_in_faction_with = 51.OWNER # eu_mapping: v100 (Iceland) -> ME 51 (Norðurland eystra)
 			}
 			51 = {   # 1.19-migration: was vanilla 100 (Iceland); mod Norðurland eystra
 				OR = {
-					is_controlled_by = 100.OWNER
+					is_controlled_by = 51.OWNER # eu_mapping: v100 (Iceland) -> ME 51 (Norðurland eystra)
 					is_controlled_by = ROOT 
 				}
 			}
@@ -6868,8 +6868,8 @@ focus_tree = {
 			}
 			else = {
 				NOT = {
-					is_in_faction_with = 37.OWNER
-					has_war_with = 37.OWNER
+					is_in_faction_with = 315.OWNER # eu_mapping: v37 (Sjaelland) -> ME 315 (København)
+					has_war_with = 315.OWNER # eu_mapping: v37 (Sjaelland) -> ME 315 (København)
 				}
 			}
 			IF = {
@@ -7119,11 +7119,11 @@ owns_state = 74 # eu_mapping: v215 (Onega)
 		available = {
 			NOT = {
 				owns_state = 320   # 1.19-migration: was vanilla 113 (Leinster)
-				has_war_with = 113.OWNER
+				has_war_with = 320.OWNER # eu_mapping: v113 (Leinster) -> ME 320 (Dublin)
 			}
 			320 = {   # 1.19-migration: was vanilla 113 (Leinster); mod Dún na nGall
 				OR = {
-					is_controlled_by = 113.OWNER 
+					is_controlled_by = 320.OWNER # eu_mapping: v113 (Leinster) -> ME 320 (Dublin)
 					is_controlled_by = ROOT 
 				}
 			}
@@ -7184,22 +7184,22 @@ owns_state = 74 # eu_mapping: v215 (Onega)
 				limit = {
 					158 = {   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 						OWNER = {
-							tag = 933.OWNER 
+							tag = 116.OWNER # eu_mapping: v933 (Shetland Islands) -> ME 116 (Zetland)
 						}
 					}
 				}
-				NOT = {	has_war_with = 933.OWNER }
+				NOT = {	has_war_with = 116.OWNER } # eu_mapping: v933 (Shetland Islands) -> ME 116 (Zetland)
 			}
 			else = {
 				OR = {
-					NOT = {	has_war_with = 120.OWNER }
-					NOT = {	has_war_with = 933.OWNER }
+					NOT = {	has_war_with = 158.OWNER } # eu_mapping: v120 (Scottish Highlands) -> ME 158 (Caithness)
+					NOT = {	has_war_with = 116.OWNER } # eu_mapping: v933 (Shetland Islands) -> ME 116 (Zetland)
 				}
 			}
 			OR = {
-				158 = { is_controlled_by = 120.OWNER }   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
+				158 = { is_controlled_by = 158.OWNER }   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
 				158 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 120 (Scottish Highlands); mod Caithness
-				116 = { is_controlled_by = 933.OWNER }   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
+				116 = { is_controlled_by = 116.OWNER }   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
 				116 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 933 (Shetland Islands); mod Zetland
 			}
 			is_subject = no
@@ -7317,13 +7317,13 @@ owns_state = 74 # eu_mapping: v215 (Onega)
 				}
 			}
 			OR = {
-				NOT = {	has_war_with = 331.OWNER }
-				NOT = {	has_war_with = 332.OWNER }
+				NOT = {	has_war_with = 64.OWNER } # eu_mapping: v331 (Newfoundland) -> ME 64 (Newfoundland NA inset)
+				NOT = {	has_war_with = 2552.OWNER } # eu_mapping: v332 (Labrador) -> ME 2552 (American Border inset)
 			}
 			OR = {
-				64 = { is_controlled_by = 331.OWNER }   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
+				64 = { is_controlled_by = 64.OWNER }   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
 				64 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
-				2552 = { is_controlled_by = 332.OWNER }   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
+				2552 = { is_controlled_by = 2552.OWNER }   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
 				2552 = { is_controlled_by = ROOT }   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
 			}
 			is_subject = no
@@ -7380,7 +7380,7 @@ owns_state = 74 # eu_mapping: v215 (Onega)
 						64 = { # Newfoundland   # 1.19-migration: was vanilla 331 (Newfoundland); mod Newfoundland
 							OR = {
 								is_controlled_by = ROOT 
-								is_controlled_by = 331.OWNER
+								is_controlled_by = 64.OWNER # eu_mapping: v331 (Newfoundland) -> ME 64 (Newfoundland NA inset)
 							}
 							OWNER = {
 								NOT = {
@@ -7420,7 +7420,7 @@ owns_state = 74 # eu_mapping: v215 (Onega)
 					limit = {
 						2552 = { # Labrador   # 1.19-migration: was vanilla 332 (Labrador); mod American Border
 							OR = {
-								is_controlled_by = 332.OWNER
+								is_controlled_by = 2552.OWNER # eu_mapping: v332 (Labrador) -> ME 2552 (American Border inset)
 								is_controlled_by = ROOT 
 							}
 							OWNER = {

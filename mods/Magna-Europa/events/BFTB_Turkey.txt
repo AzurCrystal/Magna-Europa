@@ -1416,7 +1416,7 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			TUR = { transfer_state = 799 }
+			TUR = { transfer_state = 1123 } # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 		}
 		hidden_effect = {
 			TUR = { 
@@ -1454,7 +1454,7 @@ country_event = {
 	option = {
 		name = bftb_turkey.26.a #the Motherland protects you now
 		add_political_power = 120
-		transfer_state = 799
+		transfer_state = 1123 # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 	}
 }
 
@@ -1470,7 +1470,7 @@ country_event = {
 	option = {
 		name = bftb_turkey.27.a #the French have made enemies of Turks everywhere!
 		add_war_support = 0.1
-		add_state_claim = 799
+		add_state_claim = 1123 # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 	}
 }
 
@@ -1486,7 +1486,7 @@ country_event = {
 	option = {
 		name = bftb_turkey.60.a #we must give in
 		effect_tooltip = {
-			TUR = { transfer_state = 799 }
+			TUR = { transfer_state = 1123 } # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 		}
 		hidden_effect = {
 			TUR = { 
@@ -1524,7 +1524,7 @@ country_event = {
 	option = {
 		name = bftb_turkey.61.a #the Motherland protects you now
 		add_political_power = 120
-		transfer_state = 799
+		transfer_state = 1123 # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 	}
 }
 
@@ -1540,10 +1540,10 @@ country_event = {
 	option = {
 		name = bftb_turkey.62.a #war it is
 		add_war_support = 0.15
-		add_state_claim = 799
+		add_state_claim = 1123 # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 		if = {
 			limit = {
-				SYR = { owns_state = 799 }
+				SYR = { owns_state = 1123 } # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 			}
 			create_wargoal = {
 				type = take_claimed_state
@@ -2126,15 +2126,21 @@ country_event = {
 			}
 		}
 		effect_tooltip = {
-			IF = {
-				limit = { 455 = { is_owned_by = ROOT } }
-				TUR = { transfer_state = 455 }
+			IF = { # eu_mapping: v455 (Jordan)
+				limit = { ROOT = { any_owned_state = { OR = { state = 1911 state = 1229 state = 1232 state = 1259 state = 1266 state = 1288 state = 1909 state = 1910 state = 1912 state = 1913 state = 1914 state = 1915 state = 2009 state = 2010 state = 2195 state = 2196 state = 2197 } } } }
+				every_state = {
+					limit = {
+						OR = { state = 1911 state = 1229 state = 1232 state = 1259 state = 1266 state = 1288 state = 1909 state = 1910 state = 1912 state = 1913 state = 1914 state = 1915 state = 2009 state = 2010 state = 2195 state = 2196 state = 2197 }
+						is_owned_by = ROOT
+					}
+					transfer_state_to = TUR
+				}
 			}
 			else_if = {
 				limit = {
 					has_subject = JOR
-					JOR = {
-						owns_state = 455
+					JOR = { # eu_mapping: v455 (Jordan)
+						any_owned_state = { OR = { state = 1911 state = 1229 state = 1232 state = 1259 state = 1266 state = 1288 state = 1909 state = 1910 state = 1912 state = 1913 state = 1914 state = 1915 state = 2009 state = 2010 state = 2195 state = 2196 state = 2197 } }
 					}
 				}
 				TUR = {
@@ -2161,15 +2167,21 @@ country_event = {
 					}
 				}
 			}
-			IF = {
-				limit = { 454 = { is_owned_by = ROOT } }
-				TUR = { transfer_state = 454 }
+			IF = { # eu_mapping: v454 (Palestine)
+				limit = { ROOT = { any_owned_state = { OR = { state = 1902 state = 1253 state = 1254 state = 1271 state = 1279 state = 1301 state = 1896 state = 1897 state = 1898 state = 1899 state = 1900 state = 1901 state = 1903 state = 1904 state = 1905 state = 1906 state = 1907 state = 1908 } } } }
+				every_state = {
+					limit = {
+						OR = { state = 1902 state = 1253 state = 1254 state = 1271 state = 1279 state = 1301 state = 1896 state = 1897 state = 1898 state = 1899 state = 1900 state = 1901 state = 1903 state = 1904 state = 1905 state = 1906 state = 1907 state = 1908 }
+						is_owned_by = ROOT
+					}
+					transfer_state_to = TUR
+				}
 			}
 			else_if = {
 				limit = {
 					has_subject = PAL
-					PAL = {
-						owns_state = 454
+					PAL = { # eu_mapping: v454 (Palestine)
+						any_owned_state = { OR = { state = 1902 state = 1253 state = 1254 state = 1271 state = 1279 state = 1301 state = 1896 state = 1897 state = 1898 state = 1899 state = 1900 state = 1901 state = 1903 state = 1904 state = 1905 state = 1906 state = 1907 state = 1908 } }
 					}
 				}
 				TUR = {
@@ -2196,9 +2208,15 @@ country_event = {
 					}
 				}
 			}
-			IF = {
-				limit = { 453 = { is_owned_by = ROOT } }
-				TUR = { transfer_state = 453 }
+			IF = { # eu_mapping: v453 (Sinai)
+				limit = { ROOT = { any_owned_state = { OR = { state = 1286 state = 1303 } } } }
+				every_state = {
+					limit = {
+						OR = { state = 1286 state = 1303 }
+						is_owned_by = ROOT
+					}
+					transfer_state_to = TUR
+				}
 			}
 		}
 		hidden_effect = {
@@ -2236,19 +2254,23 @@ country_event = {
 	
 	option = {
 		name = bftb_turkey.45.a #we will not let them down
-		IF = {
-			limit = {
-				455 = { is_owned_by = FROM }
+		IF = { # eu_mapping: v455 (Jordan)
+			limit = { FROM = { any_owned_state = { OR = { state = 1911 state = 1229 state = 1232 state = 1259 state = 1266 state = 1288 state = 1909 state = 1910 state = 1912 state = 1913 state = 1914 state = 1915 state = 2009 state = 2010 state = 2195 state = 2196 state = 2197 } } } }
+			every_state = {
+				limit = {
+					OR = { state = 1911 state = 1229 state = 1232 state = 1259 state = 1266 state = 1288 state = 1909 state = 1910 state = 1912 state = 1913 state = 1914 state = 1915 state = 2009 state = 2010 state = 2195 state = 2196 state = 2197 }
+					is_owned_by = FROM
+				}
+				transfer_state_to = ROOT
 			}
-			transfer_state = 455
 		}
 		else_if = {
 			limit = {
 				FROM = {
 					has_subject = JOR
 				}
-				JOR = {
-					owns_state = 455
+				JOR = { # eu_mapping: v455 (Jordan)
+					any_owned_state = { OR = { state = 1911 state = 1229 state = 1232 state = 1259 state = 1266 state = 1288 state = 1909 state = 1910 state = 1912 state = 1913 state = 1914 state = 1915 state = 2009 state = 2010 state = 2195 state = 2196 state = 2197 } }
 				}
 			}
 			if = {
@@ -2278,19 +2300,23 @@ country_event = {
 				}
 			}
 		}
-		IF = {
-			limit = {
-				454 = { is_owned_by = FROM }
+		IF = { # eu_mapping: v454 (Palestine)
+			limit = { FROM = { any_owned_state = { OR = { state = 1902 state = 1253 state = 1254 state = 1271 state = 1279 state = 1301 state = 1896 state = 1897 state = 1898 state = 1899 state = 1900 state = 1901 state = 1903 state = 1904 state = 1905 state = 1906 state = 1907 state = 1908 } } } }
+			every_state = {
+				limit = {
+					OR = { state = 1902 state = 1253 state = 1254 state = 1271 state = 1279 state = 1301 state = 1896 state = 1897 state = 1898 state = 1899 state = 1900 state = 1901 state = 1903 state = 1904 state = 1905 state = 1906 state = 1907 state = 1908 }
+					is_owned_by = FROM
+				}
+				transfer_state_to = ROOT
 			}
-			transfer_state = 454
 		}
 		else_if = {
 			limit = {
 				FROM = {
 					has_subject = PAL
 				}
-				PAL = {
-					owns_state = 454
+				PAL = { # eu_mapping: v454 (Palestine)
+					any_owned_state = { OR = { state = 1902 state = 1253 state = 1254 state = 1271 state = 1279 state = 1301 state = 1896 state = 1897 state = 1898 state = 1899 state = 1900 state = 1901 state = 1903 state = 1904 state = 1905 state = 1906 state = 1907 state = 1908 } }
 				}
 			}
 			if = {
@@ -2320,11 +2346,15 @@ country_event = {
 				}
 			}
 		}
-		IF = {
-			limit = {
-				453 = { is_owned_by = FROM }
+		IF = { # eu_mapping: v453 (Sinai)
+			limit = { FROM = { any_owned_state = { OR = { state = 1286 state = 1303 } } } }
+			every_state = {
+				limit = {
+					OR = { state = 1286 state = 1303 }
+					is_owned_by = FROM
+				}
+				transfer_state_to = ROOT
 			}
-			transfer_state = 453
 		}
 		custom_effect_tooltip = TUR_unlock_camelry_effect_tt
 		hidden_effect = { set_technology = { camelry = 1 } } 
@@ -2346,9 +2376,43 @@ country_event = {
 
 	option = {
 		name = bftb_turkey.46.b #then we escalate!
-		add_state_claim = 455
-		add_state_claim = 454
-		add_state_claim = 453
+		add_state_claim = 1911 # eu_mapping: v455 (Jordan) -> ME 1911 (Amman)
+		add_state_claim = 1229 # eu_mapping: v455 (Jordan) -> ME 1229 (Al Mafraq)
+		add_state_claim = 1232 # eu_mapping: v455 (Jordan) -> ME 1232 (Irbid)
+		add_state_claim = 1259 # eu_mapping: v455 (Jordan) -> ME 1259 (Madaba)
+		add_state_claim = 1266 # eu_mapping: v455 (Jordan) -> ME 1266 (Al Karak)
+		add_state_claim = 1288 # eu_mapping: v455 (Jordan) -> ME 1288 (Ma'an)
+		add_state_claim = 1909 # eu_mapping: v455 (Jordan) -> ME 1909 (Aqaba)
+		add_state_claim = 1910 # eu_mapping: v455 (Jordan) -> ME 1910 (At Tafilah)
+		add_state_claim = 1912 # eu_mapping: v455 (Jordan) -> ME 1912 (Az Zarqa')
+		add_state_claim = 1913 # eu_mapping: v455 (Jordan) -> ME 1913 (Al Balqa')
+		add_state_claim = 1914 # eu_mapping: v455 (Jordan) -> ME 1914 (Ajlun)
+		add_state_claim = 1915 # eu_mapping: v455 (Jordan) -> ME 1915 (Jarash)
+		add_state_claim = 2009 # eu_mapping: v455 (Jordan) -> ME 2009 (Al Tubaiq)
+		add_state_claim = 2010 # eu_mapping: v455 (Jordan) -> ME 2010 (Trebil)
+		add_state_claim = 2195 # eu_mapping: v455 (Jordan) -> ME 2195 (Ruwaished)
+		add_state_claim = 2196 # eu_mapping: v455 (Jordan) -> ME 2196 (Ard as Sawwan)
+		add_state_claim = 2197 # eu_mapping: v455 (Jordan) -> ME 2197 (Gharb Al Tubaiq)
+		add_state_claim = 1902 # eu_mapping: v454 (Palestine) -> ME 1902 (West Jerusalem)
+		add_state_claim = 1253 # eu_mapping: v454 (Palestine) -> ME 1253 (Nablus)
+		add_state_claim = 1254 # eu_mapping: v454 (Palestine) -> ME 1254 (Jordan Valley)
+		add_state_claim = 1271 # eu_mapping: v454 (Palestine) -> ME 1271 (Hebron)
+		add_state_claim = 1279 # eu_mapping: v454 (Palestine) -> ME 1279 (Gaza)
+		add_state_claim = 1301 # eu_mapping: v454 (Palestine) -> ME 1301 (Arava)
+		add_state_claim = 1896 # eu_mapping: v454 (Palestine) -> ME 1896 (Beersheba)
+		add_state_claim = 1897 # eu_mapping: v454 (Palestine) -> ME 1897 (Auja)
+		add_state_claim = 1898 # eu_mapping: v454 (Palestine) -> ME 1898 (Ascalon)
+		add_state_claim = 1899 # eu_mapping: v454 (Palestine) -> ME 1899 (Upper Galilee)
+		add_state_claim = 1900 # eu_mapping: v454 (Palestine) -> ME 1900 (Lower Galilee)
+		add_state_claim = 1901 # eu_mapping: v454 (Palestine) -> ME 1901 (Sharon Plain)
+		add_state_claim = 1903 # eu_mapping: v454 (Palestine) -> ME 1903 (Lydda)
+		add_state_claim = 1904 # eu_mapping: v454 (Palestine) -> ME 1904 (Wadi Ara)
+		add_state_claim = 1905 # eu_mapping: v454 (Palestine) -> ME 1905 (East Jerusalem)
+		add_state_claim = 1906 # eu_mapping: v454 (Palestine) -> ME 1906 (Negev)
+		add_state_claim = 1907 # eu_mapping: v454 (Palestine) -> ME 1907 (Haifa Mountains)
+		add_state_claim = 1908 # eu_mapping: v454 (Palestine) -> ME 1908 (Sodom)
+		add_state_claim = 1286 # eu_mapping: v453 (Sinai) -> ME 1286 (Shamal Sina')
+		add_state_claim = 1303 # eu_mapping: v453 (Sinai) -> ME 1303 (Janub Sina')
 		add_stability = -0.15
 	}
 }
@@ -4381,79 +4445,59 @@ country_event = {
 			country_event = { id = bftb_turkey.104 hours = 6 }
 		}
 
-		if = {
+		every_state = { # eu_mapping: v677 (Aleppo)
 			limit = {
-				ROOT = { controls_state = 677 }
-			}
-			TUR = { transfer_state = 677 }
-		}
-		else_if = {
-			limit = {
-				any_subject_country = {
-					controls_state = 677
+				OR = { state = 1124 state = 1148 state = 1158 state = 1167 state = 1190 state = 1926 state = 1927 state = 1928 }
+				OR = {
+					is_controlled_by = ROOT
+					controller = { is_subject_of = ROOT }
 				}
 			}
-			TUR = { transfer_state = 677 }
+			transfer_state_to = TUR
 		}
 
-		if = {
+		every_state = { # eu_mapping: v554 (Damascus)
 			limit = {
-				ROOT = { controls_state = 554 }
-			}
-			TUR = { transfer_state = 554 }
-		}
-		else_if = {
-			limit = {
-				any_subject_country = {
-					controls_state = 554
+				OR = { state = 1930 state = 1218 state = 1228 state = 1230 state = 1925 state = 1929 state = 2765 }
+				OR = {
+					is_controlled_by = ROOT
+					controller = { is_subject_of = ROOT }
 				}
 			}
-			TUR = { transfer_state = 554 }
+			transfer_state_to = TUR
 		}
 
-		if = {
+		every_state = { # eu_mapping: v553 (Lebanon)
 			limit = {
-				ROOT = { controls_state = 553 }
-			}
-			TUR = { transfer_state = 553 }
-		}
-		else_if = {
-			limit = {
-				any_subject_country = {
-					controls_state = 553
+				OR = { state = 1920 state = 1204 state = 1916 state = 1917 state = 1918 state = 1919 state = 1921 state = 1922 state = 1923 }
+				OR = {
+					is_controlled_by = ROOT
+					controller = { is_subject_of = ROOT }
 				}
 			}
-			TUR = { transfer_state = 553 }
+			transfer_state_to = TUR
 		}
 
-		if = {
+		every_state = { # eu_mapping: v680 (Deir-az-Zur)
 			limit = {
-				ROOT = { controls_state = 680 }
-			}
-			TUR = { transfer_state = 680 }
-		}
-		else_if = {
-			limit = {
-				any_subject_country = {
-					controls_state = 680
+				OR = { state = 1141 state = 1105 state = 1134 state = 1149 state = 1159 state = 1168 state = 1185 state = 1924 state = 2194 state = 2842 state = 2925 state = 2926 }
+				OR = {
+					is_controlled_by = ROOT
+					controller = { is_subject_of = ROOT }
 				}
 			}
-			TUR = { transfer_state = 680 }
+			transfer_state_to = TUR
 		}
 
-		if = {
+		every_state = { # eu_mapping: v799 (Hatay)
 			limit = {
-				ROOT = { controls_state = 799 }
-			}
-			TUR = { transfer_state = 799 }
-		}
-		else_if = {
-			limit = {
-				any_subject_country = {
-					controls_state = 799
+				OR = { state = 1123 }
+				OR = {
+					is_controlled_by = ROOT
+					controller = { is_subject_of = ROOT }
 				}
 			}
-			TUR = { transfer_state = 799 }
+			transfer_state_to = TUR
 		}
 
 	}
@@ -4475,15 +4519,47 @@ country_event = {
 	
 	option = {
 		name = bftb_turkey.103.a
-		add_state_claim = 677
-		add_state_claim = 554
-		add_state_claim = 553
-		add_state_claim = 680
+		add_state_claim = 1124 # eu_mapping: v677 (Aleppo) -> ME 1124 (Aleppo)
+		add_state_claim = 1148 # eu_mapping: v677 (Aleppo) -> ME 1148 (Idlib)
+		add_state_claim = 1158 # eu_mapping: v677 (Aleppo) -> ME 1158 (Latakia)
+		add_state_claim = 1167 # eu_mapping: v677 (Aleppo) -> ME 1167 (Salamiyah)
+		add_state_claim = 1190 # eu_mapping: v677 (Aleppo) -> ME 1190 (Tartus)
+		add_state_claim = 1926 # eu_mapping: v677 (Aleppo) -> ME 1926 (Manbij)
+		add_state_claim = 1927 # eu_mapping: v677 (Aleppo) -> ME 1927 (Hamah)
+		add_state_claim = 1928 # eu_mapping: v677 (Aleppo) -> ME 1928 (Homs)
+		add_state_claim = 1930 # eu_mapping: v554 (Damascus) -> ME 1930 (Damascus)
+		add_state_claim = 1218 # eu_mapping: v554 (Damascus) -> ME 1218 (Duma)
+		add_state_claim = 1228 # eu_mapping: v554 (Damascus) -> ME 1228 (Quneitra)
+		add_state_claim = 1230 # eu_mapping: v554 (Damascus) -> ME 1230 (As-Suwayda)
+		add_state_claim = 1925 # eu_mapping: v554 (Damascus) -> ME 1925 (Daraa)
+		add_state_claim = 1929 # eu_mapping: v554 (Damascus) -> ME 1929 (Rif Dimashq)
+		add_state_claim = 2765 # eu_mapping: v554 (Damascus) -> ME 2765 (Az Zalaf)
+		add_state_claim = 1920 # eu_mapping: v553 (Lebanon) -> ME 1920 (Beyrouth)
+		add_state_claim = 1204 # eu_mapping: v553 (Lebanon) -> ME 1204 (Liban Nord)
+		add_state_claim = 1916 # eu_mapping: v553 (Lebanon) -> ME 1916 (Liban-Sud)
+		add_state_claim = 1917 # eu_mapping: v553 (Lebanon) -> ME 1917 (Nabatiyeh)
+		add_state_claim = 1918 # eu_mapping: v553 (Lebanon) -> ME 1918 (Beqaa)
+		add_state_claim = 1919 # eu_mapping: v553 (Lebanon) -> ME 1919 (Mont-Liban)
+		add_state_claim = 1921 # eu_mapping: v553 (Lebanon) -> ME 1921 (Baalbek-Hermel)
+		add_state_claim = 1922 # eu_mapping: v553 (Lebanon) -> ME 1922 (Kersouane Al Fatouh Jbeil)
+		add_state_claim = 1923 # eu_mapping: v553 (Lebanon) -> ME 1923 (Aakkar)
+		add_state_claim = 1141 # eu_mapping: v680 (Deir-az-Zur) -> ME 1141 (Deir ez-Zor)
+		add_state_claim = 1105 # eu_mapping: v680 (Deir-az-Zur) -> ME 1105 (Al-Hasakah)
+		add_state_claim = 1134 # eu_mapping: v680 (Deir-az-Zur) -> ME 1134 (Al-Raqqah)
+		add_state_claim = 1149 # eu_mapping: v680 (Deir-az-Zur) -> ME 1149 (Shadadah)
+		add_state_claim = 1159 # eu_mapping: v680 (Deir-az-Zur) -> ME 1159 (Al-Thawrah)
+		add_state_claim = 1168 # eu_mapping: v680 (Deir-az-Zur) -> ME 1168 (Al-Bukamal)
+		add_state_claim = 1185 # eu_mapping: v680 (Deir-az-Zur) -> ME 1185 (Palmyra)
+		add_state_claim = 1924 # eu_mapping: v680 (Deir-az-Zur) -> ME 1924 (Tal Abyad)
+		add_state_claim = 2194 # eu_mapping: v680 (Deir-az-Zur) -> ME 2194 (Al Tanf)
+		add_state_claim = 2842 # eu_mapping: v680 (Deir-az-Zur) -> ME 2842 (Kobani)
+		add_state_claim = 2925 # eu_mapping: v680 (Deir-az-Zur) -> ME 2925 (Al Suwar)
+		add_state_claim = 2926 # eu_mapping: v680 (Deir-az-Zur) -> ME 2926 (Markadah)
 		if = {
 			limit = {
-				ROOT = { NOT = { controls_state = 799 } }
+				ROOT = { NOT = { controls_state = 1123 } } # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 			}
-			add_state_claim = 799
+			add_state_claim = 1123 # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)
 		}
 		create_wargoal = {
 			target = FROM
@@ -4507,30 +4583,22 @@ country_event = {
 		SYR = {
 			drop_cosmetic_tag = yes
 		}
-		if = {
-			limit = { controls_state = 677 }
-			SYR = {
-				transfer_state = 677
-			}
+		every_state = { # eu_mapping: v677 (Aleppo)
+			limit = { OR = { state = 1124 state = 1148 state = 1158 state = 1167 state = 1190 state = 1926 state = 1927 state = 1928 } is_controlled_by = ROOT }
+			transfer_state_to = SYR
 		}
-		if ={
-			limit = { controls_state = 554 }
-			SYR = {
-				transfer_state = 554
-			}
+		every_state = { # eu_mapping: v554 (Damascus)
+			limit = { OR = { state = 1930 state = 1218 state = 1228 state = 1230 state = 1925 state = 1929 state = 2765 } is_controlled_by = ROOT }
+			transfer_state_to = SYR
 		}
-		if ={
-			limit = { controls_state = 553 }
-			SYR = {
-				transfer_state = 553
-				add_state_core = 553
-			}
+		every_state = { # eu_mapping: v553 (Lebanon)
+			limit = { OR = { state = 1920 state = 1204 state = 1916 state = 1917 state = 1918 state = 1919 state = 1921 state = 1922 state = 1923 } is_controlled_by = ROOT }
+			transfer_state_to = SYR
+			add_core_of = SYR
 		}
-		if ={
-			limit = { controls_state = 680 }
-			SYR = {
-				transfer_state = 680
-			}
+		every_state = { # eu_mapping: v680 (Deir-az-Zur)
+			limit = { OR = { state = 1141 state = 1105 state = 1134 state = 1149 state = 1159 state = 1168 state = 1185 state = 1924 state = 2194 state = 2842 state = 2925 state = 2926 } is_controlled_by = ROOT }
+			transfer_state_to = SYR
 		}
 		if = {
 			limit = {

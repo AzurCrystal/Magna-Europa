@@ -2809,7 +2809,12 @@ focus_tree = {
 							state = 2050 # eu_mapping: v198 (Vinnytsia) -> ME 2050 (Ladizhyn)
 							state = 2051 # eu_mapping: v198 (Vinnytsia) -> ME 2051 (Mogilev-Podolsky)
 							state = 2052 # eu_mapping: v198 (Vinnytsia) -> ME 2052 (Zhmerynka)
-							state = 834
+							state = 2038 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2038 (Balta)
+							state = 617 # eu_mapping: v834 (Balta-Tiraspol) -> ME 617 (Tiraspol')
+							state = 2046 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2046 (Radzel'naya)
+							state = 2681 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2681 (Ribnitsa)
+							state = 2682 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2682 (Ananov)
+							state = 2683 # eu_mapping: v834 (Balta-Tiraspol) -> ME 2683 (Savran)
 							state = 2045 # eu_mapping: v192 (Odessa) -> ME 2045 (Odessa)
 							state = 613 # eu_mapping: v192 (Odessa) -> ME 613 (Berezovka)
 							state = 618 # eu_mapping: v192 (Odessa) -> ME 618 (Ochakov)
@@ -3084,13 +3089,11 @@ focus_tree = {
 							controls_state = 2271
 						}
 					}
-					OR = {
-						826 = {
+					any_state = { # eu_mapping: v826 (Abkhazia)
+						OR = { state = 841 state = 2272 state = 2275 state = 2276 }
+						OR = {
 							is_controlled_by = ROOT
-						}
-						any_country = {
-							is_subject_of = ROOT
-							controls_state = 826
+							controller = { is_subject_of = ROOT }
 						}
 					}
 				}
@@ -3140,7 +3143,10 @@ focus_tree = {
 						state = 2277 # eu_mapping: v231 (Georgia) -> ME 2277 (Qarayazi)
 						state = 2288 # eu_mapping: v231 (Georgia) -> ME 2288 (Sadakhlo)
 						state = 2289 # eu_mapping: v231 (Georgia) -> ME 2289 (Rustavi)
-						state = 826
+						state = 841 # eu_mapping: v826 (Abkhazia) -> ME 841 (Abkhazia)
+						state = 2272 # eu_mapping: v826 (Abkhazia) -> ME 2272 (Svaneti)
+						state = 2275 # eu_mapping: v826 (Abkhazia) -> ME 2275 (Samurzakano)
+						state = 2276 # eu_mapping: v826 (Abkhazia) -> ME 2276 (Kodori Valley)
 					}
 				}
 				transfer_state_to = GEO
@@ -8452,7 +8458,7 @@ focus_tree = {
 		}
 
 		available = {
-			975 = {
+			621 = { # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
 				is_owned_and_controlled_by = AUS
 			}
 			AUS = {
@@ -10007,7 +10013,8 @@ focus_tree = {
 
 			custom_effect_tooltip = generic_skip_one_line_tt
 
-			975 = {
+			every_state = { # eu_mapping: v975 (Burgenland)
+				limit = { OR = { state = 621 state = 1805 } }
 				transfer_state_to = ROOT
 				add_core_of = ROOT
 			}
@@ -14022,7 +14029,7 @@ focus_tree = {
 
 			is_subject = no
 
-			975 = {
+			621 = { # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
 				NOT = {
 					is_owned_by = ROOT
 				}
@@ -14030,7 +14037,7 @@ focus_tree = {
 
 			IF = {
 				limit = {
-					975 = {
+					621 = { # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
 						is_owned_by = AUS
 					}
 				}
@@ -14046,7 +14053,7 @@ focus_tree = {
 			OR = {
 				owns_state = 621 # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
 				owns_state = 1805 # eu_mapping: v975 (Burgenland) -> ME 1805 (Oberwart)
-				975 = {
+				621 = { # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
 					OWNER = {
 						has_war_with = ROOT
 					}
@@ -14497,10 +14504,10 @@ focus_tree = {
 					624 = {   # 1.19-migration: was vanilla 155 (North Transdanubia); mod Győr és Pozsony
 						is_fully_controlled_by = ROOT
 					}
-					974 = {
+					722 = { # eu_mapping: v974 (South Transdanubia) -> ME 722 (Baranya)
 						is_fully_controlled_by = ROOT
 					}
-					973 = {
+					700 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 700 (Pest-Pilis-Solt-Kiskun)
 						is_fully_controlled_by = ROOT
 					}
 					633 = {   # 1.19-migration: was vanilla 43 (Northern Hungary); mod Borsod
@@ -17634,10 +17641,10 @@ focus_tree = {
 					624 = {   # 1.19-migration: was vanilla 155 (North Transdanubia); mod Győr és Pozsony
 						is_fully_controlled_by = ROOT
 					}
-					974 = {
+					722 = { # eu_mapping: v974 (South Transdanubia) -> ME 722 (Baranya)
 						is_fully_controlled_by = ROOT
 					}
-					973 = {
+					700 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 700 (Pest-Pilis-Solt-Kiskun)
 						is_fully_controlled_by = ROOT
 					}
 					633 = {   # 1.19-migration: was vanilla 43 (Northern Hungary); mod Borsod
@@ -17729,10 +17736,10 @@ focus_tree = {
 					624 = {   # 1.19-migration: was vanilla 155 (North Transdanubia); mod Győr és Pozsony
 						is_fully_controlled_by = ROOT
 					}
-					974 = {
+					722 = { # eu_mapping: v974 (South Transdanubia) -> ME 722 (Baranya)
 						is_fully_controlled_by = ROOT
 					}
-					973 = {
+					700 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 700 (Pest-Pilis-Solt-Kiskun)
 						is_fully_controlled_by = ROOT
 					}
 					633 = {   # 1.19-migration: was vanilla 43 (Northern Hungary); mod Borsod
@@ -19540,10 +19547,10 @@ focus_tree = {
 					624 = {   # 1.19-migration: was vanilla 155 (North Transdanubia); mod Győr és Pozsony
 						is_fully_controlled_by = ROOT
 					}
-					974 = {
+					722 = { # eu_mapping: v974 (South Transdanubia) -> ME 722 (Baranya)
 						is_fully_controlled_by = ROOT
 					}
-					973 = {
+					700 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 700 (Pest-Pilis-Solt-Kiskun)
 						is_fully_controlled_by = ROOT
 					}
 					633 = {   # 1.19-migration: was vanilla 43 (Northern Hungary); mod Borsod
@@ -19909,7 +19916,9 @@ focus_tree = {
 						owns_state = 2755 # eu_mapping: v106 (Macedonia) -> ME 2755 (Sveti Nikole)
 						owns_state = 2898 # eu_mapping: v106 (Macedonia) -> ME 2898 (Bogdanci)
 						owns_state = 2899 # eu_mapping: v106 (Macedonia) -> ME 2899 (Dračevo)
-						owns_state = 970
+						owns_state = 904 # eu_mapping: v970 (Debar) -> ME 904 (Tetovo)
+						owns_state = 959 # eu_mapping: v970 (Debar) -> ME 959 (Pretor)
+						owns_state = 2796 # eu_mapping: v970 (Debar) -> ME 2796 (Modric)
 						owns_state = 1519 # eu_mapping: v934 (Shkodër) -> ME 1519 (Shkodër)
 						owns_state = 1518 # eu_mapping: v934 (Shkodër) -> ME 1518 (Kukës)
 						owns_state = 1520 # eu_mapping: v934 (Shkodër) -> ME 1520 (Peshkopi)
@@ -22582,14 +22591,14 @@ focus_tree = {
 					amount = 5
 				}
 			}
-			974 = {
+			722 = { # eu_mapping: v974 (South Transdanubia) -> ME 722 (Baranya)
 				add_resource = {
 					type = oil
 					amount = 4
 				}
 			}
 
-			973 = {
+			700 = { # eu_mapping: v973 (Bács-Kiskun) -> ME 700 (Pest-Pilis-Solt-Kiskun)
 				add_resource = {
 					type = oil
 					amount = 6

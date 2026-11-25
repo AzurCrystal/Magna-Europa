@@ -22,6 +22,7 @@ if TOOLS_DIR not in sys.path:
     sys.path.insert(0, TOOLS_DIR)
 
 from _modroot import repo_root  # noqa: E402
+import audit_eu_script_refs as aesr  # noqa: E402
 import translate_vanilla_states as tvs  # noqa: E402
 
 try:
@@ -309,6 +310,72 @@ class TestGeneratedTablesInvariants(unittest.TestCase):
                 self.assertIn(col, rq_reader.fieldnames)
             rq_rows = list(rq_reader)
             self.assertEqual(len(rq_rows), summary["review_queue_count"])
+
+
+class TestUnmappedVanillaAudit(unittest.TestCase):
+    """Test block-level unmapped vanilla state-ID detection in audit_eu_script_refs.py."""
+
+    def test_catches_unannotated_and_half_migrated_without_false_positives(self):
+        mdir = Path(repo_root()) / "docs" / "states" / "eu_mapping"
+        if not (mdir / "state_partition_v2m.tsv").is_file():
+            self.skipTest("eu_mapping tables not present")
+        idx = tvs.EUMappingIndex(mdir)
+
+        with tempfile.TemporaryDirectory() as td:
+            van_root = Path(td) / "van"
+            mod_root = Path(td) / "mod"
+            (van_root / "events").mkdir(parents=True)
+            (mod_root / "events").mkdir(parents=True)
+
+            # Vanilla event references Hatay (799), Scottish Highlands (120.OWNER), and off-map Puerto Rico (686)
+            van_evt = (
+                "country_event = {\n"
+                "\tid = test.1\n"
+                "\toption = {\n"
+                "\t\ttransfer_state = 799\n"
+                "\t\t120 = { is_controlled_by = 120.OWNER }\n"
+                "\t\towns_state = 686\n"
+                "\t}\n"
+                "}\n"
+                "country_event = {\n"
+                "\tid = test.2\n"
+                "\toption = {\n"
+                "\t\ttransfer_state = 799\n"
+                "\t\tstate = 122\n"
+                "\t}\n"
+                "}\n"
+            )
+            # Mod: test.1 still has unannotated 799, half-migrated 120.OWNER on annotated line, and off-map 686;
+            #      test.2 has properly remapped 1123 AND legitimate ME 122 (v86 Poznań, colliding with vanilla 122 Wales)
+            #      annotated with `# eu_mapping:` -> neither must be flagged!
+            mod_evt = (
+                "country_event = {\n"
+                "\tid = test.1\n"
+                "\toption = {\n"
+                "\t\ttransfer_state = 799\n"
+                "\t\t158 = { is_controlled_by = 120.OWNER } # 1.19-migration: was vanilla 120\n"
+                "\t\towns_state = 686\n"
+                "\t}\n"
+                "}\n"
+                "country_event = {\n"
+                "\tid = test.2\n"
+                "\toption = {\n"
+                "\t\ttransfer_state = 1123 # eu_mapping: v799 (Hatay) -> ME 1123 (Hatay)\n"
+                "\t\tstate = 122 # eu_mapping: v86 (Poznań) -> ME 122 (Poznań)\n"
+                "\t}\n"
+                "}\n"
+            )
+            (van_root / "events" / "Test.txt").write_text(van_evt, encoding="utf-8")
+            (mod_root / "events" / "Test.txt").write_text(mod_evt, encoding="utf-8")
+
+            findings = aesr.scan_unmapped_vanilla(
+                idx, vanilla_dir=van_root, mod_dir=mod_root, categories=(("events", "event"),)
+            )
+            got = {(f["block"], f["kind"], f["sid"], f["status"]) for f in findings}
+            self.assertIn(("test.1", "transfer_state", 799, "EU_UNMAPPED_VANILLA"), got)
+            self.assertIn(("test.1", "<chain>", 120, "EU_UNMAPPED_VANILLA"), got)
+            self.assertIn(("test.1", "owns_state", 686, "OFFMAP_UNMAPPED_VANILLA"), got)
+            self.assertFalse(any(f["block"] == "test.2" for f in findings))
 
 
 if __name__ == "__main__":

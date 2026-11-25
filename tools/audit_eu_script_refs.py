@@ -12,10 +12,16 @@ Subcommands:
   --audit-offmap        List all active lines whose annotation refers to off-map vanilla IDs,
                         distinguishing valid ME proxy/inset states from EU hijack bugs.
   --fix-annotations     Safely fix unambiguous wrong-state annotations and report complex blocks.
+  --audit-unmapped-vanilla
+                        Compare mod blocks against vanilla HOI4 by block ID/name to catch
+                        unannotated raw vanilla state IDs (e.g. overwritten during syncs or
+                        newly added vanilla states) that --audit-annotations cannot see.
 """
 from __future__ import annotations
 
 import argparse
+import csv
+import json
 import os
 import re
 import subprocess
@@ -454,6 +460,358 @@ def cmd_fix_annotations(args):
     return 0
 
 
+# ---------------------------------------------------------------------------
+# Block-level unmapped vanilla state-ID leak audit (--audit-unmapped-vanilla)
+# ---------------------------------------------------------------------------
+
+DEFAULT_VANILLA_DIR = (
+    os.environ.get("HOI4_DIR")
+    or r"C:\Program Files (x86)\Steam\steamapps\common\Hearts of Iron IV"
+)
+
+UNMAPPED_STATE_KEYS = frozenset({
+    "owns_state", "controls_state", "has_full_control_of_state",
+    "transfer_state", "transfer_state_to", "add_state_core", "remove_state_core",
+    "add_state_claim", "remove_state_claim", "set_state_owner", "set_state_controller",
+    "set_capital", "capital", "state", "core_state", "state_id",
+    "add_contested_owner", "remove_contested_owner", "has_resources_rights",
+    "goto_state", "add_state_modifier", "add_state_research_slot",
+})
+
+UNMAPPED_NON_STATE_BLOCKS = frozenset({
+    "random_list", "victory_points", "provinces", "path", "build_railway",
+    "ai_chance", "ai_will_do", "modifier", "region", "strategic_region",
+    "resources", "equipment", "add_equipment_to_stockpile", "send_equipment",
+    "unit_names", "divisions", "ships", "air_wings", "weight", "chance",
+    "add_victory_points", "set_province_name", "buildings",
+})
+
+_RE_TOK_BRACE = re.compile(r'"(?:[^"\\]|\\.)*"|#[^\n]*|\{|\}|([A-Za-z0-9_.:@^-]+)\s*=\s*\{')
+_RE_INLINE_KV = re.compile(r"\b(" + "|".join(sorted(UNMAPPED_STATE_KEYS)) + r")\s*=\s*(\d+)\b")
+_RE_INLINE_SCOPE = re.compile(r"(?:^|[\s{])(\d+)\s*=\s*\{")
+_RE_SCOPE_CHAIN = re.compile(r"\b(\d+)\.(?:owner|controller|OWNER|CONTROLLER)\b")
+_RE_STATES_LIST = re.compile(r"\b(states|generator)\s*=\s*\{([^}]*)\}")
+_RE_MIGRATION_CMT = re.compile(r"\b(?:was vanilla\b|eu_mapping:|MEPORT\b|MER:|1\.19\b|1\.20\b)", re.I)
+_RE_NONSTATE_INLINE = re.compile(
+    r"\b(?:naval_base|bunker|coastal_bunker|supply_node|rocket_site|land_fort|"
+    r"factor|modifier|add_attack|add_defense|add_logistics|add_planning)\b"
+)
+
+UNMAPPED_CATEGORIES: tuple[tuple[str, str], ...] = (
+    ("events", "event"),
+    ("common/national_focus", "focus"),
+    ("common/decisions", "decision"),
+    ("common/scripted_effects", "effect"),
+    ("common/scripted_triggers", "trigger"),
+    ("common/on_actions", "on_action"),
+    ("common/ai_strategy", "strategy"),
+)
+
+
+def _load_vanilla_state_catalog(repo_dir: Path = REPO) -> dict[int, dict]:
+    """Load full vanilla state table (European + off-map) from docs/states/v2m_states.tsv."""
+    path = repo_dir / "docs" / "states" / "v2m_states.tsv"
+    catalog: dict[int, dict] = {}
+    with path.open(encoding="utf-8") as f:
+        for r in csv.DictReader(f, delimiter="\t"):
+            catalog[int(r["vanilla_id"])] = r
+    return catalog
+
+
+def _parse_named_blocks(text: str, mode: str) -> dict[str, list[tuple[int, str]]]:
+    """Split a Clausewitz script into named blocks {block_id: [(1-based line_no, line), ...]}."""
+    lines = text.splitlines()
+    blocks: dict[str, list[tuple[int, str]]] = {}
+    depth = 0
+    cur_name: str | None = None
+    cur_start_depth = 0
+    cur_lines: list[tuple[int, str]] = []
+    id_re = re.compile(r"^\s*id\s*=\s*([A-Za-z0-9_.-]+)\b")
+    key_open_re = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_.-]*)\s*=\s*\{")
+    event_open_re = re.compile(
+        r"^(?:country_event|news_event|state_event|unit_leader_event|operative_leader_event)\s*=\s*\{"
+    )
+    focus_open_re = re.compile(r"^(?:focus|shared_focus|joint_focus)\s*=\s*\{")
+
+    for ln, line in enumerate(lines, 1):
+        code = line.split("#", 1)[0]
+        stripped = code.strip()
+        if cur_name is None:
+            if mode == "event" and depth == 0 and event_open_re.match(stripped):
+                cur_name = f"__pending_L{ln}"
+                cur_start_depth = 0
+                cur_lines = [(ln, line)]
+            elif mode == "focus" and depth == 1 and focus_open_re.match(stripped):
+                cur_name = f"__pending_L{ln}"
+                cur_start_depth = 1
+                cur_lines = [(ln, line)]
+            elif mode in ("trigger", "effect", "strategy") and depth == 0:
+                m = key_open_re.match(stripped)
+                if m:
+                    cur_name = m.group(1)
+                    cur_start_depth = 0
+                    cur_lines = [(ln, line)]
+            elif mode in ("decision", "on_action") and depth == 1:
+                m = key_open_re.match(stripped)
+                if m:
+                    cur_name = m.group(1)
+                    cur_start_depth = 1
+                    cur_lines = [(ln, line)]
+        else:
+            cur_lines.append((ln, line))
+            if cur_name.startswith("__pending_") and depth == cur_start_depth + 1:
+                m = id_re.match(code)
+                if m:
+                    cur_name = m.group(1)
+
+        for m in _RE_TOK_BRACE.finditer(line):
+            t = m.group(0)
+            if t.startswith("#"):
+                break
+            if t.startswith('"'):
+                continue
+            if t == "{" or t.endswith("{"):
+                depth += 1
+            elif t == "}":
+                depth = max(0, depth - 1)
+
+        if cur_name is not None and depth <= cur_start_depth:
+            if not cur_name.startswith("__pending_"):
+                blocks.setdefault(cur_name, []).extend(cur_lines)
+            cur_name = None
+            cur_lines = []
+    return blocks
+
+
+def _extract_block_state_refs(numbered_lines: list[tuple[int, str]]) -> list[tuple[str, int, int, str, bool, set[int]]]:
+    """Return list of (kind, sid, line_no, stripped_line, has_migration_cmt, cited_vids)."""
+    stack: list[str] = []
+    refs: list[tuple[str, int, int, str, bool, set[int]]] = []
+    for ln, line in numbered_lines:
+        code = line.split("#", 1)[0]
+        comment = line[line.index("#"):] if "#" in line else ""
+        has_cmt = bool(_RE_MIGRATION_CMT.search(comment))
+        cited_vids: set[int] = set()
+        if comment and not RE_COMMENT_IS_NONSTATE.search(comment):
+            m_ann = RE_WAS_VANILLA.search(comment)
+            if m_ann:
+                cited_vids = {int(x) for x in re.findall(r"\d+", m_ann.group(1))}
+
+        in_bad = any(k in UNMAPPED_NON_STATE_BLOCKS for k in stack)
+        if not in_bad and code.strip():
+            # Inside `id = <state_id>` in ai_strategy with type = conquer / invade / antagonize etc.,
+            # only explicit state keys are matched (not generic `id =`).
+            for m in _RE_INLINE_KV.finditer(code):
+                k, sid = m.group(1), int(m.group(2))
+                if 1 <= sid <= 3000:
+                    refs.append((k, sid, ln, line.strip(), has_cmt, cited_vids))
+            for m in _RE_INLINE_SCOPE.finditer(code):
+                sid = int(m.group(1))
+                after = code[m.end():]
+                if _RE_NONSTATE_INLINE.search(after):
+                    continue
+                if 1 <= sid <= 3000:
+                    refs.append(("<scope>", sid, ln, line.strip(), has_cmt, cited_vids))
+            for m in _RE_SCOPE_CHAIN.finditer(code):
+                sid = int(m.group(1))
+                if 1 <= sid <= 3000:
+                    refs.append(("<chain>", sid, ln, line.strip(), has_cmt, cited_vids))
+            for m in _RE_STATES_LIST.finditer(code):
+                list_key = m.group(1)
+                for num in re.findall(r"\b(\d+)\b", m.group(2)):
+                    sid = int(num)
+                    if 1 <= sid <= 3000:
+                        refs.append((f"{list_key}_list", sid, ln, line.strip(), has_cmt, cited_vids))
+
+        for m in _RE_TOK_BRACE.finditer(line):
+            t = m.group(0)
+            if t.startswith("#"):
+                break
+            if t.startswith('"'):
+                continue
+            if t == "{":
+                stack.append("_anon")
+            elif t == "}":
+                if stack:
+                    stack.pop()
+            else:
+                stack.append(m.group(1))
+    return refs
+
+
+def scan_unmapped_vanilla(
+    idx: EUMappingIndex,
+    vanilla_dir: Path,
+    mod_dir: Path = MOD_DIR,
+    categories: tuple[tuple[str, str], ...] = UNMAPPED_CATEGORIES,
+    file_filter: str = "",
+) -> list[dict]:
+    """Find unannotated (or half-remapped) raw vanilla state IDs by block-level vanilla diff."""
+    v_catalog = _load_vanilla_state_catalog(REPO)
+    findings: list[dict] = []
+
+    for cat, mode in categories:
+        mdir = mod_dir / cat
+        if not mdir.is_dir():
+            continue
+        for p in sorted(mdir.rglob("*.txt")):
+            rel = p.relative_to(mod_dir).as_posix()
+            if file_filter and file_filter not in rel:
+                continue
+            vp = vanilla_dir / rel
+            if not vp.is_file():
+                continue
+
+            m_blks = _parse_named_blocks(p.read_text(encoding="utf-8-sig", errors="replace"), mode)
+            v_blks = _parse_named_blocks(vp.read_text(encoding="utf-8-sig", errors="replace"), mode)
+
+            for bname, mlns in m_blks.items():
+                if bname not in v_blks:
+                    continue
+                v_refs = _extract_block_state_refs(v_blks[bname])
+                if not v_refs:
+                    continue
+                m_refs = _extract_block_state_refs(mlns)
+                if not m_refs:
+                    continue
+
+                v_ids = {r[1] for r in v_refs if r[1] in v_catalog}
+                v_pairs = Counter((r[0], r[1]) for r in v_refs if r[1] in v_catalog)
+                m_ids = {r[1] for r in m_refs}
+
+                for k, sid, ln, line, has_cmt, cited_vids in m_refs:
+                    if (k, sid) not in v_pairs:
+                        continue
+                    # Exempt annotated lines UNLESS the code still literally contains a cited vanilla ID
+                    # (e.g. `158 = { is_controlled_by = 120.OWNER } # was vanilla 120` -> 120 is still leaked!).
+                    if has_cmt and sid not in cited_vids:
+                        continue
+
+                    if sid in idx.v2m:
+                        members = set(idx.v2m[sid]["me_members"])
+                        if sid in members:
+                            continue  # valid self-map
+                        mi = idx.m2v.get(sid)
+                        actual_v = mi["v_id"] if mi else 0
+                        # If ME state `sid` is legitimately a member of another vanilla state in this block
+                        # AND vanilla state `sid` already has its own ME members present in this block, skip.
+                        if actual_v in v_ids and (members & m_ids):
+                            continue
+                        findings.append({
+                            "category": cat,
+                            "file": rel,
+                            "block": bname,
+                            "line": ln,
+                            "kind": k,
+                            "sid": sid,
+                            "status": "EU_UNMAPPED_VANILLA",
+                            "v_name": v_catalog[sid]["vanilla_name"],
+                            "v_owner": v_catalog[sid]["owner"],
+                            "me_name": mi["me_name"] if mi else "?",
+                            "me_owner": mi["me_owner"] if mi else "?",
+                            "primary_me_id": idx.v2m[sid]["primary_me_id"],
+                            "me_members": list(idx.v2m[sid]["me_members"]),
+                            "text": line,
+                        })
+                    elif sid in v_catalog:
+                        mi = idx.m2v.get(sid)
+                        if mi and mi["status"] == "mapped":
+                            if mi["v_id"] in v_ids:
+                                continue  # legitimate ME member of an EU vanilla state in this block
+                            findings.append({
+                                "category": cat,
+                                "file": rel,
+                                "block": bname,
+                                "line": ln,
+                                "kind": k,
+                                "sid": sid,
+                                "status": "OFFMAP_UNMAPPED_VANILLA",
+                                "v_name": v_catalog[sid]["vanilla_name"],
+                                "v_owner": v_catalog[sid]["owner"],
+                                "me_name": mi["me_name"],
+                                "me_owner": mi["me_owner"],
+                                "primary_me_id": 0,
+                                "me_members": [],
+                                "text": line,
+                            })
+    return findings
+
+
+def cmd_audit_unmapped_vanilla(args):
+    vanilla_dir = Path(args.vanilla)
+    if not vanilla_dir.is_dir():
+        print(
+            f"ERROR: Vanilla HOI4 directory not found: {vanilla_dir}\n"
+            "Pass --vanilla <path> or set HOI4_DIR.",
+            file=sys.stderr,
+        )
+        return 2
+
+    idx = EUMappingIndex(Path(args.mapping_dir))
+    cats = UNMAPPED_CATEGORIES
+    if args.category:
+        cats = tuple((c, m) for c, m in UNMAPPED_CATEGORIES if args.category in c)
+        if not cats:
+            print(f"ERROR: Unknown --category filter: {args.category}", file=sys.stderr)
+            return 2
+
+    findings = scan_unmapped_vanilla(
+        idx, vanilla_dir=vanilla_dir, mod_dir=MOD_DIR, categories=cats, file_filter=args.file
+    )
+
+    by_cat: dict[str, list[dict]] = defaultdict(list)
+    for f in findings:
+        by_cat[f["category"]].append(f)
+
+    print(f"Unmapped vanilla state-ID leaks (block-level vs {vanilla_dir}):")
+    print(f"{'CATEGORY':28s} {'FILES':>5s} {'BLOCKS':>6s} {'EU_BAD':>6s} {'OFFMAP':>6s} {'TOTAL':>6s}")
+    print("-" * 64)
+    tot_f = tot_b = tot_eu = tot_off = 0
+    for cat, _ in cats:
+        items = by_cat.get(cat, [])
+        nf = len({x["file"] for x in items})
+        nb = len({(x["file"], x["block"]) for x in items})
+        neu = sum(1 for x in items if x["status"] == "EU_UNMAPPED_VANILLA")
+        noff = len(items) - neu
+        tot_f += nf
+        tot_b += nb
+        tot_eu += neu
+        tot_off += noff
+        print(f"{cat:28s} {nf:5d} {nb:6d} {neu:6d} {noff:6d} {len(items):6d}")
+    print("-" * 64)
+    print(f"{'TOTAL':28s} {tot_f:5d} {tot_b:6d} {tot_eu:6d} {tot_off:6d} {len(findings):6d}")
+
+    by_file: dict[str, list[dict]] = defaultdict(list)
+    for f in findings:
+        by_file[f["file"]].append(f)
+
+    if by_file:
+        print("\nPer-file breakdown:")
+        for rel, items in sorted(by_file.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+            nblks = len({x["block"] for x in items})
+            neu = sum(1 for x in items if x["status"] == "EU_UNMAPPED_VANILLA")
+            noff = len(items) - neu
+            top_blks = Counter(x["block"] for x in items).most_common(4)
+            sample = ", ".join(f"{b}({c})" for b, c in top_blks)
+            print(f"  {rel:52s} blks={nblks:3d} tot={len(items):4d} (eu={neu:4d}, off={noff:3d}) | {sample}")
+            if args.verbose:
+                for it in items[:40]:
+                    tag = "EU" if it["status"] == "EU_UNMAPPED_VANILLA" else "OFF"
+                    tgt = f"-> city={it['primary_me_id']} members={it['me_members'][:4]}" if tag == "EU" else "-> OFFMAP"
+                    print(
+                        f"      L{it['line']:5d} [{tag:3s}] {it['block']:32s} "
+                        f"{it['kind']}={it['sid']} (van:{it['v_name']}[{it['v_owner']}] vs ME:{it['me_name']}[{it['me_owner']}]) {tgt}"
+                    )
+
+    if args.json:
+        Path(args.json).write_text(json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"\nWrote JSON report: {args.json} ({len(findings)} rows)")
+
+    if args.check and findings:
+        return 1
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Audit & repair Magna Europa state/province script refs.")
     ap.add_argument("--mapping-dir", default=str(REPO / "docs" / "states" / "eu_mapping"))
@@ -474,11 +832,24 @@ def main(argv=None):
     p4.add_argument("--file", default="", help="Substring filter")
     p4.add_argument("--dry-run", action="store_true")
 
-    # Also allow convenience flags --audit-annotations / --check-collapses / --fix-annotations directly
+    p5 = sub.add_parser("audit-unmapped-vanilla")
+    p5.add_argument("--vanilla", default=DEFAULT_VANILLA_DIR, help="Vanilla HOI4 install directory")
+    p5.add_argument("--category", default="", help="Substring filter for category")
+    p5.add_argument("--file", default="", help="Substring filter for relative path")
+    p5.add_argument("--verbose", action="store_true")
+    p5.add_argument("--json", default="", help="Optional path to write full JSON findings")
+    p5.add_argument("--check", action="store_true", help="Exit 1 if any unmapped vanilla leaks remain")
+
+    # Also allow convenience flags directly
     ap.add_argument("--audit-annotations", action="store_true")
     ap.add_argument("--audit-offmap", action="store_true")
     ap.add_argument("--check-collapses", action="store_true")
     ap.add_argument("--fix-annotations", action="store_true")
+    ap.add_argument("--audit-unmapped-vanilla", action="store_true")
+    ap.add_argument("--vanilla", default=DEFAULT_VANILLA_DIR)
+    ap.add_argument("--category", default="")
+    ap.add_argument("--json", default="")
+    ap.add_argument("--check", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--file", default="")
     ap.add_argument("--verbose", action="store_true")
@@ -496,6 +867,8 @@ def main(argv=None):
         return cmd_check_collapses(args)
     if args.cmd == "fix-annotations" or args.fix_annotations:
         return cmd_fix_annotations(args)
+    if args.cmd == "audit-unmapped-vanilla" or args.audit_unmapped_vanilla:
+        return cmd_audit_unmapped_vanilla(args)
     ap.print_help()
     return 1
 

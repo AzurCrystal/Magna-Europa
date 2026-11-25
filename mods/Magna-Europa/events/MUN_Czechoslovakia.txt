@@ -1415,10 +1415,36 @@ country_event = {
 		every_owned_state = {
 			limit = {
 				OR = {
-					state = 102
-					state = 853
-					state = 736
-					state = 852	#never theirs, but avoids Italian exclave
+					state = 703 # eu_mapping: v102 (North Slovenia) -> ME 703 (Drava)
+					state = 695 # eu_mapping: v102 (North Slovenia) -> ME 695 (Prekmurje)
+					state = 712 # eu_mapping: v102 (North Slovenia) -> ME 712 (Međimurje)
+					state = 714 # eu_mapping: v102 (North Slovenia) -> ME 714 (Gorenjska)
+					state = 1487 # eu_mapping: v102 (North Slovenia) -> ME 1487 (Sava)
+					state = 1488 # eu_mapping: v102 (North Slovenia) -> ME 1488 (Domžale)
+					state = 1489 # eu_mapping: v102 (North Slovenia) -> ME 1489 (Savinja)
+					state = 1490 # eu_mapping: v102 (North Slovenia) -> ME 1490 (Koroška)
+					state = 2784 # eu_mapping: v102 (North Slovenia) -> ME 2784 (Tržič)
+					state = 2861 # eu_mapping: v102 (North Slovenia) -> ME 2861 (Krško)
+					state = 743 # eu_mapping: v853 (Ljubljana) -> ME 743 (Ljubljana)
+					state = 1486 # eu_mapping: v853 (Ljubljana) -> ME 1486 (Novo Mesto)
+					state = 744 # eu_mapping: v736 (Litorale) -> ME 744 (Trieste)
+					state = 720 # eu_mapping: v736 (Litorale) -> ME 720 (Canale)
+					state = 1482 # eu_mapping: v736 (Litorale) -> ME 1482 (Umago)
+					state = 1483 # eu_mapping: v736 (Litorale) -> ME 1483 (Capodistria)
+					state = 1484 # eu_mapping: v736 (Litorale) -> ME 1484 (Tolmino)
+					state = 1485 # eu_mapping: v736 (Litorale) -> ME 1485 (Postumia)
+					state = 1533 # eu_mapping: v736 (Litorale) -> ME 1533 (Gorizia)
+					state = 1616 # eu_mapping: v736 (Litorale) -> ME 1616 (Val Canale)
+					state = 2900 # eu_mapping: v736 (Litorale) -> ME 2900 (Matteria)
+					state = 2901 # eu_mapping: v736 (Litorale) -> ME 2901 (Circhina)
+					state = 2907 # eu_mapping: v736 (Litorale) -> ME 2907 (San Pietro al Natisone)
+					state = 2972 # eu_mapping: v736 (Litorale) -> ME 2972 (Castelnuovo)
+					state = 755 # eu_mapping: v852 (Istria) -> ME 755 (Fiume)
+					state = 762 # eu_mapping: v852 (Istria) -> ME 762 (Pola)
+					state = 1474 # eu_mapping: v852 (Istria) -> ME 1474 (Cherso)
+					state = 2330 # eu_mapping: v852 (Istria) -> ME 2330 (Abbazia)
+					state = 2908 # eu_mapping: v852 (Istria) -> ME 2908 (Albona)
+					state = 2971 # eu_mapping: v852 (Istria) -> ME 2971 (Pisino)
 					#state = 160	#partially theirs, but only the northern 1/3rd
 				}
 			}
@@ -1670,19 +1696,22 @@ country_event = {	#Czechoslovakia invites country that claims its territory into
 				limit = {
 					original_tag = POL
 					FROM = {
-						owns_state = 72
+						owns_state = 526 # eu_mapping: v72 (Trans-Olza) -> ME 526 (Těšín)
 					}
 				}
-				transfer_state = 72
+				transfer_state = 526 # eu_mapping: v72 (Trans-Olza) -> ME 526 (Těšín)
 			}
 			else_if = {
 				limit = {
 					original_tag = HUN
 					FROM = {
-						owns_state = 664
+						any_owned_state = { OR = { state = 1442 state = 580 state = 610 state = 1438 state = 1439 state = 2930 } } # eu_mapping: v664 (Southern Slovakia)
 					}
 				}
-				transfer_state = 664
+				every_state = { # eu_mapping: v664 (Southern Slovakia)
+					limit = { OR = { state = 1442 state = 580 state = 610 state = 1438 state = 1439 state = 2930 } is_owned_by = FROM }
+					transfer_state_to = ROOT
+				}
 			}
 			FROM = {
 				add_to_faction = ROOT
@@ -2637,7 +2666,8 @@ country_event = {	#event to Poland to demand Katowice
 				factor = 1.5
 			}
 		}
-		762 = {
+		every_state = { # eu_mapping: v762 (Katowice)
+			limit = { OR = { state = 481 state = 467 state = 2262 } }
 			transfer_state_to = FROM
 		}
 		FROM = {
@@ -2668,7 +2698,8 @@ country_event = {	#event to Poland to demand Katowice
 			}
 		}
 		FROM = {
-			762 = {
+			every_state = { # eu_mapping: v762 (Katowice)
+				limit = { OR = { state = 481 state = 467 state = 2262 } }
 				add_claim_by = FROM
 			}
 			country_event = MUN_czech.1003
@@ -3012,31 +3043,22 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			if = {
-				limit = {
-					762 = {
-						owner = {
-							owns_state = 66
-						}
-					}
-				}
-				762 = {
+			if = { # eu_mapping: v762 (Katowice) + v66 (Lower Silesia)
+				limit = { any_state = { OR = { state = 481 state = 467 state = 2262 } owner = { any_owned_state = { OR = { state = 1663 state = 415 state = 425 state = 1653 state = 1659 state = 1660 state = 1661 state = 1662 state = 1664 state = 1665 state = 1666 state = 1667 state = 1668 state = 1669 state = 1980 state = 2482 state = 2562 state = 2593 state = 2664 } } } } }
+				every_state = {
+					limit = { OR = { state = 481 state = 467 state = 2262 } }
 					transfer_state_to = CZE
 				}
 			}
-			if = {
-				limit = {
-					67 = {
-						owner = {
-							owns_state = 66
-						}
-					}
-				}
-				67 = {
+			if = { # eu_mapping: v67 (Upper Silesia) + v66 (Lower Silesia)
+				limit = { any_state = { OR = { state = 1654 state = 461 state = 1655 state = 1656 state = 1657 state = 1658 state = 2665 state = 2667 } owner = { any_owned_state = { OR = { state = 1663 state = 415 state = 425 state = 1653 state = 1659 state = 1660 state = 1661 state = 1662 state = 1664 state = 1665 state = 1666 state = 1667 state = 1668 state = 1669 state = 1980 state = 2482 state = 2562 state = 2593 state = 2664 } } } } }
+				every_state = {
+					limit = { OR = { state = 1654 state = 461 state = 1655 state = 1656 state = 1657 state = 1658 state = 2665 state = 2667 } }
 					transfer_state_to = CZE
 				}
 			}
-			66 = {
+			every_state = { # eu_mapping: v66 (Lower Silesia)
+				limit = { OR = { state = 1663 state = 415 state = 425 state = 1653 state = 1659 state = 1660 state = 1661 state = 1662 state = 1664 state = 1665 state = 1666 state = 1667 state = 1668 state = 1669 state = 1980 state = 2482 state = 2562 state = 2593 state = 2664 } }
 				transfer_state_to = CZE
 			}
 		}
@@ -3133,33 +3155,24 @@ country_event = {	#66 owner requested white peace with CZE
 				}
 			}
 		}
-		if = {
-			limit = {
-				762 = {
-					owner = {
-						owns_state = 66
-					}
-				}
-			}
-			762 = {
+		if = { # eu_mapping: v762 (Katowice) + v66 (Lower Silesia)
+			limit = { any_state = { OR = { state = 481 state = 467 state = 2262 } owner = { any_owned_state = { OR = { state = 1663 state = 415 state = 425 state = 1653 state = 1659 state = 1660 state = 1661 state = 1662 state = 1664 state = 1665 state = 1666 state = 1667 state = 1668 state = 1669 state = 1980 state = 2482 state = 2562 state = 2593 state = 2664 } } } } }
+			every_state = {
+				limit = { OR = { state = 481 state = 467 state = 2262 } }
 				transfer_state_to = CZE
 				set_state_flag = CZE_transferred_to_us
 			}
 		}
-		if = {
-			limit = {
-				67 = {
-					owner = {
-						owns_state = 66
-					}
-				}
-			}
-			67 = {
+		if = { # eu_mapping: v67 (Upper Silesia) + v66 (Lower Silesia)
+			limit = { any_state = { OR = { state = 1654 state = 461 state = 1655 state = 1656 state = 1657 state = 1658 state = 2665 state = 2667 } owner = { any_owned_state = { OR = { state = 1663 state = 415 state = 425 state = 1653 state = 1659 state = 1660 state = 1661 state = 1662 state = 1664 state = 1665 state = 1666 state = 1667 state = 1668 state = 1669 state = 1980 state = 2482 state = 2562 state = 2593 state = 2664 } } } } }
+			every_state = {
+				limit = { OR = { state = 1654 state = 461 state = 1655 state = 1656 state = 1657 state = 1658 state = 2665 state = 2667 } }
 				transfer_state_to = CZE
 				set_state_flag = CZE_transferred_to_us
 			}
 		}
-		66 = {
+		every_state = { # eu_mapping: v66 (Lower Silesia)
+			limit = { OR = { state = 1663 state = 415 state = 425 state = 1653 state = 1659 state = 1660 state = 1661 state = 1662 state = 1664 state = 1665 state = 1666 state = 1667 state = 1668 state = 1669 state = 1980 state = 2482 state = 2562 state = 2593 state = 2664 } }
 			transfer_state_to = CZE
 			set_state_flag = CZE_transferred_to_us
 		}
@@ -3876,7 +3889,7 @@ country_event = { #CZE asks to enter exile
 						}
 					}
 				}
-				9 = {
+				513 = { # eu_mapping: v9 (Bohemia) -> ME 513 (Praha)
 					IF = {
 						limit = {
 							is_owned_by = FROM
@@ -3899,7 +3912,7 @@ country_event = { #CZE asks to enter exile
 				every_state = {	
 					limit = {
 						NOT = {
-							state = 7
+							state = 513 # eu_mapping: v9 (Bohemia) -> ME 513 (Praha; vanilla had copy-paste 7)
 						}
 						is_owned_by = FROM
 					}
@@ -5329,16 +5342,12 @@ country_event = {
 		FROM = {
 			country_event = MUN_czech.1003
 		}
-		76 = {
+		every_state = { # eu_mapping: v76 (North Transylvania)
+			limit = { OR = { state = 680 state = 622 state = 628 state = 639 state = 649 state = 664 state = 665 state = 674 state = 1582 state = 1586 state = 1587 state = 2671 state = 2672 state = 2673 state = 2675 state = 2676 state = 2680 state = 2859 state = 2860 } }
 			add_core_of = HUN
 		}
-		84 = {
-			add_claim_by = HUN
-		}
-		83 = {
-			add_claim_by = HUN
-		}
-		82 = {
+		every_state = { # eu_mapping: v84/83/82 (Transylvania/Crisana/Banat)
+			limit = { OR = { state = 737 state = 692 state = 713 state = 727 state = 730 state = 1583 state = 1584 state = 1585 state = 2024 state = 2261 state = 2678 state = 705 state = 686 state = 2669 state = 2674 state = 2679 state = 736 state = 756 state = 1581 state = 2668 state = 2670 state = 2677 } }
 			add_claim_by = HUN
 		}
 	}
@@ -5476,7 +5485,8 @@ country_event = {	#event to Austria to demand Burgenland
 				}
 			}
 		}
-		975 = {
+		every_state = { # eu_mapping: v975 (Burgenland)
+			limit = { OR = { state = 621 state = 1805 } }
 			transfer_state_to = FROM
 		}
 		FROM = {
@@ -5491,7 +5501,8 @@ country_event = {	#event to Austria to demand Burgenland
 			base = 2
 		}
 		FROM = {
-			975 = {
+			every_state = { # eu_mapping: v975 (Burgenland)
+				limit = { OR = { state = 621 state = 1805 } }
 				add_claim_by = FROM
 			}
 			country_event = MUN_czech.1003
