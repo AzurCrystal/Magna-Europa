@@ -1,10 +1,13 @@
 <div align="center">
 
+<img src="thumbnail.png" alt="Expert AI for Magna Europa: Reforged" width="420">
+
 # Expert AI for Magna Europa: Reforged
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![Hearts of Iron IV](https://img.shields.io/badge/HoI4-1.20.*-orange)
 ![Requires](https://img.shields.io/badge/requires-Magna%20Europa%3A%20Reforged-2ea44f)
+[![Steam Workshop](https://img.shields.io/badge/Steam%20Workshop-3845750082-1b2838)](https://steamcommunity.com/sharedfiles/filedetails/?id=3845750082)
 
 [English](README.md) | **简体中文**
 
@@ -96,7 +99,7 @@
 | 模组 | 说明 |
 |---|---|
 | [Magna Europa: Reforged](https://steamcommunity.com/sharedfiles/filedetails/?id=3809580289) | 必需本体模组（`HoI4 1.20.*`） |
-| **Expert AI for Magna Europa: Reforged** | 排序位于本体之后（`dependencies` 已自动声明依赖顺序） |
+| [Expert AI for Magna Europa: Reforged](https://steamcommunity.com/sharedfiles/filedetails/?id=3845750082) | 排序位于本体之后（`dependencies` 已自动声明依赖顺序） |
 
 ### 本地 / Git 仓库安装
 
