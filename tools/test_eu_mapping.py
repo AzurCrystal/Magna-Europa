@@ -377,6 +377,57 @@ class TestUnmappedVanillaAudit(unittest.TestCase):
             self.assertIn(("test.1", "owns_state", 686, "OFFMAP_UNMAPPED_VANILLA"), got)
             self.assertFalse(any(f["block"] == "test.2" for f in findings))
 
+    def test_catches_broken_inline_scopes_and_territory_under_expansion(self):
+        mdir = Path(repo_root()) / "docs" / "states" / "eu_mapping"
+        if not (mdir / "state_partition_v2m.tsv").is_file():
+            self.skipTest("eu_mapping tables not present")
+        idx = tvs.EUMappingIndex(mdir)
+
+        with tempfile.TemporaryDirectory() as td:
+            van_root = Path(td) / "van"
+            mod_root = Path(td) / "mod"
+            (van_root / "events").mkdir(parents=True)
+            (mod_root / "events").mkdir(parents=True)
+
+            # Vanilla Anschluss-like event referencing Lower Austria (4, 14 ME members) & Vorarlberg (848, 1 member)
+            van_evt = (
+                "country_event = {\n"
+                "\tid = test.anschluss\n"
+                "\toption = {\n"
+                "\t\t4 = { add_core_of = GER }\n"
+                "\t\t848 = { add_core_of = GER }\n"
+                "\t}\n"
+                "}\n"
+            )
+            # Mod: collapsed 1-of-14 on v4 + broken inline scope on Western Slovakia (v70)
+            mod_evt = (
+                "country_event = {\n"
+                "\tid = test.anschluss\n"
+                "\toption = {\n"
+                "\t\t1802 = { add_core_of = GER } # was vanilla 4\n"
+                "\t\t654 = { add_core_of = GER } # was vanilla 848\n"
+                "\t\tPOL = { transfer_state = 555 } # was vanilla 70\n"
+                "\t\ttransfer_state = 577 # -> Zilina\n"
+                "\t}\n"
+                "}\n"
+            )
+            (van_root / "events" / "Test.txt").write_text(van_evt, encoding="utf-8")
+            (mod_root / "events" / "Test.txt").write_text(mod_evt, encoding="utf-8")
+
+            ue = aesr.scan_territory_under_expansion(
+                idx, vanilla_dir=van_root, mod_dir=mod_root, categories=(("events", "event"),)
+            )
+            self.assertEqual(len(ue), 1)
+            self.assertEqual(ue[0]["vid"], 4)
+            self.assertEqual(ue[0]["covered"], 1)
+            self.assertEqual(ue[0]["total"], len(idx.v2m[4]["me_members"]))
+
+            inl = aesr.scan_broken_inline_scopes(idx, mod_dir=mod_root)
+            self.assertEqual(len(inl), 1)
+            self.assertEqual(inl[0]["scope"], "POL")
+            self.assertEqual(inl[0]["op"], "transfer_state")
+            self.assertEqual(inl[0]["orphaned_lines"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

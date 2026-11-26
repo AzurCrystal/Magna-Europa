@@ -966,11 +966,13 @@ country_event = {
 				controls_state = 950 # was vanilla 41 (Madrid -> Ávila)
 				controls_state = 951 # -> Madrid
 				controls_state = 999 # -> Toledo
-				NOT = { controls_state = 875 } # was vanilla 165 (Catalonia -> Lleida)
-				controls_state = 892 # -> Girona
-				controls_state = 896 # -> Barcelona
-				controls_state = 1619 # -> Andorra
-				controls_state = 2966 # -> Valle de Arán
+				NOT = {
+					controls_state = 875 # was vanilla 165 (Catalonia -> Lleida)
+					controls_state = 892 # -> Girona
+					controls_state = 896 # -> Barcelona
+					controls_state = 1619 # -> Andorra
+					controls_state = 2966 # -> Valle de Arán
+				}
 			}
 			load_oob = "SPR_German_Expatriates_Madrid" #spawn units in Madrid
 		}
@@ -1415,32 +1417,43 @@ country_event = {
 			factor = 50
 		}
 		effect_tooltip = {
-			GER = { transfer_state = 280 } # was vanilla 85 (Danzig)
-			GER = { transfer_state = 264 } # was vanilla 807 (Gdynia -> Kościerzyna)
-			transfer_state = 267 # -> Gdynia
-			transfer_state = 287 # -> Brodnica
-			transfer_state = 310 # -> Toruń
-			transfer_state = 546 # -> Tuchola
-			transfer_state = 549 # -> Bydgoszcz
-			transfer_state = 1979 # -> Hel
-			transfer_state = 2567 # -> Swiecie
-			GER = { transfer_state = 79 } # was vanilla 86 (Poznań -> Nowy Tomyśl)
-			transfer_state = 80 # -> Ostrów Wielkopolski
-			transfer_state = 82 # -> Chodzież
-			transfer_state = 99 # -> Gniezno
-			transfer_state = 122 # -> Poznań
-			transfer_state = 243 # -> Śrem
-			transfer_state = 335 # -> Kościan
-			GER = { transfer_state = 467 } # was vanilla 762 (Katowice -> Sosnowiec)
-			transfer_state = 481 # -> Katowice
-			GER = { transfer_state = 264 } # was vanilla 807 (Gdynia -> Kościerzyna)
-			transfer_state = 267 # -> Gdynia
-			transfer_state = 287 # -> Brodnica
-			transfer_state = 310 # -> Toruń
-			transfer_state = 546 # -> Tuchola
-			transfer_state = 549 # -> Bydgoszcz
-			transfer_state = 1979 # -> Hel
-			transfer_state = 2567 # -> Swiecie
+			GER = {
+				transfer_state = 280 # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+				transfer_state = 2729 # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
+			}
+			GER = {
+				transfer_state = 264 # was vanilla 807 (Gdynia -> Kościerzyna)
+				transfer_state = 267 # -> Gdynia
+				transfer_state = 287 # -> Brodnica
+				transfer_state = 310 # -> Toruń
+				transfer_state = 546 # -> Tuchola
+				transfer_state = 549 # -> Bydgoszcz
+				transfer_state = 1979 # -> Hel
+				transfer_state = 2567 # -> Swiecie
+			}
+			GER = {
+				transfer_state = 79 # was vanilla 86 (Poznań -> Nowy Tomyśl)
+				transfer_state = 80 # -> Ostrów Wielkopolski
+				transfer_state = 82 # -> Chodzież
+				transfer_state = 99 # -> Gniezno
+				transfer_state = 122 # -> Poznań
+				transfer_state = 243 # -> Śrem
+				transfer_state = 335 # -> Kościan
+			}
+			GER = {
+				transfer_state = 467 # was vanilla 762 (Katowice -> Sosnowiec)
+				transfer_state = 481 # -> Katowice
+			}
+			GER = {
+				transfer_state = 264 # was vanilla 807 (Gdynia -> Kościerzyna)
+				transfer_state = 267 # -> Gdynia
+				transfer_state = 287 # -> Brodnica
+				transfer_state = 310 # -> Toruń
+				transfer_state = 546 # -> Tuchola
+				transfer_state = 549 # -> Bydgoszcz
+				transfer_state = 1979 # -> Hel
+				transfer_state = 2567 # -> Swiecie
+			}
 			GER = { add_ideas = anti_soviet_pact }
 			GER = { give_guarantee = ROOT }
 			add_ideas = anti_soviet_pact
@@ -1492,7 +1505,8 @@ country_event = {
 	# Great
 	option = {
 		name = wtt_germany.15.a
-		transfer_state = 280 # was vanilla 85 (Danzig)
+		transfer_state = 280 # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+		transfer_state = 2729 # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
 		transfer_state = 264 # was vanilla 807 (Gdynia -> Kościerzyna)
 		transfer_state = 267 # -> Gdynia
 		transfer_state = 287 # -> Brodnica
@@ -1518,7 +1532,8 @@ country_event = {
 		transfer_state = 549 # -> Bydgoszcz
 		transfer_state = 1979 # -> Hel
 		transfer_state = 2567 # -> Swiecie
-		add_state_core = 280 # was vanilla 85 (Danzig)
+		add_state_core = 280 # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+		add_state_core = 2729 # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
 		add_state_core = 79 # was vanilla 86 (Poznań -> Nowy Tomyśl)
 		add_state_core = 80 # -> Ostrów Wielkopolski
 		add_state_core = 82 # -> Chodzież
@@ -3856,6 +3871,12 @@ country_event = {
 				add_core_of = GER
 			}
 		}
+		568 = { # eu_mapping: v4 (Lower Austria) -> ME 568 (Baden)
+			if = {
+				limit = { is_owned_by = AUS }
+				add_core_of = GER
+			}
+		}
 		582 = {   # was vanilla 152 (Upper Austria)
 			if = {
 				limit = { is_owned_by = AUS }
@@ -3892,6 +3913,12 @@ country_event = {
 				add_core_of = GER
 			}
 		}
+		1809 = { # eu_mapping: v152 (Upper Austria) -> ME 1809 (Liezen)
+			if = {
+				limit = { is_owned_by = AUS }
+				add_core_of = GER
+			}
+		}
 		644 = {   # was vanilla 153 (Tyrol)
 			if = {
 				limit = { is_owned_by = AUS }
@@ -3917,6 +3944,18 @@ country_event = {
 			}
 		}
 		1794 = {   # -> Zell am See
+			if = {
+				limit = { is_owned_by = AUS }
+				add_core_of = GER
+			}
+		}
+		625 = { # eu_mapping: v153 (Tyrol) -> ME 625 (Bischofshofen)
+			if = {
+				limit = { is_owned_by = AUS }
+				add_core_of = GER
+			}
+		}
+		1797 = { # eu_mapping: v153 (Tyrol) -> ME 1797 (Villach)
 			if = {
 				limit = { is_owned_by = AUS }
 				add_core_of = GER
@@ -4022,7 +4061,8 @@ country_event = {
 		ai_chance = {
 			factor = 90
 		}
-		transfer_state = 280 # was vanilla 85 (Danzig)
+		transfer_state = 280 # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+		transfer_state = 2729 # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
 		transfer_state = 79 # was vanilla 86 (Poznań -> Nowy Tomyśl)
 		transfer_state = 80 # -> Ostrów Wielkopolski
 		transfer_state = 82 # -> Chodzież
@@ -4038,7 +4078,8 @@ country_event = {
 		transfer_state = 549 # -> Bydgoszcz
 		transfer_state = 1979 # -> Hel
 		transfer_state = 2567 # -> Swiecie
-		add_state_core = 280 # was vanilla 85 (Danzig)
+		add_state_core = 280 # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+		add_state_core = 2729 # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
 		add_state_core = 79 # was vanilla 86 (Poznań -> Nowy Tomyśl)
 		add_state_core = 80 # -> Ostrów Wielkopolski
 		add_state_core = 82 # -> Chodzież
@@ -4054,7 +4095,8 @@ country_event = {
 		add_state_core = 549 # -> Bydgoszcz
 		add_state_core = 1979 # -> Hel
 		add_state_core = 2567 # -> Swiecie
-		280 = { add_claim_by = SOV }   # was vanilla 85 (Danzig)
+		280 = { add_claim_by = SOV } # eu_mapping: v85 (Danzig) -> ME 280 (Danzig)
+		2729 = { add_claim_by = SOV } # eu_mapping: v85 (Danzig) -> ME 2729 (Tiegenhof)
 		79 = { add_claim_by = SOV }   # was vanilla 86 (Poznań)
 		80 = { add_claim_by = SOV }   # -> Ostrów Wielkopolski
 		82 = { add_claim_by = SOV }   # -> Chodzież
@@ -4752,12 +4794,16 @@ country_event = {
 			1799 = { add_core_of = ROOT }   # -> Rohrbach
 			1800 = { add_core_of = ROOT }   # -> Steyz
 			1801 = { add_core_of = ROOT }   # -> Kremz
+			1809 = { add_core_of = ROOT } # eu_mapping: v152 (Upper Austria) -> ME 1809 (Liezen)
 			644 = { add_core_of = ROOT }   # was vanilla 153 (Tyrol)
+			625 = { add_core_of = ROOT } # eu_mapping: v153 (Tyrol) -> ME 625 (Bischofshofen)
 			679 = { add_core_of = ROOT }   # -> Lienz
 			1792 = { add_core_of = ROOT }   # -> Landeck
 			1793 = { add_core_of = ROOT }   # -> Kitzbühel
 			1794 = { add_core_of = ROOT }   # -> Zell am See
+			1797 = { add_core_of = ROOT } # eu_mapping: v153 (Tyrol) -> ME 1797 (Villach)
 			654 = { add_core_of = ROOT } #Vorarlberg    # was vanilla 848 (Vorarlberg)
+			568 = { add_core_of = ROOT } # eu_mapping: v4 (Lower Austria) -> ME 568 (Baden)
 			1802 = { add_core_of = ROOT }   # was vanilla 4 (Lower Austria)
 			1803 = { add_core_of = ROOT }   # -> Hollabrun
 			1804 = { add_core_of = ROOT }   # -> Gänserndorf
@@ -4858,12 +4904,16 @@ country_event = {
 			1799 = { add_core_of = ROOT }   # -> Rohrbach
 			1800 = { add_core_of = ROOT }   # -> Steyz
 			1801 = { add_core_of = ROOT }   # -> Kremz
+			1809 = { add_core_of = ROOT } # eu_mapping: v152 (Upper Austria) -> ME 1809 (Liezen)
 			644 = { add_core_of = ROOT }   # was vanilla 153 (Tyrol)
+			625 = { add_core_of = ROOT } # eu_mapping: v153 (Tyrol) -> ME 625 (Bischofshofen)
 			679 = { add_core_of = ROOT }   # -> Lienz
 			1792 = { add_core_of = ROOT }   # -> Landeck
 			1793 = { add_core_of = ROOT }   # -> Kitzbühel
 			1794 = { add_core_of = ROOT }   # -> Zell am See
+			1797 = { add_core_of = ROOT } # eu_mapping: v153 (Tyrol) -> ME 1797 (Villach)
 			654 = { add_core_of = ROOT } #Vorarlberg    # was vanilla 848 (Vorarlberg)
+			568 = { add_core_of = ROOT } # eu_mapping: v4 (Lower Austria) -> ME 568 (Baden)
 			1802 = { add_core_of = ROOT }   # was vanilla 4 (Lower Austria)
 			1803 = { add_core_of = ROOT }   # -> Hollabrun
 			1804 = { add_core_of = ROOT }   # -> Gänserndorf

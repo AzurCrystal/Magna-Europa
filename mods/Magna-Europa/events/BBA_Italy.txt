@@ -9613,13 +9613,18 @@ country_event = {
 
 		ITA = {
 			transfer_state = 652 # eu_mapping: v3 (Swiss Plateau) -> ME 652 (Aargau)
-			transfer_state = 708 # -> Ticino
+			transfer_state = 708 # eu_mapping: v846 (Ticino) -> ME 708 (Ticino)
+			transfer_state = 1446 # eu_mapping: v846 (Ticino) -> ME 1446 (Moesa)
 		}
 		652 = {   # was vanilla 846 (Ticino)
 			add_core_of = ITA
 			remove_core_of = SWI
 		}
-		708 = {   # -> Ticino
+		708 = { # eu_mapping: v846 (Ticino) -> ME 708 (Ticino)
+			add_core_of = ITA
+			remove_core_of = SWI
+		}
+		1446 = { # eu_mapping: v846 (Ticino) -> ME 1446 (Moesa)
 			add_core_of = ITA
 			remove_core_of = SWI
 		}
@@ -9639,14 +9644,17 @@ country_event = {
 	option = { 
 		name = BBA_italy_interaction_events.3.a
 
-		708 = {  # 1.19-migration: was vanilla 846 (Ticino)
+		708 = { # eu_mapping: v846 (Ticino) -> ME 708 (Ticino)
+			add_claim_by = ITA
+		}
+		1446 = { # eu_mapping: v846 (Ticino) -> ME 1446 (Moesa)
 			add_claim_by = ITA
 		}
 		ITA = {
 			create_wargoal = {
 				type = take_state_focus
 				target = SWI
-				generator = { 652 708 }   # was vanilla 846
+				generator = { 652 708 1446 }   # was vanilla 846
 			}
 		}	
 	}

@@ -593,18 +593,29 @@ country_event = {
 		}
 		
 		#Spanish occupation zone
-				if = {
-					limit = {
-				871 = { #Midi-Pyrinees
-					controller = { original_tag = SPR }
-						}
-					}
-			random_other_country = {
-					limit = {
+		every_state = { # eu_mapping: v31 (Midi Pyrenees)
+			limit = {
+				owner = { original_tag = FRA }
+				controller = {
 					original_tag = SPR
 					has_war_with = FRA
 				}
-				transfer_state = 871
+				OR = {
+					state = 828 # eu_mapping: v31 (Midi Pyrenees) -> ME 828 (Haute-Garonne)
+					state = 809 # eu_mapping: v31 (Midi Pyrenees) -> ME 809 (Tarn-et-Garonne)
+					state = 812 # eu_mapping: v31 (Midi Pyrenees) -> ME 812 (Armagnac)
+					state = 819 # eu_mapping: v31 (Midi Pyrenees) -> ME 819 (Gers)
+					state = 838 # eu_mapping: v31 (Midi Pyrenees) -> ME 838 (Hautes-Pyrénées)
+					state = 840 # eu_mapping: v31 (Midi Pyrenees) -> ME 840 (Pyrénées-Atlantiques)
+					state = 850 # eu_mapping: v31 (Midi Pyrenees) -> ME 850 (Aude)
+					state = 855 # eu_mapping: v31 (Midi Pyrenees) -> ME 855 (Saint-Girons)
+					state = 871 # eu_mapping: v31 (Midi Pyrenees) -> ME 871 (Pyrénées-Orientales)
+					state = 2553 # eu_mapping: v31 (Midi Pyrenees) -> ME 2553 (Comminges)
+					state = 2984 # eu_mapping: v31 (Midi Pyrenees) -> ME 2984 (Foix)
+				}
+			}
+			controller = {
+				transfer_state = PREV
 			}
 		}
 		create_dynamic_country = {
@@ -808,18 +819,29 @@ country_event = {
 		}
 		
 		#Spanish occupation zone
-		if = {
+		every_state = { # eu_mapping: v31 (Midi Pyrenees)
 			limit = {
-				871 = { #Midi-Pyrinees
-					controller = { original_tag = SPR }
-				}
-			}
-			random_other_country = {
-				limit = {
+				owner = { original_tag = FRA }
+				controller = {
 					original_tag = SPR
 					has_war_with = FRA
 				}
-				transfer_state = 871
+				OR = {
+					state = 828 # eu_mapping: v31 (Midi Pyrenees) -> ME 828 (Haute-Garonne)
+					state = 809 # eu_mapping: v31 (Midi Pyrenees) -> ME 809 (Tarn-et-Garonne)
+					state = 812 # eu_mapping: v31 (Midi Pyrenees) -> ME 812 (Armagnac)
+					state = 819 # eu_mapping: v31 (Midi Pyrenees) -> ME 819 (Gers)
+					state = 838 # eu_mapping: v31 (Midi Pyrenees) -> ME 838 (Hautes-Pyrénées)
+					state = 840 # eu_mapping: v31 (Midi Pyrenees) -> ME 840 (Pyrénées-Atlantiques)
+					state = 850 # eu_mapping: v31 (Midi Pyrenees) -> ME 850 (Aude)
+					state = 855 # eu_mapping: v31 (Midi Pyrenees) -> ME 855 (Saint-Girons)
+					state = 871 # eu_mapping: v31 (Midi Pyrenees) -> ME 871 (Pyrénées-Orientales)
+					state = 2553 # eu_mapping: v31 (Midi Pyrenees) -> ME 2553 (Comminges)
+					state = 2984 # eu_mapping: v31 (Midi Pyrenees) -> ME 2984 (Foix)
+				}
+			}
+			controller = {
+				transfer_state = PREV
 			}
 		}
 		
@@ -1731,7 +1753,10 @@ country_event = {
 			}
 			if = {
 				limit = { has_global_flag = ITA_claims_on_france_1 }
-				ITA = { transfer_state = 1422 }
+				ITA = {
+					transfer_state = 866 # eu_mapping: v1 (Corsica) -> ME 866 (Corse-du-Sud)
+					transfer_state = 1422 # eu_mapping: v1 (Corsica) -> ME 1422 (Haute-Corse)
+				}
 			}
 		}
 
@@ -1751,17 +1776,113 @@ country_event = {
 					original_tag = FRA
 					has_government = democratic
 				}
-				if = {
+				if = { # eu_mapping: v554 (Damascus) -> ME 1930 (Damascus)
 					limit = { ROOT = { owns_state = 1930 } }
 					transfer_state = 1930
 				}
-				if = {
+				if = { # eu_mapping: v554 (Damascus) -> ME 1218 (Duma)
+					limit = { ROOT = { owns_state = 1218 } }
+					transfer_state = 1218
+				}
+				if = { # eu_mapping: v554 (Damascus) -> ME 1228 (Quneitra)
+					limit = { ROOT = { owns_state = 1228 } }
+					transfer_state = 1228
+				}
+				if = { # eu_mapping: v554 (Damascus) -> ME 1230 (As-Suwayda)
+					limit = { ROOT = { owns_state = 1230 } }
+					transfer_state = 1230
+				}
+				if = { # eu_mapping: v554 (Damascus) -> ME 1925 (Daraa)
+					limit = { ROOT = { owns_state = 1925 } }
+					transfer_state = 1925
+				}
+				if = { # eu_mapping: v554 (Damascus) -> ME 1929 (Rif Dimashq)
+					limit = { ROOT = { owns_state = 1929 } }
+					transfer_state = 1929
+				}
+				if = { # eu_mapping: v554 (Damascus) -> ME 2765 (Az Zalaf)
+					limit = { ROOT = { owns_state = 2765 } }
+					transfer_state = 2765
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1124 (Aleppo)
 					limit = { ROOT = { owns_state = 1124 } }
 					transfer_state = 1124
 				}
-				if = {
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1148 (Idlib)
+					limit = { ROOT = { owns_state = 1148 } }
+					transfer_state = 1148
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1158 (Latakia)
+					limit = { ROOT = { owns_state = 1158 } }
+					transfer_state = 1158
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1167 (Salamiyah)
+					limit = { ROOT = { owns_state = 1167 } }
+					transfer_state = 1167
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1190 (Tartus)
+					limit = { ROOT = { owns_state = 1190 } }
+					transfer_state = 1190
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1926 (Manbij)
+					limit = { ROOT = { owns_state = 1926 } }
+					transfer_state = 1926
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1927 (Hamah)
+					limit = { ROOT = { owns_state = 1927 } }
+					transfer_state = 1927
+				}
+				if = { # eu_mapping: v677 (Aleppo) -> ME 1928 (Homs)
+					limit = { ROOT = { owns_state = 1928 } }
+					transfer_state = 1928
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1141 (Deir ez-Zor)
 					limit = { ROOT = { owns_state = 1141 } }
 					transfer_state = 1141
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1105 (Al-Hasakah)
+					limit = { ROOT = { owns_state = 1105 } }
+					transfer_state = 1105
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1134 (Al-Raqqah)
+					limit = { ROOT = { owns_state = 1134 } }
+					transfer_state = 1134
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1149 (Shadadah)
+					limit = { ROOT = { owns_state = 1149 } }
+					transfer_state = 1149
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1159 (Al-Thawrah)
+					limit = { ROOT = { owns_state = 1159 } }
+					transfer_state = 1159
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1168 (Al-Bukamal)
+					limit = { ROOT = { owns_state = 1168 } }
+					transfer_state = 1168
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1185 (Palmyra)
+					limit = { ROOT = { owns_state = 1185 } }
+					transfer_state = 1185
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 1924 (Tal Abyad)
+					limit = { ROOT = { owns_state = 1924 } }
+					transfer_state = 1924
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 2194 (Al Tanf)
+					limit = { ROOT = { owns_state = 2194 } }
+					transfer_state = 2194
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 2842 (Kobani)
+					limit = { ROOT = { owns_state = 2842 } }
+					transfer_state = 2842
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 2925 (Al Suwar)
+					limit = { ROOT = { owns_state = 2925 } }
+					transfer_state = 2925
+				}
+				if = { # eu_mapping: v680 (Deir-az-Zur) -> ME 2926 (Markadah)
+					limit = { ROOT = { owns_state = 2926 } }
+					transfer_state = 2926
 				}
 				country_event = france.28
 			}

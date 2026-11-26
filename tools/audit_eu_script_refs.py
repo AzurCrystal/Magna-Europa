@@ -16,6 +16,13 @@ Subcommands:
                         Compare mod blocks against vanilla HOI4 by block ID/name to catch
                         unannotated raw vanilla state IDs (e.g. overwritten during syncs or
                         newly added vanilla states) that --audit-annotations cannot see.
+  --audit-inline-scopes
+                        Detect broken single-line scope expansions where `SCOPE = { op = X }`
+                        is followed by orphaned bare `op = Y` sibling lines outside the scope.
+  --audit-under-expansion
+                        Compare mod territory effects (cores, claims, transfers, DMZ, flags,
+                        wargoal generators, every_*_state loops) against vanilla HOI4 to catch
+                        1-of-N (or k-of-N) collapsed multi-member vanilla states.
 """
 from __future__ import annotations
 
@@ -812,6 +819,308 @@ def cmd_audit_unmapped_vanilla(args):
     return 0
 
 
+# ---------------------------------------------------------------------------
+# Broken inline-scope expansion audit (--audit-inline-scopes)
+# ---------------------------------------------------------------------------
+
+_RE_INLINE_SCOPED_STMT = re.compile(
+    r"^([ \t]*)([A-Za-z0-9_.:@]+)\s*=\s*\{\s*"
+    r"(owns_state|controls_state|has_full_control_of_state|transfer_state|"
+    r"add_state_core|remove_state_core|add_state_claim|remove_state_claim|"
+    r"set_state_owner|set_state_controller)\s*=\s*(\d+)\s*\}"
+)
+_RE_BARE_STMT_SAME = re.compile(
+    r"^([ \t]*)(owns_state|controls_state|has_full_control_of_state|transfer_state|"
+    r"add_state_core|remove_state_core|add_state_claim|remove_state_claim|"
+    r"set_state_owner|set_state_controller)\s*=\s*(\d+)\b"
+)
+
+
+def scan_broken_inline_scopes(
+    idx: EUMappingIndex,
+    mod_dir: Path = MOD_DIR,
+    file_filter: str = "",
+) -> list[dict]:
+    """Detect `SCOPE = { op = id1 }` immediately followed by orphaned bare `op = id2` lines."""
+    findings: list[dict] = []
+    for sub in ("common", "events"):
+        base = mod_dir / sub
+        if not base.is_dir():
+            continue
+        for p in sorted(base.rglob("*.txt")):
+            rel = p.relative_to(mod_dir).as_posix()
+            if file_filter and file_filter not in rel:
+                continue
+            lines = p.read_text(encoding="utf-8-sig", errors="replace").splitlines()
+            n = len(lines)
+            for i in range(n - 1):
+                m1 = _RE_INLINE_SCOPED_STMT.match(lines[i])
+                if not m1:
+                    continue
+                ind1, scope1, op1, id1 = m1.groups()
+                m2 = _RE_BARE_STMT_SAME.match(lines[i + 1])
+                if not (m2 and m2.group(1) == ind1 and m2.group(2) == op1):
+                    continue
+                id1_i, id2_i = int(id1), int(m2.group(3))
+                v1 = idx.m2v.get(id1_i, {}).get("v_id", -1)
+                v2 = idx.m2v.get(id2_i, {}).get("v_id", -2)
+                if v1 == v2 or "# ->" in lines[i + 1] or "eu_mapping:" in lines[i + 1]:
+                    j = i + 1
+                    while j < n:
+                        mj = _RE_BARE_STMT_SAME.match(lines[j])
+                        if mj and mj.group(1) == ind1 and mj.group(2) == op1:
+                            j += 1
+                        else:
+                            break
+                    findings.append({
+                        "file": rel,
+                        "line": i + 1,
+                        "end_line": j,
+                        "orphaned_lines": j - i - 1,
+                        "scope": scope1,
+                        "op": op1,
+                        "first_id": id1_i,
+                        "v_id": v1,
+                        "text": lines[i].strip(),
+                    })
+    return findings
+
+
+def cmd_audit_inline_scopes(args):
+    idx = EUMappingIndex(Path(args.mapping_dir))
+    findings = scan_broken_inline_scopes(idx, mod_dir=MOD_DIR, file_filter=args.file)
+    tot_orph = sum(f["orphaned_lines"] for f in findings)
+    print(f"Broken inline-scope expansions: {len(findings)} blocks ({tot_orph} orphaned lines)")
+    for f in findings:
+        print(
+            f"  {f['file']}:{f['line']}-{f['end_line']} "
+            f"({f['orphaned_lines']} bare) {f['scope']}={{ {f['op']} }} v{f['v_id']} | {f['text'][:80]}"
+        )
+    if args.check and findings:
+        return 1
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# Territory under-expansion audit (--audit-under-expansion)
+# ---------------------------------------------------------------------------
+
+_TERR_EFF_SCALARS = frozenset({
+    "add_state_core", "remove_state_core",
+    "add_state_claim", "remove_state_claim",
+    "transfer_state", "transfer_state_to",
+    "set_state_owner", "set_state_owner_to",
+    "set_state_controller", "set_state_controller_to",
+    "add_contested_owner", "remove_contested_owner",
+})
+_TERR_EFF_INNER = frozenset({
+    "add_core_of", "remove_core_of",
+    "add_claim_by", "remove_claim_by",
+    "transfer_state_to",
+    "set_state_owner", "set_state_owner_to",
+    "set_state_controller", "set_state_controller_to",
+    "set_demilitarized_zone",
+    "set_state_flag", "clr_state_flag",
+    "add_contested_owner", "remove_contested_owner",
+})
+_CITY_INNER_ONLY = frozenset({
+    "add_building_construction", "add_extra_state_shared_building_slots",
+    "free_building_slots", "add_resource", "add_manpower",
+    "add_victory_points", "set_victory_points", "set_building_level",
+    "damage_building", "set_state_name", "reset_state_name",
+    "set_province_name", "reset_province_name", "set_capital",
+    "add_state_modifier", "add_dynamic_modifier", "remove_dynamic_modifier",
+    "set_state_category", "give_resource_rights",
+})
+
+
+def _extract_terr_effect_refs(numbered_lines: list[tuple[int, str]]) -> list[tuple[str, int, int, bool]]:
+    """Return [(op, state_id, file_line, is_mixed_city)] for territorial effects in a block."""
+    from eu_script_translator import NON_STATE_CONTAINERS, WEIGHTED_LIST_BLOCKS, parse_spans
+
+    if not numbered_lines:
+        return []
+    line_map = [ln for ln, _ in numbered_lines]
+    text = "\n".join(line for _, line in numbered_lines)
+    nodes, _ = parse_spans(text)
+    out: list[tuple[str, int, int, bool]] = []
+
+    def _real_ln(rln: int) -> int:
+        return line_map[rln - 1] if 1 <= rln <= len(line_map) else line_map[0]
+
+    def _subtree_effs(node):
+        effs: set[str] = set()
+        has_city = False
+        has_prov = False
+
+        def _w(n):
+            nonlocal has_city, has_prov
+            if n.key in NON_STATE_CONTAINERS:
+                return
+            if not n.is_block and n.key in ("province", "start_province", "target_province") and n.val and n.val.isdigit():
+                has_prov = True
+            if n.key in _TERR_EFF_INNER:
+                effs.add(n.key)
+            if n.key in _CITY_INNER_ONLY:
+                has_city = True
+            for c in n.children or ():
+                _w(c)
+
+        for c in node.children or ():
+            _w(c)
+        return effs, has_city, has_prov
+
+    def _loop_has_eff(node) -> bool:
+        for c in node.children or ():
+            if c.key in _TERR_EFF_INNER:
+                return True
+            if c.key in ("if", "else_if", "else") and c.children:
+                if any(g.key in _TERR_EFF_INNER for g in c.children):
+                    return True
+        return False
+
+    def _walk(nlist, path, ancestors):
+        for n in nlist:
+            k = n.key
+            if n.is_block:
+                if k in NON_STATE_CONTAINERS or k == "build_railway":
+                    continue
+                if path and path[-1] in WEIGHTED_LIST_BLOCKS and k.isdigit():
+                    _walk(n.children, path + (k,), ancestors + [n])
+                    continue
+                if k.isdigit():
+                    if n.children and n.children[0].key in ("modifier", "factor", "base"):
+                        continue
+                    sid = int(k)
+                    if 1 <= sid <= 3000:
+                        effs, has_city, has_prov = _subtree_effs(n)
+                        if effs and not (has_prov and not (effs - {"set_state_flag", "clr_state_flag"})):
+                            for op in sorted(effs):
+                                out.append((op, sid, _real_ln(n.line), has_city))
+                    _walk(n.children, path + (k,), ancestors + [n])
+                    continue
+                if k == "generator":
+                    for ch in n.children or ():
+                        if not ch.is_block and ch.op is None and ch.key.isdigit():
+                            sid = int(ch.key)
+                            if 1 <= sid <= 3000:
+                                out.append(("generator", sid, _real_ln(ch.line), False))
+                    continue
+                _walk(n.children, path + (k,), ancestors + [n])
+            else:
+                if n.val and n.val.isdigit():
+                    sid = int(n.val)
+                    if not (1 <= sid <= 3000):
+                        continue
+                    if k in _TERR_EFF_SCALARS:
+                        out.append((k, sid, _real_ln(n.line), False))
+                    elif k == "state":
+                        for a in reversed(ancestors):
+                            if a.key in ("every_state", "every_owned_state", "every_controlled_state"):
+                                if _loop_has_eff(a):
+                                    out.append((f"{a.key}:state", sid, _real_ln(n.line), False))
+                                break
+
+    _walk(nodes, (), [])
+    return out
+
+
+def scan_territory_under_expansion(
+    idx: EUMappingIndex,
+    vanilla_dir: Path,
+    mod_dir: Path = MOD_DIR,
+    categories: tuple[tuple[str, str], ...] = tuple(c for c in UNMAPPED_CATEGORIES if c[0] != "common/ai_strategy"),
+    file_filter: str = "",
+    only_one_of_n: bool = False,
+) -> list[dict]:
+    """Detect territory effects in mod blocks that cover fewer ME states than their vanilla parent."""
+    findings: list[dict] = []
+    for cat, mode in categories:
+        mdir = mod_dir / cat
+        if not mdir.is_dir():
+            continue
+        for p in sorted(mdir.rglob("*.txt")):
+            rel = p.relative_to(mod_dir).as_posix()
+            if file_filter and file_filter not in rel:
+                continue
+            vp = vanilla_dir / rel
+            if not vp.is_file():
+                continue
+            m_blks = _parse_named_blocks(p.read_text(encoding="utf-8-sig", errors="replace"), mode)
+            v_blks = _parse_named_blocks(vp.read_text(encoding="utf-8-sig", errors="replace"), mode)
+            for bname, mlns in m_blks.items():
+                if bname not in v_blks:
+                    continue
+                v_refs = _extract_terr_effect_refs(v_blks[bname])
+                if not v_refs:
+                    continue
+                m_refs = _extract_terr_effect_refs(mlns)
+                m_eff_ids = {r[1] for r in m_refs}
+                seen = set()
+                for op, vid, vln, is_mixed in v_refs:
+                    if is_mixed and op in ("set_state_flag", "clr_state_flag"):
+                        continue
+                    if vid not in idx.v2m:
+                        continue
+                    members = idx.v2m[vid]["me_members"]
+                    if len(members) <= 1 or (op, vid) in seen:
+                        continue
+                    seen.add((op, vid))
+                    cov = sorted(set(members) & m_eff_ids)
+                    if 0 < len(cov) < len(members):
+                        if only_one_of_n and len(cov) != 1:
+                            continue
+                        findings.append({
+                            "file": rel,
+                            "block": bname,
+                            "op": op,
+                            "vid": vid,
+                            "v_name": idx.v2m[vid]["vanilla_name"],
+                            "covered": len(cov),
+                            "total": len(members),
+                            "covered_ids": cov,
+                            "missing_ids": sorted(set(members) - set(cov)),
+                        })
+    return findings
+
+
+def cmd_audit_under_expansion(args):
+    vanilla_dir = Path(args.vanilla)
+    if not vanilla_dir.is_dir():
+        print(f"ERROR: Vanilla HOI4 directory not found: {vanilla_dir}", file=sys.stderr)
+        return 2
+    idx = EUMappingIndex(Path(args.mapping_dir))
+    cats = tuple(c for c in UNMAPPED_CATEGORIES if c[0] != "common/ai_strategy")
+    if args.category:
+        cats = tuple(c for c in cats if args.category in c[0])
+    findings = scan_territory_under_expansion(
+        idx,
+        vanilla_dir=vanilla_dir,
+        mod_dir=MOD_DIR,
+        categories=cats,
+        file_filter=args.file,
+        only_one_of_n=args.only_1_of_n,
+    )
+    c_op = Counter(f["op"] for f in findings)
+    n1 = sum(1 for f in findings if f["covered"] == 1)
+    print(
+        f"Territory effect under-expansions (vs {vanilla_dir}): "
+        f"{len(findings)} rows (1-of-N={n1}, k-of-N={len(findings)-n1}) "
+        f"across {len({f['file'] for f in findings})} files"
+    )
+    for op, cnt in c_op.most_common(12):
+        print(f"  {op:28s}: {cnt}")
+    if args.verbose:
+        for f in findings[:60]:
+            print(
+                f"  {f['file']} :: {f['block']} [{f['op']}] "
+                f"v{f['vid']}({f['v_name']}) {f['covered']}/{f['total']} cov={f['covered_ids'][:4]}"
+            )
+    if args.check and findings:
+        return 1
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Audit & repair Magna Europa state/province script refs.")
     ap.add_argument("--mapping-dir", default=str(REPO / "docs" / "states" / "eu_mapping"))
@@ -840,12 +1149,27 @@ def main(argv=None):
     p5.add_argument("--json", default="", help="Optional path to write full JSON findings")
     p5.add_argument("--check", action="store_true", help="Exit 1 if any unmapped vanilla leaks remain")
 
+    p6 = sub.add_parser("audit-inline-scopes")
+    p6.add_argument("--file", default="", help="Substring filter for relative path")
+    p6.add_argument("--check", action="store_true", help="Exit 1 if any broken inline scopes remain")
+
+    p7 = sub.add_parser("audit-under-expansion")
+    p7.add_argument("--vanilla", default=DEFAULT_VANILLA_DIR, help="Vanilla HOI4 install directory")
+    p7.add_argument("--category", default="", help="Substring filter for category")
+    p7.add_argument("--file", default="", help="Substring filter for relative path")
+    p7.add_argument("--only-1-of-n", action="store_true", help="Show only 1-of-N collapses")
+    p7.add_argument("--verbose", action="store_true")
+    p7.add_argument("--check", action="store_true", help="Exit 1 if any under-expansions remain")
+
     # Also allow convenience flags directly
     ap.add_argument("--audit-annotations", action="store_true")
     ap.add_argument("--audit-offmap", action="store_true")
     ap.add_argument("--check-collapses", action="store_true")
     ap.add_argument("--fix-annotations", action="store_true")
     ap.add_argument("--audit-unmapped-vanilla", action="store_true")
+    ap.add_argument("--audit-inline-scopes", action="store_true")
+    ap.add_argument("--audit-under-expansion", action="store_true")
+    ap.add_argument("--only-1-of-n", action="store_true")
     ap.add_argument("--vanilla", default=DEFAULT_VANILLA_DIR)
     ap.add_argument("--category", default="")
     ap.add_argument("--json", default="")
@@ -869,6 +1193,10 @@ def main(argv=None):
         return cmd_fix_annotations(args)
     if args.cmd == "audit-unmapped-vanilla" or args.audit_unmapped_vanilla:
         return cmd_audit_unmapped_vanilla(args)
+    if args.cmd == "audit-inline-scopes" or args.audit_inline_scopes:
+        return cmd_audit_inline_scopes(args)
+    if args.cmd == "audit-under-expansion" or args.audit_under_expansion:
+        return cmd_audit_under_expansion(args)
     ap.print_help()
     return 1
 

@@ -778,46 +778,31 @@ country_event = {
 
 	immediate = {
 		hidden_effect = {
-			if = { 
+			every_state = { # eu_mapping: v69 (North Sudetenland) + v972 (South Sudetenland) + v74 (Sudeten Silesia)
 				limit = {
-					1672 = { # was vanilla 69
-						is_controlled_by = ROOT
+					is_controlled_by = ROOT
+					OR = {
+						state = 473 # eu_mapping: v69 (North Sudetenland) -> ME 473 (Liberec)
+						state = 471 # eu_mapping: v69 (North Sudetenland) -> ME 471 (Ústí nad Labem)
+						state = 498 # eu_mapping: v69 (North Sudetenland) -> ME 498 (Cheb)
+						state = 522 # eu_mapping: v69 (North Sudetenland) -> ME 522 (Tachov)
+						state = 1434 # eu_mapping: v69 (North Sudetenland) -> ME 1434 (Karlovy Vary)
+						state = 1435 # eu_mapping: v69 (North Sudetenland) -> ME 1435 (Trutnov)
+						state = 1433 # eu_mapping: v972 (South Sudetenland) -> ME 1433 (Znojmo)
+						state = 1430 # eu_mapping: v972 (South Sudetenland) -> ME 1430 (Prachatice)
+						state = 1431 # eu_mapping: v972 (South Sudetenland) -> ME 1431 (Český Krumlov)
+						state = 1432 # eu_mapping: v972 (South Sudetenland) -> ME 1432 (Nová Bystřice)
+						state = 507 # eu_mapping: v74 (Sudeten Silesia) -> ME 507 (Opava)
+						state = 499 # eu_mapping: v74 (Sudeten Silesia) -> ME 499 (Šternberk)
+						state = 504 # eu_mapping: v74 (Sudeten Silesia) -> ME 504 (Svitavy)
+						state = 1428 # eu_mapping: v74 (Sudeten Silesia) -> ME 1428 (Krnov)
+						state = 1977 # eu_mapping: v74 (Sudeten Silesia) -> ME 1977 (Hlučín)
 					}
 				}
-				1672 = { # was vanilla 69
-					add_core_of = SDL
-					add_dynamic_modifier = { 
-						modifier = CZE_sudetenland_paramilitaries_modifier
-						scope = ROOT
-					}
-				}
-			}
-			if = {
-				limit = {
-					539 = { # was vanilla 972
-						is_controlled_by = ROOT
-					}
-				}
-				539 = { # was vanilla 972
-					add_core_of = SDL
-					add_dynamic_modifier = { 
-						modifier = CZE_sudetenland_paramilitaries_modifier
-						scope = ROOT
-					}
-				}
-			}
-			if = {
-				limit = {
-					499 = { # was vanilla 74
-						is_controlled_by = ROOT
-					}
-				}
-				499 = { # was vanilla 74
-					add_core_of = SDL
-					add_dynamic_modifier = { 
-						modifier = CZE_sudetenland_paramilitaries_modifier
-						scope = ROOT
-					}
+				add_core_of = SDL
+				add_dynamic_modifier = { 
+					modifier = CZE_sudetenland_paramilitaries_modifier
+					scope = ROOT
 				}
 			}
 			ROOT = {
@@ -1166,8 +1151,20 @@ country_event = {
 	option = {	#Accept
 		name = MUN_czech.1019.a
 		FROM = {
-			transfer_state = 1164
-			transfer_state = 1292
+			transfer_state = 1164 # eu_mapping: v89 (Stanisławów) -> ME 1164 (Stanisławów)
+			transfer_state = 490 # eu_mapping: v89 (Stanisławów) -> ME 490 (Drohobycz)
+			transfer_state = 542 # eu_mapping: v89 (Stanisławów) -> ME 542 (Nadwórna)
+			transfer_state = 1143 # eu_mapping: v89 (Stanisławów) -> ME 1143 (Kołomyja)
+			transfer_state = 1265 # eu_mapping: v89 (Stanisławów) -> ME 1265 (Kałusz)
+			transfer_state = 2336 # eu_mapping: v89 (Stanisławów) -> ME 2336 (Stryj)
+			transfer_state = 1292 # eu_mapping: v91 (Lwów) -> ME 1292 (Lwów)
+			transfer_state = 502 # eu_mapping: v91 (Lwów) -> ME 502 (Czortków)
+			transfer_state = 1233 # eu_mapping: v91 (Lwów) -> ME 1233 (Rawa Ruska)
+			transfer_state = 1270 # eu_mapping: v91 (Lwów) -> ME 1270 (Brzeżany)
+			transfer_state = 1272 # eu_mapping: v91 (Lwów) -> ME 1272 (Złoczów)
+			transfer_state = 1293 # eu_mapping: v91 (Lwów) -> ME 1293 (Mosty Wielkie)
+			transfer_state = 1294 # eu_mapping: v91 (Lwów) -> ME 1294 (Tarnopol)
+			transfer_state = 2346 # eu_mapping: v91 (Lwów) -> ME 2346 (Krystynopol)
 		}
 		ai_chance = {
 			base = 1
@@ -2104,7 +2101,22 @@ country_event = {
 				}
 				#origin event checks that they own it
 			}
-			1439 = { # was vanilla 664
+			1442 = { # eu_mapping: v664 (Southern Slovakia) -> ME 1442 (Košice)
+				transfer_state_to = FROM
+			}
+			580 = { # eu_mapping: v664 (Southern Slovakia) -> ME 580 (Nové Zámky)
+				transfer_state_to = FROM
+			}
+			610 = { # eu_mapping: v664 (Southern Slovakia) -> ME 610 (Komárno)
+				transfer_state_to = FROM
+			}
+			1438 = { # eu_mapping: v664 (Southern Slovakia) -> ME 1438 (Gemer a Malohont)
+				transfer_state_to = FROM
+			}
+			1439 = { # eu_mapping: v664 (Southern Slovakia) -> ME 1439 (Tekov a Hontianska)
+				transfer_state_to = FROM
+			}
+			2930 = { # eu_mapping: v664 (Southern Slovakia) -> ME 2930 (Čop)
 				transfer_state_to = FROM
 			}
 		}
@@ -4024,7 +4036,25 @@ country_event = {
 							is_owned_and_controlled_by = ROOT
 						}
 					}
-					2246 = { # was vanilla 73
+					593 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+						remove_core_of = SLO
+					}
+					564 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+						remove_core_of = SLO
+					}
+					1607 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+						remove_core_of = SLO
+					}
+					1608 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+						remove_core_of = SLO
+					}
+					2246 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+						remove_core_of = SLO
+					}
+					2247 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+						remove_core_of = SLO
+					}
+					2929 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
 						remove_core_of = SLO
 					}
 					country_event = { id = MUN_the_fall_of_the_republic.3 days = 10 } #it keeps getting worse huh?
@@ -4075,15 +4105,87 @@ country_event = {
 		}
 		
 		hidden_effect = { #Giving SLO it's core back
-			if = {
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
 				limit = {
-					2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+					593 = {
 						NOT = {
 							is_core_of = SLO
 						}
 					}
 				}
-				2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+				593 = {
+					add_core_of = SLO
+				}
+			}
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+				limit = {
+					564 = {
+						NOT = {
+							is_core_of = SLO
+						}
+					}
+				}
+				564 = {
+					add_core_of = SLO
+				}
+			}
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+				limit = {
+					1607 = {
+						NOT = {
+							is_core_of = SLO
+						}
+					}
+				}
+				1607 = {
+					add_core_of = SLO
+				}
+			}
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+				limit = {
+					1608 = {
+						NOT = {
+							is_core_of = SLO
+						}
+					}
+				}
+				1608 = {
+					add_core_of = SLO
+				}
+			}
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+				limit = {
+					2246 = {
+						NOT = {
+							is_core_of = SLO
+						}
+					}
+				}
+				2246 = {
+					add_core_of = SLO
+				}
+			}
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+				limit = {
+					2247 = {
+						NOT = {
+							is_core_of = SLO
+						}
+					}
+				}
+				2247 = {
+					add_core_of = SLO
+				}
+			}
+			if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+				limit = {
+					2929 = {
+						NOT = {
+							is_core_of = SLO
+						}
+					}
+				}
+				2929 = {
 					add_core_of = SLO
 				}
 			}
@@ -4132,15 +4234,87 @@ country_event = {
 					}
 				}
 				#Giving SLO it's core back
-				if = {
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
 					limit = {
-						2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+						593 = {
 							NOT = {
 								is_core_of = SLO
 							}
 						}
 					}
-					2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+					593 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					limit = {
+						564 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					564 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					limit = {
+						1607 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1607 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					limit = {
+						1608 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1608 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					limit = {
+						2246 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2246 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					limit = {
+						2247 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2247 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+					limit = {
+						2929 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2929 = {
 						add_core_of = SLO
 					}
 				}
@@ -4148,15 +4322,87 @@ country_event = {
 		}
 		else = {
 			hidden_effect = { #Giving SLO it's core back
-				if = {
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
 					limit = {
-						2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+						593 = {
 							NOT = {
 								is_core_of = SLO
 							}
 						}
 					}
-					2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+					593 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					limit = {
+						564 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					564 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					limit = {
+						1607 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1607 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					limit = {
+						1608 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1608 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					limit = {
+						2246 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2246 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					limit = {
+						2247 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2247 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+					limit = {
+						2929 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2929 = {
 						add_core_of = SLO
 					}
 				}
@@ -4217,15 +4463,87 @@ country_event = {
 					}
 				}
 				#Giving SLO it's core back
-				if = {
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
 					limit = {
-						2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+						593 = {
 							NOT = {
 								is_core_of = SLO
 							}
 						}
 					}
-					2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+					593 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					limit = {
+						564 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					564 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					limit = {
+						1607 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1607 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					limit = {
+						1608 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1608 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					limit = {
+						2246 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2246 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					limit = {
+						2247 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2247 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+					limit = {
+						2929 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2929 = {
 						add_core_of = SLO
 					}
 				}
@@ -4233,15 +4551,87 @@ country_event = {
 		}
 		else = {
 			hidden_effect = { #Giving SLO it's core back
-				if = {
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
 					limit = {
-						2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+						593 = {
 							NOT = {
 								is_core_of = SLO
 							}
 						}
 					}
-					2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+					593 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					limit = {
+						564 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					564 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					limit = {
+						1607 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1607 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					limit = {
+						1608 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					1608 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					limit = {
+						2246 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2246 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					limit = {
+						2247 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2247 = {
+						add_core_of = SLO
+					}
+				}
+				if = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+					limit = {
+						2929 = {
+							NOT = {
+								is_core_of = SLO
+							}
+						}
+					}
+					2929 = {
 						add_core_of = SLO
 					}
 				}
@@ -5039,7 +5429,9 @@ country_event = {
 		}
 		custom_effect_tooltip = generic_has_happen_tt
 		effect_tooltip = {
-			transfer_state = 481
+			transfer_state = 481 # eu_mapping: v762 (Katowice) -> ME 481 (Katowice)
+			transfer_state = 467 # eu_mapping: v762 (Katowice) -> ME 467 (Sosnowiec)
+			transfer_state = 2262 # eu_mapping: v762 (Katowice) -> ME 2262 (Tarnowskie Góry)
 		}
 	}
 	option = {
@@ -5049,7 +5441,8 @@ country_event = {
 		}
 		custom_effect_tooltip = generic_has_happen_tt
 		effect_tooltip = {
-			transfer_state = 621
+			transfer_state = 621 # eu_mapping: v975 (Burgenland) -> ME 621 (Eisenstadt)
+			transfer_state = 1805 # eu_mapping: v975 (Burgenland) -> ME 1805 (Oberwart)
 		}
 	}
 	option = {
@@ -5877,7 +6270,25 @@ country_event = { #Now Ruthenian wants out
 				}
 			}
 			hidden_effect = {
-				2246 = { # was vanilla 73 (Etela-Pohjanmaa) — Carpathian Ruthenia
+				593 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+					add_core_of = RUT
+				}
+				564 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					add_core_of = RUT
+				}
+				1607 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					add_core_of = RUT
+				}
+				1608 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					add_core_of = RUT
+				}
+				2246 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					add_core_of = RUT
+				}
+				2247 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					add_core_of = RUT
+				}
+				2929 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
 					add_core_of = RUT
 				}
 			}
@@ -5950,16 +6361,58 @@ country_event = { #Now Ruthenian wants out
 				}
 			}
 			hidden_effect = {
-				2246 = { # was vanilla 73
+				593 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+					add_core_of = RUT
+				}
+				564 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					add_core_of = RUT
+				}
+				1607 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					add_core_of = RUT
+				}
+				1608 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					add_core_of = RUT
+				}
+				2246 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					add_core_of = RUT
+				}
+				2247 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					add_core_of = RUT
+				}
+				2929 = { # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
 					add_core_of = RUT
 				}
 				RUT = {
-					transfer_state = 2246
+					transfer_state = 593 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+					transfer_state = 564 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+					transfer_state = 1607 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+					transfer_state = 1608 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+					transfer_state = 2246 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+					transfer_state = 2247 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+					transfer_state = 2929 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
 				}
-				1164 = { # was vanilla 89
+				1164 = { # eu_mapping: v89 (Stanisławów) -> ME 1164 (Stanisławów)
 					add_core_of = RUT
 				}
-				590 = { # was vanilla 80
+				490 = { # eu_mapping: v89 (Stanisławów) -> ME 490 (Drohobycz)
+					add_core_of = RUT
+				}
+				542 = { # eu_mapping: v89 (Stanisławów) -> ME 542 (Nadwórna)
+					add_core_of = RUT
+				}
+				1143 = { # eu_mapping: v89 (Stanisławów) -> ME 1143 (Kołomyja)
+					add_core_of = RUT
+				}
+				1265 = { # eu_mapping: v89 (Stanisławów) -> ME 1265 (Kałusz)
+					add_core_of = RUT
+				}
+				2336 = { # eu_mapping: v89 (Stanisławów) -> ME 2336 (Stryj)
+					add_core_of = RUT
+				}
+				1599 = { # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+					add_core_of = RUT
+				}
+				590 = { # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
 					add_core_of = RUT
 				}
 				every_state = {
@@ -5967,9 +6420,21 @@ country_event = { #Now Ruthenian wants out
 						is_core_of = UKR
 						NOT = {
 							OR = {
-								state = 2246
-								state = 1164
-								state = 590
+								state = 593 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+								state = 564 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+								state = 1607 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+								state = 1608 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+								state = 2246 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+								state = 2247 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+								state = 2929 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
+								state = 1164 # eu_mapping: v89 (Stanisławów) -> ME 1164 (Stanisławów)
+								state = 490 # eu_mapping: v89 (Stanisławów) -> ME 490 (Drohobycz)
+								state = 542 # eu_mapping: v89 (Stanisławów) -> ME 542 (Nadwórna)
+								state = 1143 # eu_mapping: v89 (Stanisławów) -> ME 1143 (Kołomyja)
+								state = 1265 # eu_mapping: v89 (Stanisławów) -> ME 1265 (Kałusz)
+								state = 2336 # eu_mapping: v89 (Stanisławów) -> ME 2336 (Stryj)
+								state = 1599 # eu_mapping: v80 (Bucovina) -> ME 1599 (Cernăuți)
+								state = 590 # eu_mapping: v80 (Bucovina) -> ME 590 (Storojineț)
 							}
 						}
 					}
@@ -6212,7 +6677,13 @@ country_event = { #RUT gaves in
 	option = { #nice
 		name = MUN_the_fall_of_the_republic.7.a
 
-		transfer_state = 2246
+		transfer_state = 593 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 593 (Užhorod)
+		transfer_state = 564 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 564 (Severné Maramures)
+		transfer_state = 1607 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1607 (Perechyn)
+		transfer_state = 1608 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 1608 (Bereg)
+		transfer_state = 2246 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2246 (Královec nad Tisou)
+		transfer_state = 2247 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2247 (Vishkovo)
+		transfer_state = 2929 # eu_mapping: v73 (Carpathian Ruthenia) -> ME 2929 (Veľké Berezné)
 	}
 }
 
